@@ -15,4 +15,4 @@ Cloner le dépot et puis executer::
     echo 'export PATH=$HOME/.local/bin:$PATH' > ~/.bashrc
 
     # Mettre à jour la db / créer un user / démarrer le serveur de dev
-    mrs dev
+    DEBUG=1 mrs dev
