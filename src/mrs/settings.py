@@ -24,7 +24,8 @@ SECRET_KEY = '7^dm!)9-d@mvj42$#$4i@!0)7bofi-b(8*gt6fumv-!*h2$-(g'
 
 DEBUG = os.getenv('DEBUG', False)
 
-ALLOWED_HOSTS = []
+if 'ALLOWED_HOSTS' in os.environ:
+    ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS')]
 
 
 # Application definition
