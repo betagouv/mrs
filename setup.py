@@ -1,5 +1,14 @@
+import pip
 from setuptools import setup, find_packages, Command
 import os, sys
+
+install_reqs = pip.req.parse_requirements(
+    os.path.join(
+        os.path.dirname(__file__),
+        'requirements.txt'
+    ),
+    session=pip.download.PipSession()
+)
 
 setup(
     name='mrs',
@@ -13,6 +22,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     license = 'MIT',
+    install_requires = [str(ir.req) for ir in install_reqs],
     extras_require={
         'debug': [
             'ipdb',

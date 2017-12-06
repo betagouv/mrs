@@ -6,8 +6,10 @@ Ceci est le projet de simplification de remboursements.
 Contribuer
 ==========
 
-On peut commencer si on a Python3 avec::
+Cloner le dépot et puis executer::
 
-    pip install --user 'django>=2.0'
-    pip install --user -e git+https://github.com/sgmap/mrs.git#egg=mrs
+    # Installer:
+    pip install --user -e /path/to/repo # ou alors . si dedans
+
+    # Démarrer le serveur de dev
     mrs dev
