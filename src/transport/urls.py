@@ -4,5 +4,9 @@ from . import views
 
 
 urlpatterns = [
-    path('create/', views.TransportCreateView.as_view(), name='transport_create'),
+    path(
+        'create/',
+        views.TransportCreateView.as_view(),
+        name='transport_create'
+    ),
 ]

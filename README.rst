@@ -16,3 +16,14 @@ Cloner le dépot et puis executer::
 
     # Mettre à jour la db / créer un user / démarrer le serveur de dev
     DEBUG=1 mrs dev
+
+Tester
+======
+
+Executer les tests contre Django 2.0 avec la commande suivante::
+
+    tox -e py36-dj20
+
+Executer l'analyse du code::
+
+    tox -e qa

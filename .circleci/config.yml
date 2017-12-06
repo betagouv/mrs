@@ -1,0 +1,35 @@
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.1
+      - image: circleci/postgres:latest
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v2-dependencies-{{ checksum "tox.ini" }}
+
+      - run:
+          name: install dependencies
+          command: pip install --user tox && ~/.local/bin/tox -e qa,py36-dj20 --notest
+
+      - save_cache:
+          paths:
+          - /home/circleci/repo/.tox/
+          - /home/circleci/.local
+          - /home/circleci/.cache/pip
+          key: v2-dependencies-{{ checksum "tox.ini" }}
+
+      - run:
+          name: run tests
+          command: ~/.local/bin/tox -e qa,py36-dj20
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports

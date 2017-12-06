@@ -23,18 +23,6 @@ setup(
     zip_safe=False,
     license = 'MIT',
     install_requires = [str(ir.req) for ir in install_reqs],
-    extras_require={
-        'debug': [
-            'ipdb',
-        ],
-        'test': [
-            'freezegun',
-            'pytest',
-            'pytest-django',
-            'pytest-cov',
-            'mock',
-        ],
-    },
     entry_points = {
         'console_scripts': [
             'mrs = mrs.manage:main',
