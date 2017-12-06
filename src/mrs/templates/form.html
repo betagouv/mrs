@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load material_form %}
+
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {% form form=form %}{% endform %}
+    <button type="submit" name="_submit" class="btn">Submit</button>
+</form>
+{% endblock %}
