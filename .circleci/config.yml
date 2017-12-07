@@ -1,35 +1,52 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 version: 2
+
+workflows:
+  pipeline:
+    jobs:
+      - qa
+      - test
+
 jobs:
-  build:
+  qa:
     docker:
       - image: circleci/python:3.6.1
-      - image: circleci/postgres:latest
-
     working_directory: ~/repo
-
     steps:
       - checkout
-
       - restore_cache:
           keys:
-          - v2-dependencies-{{ checksum "tox.ini" }}
-
+          - qa-dependencies-{{ checksum "tox.ini" }}
       - run:
-          name: install dependencies
-          command: pip install --user tox && ~/.local/bin/tox -e qa,py36-dj20 --notest
-
+          name: tox environment setup
+          command: pip install --user tox && ~/.local/bin/tox -e qa --notest
       - save_cache:
           paths:
-          - /home/circleci/repo/.tox/
+          - /home/circleci/repo/.tox/qa
           - /home/circleci/.local
           - /home/circleci/.cache/pip
-          key: v2-dependencies-{{ checksum "tox.ini" }}
-
+          key: qa-dependencies-{{ checksum "tox.ini" }}
       - run:
-          name: run tests
-          command: ~/.local/bin/tox -e qa,py36-dj20
-
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
+          name: run qa checks
+          command: ~/.local/bin/tox -e qa
+  test:
+    docker:
+      - image: circleci/python:3.6.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - test-dependencies-{{ checksum "tox.ini" }}
+      - run:
+          name: tox environment setup
+          command: pip install --user tox && ~/.local/bin/tox -e py36-dj20 --notest
+      - save_cache:
+          paths:
+          - /home/circleci/repo/.tox/py36-dj20
+          - /home/circleci/.local
+          - /home/circleci/.cache/pip
+          key: test-dependencies-{{ checksum "tox.ini" }}
+      - run:
+          name: run qa checks
+          command: ~/.local/bin/tox -e py36-dj20
