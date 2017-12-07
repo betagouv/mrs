@@ -76,7 +76,7 @@ jobs:
     - run:
         name: Build application Docker image
         command: |
-          docker build --cache-from=app -t cpam/mrs:{{ .Branch }} .
+          docker build --cache-from=app -t cpam/mrs:$CIRCLE_BRANCH .
     - run:
         name: Save Docker image layer cache
         command: |
@@ -89,4 +89,4 @@ jobs:
     - deploy:
         name: Push application Docker image
         command: |
-          docker push cpammrs/mrs:{{ .Branch }}
+          docker push cpammrs/mrs:$CIRCLE_BRANCH
