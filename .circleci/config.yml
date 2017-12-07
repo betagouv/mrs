@@ -1,35 +1,120 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 version: 2
+
+# Let's use YAML Anchors as demonstrated in
+# https://docs.gitlab.com/ee/ci/yaml/#anchors
+.deploy_template: &deploy_template
+  docker:
+  - image: circleci/python:3.6.1
+  steps:
+  - checkout
+  - restore_cache:
+      keys: [ansible]
+  - deploy:
+      name: deploy
+      command: ./.circleci/deploy.sh
+  - save_cache:
+      key: ansible
+      paths: [~/.local, ~/.cache/pip]
+
+.master_template: &master_template
+  filters:
+    branches:
+      only: [master]
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - qa
+      - test
+      - build
+      - jpic:
+          requires: [build]
+          filters:
+            branches:
+              only: [jpic]
+      - tbinetruy:
+          requires: [build]
+          filters:
+            branches:
+              only: [tbinetruy]
+      - staging:
+          <<: *master_template
+          requires: [build, test, qa]
+      - validate-staging:
+          <<: *master_template
+          type: approval
+          requires: [staging]
+      - production:
+          <<: *master_template
+          requires: [validate-staging]
+
 jobs:
+  qa:
+    docker:
+    - image: circleci/python:3.6.1
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: tox environment setup
+        command: pip install --user tox && ~/.local/bin/tox -e qa --notest
+    - save_cache:
+        paths: [.tox/qa, ~/.local, ~/.cache/pip]
+        key: qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: run qa checks
+        command: ~/.local/bin/tox -e qa
+  test:
+    docker:
+    - image: circleci/python:3.6.1
+    working_directory: ~/repo
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - test-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: tox environment setup
+        command: pip install --user tox && ~/.local/bin/tox -e py36-dj20 --notest
+    - save_cache:
+        paths: [.tox/py36-dj20, ~/.local, ~/.cache/pip]
+        key: test-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: run qa checks
+        command: ~/.local/bin/tox -e py36-dj20
+
   build:
     docker:
-      - image: circleci/python:3.6.1
-      - image: circleci/postgres:latest
-
-    working_directory: ~/repo
-
+    - image: docker:17.05.0-ce-git
     steps:
-      - checkout
+    - checkout
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - run:
+        name: Build application Docker image
+        command: |
+          docker pull betagouv/mrs:$CIRCLE_BRANCH || true
+          docker build -t betagouv/mrs:$CIRCLE_SHA1 .
+    - deploy:
+        name: Push application Docker image
+        command: |
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push betagouv/mrs:$CIRCLE_SHA1
+          docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:$CIRCLE_BRANCH
+          docker push betagouv/mrs:$CIRCLE_BRANCH
 
-      - restore_cache:
-          keys:
-          - v2-dependencies-{{ checksum "tox.ini" }}
+  staging:
+    <<: *deploy_template
 
-      - run:
-          name: install dependencies
-          command: pip install --user tox && ~/.local/bin/tox -e qa,py36-dj20 --notest
+  production:
+    <<: *deploy_template
 
-      - save_cache:
-          paths:
-          - /home/circleci/repo/.tox/
-          - /home/circleci/.local
-          - /home/circleci/.cache/pip
-          key: v2-dependencies-{{ checksum "tox.ini" }}
+  jpic:
+    <<: *deploy_template
 
-      - run:
-          name: run tests
-          command: ~/.local/bin/tox -e qa,py36-dj20
-
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
+  tbinetruy:
+    <<: *deploy_template
