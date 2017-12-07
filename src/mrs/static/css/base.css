@@ -127,6 +127,10 @@ section h3 {
     min-height: 70vh;
 }
 
+#s1 .section-content--wrapper > p {
+    text-align: center;
+}
+
 /*
     Section 2
 */
@@ -312,6 +316,10 @@ section h3 {
     background-color: white;
     min-height: 5rem; /* Overriding section min height */
     color: rgba(0, 0, 0, 0.6);
+}
+
+#footer p {
+    text-align: center;
 }
 
 
