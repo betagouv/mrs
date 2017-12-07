@@ -86,11 +86,21 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 70vh;
     padding: 1rem 7rem;
+    padding: 1rem 10vw;
 }
 
-section > h1, section > h2, section > h3 {
+section .section-content--wrapper {
+    width: 100%;
+    max-width: 56rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.section-content--wrapper > h1, .section-content--wrapper > h2, .section-content--wrapper > h3 {
     text-align: center;
 }
 
@@ -161,8 +171,9 @@ section h3 {
 
 .process--wrapper {
     display: flex;
-    width: 50rem;
-    height: 10rem;
+    align-items: center;
+    width: 100%;
+    min-height: 10rem;
     padding: 1rem;
 }
 
@@ -219,6 +230,10 @@ section h3 {
     background-color: #2f343b;
 }
 
+#s5 .section-content--wrapper {
+    padding: 0 4rem;
+}
+
 #youtube-video--wrapper-1 {
     width: 100%;
 }
@@ -245,7 +260,6 @@ section h3 {
 
 .FAQ--wrapper {
     text-align: center;
-    padding: 0 5rem;
 }
 
 .question--wrapper {
