@@ -7,47 +7,86 @@ workflows:
     jobs:
       - qa
       - test
+      - build:
+          requires:
+          - qa
+          - test
 
 jobs:
   qa:
     docker:
-      - image: circleci/python:3.6.1
+    - image: circleci/python:3.6.1
     working_directory: ~/repo
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - qa-dependencies-{{ checksum "tox.ini" }}
-      - run:
-          name: tox environment setup
-          command: pip install --user tox && ~/.local/bin/tox -e qa --notest
-      - save_cache:
-          paths:
-          - /home/circleci/repo/.tox/qa
-          - /home/circleci/.local
-          - /home/circleci/.cache/pip
-          key: qa-dependencies-{{ checksum "tox.ini" }}
-      - run:
-          name: run qa checks
-          command: ~/.local/bin/tox -e qa
+    - checkout
+    - restore_cache:
+        keys:
+        - qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: tox environment setup
+        command: pip install --user tox && ~/.local/bin/tox -e qa --notest
+    - save_cache:
+        paths:
+        - /home/circleci/repo/.tox/qa
+        - /home/circleci/.local
+        - /home/circleci/.cache/pip
+        key: qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: run qa checks
+        command: ~/.local/bin/tox -e qa
   test:
     docker:
-      - image: circleci/python:3.6.1
+    - image: circleci/python:3.6.1
     working_directory: ~/repo
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - test-dependencies-{{ checksum "tox.ini" }}
-      - run:
-          name: tox environment setup
-          command: pip install --user tox && ~/.local/bin/tox -e py36-dj20 --notest
-      - save_cache:
-          paths:
-          - /home/circleci/repo/.tox/py36-dj20
-          - /home/circleci/.local
-          - /home/circleci/.cache/pip
-          key: test-dependencies-{{ checksum "tox.ini" }}
-      - run:
-          name: run qa checks
-          command: ~/.local/bin/tox -e py36-dj20
+    - checkout
+    - restore_cache:
+        keys:
+        - test-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: tox environment setup
+        command: pip install --user tox && ~/.local/bin/tox -e py36-dj20 --notest
+    - save_cache:
+        paths:
+        - /home/circleci/repo/.tox/py36-dj20
+        - /home/circleci/.local
+        - /home/circleci/.cache/pip
+        key: test-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: run qa checks
+        command: ~/.local/bin/tox -e py36-dj20
+
+  build:
+    working_directory: /app
+    docker:
+    - image: docker:17.05.0-ce-git
+    steps:
+    - checkout
+    - setup_remote_docker
+    - restore_cache:
+        keys:
+          - v1-{{ .Branch }}
+        paths:
+          - /caches/app.tar
+    - run:
+        name: Load Docker image layer cache
+        command: |
+          set +o pipefail
+          docker load -i /caches/app.tar | true
+    - run:
+        name: Build application Docker image
+        command: |
+          docker build --cache-from=app -t cpam/mrs:{{ .Branch }} .
+    - run:
+        name: Save Docker image layer cache
+        command: |
+          mkdir -p /caches
+          docker save -o /caches/app.tar app
+    - save_cache:
+        key: v1-{{ .Branch }}-{{ epoch }}
+        paths:
+          - /caches/app.tar
+    - deploy:
+        name: Push application Docker image
+        command: |
+          docker push cpammrs/mrs:{{ .Branch }}
