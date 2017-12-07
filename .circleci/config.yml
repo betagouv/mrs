@@ -11,7 +11,7 @@ workflows:
           requires:
           - qa
           - test
-      - branch-tag
+      - branch-tag:
           requires:
           - build
       - deploy-staging:
