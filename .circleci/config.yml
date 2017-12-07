@@ -98,8 +98,8 @@ jobs:
         command: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push betagouv/mrs:$CIRCLE_SHA1
-          docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:latest
-          docker push betagouv/mrs:latest
+          docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:$CIRCLE_BRANCH
+          docker push betagouv/mrs:$CIRCLE_BRANCH
 
   branch-tag:
     docker:
@@ -112,8 +112,8 @@ jobs:
         command: |
           docker pull betagouv/mrs:$CIRCLE_SHA1
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:$CIRCLE_BRANCH
-          docker push betagouv/mrs:$CIRCLE_BRANCH
+          docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:latest
+          docker push betagouv/mrs:latest
 
   deploy-staging:
     working_directory: ~/repo
