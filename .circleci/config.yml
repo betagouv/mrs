@@ -133,8 +133,10 @@ jobs:
     - deploy:
         name: deploy
         command: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
           ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
           ssh-keyscan $INFRA_REPOSITORY_HOST >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
           git clone --recursive $INFRA_REPOSITORY infra
           cd infra
           echo $VAULT_PASSWORD > .vault
@@ -162,8 +164,10 @@ jobs:
     - deploy:
         name: deploy
         command: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
           ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
           ssh-keyscan $INFRA_REPOSITORY_HOST >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
           git clone --recursive $INFRA_REPOSITORY infra
           cd infra
           echo $VAULT_PASSWORD > .vault
