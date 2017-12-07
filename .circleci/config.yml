@@ -116,6 +116,7 @@ jobs:
         name: deploy
         command: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          ssh-keyscan $INFRA_REPOSITORY_HOST >> ~/.ssh/known_hosts
           ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
           git clone --recursive $INFRA_REPOSITORY infra
@@ -146,6 +147,7 @@ jobs:
         name: deploy
         command: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          ssh-keyscan $INFRA_REPOSITORY_HOST >> ~/.ssh/known_hosts
           ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
           git clone --recursive $INFRA_REPOSITORY infra
