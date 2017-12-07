@@ -123,7 +123,7 @@ jobs:
           cd infra
           echo $VAULT_PASSWORD > .vault
           export ANSIBLE_VAULT_PASSWORD_FILE=.vault
-          ~/.local/bin/ansible-playbook -i inventory -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=staging playbooks/mrs.yml
+          ~/.local/bin/ansible-playbook -u deploy -i inventory -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=staging playbooks/mrs.yml
 
   deploy-production:
     working_directory: ~/repo
@@ -154,4 +154,4 @@ jobs:
           cd infra
           echo $VAULT_PASSWORD > .vault
           export ANSIBLE_VAULT_PASSWORD_FILE=.vault
-          ~/.local/bin/ansible-playbook -i inventory -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=production playbooks/mrs.yml
+          ~/.local/bin/ansible-playbook -u deploy -i inventory -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=production playbooks/mrs.yml
