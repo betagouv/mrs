@@ -87,7 +87,7 @@ jobs:
     - setup_remote_docker
     - restore_cache:
         keys:
-          - v1-{{ .Branch }}
+          - docker-cache
         paths:
           - /caches/app.tar
     - run:
@@ -105,7 +105,7 @@ jobs:
           mkdir -p /caches
           docker save -o /caches/app.tar betagouv/mrs:$CIRCLE_SHA1
     - save_cache:
-        key: v1-{{ .Branch }}-{{ epoch }}
+        key: docker-cache
         paths:
           - /caches/app.tar
     - deploy:
