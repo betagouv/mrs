@@ -11,6 +11,28 @@ workflows:
           requires:
           - qa
           - test
+      - deploy-staging:
+          filters:
+            branches:
+              only:
+              - cd
+          requires:
+          - build
+      - validate-staging:
+          filters:
+            branches:
+              only:
+              - cd
+          type: approval
+          requires:
+          - deploy-staging
+      - deploy-production:
+          filters:
+            branches:
+              only:
+              - cd
+          requires:
+          - validate-staging
 
 jobs:
   qa:
@@ -76,12 +98,12 @@ jobs:
     - run:
         name: Build application Docker image
         command: |
-          docker build --cache-from=app -t betagouv/mrs:$CIRCLE_BRANCH .
+          docker build --cache-from=app -t betagouv/mrs:$CIRCLE_SHA1 .
     - run:
         name: Save Docker image layer cache
         command: |
           mkdir -p /caches
-          docker save -o /caches/app.tar betagouv/mrs:$CIRCLE_BRANCH
+          docker save -o /caches/app.tar betagouv/mrs:$CIRCLE_SHA1
     - save_cache:
         key: v1-{{ .Branch }}-{{ epoch }}
         paths:
@@ -90,4 +112,49 @@ jobs:
         name: Push application Docker image
         command: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker push betagouv/mrs:$CIRCLE_BRANCH
+          docker push betagouv/mrs:$CIRCLE_SHA1
+
+  deploy-staging:
+    working_directory: ~/repo
+    docker:
+    - image: circleci/python:3.6.1
+    steps:
+    - restore_cache:
+        keys:
+        - ansible
+    - run:
+        name: Install ansible
+        command: pip install --user ansible
+    - save_cache:
+        key: ansible
+        paths:
+        - ~/.local
+        - ~/.cache/pip
+    - run:
+        name: prepare infra repository
+        command: git clone --recursive $INFRA_REPOSITORY && echo $VAULT_PASSWORD > .vault
+    - deploy:
+        name: deploy staging
+        command: ANSIBLE_VAULT_PASSWORD_FILE=.vault ~/.local/bin/ansible-playbook -i inventory -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=staging playbooks/mrs.yml
+
+  deploy-production:
+    working_directory: ~/repo
+    docker:
+    - image: circleci/python:3.6.1
+    steps:
+    - restore_cache:
+        keys:
+        - ansible
+    - run:
+        name: Install ansible
+        command: pip install --user ansible
+    - save_cache:
+        paths:
+        - ~/.local
+        - ~/.cache/pip
+    - run:
+        name: prepare infra repository
+        command: git clone --recursive $INFRA_REPOSITORY && echo $VAULT_PASSWORD > .vault
+    - deploy:
+        name: deploy staging
+        command: ANSIBLE_VAULT_PASSWORD_FILE=.vault ~/.local/bin/ansible-playbook -i inventory -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=production playbooks/mrs.yml
