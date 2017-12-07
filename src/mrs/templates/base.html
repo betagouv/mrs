@@ -121,7 +121,15 @@
             <h2>FOIRE AUX QUESTIONS</h2>
             <h3>Toutes les questions que vous vous posez sur le transport médical</h3>
 
-            <div id="youtube-video--wrapper">
+            <!--
+                 For the iframe video to resize with viewport with, we need 2 containers:
+                 https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
+            -->
+            <div id="youtube-video--wrapper-1">
+                <div id="youtube-video--wrapper-2">
+                    <iframe width="640" height="360" src="https://www.youtube.com/embed/9xgIX-kCsCw" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen>
+                    </iframe>
+                </div>
             </div>
 
             <div class="FAQ--wrapper">

@@ -197,12 +197,29 @@ section h3 {
     background-color: #2f343b;
 }
 
-#youtube-video--wrapper {
-    height: 24rem;
-    width: 40rem;
-    border: 1px solid red;
-    margin: 2rem 0;
+#youtube-video--wrapper-1 {
+    width: 100%;
 }
+
+#youtube-video--wrapper-2 {
+    width: 100%;
+    margin: 2rem 0;
+
+    /* https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php */
+	  position: relative;
+	  padding-bottom: 56.25%; /* 16:9 */
+	  padding-top: 25px;
+	  height: 0;
+}
+
+#youtube-video--wrapper-2 iframe {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+}
+
 
 .FAQ--wrapper {
     text-align: center;
