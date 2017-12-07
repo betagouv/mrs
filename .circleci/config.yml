@@ -137,6 +137,7 @@ jobs:
         name: Install ansible
         command: pip install --user ansible
     - save_cache:
+        key: ansible
         paths:
         - ~/.local
         - ~/.cache/pip
