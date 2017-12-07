@@ -22,6 +22,28 @@ body {
 }
 
 /*
+    UI elements
+*/
+.section-arrow--wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.section-arrow--wrapper .arrow-left, .section-arrow--wrapper .arrow-right {
+    height: 0rem;
+    border-bottom: 1.3rem solid #0dc5b9;;
+    width: 50%;
+}
+
+.section-arrow--wrapper .arrow-left {
+    border-right: 1.3rem solid transparent;
+}
+
+.section-arrow--wrapper .arrow-right {
+    border-left: 1.3rem solid transparent;
+}
+
+/*
     Inline tag styles
 */
 strong {
