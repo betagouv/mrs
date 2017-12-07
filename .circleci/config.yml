@@ -110,8 +110,8 @@ jobs:
     - deploy:
         name: Publish betagouv/mrs:{{ .Branch }}
         command: |
+          docker pull betagouv/mrs:$CIRCLE_SHA1
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker push betagouv/mrs:$CIRCLE_SHA1
           docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:$CIRCLE_BRANCH
           docker push betagouv/mrs:$CIRCLE_BRANCH
 
