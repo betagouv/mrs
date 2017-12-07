@@ -86,7 +86,7 @@ jobs:
         key: v1-{{ .Branch }}-{{ epoch }}
         paths:
           - /caches/app.tar
-    - publish:
+    - deploy:
         name: Push application Docker image
         command: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
