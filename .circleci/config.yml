@@ -11,6 +11,7 @@ workflows:
           requires:
           - qa
           - test
+      - branch-tag
       - deploy-staging:
           filters:
             branches:
@@ -97,6 +98,20 @@ jobs:
           docker push betagouv/mrs:$CIRCLE_SHA1
           docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:latest
           docker push betagouv/mrs:latest
+
+  branch-tag:
+    docker:
+    - image: docker:17.05.0-ce-git
+    steps:
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - deploy:
+        name: Publish betagouv/mrs:{{ .Branch }}
+        command: |
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push betagouv/mrs:$CIRCLE_SHA1
+          docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:$CIRCLE_BRANCH
+          docker push betagouv/mrs:$CIRCLE_BRANCH
 
   deploy-staging:
     working_directory: ~/repo
