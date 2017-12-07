@@ -86,7 +86,8 @@ jobs:
         key: v1-{{ .Branch }}-{{ epoch }}
         paths:
           - /caches/app.tar
-    - deploy:
+    - publish:
         name: Push application Docker image
         command: |
-          docker push cpammrs/mrs:$CIRCLE_BRANCH
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push betagouv/mrs:$CIRCLE_BRANCH
