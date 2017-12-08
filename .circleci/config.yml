@@ -1,41 +1,68 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 version: 2
 
+# Let's use YAML Anchors as demonstrated in
+# https://docs.gitlab.com/ee/ci/yaml/#anchors
+.deploy_template: &deploy_definition
+  docker:
+  - image: circleci/python:3.6.1
+  steps:
+  - restore_cache:
+      keys: [ansible]
+  - deploy:
+      name: deploy
+      command: ./.circleci/deploy.sh
+  - save_cache:
+      key: ansible
+      paths: [~/.local, ~/.cache/pip]
+
 workflows:
   version: 2
-  pipeline:
+
+  jpic:
+    jobs:
+      - qa
+      - test
+      - build
+      - deploy-jpic:
+          filters:
+            branches:
+              only: [jpic]
+
+  tbinetruy:
+    jobs:
+      - qa
+      - test
+      - build
+      - deploy-tbinetruy:
+          filters:
+            branches:
+              only: [tbinetruy]
+
+  master:
     jobs:
       - qa
       - test
       - build:
-          requires:
-          - qa
-          - test
+          requires: [qa, test]
       - branch-tag:
-          requires:
-          - build
+          requires: [build]
       - deploy-staging:
           filters:
             branches:
-              only:
-              - cd
-          requires:
-          - build
+              only: [cd]
+          requires: [build]
       - validate-staging:
           filters:
             branches:
-              only:
-              - cd
+              only: [cd]
           type: approval
-          requires:
-          - deploy-staging
+          requires: [deploy-staging]
       - deploy-production:
           filters:
             branches:
-              only:
-              - cd
-          requires:
-          - validate-staging
+              only: [cd]
+          requires: [validate-staging]
 
 jobs:
   qa:
@@ -66,8 +93,7 @@ jobs:
     steps:
     - checkout
     - restore_cache:
-        keys:
-        - test-dependencies-{{ checksum "tox.ini" }}
+        keys: [test-dependencies-{{ checksum "tox.ini" }}]
     - run:
         name: tox environment setup
         command: pip install --user tox && ~/.local/bin/tox -e py36-dj20 --notest
@@ -82,7 +108,6 @@ jobs:
         command: ~/.local/bin/tox -e py36-dj20
 
   build:
-    working_directory: /app
     docker:
     - image: docker:17.05.0-ce-git
     steps:
@@ -91,8 +116,7 @@ jobs:
         docker_layer_caching: true
     - run:
         name: Build application Docker image
-        command: |
-          docker build -t betagouv/mrs:$CIRCLE_SHA1 .
+        command: docker build -t betagouv/mrs:$CIRCLE_SHA1 .
     - deploy:
         name: Push application Docker image
         command: |
@@ -116,62 +140,10 @@ jobs:
           docker push betagouv/mrs:latest
 
   deploy-staging:
-    working_directory: ~/repo
-    docker:
-    - image: circleci/python:3.6.1
-    steps:
-    - restore_cache:
-        keys:
-        - ansible
-    - run:
-        name: Install ansible
-        command: pip install --user ansible
-    - save_cache:
-        key: ansible
-        paths:
-        - ~/.local
-        - ~/.cache/pip
-    - deploy:
-        name: deploy
-        command: |
-          mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          ssh-keyscan $INFRA_REPOSITORY_HOST >> ~/.ssh/known_hosts
-          ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
-          git clone --recursive $INFRA_REPOSITORY infra
-          cd infra
-          echo $VAULT_PASSWORD > .vault
-          export ANSIBLE_VAULT_PASSWORD_FILE=.vault
-          ~/.local/bin/ansible-playbook -u deploy -i inventory -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=staging playbooks/mrs.yml
+    <<: *deploy_template
 
   deploy-production:
-    working_directory: ~/repo
-    docker:
-    - image: circleci/python:3.6.1
-    steps:
-    - restore_cache:
-        keys:
-        - ansible
-    - run:
-        name: Install ansible
-        command: pip install --user ansible
-    - save_cache:
-        key: ansible
-        paths:
-        - ~/.local
-        - ~/.cache/pip
-    - run:
-        name: prepare infra repository
-        command: git clone --recursive $INFRA_REPOSITORY && echo $VAULT_PASSWORD > .vault
-    - deploy:
-        name: deploy
-        command: |
-          mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          ssh-keyscan $INFRA_REPOSITORY_HOST >> ~/.ssh/known_hosts
-          ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
-          git clone --recursive $INFRA_REPOSITORY infra
-          cd infra
-          echo $VAULT_PASSWORD > .vault
-          export ANSIBLE_VAULT_PASSWORD_FILE=.vault
-          ~/.local/bin/ansible-playbook -u deploy -i inventory -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=production playbooks/mrs.yml
+    <<: *deploy_template
+
+  deploy-tbinetruy:
+    <<: *deploy_template
