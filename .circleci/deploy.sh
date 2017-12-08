@@ -17,4 +17,4 @@ fi
 
 echo $VAULT_PASSWORD > .vault
 export ANSIBLE_VAULT_PASSWORD_FILE=.vault
-~/.local/bin/ansible-playbook -u deploy -i inventory -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=$CIRCLE_STAGE playbooks/mrs.yml
+~/.local/bin/ansible-playbook --tags update -u deploy -i inventory -e prefix=mrs -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=$CIRCLE_STAGE playbooks/django.yml
