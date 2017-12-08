@@ -13,11 +13,12 @@ ADD src /code/src
 RUN chown -R uwsgi. /code
 RUN pip3 install --editable /code
 
-RUN mrs migrate --noinput
-RUN mrs collectstatic --noinput --clear
-
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE mrs.settings
+ENV VIRTUAL_PROTO uwsgi
+
+# Use DEBUG here to inhibate security checks in settings for this command
+RUN DEBUG=1 django-admin collectstatic --noinput --clear
 
 CMD /usr/bin/dumb-init uwsgi \
   --socket=0.0.0.0:6789 \
