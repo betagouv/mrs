@@ -19,39 +19,29 @@ version: 2
 workflows:
   version: 2
 
-  jpic:
-    jobs:
-      - qa
-      - test
-      - build
-      - jpic:
-          filters:
-            branches:
-              only: [jpic]
-
-  tbinetruy:
-    jobs:
-      - qa
-      - test
-      - build
-      - tbinetruy:
-          filters:
-            branches:
-              only: [tbinetruy]
 
   master:
     jobs:
       - qa
       - test
-      - build:
-          requires: [qa, test]
+      - build
+      - jpic:
+          requires: [build]
+          filters:
+            branches:
+              only: [jpic]
+      - tbinetruy:
+          requires: [build]
+          filters:
+            branches:
+              only: [tbinetruy]
       - branch-tag:
           requires: [build]
       - staging:
           filters:
             branches:
               only: [cd]
-          requires: [build]
+          requires: [build, test, qa]
       - validate-staging:
           filters:
             branches:
