@@ -3,7 +3,7 @@ version: 2
 
 # Let's use YAML Anchors as demonstrated in
 # https://docs.gitlab.com/ee/ci/yaml/#anchors
-.deploy_template: &deploy_definition
+.deploy_template: &deploy_template
   docker:
   - image: circleci/python:3.6.1
   steps:
