@@ -93,7 +93,8 @@ jobs:
     steps:
     - checkout
     - restore_cache:
-        keys: [test-dependencies-{{ checksum "tox.ini" }}]
+        keys:
+        - test-dependencies-{{ checksum "tox.ini" }}
     - run:
         name: tox environment setup
         command: pip install --user tox && ~/.local/bin/tox -e py36-dj20 --notest
