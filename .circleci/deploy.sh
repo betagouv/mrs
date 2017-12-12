@@ -14,6 +14,7 @@ else
     git reset --hard origin/master
     git submodule update --init
 fi
+git status
 
 set +x  # silence password from output at all cost
 echo $VAULT_PASSWORD > .vault &> /dev/null
