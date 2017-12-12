@@ -16,8 +16,8 @@ else
 fi
 git status
 
-set +x  # silence password from output at all cost
-echo $VAULT_PASSWORD > .vault &> /dev/null
+set +x  # silence password from output
+echo $VAULT_PASSWORD > .vault
 set -x
 
 export ANSIBLE_VAULT_PASSWORD_FILE=.vault
