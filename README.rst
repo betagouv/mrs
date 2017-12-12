@@ -27,3 +27,9 @@ Executer les tests contre Django 2.0 avec la commande suivante::
 Executer l'analyse du code::
 
     tox -e qa
+
+Ressources
+==========
+
+- https://codecov.io/gh/sgmap/mrs Code coverage
+- https://circleci.com/gh/sgmap/mrs CI
