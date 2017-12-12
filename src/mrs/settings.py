@@ -20,13 +20,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7^dm!)9-d@mvj42$#$4i@!0)7bofi-b(8*gt6fumv-!*h2$-(g'
+SECRET_KEY = os.getenv('SECRET_KEY', 'notsecret')
 
 DEBUG = os.getenv('DEBUG', False)
+
+if not DEBUG and 'SECRET_KEY' not in os.environ:
+    raise Exception('$SECRET_KEY is required if DEBUG is False')
 
 if 'ALLOWED_HOSTS' in os.environ:
     ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS')]
 
+if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
+    raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
 # Application definition
 
@@ -78,8 +83,12 @@ WSGI_APPLICATION = 'mrs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.getenv('DB_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': os.getenv('DB_USER', None),
+        'PASSWORD': os.getenv('DB_PASSWORD', None),
+        'HOST': os.getenv('DB_HOST', None),
+        'PORT': os.getenv('DB_PORT', None),
     }
 }
 
@@ -119,3 +128,98 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(BASE_DIR, 'collected'))
 STATICFILES_DIRS = [os.path.join(os.path.dirname(__file__), 'static')]
+
+EMAIL_HOST = os.getenv('EMAIL_HOST', None)
+EMAIL_PORT = os.getenv('EMAIL_PORT', None)
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', None)
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', None)
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', None)
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', None)
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', EMAIL_BACKEND)
+
+
+if os.getenv('LOG'):
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'level': 'INFO',
+                'class': 'logging.StreamHandler',
+                'formatter': 'simple'
+            },
+            'file.error': {
+                'level': 'ERROR',
+                'class': 'logging.FileHandler',
+                'filename': os.path.join(
+                    os.getenv('LOG'),
+                    'django.error.log',
+                ),
+                'formatter': 'simple',
+            },
+            'file.info': {
+                'level': 'INFO',
+                'class': 'logging.FileHandler',
+                'filename': os.path.join(
+                    os.getenv('LOG'),
+                    'django.info.log',
+                ),
+                'formatter': 'simple'
+            },
+            'file.debug': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': os.path.join(
+                    os.getenv('LOG'),
+                    'django.debug.log',
+                ),
+                'formatter': 'simple'
+            },
+        },
+        'formatters': {
+            'simple': {
+                'format': '%(levelname)s %(name)s %(message)s'
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': [
+                    'file.error',
+                    'file.info',
+                    'file.debug',
+                    'console'
+                ],
+                'level': 'DEBUG' if DEBUG else 'INFO',
+                'propagate': True,
+            },
+        },
+    }
+else:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'level': 'INFO',
+                'class': 'logging.StreamHandler',
+                'formatter': 'simple'
+            },
+        },
+        'formatters': {
+            'simple': {
+                'format': '%(levelname)s %(message)s'
+            },
+        },
+        'loggers': {
+            '*': {
+                'handlers': ['console'],
+                'level': 'INFO',
+                'propagate': True,
+            },
+        },
+    }
