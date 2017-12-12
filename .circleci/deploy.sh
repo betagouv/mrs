@@ -15,6 +15,9 @@ else
     git submodule update --init
 fi
 
-echo $VAULT_PASSWORD > .vault
+set +x  # silence password from output at all cost
+echo $VAULT_PASSWORD > .vault &> /dev/null
+set -x
+
 export ANSIBLE_VAULT_PASSWORD_FILE=.vault
 ~/.local/bin/ansible-playbook --tags update -u deploy -i inventory -e prefix=mrs -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=$CIRCLE_STAGE playbooks/django.yml
