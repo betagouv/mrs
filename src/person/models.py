@@ -1,18 +1,23 @@
-from django.contrib.auth.models import User
-
 from django.db import models
 
 
-class Person(User):
-    birth_date = models.DateField()
-
-    # Should this be a many to many to keep track of hold records ?
-    nir = models.ForeignKey(
-        'NIR',
+class Person(models.Model):
+    first_name = models.CharField(
+        max_length=200,
+        verbose_name='Prénom',
+    )
+    last_name = models.CharField(
+        max_length=200,
+        verbose_name='Nom de famille',
+    )
+    birth_date = models.DateField(
         null=True,
-        on_delete=models.SET_NULL
+        verbose_name='Date de naissance',
+    )
+    nir = models.IntegerField(
+        verbose_name='Numéro de sécurité sociale',
     )
 
-
-class NIR(models.Model):
-    number = models.IntegerField()
+    class Meta:
+        ordering = ('last_name', 'first_name',)
+        verbose_name = 'Personne'

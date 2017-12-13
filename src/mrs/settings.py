@@ -36,16 +36,20 @@ if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
 # Application definition
 
 INSTALLED_APPS = [
+    'material',
+
+    'person',
+    'transport',
+    'pmt',
+    'mrs',
+    'mrsrequest',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'person',
-    'transport',
-    'material',
-    'mrs',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +132,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(BASE_DIR, 'collected'))
 STATICFILES_DIRS = [os.path.join(os.path.dirname(__file__), 'static')]
+
+DEFAULT_FILE_STORAGE = 'db_file_storage.storage.DatabaseFileStorage'
 
 EMAIL_HOST = os.getenv('EMAIL_HOST', None)
 EMAIL_PORT = os.getenv('EMAIL_PORT', None)
@@ -226,7 +232,7 @@ else:
 
 if DEBUG:
     try:
-        import debug_toolbar
+        import debug_toolbar  # noqa
     except ImportError:
         pass
     else:
