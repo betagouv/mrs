@@ -5,9 +5,9 @@ from django.urls import include, path, reverse_lazy
 
 urlpatterns = [
     path('', generic.RedirectView.as_view(
-        url=reverse_lazy('transport_create'))
+        url=reverse_lazy('mrsrequest_create'))
     ),
-    path('transport/', include('transport.urls')),
+    path('request/', include('mrsrequest.urls')),
     path('admin/', admin.site.urls),
 ]
 
