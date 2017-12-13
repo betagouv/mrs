@@ -37,6 +37,7 @@ if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
 
 INSTALLED_APPS = [
     'material',
+    'webpack_loader',
 
     'person',
     'transport',

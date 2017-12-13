@@ -6,10 +6,13 @@ Ceci est le projet de simplification de remboursements.
 Contribuer
 ==========
 
-Cloner le dépot et puis executer::
+Cloner le dépot, et puis dans le dossier du repo executer::
 
-    # Installer/mettre à jour code et librairies:
-    pip install -U --user -e /path/to/repo # ou alors . si dedans
+    # Installer/mettre à jour code et librairies JS
+    npm install
+
+    # Installer/mettre à jour code et librairies Python
+    pip install -U --user -e .
 
     # Ajouter le pip user bin dans path, example:
     echo 'export PATH=$HOME/.local/bin:$PATH' > ~/.bashrc
