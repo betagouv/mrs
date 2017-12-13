@@ -23,5 +23,9 @@
     "babel-loader": "^7.1.2",
     "webpack": "^3.10.0",
     "webpack-bundle-tracker": "^0.2.0"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "scrollreveal": "^3.3.6"
   }
 }
