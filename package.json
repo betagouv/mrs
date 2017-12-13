@@ -1,0 +1,27 @@
+{
+  "name": "mrs",
+  "version": "0.0.0",
+  "description": "BetaGouv: Mes Remboursements Simplifiés",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --config webpack.config.js --watch",
+    "prepare": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgmap/mrs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sgmap/mrs/issues"
+  },
+  "homepage": "https://github.com/sgmap/mrs#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-loader": "^7.1.2",
+    "webpack": "^3.10.0",
+    "webpack-bundle-tracker": "^0.2.0"
+  }
+}
