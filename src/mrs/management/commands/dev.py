@@ -1,3 +1,5 @@
+import os.path
+
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
@@ -14,4 +16,12 @@ class Command(BaseCommand):
         if not user_model.objects.count():
             call_command('createsuperuser')
 
-        call_command('runserver')
+        try:
+            pid = os.fork()
+        except OSError:
+            sys.exit(1)
+
+        if pid == 0:
+            os.execvp('npm', ['nmp', 'start'])
+        else:
+            call_command('runserver')
