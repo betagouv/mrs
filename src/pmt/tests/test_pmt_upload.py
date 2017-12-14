@@ -17,22 +17,6 @@ from mrsrequest.views import MRSFileDeleteView, MRSFileUploadView
 from pmt.models import PMT
 
 
-@pytest.fixture
-def mrsrequest():
-    MRSRequest.objects.all().delete()
-    return MRSRequest.objects.create(id=uuid.uuid4())
-
-
-@pytest.fixture
-def pmt(mrsrequest):
-    PMT.objects.all().delete()
-    return PMT.objects.create(
-        mrsrequest=mrsrequest,
-        binary=b'lol',
-        filename='lol.jpg',
-    )
-
-
 @pytest.mark.django_db
 @pytest.mark.parametrize("session", sessions)
 def test_pmtdeleteview_security_allow(rf, mrsrequest, pmt, session):
