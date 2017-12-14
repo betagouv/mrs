@@ -21,21 +21,21 @@ from pmt.models import PMT
 @pytest.mark.parametrize("session", sessions)
 def test_pmtdeleteview_security_allow(rf, mrsrequest, pmt, session):
     '''Should let me delete PMT of my MRSRequest.'''
-    delete_view = MRSFileDeleteView.as_view(model=PMT)
-    delete_request = rf.delete(pmt.get_delete_url())
-    delete_request.session = session
+    view = MRSFileDeleteView.as_view(model=PMT)
+    request = rf.delete(pmt.get_delete_url())
+    request.session = session
 
     # Test Deny
     with pytest.raises(http.Http404):
-        delete_view(delete_request, pk=pmt.pk)
+        view(request, pk=pmt.pk)
     assert PMT.objects.filter(pk=pmt.pk).count() == 1, (
         'should not have been deleted')
 
     # Allow
-    mrsrequest.allow(delete_request)
+    mrsrequest.allow(request)
 
     # Test allow
-    response = delete_view(delete_request, pk=pmt.pk)
+    response = view(request, pk=pmt.pk)
     assert response.status_code == 200, 'should return 200'
     assert PMT.objects.filter(pk=pmt.pk).count() == 0, (
         'should have been deleted')
