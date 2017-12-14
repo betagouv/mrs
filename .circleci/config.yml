@@ -95,7 +95,7 @@ jobs:
         name: TEST tox -e py36-dj20
         command: |
           ~/.local/bin/tox -e py36-dj20
-          .tox/py36-dj20/bin/codecov --token $CODECOV_TOKEN -e $TOXENV
+          PATH=.tox/py36-dj20/bin:$PATH codecov --token $CODECOV_TOKEN -e $TOXENV
 
   js-qa:
     docker:
