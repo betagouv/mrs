@@ -1,0 +1,23 @@
+[
+{
+    "fields": {
+        "creation_datetime": "2000-01-02T03:04:05Z",
+        "insured": null,
+        "status": 0,
+        "submiter_email": null,
+        "transported": null
+    },
+    "model": "mrsrequest.mrsrequest",
+    "pk": "2b88b740-3920-44e9-b086-c851f58e7ea7"
+},
+{
+    "fields": {
+        "binary": "bG9s",
+        "creation_datetime": "2000-01-02T03:04:05Z",
+        "filename": "file",
+        "mrsrequest": "2b88b740-3920-44e9-b086-c851f58e7ea7"
+    },
+    "model": "pmt.pmt",
+    "pk": 1
+}
+]
