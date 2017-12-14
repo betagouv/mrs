@@ -1,8 +1,10 @@
 from django.db import models
 
+from mrsrequest.models import MRSAttachement
+
 
 class Transport(models.Model):
-    request = models.ForeignKey(
+    mrsrequest = models.ForeignKey(
         'mrsrequest.MRSRequest',
         on_delete=models.CASCADE,
     )
@@ -18,17 +20,17 @@ class Transport(models.Model):
     )
 
     class Meta:
-        ordering = ['request']
+        ordering = ['mrsrequest']
 
 
-class Bill(models.Model):
+class Bill(MRSAttachement):
     transport = models.ForeignKey(
         'Transport',
         on_delete=models.CASCADE,
     )
     filename = models.CharField(max_length=255)
-    document = models.BinaryField(
-        verbose_name='Prescription Médicale de Transport')
+    binary = models.BinaryField(
+        verbose_name='Justificatif de Transport')
 
     class Meta:
         ordering = ['transport', 'id']
