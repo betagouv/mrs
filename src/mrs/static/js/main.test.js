@@ -2,9 +2,6 @@ const jsdom = require('jsdom')
 const nock = require('nock')
 
 
-// file = file object
-// success = success callback
-// error = error callback
 class FileSelect {
     constructor() {
         this.errorMsg = {
@@ -16,14 +13,17 @@ class FileSelect {
         this.maxFileSize = Math.pow(10, 7) // 10 MB
     }
 
+    // file mime type (string)
     mimeTypeValidate(mimeType) {
         return this.validMimeTypes.indexOf(mimeType) >= 0
     }
 
+    // file size (bytes)
     fileSizeValidate(size) {
         return size <= this.maxFileSize
     }
 
+    // file = file object
     async upload(file) {
         // validation (type, size)
         let validated = true
