@@ -84,10 +84,10 @@ describe('FileSelect.deleteSuccess()', () => {
 
   const dom = new JSDOM(
     '<input type="file" />'
-    + '<ul>'
-    + createUl(file1, deleteUrl1)
-    + createUl(file2, deleteUrl2)
-    + '</ul>'
+      + '<ul>'
+      + createUl(file1, deleteUrl1)
+      + createUl(file2, deleteUrl2)
+      + '</ul>'
   )
 
   const el = dom.window.document.body
