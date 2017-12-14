@@ -1,14 +1,15 @@
 from django.db import models
 
+from mrsrequest.models import MRSAttachement
 
-class PMT(models.Model):
-    request = models.ForeignKey(
+
+class PMT(MRSAttachement):
+    mrsrequest = models.ForeignKey(
         'mrsrequest.MRSRequest',
         on_delete=models.CASCADE,
     )
-    filename = models.CharField(max_length=255)
-    document = models.BinaryField(
+    binary = models.BinaryField(
         verbose_name='Prescription Médicale de Transport')
 
     class Meta:
-        ordering = ['request', 'id']
+        ordering = ['mrsrequest', 'id']
