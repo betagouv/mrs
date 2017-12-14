@@ -19,8 +19,8 @@ const fileFixture = (
   }
 }
 
-const fileSelectFactory = () => {
-  const subject = new FileSelect()
+const fileSelectFactory = (putUrl, csrfToken) => {
+  const subject = new FileSelect(putUrl, csrfToken)
   subject.success = jest.fn()
   subject.error = jest.fn()
 
@@ -106,7 +106,7 @@ describe('FileSelect.upload() request error', () => {
 })
 
 describe('FileSelect.isFileValid()', () => {
-  const file = new FileSelect()
+  const file = fileSelectFactory()
 
   test('validates mime type', () => {
     const fileObject = fileFixture()
@@ -136,7 +136,7 @@ describe('FileSelect.deleteRequest()', () => {
   }
 
   beforeAll(async () => {
-    const file = new FileSelect()
+    const file = fileSelectFactory()
 
     window.fetch = jest.fn()
     const fileObject = fileFixture()
@@ -153,7 +153,7 @@ describe('FileSelect.deleteRequest()', () => {
 describe('FileSelect.putRequest()', () => {
   const putUrl = '/put'
   const csrfToken = 123
-  const file = new FileSelect(putUrl, csrfToken)
+  const file = fileSelectFactory(putUrl, csrfToken)
 
   beforeAll(async () => {
     window.fetch = jest.fn()
