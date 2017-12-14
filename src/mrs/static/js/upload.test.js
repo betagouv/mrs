@@ -19,13 +19,62 @@ const fileFixture = (
   }
 }
 
-const fileSelectFactory = (putUrl, csrfToken) => {
-  const subject = new FileSelect(putUrl, csrfToken)
+// withMock (bool): should return factory with mocked success/error methods
+const fileSelectFactory = (putUrl, csrfToken, el, withMock=true) => {
+  const subject = new FileSelect(putUrl, csrfToken, el, withMock)
+  if(!withMock)
+    return subject
+
   subject.success = jest.fn()
   subject.error = jest.fn()
 
   return subject
 }
+
+describe('FileSelect.success()', () => {
+  // create vdom and mock comp
+  const { JSDOM } = jsdom
+  const dom = new JSDOM(`
+    <input type="file" />
+    <ul>
+    </ul>
+  `)
+
+  const el = dom.window.document.body
+  const file = fileFixture()
+  const subject = fileSelectFactory(undefined, undefined, el, false)
+  const response = {
+    deleteUrl: '/delete'
+  }
+
+  beforeAll(async () => {
+  })
+
+  test('Updates the DOM propoerly', () => {
+    const li = (
+      '<li>'
+      + file.name
+      + '<a href="' + response.deleteUrl + '">'
+      + 'remove'
+      + '</a>'
+      + '</li>'
+    )
+
+    subject.success(file, response)
+    expect(el.childNodes[2].innerHTML).toBe(li)
+
+    subject.success(file, response)
+    expect(el.childNodes[2].innerHTML).toBe(li + li)
+
+    subject.success(file, response)
+    expect(el.childNodes[2].innerHTML).toBe(li + li + li)
+  })
+
+})
+
+describe('FileSelect.error() updates DOM', () => {
+
+})
 
 describe('FileSelect.upload() success', () => {
   const file = fileFixture()
