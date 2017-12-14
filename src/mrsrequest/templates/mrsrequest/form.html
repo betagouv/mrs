@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% load material_form %}
 
-
 {% block content %}
-<form method="POST">
+<form
+    method="POST"
+    action="{{ request.path_info }}?uuid={{ view.uuid }}"
+    data-uuid="{{ view.uuid }}"
+>
     {% csrf_token %}
     {% form form=form %}{% endform %}
     <button type="submit" name="_submit" class="btn">Submit</button>
