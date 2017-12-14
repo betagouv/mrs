@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+import shutil
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -37,7 +38,7 @@ if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
 
 INSTALLED_APPS = [
     'material',
-    'webpack_loader',
+    'webpack_loader' if shutil.which('npm') else 'webpack_mock',
 
     'person',
     'transport',

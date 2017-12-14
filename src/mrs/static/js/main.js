@@ -1,5 +1,5 @@
 (() => {
-    window.sr = ScrollReveal()
+  window.sr = ScrollReveal()
 
-    sr.reveal(".scroll-reveal")
+  sr.reveal('.scroll-reveal')
 })()
