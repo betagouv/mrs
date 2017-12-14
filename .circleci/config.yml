@@ -85,6 +85,12 @@ jobs:
         keys:
         - test-dependencies-{{ checksum "tox.ini" }}
     - run:
+        name: npm environment setup
+        command: 'sudo npm install -g npm@latest'
+    - run:
+        name: npm pack
+        command: 'npm pack'
+    - run:
         name: tox environment setup
         command: pip install --user tox && ~/.local/bin/tox -e py36-dj20 --notest
     - save_cache:
