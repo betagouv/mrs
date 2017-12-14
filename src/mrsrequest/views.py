@@ -38,7 +38,26 @@ class MRSRequestCreateView(generic.FormView):
 
 
 class MRSFileDeleteView(generic.DeleteView):
-    '''AJAX File delete receiver view.'''
+    '''
+    AJAX File delete receiver view.
+
+    This requires the model manager to have an allowed_objects() method taking
+    a request object argument and returning a queryset of objects which the
+    user is allowed to delete, it will then get the object from the queryset
+    using the pk argument. Define your URL as such::
+
+        path(
+            '<pk>/delete',
+            MRSFileDeleteView.as_view(model=YourModel),
+            name='yourmodel_delete'
+        ),
+
+    Note that this should require a request to be allowed for the
+    mrsrequest_uuid via the ``MRSRequest.allow(request)`` call, but it's left
+    at the discretion of the developer to use
+    ``MRSRequest.objects.allowed_objects()`` in their ``allowed_objects()``
+    implementation.
+    '''
 
     def get_object(self):
         '''
@@ -60,7 +79,25 @@ class MRSFileDeleteView(generic.DeleteView):
 
 
 class MRSFileUploadView(generic.View):
-    '''AJAX File upload receiver view.'''
+    '''
+    AJAX File upload receiver view.
+
+    This requires the model manager to have an record_upload() method taking
+    an MRSRequest object argument and a FormFile argument which must insert the
+    object in the database and return it. Define your URL as such::
+
+        path(
+            '<mrsrequest_uuid>/upload',
+            MRSFileUploadView.as_view(model=YourModel),
+            name='yourmodel_upload'
+        ),
+
+    The object also needs a get_delete_url() method which will be returned in
+    the response payload.
+
+    Note that this requires a request to be allowed for the mrsrequest_uuid via
+    the ``MRSRequest.allow(request)`` call.
+    '''
     model = None
 
     def post(self, request, *args, **kwargs):
