@@ -8,6 +8,7 @@ urlpatterns = [
         url=reverse_lazy('mrsrequest_create'))
     ),
     path('request/', include('mrsrequest.urls')),
+    path('pmt/', include('pmt.urls')),
     path('admin/', admin.site.urls),
 ]
 

@@ -7,6 +7,8 @@ class MRSRequestCreateForm(forms.Form):
     CERTIFY_LABEL = ("J'atteste sur l'honneur l'exactitude des renseignements"
                      " portés ci-dessus")
 
+    id = forms.CharField(widget=forms.HiddenInput)
+
     pmt = forms.FileField(
         label='Préscription Médicale de Transport',
     )
