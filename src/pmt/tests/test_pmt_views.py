@@ -19,6 +19,7 @@ from pmt.models import PMT
 
 @pytest.fixture
 def mrsrequest():
+    MRSRequest.objects.all().delete()
     return MRSRequest.objects.create(id=uuid.uuid4())
 
 

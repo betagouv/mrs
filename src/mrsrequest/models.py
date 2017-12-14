@@ -72,9 +72,9 @@ class MRSRequest(models.Model):
     objects = MRSRequestManager()
 
     def is_allowed(self, request):
-        return self.id in request.session.get(self.SESSION_KEY, {})
+        return str(self.id) in request.session.get(self.SESSION_KEY, {})
 
     def allow(self, request):
         if self.SESSION_KEY not in request.session:
             request.session[self.SESSION_KEY] = {}
-        request.session[self.SESSION_KEY][self.id] = dict()
+        request.session[self.SESSION_KEY][str(self.id)] = dict()
