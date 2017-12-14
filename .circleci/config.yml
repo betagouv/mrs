@@ -29,19 +29,26 @@ workflows:
       - python-qa
       - python-test
       - docker-build
+      - js-qa
+      - js-test
       - jpic:
-          requires: [build]
+          requires: [docker-build]
           filters:
             branches:
               only: [jpic]
       - tbinetruy:
-          requires: [build]
+          requires: [docker-build]
           filters:
             branches:
               only: [tbinetruy]
       - staging:
           <<: *master_template
-          requires: [build, test, qa]
+          requires:
+          - python-qa
+          - python-test
+          - docker-build
+          - js-qa
+          - js-test
       - validate-staging:
           <<: *master_template
           type: approval
@@ -87,7 +94,24 @@ jobs:
         name: run qa checks
         command: ~/.local/bin/tox -e py36-dj20
 
-  node-test:
+  js-qa:
+    docker:
+    - image: circleci/node:4.8.2
+    steps:
+    - restore_cache:
+        key: dependency-cache-jslint
+    - run:
+        name: install jslint
+        command: npm install jslint
+    - save_cache:
+        key: dependency-cache-jslint
+        paths:
+          - ./node_modules
+    - run:
+        name: test
+        command: ./node_modules/.bin/jslint src/mrs/static/js
+
+  js-test:
     docker:
     - image: circleci/node:4.8.2
     steps:
@@ -98,7 +122,7 @@ jobs:
         key: dependency-cache-{{ checksum "package.json" }}
     - run:
         name: install-npm-wee
-        command: npm install
+        command: npm install --dev
     - save_cache:
         key: dependency-cache-{{ checksum "package.json" }}
         paths:
