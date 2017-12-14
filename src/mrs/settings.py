@@ -233,6 +233,13 @@ else:
 
 if DEBUG:
     try:
+        import dbdiff  # noqa
+    except ImportError:
+        pass
+    else:
+        INSTALLED_APPS += ('dbdiff',)
+
+    try:
         import debug_toolbar  # noqa
     except ImportError:
         pass

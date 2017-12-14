@@ -40,7 +40,7 @@ Après une mise à jour de votre copie du code::
     # Eventuellement éffacer la base de données
     rm -rf src/db.sqlite
 
-    # Migrations DB, JS, et serveur de test
+    # Migrations DB, JS, et serveur de test, et npm watch
     mrs dev
 
 Tester
@@ -48,11 +48,20 @@ Tester
 
 Executer les tests contre Django 2.0 avec la commande suivante::
 
+    # python-test
     tox -e py36-dj20
 
-Executer l'analyse du code::
-
+    # python-qa
     tox -e qa
+
+    # docker-build
+    docker build .
+
+    # js-test
+    npm test
+
+    # js-qa
+    jslint src/mrs/static/js
 
 Ressources
 ==========
