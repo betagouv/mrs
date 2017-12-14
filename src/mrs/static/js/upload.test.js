@@ -47,9 +47,6 @@ describe('FileSelect.success()', () => {
     deleteUrl: '/delete'
   }
 
-  beforeAll(async () => {
-  })
-
   test('Updates the DOM propoerly', () => {
     const assertFile = (file, index) => {
       const fileName = el.querySelectorAll('li')[index].querySelector('span').innerHTML
@@ -67,8 +64,56 @@ describe('FileSelect.success()', () => {
 
 })
 
-describe('FileSelect.error() updates DOM', () => {
+describe('FileSelect.deleteSuccess()', () => {
+  const { JSDOM } = jsdom
+  const file1 = fileFixture('file1.jpeg')
+  const deleteUrl1 = '/delete1'
+  const file2 = fileFixture('file2.jpeg')
+  const deleteUrl2 = '/delete2'
 
+  const createUl = (file, deleteUrl) => {
+    return `
+      <li>
+        <span>${ file.name }</span>
+        <a href="${ deleteUrl }">
+          delete
+        </a>
+      </li>
+    `
+  }
+
+  const dom = new JSDOM(
+    '<input type="file" />'
+    + '<ul>'
+    + createUl(file1, deleteUrl1)
+    + createUl(file2, deleteUrl2)
+    + '</ul>'
+  )
+
+  const el = dom.window.document.body
+  const subject = fileSelectFactory(undefined, undefined, el, false)
+
+  test('updates DOM properly', () => {
+    const assertDelete = (deleteUrl, testResult) => {
+      const li = el.querySelectorAll('li a[href="' + deleteUrl + '"]')
+      // numbers of <li> with link matching deleteUrl
+      const nLi = li.length
+
+      expect(nLi).toBe(testResult)
+    }
+
+    assertDelete(deleteUrl1, 1)
+    assertDelete(deleteUrl2, 1)
+
+    subject.deleteSuccess(deleteUrl1)
+    assertDelete(deleteUrl1, 0)
+    assertDelete(deleteUrl2, 1)
+
+    subject.deleteSuccess(deleteUrl2)
+    assertDelete(deleteUrl1, 0)
+    assertDelete(deleteUrl2, 0)
+
+  })
 })
 
 describe('FileSelect.upload() success', () => {
