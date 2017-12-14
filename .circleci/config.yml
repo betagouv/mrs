@@ -11,7 +11,7 @@ version: 2
   - restore_cache:
       keys: [ansible]
   - deploy:
-      name: deploy
+      name: DEPLOY sh -> ansible-playbook
       command: ./.circleci/deploy.sh
   - save_cache:
       key: ansible
@@ -75,6 +75,7 @@ jobs:
     - run:
         name: run qa checks
         command: ~/.local/bin/tox -e qa
+
   python-test:
     docker:
     - image: circleci/python:3.6.1
@@ -85,60 +86,57 @@ jobs:
         keys:
         - test-dependencies-{{ checksum "tox.ini" }}
     - run:
-        name: npm environment setup
-        command: 'sudo npm install -g npm@latest'
-    - run:
-        name: npm pack
-        command: 'npm pack'
-    - run:
-        name: tox environment setup
+        name: Tox environment setup
         command: pip install --user tox && ~/.local/bin/tox -e py36-dj20 --notest
     - save_cache:
         paths: [.tox/py36-dj20, ~/.local, ~/.cache/pip]
         key: test-dependencies-{{ checksum "tox.ini" }}
     - run:
-        name: run qa checks
-        command: ~/.local/bin/tox -e py36-dj20
+        name: TEST tox -e py36-dj20
+        command: |
+          ~/.local/bin/tox -e py36-dj20
+          .tox/py36-dj20/bin/codecov --token $CODECOV_TOKEN -e $TOXENV
 
   js-qa:
     docker:
-    - image: circleci/node:4.8.2
+    - image: circleci/node:8
     steps:
+    - checkout
     - restore_cache:
         key: dependency-cache-jslint
     - run:
-        name: install jslint
-        command: npm install jslint
+        name: NPM install standard
+        command: npm install standard
     - save_cache:
         key: dependency-cache-jslint
         paths:
           - ./node_modules
     - run:
-        name: test
-        command: ./node_modules/.bin/jslint src/mrs/static/js
+        name: RUN standard
+        command: ./node_modules/.bin/standard
 
   js-test:
     docker:
-    - image: circleci/node:4.8.2
+    - image: circleci/node:8
     steps:
+    - checkout
     - run:
-        name: update-npm
+        name: NPM update
         command: 'sudo npm install -g npm@latest'
     - restore_cache:
         key: dependency-cache-{{ checksum "package.json" }}
     - run:
-        name: install-npm-wee
+        name: NPM install --dev
         command: npm install --dev
     - save_cache:
         key: dependency-cache-{{ checksum "package.json" }}
         paths:
           - ./node_modules
     - run:
-        name: test
-        command: npm test
-    - run:
-        name: code-coverage
-        command: './node_modules/.bin/nyc report --reporter=lcov | codecov'
+        name: Npm test & coverage upload
+        command: |
+          npm test
+          ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
 
   docker-build:
     docker:
@@ -148,12 +146,12 @@ jobs:
     - setup_remote_docker:
         docker_layer_caching: true
     - run:
-        name: Build application Docker image
+        name: DOCKER build
         command: |
           docker pull betagouv/mrs:$CIRCLE_BRANCH || true
           docker build -t betagouv/mrs:$CIRCLE_SHA1 .
     - deploy:
-        name: Push application Docker image
+        name: DOCKER image push betagouv/mrs:{{ .Branch }} & betagouv/mrs:{{ .Environment.CIRCLE_SHA1 }} tags
         command: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push betagouv/mrs:$CIRCLE_SHA1
