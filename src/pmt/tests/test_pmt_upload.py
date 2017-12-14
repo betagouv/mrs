@@ -10,8 +10,8 @@ import pytest
 
 from django import http
 
-from mrsrequest.tests.utils import sessions, upload_request
-from mrsrequest.views import MRSFileDeleteView, MRSFileUploadView
+from mrsattachment.tests.utils import sessions, upload_request
+from mrsattachment.views import MRSFileDeleteView, MRSFileUploadView
 from pmt.models import PMT
 
 
