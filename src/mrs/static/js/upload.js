@@ -93,7 +93,9 @@ class FileSelect {
     const ul = this.el.childNodes[2]
     ul.innerHTML += (
       '<li>'
+        + '<span>'
         + file.name
+        + '</span>'
         + '<a href="' + response.deleteUrl + '">'
         + 'remove'
         + '</a>'
