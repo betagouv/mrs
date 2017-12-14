@@ -18,14 +18,13 @@ def test_pmt_get_delete_url():
 def test_pmtmanager_record_upload(rf, mrsrequest):
     '''Test record_upload()'''
     with io.BytesIO(b'lol') as f:
-        f.name = 'lol.jpg'
         upload = upload_request(rf, id, f).FILES['file']
         result = PMT.objects.record_upload(mrsrequest, upload)
 
     assert isinstance(result, PMT)
     assert result.pk
     assert result.mrsrequest.id == mrsrequest.id
-    assert result.filename == 'lol.jpg'
+    assert result.filename == '1.png'
     assert result.binary == b'lol'
 
 
