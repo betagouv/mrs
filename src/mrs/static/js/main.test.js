@@ -7,18 +7,30 @@ const nock = require('nock')
 // error = error callback
 class FileSelect {
     constructor() {
-        this.errorMsg = 'Erreur'
+        this.errorMsg = {
+            mimeType: 'Mime type not valid',
+        }
         this.validMimeTypes = [
             'image/jpeg',
         ]
+        this.maxFileSize = Math.pow(10, 7) // 10 MB
+    }
+
+    mimeTypeValidate(mimeType) {
+        return this.validMimeTypes.indexOf(mimeType) >= 0
+    }
+
+    fileSizeValidate(size) {
+        return size <= this.maxFileSize
     }
 
     async upload(file) {
         // validation (type, size)
-        let validated = false
+        let validated = true
 
-        if(file.type === this.validMimeTypes[0])
-            validated = true
+        if(!this.mimeTypeValidate(file.type)) {
+            return this.error(this.errorMsg.mimeType)
+        }
 
         // request
         if(validated) {
@@ -26,7 +38,6 @@ class FileSelect {
                 const resp  = await fetch('url.fausseurl')
 
                 this.success(file, resp)
-
             } catch (e) {
                 // request error (only take httpError)
                 this.error(e)
@@ -68,7 +79,7 @@ const fileFixture = (fileName = 'file.jpeg', type = 'image/jpeg') => {
 }
 
 
-describe('file upload', () => {
+describe('file upload success', () => {
     const file = fileFixture()
 
     const subject = new FileSelect()
@@ -97,3 +108,27 @@ describe('file upload', () => {
 
     // check expect(li.innerHTML).toBe(filename etc)
 });
+
+describe('test mimeTypeValidate', () => {
+    const file = new FileSelect()
+
+    test('validate mime type', () => {
+        expect(file.mimeTypeValidate('image/jpeg')).toBe(true)
+    })
+
+    test('does not validate mime type', () => {
+        expect(file.mimeTypeValidate('audio/mpeg3')).toBe(false)
+    })
+})
+
+describe('test file size', () => {
+    const file = new FileSelect()
+
+    test('file size valid', () => {
+        expect(file.fileSizeValidate(100)).toBe(true)
+    })
+
+    test('file size not valid', () => {
+        expect(file.fileSizeValidate(10000000000000)).toBe(false)
+    })
+})
