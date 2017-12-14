@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'pmt',
     'mrs',
     'mrsrequest',
+    'mrsattachment',
 
     'django.contrib.admin',
     'django.contrib.auth',

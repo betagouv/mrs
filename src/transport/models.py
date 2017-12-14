@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
-from mrsrequest.models import MRSAttachement, MRSRequest
+from mrsattachment.models import MRSAttachment
+from mrsrequest.models import MRSRequest
 
 
 class Transport(models.Model):
@@ -51,12 +52,12 @@ class BillManager(models.Manager):
                 mrsrequest=mrsrequest)[0],
             defaults=dict(
                 filename=str(upload),
-                binary=MRSAttachement.get_upload_body(upload),
+                binary=MRSAttachment.get_upload_body(upload),
             )
         )[0]
 
 
-class Bill(MRSAttachement):
+class Bill(MRSAttachment):
     transport = models.ForeignKey(
         'Transport',
         on_delete=models.CASCADE,
