@@ -28,7 +28,6 @@ class Bill(MRSAttachement):
         'Transport',
         on_delete=models.CASCADE,
     )
-    filename = models.CharField(max_length=255)
     binary = models.BinaryField(
         verbose_name='Justificatif de Transport')
 
