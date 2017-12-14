@@ -8,8 +8,6 @@ from django.urls import reverse
 from mrsrequest.tests.utils import sessions, upload_request
 from pmt.models import PMT
 
-from pmt.tests.test_pmt_views import mrsrequest, pmt  # noqa
-
 
 def test_pmt_get_delete_url():
     assert PMT(id=3).get_delete_url() == reverse('pmt_delete', args=[3])
