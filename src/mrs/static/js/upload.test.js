@@ -27,6 +27,7 @@ const fileSelectFactory = (putUrl, csrfToken, el, withMock=true) => {
 
   subject.success = jest.fn()
   subject.error = jest.fn()
+  subject.deleteSuccess = jest.fn()
 
   return subject
 }
@@ -224,18 +225,39 @@ describe('FileSelect.deleteRequest()', () => {
     method: 'DELETE'
   }
 
-  beforeAll(async () => {
-    const file = fileSelectFactory()
+
+  test('creates delete request with correct url and options', async () => {
+    const subject = fileSelectFactory()
 
     window.fetch = jest.fn()
     const fileObject = fileFixture()
 
+    await subject.deleteRequest(deleteUrl)
 
-    await file.deleteRequest(deleteUrl)
+    expect(window.fetch.mock.calls).toEqual([[deleteUrl, deleteOptions]])
   })
 
-  test('creates delete request with correct url and options', () => {
-    expect(window.fetch.mock.calls).toEqual([[deleteUrl, deleteOptions]])
+  test('calls this.deleteSuccess() with correct arguments', async () => {
+    const subject = fileSelectFactory()
+    window.fetch = jest.fn().mockImplementation(
+      () => Promise.resolve()
+    )
+
+    await subject.deleteRequest(deleteUrl)
+    expect(subject.deleteSuccess.mock.calls).toEqual([[deleteUrl]])
+    expect(subject.error.mock.calls).toEqual([])
+  })
+
+  test('calls this.error() with correct arguments', async () => {
+    const subject = fileSelectFactory()
+    const error = 'delete error msg'
+    window.fetch = jest.fn().mockImplementation(
+      () => Promise.reject(error)
+    )
+
+    await subject.deleteRequest(deleteUrl)
+    expect(subject.deleteSuccess.mock.calls).toEqual([])
+    expect(subject.error.mock.calls).toEqual([[error]])
   })
 })
 
