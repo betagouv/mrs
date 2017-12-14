@@ -32,7 +32,6 @@ const fileSelectFactory = (putUrl, csrfToken, el, withMock=true) => {
 }
 
 describe('FileSelect.success()', () => {
-  // create vdom and mock comp
   const { JSDOM } = jsdom
   const dom = new JSDOM(`
     <input type="file" />
@@ -41,7 +40,8 @@ describe('FileSelect.success()', () => {
   `)
 
   const el = dom.window.document.body
-  const file = fileFixture()
+  const file1 = fileFixture()
+  const file2 = fileFixture('foo.jpeg')
   const subject = fileSelectFactory(undefined, undefined, el, false)
   const response = {
     deleteUrl: '/delete'
@@ -51,23 +51,18 @@ describe('FileSelect.success()', () => {
   })
 
   test('Updates the DOM propoerly', () => {
-    const li = (
-      '<li>'
-      + file.name
-      + '<a href="' + response.deleteUrl + '">'
-      + 'remove'
-      + '</a>'
-      + '</li>'
-    )
+    const assertFile = (file, index) => {
+      const fileName = el.querySelectorAll('li')[index].querySelector('span').innerHTML
+      const href = el.querySelectorAll('li a[href="' + response.deleteUrl + '"]')[index].getAttribute('href')
+      expect(fileName).toBe(file.name)
+      expect(href).toBe(response.deleteUrl)
+    }
 
-    subject.success(file, response)
-    expect(el.childNodes[2].innerHTML).toBe(li)
+    subject.success(file1, response)
+    assertFile(file1, 0)
 
-    subject.success(file, response)
-    expect(el.childNodes[2].innerHTML).toBe(li + li)
-
-    subject.success(file, response)
-    expect(el.childNodes[2].innerHTML).toBe(li + li + li)
+    subject.success(file2, response)
+    assertFile(file2, 1)
   })
 
 })
