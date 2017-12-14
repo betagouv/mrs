@@ -23,6 +23,7 @@
     "babel-loader": "^7.1.2",
     "jest": "^21.2.1",
     "jsdom": "^11.5.1",
+    "nock": "^9.1.4",
     "webpack": "^3.10.0",
     "webpack-bundle-tracker": "^0.2.0"
   },
