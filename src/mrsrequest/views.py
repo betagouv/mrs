@@ -2,7 +2,6 @@ import io
 import uuid
 
 from django import http
-from django.urls import reverse
 from django.views import generic
 
 from .forms import MRSRequestCreateForm
@@ -46,17 +45,23 @@ class MRSFileUploadMixin(object):
         self.uuid = kwargs['mrsrequest_uuid']
 
         if not MRSRequest(id=self.uuid).is_allowed(request):
-            return http.HttpResponseBadRequest()
-        mrsrequest, created = MRSRequest.objects.get_or_create(
+            return http.HttpResponseBadRequest('Token de formulaire invalidé')
+
+        if 'file' not in request.FILES:
+            return http.HttpResponseBadRequest('Pas de fichier reçu')
+
+        self.mrsrequest, created = MRSRequest.objects.get_or_create(
             id=self.uuid,
         )
-        obj = self.create_obj(
-            mrsrequest,
-            request.FILES['file'],
+        self.upload = request.FILES['file']
+        self.object = self.create_object()
+
+        return http.JsonResponse(
+            dict(
+                deleteUrl=self.object.get_delete_url()
+            ),
+            status=201,
         )
-        return http.JsonResponse(dict(
-            deleteUrl=reverse('pmt_delete', args=[obj.pk]),
-        ))
 
     def get_upload_body(self, f):
         body = io.BytesIO()

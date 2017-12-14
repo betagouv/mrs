@@ -11,11 +11,11 @@ class PMTDeleteView(generic.DeleteView):
 
 
 class PMTUploadView(MRSFileUploadMixin, generic.View):
-    def create_obj(self, mrsrequest, upload):
+    def create_object(self):
         return PMT.objects.update_or_create(
-            mrsrequest=mrsrequest,
+            mrsrequest=self.mrsrequest,
             defaults=dict(
-                filename=str(upload),
-                binary=self.get_upload_body(upload),
+                filename=str(self.upload),
+                binary=self.get_upload_body(self.upload),
             )
         )[0]
