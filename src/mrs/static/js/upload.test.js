@@ -3,8 +3,6 @@
 const jsdom = require('jsdom')
 const nock = require('nock')
 const FileSelect = require('./upload.js')
-// const FileSelect = upload.FileSelect
-console.log(FileSelect)
 
 const fileFixture = (
   fileName = 'file.jpeg',
@@ -32,28 +30,28 @@ const fileSelectFactory = () => {
 describe('FileSelect.upload() success', () => {
   const file = fileFixture()
   const subject = fileSelectFactory()
-
-  // Mock request
   const response = {
     deleteUrl: '/delete'
   }
 
-  window.fetch = jest.fn().mockImplementation(
-    () => Promise.resolve(response)
-  )
+  beforeAll(async () => {
+    window.fetch = jest.fn().mockImplementation(
+      () => Promise.resolve(response)
+    )
 
-  subject.upload(file)
+    await subject.upload(file)
+  })
 
   test('FileSelect.success() should be called', () => {
     expect(subject.success.mock.calls).toEqual([[file, response]])
   })
 
-  test('FileSelect.error() should never be called', () => {
+  test('FileSelect.error() should not be called', () => {
     expect(subject.error.mock.calls).toEqual([])
   })
 })
 
-describe('FileSelect.upload() error: file too large', () => {
+describe('FileSelect.upload() validation error: file too large', () => {
   const file = fileFixture(undefined, undefined, 1000000000)
   const subject = fileSelectFactory()
 
@@ -63,12 +61,12 @@ describe('FileSelect.upload() error: file too large', () => {
     expect(subject.success.mock.calls).toEqual([])
   })
 
-  test('FileSelect.error() should never be called', () => {
+  test('FileSelect.error() should be called', () => {
     expect(subject.error.mock.calls).toEqual([[subject.errorMsg.fileSize]])
   })
 })
 
-describe('FileSelect.upload() error: invalid file mime type', () => {
+describe('FileSelect.upload() validation error: invalid file mime type', () => {
   const file = fileFixture(undefined, 'audio/mpeg3')
   const subject = fileSelectFactory()
 
@@ -78,8 +76,32 @@ describe('FileSelect.upload() error: invalid file mime type', () => {
     expect(subject.success.mock.calls).toEqual([])
   })
 
-  test('FileSelect.error() should never be called', () => {
+  test('FileSelect.error() should be called', () => {
     expect(subject.error.mock.calls).toEqual([[subject.errorMsg.mimeType]])
+  })
+})
+
+describe('FileSelect.upload() request error', () => {
+  const errMsg = 0
+  const file = fileFixture()
+  const subject = fileSelectFactory()
+
+  beforeAll(async () => {
+    window.fetch = jest.fn().mockImplementation(
+      () => Promise.reject(errMsg)
+    )
+
+    await subject.upload(file)
+  })
+
+  test('FileSelect.success() should not be called',() => {
+
+    expect(subject.success.mock.calls).toEqual([])
+  })
+
+  test('FileSelect.error() should be called', () => {
+
+    expect(subject.error.mock.calls).toEqual([[errMsg]])
   })
 })
 
@@ -108,18 +130,22 @@ describe('FileSelect.isFileValid()', () => {
 })
 
 describe('FileSelect.deleteRequest()', () => {
-  const file = new FileSelect()
+  const deleteUrl = '/delete'
+  const deleteOptions = {
+    method: 'DELETE'
+  }
+
+  beforeAll(async () => {
+    const file = new FileSelect()
+
+    window.fetch = jest.fn()
+    const fileObject = fileFixture()
+
+
+    await file.deleteRequest(deleteUrl)
+  })
 
   test('creates delete request with correct url and options', () => {
-    const fileObject = fileFixture()
-    window.fetch = jest.fn()
-
-    const deleteUrl = 'url'
-    const deleteOptions = {
-      method: 'DELETE'
-    }
-    file.deleteRequest(deleteUrl)
-
     expect(window.fetch.mock.calls).toEqual([[deleteUrl, deleteOptions]])
   })
 })
@@ -129,15 +155,17 @@ describe('FileSelect.putRequest()', () => {
   const csrfToken = 123
   const file = new FileSelect(putUrl, csrfToken)
 
-  test('posts to correct url', () => {
-    const fileObject = fileFixture()
+  beforeAll(async () => {
     window.fetch = jest.fn()
+    const fileObject = fileFixture()
 
     const putOptions = {
       method: 'POST'
     }
-    file.putRequest()
+    await file.putRequest()
+  })
 
+  test('posts to correct url', () => {
     // fetch is called with correct URL as first param
     expect(window.fetch.mock.calls[0][0]).toEqual(putUrl)
   })
