@@ -1,6 +1,10 @@
 *.sqlite3
 *.pyc
 *.egg-info
+.cache
+.coverage
+coverage.xml
+mrs-*.tgz
 .tox
 src/collected
 src/mrs/static/webpack_bundles/
