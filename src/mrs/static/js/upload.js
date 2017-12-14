@@ -7,7 +7,7 @@ class FileSelect {
   constructor (putUrl, csrftoken, el) {
     this.errorMsg = {
       mimeType: 'Mime type not valid',
-      fileSize: 'File too large'
+      fileSize: 'File too large',
     }
     this.validMimeTypes = [
       'image/jpeg'
@@ -18,19 +18,22 @@ class FileSelect {
     this.el = el
   }
 
-  // file mime type (string)
-  // private, tested through this.validateFile
+  //// validate file MIME type
+  //// private, tested through this.validateFile
+  // mimeType (string): file mime type
   mimeTypeValidate (mimeType) {
     return this.validMimeTypes.indexOf(mimeType) >= 0
   }
 
-  // file size (bytes)
-  // private, tested through this.validateFile
+  //// Validate file size
+  //// private, tested through this.validateFile
+  // size (int): file size (bytes)
   fileSizeValidate (size) {
     return size <= this.maxFileSize
   }
 
-  // file object
+  //// Upload file validation
+  // file (file object): upload file object
   isFileValid (file) {
     if (!this.mimeTypeValidate(file.type)) {
       this.error(this.errorMsg.mimeType)
@@ -45,7 +48,8 @@ class FileSelect {
     return true
   }
 
-  // file = file object
+  //// make upload file request
+  // file (file object): file to upload
   async putRequest (file) {
     const data = new FormData()
     data.append('file', file)
@@ -64,7 +68,8 @@ class FileSelect {
     return await fetch(this.putUrl, putOptions)
   }
 
-  // delete url for file (string)
+  // Send delete file request
+  // deleteUrl (string): delete url for file
   async deleteRequest (deleteUrl) {
     const deleteOptions = {
       method: 'DELETE'
@@ -79,6 +84,7 @@ class FileSelect {
     }
   }
 
+  //// Upload file
   // file = file object
   async upload (file) {
     // request
@@ -93,6 +99,8 @@ class FileSelect {
     }
   }
 
+  //// delete file success
+  // deleteUrl (string): url endpoint to delete file
   deleteSuccess(deleteUrl) {
     const { el } = this
     const elToRemove = el.querySelector('li a[href="' + deleteUrl + '"]')
@@ -100,6 +108,7 @@ class FileSelect {
     elToRemove.parentNode.parentNode.removeChild(elToRemove.parentNode)
   }
 
+  //// upload file success
   // file = file object
   // response = ajax response
   success (file, response) {
@@ -120,7 +129,8 @@ class FileSelect {
     ul.innerHTML = ul.innerHTML.substr(i, ul.innerHTML.length - 1)
   }
 
-  // error => error exception
+  //// upload file error
+  // error (object): error exception
   error (error) {
     // Add error to <li> (display only httpErrors)
     console.log(error)
