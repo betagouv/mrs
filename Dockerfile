@@ -1,26 +1,33 @@
 FROM ubuntu:artful
 
-RUN apt-get update -y && apt-get upgrade -y && apt-get install -y python3-pip python3-psycopg2 unzip uwsgi-plugin-python3 uwsgi wget cron dumb-init
-RUN useradd -md /code uwsgi
-ENV STATIC_ROOT /code/static
-RUN mkdir -p ${STATIC_ROOT}
-RUN pip3 install --upgrade pip
-ADD requirements.txt /code/requirements.txt
-RUN pip3 install --upgrade -r /code/requirements.txt
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y python3-pip python3-psycopg2 unzip uwsgi-plugin-python3 uwsgi wget curl cron dumb-init
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get install -y nodejs
 
-ADD setup.py /code/setup.py
-ADD src /code/src
-RUN chown -R uwsgi. /code
-RUN pip3 install --editable /code
+RUN useradd -md /code uwsgi
+WORKDIR /code
 
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE mrs.settings
 ENV VIRTUAL_PROTO uwsgi
+EXPOSE 6789
+
+ENV STATIC_ROOT /code/static
+RUN mkdir -p ${STATIC_ROOT}
+ADD package.json /code
+RUN npm install
+RUN pip3 install --upgrade pip
+ADD requirements.txt /code/requirements.txt
+RUN pip3 install --upgrade -r /code/requirements.txt
+ADD src/mrs/static /code/src/mrs/static
+RUN npm pack
+
+ADD setup.py /code/setup.py
+ADD src /code/src
+RUN pip3 install --editable /code
 
 # Use DEBUG here to inhibate security checks in settings for this command
 RUN DEBUG=1 django-admin collectstatic --noinput --clear
-
-EXPOSE 6789
 
 CMD /usr/bin/dumb-init uwsgi \
   --socket=0.0.0.0:6789 \
