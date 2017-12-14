@@ -9,6 +9,7 @@ urlpatterns = [
     ),
     path('request/', include('mrsrequest.urls')),
     path('pmt/', include('pmt.urls')),
+    path('transport/', include('transport.urls')),
     path('admin/', admin.site.urls),
 ]
 
