@@ -21,9 +21,11 @@
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-loader": "^7.1.2",
+    "codecov": "^3.0.0",
     "jest": "^21.2.1",
     "jsdom": "^11.5.1",
     "nock": "^9.1.4",
+    "nyc": "^11.3.0",
     "webpack": "^3.10.0",
     "webpack-bundle-tracker": "^0.2.0"
   },

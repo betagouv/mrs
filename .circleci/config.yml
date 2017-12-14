@@ -26,9 +26,9 @@ workflows:
   version: 2
   pipeline:
     jobs:
-      - qa
-      - test
-      - build
+      - python-qa
+      - python-test
+      - docker-build
       - jpic:
           requires: [build]
           filters:
@@ -51,7 +51,7 @@ workflows:
           requires: [validate-staging]
 
 jobs:
-  qa:
+  python-qa:
     docker:
     - image: circleci/python:3.6.1
     steps:
@@ -68,7 +68,7 @@ jobs:
     - run:
         name: run qa checks
         command: ~/.local/bin/tox -e qa
-  test:
+  python-test:
     docker:
     - image: circleci/python:3.6.1
     working_directory: ~/repo
@@ -87,7 +87,30 @@ jobs:
         name: run qa checks
         command: ~/.local/bin/tox -e py36-dj20
 
-  build:
+  node-test:
+    docker:
+    - image: circleci/node:4.8.2
+    steps:
+    - run:
+        name: update-npm
+        command: 'sudo npm install -g npm@latest'
+    - restore_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+    - run:
+        name: install-npm-wee
+        command: npm install
+    - save_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+        paths:
+          - ./node_modules
+    - run:
+        name: test
+        command: npm test
+    - run:
+        name: code-coverage
+        command: './node_modules/.bin/nyc report --reporter=lcov | codecov'
+
+  docker-build:
     docker:
     - image: docker:17.05.0-ce-git
     steps:
