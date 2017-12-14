@@ -70,7 +70,13 @@ class FileSelect {
       method: 'DELETE'
     }
 
-    return await fetch(deleteUrl, deleteOptions)
+    try {
+      await fetch(deleteUrl, deleteOptions)
+
+      this.deleteSuccess(deleteUrl)
+    } catch (e) {
+      this.error(e)
+    }
   }
 
   // file = file object
@@ -87,19 +93,26 @@ class FileSelect {
     }
   }
 
+  deleteSuccess(deleteUrl) {
+    const { el } = this
+    const elToRemove = el.querySelector('li a[href="' + deleteUrl + '"]')
+
+    elToRemove.parentNode.parentNode.removeChild(elToRemove.parentNode)
+  }
+
   // file = file object
   // response = ajax response
   success (file, response) {
     const ul = this.el.childNodes[2]
     ul.innerHTML += (
       '<li>'
-        + '<span>'
-        + file.name
-        + '</span>'
-        + '<a href="' + response.deleteUrl + '">'
-        + 'remove'
-        + '</a>'
-        + '</li>'
+      + '<span>'
+      + file.name
+      + '</span>'
+      + '<a href="' + response.deleteUrl + '">'
+      + 'remove'
+      + '</a>'
+      + '</li>'
     )
 
     // formatting ul.innerHTML as 1 liner
