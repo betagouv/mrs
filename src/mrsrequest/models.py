@@ -1,3 +1,4 @@
+import io
 import uuid
 
 from django.db import models
@@ -14,8 +15,24 @@ class MRSAttachement(models.Model):
     class Meta:
         abstract = True
 
+    @classmethod
+    def get_upload_body(cls, upload):
+        body = io.BytesIO()
+        for chunk in upload.chunks():
+            body.write(chunk)
+        body.seek(0)  # rewind read point to beginning of registry
+        return body.read()
+
+
+class MRSRequestManager(models.Manager):
+    def allowed_objects(self, request):
+        session = getattr(request, 'session', {})
+        return self.filter(id__in=session.get(self.model.SESSION_KEY, []))
+
 
 class MRSRequest(models.Model):
+    SESSION_KEY = 'MRSRequest.ids'
+
     STATUS_NEW = 0
     STATUS_VALIDATED = 1
     STATUS_REJECTED = 2
@@ -52,10 +69,12 @@ class MRSRequest(models.Model):
         default=0,
     )
 
+    objects = MRSRequestManager()
+
     def is_allowed(self, request):
-        return self.id in request.session.get('MRSRequest.ids', {})
+        return self.id in request.session.get(self.SESSION_KEY, {})
 
     def allow(self, request):
-        if 'MRSRequest.ids' not in request.session:
-            request.session['MRSRequest.ids'] = {}
-        request.session['MRSRequest.ids'][self.id] = dict()
+        if self.SESSION_KEY not in request.session:
+            request.session[self.SESSION_KEY] = {}
+        request.session[self.SESSION_KEY][self.id] = dict()
