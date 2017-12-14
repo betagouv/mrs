@@ -5,7 +5,7 @@ from freezegun import freeze_time
 
 from django.urls import reverse
 
-from mrsrequest.tests.utils import sessions, upload_request
+from mrsattachment.tests.utils import sessions, upload_request
 from pmt.models import PMT
 
 

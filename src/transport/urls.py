@@ -1,6 +1,6 @@
 from django.urls import path
 
-from mrsrequest.views import MRSFileDeleteView, MRSFileUploadView
+from mrsattachment.views import MRSFileDeleteView, MRSFileUploadView
 
 from .models import Bill
 

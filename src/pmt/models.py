@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
-from mrsrequest.models import MRSRequest, MRSAttachement
+from mrsattachment.models import MRSAttachment
+from mrsrequest.models import MRSRequest
 
 
 class PMTManager(models.Manager):
@@ -16,12 +17,12 @@ class PMTManager(models.Manager):
             mrsrequest=mrsrequest,
             defaults=dict(
                 filename=str(upload),
-                binary=MRSAttachement.get_upload_body(upload),
+                binary=MRSAttachment.get_upload_body(upload),
             )
         )[0]
 
 
-class PMT(MRSAttachement):
+class PMT(MRSAttachment):
     mrsrequest = models.ForeignKey(
         'mrsrequest.MRSRequest',
         on_delete=models.CASCADE,
