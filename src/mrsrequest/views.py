@@ -1,4 +1,3 @@
-import io
 import uuid
 
 from django import http
@@ -38,34 +37,50 @@ class MRSRequestCreateView(generic.FormView):
         return http.HttpResponseCreated('Merci!')
 
 
-class MRSFileUploadMixin(object):
+class MRSFileDeleteView(generic.DeleteView):
+    '''AJAX File delete receiver view.'''
+
+    def get_object(self):
+        '''
+        Use model.objects.allowed_objects(requset).
+
+        This sets the base queryset which get_object() will use.
+        '''
+        try:
+            return self.model.objects.allowed_objects(self.request).get(
+                pk=self.kwargs['pk'])
+        except self.model.DoesNotExist:
+            raise http.Http404()
+
+    def delete(self, request, *args, **kwargs):
+        '''Delete the object and return OK response.'''
+        self.object = self.get_object()
+        self.object.delete()
+        return http.HttpResponse()
+
+
+class MRSFileUploadView(generic.View):
+    '''AJAX File upload receiver view.'''
+    model = None
+
     def post(self, request, *args, **kwargs):
+        '''Verify uuid and call model.objects.record_upload().'''
+
         if 'mrsrequest_uuid' not in kwargs:
             return http.HttpResponseBadRequest('Nous avons perdu le UUID')
-        self.uuid = kwargs['mrsrequest_uuid']
+        mrsrequest_uuid = kwargs['mrsrequest_uuid']
 
-        if not MRSRequest(id=self.uuid).is_allowed(request):
+        if not MRSRequest(id=mrsrequest_uuid).is_allowed(request):
             return http.HttpResponseBadRequest('Token de formulaire invalidé')
 
         if 'file' not in request.FILES:
             return http.HttpResponseBadRequest('Pas de fichier reçu')
 
-        self.mrsrequest, created = MRSRequest.objects.get_or_create(
-            id=self.uuid,
-        )
-        self.upload = request.FILES['file']
-        self.object = self.create_object()
+        mrsrequest = MRSRequest.objects.get_or_create(id=mrsrequest_uuid)[0]
+        upload = request.FILES['file']
+        record = self.model.objects.record_upload(mrsrequest, upload)
 
         return http.JsonResponse(
-            dict(
-                deleteUrl=self.object.get_delete_url()
-            ),
+            dict(deleteUrl=record.get_delete_url()),
             status=201,
         )
-
-    def get_upload_body(self, f):
-        body = io.BytesIO()
-        for chunk in f.chunks():
-            body.write(chunk)
-        body.seek(0)  # rewind read point to beginning of registry
-        return body.read()

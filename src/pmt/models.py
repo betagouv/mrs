@@ -1,7 +1,24 @@
 from django.db import models
 from django.urls import reverse
 
-from mrsrequest.models import MRSAttachement
+from mrsrequest.models import MRSRequest, MRSAttachement
+
+
+class PMTManager(models.Manager):
+    def allowed_objects(self, request):
+        '''Return PMT QuerySet allowed for this request.'''
+        mrsrequests = MRSRequest.objects.allowed_objects(request)
+        return self.model.objects.filter(mrsrequest__in=mrsrequests)
+
+    def record_upload(self, mrsrequest, upload):
+        '''Create a PMT object from the upload.'''
+        return PMT.objects.update_or_create(
+            mrsrequest=mrsrequest,
+            defaults=dict(
+                filename=str(upload),
+                binary=MRSAttachement.get_upload_body(upload),
+            )
+        )[0]
 
 
 class PMT(MRSAttachement):
@@ -11,6 +28,8 @@ class PMT(MRSAttachement):
     )
     binary = models.BinaryField(
         verbose_name='Prescription Médicale de Transport')
+
+    objects = PMTManager()
 
     def get_delete_url(self):
         return reverse('pmt_delete', args=[self.pk])

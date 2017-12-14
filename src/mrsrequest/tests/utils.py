@@ -1,4 +1,15 @@
+import uuid
+
 from django.urls import reverse
+
+from mrsrequest.models import MRSRequest
+
+
+sessions = [
+    {},
+    {MRSRequest.SESSION_KEY: {}},
+    {MRSRequest.SESSION_KEY: {str(uuid.uuid4()): dict()}},
+]
 
 
 def upload_request(rf, id, file):
