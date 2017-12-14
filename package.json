@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack --config webpack.config.js --watch",
     "prepare": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,8 @@
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-loader": "^7.1.2",
+    "jest": "^21.2.1",
+    "jsdom": "^11.5.1",
     "webpack": "^3.10.0",
     "webpack-bundle-tracker": "^0.2.0"
   },
