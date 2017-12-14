@@ -49,6 +49,9 @@ describe('FileSelect.success()', () => {
   }
 
   test('Updates the DOM propoerly', () => {
+    //// check file name and delete url in DOM for given <li> index
+    // file (file object): contains filename
+    // index (int): index of <li> to test
     const assertFile = (file, index) => {
       const fileName = el.querySelectorAll('li')[index].querySelector('span').innerHTML
       const href = el.querySelectorAll('li a[href="' + response.deleteUrl + '"]')[index].getAttribute('href')
@@ -95,12 +98,14 @@ describe('FileSelect.deleteSuccess()', () => {
   const subject = fileSelectFactory(undefined, undefined, el, false)
 
   test('updates DOM properly', () => {
-    const assertDelete = (deleteUrl, testResult) => {
+    //// tests how many <li> have a child with href=deleteUrl
+    // deleteUrl (string): file delete url
+    // elementCount (int): expected <li> count
+    const assertDelete = (deleteUrl, elementCount) => {
       const li = el.querySelectorAll('li a[href="' + deleteUrl + '"]')
-      // numbers of <li> with link matching deleteUrl
       const nLi = li.length
 
-      expect(nLi).toBe(testResult)
+      expect(nLi).toBe(elementCount)
     }
 
     assertDelete(deleteUrl1, 1)
@@ -224,7 +229,6 @@ describe('FileSelect.deleteRequest()', () => {
   const deleteOptions = {
     method: 'DELETE'
   }
-
 
   test('creates delete request with correct url and options', async () => {
     const subject = fileSelectFactory()

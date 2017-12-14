@@ -68,7 +68,7 @@ class FileSelect {
     return await fetch(this.putUrl, putOptions)
   }
 
-  // Send delete file request
+  //// Send delete file request
   // deleteUrl (string): delete url for file
   async deleteRequest (deleteUrl) {
     const deleteOptions = {
