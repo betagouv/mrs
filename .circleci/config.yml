@@ -113,7 +113,7 @@ jobs:
           - ./node_modules
     - run:
         name: RUN standard
-        command: ./node_modules/.bin/standard
+        command: npm lint -- ./src/mrs/static/js/
 
   js-test:
     docker:
