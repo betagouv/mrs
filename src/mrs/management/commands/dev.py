@@ -9,7 +9,6 @@ from django.apps import apps
 from django.conf import settings
 from django.core.management import call_command
 from django.core.management.commands.runserver import Command
-from django.core.management.base import BaseCommand
 
 
 def rnpw(num=18):
