@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack --config webpack.config.js",
     "prepare": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -22,10 +23,10 @@
     "babel": "^6.23.0",
     "babel-loader": "^7.1.2",
     "codecov": "^3.0.0",
+    "eslint": "^4.13.1",
     "jest": "^21.2.1",
     "jsdom": "^11.5.1",
     "nock": "^9.1.4",
-    "standard": "^10.0.3",
     "webpack": "^3.10.0",
     "webpack-bundle-tracker": "^0.2.0"
   },
