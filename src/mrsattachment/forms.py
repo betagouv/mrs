@@ -1,8 +1,6 @@
 from django import forms
 from django.urls import reverse
 
-from threadlocals.threadlocals import get_current_request
-
 from mrsrequest.forms import MRSRequestFormMixin
 
 
@@ -14,17 +12,22 @@ class MRSAttachmentWidget(forms.FileInput):
 
     @property
     def attrs(self):
-        request = get_current_request()
         self._attrs = self._attrs or {}
 
-        if request:
-            self._attrs.update({
-                'data-max-files': self.max_files,
-                'data-upload-url': reverse(
-                    self.url_name,
-                    args=[request.mrsrequest_uuid]
-                )
-            })
+        if getattr(self, 'view', False):
+            # Should be set by MRSAttachementFormMixin.factory
+
+            request = self.view.request
+            mrsrequest_uuid = getattr(request, 'mrsrequest_uuid', False)
+
+            if mrsrequest_uuid:
+                self._attrs.update({
+                    'data-max-files': self.max_files,
+                    'data-upload-url': reverse(
+                        self.url_name,
+                        args=[mrsrequest_uuid]
+                    )
+                })
         return self._attrs
 
     @attrs.setter
@@ -37,14 +40,14 @@ class MRSAttachementFormMixin(MRSRequestFormMixin):
     def factory(cls, view):
         attrs = dict(view=view)
 
+        attachment_fields = [
+            name for name, field in cls.base_fields.items()
+            if isinstance(field.widget, MRSAttachmentWidget)
+        ]
+
         if view.request.method == 'POST':
             # Un-define fields with MRSAttachmentWidget from Form class
             # because it's dealt with in AJAX
-            attachment_fields = [
-                name for name, field in cls.base_fields.items()
-                if isinstance(field.widget, MRSAttachmentWidget)
-            ]
-
             cls = type(
                 cls.__name__,
                 (cls,),
@@ -59,5 +62,8 @@ class MRSAttachementFormMixin(MRSRequestFormMixin):
             view.request.POST or None,
             prefix=cls.__name__.lower(),
         )
+
+        for field in attachment_fields:
+            form.fields[field].widget.view = view
 
         return form
