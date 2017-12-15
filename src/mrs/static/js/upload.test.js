@@ -1,6 +1,7 @@
 /* global describe, jest, test, expect */
 
 const jsdom = require('jsdom')
+const { JSDOM } = jsdom
 const nock = require('nock')
 const FileSelect = require('./upload.js')
 
@@ -36,7 +37,6 @@ const fileSelectFactory = (putUrl, csrfToken, el, errorClass, withMock=true) => 
 }
 
 describe('FileSelect.showError() and FileSelect.hideError()', () => {
-  const { JSDOM } = jsdom
   const errorClass = 'error'
   const dom = new JSDOM(`
     <input type="file" />
@@ -93,7 +93,6 @@ describe('FileSelect.error()', () => {
 })
 
 describe('FileSelect.updateErrorMsg()', () => {
-  const { JSDOM } = jsdom
   const errorClass = 'error'
   const dom = new JSDOM(`
     <input type="file" />
@@ -121,7 +120,6 @@ describe('FileSelect.updateErrorMsg()', () => {
 })
 
 describe('FileSelect.success()', () => {
-  const { JSDOM } = jsdom
   const dom = new JSDOM(`
     <input type="file" />
     <ul>
@@ -157,7 +155,6 @@ describe('FileSelect.success()', () => {
 })
 
 describe('FileSelect.deleteSuccess()', () => {
-  const { JSDOM } = jsdom
   const file1 = fileFixture('file1.jpeg')
   const deleteUrl1 = '/delete1'
   const file2 = fileFixture('file2.jpeg')
