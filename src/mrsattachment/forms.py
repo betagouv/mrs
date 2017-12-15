@@ -12,19 +12,24 @@ class MRSAttachmentWidget(forms.FileInput):
         self.max_files = max_files
         super().__init__()
 
-    def render(self, name, value, attrs=None, renderer=None):
-        self.attrs = self.attrs or {}
+    @property
+    def attrs(self):
         request = get_current_request()
+        self._attrs = self._attrs or {}
 
-        self.attrs.update({
-            'data-max-files': self.max_files,
-            'data-upload-url': reverse(
-                self.url_name,
-                args=[request.mrsrequest_uuid]
-            )
-        })
+        if request:
+            self._attrs.update({
+                'data-max-files': self.max_files,
+                'data-upload-url': reverse(
+                    self.url_name,
+                    args=[request.mrsrequest_uuid]
+                )
+            })
+        return self._attrs
 
-        return super().render(name, value, attrs=attrs, renderer=renderer)
+    @attrs.setter
+    def attrs(self, value):
+        self._attrs = value
 
 
 class MRSAttachementFormMixin(MRSRequestFormMixin):
