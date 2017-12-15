@@ -38,32 +38,33 @@ class MRSAttachmentWidget(forms.FileInput):
 class MRSAttachementFormMixin(MRSRequestFormMixin):
     @classmethod
     def factory(cls, view):
-        attrs = dict(view=view)
-
+        # List of field names which have widget=MRSAttachmentWidget
         attachment_fields = [
             name for name, field in cls.base_fields.items()
             if isinstance(field.widget, MRSAttachmentWidget)
         ]
 
+        attrs = dict(view=view)
         if view.request.method == 'POST':
             # Un-define fields with MRSAttachmentWidget from Form class
             # because it's dealt with in AJAX
-            cls = type(
-                cls.__name__,
-                (cls,),
-                {
-                    field: None for field in attachment_fields
-                }.update(attrs),
-            )
-        else:
-            cls = type(cls.__name__, (cls,), attrs)
+            attrs.update({
+                field: None for field in attachment_fields
+            })
 
+        # Create a Form subclass on the fly with our attrs
+        cls = type(cls.__name__, (cls,), attrs)
+
+        # Instanciate our form subclass created above with a prefix for mixing
+        # forms on the same page
         form = cls(
-            view.request.POST or None,
+            view.request.POST if view.request.method == 'POST' else None,
             prefix=cls.__name__.lower(),
         )
 
-        for field in attachment_fields:
-            form.fields[field].widget.view = view
+        if view.request.method != 'POST':
+            # Set field widget view attribute if we haven't canceled them above
+            for field in attachment_fields:
+                form.fields[field].widget.view = view
 
         return form
