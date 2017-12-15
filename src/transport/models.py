@@ -12,11 +12,11 @@ class Transport(models.Model):
     )
 
     date_depart = models.DateField(
-        verbose_name='Date d\'aller',
+        verbose_name='Date du trajet aller',
         null=True
     )
     date_return = models.DateField(
-        verbose_name='Date de retour',
+        verbose_name='Date du trajet retour',
         null=True
     )
     distance = models.IntegerField(
@@ -27,7 +27,11 @@ class Transport(models.Model):
     expense = models.DecimalField(
         decimal_places=2, max_digits=6,
         blank=True, default=0,
-        verbose_name='Montant total des frais (parking et/ ou péage)'
+        verbose_name='Montant total des frais',
+        help_text=(
+            'Montant total des frais (parking et/ou péage ou '
+            'justificatif(s) de transport en commun)'
+        )
     )
 
     class Meta:
