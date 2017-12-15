@@ -49,9 +49,13 @@ class Command(Command):
 
             os.unlink(watch)
 
+        npmroot = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), '../' * 4))
+
         process = subprocess.Popen(
             ['npm start -- --watch'],
             shell=True,
+            cwd=npmroot,
         )
         with open(watch, 'w+') as f:
             f.write(str(process.pid))
