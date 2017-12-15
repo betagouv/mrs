@@ -1,9 +1,8 @@
 /* global describe, jest, test, expect */
 
-const jsdom = require('jsdom')
+import jsdom from 'jsdom'
 const { JSDOM } = jsdom
-const nock = require('nock')
-const FileSelect = require('./upload.js')
+import FileSelect from './upload.js'
 
 const fileFixture = (
   fileName = 'file.jpeg',
