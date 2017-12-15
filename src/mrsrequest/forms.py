@@ -1,7 +1,5 @@
 from django import forms
 
-import material
-
 
 class MRSRequestFormMixin(object):
     @classmethod
