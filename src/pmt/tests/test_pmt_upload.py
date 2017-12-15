@@ -10,18 +10,16 @@ import pytest
 
 from django import http
 
-from mrsattachment.tests.utils import sessions, upload_request
+from mrsattachment.tests.utils import upload_request
 from mrsattachment.views import MRSFileDeleteView, MRSFileUploadView
 from pmt.models import PMT
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("session", sessions)
-def test_pmtdeleteview_security_allow(rf, mrsrequest, pmt, session):
+def test_pmtdeleteview_security_allow(srf, mrsrequest, pmt):
     '''Should let me delete PMT of my MRSRequest.'''
     view = MRSFileDeleteView.as_view(model=PMT)
-    request = rf.delete(pmt.get_delete_url())
-    request.session = session
+    request = srf.delete(pmt.get_delete_url())
 
     # Test Deny
     with pytest.raises(http.Http404):
@@ -40,16 +38,14 @@ def test_pmtdeleteview_security_allow(rf, mrsrequest, pmt, session):
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("session", sessions)
-def test_pmtuploadview_security(rf, mrsrequest, session):
+def test_pmtuploadview_security(srf, mrsrequest):
     '''Should let me upload PMT if to my MRSRequest otherwise update.'''
 
     upload_view = MRSFileUploadView.as_view(model=PMT)
 
     with io.BytesIO(b'lol') as f:
         f.name = '1.png'
-        request = upload_request(rf, mrsrequest.id, f)
-        request.session = session
+        request = upload_request(srf, mrsrequest.id, f)
 
         # Test deny
         response = upload_view(request, mrsrequest_uuid=mrsrequest.id)
@@ -67,7 +63,7 @@ def test_pmtuploadview_security(rf, mrsrequest, session):
             'should have been updated')
 
         # Test update
-        request = upload_request(rf, mrsrequest.id, f, name='2.png')
+        request = upload_request(srf, mrsrequest.id, f, name='2.png')
         mrsrequest.allow(request)
         response = upload_view(request, mrsrequest_uuid=mrsrequest.id)
         assert PMT.objects.first().filename == '2.png', (
