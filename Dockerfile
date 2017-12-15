@@ -21,7 +21,7 @@ ADD requirements.txt /code/requirements.txt
 RUN pip3 install --upgrade -r /code/requirements.txt
 ADD webpack.config.js /code
 ADD src/mrs/static /code/src/mrs/static
-RUN npm pack
+RUN ./node_modules/.bin/webpack --config webpack.config.js
 
 ADD setup.py /code/setup.py
 ADD src /code/src
