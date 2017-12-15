@@ -6,6 +6,14 @@ Ceci est le projet de simplification de remboursements.
 Contribuer
 ==========
 
+Developpement en docker
+-----------------------
+
+Pour utiliser docker::
+
+    docker build -t mrs:mine .
+    docker run -e DEBUG=1 -p 8000:8000 -it mrs:mine mrs dev 0:8000
+
 Installer
 ---------
 
