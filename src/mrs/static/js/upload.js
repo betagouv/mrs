@@ -5,7 +5,8 @@ class FileSelect {
   // csrftoken (string): csrf token
   // el (dom element object): file input element to add msgs to
   // errorClass (string): error div classname
-  constructor (putUrl, csrftoken, el, errorClass='error') {
+  // multiple (bool): true to allow multiple files to be uploaded
+  constructor (putUrl, csrftoken, el, errorClass='error', multiple=true) {
     this.errorMsg = {
       mimeType: 'Mime type not valid',
       fileSize: 'File too large',
@@ -19,6 +20,7 @@ class FileSelect {
     this.el = el
     this.errorClass = errorClass
     this.hideErrorClassName = 'hidden'
+    this.multiple = multiple
   }
 
   //// validate file MIME type
@@ -71,15 +73,19 @@ class FileSelect {
     return await fetch(this.putUrl, putOptions)
   }
 
-  //// Send delete file request
-  // deleteUrl (string): delete url for file
-  async deleteRequest (deleteUrl) {
+  async deleteRequest(deleteUrl) {
     const deleteOptions = {
       method: 'DELETE'
     }
 
+    return await fetch(deleteUrl, deleteOptions)
+  }
+
+  //// Send delete file request
+  // deleteUrl (string): delete url for file
+  async deleteFile(deleteUrl) {
     try {
-      await fetch(deleteUrl, deleteOptions)
+      await this.deleteRequest(deleteUrl)
 
       this.deleteSuccess(deleteUrl)
     } catch (e) {
@@ -88,9 +94,8 @@ class FileSelect {
   }
 
   //// Upload file
-  // file = file object
-  async upload (file) {
-    // request
+  // file (file object): file to upload
+  async upload(file) {
     if (this.isFileValid(file)) {
       try {
         const resp = await this.putRequest()
@@ -111,21 +116,34 @@ class FileSelect {
     elToRemove.parentNode.parentNode.removeChild(elToRemove.parentNode)
   }
 
+  createLiElement(fileName, deleteUrl) {
+    return (
+      '<li>'
+      + '<span>'
+      + fileName
+      + '</span>'
+      + '<a href="' + deleteUrl + '">'
+      + 'remove'
+      + '</a>'
+      + '</li>'
+    )
+  }
+
+  insertLiElement(parentEl, innerHTML) {
+    if(this.multiple) {
+      parentEl.innerHTML += innerHTML
+    } else {
+      parentEl.innerHTML = innerHTML
+    }
+  }
+
   //// upload file success
   // file = file object
   // response = ajax response
   success (file, response) {
     const ul = this.getFilesElement()
-    ul.innerHTML += (
-      '<li>'
-      + '<span>'
-      + file.name
-      + '</span>'
-      + '<a href="' + response.deleteUrl + '">'
-      + 'remove'
-      + '</a>'
-      + '</li>'
-    )
+    const li = this.createLiElement(file.name, response.deleteUrl)
+    this.insertLiElement(ul, li)
 
     // formatting ul.innerHTML as 1 liner
     var i = ul.innerHTML.indexOf('<');
