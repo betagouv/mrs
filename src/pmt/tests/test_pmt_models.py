@@ -5,7 +5,7 @@ from freezegun import freeze_time
 
 from django.urls import reverse
 
-from mrsattachment.tests.utils import sessions, upload_request
+from mrsattachment.tests.utils import upload_request
 from pmt.models import PMT
 
 
@@ -29,10 +29,8 @@ def test_pmtmanager_record_upload(rf, mrsrequest):
 
 
 @pytest.mark.django_db  # noqa
-@pytest.mark.parametrize("session", sessions)
-def test_pmtmanager_allowed_objects(rf, pmt, session):
-    request = rf.get('/')
-    request.session = session
+def test_pmtmanager_allowed_objects(srf, pmt):
+    request = srf.get('/')
 
     # Test Deny
     assert PMT.objects.allowed_objects(request).count() == 0

@@ -4,7 +4,7 @@ import json
 import mock
 import pytest
 
-from mrsattachment.tests.utils import sessions, upload_request
+from mrsattachment.tests.utils import upload_request
 from mrsattachment.views import MRSFileDeleteView, MRSFileUploadView
 from mrsrequest.models import MRSRequest
 
@@ -38,8 +38,7 @@ def test_mrsfiledeleteview_allowed_objects_usage(rf):
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("session", sessions)
-def test_mrsfileuploadview_security(rf, id, session):
+def test_mrsfileuploadview_security(srf, id):
     '''Save upload if request had MRSRequest.allow(request).'''
     record = type(
         'TestModel',
@@ -55,8 +54,7 @@ def test_mrsfileuploadview_security(rf, id, session):
     with io.BytesIO(b'test_mrsfileuploadview_security') as f:
         f.name = 'test_mrsfileuploadview_security.jpg'
 
-        request = upload_request(rf, id, f)
-        request.session = session
+        request = upload_request(srf, id, f)
 
         # Test deny
         response = view(request, mrsrequest_uuid=id)

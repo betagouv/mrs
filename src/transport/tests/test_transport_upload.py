@@ -10,18 +10,16 @@ import pytest
 
 from django import http
 
-from mrsattachment.tests.utils import sessions, upload_request
+from mrsattachment.tests.utils import upload_request
 from mrsattachment.views import MRSFileDeleteView, MRSFileUploadView
 from transport.models import Bill
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("session", sessions)
-def test_billdeleteview_security_allow(rf, mrsrequest, bill, session):
+def test_billdeleteview_security_allow(srf, mrsrequest, bill):
     '''Should let me delete Bills of my MRSRequest.'''
     view = MRSFileDeleteView.as_view(model=Bill)
-    request = rf.delete(bill.get_delete_url())
-    request.session = session
+    request = srf.delete(bill.get_delete_url())
 
     # Test Deny
     with pytest.raises(http.Http404):
@@ -40,15 +38,13 @@ def test_billdeleteview_security_allow(rf, mrsrequest, bill, session):
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("session", sessions)
-def test_billuploadview_security(rf, mrsrequest, session):
+def test_billuploadview_security(srf, mrsrequest):
     '''Should let me upload Bill on my MRSRequest otherwise update.'''
 
     upload_view = MRSFileUploadView.as_view(model=Bill)
 
     with io.BytesIO(b'lol') as f:
-        request = upload_request(rf, mrsrequest.id, f)
-        request.session = session
+        request = upload_request(srf, mrsrequest.id, f)
 
         # Test deny
         response = upload_view(request, mrsrequest_uuid=mrsrequest.id)
@@ -66,7 +62,7 @@ def test_billuploadview_security(rf, mrsrequest, session):
             'should have been updated')
 
         # Test update
-        request = upload_request(rf, mrsrequest.id, f, name='2.png')
+        request = upload_request(srf, mrsrequest.id, f, name='2.png')
         mrsrequest.allow(request)
         response = upload_view(request, mrsrequest_uuid=mrsrequest.id)
         assert Bill.objects.first().filename == '2.png', (
