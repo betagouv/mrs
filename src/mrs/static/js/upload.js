@@ -130,6 +130,8 @@ class FileSelect {
     // formatting ul.innerHTML as 1 liner
     var i = ul.innerHTML.indexOf('<');
     ul.innerHTML = ul.innerHTML.substr(i, ul.innerHTML.length - 1)
+
+    this.hideError()
   }
 
   //// upload file error
