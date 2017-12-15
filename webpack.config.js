@@ -3,7 +3,7 @@ var BundleTracker = require('webpack-bundle-tracker')
 
 module.exports = {
   context: __dirname,
-  entry: './src/mrs/static/js/main',
+  entry: ['babel-polyfill', './src/mrs/static/js/main'],
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
     filename: '[name]-[hash].js'
