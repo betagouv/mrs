@@ -31,26 +31,30 @@ class Command(BaseCommand):
             sys.exit(1)
 
         if pid == 0:
-            watch = '.npm-watch.pid'
-            if os.path.exists(watch):
-                with open(watch, 'r') as f:
-                    pid = f.read().strip()
-
-                if pid:
-                    pid = int(pid)
-                    if os.path.exists('/proc/{}'.format(pid)):
-                        os.kill(pid, 9)
-
-                os.unlink(watch)
-
-            process = subprocess.Popen(
-                ['npm start -- --watch'],
-                shell=True,
-            )
-            with open(watch, 'w+') as f:
-                f.write(str(process.pid))
+            self.webpackwatch()
         else:
             call_command('runserver')
+
+    def webpackwatch(self):
+        watch = '.npm-watch.pid'
+
+        if os.path.exists(watch):
+            with open(watch, 'r') as f:
+                pid = f.read().strip()
+
+            if pid:
+                pid = int(pid)
+                if os.path.exists('/proc/{}'.format(pid)):
+                    os.kill(pid, 9)
+
+            os.unlink(watch)
+
+        process = subprocess.Popen(
+            ['npm start -- --watch'],
+            shell=True,
+        )
+        with open(watch, 'w+') as f:
+            f.write(str(process.pid))
 
     def createsuperuser(self):
         user_model = apps.get_model(settings.AUTH_USER_MODEL)
