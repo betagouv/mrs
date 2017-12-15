@@ -20,17 +20,105 @@ const fileFixture = (
 }
 
 // withMock (bool): should return factory with mocked success/error methods
-const fileSelectFactory = (putUrl, csrfToken, el, withMock=true) => {
-  const subject = new FileSelect(putUrl, csrfToken, el, withMock)
+const fileSelectFactory = (putUrl, csrfToken, el, errorClass, withMock=true) => {
+  const subject = new FileSelect(putUrl, csrfToken, el, errorClass)
   if(!withMock)
     return subject
 
   subject.success = jest.fn()
   subject.error = jest.fn()
   subject.deleteSuccess = jest.fn()
+  subject.updateErrorMsg = jest.fn()
+  subject.showError = jest.fn()
+  subject.hideError = jest.fn()
 
   return subject
 }
+
+describe('FileSelect.showError() and FileSelect.hideError()', () => {
+  const { JSDOM } = jsdom
+  const errorClass = 'error'
+  const dom = new JSDOM(`
+    <input type="file" />
+    <div class="${ errorClass }">
+    </div>
+    <ul>
+    </ul>
+  `)
+  const el = dom.window.document.body
+
+
+  test('shows and hides error message to and from  DOM',  () => {
+    const _ = undefined
+    const subject = fileSelectFactory(_, _, el, _, false)
+    const errorElement = el.querySelector('.' + errorClass)
+    let errorClassNames = errorElement.className
+
+    subject.hideError()
+    expect(errorElement.className.includes(subject.hideErrorClassName)).toBe(true)
+
+    subject.showError()
+    expect(errorElement.className.includes(subject.hideErrorClassName)).toBe(false)
+
+  })
+})
+
+describe('FileSelect.error()', () => {
+  const getSubject = () => {
+    const _ = undefined
+    const subject = fileSelectFactory(_, _, _, _, false)
+    subject.updateErrorMsg = jest.fn()
+    subject.showError = jest.fn()
+
+    return subject
+  }
+
+  test('FileSelect.error() calls updateErrorMsg with correct param', () => {
+    const subject = getSubject()
+
+    const error = 'error'
+    const errorMsg = error
+
+    subject.error(error)
+    expect(subject.updateErrorMsg.mock.calls).toEqual([[errorMsg]])
+  })
+
+  test('FileSelect.error() calls showMessage()', () => {
+    const subject = getSubject()
+
+    subject.error('error')
+    expect(subject.showError.mock.calls).toEqual([[]])
+
+  })
+})
+
+describe('FileSelect.updateErrorMsg()', () => {
+  const { JSDOM } = jsdom
+  const errorClass = 'error'
+  const dom = new JSDOM(`
+    <input type="file" />
+    <div class="${ errorClass }">
+    </div>
+    <ul>
+    </ul>
+  `)
+  const el = dom.window.document.body
+
+
+  test('adds error message to DOM',  () => {
+    const subject = fileSelectFactory(undefined, undefined, el, errorClass, false)
+
+    const errorMsg1 = 'error1'
+    const errorMsg2 = 'error2'
+    const domErrorMsg = el.querySelector('.' + errorClass)
+
+    subject.updateErrorMsg(errorMsg1)
+    expect(domErrorMsg.innerHTML).toBe(errorMsg1)
+
+    subject.updateErrorMsg(errorMsg2)
+    expect(domErrorMsg.innerHTML).toBe(errorMsg2)
+  })
+})
 
 describe('FileSelect.success()', () => {
   const { JSDOM } = jsdom
@@ -43,7 +131,7 @@ describe('FileSelect.success()', () => {
   const el = dom.window.document.body
   const file1 = fileFixture()
   const file2 = fileFixture('foo.jpeg')
-  const subject = fileSelectFactory(undefined, undefined, el, false)
+  const subject = fileSelectFactory(undefined, undefined, el, undefined, false)
   const response = {
     deleteUrl: '/delete'
   }
@@ -95,7 +183,7 @@ describe('FileSelect.deleteSuccess()', () => {
   )
 
   const el = dom.window.document.body
-  const subject = fileSelectFactory(undefined, undefined, el, false)
+  const subject = fileSelectFactory(undefined, undefined, el, undefined, false)
 
   test('updates DOM properly', () => {
     //// tests how many <li> have a child with href=deleteUrl
