@@ -129,12 +129,20 @@ describe('FileSelect.success()', () => {
   const el = dom.window.document.body
   const file1 = fileFixture()
   const file2 = fileFixture('foo.jpeg')
-  const subject = fileSelectFactory(undefined, undefined, el, undefined, false)
   const response = {
     deleteUrl: '/delete'
   }
 
+  const getSubject = () => {
+    const subject = fileSelectFactory(undefined, undefined, el, undefined, false)
+    subject.hideError = jest.fn()
+
+    return subject
+  }
+
   test('Updates the DOM propoerly', () => {
+    const subject = getSubject()
+
     //// check file name and delete url in DOM for given <li> index
     // file (file object): contains filename
     // index (int): index of <li> to test
@@ -152,6 +160,13 @@ describe('FileSelect.success()', () => {
     assertFile(file2, 1)
   })
 
+  test('calls hideError', () => {
+    const subject = getSubject()
+
+    subject.success(file1, '/delete')
+
+    expect(subject.hideError.mock.calls).toEqual([[]])
+  })
 })
 
 describe('FileSelect.deleteSuccess()', () => {
