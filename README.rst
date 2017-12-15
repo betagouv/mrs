@@ -39,13 +39,13 @@ Après une mise à jour de votre copie du code::
     # Par example avec
     git fetch; git stash && git reset --hard origin/master && git stash apply
 
-    # Mettre à jour les librairies JS
+    # Mettre à jour les librairies JS, fixe de nouvelles erreurs JS
     npm install
 
-    # Mettre à jour les librairies Python
+    # Mettre à jour les librairies Python, fixe de nouvelles erreurs Python
     pip install -U --user -e .
 
-    # Eventuellement éffacer la base de données
+    # Eventuellement éffacer la base de données, fixe des erreurs de database
     rm -rf src/db.sqlite
 
     # Migrations DB, JS, et serveur de test, et npm watch
