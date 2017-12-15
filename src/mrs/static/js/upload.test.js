@@ -36,6 +36,9 @@ const fileSelectFactory = (putUrl, csrfToken, el, errorClass, withMock=true) => 
   return subject
 }
 
+describe('FileSelect.insertLiElement', () => {
+})
+
 describe('FileSelect.showError() and FileSelect.hideError()', () => {
   const errorClass = 'error'
   const dom = new JSDOM(`
@@ -324,7 +327,7 @@ describe('FileSelect.isFileValid()', () => {
   })
 })
 
-describe('FileSelect.deleteRequest()', () => {
+describe('FileSelect.deleteFile()', () => {
   const deleteUrl = '/delete'
   const deleteOptions = {
     method: 'DELETE'
@@ -336,7 +339,7 @@ describe('FileSelect.deleteRequest()', () => {
     window.fetch = jest.fn()
     const fileObject = fileFixture()
 
-    await subject.deleteRequest(deleteUrl)
+    await subject.deleteFile(deleteUrl)
 
     expect(window.fetch.mock.calls).toEqual([[deleteUrl, deleteOptions]])
   })
@@ -347,7 +350,7 @@ describe('FileSelect.deleteRequest()', () => {
       () => Promise.resolve()
     )
 
-    await subject.deleteRequest(deleteUrl)
+    await subject.deleteFile(deleteUrl)
     expect(subject.deleteSuccess.mock.calls).toEqual([[deleteUrl]])
     expect(subject.error.mock.calls).toEqual([])
   })
@@ -359,7 +362,7 @@ describe('FileSelect.deleteRequest()', () => {
       () => Promise.reject(error)
     )
 
-    await subject.deleteRequest(deleteUrl)
+    await subject.deleteFile(deleteUrl)
     expect(subject.deleteSuccess.mock.calls).toEqual([])
     expect(subject.error.mock.calls).toEqual([[error]])
   })
