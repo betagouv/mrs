@@ -55,7 +55,7 @@ class FileSelect {
 
   //// make upload file request
   // file (file object): file to upload
-  async putRequest (file) {
+  async putRequest(file) {
     const data = new FormData()
     data.append('file', file)
 
@@ -146,7 +146,7 @@ class FileSelect {
     this.insertLiElement(ul, li)
 
     // formatting ul.innerHTML as 1 liner
-    var i = ul.innerHTML.indexOf('<');
+    var i = ul.innerHTML.indexOf('<')
     ul.innerHTML = ul.innerHTML.substr(i, ul.innerHTML.length - 1)
 
     this.hideError()
@@ -190,4 +190,4 @@ class FileSelect {
   }
 }
 
-module.exports = FileSelect
+export default FileSelect
