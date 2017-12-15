@@ -7,7 +7,7 @@
     "start": "webpack --config webpack.config.js",
     "prepare": "webpack",
     "test": "jest",
-    "lint": "eslint"
+    "lint": "eslint ./src/mrs/static/js/"
   },
   "repository": {
     "type": "git",
