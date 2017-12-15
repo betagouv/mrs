@@ -4,7 +4,8 @@ class FileSelect {
   // putUrl (string): file upload url
   // csrftoken (string): csrf token
   // el (dom element object): file input element to add msgs to
-  constructor (putUrl, csrftoken, el) {
+  // errorClass (string): error div classname
+  constructor (putUrl, csrftoken, el, errorClass='error') {
     this.errorMsg = {
       mimeType: 'Mime type not valid',
       fileSize: 'File too large',
@@ -16,6 +17,8 @@ class FileSelect {
     this.putUrl = putUrl
     this.csrfToken = csrftoken
     this.el = el
+    this.errorClass = errorClass
+    this.hideErrorClassName = 'hidden'
   }
 
   //// validate file MIME type
@@ -102,8 +105,8 @@ class FileSelect {
   //// delete file success
   // deleteUrl (string): url endpoint to delete file
   deleteSuccess(deleteUrl) {
-    const { el } = this
-    const elToRemove = el.querySelector('li a[href="' + deleteUrl + '"]')
+    const filesElement = this.getFilesElement()
+    const elToRemove = filesElement.querySelector('a[href="' + deleteUrl + '"]')
 
     elToRemove.parentNode.parentNode.removeChild(elToRemove.parentNode)
   }
@@ -112,7 +115,7 @@ class FileSelect {
   // file = file object
   // response = ajax response
   success (file, response) {
-    const ul = this.el.childNodes[2]
+    const ul = this.getFilesElement()
     ul.innerHTML += (
       '<li>'
       + '<span>'
@@ -131,9 +134,39 @@ class FileSelect {
 
   //// upload file error
   // error (object): error exception
-  error (error) {
-    // Add error to <li> (display only httpErrors)
-    console.log(error)
+  error(error) {
+    const errorMsg = error
+    this.updateErrorMsg(errorMsg)
+    this.showError()
+  }
+
+  //// Returns DOM element containing error msg
+  getErrorElement() {
+    return this.el.querySelector('.' + this.errorClass)
+  }
+
+  //// Returns DOM element containing files list
+  getFilesElement() {
+    return this.el.querySelector('ul')
+  }
+
+  //// updates error field
+  // errorMsg (strin): error message
+  updateErrorMsg(errorMsg) {
+    const errorElement = this.getErrorElement()
+    errorElement.innerHTML = errorMsg
+  }
+
+  //// shows error message
+  showError() {
+    const errorElement = this.getErrorElement()
+    errorElement.classList.remove(this.hideErrorClassName)
+  }
+
+  //// hides error message
+  hideError() {
+    const errorElement = this.getErrorElement()
+    errorElement.classList.add(this.hideErrorClassName)
   }
 }
 
