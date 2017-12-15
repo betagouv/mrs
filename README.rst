@@ -58,7 +58,7 @@ Executer les tests contre Django 2.0 avec la commande suivante::
     docker build .
 
     # js-test
-    npm test
+    npm test -- --watch
 
     # js-qa
     jslint src/mrs/static/js
