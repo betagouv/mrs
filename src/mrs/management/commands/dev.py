@@ -31,12 +31,24 @@ class Command(BaseCommand):
             sys.exit(1)
 
         if pid == 0:
-            try:
-                print('Search npm process, if found, will print the id')
-                subprocess.check_call(['pgrep', '-f', 'npm'])
-            except subprocess.CalledProcessError:
-                print('npm process not found, executing npm start')
-                os.execvp('npm', ['npm', 'start'])
+            watch = '.npm-watch.pid'
+            if os.path.exists(watch):
+                with open(watch, 'r') as f:
+                    pid = f.read().strip()
+
+                if pid:
+                    pid = int(pid)
+                    if os.path.exists('/proc/{}'.format(pid)):
+                        os.kill(pid, 9)
+
+                os.unlink(watch)
+
+            process = subprocess.Popen(
+                ['npm start'],
+                shell=True,
+            )
+            with open(watch, 'w+') as f:
+                f.write(str(process.pid))
         else:
             call_command('runserver')
 
