@@ -8,6 +8,7 @@ import sys
 from django.apps import apps
 from django.conf import settings
 from django.core.management import call_command
+from django.core.management.commands.runserver import Command
 from django.core.management.base import BaseCommand
 
 
@@ -16,15 +17,15 @@ def rnpw(num=18):
         string.ascii_uppercase + string.digits) for _ in range(num))
 
 
-class Command(BaseCommand):
+class Command(Command):
     help = 'Migrate/Createsuperuser/Runserver&NPMWatch'
 
     def handle(self, *args, **options):
         call_command('migrate')
         self.createsuperuser()
-        self.runserver()
+        self.runserver(*args, **options)
 
-    def runserver(self):
+    def runserver(self, *args, **options):
         try:
             pid = os.fork()
         except OSError:
@@ -33,7 +34,7 @@ class Command(BaseCommand):
         if pid == 0:
             self.webpackwatch()
         else:
-            call_command('runserver')
+            return super().handle(*args, **options)
 
     def webpackwatch(self):
         watch = '.npm-watch.pid'
