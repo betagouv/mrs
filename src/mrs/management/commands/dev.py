@@ -44,7 +44,7 @@ class Command(BaseCommand):
                 os.unlink(watch)
 
             process = subprocess.Popen(
-                ['npm start'],
+                ['npm start -- --watch'],
                 shell=True,
             )
             with open(watch, 'w+') as f:
