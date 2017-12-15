@@ -12,7 +12,9 @@ class FileSelect {
       fileSize: 'File too large',
     }
     this.validMimeTypes = [
-      'image/jpeg'
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
     ]
     this.maxFileSize = Math.pow(10, 7) // 10 MB
     this.putUrl = putUrl
@@ -27,6 +29,7 @@ class FileSelect {
   //// private, tested through this.validateFile
   // mimeType (string): file mime type
   mimeTypeValidate (mimeType) {
+    // todo: print mimetypes to user if not valid
     return this.validMimeTypes.indexOf(mimeType) >= 0
   }
 
@@ -34,6 +37,7 @@ class FileSelect {
   //// private, tested through this.validateFile
   // size (int): file size (bytes)
   fileSizeValidate (size) {
+    // todo: print maxsize to user if not valid
     return size <= this.maxFileSize
   }
 
@@ -61,13 +65,13 @@ class FileSelect {
 
     const headers = {
       'X-CSRFToken': this.csrfToken,
-      'content-type': ''
     }
 
     const putOptions = {
       method: 'POST',
       headers,
-      body: data
+      body: data,
+      credentials: 'same-origin',
     }
 
     return await fetch(this.putUrl, putOptions)
@@ -98,7 +102,7 @@ class FileSelect {
   async upload(file) {
     if (this.isFileValid(file)) {
       try {
-        const resp = await this.putRequest()
+        const resp = await this.putRequest(file)
 
         this.success(file, resp)
       } catch (e) {

@@ -57,3 +57,7 @@ class MRSRequest(models.Model):
         if self.SESSION_KEY not in request.session:
             request.session[self.SESSION_KEY] = {}
         request.session[self.SESSION_KEY][str(self.id)] = dict()
+
+        # The above doesn't use the request.session setter, won't automatically
+        # trigger session save unless we do the following
+        request.session.modified = True
