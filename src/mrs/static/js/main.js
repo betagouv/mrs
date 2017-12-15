@@ -1,4 +1,3 @@
-import FileSelect from './upload.js'
 import ScrollReveal from 'scrollreveal'
 import $ from 'jquery'
 

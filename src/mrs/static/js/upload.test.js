@@ -54,7 +54,6 @@ describe('FileSelect.showError() and FileSelect.hideError()', () => {
     const _ = undefined
     const subject = fileSelectFactory(_, _, el, _, false)
     const errorElement = el.querySelector('.' + errorClass)
-    let errorClassNames = errorElement.className
 
     subject.hideError()
     expect(errorElement.className.includes(subject.hideErrorClassName)).toBe(true)
@@ -336,7 +335,6 @@ describe('FileSelect.deleteFile()', () => {
     const subject = fileSelectFactory()
 
     window.fetch = jest.fn()
-    const fileObject = fileFixture()
 
     await subject.deleteFile(deleteUrl)
 
@@ -374,11 +372,6 @@ describe('FileSelect.putRequest()', () => {
 
   beforeAll(async () => {
     window.fetch = jest.fn()
-    const fileObject = fileFixture()
-
-    const putOptions = {
-      method: 'POST'
-    }
     await file.putRequest()
   })
 
