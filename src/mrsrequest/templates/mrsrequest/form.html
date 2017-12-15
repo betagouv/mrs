@@ -4,8 +4,8 @@
 {% block content %}
 <form method="POST" class="mrsrequest">
     {% csrf_token %}
+    <input type="hidden" name="mrsrequest_uuid" value="{{ view.mrsrequest_uuid }}" />
 
-    <input type="hidden" name="mrsrequest_uuid" value="{{ view.id }}" />
     {% for form in view.forms.values %}
         {% form form=form %}{% endform %}
     {% endfor %}
