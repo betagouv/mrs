@@ -2,13 +2,16 @@
 {% load material_form %}
 
 {% block content %}
-<form
-    method="POST"
-    action="{{ request.path_info }}?uuid={{ view.uuid }}"
-    data-uuid="{{ view.uuid }}"
->
+<form method="POST" class="mrsrequest">
     {% csrf_token %}
-    {% form form=form %}{% endform %}
+
+    <input type="hidden" name="mrsrequest_uuid" value="{{ view.id }}" />
+    {% for form in view.forms.values %}
+        {% form form=form %}{% endform %}
+    {% endfor %}
+
+    <br />
+
     <button type="submit" name="_submit" class="btn">Submit</button>
 </form>
 {% endblock %}
