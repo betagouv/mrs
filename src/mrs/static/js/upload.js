@@ -58,32 +58,44 @@ class FileSelect {
     return true
   }
 
+  getRequestOptions() {
+    const headers = {
+      'X-CSRFToken': this.csrfToken,
+    }
+
+    return {
+      headers,
+      credentials: 'same-origin',
+    }
+  }
+
   //// make upload file request
   // file (file object): file to upload
   async putRequest(file) {
     const data = new FormData()
     data.append('file', file)
 
-    const headers = {
-      'X-CSRFToken': this.csrfToken,
-    }
-
     const putOptions = {
       method: 'POST',
-      headers,
       body: data,
-      credentials: 'same-origin',
+      ...this.getRequestOptions(),
     }
 
     return await fetch(this.putUrl, putOptions)
   }
 
   async deleteRequest(deleteUrl) {
-    const deleteOptions = {
-      method: 'DELETE'
+    const headers = {
+      'X-CSRFToken': this.csrfToken,
     }
 
-    return await fetch(deleteUrl, deleteOptions)
+    const deleteOptions = {
+      method: 'DELETE',
+      headers,
+      credentials: 'same-origin',
+    }
+
+    await fetch(deleteUrl, deleteOptions)
   }
 
   //// Send delete file request
@@ -104,8 +116,8 @@ class FileSelect {
     if (this.isFileValid(file)) {
       let resp
       try {
-        resp = await this.putRequest(file)
-
+        const _resp = await this.putRequest(file)
+        resp = await _resp.json(_resp)
       } catch (e) {
         this.error(e)
 
@@ -126,26 +138,35 @@ class FileSelect {
   }
 
   createLiElement(fileName, deleteUrl) {
-    return (
-      '<li>'
-      + '<span>'
+    const document = this.el.ownerDocument
+    const li = document.createElement('li')
+    li.innerHTML = (
+      '<span>'
       + fileName
       + '</span>'
-      + '<a href="' + deleteUrl + '">'
+      + '<a href="' + deleteUrl + '" class="delete-file">'
       + 'remove'
       + '</a>'
-      + '</li>'
     )
+
+    return li
   }
 
   insertLiElement(fileName, deleteUrl) {
-    const bindDeleteUrl = () => {}
+    const bindDeleteUrl = el => {
+      el.addEventListener('click', e => {
+        e.preventDefault()
+        this.deleteFile(deleteUrl)
+      })
+    }
 
     const ul = this.getFilesElement()
     const li = this.createLiElement(fileName, deleteUrl)
 
+    bindDeleteUrl(li)
+
     if(this.multiple) {
-      ul.innerHTML += li
+      ul.appendChild(li)
     } else {
       ul.innerHTML = li
     }
@@ -155,7 +176,7 @@ class FileSelect {
   // file = file object
   // response = ajax response
   success (file, response) {
-    this.insertLiElement(file.name, response.url)
+    this.insertLiElement(file.name, response.deleteUrl)
 
     this.hideError()
   }
