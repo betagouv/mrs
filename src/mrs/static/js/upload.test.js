@@ -139,13 +139,13 @@ describe('FileSelect.success()', () => {
     // index (int): index of <li> to test
     const assertFile = (file, index) => {
       const fileNamesElement = subject.getFilesElement()
-        const fileName = fileNamesElement
-          .querySelectorAll('li')[index]
-          .querySelector('span')
-          .innerHTML
-        const href = fileNamesElement
-          .querySelectorAll('li a[href="' + response.url + '"]')[index]
-          .getAttribute('href')
+      const fileName = fileNamesElement
+        .querySelectorAll('li')[index]
+        .querySelector('span')
+        .innerHTML
+      const href = fileNamesElement
+        .querySelectorAll('li a[href="' + response.url + '"]')[index]
+        .getAttribute('href')
       expect(fileName).toBe(file.name)
       expect(href).toBe(response.url)
     }
