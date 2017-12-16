@@ -19,6 +19,18 @@ const fileFixture = (
   }
 }
 
+const fileInputFixture = () => {
+  const dom = new JSDOM(`
+    <div>
+      <div>
+        <input type="file" />
+      </div>
+    </div>
+  `)
+
+  return dom.window.document.body.querySelector('input')
+}
+
 // withMock (bool): should return factory with mocked success/error methods
 const fileSelectFactory = (putUrl, csrfToken, el, errorClass, withMock=true) => {
   const subject = new FileSelect(putUrl, csrfToken, el, errorClass)
@@ -39,21 +51,12 @@ describe('FileSelect.insertLiElement', () => {
 })
 
 describe('FileSelect.showError() and FileSelect.hideError()', () => {
-  const errorClass = 'error'
-  const dom = new JSDOM(`
-    <input type="file" />
-    <div class="${ errorClass }">
-    </div>
-    <ul>
-    </ul>
-  `)
-  const el = dom.window.document.body
-
+  const el = fileInputFixture()
 
   test('shows and hides error message to and from  DOM',  () => {
     const _ = undefined
     const subject = fileSelectFactory(_, _, el, _, false)
-    const errorElement = el.querySelector('.' + errorClass)
+    const errorElement = subject.getErrorElement()
 
     subject.hideError()
     expect(errorElement.className.includes(subject.hideErrorClassName)).toBe(true)
@@ -95,14 +98,7 @@ describe('FileSelect.error()', () => {
 
 describe('FileSelect.updateErrorMsg()', () => {
   const errorClass = 'error'
-  const dom = new JSDOM(`
-    <input type="file" />
-    <div class="${ errorClass }">
-    </div>
-    <ul>
-    </ul>
-  `)
-  const el = dom.window.document.body
+  const el = fileInputFixture()
 
 
   test('adds error message to DOM',  () => {
@@ -110,7 +106,7 @@ describe('FileSelect.updateErrorMsg()', () => {
 
     const errorMsg1 = 'error1'
     const errorMsg2 = 'error2'
-    const domErrorMsg = el.querySelector('.' + errorClass)
+    const domErrorMsg = subject.getErrorElement()
 
     subject.updateErrorMsg(errorMsg1)
     expect(domErrorMsg.innerHTML).toBe(errorMsg1)
@@ -121,17 +117,11 @@ describe('FileSelect.updateErrorMsg()', () => {
 })
 
 describe('FileSelect.success()', () => {
-  const dom = new JSDOM(`
-    <input type="file" />
-    <ul>
-    </ul>
-  `)
-
-  const el = dom.window.document.body
+  const el = fileInputFixture()
   const file1 = fileFixture()
   const file2 = fileFixture('foo.jpeg')
   const response = {
-    deleteUrl: '/delete'
+    url: '/delete'
   }
 
   const getSubject = () => {
@@ -148,10 +138,16 @@ describe('FileSelect.success()', () => {
     // file (file object): contains filename
     // index (int): index of <li> to test
     const assertFile = (file, index) => {
-      const fileName = el.querySelectorAll('li')[index].querySelector('span').innerHTML
-      const href = el.querySelectorAll('li a[href="' + response.deleteUrl + '"]')[index].getAttribute('href')
+      const fileNamesElement = subject.getFilesElement()
+        const fileName = fileNamesElement
+          .querySelectorAll('li')[index]
+          .querySelector('span')
+          .innerHTML
+        const href = fileNamesElement
+          .querySelectorAll('li a[href="' + response.url + '"]')[index]
+          .getAttribute('href')
       expect(fileName).toBe(file.name)
-      expect(href).toBe(response.deleteUrl)
+      expect(href).toBe(response.url)
     }
 
     subject.success(file1, response)
@@ -176,34 +172,23 @@ describe('FileSelect.deleteSuccess()', () => {
   const file2 = fileFixture('file2.jpeg')
   const deleteUrl2 = '/delete2'
 
-  const createUl = (file, deleteUrl) => {
-    return `
-      <li>
-        <span>${ file.name }</span>
-        <a href="${ deleteUrl }">
-          delete
-        </a>
-      </li>
-    `
-  }
-
-  const dom = new JSDOM(
-    '<input type="file" />'
-      + '<ul>'
-      + createUl(file1, deleteUrl1)
-      + createUl(file2, deleteUrl2)
-      + '</ul>'
-  )
-
-  const el = dom.window.document.body
+  const el = fileInputFixture()
   const subject = fileSelectFactory(undefined, undefined, el, undefined, false)
+  subject.insertLiElement(
+    file1,
+    deleteUrl1
+  )
+  subject.insertLiElement(
+    file2,
+    deleteUrl2
+  )
 
   test('updates DOM properly', () => {
     //// tests how many <li> have a child with href=deleteUrl
     // deleteUrl (string): file delete url
     // elementCount (int): expected <li> count
     const assertDelete = (deleteUrl, elementCount) => {
-      const li = el.querySelectorAll('li a[href="' + deleteUrl + '"]')
+      const li = subject.getFilesElement().querySelectorAll('li a[href="' + deleteUrl + '"]')
       const nLi = li.length
 
       expect(nLi).toBe(elementCount)

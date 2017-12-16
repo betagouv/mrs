@@ -21,6 +21,7 @@ class FileSelect {
     this.csrfToken = csrftoken
     this.el = el
     this.errorClass = errorClass
+    this.filesClass = 'files'
     this.hideErrorClassName = 'hidden'
     this.multiple = multiple
   }
@@ -101,13 +102,17 @@ class FileSelect {
   // file (file object): file to upload
   async upload(file) {
     if (this.isFileValid(file)) {
+      let resp
       try {
-        const resp = await this.putRequest(file)
+        resp = await this.putRequest(file)
 
-        this.success(file, resp)
       } catch (e) {
         this.error(e)
+
+        return
       }
+
+      this.success(file, resp)
     }
   }
 
@@ -133,11 +138,16 @@ class FileSelect {
     )
   }
 
-  insertLiElement(parentEl, innerHTML) {
+  insertLiElement(fileName, deleteUrl) {
+    const bindDeleteUrl = () => {}
+
+    const ul = this.getFilesElement()
+    const li = this.createLiElement(fileName, deleteUrl)
+
     if(this.multiple) {
-      parentEl.innerHTML += innerHTML
+      ul.innerHTML += li
     } else {
-      parentEl.innerHTML = innerHTML
+      ul.innerHTML = li
     }
   }
 
@@ -145,13 +155,7 @@ class FileSelect {
   // file = file object
   // response = ajax response
   success (file, response) {
-    const ul = this.getFilesElement()
-    const li = this.createLiElement(file.name, response.deleteUrl)
-    this.insertLiElement(ul, li)
-
-    // formatting ul.innerHTML as 1 liner
-    var i = ul.innerHTML.indexOf('<')
-    ul.innerHTML = ul.innerHTML.substr(i, ul.innerHTML.length - 1)
+    this.insertLiElement(file.name, response.url)
 
     this.hideError()
   }
@@ -166,12 +170,32 @@ class FileSelect {
 
   //// Returns DOM element containing error msg
   getErrorElement() {
-    return this.el.querySelector('.' + this.errorClass)
+    const { parentElement } = this.el
+    const mountPoint = parentElement.parentElement
+
+    if(!mountPoint.querySelector('.' + this.errorClass)) {
+      const document = this.el.ownerDocument
+      const errorEl = document.createElement('span')
+      errorEl.classList.add(this.errorClass)
+      mountPoint.appendChild(errorEl)
+    }
+
+    return mountPoint.querySelector('.' + this.errorClass)
   }
 
   //// Returns DOM element containing files list
   getFilesElement() {
-    return this.el.querySelector('ul')
+    const { parentElement } = this.el
+    const mountPoint = parentElement.parentElement
+
+    if(!mountPoint.querySelector('.' + this.filesClass)) {
+      const document = this.el.ownerDocument
+      const filesEl = document.createElement('ul')
+      filesEl.classList.add(this.filesClass)
+      mountPoint.appendChild(filesEl)
+    }
+
+    return mountPoint.querySelector('.' + this.filesClass)
   }
 
   //// updates error field
