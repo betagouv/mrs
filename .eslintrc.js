@@ -1,12 +1,16 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "jest": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
         "sourceType": "module",
-        ecmaVersion: 2017
+        ecmaVersion: 2017,
+        ecmaFeatures: {
+            experimentalObjectRestSpread: true,
+        }
     },
     "rules": {
         "indent": [

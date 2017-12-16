@@ -121,7 +121,7 @@ describe('FileSelect.success()', () => {
   const file1 = fileFixture()
   const file2 = fileFixture('foo.jpeg')
   const response = {
-    url: '/delete'
+    deleteUrl: '/delete'
   }
 
   const getSubject = () => {
@@ -144,10 +144,10 @@ describe('FileSelect.success()', () => {
         .querySelector('span')
         .innerHTML
       const href = fileNamesElement
-        .querySelectorAll('li a[href="' + response.url + '"]')[index]
+        .querySelectorAll('li a[href="' + response.deleteUrl + '"]')[index]
         .getAttribute('href')
       expect(fileName).toBe(file.name)
-      expect(href).toBe(response.url)
+      expect(href).toBe(response.deleteUrl)
     }
 
     subject.success(file1, response)
@@ -217,7 +217,9 @@ describe('FileSelect.upload() success', () => {
 
   beforeAll(async () => {
     window.fetch = jest.fn().mockImplementation(
-      () => Promise.resolve(response)
+      () => Promise.resolve({
+        json: () => Promise.resolve(response)
+      })
     )
 
     await subject.upload(file)
@@ -313,7 +315,11 @@ describe('FileSelect.isFileValid()', () => {
 describe('FileSelect.deleteFile()', () => {
   const deleteUrl = '/delete'
   const deleteOptions = {
-    method: 'DELETE'
+    method: 'DELETE',
+    credentials: 'same-origin',
+    headers: {
+      'X-CSRFToken': undefined,
+    }
   }
 
   test('creates delete request with correct url and options', async () => {
