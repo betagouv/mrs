@@ -1,3 +1,17 @@
 .hidden {
     display: none;
 }
+
+/*
+    overriding materialize so input
+    doesn't overlap with file list
+*/
+.file-field input[type="file"] {
+    bottom: inherit;
+    height: 3rem;
+}
+
+.delete-file {
+    color: black;
+    margin-left: 1rem;
+}
