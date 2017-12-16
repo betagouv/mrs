@@ -9,14 +9,16 @@ import $ from 'jquery'
   // Materialize needs jquery names `$` in window global namespace
   window.$ = $
 
-  var form = document.querySelector('form.mrsrequest');
+  var form = document.querySelector('form.mrsrequest')
   form.addEventListener('submit', function (e) {
     e.preventDefault()
-    formData = new FormData(e.target)
+    /* in development
+    var formData = new FormData(e.target)
     console.log(Array.from(formData.keys()))
-  }, false);
+    */
+  }, false)
 
-  var uploads = document.querySelectorAll('[data-upload-url]');
+  var uploads = document.querySelectorAll('[data-upload-url]')
   for (var upload of uploads) {
     var file = upload.parentElement.parentElement.querySelector('input[type=file]')
     file.addEventListener('change', function (e) {
