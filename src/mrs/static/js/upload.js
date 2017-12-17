@@ -119,10 +119,9 @@ class FileSelect {
     if (this.isFileValid(file)) {
       let resp
       try {
-        const _resp = await this.putRequest(file)
-
         this.showElement('progress', this.progressClass)
 
+        const _resp = await this.putRequest(file)
         resp = await _resp.json(_resp)
       } catch (e) {
         this.error(e)
