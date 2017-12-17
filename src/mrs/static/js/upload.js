@@ -1,5 +1,6 @@
 /* global fetch, FormData */
 
+
 class FileSelect {
   // putUrl (string): file upload url
   // csrftoken (string): csrf token
@@ -72,19 +73,49 @@ class FileSelect {
     }
   }
 
+  fetchUploadRequest(data, url, resolve, reject) {
+    const xhr = new XMLHttpRequest()
+
+    const completeHandler = () => {
+      const resp = xhr.response
+      resolve(resp)
+    }
+
+    const progressHandler = (e) => {
+      const progress = this.getProgressElement()
+      progress.max = e.total
+      progress.value = e.loaded
+    }
+
+    const errorHandler = e => {
+      reject(e)
+    }
+
+    if(xhr.upload) {
+      xhr.upload.addEventListener('progress', progressHandler, false)
+      xhr.addEventListener('load', completeHandler, false)
+      xhr.addEventListener('error', errorHandler, false)
+      xhr.open('POST', url)
+      xhr.setRequestHeader('X-CSRFToken', this.csrfToken)
+      xhr.setRequestHeader('credentials', this.csrfToken)
+      xhr.send(data)
+    } else {
+      reject('Could not initialize ajax request')
+    }
+  }
+
+  fetchUpload(data, url) {
+    return new Promise((resolve, reject) =>
+      this.fetchUploadRequest(data, url, resolve, reject))
+  }
+
   //// make upload file request
   // file (file object): file to upload
   async putRequest(file) {
     const data = new FormData()
     data.append('file', file)
 
-    const putOptions = {
-      method: 'POST',
-      body: data,
-      ...this.getRequestOptions(),
-    }
-
-    return await fetch(this.putUrl, putOptions)
+    return await this.fetchUpload(data, this.putUrl)
   }
 
   async deleteRequest(deleteUrl) {
@@ -120,9 +151,11 @@ class FileSelect {
       let resp
       try {
         this.showElement('progress', this.progressClass)
+        const progress = this.getElement('progress', this.progressClass)
+        progress.max = 100
+        progress.value = 0
 
-        const _resp = await this.putRequest(file)
-        resp = await _resp.json(_resp)
+        resp = await this.putRequest(file)
       } catch (e) {
         this.error(e)
 
@@ -223,6 +256,11 @@ class FileSelect {
     }
 
     return mountPoint.querySelector('.' + className)
+  }
+
+  //// Returns progress bar DOM element
+  getProgressElement() {
+    return this.getElement('progress', this.progressClass)
   }
 
   //// Returns DOM element containing error msg
