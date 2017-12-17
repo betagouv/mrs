@@ -74,6 +74,37 @@ describe('FileSelect.fetchUploadRequest', () => {
     subject.fetchUploadRequest(data, url, resolve, reject)
   })
 
+  test('updated progress bar on upload progress', () => {
+    const progressElBefore = {
+      max: 0,
+      value: 0
+    }
+    const progressEvent = {
+      total: 100,
+      loaded: 50
+    }
+    subject.getProgressElement = jest.fn().mockImplementation(() => progressElBefore)
+
+    const callback = xhr.mock.instances[0].upload.addEventListener.mock.calls[0][1]
+    callback(progressEvent)
+
+    expect(subject.getProgressElement.mock.calls.length).toEqual(1)
+    expect(progressElBefore.value).toEqual(progressEvent.loaded)
+    expect(progressElBefore.max).toEqual(progressEvent.total)
+  })
+
+  test('upload finish callback calls resolve()', () => {
+    const callback = xhr.mock.instances[0].addEventListener.mock.calls[0][1]
+    callback()
+    expect(resolve.mock.calls.length).toEqual(1)
+  })
+
+  test('upload error callback calls resolve()', () => {
+    const callback = xhr.mock.instances[0].addEventListener.mock.calls[1][1]
+    callback()
+    expect(reject.mock.calls.length).toEqual(1)
+  })
+
   test('reject is called if xhr.upload is false', () => {
     xhr.prototype.upload = false
     subject.fetchUploadRequest(data, url, resolve, reject)
