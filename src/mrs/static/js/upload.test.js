@@ -398,9 +398,11 @@ describe('FileSelect.upload() validation error: invalid file mime type', () => {
 })
 
 describe('FileSelect.upload() request error', () => {
+  const _ = undefined
   const errMsg = 0
   const file = fileFixture()
-  const subject = fileSelectFactory()
+  const el = fileInputFixture()
+  const subject = fileSelectFactory(_, _, el)
 
   beforeAll(async () => {
     window.fetch = jest.fn().mockImplementation(
