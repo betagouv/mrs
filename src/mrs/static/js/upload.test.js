@@ -47,6 +47,66 @@ const fileSelectFactory = (putUrl, csrfToken, el, errorClass, withMock=true) => 
   return subject
 }
 
+describe('FileSelect.fetchUploadRequest', () => {
+  const _ = undefined
+  const el = fileInputFixture()
+  let xhr, subject
+  const data = ''
+  const url = '/url'
+  let resolve, reject
+
+  beforeEach(() => {
+    xhr = jest.fn()
+    xhr.prototype.addEventListener = jest.fn()
+    xhr.prototype.open = jest.fn()
+    xhr.prototype.send = jest.fn()
+    xhr.prototype.setRequestHeader = jest.fn()
+    xhr.prototype.upload = {}
+    xhr.prototype.upload.addEventListener = jest.fn()
+    window.XMLHttpRequest = xhr
+
+    subject = fileSelectFactory(_, _, el)
+    subject.csrfToken = 'csrf'
+
+    resolve = jest.fn()
+    reject = jest.fn()
+
+    subject.fetchUploadRequest(data, url, resolve, reject)
+  })
+
+  test('reject is called if xhr.upload is false', () => {
+    xhr.prototype.upload = false
+    subject.fetchUploadRequest(data, url, resolve, reject)
+
+    expect(reject.mock.calls.length).toEqual(1)
+  })
+
+  test('xhr is instanciated', () => {
+    expect(xhr.mock.instances.length).toEqual(1)
+  })
+
+  test('xhr.open is called with proper params', () => {
+    expect(xhr.mock.instances[0].open).toBeCalledWith('POST', url)
+  })
+
+  test('xhr.send is called with proper params', () => {
+    expect(xhr.mock.instances[0].send).toBeCalledWith(data)
+  })
+
+  test('xhr headers are parametered', () => {
+    expect(xhr.mock.instances[0].setRequestHeader.mock.calls[0])
+      .toEqual(['X-CSRFToken', subject.csrfToken])
+    expect(xhr.mock.instances[0].setRequestHeader.mock.calls[1])
+      .toEqual(['credentials', subject.csrfToken])
+  })
+
+  test('addEventListeners are attached', () => {
+    expect(xhr.mock.instances[0].addEventListener.mock.calls[0][0]).toBe('load')
+    expect(xhr.mock.instances[0].addEventListener.mock.calls[1][0]).toBe('error')
+    expect(xhr.mock.instances[0].upload.addEventListener.mock.calls[0][0]).toBe('progress')
+  })
+})
+
 describe('FileSelect.bindDeleteUrl', () => {
   const subject = fileSelectFactory()
   subject.deleteFile = jest.fn()
@@ -110,6 +170,18 @@ describe('FileSelect.getElement', () => {
     const el = subject.getElement(elType, className)
 
     expect(el.classList[0]).toEqual(className)
+  })
+})
+
+describe('FileSelect.getProgressElement', () => {
+  test('calls getElement with correct param', () => {
+    const subject = fileSelectFactory()
+    subject.getElement = jest.fn()
+
+    subject.getProgressElement()
+
+    expect(subject.getElement.mock.calls)
+      .toEqual([['progress', subject.progressClass]])
   })
 })
 
@@ -349,10 +421,8 @@ describe('FileSelect.upload() success', () => {
   }
 
   beforeAll(async () => {
-    window.fetch = jest.fn().mockImplementation(
-      () => Promise.resolve({
-        json: () => Promise.resolve(response)
-      })
+    subject.fetchUpload = jest.fn().mockImplementation(
+      () => Promise.resolve(response)
     )
 
     await subject.upload(file)
@@ -405,7 +475,7 @@ describe('FileSelect.upload() request error', () => {
   const subject = fileSelectFactory(_, _, el)
 
   beforeAll(async () => {
-    window.fetch = jest.fn().mockImplementation(
+    subject.fetchUpload = jest.fn().mockImplementation(
       () => Promise.reject(errMsg)
     )
 
@@ -494,16 +564,16 @@ describe('FileSelect.deleteFile()', () => {
 describe('FileSelect.putRequest()', () => {
   const putUrl = '/put'
   const csrfToken = 123
-  const file = fileSelectFactory(putUrl, csrfToken)
+  const subject = fileSelectFactory(putUrl, csrfToken)
 
   beforeAll(async () => {
-    window.fetch = jest.fn()
-    await file.putRequest()
+    subject.fetchUpload = jest.fn()
+    await subject.putRequest()
   })
 
   test('posts to correct url', () => {
     // fetch is called with correct URL as first param
-    expect(window.fetch.mock.calls[0][0]).toEqual(putUrl)
+    expect(subject.fetchUpload.mock.calls[0][1]).toEqual(putUrl)
   })
 
   test('posts with correct options', () => {
