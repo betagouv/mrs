@@ -22,7 +22,10 @@ class FileSelect {
     this.el = el
     this.errorClass = errorClass
     this.filesClass = 'files'
-    this.hideErrorClassName = 'hidden'
+    this.filesElType = 'ul'
+    this.errorElType = 'span'
+    this.progressClass = 'progress-bar'
+    this.hideElementClassName = 'hidden'
     this.multiple = multiple
   }
 
@@ -117,6 +120,9 @@ class FileSelect {
       let resp
       try {
         const _resp = await this.putRequest(file)
+
+        this.showElement('progress', this.progressClass)
+
         resp = await _resp.json(_resp)
       } catch (e) {
         this.error(e)
@@ -152,23 +158,31 @@ class FileSelect {
     return li
   }
 
-  insertLiElement(fileName, deleteUrl) {
-    const bindDeleteUrl = el => {
-      el.addEventListener('click', e => {
-        e.preventDefault()
-        this.deleteFile(deleteUrl)
-      })
+  bindDeleteUrlCallback(deleteUrl) {
+    return e => {
+      e.preventDefault()
+      this.deleteFile(deleteUrl)
     }
+  }
 
+  bindDeleteUrl(el, deleteUrl) {
+    el.addEventListener('click', this.bindDeleteUrlCallback(deleteUrl))
+  }
+
+  insertLiElement(fileName, deleteUrl) {
     const ul = this.getFilesElement()
     const li = this.createLiElement(fileName, deleteUrl)
 
-    bindDeleteUrl(li)
+    this.bindDeleteUrl(li, deleteUrl)
 
     if(this.multiple) {
       ul.appendChild(li)
     } else {
-      ul.innerHTML = li
+      //ul.innerHTML = li
+      if(ul.childNodes.length > 0)
+        ul.replaceChild(li, ul.childNodes[0])
+      else
+        ul.appendChild(li)
     }
   }
 
@@ -178,7 +192,8 @@ class FileSelect {
   success (file, response) {
     this.insertLiElement(file.name, response.deleteUrl)
 
-    this.hideError()
+    this.hideElement(this.errorElType, this.errorClass)
+    this.hideElement('progress', this.progressClass)
   }
 
   //// upload file error
@@ -186,37 +201,39 @@ class FileSelect {
   error(error) {
     const errorMsg = error
     this.updateErrorMsg(errorMsg)
-    this.showError()
+    this.showElement(this.errorElType, this.errorClass)
+  }
+
+  //// Mounts element in dom at mount point
+  // mountPoint (DOM element): which DOM element to insert created element into
+  // elType (string): type of element to insert in mount point
+  // className (string): class name of inserted element
+  mountElement(mountPoint, elType, className) {
+    const document = this.el.ownerDocument
+    const el = document.createElement(elType)
+    el.classList.add(className)
+    mountPoint.appendChild(el)
+  }
+
+  getElement(elType, className) {
+    const { parentElement } = this.el
+    const mountPoint = parentElement.parentElement
+
+    if(!mountPoint.querySelector('.' + className)) {
+      this.mountElement(mountPoint, elType, className)
+    }
+
+    return mountPoint.querySelector('.' + className)
   }
 
   //// Returns DOM element containing error msg
   getErrorElement() {
-    const { parentElement } = this.el
-    const mountPoint = parentElement.parentElement
-
-    if(!mountPoint.querySelector('.' + this.errorClass)) {
-      const document = this.el.ownerDocument
-      const errorEl = document.createElement('span')
-      errorEl.classList.add(this.errorClass)
-      mountPoint.appendChild(errorEl)
-    }
-
-    return mountPoint.querySelector('.' + this.errorClass)
+    return this.getElement(this.errorElType, this.errorClass)
   }
 
   //// Returns DOM element containing files list
   getFilesElement() {
-    const { parentElement } = this.el
-    const mountPoint = parentElement.parentElement
-
-    if(!mountPoint.querySelector('.' + this.filesClass)) {
-      const document = this.el.ownerDocument
-      const filesEl = document.createElement('ul')
-      filesEl.classList.add(this.filesClass)
-      mountPoint.appendChild(filesEl)
-    }
-
-    return mountPoint.querySelector('.' + this.filesClass)
+    return this.getElement(this.filesElType, this.filesClass)
   }
 
   //// updates error field
@@ -227,15 +244,15 @@ class FileSelect {
   }
 
   //// shows error message
-  showError() {
-    const errorElement = this.getErrorElement()
-    errorElement.classList.remove(this.hideErrorClassName)
+  showElement(elType, className) {
+    const el = this.getElement(elType, className)
+    el.classList.remove(this.hideElementClassName)
   }
 
   //// hides error message
-  hideError() {
-    const errorElement = this.getErrorElement()
-    errorElement.classList.add(this.hideErrorClassName)
+  hideElement(elType, className) {
+    const el = this.getElement(elType, className)
+    el.classList.add(this.hideElementClassName)
   }
 }
 
