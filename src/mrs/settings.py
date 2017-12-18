@@ -34,10 +34,13 @@ if 'ALLOWED_HOSTS' in os.environ:
 if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
     raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
+LOGIN_REDIRECT_URL = '/mrsrequest/'
+
 # Application definition
 
 INSTALLED_APPS = [
     'material',
+    'material.frontend',
     'webpack_loader' if shutil.which('npm') else 'webpack_mock',
 
     'person',
@@ -47,7 +50,6 @@ INSTALLED_APPS = [
     'mrsrequest',
     'mrsattachment',
 
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

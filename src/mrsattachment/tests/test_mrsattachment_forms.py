@@ -5,11 +5,11 @@ from mrsattachment.forms import MRSAttachmentWidget, MRSAttachementFormMixin
 
 
 class TestForm(MRSAttachementFormMixin, forms.Form):
-    test = forms.FileField(widget=MRSAttachmentWidget('pmt_upload', 66))
+    test = forms.FileField(widget=MRSAttachmentWidget('pmt:pmt_upload', 66))
 
 
 def test_widget_attrs(mocker):
-    widget = MRSAttachmentWidget('pmt_upload', 'pmt_download', 66)
+    widget = MRSAttachmentWidget('pmt:pmt_upload', 'pmt:pmt_download', 66)
 
     # Mock MRSAttachementFormMixin.factory() side effect
     widget.view = mock.Mock()
