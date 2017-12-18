@@ -9,7 +9,7 @@ class TestForm(MRSAttachementFormMixin, forms.Form):
 
 
 def test_widget_attrs(mocker):
-    widget = MRSAttachmentWidget('pmt_upload', 66)
+    widget = MRSAttachmentWidget('pmt_upload', 'pmt_download', 66)
 
     # Mock MRSAttachementFormMixin.factory() side effect
     widget.view = mock.Mock()

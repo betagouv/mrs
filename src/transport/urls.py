@@ -1,6 +1,10 @@
 from django.urls import path
 
-from mrsattachment.views import MRSFileDeleteView, MRSFileUploadView
+from mrsattachment.views import (
+    MRSFileDeleteView,
+    MRSFileDownloadView,
+    MRSFileUploadView,
+)
 
 from .models import Bill
 
@@ -10,6 +14,11 @@ urlpatterns = [
         '<pk>/delete',
         MRSFileDeleteView.as_view(model=Bill),
         name='bill_delete'
+    ),
+    path(
+        '<pk>/download',
+        MRSFileDownloadView.as_view(model=Bill),
+        name='bill_download'
     ),
     path(
         '<mrsrequest_uuid>/upload',
