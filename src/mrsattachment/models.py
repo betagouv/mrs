@@ -2,14 +2,45 @@ import io
 
 from django.db import models
 
+from . import forms
+
+
+class MRSAttachmentField(models.BinaryField):
+    def __init__(self, upload=None, download=None, delete=None, max_files=20,
+                 *args, **kwargs):
+
+        self.upload = upload
+        self.download = download
+        self.delete = delete
+        self.max_files = max_files
+
+        kwargs['editable'] = True
+
+        models.Field.__init__(self, *args, **kwargs)
+
+    def deconstruct(self):
+        return models.Field.deconstruct(self)
+
+    def save(self, name, content, save=True):
+        pass
+
+    def formfield(self, **kwargs):
+        kwargs.setdefault('upload', self.upload)
+        kwargs.setdefault('download', self.download)
+        kwargs.setdefault('max_files', self.max_files)
+        return forms.MRSAttachmentField(**kwargs)
+
+    def to_python(self, value):
+        return []
+
 
 class MRSAttachment(models.Model):
     filename = models.CharField(max_length=255)
     creation_datetime = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Heure d\'enregistrement du fichier')
-    binary = models.BinaryField(
-        verbose_name='Prescription Médicale de Transport')
+    binary = MRSAttachmentField(
+        verbose_name='Attachement')
 
     class Meta:
         abstract = True

@@ -4,6 +4,10 @@ from django.views import generic
 from mrsrequest.models import MRSRequest
 
 
+class MRSFileDownloadView(generic.DetailView):
+    pass
+
+
 class MRSFileDeleteView(generic.DeleteView):
     '''
     AJAX File delete receiver view.

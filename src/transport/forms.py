@@ -10,6 +10,7 @@ class TransportForm(MRSAttachementFormMixin, forms.ModelForm):
     bills = forms.FileField(
         widget=MRSAttachmentWidget(
             'bill_upload',
+            'bill_download',
             20,
         ),
         label='Justificatifs',

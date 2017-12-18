@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-from mrsattachment.models import MRSAttachment
+from mrsattachment.models import MRSAttachment, MRSAttachmentField
 from mrsrequest.models import MRSRequest
 
 
@@ -66,8 +66,12 @@ class Bill(MRSAttachment):
         'Transport',
         on_delete=models.CASCADE,
     )
-    binary = models.BinaryField(
-        verbose_name='Justificatif de Transport')
+    binary = MRSAttachmentField(
+        'bill_upload',
+        'bill_download',
+        'bill_delete',
+        verbose_name='Justificatif de Transport',
+    )
 
     objects = BillManager()
 

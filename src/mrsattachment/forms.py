@@ -1,12 +1,30 @@
 from django import forms
+
 from django.urls import reverse
 
 from mrsrequest.forms import MRSRequestFormMixin
 
 
+class MRSAttachmentField(forms.FileField):
+    def __init__(self, upload=None, download=None, max_files=20, *a, **k):
+        self.upload = upload
+        self.download = download
+        self.max_files = max_files
+
+        k.setdefault(
+            'widget',
+            MRSAttachmentWidget(
+                upload=self.upload,
+                download=self.download,
+            )
+        )
+
+        super().__init__(*a, **k)
+
+
 class MRSAttachmentWidget(forms.FileInput):
-    def __init__(self, url_name, max_files=20):
-        self.url_name = url_name
+    def __init__(self, upload, download, max_files=20):
+        self.upload = upload
         self.max_files = max_files
         super().__init__()
 
@@ -24,7 +42,7 @@ class MRSAttachmentWidget(forms.FileInput):
                 self._attrs.update({
                     'data-max-files': self.max_files,
                     'data-upload-url': reverse(
-                        self.url_name,
+                        self.upload,
                         args=[mrsrequest_uuid]
                     )
                 })

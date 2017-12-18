@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-from mrsattachment.models import MRSAttachment
+from mrsattachment.models import MRSAttachment, MRSAttachmentField
 from mrsrequest.models import MRSRequest
 
 
@@ -27,8 +27,12 @@ class PMT(MRSAttachment):
         'mrsrequest.MRSRequest',
         on_delete=models.CASCADE,
     )
-    binary = models.BinaryField(
-        verbose_name='Prescription Médicale de Transport')
+    binary = MRSAttachmentField(
+        'pmt_upload',
+        'pmt_download',
+        'pmt_delete',
+        verbose_name='Prescription Médicale de Transport'
+    )
 
     objects = PMTManager()
 
