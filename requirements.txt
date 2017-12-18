@@ -1,5 +1,5 @@
 django>=2.0,<2.1
-django-material
 dj-static
 django-webpack-loader
 django-threadlocals
+https://github.com/viewflow/django-material/tarball/master#egg=django-material

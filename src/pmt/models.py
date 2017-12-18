@@ -28,16 +28,16 @@ class PMT(MRSAttachment):
         on_delete=models.CASCADE,
     )
     binary = MRSAttachmentField(
-        'pmt_upload',
-        'pmt_download',
-        'pmt_delete',
+        'pmt:pmt_upload',
+        'pmt:pmt_download',
+        'pmt:pmt_destroy',
         verbose_name='Prescription Médicale de Transport'
     )
 
     objects = PMTManager()
 
     def get_delete_url(self):
-        return reverse('pmt_delete', args=[self.pk])
+        return reverse('pmt:pmt_destroy', args=[self.pk])
 
     class Meta:
         ordering = ['mrsrequest', 'id']

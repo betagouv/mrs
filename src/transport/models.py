@@ -67,9 +67,9 @@ class Bill(MRSAttachment):
         on_delete=models.CASCADE,
     )
     binary = MRSAttachmentField(
-        'bill_upload',
-        'bill_download',
-        'bill_delete',
+        'transport:bill_upload',
+        'transport:bill_download',
+        'transport:bill_destroy',
         verbose_name='Justificatif de Transport',
     )
 
@@ -80,4 +80,4 @@ class Bill(MRSAttachment):
         verbose_name = 'Justificatif'
 
     def get_delete_url(self):
-        return reverse('bill_delete', args=[self.pk])
+        return reverse('transport:bill_destroy', args=[self.pk])

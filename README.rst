@@ -25,6 +25,9 @@ Cloner le dépot, et puis dans le dossier du repo executer::
     # Installer/mettre à jour code et librairies Python
     pip install -U --user -e .
 
+    # En attendant la release de django-material pour django 2.0 ...
+    pip install --user https://github.com/viewflow/django-material/tarball/master#egg=django-material
+
     # Ajouter le pip user bin dans path, example:
     echo 'export PATH=$HOME/.local/bin:$PATH' > ~/.bashrc
 
