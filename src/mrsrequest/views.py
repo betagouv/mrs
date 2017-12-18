@@ -1,5 +1,7 @@
 import collections
 
+from material.frontend.views import ModelViewSet
+
 from django import http
 from django.views import generic
 
@@ -9,6 +11,10 @@ from transport.forms import TransportForm
 
 from .forms import CertifyForm
 from .models import MRSRequest
+
+
+class MRSRequestViewSet(ModelViewSet):
+    model = MRSRequest
 
 
 class MRSRequestCreateView(generic.TemplateView):
