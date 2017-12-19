@@ -22,9 +22,12 @@ class FileSelect {
     this.csrfToken = csrftoken
     this.el = el
     this.errorClass = errorClass
+    this.fileNameClass = 'file-name'
     this.filesClass = 'files'
     this.filesElType = 'ul'
     this.errorElType = 'span'
+    this.deleteClass = 'delete-file'
+    this.deleteElType = 'a'
     this.progressClass = 'progress-bar'
     this.hideElementClassName = 'hidden'
     this.multiple = multiple
@@ -48,32 +51,17 @@ class FileSelect {
 
   //// Upload file validation
   // file (file object): upload file object
-  isFileValid (file) {
+  validateFile(file) {
     if (!this.mimeTypeValidate(file.type)) {
-      this.error(this.errorMsg.mimeType)
-      return false
+      throw this.errorMsg.mimeType
     }
 
     if (!this.fileSizeValidate(file.size)) {
-      this.error(this.errorMsg.fileSize)
-      return false
-    }
-
-    return true
-  }
-
-  getRequestOptions() {
-    const headers = {
-      'X-CSRFToken': this.csrfToken,
-    }
-
-    return {
-      headers,
-      credentials: 'same-origin',
+      throw this.errorMsg.fileSize
     }
   }
 
-  fetchUploadRequest(data, url, resolve, reject) {
+  fetchUploadRequest(data, url, progressHandler, resolve, reject) {
     const xhr = new XMLHttpRequest()
 
     const completeHandler = () => {
@@ -81,11 +69,6 @@ class FileSelect {
       resolve(resp)
     }
 
-    const progressHandler = (e) => {
-      const progress = this.getProgressElement()
-      progress.max = e.total
-      progress.value = e.loaded
-    }
 
     const errorHandler = e => {
       reject(e)
@@ -104,18 +87,27 @@ class FileSelect {
     }
   }
 
-  fetchUpload(data, url) {
+  fetchUpload(data, url, progressHandler) {
     return new Promise((resolve, reject) =>
-      this.fetchUploadRequest(data, url, resolve, reject))
+      this.fetchUploadRequest(data, url, progressHandler, resolve, reject))
+  }
+
+  progressBarHandler(el) {
+    return ({ total, loaded }) => {
+      el.max = total
+      el.value = loaded
+    }
   }
 
   //// make upload file request
   // file (file object): file to upload
-  async putRequest(file) {
+  // proressEl (dom el): reference to progress bar dom element to update
+  async putRequest(file, progressEl) {
     const data = new FormData()
     data.append('file', file)
 
-    return await this.fetchUpload(data, this.putUrl)
+
+    return await this.fetchUpload(data, this.putUrl, this.progressBarHandler(progressEl))
   }
 
   async deleteRequest(deleteUrl) {
@@ -132,108 +124,105 @@ class FileSelect {
     await fetch(deleteUrl, deleteOptions)
   }
 
-  //// Send delete file request
-  // deleteUrl (string): delete url for file
-  async deleteFile(deleteUrl) {
-    try {
-      await this.deleteRequest(deleteUrl)
-
-      this.deleteSuccess(deleteUrl)
-    } catch (e) {
-      this.error(e)
-    }
-  }
-
   //// Upload file
   // file (file object): file to upload
   async upload(file) {
-    if (this.isFileValid(file)) {
-      let resp
-      try {
-        this.showElement('progress', this.progressClass)
-        const progress = this.getElement('progress', this.progressClass)
-        progress.max = 100
-        progress.value = 0
+    let resp
+    const li = this.insertLiElement(file.name, '')
 
-        resp = await this.putRequest(file)
-      } catch (e) {
-        this.error(e)
+    try {
+      this.validateFile(file)
+      this.showElement('progress', this.progressClass, li)
+      const progress = this.getElement('progress', this.progressClass, li)
+      progress.max = 100
+      progress.value = 0
 
-        return
-      }
-
-      this.success(file, resp)
+      resp = await this.putRequest(file, li.querySelector('progress'))
+    } catch (e) {
+      return this.error(e, li)
     }
-  }
 
-  //// delete file success
-  // deleteUrl (string): url endpoint to delete file
-  deleteSuccess(deleteUrl) {
-    const filesElement = this.getFilesElement()
-    const elToRemove = filesElement.querySelector('a[href="' + deleteUrl + '"]')
-
-    elToRemove.parentNode.parentNode.removeChild(elToRemove.parentNode)
+    this.success(resp, li)
   }
 
   createLiElement(fileName, deleteUrl) {
     const document = this.el.ownerDocument
     const li = document.createElement('li')
-    li.innerHTML = (
-      '<span>'
-      + fileName
-      + '</span>'
-      + '<a href="' + deleteUrl + '" class="delete-file">'
-      + 'remove'
-      + '</a>'
-    )
+
+    li.innerHTML = `
+      <span class="${this.fileNameClass}">
+        ${fileName}
+      </span>
+
+      <progress max="100" value="0" class="${this.progressClass}">
+      </progress>
+
+      <span class="${this.errorClass} ${this.hideElementClassName}">
+      </span>
+
+      <a href="${deleteUrl}" class="${this.deleteClass} ${this.hideElementClassName}">
+        remove
+      </a>
+    `
 
     return li
   }
 
-  bindDeleteUrlCallback(deleteUrl) {
-    return e => {
+  bindDeleteUrlCallback(deleteUrl, el) {
+    return async (e) => {
       e.preventDefault()
-      this.deleteFile(deleteUrl)
-    }
-  }
 
-  bindDeleteUrl(el, deleteUrl) {
-    el.addEventListener('click', this.bindDeleteUrlCallback(deleteUrl))
+      // removing li in DOM regardless of request success
+      el.parentNode.removeChild(el)
+
+      try {
+        await this.deleteRequest(deleteUrl)
+      } catch (e) {
+        // silencing the delete error as to not bother the user with it
+      }
+    }
   }
 
   insertLiElement(fileName, deleteUrl) {
     const ul = this.getFilesElement()
     const li = this.createLiElement(fileName, deleteUrl)
 
-    this.bindDeleteUrl(li, deleteUrl)
-
     if(this.multiple) {
       ul.appendChild(li)
     } else {
-      //ul.innerHTML = li
       if(ul.childNodes.length > 0)
         ul.replaceChild(li, ul.childNodes[0])
       else
         ul.appendChild(li)
     }
+
+    return li
   }
 
   //// upload file success
   // file = file object
   // response = ajax response
-  success (file, response) {
-    this.insertLiElement(file.name, response.deleteUrl)
+  // el = element to update
+  success (response, el) {
+    // bind delete url
+    const deleteButton = this.getElement(this.deleteElType, this.deleteClass, el)
+    deleteButton.addEventListener('click', this.bindDeleteUrlCallback(JSON.parse(response).deleteUrl, el))
 
-    this.hideElement(this.errorElType, this.errorClass)
-    this.hideElement('progress', this.progressClass)
+    // update and show remove element
+    this.showElement(this.deleteElType, this.deleteClass, el)
+
+    this.hideElement('progress', this.progressClass, el)
   }
 
   //// upload file error
   // error (object): error exception
-  error(error) {
-    const errorMsg = error
-    this.updateErrorMsg(errorMsg)
-    this.showElement(this.errorElType, this.errorClass)
+  error(error, el) {
+    this.hideElement(this.deleteElType, this.deleteClass, el)
+    this.hideElement('progress', this.progressClass, el)
+    this.showElement(this.errorElType, this.errorClass, el)
+
+    const errorEl = this.getElement(this.errorElType, this.errorClass, el)
+    errorEl.innerHTML = error
   }
 
   //// Mounts element in dom at mount point
@@ -247,25 +236,17 @@ class FileSelect {
     mountPoint.appendChild(el)
   }
 
-  getElement(elType, className) {
-    const { parentElement } = this.el
-    const mountPoint = parentElement.parentElement
+  getElement(elType, className, mountPoint) {
+    if(!mountPoint) {
+      const { parentElement } = this.el
+      mountPoint = parentElement.parentElement
+    }
 
-    if(!mountPoint.querySelector('.' + className)) {
+    if(!mountPoint.querySelector(elType + '.' + className)) {
       this.mountElement(mountPoint, elType, className)
     }
 
-    return mountPoint.querySelector('.' + className)
-  }
-
-  //// Returns progress bar DOM element
-  getProgressElement() {
-    return this.getElement('progress', this.progressClass)
-  }
-
-  //// Returns DOM element containing error msg
-  getErrorElement() {
-    return this.getElement(this.errorElType, this.errorClass)
+    return mountPoint.querySelector(elType + '.' + className)
   }
 
   //// Returns DOM element containing files list
@@ -273,22 +254,15 @@ class FileSelect {
     return this.getElement(this.filesElType, this.filesClass)
   }
 
-  //// updates error field
-  // errorMsg (strin): error message
-  updateErrorMsg(errorMsg) {
-    const errorElement = this.getErrorElement()
-    errorElement.innerHTML = errorMsg
-  }
-
   //// shows error message
-  showElement(elType, className) {
-    const el = this.getElement(elType, className)
+  showElement(elType, className, root) {
+    const el = this.getElement(elType, className, root)
     el.classList.remove(this.hideElementClassName)
   }
 
   //// hides error message
-  hideElement(elType, className) {
-    const el = this.getElement(elType, className)
+  hideElement(elType, className, root) {
+    const el = this.getElement(elType, className, root)
     el.classList.add(this.hideElementClassName)
   }
 }

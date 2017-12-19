@@ -54,6 +54,7 @@ describe('FileSelect.fetchUploadRequest', () => {
   const data = ''
   const url = '/url'
   let resolve, reject
+  const progressHandler = jest.fn()
 
   beforeEach(() => {
     xhr = jest.fn()
@@ -71,26 +72,15 @@ describe('FileSelect.fetchUploadRequest', () => {
     resolve = jest.fn()
     reject = jest.fn()
 
-    subject.fetchUploadRequest(data, url, resolve, reject)
+    subject.fetchUploadRequest(data, url, progressHandler, resolve, reject)
   })
 
-  test('updated progress bar on upload progress', () => {
-    const progressElBefore = {
-      max: 0,
-      value: 0
-    }
-    const progressEvent = {
-      total: 100,
-      loaded: 50
-    }
-    subject.getProgressElement = jest.fn().mockImplementation(() => progressElBefore)
+  test('attaches progress callback', () => {
+    const progressEventCall = xhr.mock.instances[0].upload.addEventListener.mock.calls[0]
 
-    const callback = xhr.mock.instances[0].upload.addEventListener.mock.calls[0][1]
-    callback(progressEvent)
-
-    expect(subject.getProgressElement.mock.calls.length).toEqual(1)
-    expect(progressElBefore.value).toEqual(progressEvent.loaded)
-    expect(progressElBefore.max).toEqual(progressEvent.total)
+    expect(progressEventCall[0]).toBe('progress')
+    expect(progressEventCall[1]).toBe(progressHandler)
+    expect(progressEventCall[2]).toBe(false)
   })
 
   test('upload finish callback calls resolve()', () => {
@@ -107,7 +97,7 @@ describe('FileSelect.fetchUploadRequest', () => {
 
   test('reject is called if xhr.upload is false', () => {
     xhr.prototype.upload = false
-    subject.fetchUploadRequest(data, url, resolve, reject)
+    subject.fetchUploadRequest(data, url, progressHandler, resolve, reject)
 
     expect(reject.mock.calls.length).toEqual(1)
   })
@@ -138,23 +128,6 @@ describe('FileSelect.fetchUploadRequest', () => {
   })
 })
 
-describe('FileSelect.bindDeleteUrl', () => {
-  const subject = fileSelectFactory()
-  subject.deleteFile = jest.fn()
-  const el = fileInputFixture()
-  el.addEventListener = jest.fn()
-
-  test('attaches event listener with correct args', () => {
-    const deleteUrl = '/delete'
-    subject.bindDeleteUrl(el, '/delete')
-
-    expect(el.addEventListener.mock.calls[0][0]).toBe('click')
-    // expect(el.addEventListener.mock.calls[0][1]).toEqual(subject.bindDeleteUrlCallback)
-    el.addEventListener.mock.calls[0][1]({preventDefault: () => {}})
-    expect(subject.deleteFile.mock.calls[0][0]).toEqual(deleteUrl)
-  })
-})
-
 describe('FileSelect.mountElement', () => {
   const _ = undefined
   const el = fileInputFixture()
@@ -177,13 +150,14 @@ describe('FileSelect.getElement', () => {
   const _ = undefined
   let subject, el
 
-  beforeAll(() => {
+  beforeEach(() => {
     el = fileInputFixture()
     subject = fileSelectFactory(_, _, el)
-    subject.mountElement = jest.fn()
   })
 
   test('mount element is not called if element already exists', () => {
+    subject.mountElement = jest.fn()
+
     const className = 'class-name'
     el.classList.add(className)
     subject.getElement('input', className)
@@ -191,40 +165,18 @@ describe('FileSelect.getElement', () => {
   })
 
   test('mount element is called if element does not exist', () => {
+    subject.mountElement = jest.fn()
+
     subject.getElement('span', 'class')
     expect(subject.mountElement.mock.calls.length).toBe(1)
   })
 
   test('return DOM element', () => {
     const elType = 'span'
-    const className = 'class-name'
+    const className = 'class-namesss'
     const el = subject.getElement(elType, className)
 
     expect(el.classList[0]).toEqual(className)
-  })
-})
-
-describe('FileSelect.getProgressElement', () => {
-  test('calls getElement with correct param', () => {
-    const subject = fileSelectFactory()
-    subject.getElement = jest.fn()
-
-    subject.getProgressElement()
-
-    expect(subject.getElement.mock.calls)
-      .toEqual([['progress', subject.progressClass]])
-  })
-})
-
-describe('FileSelect.getErrorElement', () => {
-  test('calls getElement with correct param', () => {
-    const subject = fileSelectFactory()
-    subject.getElement = jest.fn()
-
-    subject.getErrorElement()
-
-    expect(subject.getElement.mock.calls)
-      .toEqual([[subject.errorElType, subject.errorClass]])
   })
 })
 
@@ -249,15 +201,6 @@ describe('FileSelect.insertLiElement', () => {
     subject = fileSelectFactory(_, _, el)
   })
 
-  test('calls bindDeleteUrl with correct params', () => {
-    const deleteUrl = '/delete'
-
-    subject.bindDeleteUrl = jest.fn()
-    subject.insertLiElement('file-name', deleteUrl)
-
-    expect(subject.bindDeleteUrl.mock.calls.length).toEqual(1)
-    expect(subject.bindDeleteUrl.mock.calls[0][1]).toEqual(deleteUrl)
-  })
 
   test('appends li if this.multiple = true', () => {
     subject.multiple = true
@@ -279,24 +222,6 @@ describe('FileSelect.insertLiElement', () => {
 describe('FileSelect.createLiElement', () => {
 })
 
-
-describe('FileSelect.showError() and FileSelect.hideError()', () => {
-  const el = fileInputFixture()
-
-  test('shows and hides error message to and from  DOM',  () => {
-    const _ = undefined
-    const subject = fileSelectFactory(_, _, el, _, false)
-    const errorElement = subject.getErrorElement()
-
-    subject.hideElement(subject.errorElType, subject.errorClass)
-    expect(errorElement.className.includes(subject.hideElementClassName)).toBe(true)
-
-    subject.showElement(subject.errorElType, subject.errorClass)
-    expect(errorElement.className.includes(subject.hideElementClassName)).toBe(false)
-
-  })
-})
-
 describe('FileSelect.error()', () => {
   const getSubject = () => {
     const _ = undefined
@@ -308,137 +233,68 @@ describe('FileSelect.error()', () => {
     return subject
   }
 
-  test('FileSelect.error() calls updateErrorMsg with correct param', () => {
+  test('FileSelect.error() updates error msg', () => {
     const subject = getSubject()
 
     const error = 'error'
-    const errorMsg = error
 
-    subject.error(error)
-    expect(subject.updateErrorMsg.mock.calls).toEqual([[errorMsg]])
+    subject.error(error, subject.el)
+    const errorEl = subject.getElement(subject.errorElType, subject.errorClass)
+    expect(errorEl.innerHTML).toEqual(error)
   })
 
   test('FileSelect.error() calls showMessage()', () => {
     const subject = getSubject()
 
-    subject.error('error')
-    expect(subject.showElement.mock.calls).toEqual([[subject.errorElType, subject.errorClass]])
-  })
-})
-
-describe('FileSelect.updateErrorMsg()', () => {
-  const errorClass = 'error'
-  const el = fileInputFixture()
-
-
-  test('adds error message to DOM',  () => {
-    const subject = fileSelectFactory(undefined, undefined, el, errorClass, false)
-
-    const errorMsg1 = 'error1'
-    const errorMsg2 = 'error2'
-    const domErrorMsg = subject.getErrorElement()
-
-    subject.updateErrorMsg(errorMsg1)
-    expect(domErrorMsg.innerHTML).toBe(errorMsg1)
-
-    subject.updateErrorMsg(errorMsg2)
-    expect(domErrorMsg.innerHTML).toBe(errorMsg2)
+    subject.error('error', subject.el)
+    expect(subject.showElement.mock.calls).toEqual([[subject.errorElType, subject.errorClass, subject.el]])
   })
 })
 
 describe('FileSelect.success()', () => {
   const el = fileInputFixture()
-  const file1 = fileFixture()
-  const file2 = fileFixture('foo.jpeg')
-  const response = {
-    deleteUrl: '/delete'
-  }
+  const deleteUrl = '/delete'
+  const response = JSON.stringify({
+    deleteUrl
+  })
 
   const getSubject = () => {
     const subject = fileSelectFactory(undefined, undefined, el, undefined, false)
     subject.hideElement = jest.fn()
+    subject.showElement = jest.fn()
 
     return subject
   }
 
-  test('Updates the DOM propoerly', () => {
+  test('calls bindDeleteUrl with correct params', () => {
     const subject = getSubject()
 
-    //// check file name and delete url in DOM for given <li> index
-    // file (file object): contains filename
-    // index (int): index of <li> to test
-    const assertFile = (file, index) => {
-      const fileNamesElement = subject.getFilesElement()
-      const fileName = fileNamesElement
-        .querySelectorAll('li')[index]
-        .querySelector('span')
-        .innerHTML
-      const href = fileNamesElement
-        .querySelectorAll('li a[href="' + response.deleteUrl + '"]')[index]
-        .getAttribute('href')
-      expect(fileName).toBe(file.name)
-      expect(href).toBe(response.deleteUrl)
-    }
+    subject.bindDeleteUrlCallback = jest.fn()
+    subject.success(response, subject.el)
+    expect(subject.bindDeleteUrlCallback.mock.calls[0][0]).toBe(JSON.parse(response).deleteUrl)
 
-    subject.success(file1, response)
-    assertFile(file1, 0)
-
-    subject.success(file2, response)
-    assertFile(file2, 1)
   })
 
-  test('calls hideError', () => {
+  test('hides progress bar', () => {
     const subject = getSubject()
 
-    subject.success(file1, '/delete')
+    subject.success(response, subject.el)
 
     expect(subject.hideElement.mock.calls)
       .toEqual([
-        [subject.errorElType, subject.errorClass],
-        ['progress', subject.progressClass],
+        ['progress', subject.progressClass, subject.el],
       ])
   })
-})
 
-describe('FileSelect.deleteSuccess()', () => {
-  const file1 = fileFixture('file1.jpeg')
-  const deleteUrl1 = '/delete1'
-  const file2 = fileFixture('file2.jpeg')
-  const deleteUrl2 = '/delete2'
+  test('show remove button', () => {
+    const subject = getSubject()
 
-  const el = fileInputFixture()
-  const subject = fileSelectFactory(undefined, undefined, el, undefined, false)
-  subject.insertLiElement(
-    file1,
-    deleteUrl1
-  )
-  subject.insertLiElement(
-    file2,
-    deleteUrl2
-  )
+    subject.success(response, subject.el)
 
-  test('updates DOM properly', () => {
-    //// tests how many <li> have a child with href=deleteUrl
-    // deleteUrl (string): file delete url
-    // elementCount (int): expected <li> count
-    const assertDelete = (deleteUrl, elementCount) => {
-      const li = subject.getFilesElement().querySelectorAll('li a[href="' + deleteUrl + '"]')
-      const nLi = li.length
-
-      expect(nLi).toBe(elementCount)
-    }
-
-    assertDelete(deleteUrl1, 1)
-    assertDelete(deleteUrl2, 1)
-
-    subject.deleteSuccess(deleteUrl1)
-    assertDelete(deleteUrl1, 0)
-    assertDelete(deleteUrl2, 1)
-
-    subject.deleteSuccess(deleteUrl2)
-    assertDelete(deleteUrl1, 0)
-    assertDelete(deleteUrl2, 0)
-
+    expect(subject.showElement.mock.calls)
+      .toEqual([
+        [subject.deleteElType, subject.deleteClass, subject.el],
+      ])
   })
 })
 
@@ -460,7 +316,8 @@ describe('FileSelect.upload() success', () => {
   })
 
   test('FileSelect.success() should be called', () => {
-    expect(subject.success.mock.calls).toEqual([[file, response]])
+    expect(subject.success.mock.calls.length).toBe(1)
+    expect(subject.success.mock.calls[0][0]).toEqual(response)
   })
 
   test('FileSelect.error() should not be called', () => {
@@ -470,31 +327,41 @@ describe('FileSelect.upload() success', () => {
 
 describe('FileSelect.upload() validation error: file too large', () => {
   const file = fileFixture(undefined, undefined, 1000000000)
-  const subject = fileSelectFactory()
+  const _ = undefined
+  const el = fileInputFixture()
+  const subject = fileSelectFactory(_, _, el)
 
-  subject.upload(file)
+  beforeAll(async () => {
+    await subject.upload(file)
+  })
 
   test('FileSelect.success() should not be called', () => {
     expect(subject.success.mock.calls).toEqual([])
   })
 
   test('FileSelect.error() should be called', () => {
-    expect(subject.error.mock.calls).toEqual([[subject.errorMsg.fileSize]])
+    const li = subject.createLiElement(file.name, '')
+    expect(subject.error.mock.calls).toEqual([[subject.errorMsg.fileSize, li]])
   })
 })
 
 describe('FileSelect.upload() validation error: invalid file mime type', () => {
-  const file = fileFixture(undefined, 'audio/mpeg3')
-  const subject = fileSelectFactory()
+  const _ = undefined
+  const el = fileInputFixture()
+  const file = fileFixture(_, 'audio/mpeg3')
+  const subject = fileSelectFactory(_, _, el)
 
-  subject.upload(file)
+  beforeAll(async () => {
+    await subject.upload(file)
+  })
 
   test('FileSelect.success() should not be called', () => {
     expect(subject.success.mock.calls).toEqual([])
   })
 
   test('FileSelect.error() should be called', () => {
-    expect(subject.error.mock.calls).toEqual([[subject.errorMsg.mimeType]])
+    const li = subject.createLiElement(file.name, '')
+    expect(subject.error.mock.calls).toEqual([[subject.errorMsg.mimeType, li]])
   })
 })
 
@@ -514,41 +381,40 @@ describe('FileSelect.upload() request error', () => {
   })
 
   test('FileSelect.success() should not be called',() => {
-
     expect(subject.success.mock.calls).toEqual([])
   })
 
-  test('FileSelect.error() should be called', () => {
-
-    expect(subject.error.mock.calls).toEqual([[errMsg]])
+  test('FileSelect.error() should be called with params', () => {
+    const li = subject.createLiElement(file.name, '')
+    expect(subject.error.mock.calls).toEqual([[errMsg, li]])
   })
 })
 
 describe('FileSelect.isFileValid()', () => {
-  const file = fileSelectFactory()
+  const subject = fileSelectFactory()
 
   test('validates mime type', () => {
     const fileObject = fileFixture()
-    expect(file.isFileValid(fileObject)).toBe(true)
+    expect(subject.validateFile(fileObject)).toBe(undefined)
   })
 
   test('does not validate mime type', () => {
     const fileObject = fileFixture(undefined, 'audio/mpeg3')
-    expect(file.isFileValid(fileObject)).toBe(false)
+    expect(() => subject.validateFile(fileObject)).toThrow(subject.errorMsg.mimeType)
   })
 
   test('validates file size', () => {
     const fileObject = fileFixture()
-    expect(file.isFileValid(fileObject)).toBe(true)
+    expect(subject.validateFile(fileObject)).toBe(undefined)
   })
 
   test('does not validate file size', () => {
     const fileObject = fileFixture(undefined, undefined, 1000000000)
-    expect(file.isFileValid(fileObject)).toBe(false)
+    expect(() => subject.validateFile(fileObject)).toThrow(subject.errorMsg.fileSize)
   })
 })
 
-describe('FileSelect.deleteFile()', () => {
+describe('FileSelect.bindDeleteUrlCallback()()', () => {
   const deleteUrl = '/delete'
   const deleteOptions = {
     method: 'DELETE',
@@ -558,12 +424,22 @@ describe('FileSelect.deleteFile()', () => {
     }
   }
 
+  let el, mockEvent
+  beforeEach(() => {
+    el = {
+      parentNode: {
+        removeChild: jest.fn()
+      }
+    }
+    mockEvent = { preventDefault: jest.fn() }
+  })
+
   test('creates delete request with correct url and options', async () => {
     const subject = fileSelectFactory()
 
     window.fetch = jest.fn()
 
-    await subject.deleteFile(deleteUrl)
+    await subject.bindDeleteUrlCallback(deleteUrl, el)(mockEvent)
 
     expect(window.fetch.mock.calls).toEqual([[deleteUrl, deleteOptions]])
   })
@@ -574,21 +450,12 @@ describe('FileSelect.deleteFile()', () => {
       () => Promise.resolve()
     )
 
-    await subject.deleteFile(deleteUrl)
-    expect(subject.deleteSuccess.mock.calls).toEqual([[deleteUrl]])
+
+    await subject.bindDeleteUrlCallback(deleteUrl, el)(mockEvent)
+    expect(el.parentNode.removeChild.mock.calls[0][0]).toBe(el)
+
+    // does not call error()
     expect(subject.error.mock.calls).toEqual([])
-  })
-
-  test('calls this.error() with correct arguments', async () => {
-    const subject = fileSelectFactory()
-    const error = 'delete error msg'
-    window.fetch = jest.fn().mockImplementation(
-      () => Promise.reject(error)
-    )
-
-    await subject.deleteFile(deleteUrl)
-    expect(subject.deleteSuccess.mock.calls).toEqual([])
-    expect(subject.error.mock.calls).toEqual([[error]])
   })
 })
 
