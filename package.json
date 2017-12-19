@@ -1,0 +1,53 @@
+{
+  "name": "mrs",
+  "version": "0.0.0",
+  "description": "BetaGouv: Mes Remboursements Simplifiés",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --config webpack.config.js",
+    "prepare": "webpack",
+    "test": "jest",
+    "lint": "eslint ./src/mrs/static/js/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgmap/mrs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sgmap/mrs/issues"
+  },
+  "homepage": "https://github.com/sgmap/mrs#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "codecov": "^3.0.0",
+    "eslint": "^4.13.1",
+    "jest": "^21.2.1",
+    "jsdom": "^11.5.1",
+    "webpack": "^3.10.0",
+    "webpack-bundle-tracker": "^0.2.0"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "src/mrs/static/js/main.js"
+    ],
+    "collectCoverageFrom": [
+      "src/mrs/static/js/*{js,jsx}"
+    ]
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "js-cookie": "^2.2.0",
+    "scrollreveal": "^3.3.6"
+  }
+}

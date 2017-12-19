@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,6 +10,7 @@
     <link type="text/css" rel="stylesheet" href="{% static "css/vars.css" %}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static "css/base.css" %}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static "css/base-mobile.css" %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static "css/upload.css" %}"  media="screen,projection"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
@@ -323,9 +324,7 @@
         </section>
     </div>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
-    <script src="{% static "js/main.js" %}"></script>
+    {% render_bundle 'main' %}
     {% include 'material/includes/material_js.html' %}
   </body>
 </html>

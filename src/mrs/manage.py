@@ -1,10 +1,16 @@
 #!/usr/bin/env python
 import os
 import sys
+import warnings
 
 
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mrs.settings")
+
+    if sys.argv[-1] == 'dev':
+        warnings.warn("DEFAULTING DEBUG=1 FOR mrs dev COMMAND")
+        os.environ.setdefault("DEBUG", "1")
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

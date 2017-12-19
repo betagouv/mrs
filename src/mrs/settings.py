@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+import shutil
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -33,18 +34,22 @@ if 'ALLOWED_HOSTS' in os.environ:
 if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
     raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
+LOGIN_REDIRECT_URL = '/mrsrequest/'
+
 # Application definition
 
 INSTALLED_APPS = [
     'material',
+    'material.frontend',
+    'webpack_loader' if shutil.which('npm') else 'webpack_mock',
 
     'person',
     'transport',
     'pmt',
     'mrs',
     'mrsrequest',
+    'mrsattachment',
 
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -231,6 +236,13 @@ else:
     }
 
 if DEBUG:
+    try:
+        import dbdiff  # noqa
+    except ImportError:
+        pass
+    else:
+        INSTALLED_APPS += ('dbdiff',)
+
     try:
         import debug_toolbar  # noqa
     except ImportError:

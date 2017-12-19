@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load material_form %}
+
+{% block content %}
+<form method="POST" class="mrsrequest">
+    {% csrf_token %}
+    <input type="hidden" name="mrsrequest_uuid" value="{{ view.mrsrequest_uuid }}" />
+
+    {% for form in view.forms.values %}
+        {% form form=form %}{% endform %}
+    {% endfor %}
+
+    <br />
+
+    <button type="submit" name="_submit" class="btn">Submit</button>
+</form>
+{% endblock %}

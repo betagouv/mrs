@@ -11,7 +11,7 @@ version: 2
   - restore_cache:
       keys: [ansible]
   - deploy:
-      name: deploy
+      name: DEPLOY sh -> ansible-playbook
       command: ./.circleci/deploy.sh
   - save_cache:
       key: ansible
@@ -26,22 +26,29 @@ workflows:
   version: 2
   pipeline:
     jobs:
-      - qa
-      - test
-      - build
+      - python-qa
+      - python-test
+      - docker-build
+      - js-qa
+      - js-test
       - jpic:
-          requires: [build]
+          requires: [docker-build]
           filters:
             branches:
               only: [jpic]
       - tbinetruy:
-          requires: [build]
+          requires: [docker-build]
           filters:
             branches:
               only: [tbinetruy]
       - staging:
           <<: *master_template
-          requires: [build, test, qa]
+          requires:
+          - python-qa
+          - python-test
+          - docker-build
+          - js-qa
+          - js-test
       - validate-staging:
           <<: *master_template
           type: approval
@@ -51,7 +58,7 @@ workflows:
           requires: [validate-staging]
 
 jobs:
-  qa:
+  python-qa:
     docker:
     - image: circleci/python:3.6.1
     steps:
@@ -61,14 +68,15 @@ jobs:
         - qa-dependencies-{{ checksum "tox.ini" }}
     - run:
         name: tox environment setup
-        command: pip install --user tox && ~/.local/bin/tox -e qa --notest
+        command: pip install --user tox && ~/.local/bin/tox -r -e qa --notest
     - save_cache:
-        paths: [.tox/qa, ~/.local, ~/.cache/pip]
+        paths: [~/.local, ~/.cache/pip]
         key: qa-dependencies-{{ checksum "tox.ini" }}
     - run:
         name: run qa checks
         command: ~/.local/bin/tox -e qa
-  test:
+
+  python-test:
     docker:
     - image: circleci/python:3.6.1
     working_directory: ~/repo
@@ -78,16 +86,59 @@ jobs:
         keys:
         - test-dependencies-{{ checksum "tox.ini" }}
     - run:
-        name: tox environment setup
-        command: pip install --user tox && ~/.local/bin/tox -e py36-dj20 --notest
+        name: Tox environment setup
+        command: pip install --user tox && ~/.local/bin/tox -r -e py36-dj20 --notest
     - save_cache:
-        paths: [.tox/py36-dj20, ~/.local, ~/.cache/pip]
+        paths: [~/.local, ~/.cache/pip]
         key: test-dependencies-{{ checksum "tox.ini" }}
     - run:
-        name: run qa checks
-        command: ~/.local/bin/tox -e py36-dj20
+        name: TEST tox -e py36-dj20
+        command: |
+          ~/.local/bin/tox -e py36-dj20
+          PATH=.tox/py36-dj20/bin:$PATH codecov --token $CODECOV_TOKEN -e $TOXENV
 
-  build:
+  js-qa:
+    docker:
+    - image: circleci/node:8
+    steps:
+    - checkout
+    - restore_cache:
+        key: dependency-cache-jslint
+    - run:
+        name: NPM install standard
+        command: npm install standard
+    - save_cache:
+        key: dependency-cache-jslint
+        paths:
+          - ./node_modules
+    - run:
+        name: RUN standard
+        command: npm run lint
+
+  js-test:
+    docker:
+    - image: circleci/node:8
+    steps:
+    - checkout
+    - run:
+        name: NPM update
+        command: 'sudo npm install -g npm@latest'
+    - restore_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+    - run:
+        name: NPM install --dev
+        command: npm install --dev
+    - save_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+        paths:
+          - ./node_modules
+    - run:
+        name: Npm test & coverage upload
+        command: |
+          npm test
+          ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
+
+  docker-build:
     docker:
     - image: docker:17.05.0-ce-git
     steps:
@@ -95,12 +146,12 @@ jobs:
     - setup_remote_docker:
         docker_layer_caching: true
     - run:
-        name: Build application Docker image
+        name: DOCKER build
         command: |
           docker pull betagouv/mrs:$CIRCLE_BRANCH || true
           docker build -t betagouv/mrs:$CIRCLE_SHA1 .
     - deploy:
-        name: Push application Docker image
+        name: DOCKER image push betagouv/mrs:{{ .Branch }} & betagouv/mrs:{{ .Environment.CIRCLE_SHA1 }} tags
         command: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push betagouv/mrs:$CIRCLE_SHA1
