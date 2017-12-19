@@ -18,7 +18,7 @@ class Person(models.Model):
         null=True,
         verbose_name='Email',
     )
-    nir = models.IntegerField(
+    nir = models.BigIntegerField(
         verbose_name='Numéro de sécurité sociale',
     )
 
