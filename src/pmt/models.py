@@ -23,7 +23,7 @@ class PMTManager(models.Manager):
 
 
 class PMT(MRSAttachment):
-    mrsrequest = models.ForeignKey(
+    mrsrequest = models.OneToOneField(
         'mrsrequest.MRSRequest',
         on_delete=models.CASCADE,
     )

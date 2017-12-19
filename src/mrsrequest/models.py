@@ -23,24 +23,14 @@ class MRSRequest(models.Model):
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    submiter_email = models.EmailField(
-        null=True,
-    )
     creation_datetime = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Date et heure d\'enregistrement du formulaire')
 
-    transported = models.ForeignKey(
-        'person.Person',
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name='transported_transport_set',
-    )
     insured = models.ForeignKey(
         'person.Person',
         null=True,
         on_delete=models.SET_NULL,
-        related_name='insured_transport_set',
     )
 
     status = models.IntegerField(

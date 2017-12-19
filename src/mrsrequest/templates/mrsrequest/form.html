@@ -2,7 +2,7 @@
 {% load material_form %}
 
 {% block content %}
-<form method="POST" class="mrsrequest">
+<form method="POST" id="mrsrequest-wizard">
     {% csrf_token %}
     <input type="hidden" name="mrsrequest_uuid" value="{{ view.mrsrequest_uuid }}" />
 

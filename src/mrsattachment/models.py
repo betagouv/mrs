@@ -14,12 +14,17 @@ class MRSAttachmentField(models.BinaryField):
         self.delete = delete
         self.max_files = max_files
 
+        # https://code.djangoproject.com/ticket/28937
         kwargs['editable'] = True
 
         models.Field.__init__(self, *args, **kwargs)
 
     def deconstruct(self):
+        # https://code.djangoproject.com/ticket/28937#comment:3
         return models.Field.deconstruct(self)
+
+    def value_from_object(self, obj):
+        return obj.filename
 
     def save(self, name, content, save=True):
         pass
@@ -28,6 +33,8 @@ class MRSAttachmentField(models.BinaryField):
         kwargs.setdefault('upload', self.upload)
         kwargs.setdefault('download', self.download)
         kwargs.setdefault('max_files', self.max_files)
+        kwargs.setdefault('label', self.verbose_name)
+        kwargs.setdefault('help_text', self.help_text)
         return forms.MRSAttachmentField(**kwargs)
 
     def to_python(self, value):
