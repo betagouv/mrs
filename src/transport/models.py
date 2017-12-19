@@ -12,15 +12,18 @@ class Transport(models.Model):
     )
 
     date_depart = models.DateField(
-        verbose_name='Date du trajet aller',
+        verbose_name='Aller',
+        help_text='Date du trajet aller',
         null=True
     )
     date_return = models.DateField(
-        verbose_name='Date du trajet retour',
+        verbose_name='Retour',
+        help_text='Date du trajet retour',
         null=True
     )
     distance = models.IntegerField(
-        'Kilométrage total parcouru',
+        verbose_name='Distance (km)',
+        help_text='Kilométrage total parcouru',
         null=True
     )
 

@@ -15,8 +15,8 @@ class TransportForm(MRSRequestFormMixin, forms.ModelForm):
         label='Justificatifs',
         required=False,
         help_text=(
-            'Joindre vos justificatifs (parking, péage ou '
-            'justificatif(s) de transport en commun)'
+            'Joindre vos justificatifs si vous avez des frais (parking, péage'
+            ' ou justificatif(s) de transport en commun)'
         )
     )
 
