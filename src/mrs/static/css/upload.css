@@ -1,5 +1,6 @@
 .hidden {
-    display: none;
+    pointer-events: none;
+    opacity: 0;
 }
 
 /*
@@ -14,4 +15,45 @@
 .delete-file {
     color: black;
     margin-left: 1rem;
+}
+
+ul li {
+    position: relative;
+    margin: 1rem 0;
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+ul li span, ul li .delete-file, ul li .error {
+    transition: 0.2s ease-in opacity;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: 0;
+}
+
+ul li .error {
+    position: absolute;
+    right: 1rem; /* ul li margin */
+    top: 0;
+}
+
+ul li progress {
+    transition: 0.2s ease-in opacity;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+progress::-webkit-progress-value {
+    background: #0dc5b9;
+}
+progress::-moz-progress-bar {
+    background: #0dc5b9;
 }
