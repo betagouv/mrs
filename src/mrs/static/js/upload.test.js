@@ -47,6 +47,41 @@ const fileSelectFactory = (putUrl, csrfToken, el, errorClass, withMock=true) => 
   return subject
 }
 
+describe('FileSelect.fetchUpload', () => {
+  const subject = fileSelectFactory()
+
+  test('promise calls fetchUploadRequest() with right params', () => {
+    const data = {}
+    const url = ''
+    const progressHandler = () => {}
+    subject.fetchUploadRequest = jest.fn()
+
+    subject.fetchUpload(data, url, progressHandler)//(resolve, reject)
+    expect(subject.fetchUploadRequest.mock.calls[0][0]).toBe(data)
+    expect(subject.fetchUploadRequest.mock.calls[0][1]).toBe(url)
+    expect(subject.fetchUploadRequest.mock.calls[0][2]).toBe(progressHandler)
+  })
+})
+
+describe('FileSelect.progressBarHandler', () => {
+  const subject = fileSelectFactory()
+
+  test('returns callback binded to el', () => {
+    const mockProgress = {
+      max: 0,
+      value: 0,
+    }
+
+    const mockEvent = {
+      total: 100,
+      loaded: 50,
+    }
+
+    subject.progressBarHandler(mockProgress)(mockEvent)
+    expect(mockProgress).toEqual({max: mockEvent.total, value: mockEvent.loaded})
+  })
+})
+
 describe('FileSelect.fetchUploadRequest', () => {
   const _ = undefined
   const el = fileInputFixture()
