@@ -3,15 +3,23 @@
 
 {% block content %}
 <form method="POST" id="mrsrequest-wizard">
-    {% csrf_token %}
-    <input type="hidden" name="mrsrequest_uuid" value="{{ view.mrsrequest_uuid }}" />
+    {% if view.success %}
+    <div class="card-panel teal lighten-4">
+        Merci pour votre demande ! Nous reviendrons vers vous dès que possible.
+        <br />
+        <a href="{{ path_info }}">Cliquez ici pour faire une nouvelle demande.</a>
+    </div>
+    {% else %}
+        {% csrf_token %}
+        <input type="hidden" name="mrsrequest_uuid" value="{{ view.mrsrequest_uuid }}" />
 
-    {% for form in view.forms.values %}
-        {% form form=form %}{% endform %}
-    {% endfor %}
+        {% for form in view.forms.values %}
+            {% form form=form %}{% endform %}
+        {% endfor %}
 
-    <br />
+        <br />
 
-    <button type="submit" name="_submit" class="btn">Submit</button>
+        <button type="submit" name="_submit" class="btn">Submit</button>
+    {% endif %}
 </form>
 {% endblock %}

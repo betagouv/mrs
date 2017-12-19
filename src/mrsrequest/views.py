@@ -50,7 +50,9 @@ class MRSRequestCreateView(generic.TemplateView):
             form.is_valid()
         errors = [form for form in self.forms.values() if not form.is_valid()]
         if not errors:
-            self.save()
+            if self.save():
+                self.success = True
+                return self.get(request, *args, **kwargs)
 
         return generic.TemplateView.get(self, request, *args, **kwargs)
 
@@ -139,3 +141,5 @@ class MRSRequestCreateView(generic.TemplateView):
         transport = self.forms['transport'].save(commit=False)
         transport.mrsrequest = self.object
         transport.save()
+
+        return True
