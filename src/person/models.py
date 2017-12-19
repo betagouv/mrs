@@ -14,6 +14,10 @@ class Person(models.Model):
         null=True,
         verbose_name='Date de naissance',
     )
+    email = models.EmailField(
+        null=True,
+        verbose_name='Email',
+    )
     nir = models.IntegerField(
         verbose_name='Numéro de sécurité sociale',
     )

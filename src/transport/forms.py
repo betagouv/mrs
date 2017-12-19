@@ -1,19 +1,19 @@
 from django import forms
 import material
 
-from mrsattachment.forms import MRSAttachmentWidget, MRSAttachementFormMixin
+from mrsattachment.forms import MRSAttachmentField
+from mrsrequest.forms import MRSRequestFormMixin
 
 from .models import Transport
 
 
-class TransportForm(MRSAttachementFormMixin, forms.ModelForm):
-    bills = forms.FileField(
-        widget=MRSAttachmentWidget(
-            'transport:bill_upload',
-            'transport:bill_download',
-            20,
-        ),
+class TransportForm(MRSRequestFormMixin, forms.ModelForm):
+    bills = MRSAttachmentField(
+        'transport:bill_upload',
+        'transport:bill_download',
+        20,
         label='Justificatifs',
+        required=False,
         help_text=(
             'Joindre vos justificatifs (parking, péage ou '
             'justificatif(s) de transport en commun)'
@@ -33,6 +33,19 @@ class TransportForm(MRSAttachementFormMixin, forms.ModelForm):
         ),
     )
 
+    def clean(self):
+        cleaned_data = super().clean()
+        expense = cleaned_data.get('expense')
+        bills = cleaned_data.get('bills')
+
+        if expense and not bills:
+            self.add_error(
+                'bills',
+                'Merci de soumettre vos justificatifs de transport'
+            )
+
+        return cleaned_data
+
     class Meta:
         model = Transport
         fields = [
@@ -40,5 +53,4 @@ class TransportForm(MRSAttachementFormMixin, forms.ModelForm):
             'date_return',
             'distance',
             'expense',
-            'bills',
         ]

@@ -2,11 +2,11 @@ from django import forms
 
 import material
 
-from mrsattachment.forms import MRSAttachementFormMixin
+from mrsrequest.forms import MRSRequestFormMixin
 from .models import PMT
 
 
-class PMTForm(MRSAttachementFormMixin, forms.ModelForm):
+class PMTForm(MRSRequestFormMixin, forms.ModelForm):
     layout = material.Layout(
         material.Fieldset(
             'Votre prescription médicale',

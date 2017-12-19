@@ -36,19 +36,21 @@ if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
 
 LOGIN_REDIRECT_URL = '/mrsrequest/'
 
+LOCALE = 'fr'
+
 # Application definition
 
 INSTALLED_APPS = [
-    'material',
-    'material.frontend',
-    'webpack_loader' if shutil.which('npm') else 'webpack_mock',
-
     'person',
     'transport',
     'pmt',
     'mrs',
     'mrsrequest',
     'mrsattachment',
+
+    'material',
+    'material.frontend',
+    'webpack_loader' if shutil.which('npm') else 'webpack_mock',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',

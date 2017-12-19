@@ -1,0 +1,53 @@
+[
+{
+    "fields": {
+        "creation_datetime": "2017-12-19T05:51:11Z",
+        "insured": null,
+        "status": 0
+    },
+    "model": "mrsrequest.mrsrequest",
+    "pk": "e29db065-0566-48be-822d-66bd3277d823"
+},
+{
+    "fields": {
+        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeS5qcGc=",
+        "creation_datetime": "2017-12-19T05:51:11Z",
+        "filename": "test_mrsrequestcreateview_story.jpg",
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "pmt.pmt",
+    "pk": 1
+},
+{
+    "fields": {
+        "birth_date": "2007-02-07",
+        "email": "jpic@yourlabs.org",
+        "first_name": "jamesy",
+        "last_name": "wuzere",
+        "nir": 123412312
+    },
+    "model": "person.person",
+    "pk": 1
+},
+{
+    "fields": {
+        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeS5qcGc=",
+        "creation_datetime": "2017-12-19T05:51:11Z",
+        "filename": "test_mrsrequestcreateview_story.jpg",
+        "transport": 1
+    },
+    "model": "transport.bill",
+    "pk": 1
+},
+{
+    "fields": {
+        "date_depart": "2017-02-02",
+        "date_return": "2017-02-02",
+        "distance": 100,
+        "expense": "1E+1",
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "transport.transport",
+    "pk": 1
+}
+]
