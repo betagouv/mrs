@@ -36,8 +36,6 @@ if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
 
 LOGIN_REDIRECT_URL = '/mrsrequest/'
 
-LOCALE = 'fr'
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -122,7 +120,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+
+LOCALE = 'fr_FR'
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'UTC'
 
