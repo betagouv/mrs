@@ -3,9 +3,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-
     {% include 'material/includes/material_css.html' %}
     <link type="text/css" rel="stylesheet" href="{% static "css/vars.css" %}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static "css/base.css" %}"  media="screen,projection"/>
@@ -76,7 +73,7 @@
                 </h2>
                 <div class="processes--wrapper">
                     <div class="process--wrapper scroll-reveal">
-                        <img src="https://assets.strikingly.com/static/icons/flat-modern/04.png" alt="icon" />
+                        <img src="{% static 'img/04.png' %}" alt="icon" />
                         <div class="description--wrapper">
                             <h2>1/ Je déclare mon trajet</h2>
                             <p>
@@ -86,7 +83,7 @@
                     </div>
 
                     <div class="process--wrapper scroll-reveal">
-                        <img src="https://assets.strikingly.com/static/icons/flat-circle-160/135.png" alt="icon" />
+                        <img src="{% static 'img/135.png' %}" alt="icon" />
                         <div class="description--wrapper">
                             <h2>2/ Je transmets mes justificatifs</h2>
                             <p>
@@ -96,7 +93,7 @@
                     </div>
 
                     <div class="process--wrapper scroll-reveal">
-                        <img src="https://assets.strikingly.com/static/icons/flat-circle-160/26.png" alt="icon" />
+                        <img src="{% static 'img/26.png' %}" alt="icon" />
                         <div class="description--wrapper">
                             <h2>3/ Je valide ma demande</h2>
                             <p>
@@ -290,7 +287,7 @@
                             <p>
                                 Vous devez nous envoyer le volet 2 de la prescription médicale de transport réalisée par votre médecin.
                             </p>
-                            <img src="https://res.cloudinary.com/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/v1/1251740/c874e665e60d4174abdde90ed42c780c_skjjoy.png" alt="Speciment du document a fournir" />
+                            <img src="{% static 'img/c874e665e60d4174abdde90ed42c780c_skjjoy.png' %}" alt="Speciment du document a fournir" />
                         </div>
                     </div>
 
@@ -309,10 +306,10 @@
                 <h2>Une question sur ce nouveau service ?</h2>
                 <h3>N'hésitez pas à nous contacter !</h3>
                 <a href="https://www.ameli.fr" target="_blank">
-                    <img class="logo" src="https://res.cloudinary.com/hrscywv4p/image/upload/c_limit,fl_lossy,h_300,w_300,f_auto,q_auto/v1/1251740/logoAmeli_gtnwya.png" alt="Logo ameli.fr" />
+                    <img class="logo" src="{% static 'img/logoAmeli_gtnwya.png' %}" alt="Logo ameli.fr" />
                 </a>
                 <a href="https://beta.gouv.fr/" target="_blank">
-                    <img class="logo" src="https://res.cloudinary.com/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/v1/1251740/logo-incubateur-avec-titre_rnoq0u.png" alt="Logo beta.gouv.fr" />
+                    <img class="logo" src="{% static 'img/logo-incubateur-avec-titre_rnoq0u.png' %}" alt="Logo beta.gouv.fr" />
                 </a>
             </div>
         </section>
