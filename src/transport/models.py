@@ -32,8 +32,8 @@ class Transport(models.Model):
         blank=True, default=0,
         verbose_name='Montant total des frais',
         help_text=(
-            'Montant total des frais (parking et/ou péage ou '
-            'justificatif(s) de transport en commun)'
+            'Parking et/ou péage ou '
+            'justificatif(s) de transport en commun'
         )
     )
 
