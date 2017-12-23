@@ -16,6 +16,8 @@ import Form from './form'
           upload.getAttribute('data-upload-url'),
           Cookie.get('csrftoken'),
           e.target,
+          'error',
+          parseInt(upload.getAttribute('data-max-files')) > 1,
         )
         var name = e.target.getAttribute('name')
         var fileData = new FormData(form).get(name)
