@@ -1,6 +1,7 @@
 import Cookie from 'js-cookie'
 import ScrollReveal from 'scrollreveal'
 import Form from './form'
+import '../sass/main.sass'
 
 (($) => {
   var form = document.querySelector('form#mrsrequest-wizard')
