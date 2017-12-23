@@ -31,6 +31,7 @@ class PMT(MRSAttachment):
         'pmt:pmt_upload',
         'pmt:pmt_download',
         'pmt:pmt_destroy',
+        max_files=1,
         verbose_name='Prescription Médicale de Transport'
     )
 

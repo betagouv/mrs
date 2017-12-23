@@ -11,9 +11,9 @@ class MRSAttachmentField(forms.MultipleChoiceField):
 
         k.setdefault(
             'widget',
-            MRSAttachmentWidget(
-                upload=self.upload,
-                download=self.download,
+            type(
+                'MRSAttachmentWidget', (MRSAttachmentWidget,),
+                dict(field=self)
             )
         )
 
@@ -21,12 +21,6 @@ class MRSAttachmentField(forms.MultipleChoiceField):
 
 
 class MRSAttachmentWidget(forms.FileInput):
-    def __init__(self, upload, download, max_files=20):
-        self.upload = upload
-        self.download = download
-        self.max_files = max_files
-        super().__init__()
-
     @property
     def attrs(self):
         self._attrs = self._attrs or {}
@@ -37,9 +31,9 @@ class MRSAttachmentWidget(forms.FileInput):
 
             if mrsrequest_uuid:
                 self._attrs.update({
-                    'data-max-files': self.max_files,
+                    'data-max-files': self.field.max_files,
                     'data-upload-url': reverse(
-                        self.upload,
+                        self.field.upload,
                         args=[mrsrequest_uuid]
                     )
                 })
