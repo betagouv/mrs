@@ -4,6 +4,7 @@ import Cookie from 'js-cookie'
 import FileSelect from './upload'
 import ScrollReveal from 'scrollreveal'
 import Form from './form'
+import '../sass/main.sass'
 
 (() => {
   var uploadsInit = function(dom) {
