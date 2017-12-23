@@ -7,12 +7,12 @@ class FileSelect {
   // el (dom element object): file input element to add msgs to
   // errorClass (string): error div classname
   // multiple (bool): true to allow multiple files to be uploaded
-  constructor (putUrl, csrftoken, el, errorClass='error', multiple=true) {
+  constructor (putUrl, csrftoken, el, errorClass='error', multiple=true, validMimeTypes=false) {
     this.errorMsg = {
-      mimeType: 'Mime type not valid',
-      fileSize: 'File too large',
+      mimeType: 'Type de fichier refusé',
+      fileSize: 'Fichier trop lourd',
     }
-    this.validMimeTypes = [
+    this.validMimeTypes = validMimeTypes ? validMimeTypes : [
       'image/jpeg',
       'image/jpg',
       'image/png',
@@ -52,12 +52,13 @@ class FileSelect {
   //// Upload file validation
   // file (file object): upload file object
   validateFile(file) {
+    // todo: raise both errors is better for the user
     if (!this.mimeTypeValidate(file.type)) {
-      throw this.errorMsg.mimeType
+      throw `${this.errorMsg.mimeType}: ${file.type}`
     }
 
     if (!this.fileSizeValidate(file.size)) {
-      throw this.errorMsg.fileSize
+      throw `${this.errorMsg.fileSize}: ${file.size} / ${this.maxFileSize}`
     }
   }
 

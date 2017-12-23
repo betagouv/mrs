@@ -18,6 +18,7 @@ import Form from './form'
           e.target,
           'error',
           parseInt(upload.getAttribute('data-max-files')) > 1,
+          upload.getAttribute('data-mime-types').split(',')
         )
         var name = e.target.getAttribute('name')
         var fileData = new FormData(form).get(name)

@@ -376,7 +376,10 @@ describe('FileSelect.upload() validation error: file too large', () => {
 
   test('FileSelect.error() should be called', () => {
     const li = subject.createLiElement(file.name, '')
-    expect(subject.error.mock.calls).toEqual([[subject.errorMsg.fileSize, li]])
+    expect(subject.error.mock.calls).toEqual([[
+      `${subject.errorMsg.fileSize}: ${file.size} / ${subject.maxFileSize}`,
+      li
+    ]])
   })
 })
 
@@ -396,7 +399,10 @@ describe('FileSelect.upload() validation error: invalid file mime type', () => {
 
   test('FileSelect.error() should be called', () => {
     const li = subject.createLiElement(file.name, '')
-    expect(subject.error.mock.calls).toEqual([[subject.errorMsg.mimeType, li]])
+    expect(subject.error.mock.calls).toEqual([[
+      `${subject.errorMsg.mimeType}: ${file.type}`,
+      li
+    ]])
   })
 })
 
