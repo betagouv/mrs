@@ -18,6 +18,7 @@ def test_widget_attrs(mocker):
         'pmt:pmt_upload',
         'pmt:pmt_download',
         66,
+        ['foo/bar', 'test/lol'],
     )
 
     # Mock MRSRequestFormMixin.factory() side effect
@@ -26,3 +27,4 @@ def test_widget_attrs(mocker):
 
     assert field.widget.attrs['data-upload-url'] == '/pmt/123/upload'
     assert field.widget.attrs['data-max-files'] == 66
+    assert field.widget.attrs['data-mime-types'] == 'foo/bar,test/lol'

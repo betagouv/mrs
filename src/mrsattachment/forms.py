@@ -2,12 +2,16 @@ from django import forms
 
 from django.urls import reverse
 
+from .settings import DEFAULT_MIME_TYPES
+
 
 class MRSAttachmentField(forms.MultipleChoiceField):
-    def __init__(self, upload=None, download=None, max_files=20, *a, **k):
+    def __init__(self, upload=None, download=None, max_files=20,
+                 mime_types=None, *a, **k):
         self.upload = upload
         self.download = download
         self.max_files = max_files
+        self.mime_types = mime_types or DEFAULT_MIME_TYPES
 
         k.setdefault(
             'widget',
@@ -31,6 +35,7 @@ class MRSAttachmentWidget(forms.FileInput):
 
             if mrsrequest_uuid:
                 self._attrs.update({
+                    'data-mime-types': ','.join(self.field.mime_types),
                     'data-max-files': self.field.max_files,
                     'data-upload-url': reverse(
                         self.field.upload,

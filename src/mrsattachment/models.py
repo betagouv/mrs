@@ -3,16 +3,18 @@ import io
 from django.db import models
 
 from . import forms
+from .settings import DEFAULT_MIME_TYPES
 
 
 class MRSAttachmentField(models.BinaryField):
     def __init__(self, upload=None, download=None, delete=None, max_files=20,
-                 *args, **kwargs):
+                 mime_types=None, *args, **kwargs):
 
         self.upload = upload
         self.download = download
         self.delete = delete
         self.max_files = max_files
+        self.mime_types = mime_types or DEFAULT_MIME_TYPES
 
         # https://code.djangoproject.com/ticket/28937
         kwargs['editable'] = True
@@ -31,6 +33,7 @@ class MRSAttachmentField(models.BinaryField):
 
     def formfield(self, **kwargs):
         kwargs.setdefault('upload', self.upload)
+        kwargs.setdefault('mime_types', self.mime_types)
         kwargs.setdefault('download', self.download)
         kwargs.setdefault('max_files', self.max_files)
         kwargs.setdefault('label', self.verbose_name)
