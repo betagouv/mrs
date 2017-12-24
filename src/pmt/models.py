@@ -37,6 +37,9 @@ class PMT(MRSAttachment):
 
     objects = PMTManager()
 
+    def __str__(self):
+        return 'PMT: {}'.format(self.mrsrequest.pk)
+
     def get_delete_url(self):
         return reverse('pmt:pmt_destroy', args=[self.pk])
 

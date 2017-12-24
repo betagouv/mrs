@@ -1,12 +1,15 @@
 from django.conf import settings
+from django.contrib import admin
 from django.views import generic
 from django.urls import include, path, reverse_lazy
-
 from material.frontend import urls as frontend_urls
+
+
 urlpatterns = [
     path('', generic.RedirectView.as_view(
         url=reverse_lazy('mrsrequest:wizard'))
     ),
+    path('admin/', admin.site.urls),
     path('', include(frontend_urls)),
 ]
 

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'webpack_loader' if shutil.which('npm') else 'webpack_mock',
 
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
