@@ -57,8 +57,8 @@ class BillManager(models.Manager):
         return Bill.objects.update_or_create(
             transport=Transport.objects.get_or_create(
                 mrsrequest=mrsrequest)[0],
+            filename=str(upload),
             defaults=dict(
-                filename=str(upload),
                 binary=MRSAttachment.get_upload_body(upload),
             )
         )[0]
