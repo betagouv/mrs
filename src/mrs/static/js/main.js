@@ -57,6 +57,23 @@ import Form from './form'
               </a>
             `
             var $li = $('<li />').append(template).appendTo($target);
+            $li.on('click', '[data-delete-url]', function() {
+              $.ajax({
+                method: 'DELETE',
+                url: $(this).attr('data-delete-url'),
+                error: function() {
+                  console.log('error')
+                },
+                success: function(data) {
+                  $li.slideUp()
+                },
+                beforeSend: function(xhr) {
+                  if (!this.crossDomain) {
+                    xhr.setRequestHeader('X-CSRFToken', Cookie.get('csrftoken'))
+                  }
+                }
+              })
+            });
           });
         }
       })
