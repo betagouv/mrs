@@ -1,5 +1,4 @@
-from django.views import generic
-from django.urls import include, path, reverse_lazy
+from django.urls import path
 
 from mrsattachment.views import (
     MRSFileDeleteView,
@@ -7,14 +6,10 @@ from mrsattachment.views import (
     MRSFileUploadView,
 )
 
-from .views import (
-    BillViewSet,
-    TransportViewSet,
-)
-
 from .models import Bill
 
 
+app_name = 'transport'
 urlpatterns = [
     path(
         '<pk>/delete',
@@ -30,20 +25,5 @@ urlpatterns = [
         '<mrsrequest_uuid>/upload',
         MRSFileUploadView.as_view(model=Bill),
         name='bill_upload'
-    ),
-    path(
-        '',
-        generic.RedirectView.as_view(
-            url=reverse_lazy('transport:transport_list')
-        ),
-        name='index'
-    ),
-    path(
-        'transport/',
-        include(TransportViewSet().urls),
-    ),
-    path(
-        'bill/',
-        include(BillViewSet().urls),
     ),
 ]

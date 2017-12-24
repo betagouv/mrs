@@ -16,6 +16,7 @@
         </div>
         {% part field suffix %}{% endpart %}{% part field control %}<div class="file-path-wrapper">
             <input class="file-path" {% attrs bound_field 'widget' default field.widget.attrs %}
+                placeholder="{{ field.label }}"
                 {% if bound_field.value|is_initial_file %}value="{{ bound_field.value }}"{% endif %}
             {% endattrs %}>
         </div>{% endpart %}
@@ -33,31 +34,15 @@
                 {% for value in bound_field.value %}
                 <li>
                     <span class="file-name">
-                        {{ value }}
+                        {{ value.filename }}
                     </span>
-                    <a href="{{ value }}">Éffacer</a>
+
+                    <a data-delete-url="{{ value.get_delete_url }}" class="delete-file">
+                      Éffacer
+                    </a>
                 </li>
                 {% endfor %}
             {% endif %}
         </ul>
-
-        {# for jquery-file-upload #}
-        <div class="col-lg-5 fileupload-progress fade">
-            {% comment %}
-             The global progress bar
-            {% endcomment %}
-            <div
-                class="progress progress-striped active"
-                role="progressbar"
-                aria-valuemin="0" aria-valuemax="100"
-            >
-                <div class="progress-bar progress-bar-success" style="width:0%;">
-                </div>
-            </div>
-            {% comment %}
-             The extended global progress information
-            {% endcomment %}
-            <div class="progress-extended">&nbsp;</div>
-        </div>
     </div>
 </div>{% endpart %}

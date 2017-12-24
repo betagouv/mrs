@@ -1,5 +1,4 @@
 import collections
-from material.frontend.views import ModelViewSet
 
 from django import http
 from django.utils.datastructures import MultiValueDict
@@ -9,14 +8,11 @@ from person.forms import PersonForm
 from person.models import Person
 from pmt.models import PMT
 from pmt.forms import PMTForm
+from transport.models import Bill
 from transport.forms import TransportForm
 
 from .forms import CertifyForm
 from .models import MRSRequest
-
-
-class MRSRequestViewSet(ModelViewSet):
-    model = MRSRequest
 
 
 class MRSRequestCreateView(generic.TemplateView):
@@ -96,16 +92,16 @@ class MRSRequestCreateView(generic.TemplateView):
             pmt = self.object.pmt
         except PMT.DoesNotExist:
             pmt = None
-        else:
-            self.data['pmtform-binary'] = [pmt.filename]
-
-        self.forms['pmt'] = PMTForm.factory(
-            self, self.data, files=self.data, instance=pmt)
 
         if pmt and pmt.filename:
-            self.forms['pmt'].fields['binary'].choices = [
-                (pmt.filename, pmt.filename)
-            ]
+            qs = PMT.objects.filter(pk=pmt.pk)
+            self.data['pmtform-pmt'] = [pmt]
+        else:
+            qs = PMT.objects.none()
+            self.data['pmtform-pmt'] = []
+
+        self.forms['pmt'] = PMTForm.factory(self, self.data, files=self.data)
+        self.forms['pmt'].fields['pmt'].queryset = qs
 
     def hydrate_transport(self):
         self.transport = (
@@ -115,20 +111,18 @@ class MRSRequestCreateView(generic.TemplateView):
 
         self.bills = (
             self.transport.bill_set.all()
-            if self.transport else None
+            if self.transport else Bill.objects.none()
         )
 
         if self.bills:
-            self.data['transportform-bills'] = list(self.bills.values_list(
-                'filename', flat=True))
+            self.data['transportform-bills'] = self.bills
+        else:
+            self.data['transportform-bills'] = []
 
         self.forms['transport'] = TransportForm.factory(
             self, self.data, files=self.data, instance=self.transport)
 
-        if self.bills:
-            self.forms['transport'].fields['bills'].choices = [
-                (b.filename, b.filename) for b in self.bills
-            ]
+        self.forms['transport'].fields['bills'].queryset = self.bills
 
     def save(self):
         if not self.person:
