@@ -7,6 +7,8 @@ from .settings import DEFAULT_MIME_TYPES
 
 
 class MRSAttachmentField(models.BinaryField):
+    description = 'Binary attachment field'
+
     def __init__(self, upload=None, download=None, delete=None, max_files=20,
                  mime_types=None, *args, **kwargs):
 
@@ -38,6 +40,7 @@ class MRSAttachmentField(models.BinaryField):
         kwargs.setdefault('max_files', self.max_files)
         kwargs.setdefault('label', self.verbose_name)
         kwargs.setdefault('help_text', self.help_text)
+        kwargs.setdefault('model', self.model)
         return forms.MRSAttachmentField(**kwargs)
 
     def to_python(self, value):

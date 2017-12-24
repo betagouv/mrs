@@ -4,11 +4,12 @@ import material
 from mrsattachment.forms import MRSAttachmentField
 from mrsrequest.forms import MRSRequestFormMixin
 
-from .models import Transport
+from .models import Bill, Transport
 
 
 class TransportForm(MRSRequestFormMixin, forms.ModelForm):
     bills = MRSAttachmentField(
+        Bill,
         'transport:bill_upload',
         'transport:bill_download',
         20,

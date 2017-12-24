@@ -7,7 +7,7 @@
     <div class="card-panel teal lighten-4">
         Merci pour votre demande ! Nous reviendrons vers vous dès que possible.
         <br />
-        <a href="{{ path_info }}">Cliquez ici pour faire une nouvelle demande.</a>
+        <a data-load-in-form="{{ path_info }}">Cliquez ici pour faire une nouvelle demande.</a>
     </div>
     {% else %}
         {% csrf_token %}
