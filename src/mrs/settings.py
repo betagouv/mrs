@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'mrsrequest',
     'mrsattachment',
 
+    'jfu',
     'material',
     'material.frontend',
     'webpack_loader' if shutil.which('npm') else 'webpack_mock',

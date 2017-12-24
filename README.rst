@@ -23,6 +23,7 @@ Cloner le dépot, et puis dans le dossier du repo executer::
     npm install
 
     # Installer/mettre à jour code et librairies Python
+    pip install --user -r requirements.txt
     pip install -U --user -e .
 
     # Ajouter le pip user bin dans path, example:
@@ -43,6 +44,7 @@ Après une mise à jour de votre copie du code::
     npm install
 
     # Mettre à jour les librairies Python, fixe de nouvelles erreurs Python
+    pip install --user -r requirements.txt
     pip install -U --user -e .
 
     # Eventuellement éffacer la base de données, fixe des erreurs de database

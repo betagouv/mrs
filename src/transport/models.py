@@ -84,3 +84,6 @@ class Bill(MRSAttachment):
 
     def get_delete_url(self):
         return reverse('transport:bill_destroy', args=[self.pk])
+
+    def get_download_url(self):
+        return reverse('transport:bill_download', args=[self.pk])

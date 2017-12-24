@@ -1,6 +1,8 @@
 from django import http
 from django.views import generic
 
+from jfu.http import UploadResponse
+
 from mrsrequest.models import MRSRequest
 
 
@@ -81,7 +83,7 @@ class MRSFileUploadView(generic.View):
         if not MRSRequest(id=mrsrequest_uuid).is_allowed(request):
             return http.HttpResponseBadRequest('Token de formulaire invalidé')
 
-        if 'file' not in request.FILES:
+        if not request.FILES:
             return http.HttpResponseBadRequest('Pas de fichier reçu')
 
         # need to reverse engineer some action now to finish specs because our
@@ -89,11 +91,16 @@ class MRSFileUploadView(generic.View):
         # todo: validate filesize
         # todo: validate mimetype
 
+        files = []
         mrsrequest = MRSRequest.objects.get_or_create(id=mrsrequest_uuid)[0]
-        upload = request.FILES['file']
-        record = self.model.objects.record_upload(mrsrequest, upload)
+        for key, upload in request.FILES.items():
+            record = self.model.objects.record_upload(mrsrequest, upload)
+            files.append(dict(
+                name=record.filename,
+                url=record.get_download_url(),
+                thumbnailUrl=record.get_download_url(),
+                deleteUrl=record.get_delete_url(),
+                deleteType='DELETE',
+            ))
 
-        return http.JsonResponse(
-            dict(deleteUrl=record.get_delete_url()),
-            status=201,
-        )
+        return UploadResponse(request, files)

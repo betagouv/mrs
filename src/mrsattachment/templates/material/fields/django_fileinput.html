@@ -1,4 +1,6 @@
 {% load material_form material_form_internal i18n %}
+{% load jfutags %}
+
 {% part bound_field.field %}<div class="row">
     <div{% attrs bound_field 'group' %}
         id="id_{{ bound_field.html_name }}_container"
@@ -38,5 +40,24 @@
                 {% endfor %}
             {% endif %}
         </ul>
+
+        {# for jquery-file-upload #}
+        <div class="col-lg-5 fileupload-progress fade">
+            {% comment %}
+             The global progress bar
+            {% endcomment %}
+            <div
+                class="progress progress-striped active"
+                role="progressbar"
+                aria-valuemin="0" aria-valuemax="100"
+            >
+                <div class="progress-bar progress-bar-success" style="width:0%;">
+                </div>
+            </div>
+            {% comment %}
+             The extended global progress information
+            {% endcomment %}
+            <div class="progress-extended">&nbsp;</div>
+        </div>
     </div>
 </div>{% endpart %}

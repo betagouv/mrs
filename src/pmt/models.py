@@ -43,5 +43,8 @@ class PMT(MRSAttachment):
     def get_delete_url(self):
         return reverse('pmt:pmt_destroy', args=[self.pk])
 
+    def get_download_url(self):
+        return reverse('pmt:pmt_download', args=[self.pk])
+
     class Meta:
         ordering = ['mrsrequest', 'id']
