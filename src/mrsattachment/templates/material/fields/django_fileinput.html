@@ -6,14 +6,14 @@
    {% endattrs %}>
         <div class="btn">
             {% part field prefix %}<span>{% trans 'File' %}</span>{% endpart %}
-            <input type="file" name="{{ bound_field.html_name }}"/>
+            <input type="file" name="{{ bound_field.html_name }}"
+            {% attrs bound_field 'widget' default field.widget.attrs %}
+                {% if bound_field.value|is_initial_file %}value="{{ bound_field.value }}"{% endif %}
+            {% endattrs %}
+            />
         </div>
         {% part field suffix %}{% endpart %}{% part field control %}<div class="file-path-wrapper">
-            <input{% attrs bound_field 'widget' default field.widget.attrs %}
-                id="id_{{ bound_field.html_name }}"
-                type="text"
-                class="file-path"
-                placeholder="{{ bound_field.label }}"
+            <input class="file-path" {% attrs bound_field 'widget' default field.widget.attrs %}
                 {% if bound_field.value|is_initial_file %}value="{{ bound_field.value }}"{% endif %}
             {% endattrs %}>
         </div>{% endpart %}
@@ -26,14 +26,17 @@
             {% include  'material/field_errors.html' %}
         {% endif %}{% endpart %}{{ hidden_initial }}
 
-        {% if bound_field.value != None %}
         <ul class="files">
-            {% for value in bound_field.value %}
-            <span class="file-name">
-                {{ value }}
-            </span>
-            {% endfor %}
+            {% if bound_field.value != None %}
+                {% for value in bound_field.value %}
+                <li>
+                    <span class="file-name">
+                        {{ value }}
+                    </span>
+                    <a href="{{ value }}">Éffacer</a>
+                </li>
+                {% endfor %}
+            {% endif %}
         </ul>
-        {% endif %}
     </div>
 </div>{% endpart %}
