@@ -40,8 +40,12 @@ class MRSAttachmentWidget(forms.FileInput):
                     'data-upload-url': reverse(
                         self.field.upload,
                         args=[mrsrequest_uuid]
-                    )
+                    ),
                 })
+
+        if self.field.max_files > 1:
+            self._attrs.setdefault('multiple', 'multiple')
+        self._attrs.setdefault('name', 'file')
 
         return self._attrs
 
