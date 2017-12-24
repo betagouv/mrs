@@ -161,7 +161,7 @@ class FileSelect {
       <span class="${this.errorClass} ${this.hideElementClassName}">
       </span>
 
-      <a href="${deleteUrl}" class="${this.deleteClass} ${this.hideElementClassName}">
+      <a data-delete-url="${deleteUrl}" class="${this.deleteClass} ${this.hideElementClassName}">
         remove
       </a>
     `

@@ -5,7 +5,9 @@ import FileSelect from './upload'
 import ScrollReveal from 'scrollreveal'
 import Form from './form'
 
-(() => {
+
+(($) => {
+  /* Code for FileSelect, pending multi device support
   var uploadsInit = function(dom) {
     var uploads = dom.querySelectorAll('[data-upload-url]')
     for (var upload of uploads) {
@@ -26,9 +28,41 @@ import Form from './form'
       })
     }
   }
+  */
 
   var form = document.querySelector('form#mrsrequest-wizard')
   var $form = $(form)
+
+  var uploadsInit = function(dom) {
+    var formData = $form.serializeArray();
+    formData.push({
+      name: "csrfmiddlewaretoken",
+      value: Cookie.get('csrftoken')
+    });
+
+    $('[data-upload-url][type=file]').each(function() {
+      var $file = $(this)
+      var $target = $file.parents('.input-field').find('ul.files')
+      $file.fileupload({
+        url: $(this).attr('data-upload-url'),
+        formData: formData,
+        maxFileSize: Math.pow(10, 7),
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf)$/i,
+        done: function (e, data) {
+          $.each(JSON.parse(data.result)['files'], function (index, file) {
+            var template = `
+              <span class="file-name">${file.name}</span>
+              <a data-delete-url="${file.deleteUrl}" class="delete-file">
+                Éffacer
+              </a>
+            `
+            var $li = $('<li />').append(template).appendTo($target);
+          });
+        }
+      })
+    })
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault()
 
@@ -79,4 +113,4 @@ import Form from './form'
   uploadsInit(wizard)
   const $wizard = $(wizard)
   Form.initForms($wizard)
-})()
+})(window.jQuery)
