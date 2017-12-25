@@ -48,16 +48,44 @@ import Form from './form'
         formData: formData,
         maxFileSize: Math.pow(10, 7),
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf)$/i,
-        done: function (e, data) {
-          $.each(JSON.parse(data.result)['files'], function (index, file) {
+        add: function (e, data) {
+          data.context = []
+          for (var i in data.files) {
+            var file = data.files[i]
             var template = `
-              <span class="file-name">${file.name}</span>
+              <li data-file-name="${file.name}">
+                <span class="file-name">${file.name}</span>
+                <progress max="${file.size}" value="0" class="progress-bar">
+                </progress>
+              </li>
+            `
+            data.context.push($(template).appendTo($target))
+          }
+          data.submit();
+        },
+        progressall: function (e, data) {
+            console.log('progressall', e, data)
+        },
+        progress: function (e, data, bla) {
+          for (var i in data.files) {
+            var file = data.files[i]
+            var $li = data.context[i]
+            $li.find('progress').val(data.loaded)
+          }
+        },
+        done: function (e, data) {
+          var result = JSON.parse(data.result)['files']
+          for (var i in result) {
+            var file = result[i]
+            var $li = data.context[0]
+            var $a = $(`
               <a data-delete-url="${file.deleteUrl}" class="delete-file">
                 Éffacer
               </a>
-            `
-            var $li = $('<li />').append(template).appendTo($target);
-            $li.on('click', '[data-delete-url]', function() {
+            `).appendTo($li)
+            $li.find('progress').fadeOut()
+
+            $a.on('click', function() {
               $.ajax({
                 method: 'DELETE',
                 url: $(this).attr('data-delete-url'),
@@ -65,7 +93,7 @@ import Form from './form'
                   console.log('error')
                 },
                 success: function(data) {
-                  $li.slideUp()
+                  $a.parents('li').slideUp()
                 },
                 beforeSend: function(xhr) {
                   if (!this.crossDomain) {
@@ -73,8 +101,17 @@ import Form from './form'
                   }
                 }
               })
-            });
-          });
+            })
+          }
+        },
+        fail: function (e, data) {
+          for (var i in data.files) {
+            var file = data.files[i]
+            var $li = data.context[i]
+            var response = data.response()
+            $(`<span class="error">${response.errorThrown}</span>`).appendTo($li)
+            $li.find('progress').fadeOut()
+          }
         }
       })
     })
