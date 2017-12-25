@@ -34,6 +34,25 @@ import '../sass/main.sass'
   var form = document.querySelector('form#mrsrequest-wizard')
   var $form = $(form)
 
+  $('body').on('click', '[data-delete-url]', function() {
+    var $a = $(this)
+    $.ajax({
+      method: 'DELETE',
+      url: $(this).attr('data-delete-url'),
+      error: function() {
+        console.log('error')
+      },
+      success: function(data) {
+        $a.parents('li').slideUp()
+      },
+      beforeSend: function(xhr) {
+        if (!this.crossDomain) {
+          xhr.setRequestHeader('X-CSRFToken', Cookie.get('csrftoken'))
+        }
+      }
+    })
+  })
+
   var uploadsInit = function(dom) {
     var formData = $form.serializeArray();
     formData.push({
@@ -85,24 +104,6 @@ import '../sass/main.sass'
               </a>
             `).appendTo($li)
             $li.find('progress').fadeOut()
-
-            $a.on('click', function() {
-              $.ajax({
-                method: 'DELETE',
-                url: $(this).attr('data-delete-url'),
-                error: function() {
-                  console.log('error')
-                },
-                success: function(data) {
-                  $a.parents('li').slideUp()
-                },
-                beforeSend: function(xhr) {
-                  if (!this.crossDomain) {
-                    xhr.setRequestHeader('X-CSRFToken', Cookie.get('csrftoken'))
-                  }
-                }
-              })
-            })
           }
         },
         fail: function (e, data) {
