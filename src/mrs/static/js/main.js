@@ -8,29 +8,6 @@ import '../sass/main.sass'
 
 
 (($) => {
-  /* Code for FileSelect, pending multi device support
-  var uploadsInit = function(dom) {
-    var uploads = dom.querySelectorAll('[data-upload-url]')
-    for (var upload of uploads) {
-      var file = upload.parentElement.parentElement.querySelector('input[type=file]')
-      file.addEventListener('change', function (e) {
-        var upload = e.target.parentElement.parentElement.querySelector('[data-upload-url]')
-        var select = new FileSelect(
-          upload.getAttribute('data-upload-url'),
-          Cookie.get('csrftoken'),
-          e.target,
-          'error',
-          parseInt(upload.getAttribute('data-max-files')) > 1,
-          upload.getAttribute('data-mime-types').split(',')
-        )
-        var name = e.target.getAttribute('name')
-        var fileData = new FormData(form).get(name)
-        select.upload(fileData)
-      })
-    }
-  }
-  */
-
   var form = document.querySelector('form#mrsrequest-wizard')
   var $form = $(form)
 
@@ -169,4 +146,29 @@ import '../sass/main.sass'
   uploadsInit(wizard)
   const $wizard = $(wizard)
   Form.initForms($wizard)
+
+
+  /* Code for FileSelect, pending multi device support
+  var uploadsInit = function(dom) {
+    var uploads = dom.querySelectorAll('[data-upload-url]')
+    for (var upload of uploads) {
+      var file = upload.parentElement.parentElement.querySelector('input[type=file]')
+      file.addEventListener('change', function (e) {
+        var upload = e.target.parentElement.parentElement.querySelector('[data-upload-url]')
+        var select = new FileSelect(
+          upload.getAttribute('data-upload-url'),
+          Cookie.get('csrftoken'),
+          e.target,
+          'error',
+          parseInt(upload.getAttribute('data-max-files')) > 1,
+          upload.getAttribute('data-mime-types').split(',')
+        )
+        var name = e.target.getAttribute('name')
+        var fileData = new FormData(form).get(name)
+        select.upload(fileData)
+      })
+    }
+  }
+  */
+
 })(window.jQuery)
