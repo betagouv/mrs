@@ -1,8 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-from mrsattachment.models import MRSAttachment, MRSAttachmentField
-from mrsrequest.models import MRSRequest
+from mrsattachment.models import MRSAttachment
 
 
 class Transport(models.Model):
@@ -41,42 +40,13 @@ class Transport(models.Model):
         ordering = ['mrsrequest']
 
 
-class BillManager(models.Manager):
-    def allowed_objects(self, request):
-        return Bill.objects.filter(
-            transport__mrsrequest__in=MRSRequest.objects.allowed_objects(
-                request))
-
-    def record_upload(self, mrsrequest, upload):
-        '''
-        Create a Bill object from the upload on the request's transport.
-
-        When we want to support multiple forms in the future, we'll have a form
-        number in the field_name attribute of the upload.
-        '''
-        return Bill.objects.update_or_create(
-            transport=Transport.objects.get_or_create(
-                mrsrequest=mrsrequest)[0],
-            filename=str(upload),
-            defaults=dict(
-                binary=MRSAttachment.get_upload_body(upload),
-            )
-        )[0]
-
-
 class Bill(MRSAttachment):
+    # This field serves as relation and set in MRSRequestCreateView.save()
     transport = models.ForeignKey(
         'Transport',
+        null=True,
         on_delete=models.CASCADE,
     )
-    binary = MRSAttachmentField(
-        'transport:bill_upload',
-        'transport:bill_download',
-        'transport:bill_destroy',
-        verbose_name='Justificatif de Transport',
-    )
-
-    objects = BillManager()
 
     class Meta:
         ordering = ['transport', 'id']

@@ -1,7 +1,4 @@
-/*global $ */
-
 import Cookie from 'js-cookie'
-import FileSelect from './upload'
 import ScrollReveal from 'scrollreveal'
 import Form from './form'
 import '../sass/main.sass'
@@ -11,15 +8,35 @@ import '../sass/main.sass'
   var form = document.querySelector('form#mrsrequest-wizard')
   var $form = $(form)
 
+  $('body').on('click', '[data-load-in-form]', function() {
+    $.ajax({
+      method: 'GET',
+      url: $(this).attr('data-load-in-form'),
+      error: function() {
+        // console.log('error')
+      },
+      success: function(data) {
+        var dom = $(data)
+        var newform = dom.find('form#mrsrequest-wizard')
+        $form.html(newform.html())
+        var wizard = document.querySelector('form#mrsrequest-wizard')
+        uploadsInit(wizard)
+        var $wizard = $(wizard)
+        Form.initForms($wizard)
+        $form.fadeIn()
+      },
+    })
+  })
+
   $('body').on('click', '[data-delete-url]', function() {
     var $a = $(this)
     $.ajax({
       method: 'DELETE',
       url: $(this).attr('data-delete-url'),
       error: function() {
-        console.log('error')
+        // console.log('error')
       },
-      success: function(data) {
+      success: function() {
         $a.parents('li').slideUp()
       },
       beforeSend: function(xhr) {
@@ -30,12 +47,12 @@ import '../sass/main.sass'
     })
   })
 
-  var uploadsInit = function(dom) {
-    var formData = $form.serializeArray();
+  var uploadsInit = function() {
+    var formData = $form.serializeArray()
     formData.push({
-      name: "csrfmiddlewaretoken",
+      name: 'csrfmiddlewaretoken',
       value: Cookie.get('csrftoken')
-    });
+    })
 
     $('[data-upload-url][type=file]').each(function() {
       var $file = $(this)
@@ -58,14 +75,13 @@ import '../sass/main.sass'
             `
             data.context.push($(template).appendTo($target))
           }
-          data.submit();
+          data.submit()
         },
-        progressall: function (e, data) {
-            console.log('progressall', e, data)
+        progressall: function () {
+          // console.log('progressall', e, data)
         },
-        progress: function (e, data, bla) {
+        progress: function (e, data) {
           for (var i in data.files) {
-            var file = data.files[i]
             var $li = data.context[i]
             $li.find('progress').val(data.loaded)
           }
@@ -75,7 +91,7 @@ import '../sass/main.sass'
           for (var i in result) {
             var file = result[i]
             var $li = data.context[0]
-            var $a = $(`
+            $(`
               <a data-delete-url="${file.deleteUrl}" class="delete-file">
                 Éffacer
               </a>
@@ -85,7 +101,6 @@ import '../sass/main.sass'
         },
         fail: function (e, data) {
           for (var i in data.files) {
-            var file = data.files[i]
             var $li = data.context[i]
             var response = data.response()
             $(`<span class="error">${response.errorThrown}</span>`).appendTo($li)
@@ -96,8 +111,16 @@ import '../sass/main.sass'
     })
   }
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault()
+  var submitForm = function() {
+    if ($.active) {
+      if ($(form).find('.wait').length < 1) {
+        $(`<div class="wait card-panel orange lighten-4">
+              Merci de laisser le site ouvert pendant téléchargement complêt de vos documents
+          </div>`).appendTo($(form))
+      }
+      return setTimeout(submitForm, 1000)
+    }
+    $(form).find('.wait').remove()
 
     $.post(
       {
@@ -117,6 +140,18 @@ import '../sass/main.sass'
           uploadsInit(wizard)
           var $wizard = $(wizard)
           Form.initForms($wizard)
+          $form.fadeIn()
+
+          var $error = $('.has-error')
+          if ($error.length) {
+            $('html, body').animate({
+              scrollTop: $error.offset().top + 'px'
+            }, 'fast')
+          } else {
+            $('html, body').animate({
+              scrollTop: $(form).offset().top + 'px'
+            }, 'fast')
+          }
         },
         beforeSend: function(xhr) {
           if (!this.crossDomain) {
@@ -125,6 +160,12 @@ import '../sass/main.sass'
         }
       }
     )
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+
+    submitForm()
 
     $(form).find(':input').each(function() {
       $(this).attr('disabled', 'disabled')
@@ -147,6 +188,7 @@ import '../sass/main.sass'
   const $wizard = $(wizard)
   Form.initForms($wizard)
 
+  $form.fadeIn()
 
   /* Code for FileSelect, pending multi device support
   var uploadsInit = function(dom) {

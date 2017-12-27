@@ -30,6 +30,7 @@ def bill(transport):
     Bill.objects.all().delete()
     return Bill.objects.create(
         transport=transport,
+        mrsrequest_uuid=transport.mrsrequest.id,
         binary=b'transport_bill',
         filename='transport_bill.jpg',
     )

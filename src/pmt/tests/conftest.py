@@ -16,6 +16,7 @@ def pmt(mrsrequest):
     PMT.objects.all().delete()
     return PMT.objects.create(
         mrsrequest=mrsrequest,
+        mrsrequest_uuid=mrsrequest.pk,
         binary=b'lol',
         filename='lol.jpg',
     )

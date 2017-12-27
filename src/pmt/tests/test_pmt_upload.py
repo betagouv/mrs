@@ -57,16 +57,8 @@ def test_pmtuploadview_security(srf, mrsrequest):
 
         # Test allow
         response = upload_view(request, mrsrequest_uuid=mrsrequest.id)
-        assert response.status_code == 201, 'should return 201'
+        assert response.status_code == 200, 'should return 200'
+        pmt = PMT.objects.first()
         assert PMT.objects.count() == 1, 'should have been created'
-        assert PMT.objects.first().filename == '1.png', (
-            'should have been updated')
-
-        # Test update
-        request = upload_request(srf, mrsrequest.id, f, name='2.png')
-        mrsrequest.allow(request)
-        response = upload_view(request, mrsrequest_uuid=mrsrequest.id)
-        assert PMT.objects.first().filename == '2.png', (
-            'should have been updated')
-        assert PMT.objects.count() == 1, 'should have been updated'
-        assert response.status_code == 201, 'should return 201'
+        assert pmt.filename == '1.png', 'should have been updated'
+        assert str(pmt.mrsrequest_uuid) == str(mrsrequest.id)

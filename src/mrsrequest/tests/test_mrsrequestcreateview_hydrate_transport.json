@@ -1,8 +1,28 @@
 [
 {
     "fields": {
+        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
         "creation_datetime": "2017-12-19T05:51:11Z",
-        "insured": null,
+        "filename": "test_mrsrequestcreateview_story.jpg",
+        "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsattachment.mrsattachment",
+    "pk": 1
+},
+{
+    "fields": {
+        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
+        "creation_datetime": "2017-12-19T05:51:11Z",
+        "filename": "test_mrsrequestcreateview_story.jpg",
+        "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsattachment.mrsattachment",
+    "pk": 2
+},
+{
+    "fields": {
+        "creation_datetime": "2017-12-19T05:51:11Z",
+        "insured": 1,
         "status": 0
     },
     "model": "mrsrequest.mrsrequest",
@@ -10,9 +30,6 @@
 },
 {
     "fields": {
-        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeS5qcGc=",
-        "creation_datetime": "2017-12-19T05:51:11Z",
-        "filename": "test_mrsrequestcreateview_story.jpg",
         "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
     },
     "model": "pmt.pmt",
@@ -31,13 +48,10 @@
 },
 {
     "fields": {
-        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeS5qcGc=",
-        "creation_datetime": "2017-12-19T05:51:11Z",
-        "filename": "test_mrsrequestcreateview_story.jpg",
         "transport": 1
     },
     "model": "transport.bill",
-    "pk": 1
+    "pk": 2
 },
 {
     "fields": {
