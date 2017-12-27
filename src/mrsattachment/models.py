@@ -2,7 +2,8 @@ import io
 
 from django.db import models
 
-from . import forms
+from mrsrequest.models import MRSRequest
+
 from .settings import DEFAULT_MIME_TYPES
 
 
@@ -33,30 +34,44 @@ class MRSAttachmentField(models.BinaryField):
     def save(self, name, content, save=True):
         pass
 
-    def formfield(self, **kwargs):
-        kwargs.setdefault('upload', self.upload)
-        kwargs.setdefault('mime_types', self.mime_types)
-        kwargs.setdefault('download', self.download)
-        kwargs.setdefault('max_files', self.max_files)
-        kwargs.setdefault('label', self.verbose_name)
-        kwargs.setdefault('help_text', self.help_text)
-        kwargs.setdefault('model', self.model)
-        return forms.MRSAttachmentField(**kwargs)
-
     def to_python(self, value):
         return []
 
 
+class MRSAttachmentManager(models.Manager):
+    def allowed_objects(self, request):
+        return self.filter(
+            mrsrequest_uuid__in=MRSRequest.objects.allowed_uuids(request)
+        )
+
+    def recorded_uploads(self, mrsrequest_uuid):
+        return self.model.objects.filter(mrsrequest_uuid=mrsrequest_uuid)
+
+    def record_upload(self, mrsrequest_uuid, upload):
+        '''
+        Create a Bill object from the upload on the request's transport.
+
+        When we want to support multiple forms in the future, we'll have a form
+        number in the field_name attribute of the upload.
+        '''
+        return self.model.objects.create(
+            mrsrequest_uuid=mrsrequest_uuid,
+            filename=str(upload),
+            binary=MRSAttachment.get_upload_body(upload),
+        )
+
+
 class MRSAttachment(models.Model):
+    # This field is used when the document is uploaded
+    mrsrequest_uuid = models.UUIDField()
+
     filename = models.CharField(max_length=255)
     creation_datetime = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Heure d\'enregistrement du fichier')
-    binary = MRSAttachmentField(
-        verbose_name='Attachement')
+    binary = models.BinaryField(verbose_name='Attachement')
 
-    class Meta:
-        abstract = True
+    objects = MRSAttachmentManager()
 
     @classmethod
     def get_upload_body(cls, upload):

@@ -26,6 +26,8 @@ class MRSAttachmentField(forms.ModelMultipleChoiceField):
         super().__init__(*a, **k)
 
     def clean(self, value):
+        # Meant to be set by the view before even spawning the form
+        # This just checks for required field error here
         if self.required and not value:
             raise forms.ValidationError('Merci de choisir un fichier')
         return value

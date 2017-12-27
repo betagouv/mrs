@@ -56,16 +56,8 @@ def test_billuploadview_security(srf, mrsrequest):
 
         # Test allow
         response = upload_view(request, mrsrequest_uuid=mrsrequest.id)
-        assert response.status_code == 201, 'should return 201'
+        assert response.status_code == 200, 'should return 200'
         assert Bill.objects.count() == 1, 'should have been created'
-        assert Bill.objects.first().filename == '1.png', (
-            'should have been updated')
-
-        # Test update
-        request = upload_request(srf, mrsrequest.id, f, name='2.png')
-        mrsrequest.allow(request)
-        response = upload_view(request, mrsrequest_uuid=mrsrequest.id)
-        assert Bill.objects.first().filename == '2.png', (
-            'should have been updated')
-        assert Bill.objects.count() == 1, 'should have been updated'
-        assert response.status_code == 201, 'should return 201'
+        bill = Bill.objects.first()
+        assert bill.filename == '1.png', 'should have been set'
+        assert str(bill.mrsrequest_uuid) == str(mrsrequest.id)

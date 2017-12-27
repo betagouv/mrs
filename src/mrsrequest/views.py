@@ -88,20 +88,16 @@ class MRSRequestCreateView(generic.TemplateView):
         self.forms['person'] = PersonForm.factory(self, self.data)
 
     def hydrate_pmt(self):
-        try:
-            pmt = self.object.pmt
-        except PMT.DoesNotExist:
-            pmt = None
+        self.pmt = PMT.objects.recorded_uploads(
+            self.mrsrequest_uuid
+        ).last()
 
-        if pmt and pmt.filename:
-            qs = PMT.objects.filter(pk=pmt.pk)
-            self.data['pmtform-pmt'] = [pmt]
+        if self.pmt and self.pmt.filename:
+            self.data['pmtform-pmt'] = [self.pmt]
         else:
-            qs = PMT.objects.none()
             self.data['pmtform-pmt'] = []
 
         self.forms['pmt'] = PMTForm.factory(self, self.data, files=self.data)
-        self.forms['pmt'].fields['pmt'].queryset = qs
 
     def hydrate_transport(self):
         self.transport = (
@@ -109,10 +105,7 @@ class MRSRequestCreateView(generic.TemplateView):
             if self.object else None
         )
 
-        self.bills = (
-            self.transport.bill_set.all()
-            if self.transport else Bill.objects.none()
-        )
+        self.bills = Bill.objects.recorded_uploads(self.mrsrequest_uuid)
 
         if self.bills:
             self.data['transportform-bills'] = self.bills
@@ -122,18 +115,21 @@ class MRSRequestCreateView(generic.TemplateView):
         self.forms['transport'] = TransportForm.factory(
             self, self.data, files=self.data, instance=self.transport)
 
-        self.forms['transport'].fields['bills'].queryset = self.bills
-
     def save(self):
         if not self.person:
             # Never trust input sources to update data !
             # Support create only.
             self.person = self.forms['person'].save()
-        self.object.person = self.person
+        self.object.insured = self.person
         self.object.save()
+
+        self.pmt.mrsrequest = self.object
+        self.pmt.save()
 
         transport = self.forms['transport'].save(commit=False)
         transport.mrsrequest = self.object
         transport.save()
+
+        self.bills.update(transport=transport)
 
         return True

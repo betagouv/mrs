@@ -10,7 +10,7 @@ from pmt.models import PMT
 
 
 def test_pmt_get_delete_url():
-    assert PMT(id=3).get_delete_url() == reverse('pmt:pmt_destroy', args=[3])
+    assert PMT(pk=3).get_delete_url() == reverse('pmt:pmt_destroy', args=[3])
 
 
 @pytest.mark.django_db  # noqa
@@ -19,11 +19,11 @@ def test_pmtmanager_record_upload(rf, mrsrequest):
     '''Test record_upload()'''
     with io.BytesIO(b'lol') as f:
         upload = upload_request(rf, id, f).FILES['file']
-        result = PMT.objects.record_upload(mrsrequest, upload)
+        result = PMT.objects.record_upload(mrsrequest.id, upload)
 
     assert isinstance(result, PMT)
     assert result.pk
-    assert result.mrsrequest.id == mrsrequest.id
+    assert result.mrsrequest_uuid == mrsrequest.id
     assert result.filename == '1.png'
     assert result.binary == b'lol'
 

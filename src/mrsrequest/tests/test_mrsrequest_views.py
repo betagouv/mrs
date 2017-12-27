@@ -4,6 +4,7 @@ from django.utils import timezone
 from freezegun import freeze_time
 import pytest
 
+from mrsattachment.models import MRSAttachment
 from mrsrequest.models import MRSRequest
 from mrsrequest.views import MRSRequestCreateView
 from person.models import Person
@@ -63,6 +64,7 @@ def test_mrsrequestcreateview_hydrate_pmt(p):
 
     p.mrsrequest.pmt = PMT.objects.create(
         mrsrequest=p.mrsrequest,
+        mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
     )
@@ -92,6 +94,7 @@ def test_mrsrequestcreateview_hydrate_transport(p):
 
     transport = p.mrsrequest.transport_set.create()
     transport.bill_set.create(
+        mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
     )
@@ -140,11 +143,13 @@ def test_mrsrequestcreateview_save(p):
 
     p.mrsrequest.pmt = PMT.objects.create(
         mrsrequest=p.mrsrequest,
+        mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
     )
     transport = p.mrsrequest.transport_set.create()
     transport.bill_set.create(
+        mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
     )
@@ -153,5 +158,5 @@ def test_mrsrequestcreateview_save(p):
 
     Fixture(
         './src/mrsrequest/tests/test_mrsrequestcreateview_hydrate_transport.json',  # noqa
-        models=[MRSRequest, PMT, Person, Bill, Transport]
+        models=[MRSAttachment, MRSRequest, PMT, Person, Bill, Transport]
     ).assertNoDiff()
