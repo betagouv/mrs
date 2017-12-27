@@ -4,3 +4,4 @@ django-webpack-loader
 django-threadlocals
 django-material>=1.2,<1.3
 django-jpic-jfu
+raven>=6.4,<6.5

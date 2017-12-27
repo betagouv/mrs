@@ -240,6 +240,11 @@ else:
         },
     }
 
+if 'SENTRY_DSN' in os.environ:
+    RAVEN_CONFIG = {
+        'dsn': os.getenv('SENTRY_DSN'),
+    }
+
 if DEBUG:
     try:
         import dbdiff  # noqa
