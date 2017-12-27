@@ -92,9 +92,8 @@ class MRSFileUploadView(generic.View):
         # todo: validate mimetype
 
         files = []
-        mrsrequest = MRSRequest.objects.get_or_create(id=mrsrequest_uuid)[0]
         for key, upload in request.FILES.items():
-            record = self.model.objects.record_upload(mrsrequest, upload)
+            record = self.model.objects.record_upload(mrsrequest_uuid, upload)
             files.append(dict(
                 name=record.filename,
                 url=record.get_download_url(),

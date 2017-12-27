@@ -1,12 +1,14 @@
 import mock
 
 from django import forms
+from pmt.models import PMT
 from mrsattachment.forms import MRSAttachmentField
 from mrsrequest.forms import MRSRequestFormMixin
 
 
 class TestForm(MRSRequestFormMixin, forms.Form):
     test = MRSAttachmentField(
+        mock.Mock(),
         'transport:bill_upload',
         'transport:bill_download',
         20,
@@ -15,6 +17,7 @@ class TestForm(MRSRequestFormMixin, forms.Form):
 
 def test_widget_attrs(mocker):
     field = MRSAttachmentField(
+        PMT,
         'pmt:pmt_upload',
         'pmt:pmt_download',
         66,

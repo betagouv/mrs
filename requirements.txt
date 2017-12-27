@@ -3,4 +3,4 @@ dj-static
 django-webpack-loader
 django-threadlocals
 django-material>=1.2,<1.3
-https://github.com/jpic/django-jfu/tarball/master#egg=django-jfu
+django-jpic-jfu

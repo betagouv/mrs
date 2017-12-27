@@ -5,8 +5,11 @@ from django.db import models
 
 class MRSRequestManager(models.Manager):
     def allowed_objects(self, request):
+        return self.filter(id__in=self.allowed_uuids(request))
+
+    def allowed_uuids(self, request):
         session = getattr(request, 'session', {})
-        return self.filter(id__in=session.get(self.model.SESSION_KEY, []))
+        return session.get(self.model.SESSION_KEY, [])
 
 
 class MRSRequest(models.Model):
