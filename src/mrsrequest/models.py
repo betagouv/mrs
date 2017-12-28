@@ -26,10 +26,16 @@ class MRSRequest(models.Model):
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    form_id = models.CharField(
+        max_length=12,
+        verbose_name='Identifiant de formulaire',
+        unique=True,
+    )
     creation_datetime = models.DateTimeField(
         auto_now_add=True,
-        verbose_name='Date et heure d\'enregistrement du formulaire')
-
+        db_index=True,
+        verbose_name='Date et heure d\'enregistrement du formulaire',
+    )
     insured = models.ForeignKey(
         'person.Person',
         null=True,

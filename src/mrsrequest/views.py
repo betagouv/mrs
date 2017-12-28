@@ -1,6 +1,9 @@
 import collections
 
 from django import http
+from django import template
+from django.conf import settings
+from django.core.mail import send_mail
 from django.utils.datastructures import MultiValueDict
 from django.views import generic
 
@@ -131,5 +134,17 @@ class MRSRequestCreateView(generic.TemplateView):
         transport.save()
 
         self.bills.update(transport=transport)
+
+        self.object.refresh_from_db()
+        send_mail(
+            template.loader.get_template(
+                'mrsrequest/success_mail_title.txt'
+            ).render(dict(view=self)).strip(),
+            template.loader.get_template(
+                'mrsrequest/success_mail_body.txt'
+            ).render().strip(),
+            settings.DEFAULT_FROM_EMAIL,
+            [self.person.email],
+        )
 
         return True
