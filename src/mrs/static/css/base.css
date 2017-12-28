@@ -44,6 +44,13 @@ body {
 }
 
 /*
+    Material UI overrides
+*/
+form .section.row input[type="file"] {
+    overflow: hidden;
+}
+
+/*
     Inline tag styles
 */
 strong {
