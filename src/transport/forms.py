@@ -45,6 +45,14 @@ class TransportForm(MRSRequestFormMixin, forms.ModelForm):
                 'Merci de soumettre vos justificatifs de transport'
             )
 
+        date_depart = cleaned_data.get('date_depart')
+        date_return = cleaned_data.get('date_return')
+        if date_depart and date_return and date_depart > date_return:
+            self.add_error(
+                'date_return',
+                "La date de retour doit être postèrieure à la date de retour",
+            )
+
         return cleaned_data
 
     class Meta:
