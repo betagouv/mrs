@@ -2,7 +2,6 @@ import Cookie from 'js-cookie'
 import ScrollReveal from 'scrollreveal'
 import Form from './form'
 
-
 (($) => {
   var form = document.querySelector('form#mrsrequest-wizard')
   var $form = $(form)
