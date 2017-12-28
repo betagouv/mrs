@@ -244,6 +244,7 @@ if 'SENTRY_DSN' in os.environ:
     RAVEN_CONFIG = {
         'dsn': os.getenv('SENTRY_DSN'),
     }
+    INSTALLED_APPS += ('raven.contrib.django.raven_compat',)
 
 if DEBUG:
     try:
