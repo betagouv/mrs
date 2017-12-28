@@ -1,6 +1,15 @@
 /*global $ jQuery */
 const Form = {
   initForms: function ($container) {
+    // Bills
+    var $expense = $('[name=transportform-expense]')
+    var $bills = $('#id_transportform-bills_container')
+    var billsChange = function() {
+      ($expense && parseInt($expense.val()) > 0) ? $bills.show() : $bills.hide()
+    }
+    $expense.on('change', billsChange)
+    billsChange()
+
     // Formsets
     // https://bitbucket.org/ionata/django-formset-js
     $('.formset-field').formset({
