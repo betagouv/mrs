@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.timezone import now
 
 import material
 
@@ -25,6 +26,13 @@ class PersonForm(MRSRequestFormMixin, forms.ModelForm):
             )
         ),
     )
+
+    def clean_birth_date(self):
+        data = self.cleaned_data['birth_date']
+        if data and (now().date() - data).days < 0:
+            raise forms.ValidationError(
+                'Doit être antèrieure à la date du jour')
+        return data
 
     class Meta:
         model = Person
