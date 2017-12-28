@@ -20,7 +20,7 @@ class Transport(models.Model):
         help_text='Date du trajet retour',
         null=True
     )
-    distance = models.IntegerField(
+    distance = models.PositiveIntegerField(
         verbose_name='Distance (km)',
         help_text='Kilométrage total parcouru',
         null=True
