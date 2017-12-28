@@ -20,8 +20,7 @@
 ul li {
     position: relative;
     margin: 1rem 0;
-    height: 2rem;
-    display: flex;
+    min-height: 2rem;
     justify-content: space-between;
     padding: 0 1rem;
 }
