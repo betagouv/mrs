@@ -1,5 +1,6 @@
 {% load static %}
 {% load render_bundle from webpack_loader %}
+{% load raven %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -321,6 +322,8 @@
         </section>
     </div>
 
+    <script src="https://cdn.ravenjs.com/2.3.0/raven.min.js"></script>
+    <script>Raven.config('{% sentry_public_dsn %}').install()</script>
     <script src="{% static 'material/js/jquery.js' %}"></script>
     <script src="{% static 'material/js/jquery.datetimepicker.full.js' %}"></script>
     <script src="{% static 'material/js/jquery.formset.js' %}"></script>
@@ -342,7 +345,6 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
     </script>
     <![endif]-->
-
     {% render_bundle 'main' %}
   </body>
 </html>
