@@ -48,4 +48,5 @@ CMD /usr/bin/dumb-init uwsgi \
   --vacuum \
   --enable-threads \
   --reload-os-env \
-  --post-buffering=8192
+  --post-buffering=8192 \
+  --wsgi-disable-file-wrapper
