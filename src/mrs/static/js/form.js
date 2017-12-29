@@ -110,10 +110,13 @@ var uploadsInit = function() {
       add: function (e, data) {
         data.context = []
         for (var i in data.files) {
+          if (!$target.parents('.input-field').find('[multiple=multiple]').length) {
+            $target.find('li').remove()
+          }
           var file = data.files[i]
           var template = `
             <li data-file-name="${file.name}">
-              <span class="file-name">${file.name}</span>
+              <a class="file-name">${file.name}</a>
               <progress max="${file.size}" value="0" class="progress-bar">
               </progress>
             </li>
@@ -141,6 +144,8 @@ var uploadsInit = function() {
               Éffacer
             </a>
           `).appendTo($li)
+          $li.find('a.file-name').attr('target', '_blank')
+          $li.find('a.file-name').attr('href', file.thumbnailUrl)
           $li.find('progress').fadeOut()
         }
       },

@@ -32,10 +32,10 @@
         <ul class="files">
             {% if bound_field.value != None %}
                 {% for value in bound_field.value %}
-                <li>
-                    <span class="file-name">
+                <li data-file-name"{{ value.filename }}">
+                    <a target="_blank" href="{{ value.get_download_url }}" class="file-name">
                         {{ value.filename }}
-                    </span>
+                    </a>
 
                     <a data-delete-url="{{ value.get_delete_url }}" class="delete-file">
                       Éffacer

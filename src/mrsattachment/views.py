@@ -1,3 +1,6 @@
+import io
+import mimetypes
+
 from django import http
 from django.views import generic
 
@@ -6,11 +9,38 @@ from jfu.http import UploadResponse
 from mrsrequest.models import MRSRequest
 
 
-class MRSFileDownloadView(generic.DetailView):
-    pass
+class MRSFileDetailViewMikin(object):
+    def get_object(self):
+        '''
+        Use model.objects.allowed_objects(requset).
+
+        This sets the base queryset which get_object() will use.
+        '''
+        user = getattr(self.request, 'user', None)
+        if user and user.is_staff:
+            return self.model.objects.get(pk=self.kwargs['pk'])
+
+        try:
+            return self.model.objects.allowed_objects(self.request).get(
+                pk=self.kwargs['pk'])
+        except self.model.DoesNotExist:
+            raise http.Http404()
 
 
-class MRSFileDeleteView(generic.DeleteView):
+class MRSFileDownloadView(MRSFileDetailViewMikin, generic.DetailView):
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        f = io.BytesIO(self.object.binary)
+        content_type, encoding = mimetypes.guess_type(self.object.filename)
+        content_type = content_type or 'application/octet-stream'
+        response = http.FileResponse(f, content_type=content_type)
+        response['Content-Length'] = len(self.object.binary)
+        if encoding:
+            response['Content-Encoding'] = encoding
+        return response
+
+
+class MRSFileDeleteView(MRSFileDetailViewMikin, generic.DeleteView):
     '''
     AJAX File delete receiver view.
 
@@ -31,18 +61,6 @@ class MRSFileDeleteView(generic.DeleteView):
     ``MRSRequest.objects.allowed_objects()`` in their ``allowed_objects()``
     implementation.
     '''
-
-    def get_object(self):
-        '''
-        Use model.objects.allowed_objects(requset).
-
-        This sets the base queryset which get_object() will use.
-        '''
-        try:
-            return self.model.objects.allowed_objects(self.request).get(
-                pk=self.kwargs['pk'])
-        except self.model.DoesNotExist:
-            raise http.Http404()
 
     def delete(self, request, *args, **kwargs):
         '''Delete the object and return OK response.'''
