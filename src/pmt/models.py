@@ -11,8 +11,11 @@ class PMT(MRSAttachment):
         on_delete=models.CASCADE,
     )
 
+    def unlink(self):
+        self.mrsrequest = None
+
     def __str__(self):
-        return 'PMT: {}'.format(self.mrsrequest.pk)
+        return 'PMT: {}'.format(self.mrsrequest_uuid)
 
     def get_delete_url(self):
         return reverse('pmt:pmt_destroy', args=[self.pk])

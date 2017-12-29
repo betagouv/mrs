@@ -52,6 +52,9 @@ class Bill(MRSAttachment):
         ordering = ['transport', 'id']
         verbose_name = 'Justificatif'
 
+    def unlink(self):
+        self.transport = None
+
     def get_delete_url(self):
         return reverse('transport:bill_destroy', args=[self.pk])
 
