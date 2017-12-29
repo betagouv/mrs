@@ -29,7 +29,7 @@ class Transport(models.Model):
     expense = models.DecimalField(
         decimal_places=2, max_digits=6,
         blank=True, default=0,
-        verbose_name='Montant total des frais',
+        verbose_name='Montant total des frais (en € TTC)',
         help_text=(
             'Parking et/ou péage ou '
             'justificatif(s) de transport en commun'
