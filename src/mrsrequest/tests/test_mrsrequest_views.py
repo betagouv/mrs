@@ -141,14 +141,12 @@ def test_mrsrequestcreateview_save(p):
     # da key
     data['certify'] = True
 
-    p.mrsrequest.pmt = PMT.objects.create(
-        mrsrequest=p.mrsrequest,
+    PMT.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
     )
-    transport = p.mrsrequest.transport_set.create()
-    transport.bill_set.create(
+    Bill.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',

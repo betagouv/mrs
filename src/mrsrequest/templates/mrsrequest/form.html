@@ -2,7 +2,7 @@
 {% load material_form %}
 
 {% block content %}
-<form method="POST" id="mrsrequest-wizard" style="display: none">
+<form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
     {% if view.success %}
     <div class="card-panel teal lighten-4">
         Merci pour votre demande ! Nous reviendrons vers vous dès que possible.
@@ -19,7 +19,7 @@
 
         <br />
 
-        <button type="submit" name="_submit" class="btn">Submit</button>
+        <button type="submit" name="_submit" class="btn">Soumettre</button>
     {% endif %}
 </form>
 {% endblock %}

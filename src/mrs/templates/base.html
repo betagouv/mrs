@@ -3,13 +3,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    {% include 'material/includes/material_css.html' %}
-    <link type="text/css" rel="stylesheet" href="{% static "css/upload.css" %}"  media="screen,projection"/>
-    {% render_bundle 'main' 'css' %}
-
+    {% include '_base_css.html' %}
+    {% render_bundle 'landing' 'css' %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mes Remboursements Simplifiés</title>
   </head>
-  <body>
+  <body
+    style="background-image: url('{% static "img/mrsHeaderFiltreBleu-logo_ito86r.jpg" %}')"
+  >
 
     <div id="app--wrapper">
 
@@ -319,28 +320,7 @@
         </section>
     </div>
 
-    <script src="{% static 'material/js/jquery.js' %}"></script>
-    <script src="{% static 'material/js/jquery.datetimepicker.full.js' %}"></script>
-    <script src="{% static 'material/js/jquery.formset.js' %}"></script>
-    <script src="{% static 'material/js/materialize.js' %}"></script>
-    <script src="{% static "js/vendor/jquery.ui.widget.js" %}"></script>
-    <script src="{% static "demo/tmpl.min.js" %}"></script>
-    <script src="{% static "demo/load-image.min.js" %}"></script>
-    <script src="{% static "demo/canvas-to-blob.min.js" %}"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="{% static "js/jquery.iframe-transport.js" %}"></script>
-    <script src="{% static "js/jquery.fileupload.js" %}"></script>
-    <script src="{% static "js/jquery.fileupload-process.js" %}"></script>
-    <script src="{% static "js/jquery.fileupload-image.js" %}"></script>
-    <script src="{% static "js/jquery.fileupload-validate.js" %}"></script>
-    <!--[if gte IE 8]>
-    <script src="{% static "js/cors/jquery.xdr-transport.js" %}"></script>
-    <![endif]-->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
-    </script>
-    <![endif]-->
-
-    {% render_bundle 'main' %}
+    {% include '_base_js.html' %}
+    {% render_bundle 'landing' 'js' %}
   </body>
 </html>

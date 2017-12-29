@@ -8,7 +8,10 @@ const extractSass = new ExtractTextPlugin({
 
 module.exports = {
   context: __dirname,
-  entry: ['babel-polyfill', './src/mrs/static/js/main'],
+  entry: {
+    landing: ['babel-polyfill', './src/mrs/static/js/landing'],
+    form: ['babel-polyfill', './src/mrs/static/js/form']
+  },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
     filename: '[name]-[hash].js'

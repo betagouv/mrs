@@ -49,6 +49,10 @@ class MRSRequest(models.Model):
 
     objects = MRSRequestManager()
 
+    class Meta:
+        verbose_name = 'Requête'
+        ordering = ['-creation_datetime']
+
     def is_allowed(self, request):
         return str(self.id) in request.session.get(self.SESSION_KEY, {})
 
