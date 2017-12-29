@@ -1,6 +1,8 @@
 from django import forms
 from django.views import generic
 
+from .models import MRSRequest
+
 
 class MRSRequestFormMixin(object):
     @classmethod
@@ -24,6 +26,12 @@ class MRSRequestFormMixin(object):
             form.fields[name].widget.view = view
 
         return form
+
+
+class MRSRequestAdminForm(MRSRequestFormMixin, forms.ModelForm):
+    class Meta:
+        model = MRSRequest
+        fields = ('status',)
 
 
 class CertifyForm(MRSRequestFormMixin, forms.Form):

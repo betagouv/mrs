@@ -14,7 +14,7 @@ from pmt.forms import PMTForm
 from transport.models import Bill
 from transport.forms import TransportForm
 
-from .forms import CertifyForm
+from .forms import CertifyForm, MRSRequestAdminForm
 from .models import MRSRequest
 
 
@@ -160,6 +160,8 @@ class MRSRequestUpdateView(generic.TemplateView):
 
         transport = self.object.transport_set.last()
         self.forms = collections.OrderedDict([
+            ('mrsrequest', MRSRequestAdminForm.factory(
+                self, instance=self.object)),
             ('pmt', PMTForm.factory(
                 self,
                 initial=pmtform_initial,
@@ -191,6 +193,8 @@ class MRSRequestUpdateView(generic.TemplateView):
         self.bills = self.bills_get_queryset()
 
         self.forms = collections.OrderedDict([
+            ('mrsrequest', MRSRequestAdminForm.factory(
+                self, instance=self.object, data=request.POST)),
             ('pmt', PMTForm.factory(self, files=pmtfiles)),
             ('person', PersonForm.factory(
                 self, instance=self.object.insured, data=request.POST)),
@@ -219,5 +223,6 @@ class MRSRequestUpdateView(generic.TemplateView):
         self.pmt.save()
         self.bills.update(transport=self.transport)
         self.forms['person'].save()
+        self.forms['mrsrequest'].save()
         self.forms['transport'].save()
         return True
