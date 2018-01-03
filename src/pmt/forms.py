@@ -14,7 +14,7 @@ class PMTForm(MRSRequestFormMixin, forms.Form):
         'pmt:pmt_download',
         1,
         label='Prescription Médicale de Transport obligatoire',
-        help_text='Joindre votre PMT fournie par votre médecin.'
+        help_text='Joindre le volet 2 de votre PMT fournie par votre médecin.'
     )
 
     layout = material.Layout(
