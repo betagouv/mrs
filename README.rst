@@ -14,6 +14,11 @@ Pour utiliser docker::
     docker build -t mrs:mine .
     docker run -e DEBUG=1 -p 8000:8000 -it mrs:mine mrs dev 0:8000
 
+Nécessite
+---------
+
+ * Python >= 3.6
+
 Installer
 ---------
 
