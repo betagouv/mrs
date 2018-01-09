@@ -73,7 +73,7 @@ class TransportForm(MRSRequestFormMixin, forms.ModelForm):
             self.add_error(
                 'date_return',
                 'La date de retour doit être égale ou postérieure à la'
-                'date aller',
+                ' date aller',
             )
 
         return cleaned_data
