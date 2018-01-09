@@ -1,6 +1,6 @@
 import os
 import os.path
-import secrets
+import random
 import string
 import subprocess
 import sys
@@ -12,7 +12,7 @@ from django.core.management.commands.runserver import Command
 
 
 def rnpw(num=18):
-    return ''.join(secrets.choice(
+    return ''.join(random.choice(
         string.ascii_uppercase + string.digits) for _ in range(num))
 
 
