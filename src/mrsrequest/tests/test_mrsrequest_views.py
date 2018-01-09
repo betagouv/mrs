@@ -116,7 +116,7 @@ def test_mrsrequestcreateview_hydrate_person(p):
     p.post(**data)
     assert not p.view.forms['person'].is_valid()
 
-    data['personform-nir'] = '123412312'
+    data['personform-nir'] = '1234567890123'
     p.post(**data)
     assert not p.view.forms['person'].errors
     assert p.view.forms['person'].is_valid()
@@ -136,7 +136,7 @@ def test_mrsrequestcreateview_save(p):
     data['personform-last_name'] = 'wuzere'
     data['personform-birth_date'] = '2007-02-07'
     data['personform-email'] = 'jpic@yourlabs.org'
-    data['personform-nir'] = '123412312'
+    data['personform-nir'] = '1234567890123'
 
     # da key
     data['certify'] = True
