@@ -9,6 +9,12 @@ from .models import Person
 
 
 class PersonForm(MRSRequestFormMixin, forms.ModelForm):
+    nir = forms.CharField(
+        label='Numéro de sécurité sociale',
+        max_length=13,
+        min_length=13,
+    )
+
     layout = material.Layout(
         material.Fieldset(
             'Identité de la personne transportée',
@@ -26,6 +32,16 @@ class PersonForm(MRSRequestFormMixin, forms.ModelForm):
             )
         ),
     )
+
+    def clean_nir(self):
+        nir = self.cleaned_data['nir']
+        try:
+            int(nir)
+        except ValueError:
+            raise forms.ValidationError(
+                'Doit être composé de 13 chiffres'
+            )
+        return nir
 
     def clean_birth_date(self):
         data = self.cleaned_data['birth_date']

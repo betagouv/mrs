@@ -42,7 +42,7 @@
         "email": "jpic@yourlabs.org",
         "first_name": "jamesy",
         "last_name": "wuzere",
-        "nir": 123412312
+        "nir": 1234567890123
     },
     "model": "person.person",
     "pk": 1
