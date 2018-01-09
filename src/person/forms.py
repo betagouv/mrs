@@ -15,6 +15,17 @@ class PersonForm(MRSRequestFormMixin, forms.ModelForm):
         min_length=13,
     )
 
+    birth_date = forms.DateField(
+        input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        initial='jj/mm/aaaa',
+        label='Date de naissance',
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+            }
+        )
+    )
+
     layout = material.Layout(
         material.Fieldset(
             'Identité de la personne transportée',
