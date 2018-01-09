@@ -1,4 +1,4 @@
-/*global $ jQuery Materialize */
+/*global $ jQuery */
 import Cookie from 'js-cookie'
 import '../sass/form.sass'
 
@@ -19,13 +19,10 @@ var initForms = function ($container) {
   billsChange()
 
   // Return date
-  $container.find('[name*=depart]').on('change', function() {
+  $container.find('[name*=depart]').on('input', function() {
     var retName = $(this).attr('name').replace('depart', 'return')
     var $ret = $container.find('[name="' + retName + '"]')
-    if (! $ret.val()) {
-      $ret.val($(this).val())
-      Materialize.updateTextFields()
-    }
+    $ret.val($(this).val())
   })
 
   // Formsets
@@ -50,16 +47,6 @@ var initForms = function ($container) {
 
   // Date/DateTime/Time
   // https://github.com/xdan/datetimepicker
-  $container
-    .find('[data-form-control="date"]')
-    .each(function () {
-      $(this).datetimepicker({
-        format: this.dataset.dateFormat,
-        timepicker: false,
-        mask: false,
-        scrollInput: false
-      })
-    })
   $container
     .find('[data-form-control="time"]')
     .each(function () {

@@ -21,6 +21,28 @@ class TransportForm(MRSRequestFormMixin, forms.ModelForm):
         )
     )
 
+    date_depart = forms.DateField(
+        input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        initial='jj/mm/aaaa',
+        label='Date de l\'aller',
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+            }
+        )
+    )
+
+    date_return = forms.DateField(
+        input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        initial='jj/mm/aaaa',
+        label='Date de retour',
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+            }
+        )
+    )
+
     layout = material.Layout(
         material.Fieldset(
             'Informations sur le transport',
