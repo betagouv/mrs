@@ -1,4 +1,4 @@
-/*global $ jQuery */
+/*global $ jQuery Materialize */
 import Cookie from 'js-cookie'
 import '../sass/form.sass'
 
@@ -17,6 +17,16 @@ var initForms = function ($container) {
   }
   $expense.on('change', billsChange)
   billsChange()
+
+  // Return date
+  $container.find('[name*=depart]').on('change', function() {
+    var retName = $(this).attr('name').replace('depart', 'return')
+    var $ret = $container.find('[name="' + retName + '"]')
+    if (! $ret.val()) {
+      $ret.val($(this).val())
+      Materialize.updateTextFields()
+    }
+  })
 
   // Formsets
   // https://bitbucket.org/ionata/django-formset-js
