@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sgmap/mrs.git"
+    "url": "git+https://github.com/betagouv/mrs.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sgmap/mrs/issues"
+    "url": "https://github.com/betagouv/mrs/issues"
   },
-  "homepage": "https://github.com/sgmap/mrs#readme",
+  "homepage": "https://github.com/betagouv/mrs#readme",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",

@@ -16,7 +16,7 @@ setup(
     description='foo',
     author='James Pic',
     author_email='jamespic@gmail.com',
-    url='https://github.com/sgmap/mrs',
+    url='https://github.com/betagouv/mrs',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,
