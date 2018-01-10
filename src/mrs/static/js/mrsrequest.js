@@ -2,7 +2,7 @@
 import Cookie from 'js-cookie'
 import '../sass/form.sass'
 
-var init = function(container) {
+var mrsrequestForm = function(container) {
   uploadsInit(container)
   initForms($(container))
   $('form#mrsrequest-wizard').fadeIn()
@@ -187,7 +187,7 @@ var submitForm = function() {
         var newform = dom.find('form#mrsrequest-wizard')
         $form.html(newform.html())
         var wizard = document.querySelector('form#mrsrequest-wizard')
-        init(wizard)
+        mrsrequestForm(wizard)
 
         var $error = $('.has-error')
         if ($error.length) {
@@ -250,7 +250,7 @@ var submitForm = function() {
   })
 
   const wizard = document.querySelector('form#mrsrequest-wizard')
-  init(wizard)
+  mrsrequestForm(wizard)
 
   /* Code for FileSelect, pending multi device support
   var uploadsInit = function(dom) {
@@ -277,4 +277,4 @@ var submitForm = function() {
 
 })(window.jQuery)
 
-export default init
+export default mrsrequestForm

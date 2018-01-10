@@ -10,7 +10,8 @@ module.exports = {
   context: __dirname,
   entry: {
     landing: ['babel-polyfill', './src/mrs/static/js/landing'],
-    form: ['babel-polyfill', './src/mrs/static/js/form']
+    mrsrequest: ['babel-polyfill', './src/mrs/static/js/mrsrequest'],
+    contact: ['babel-polyfill', './src/mrs/static/js/contact']
   },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
