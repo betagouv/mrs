@@ -53,6 +53,9 @@ class MRSRequest(models.Model):
         verbose_name = 'Requête'
         ordering = ['-creation_datetime']
 
+    def verbose_id(self):
+        return self.form_id if self.form_id else self.id
+
     def is_allowed(self, request):
         return str(self.id) in request.session.get(self.SESSION_KEY, {})
 
