@@ -1,6 +1,7 @@
 import ScrollReveal from 'scrollreveal'
 import '../sass/landing.sass'
-import init from './form'
+import mrsrequestForm from './mrsrequest'
+import './contact'
 
 (($) => {
   $('body').on('click', '[data-load-in-form]', function() {
@@ -15,7 +16,7 @@ import init from './form'
         var newform = dom.find('form#mrsrequest-wizard')
         var form = document.querySelector('form#mrsrequest-wizard')
         $(form).html(newform.html())
-        init(form)
+        mrsrequestForm(form)
       },
     })
   })

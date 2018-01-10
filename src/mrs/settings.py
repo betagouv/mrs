@@ -39,6 +39,7 @@ LOGIN_REDIRECT_URL = '/mrsrequest/'
 # Application definition
 
 INSTALLED_APPS = [
+    'contact',
     'person',
     'transport',
     'pmt',
@@ -81,6 +82,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "contact.context_processors.contact_form",
             ],
         },
     },
@@ -153,6 +155,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', None)
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', None)
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', None)
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@example.com')
+TEAM_EMAIL = os.getenv('TEAM_EMAIL', None)
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

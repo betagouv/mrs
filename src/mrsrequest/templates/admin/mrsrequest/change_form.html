@@ -17,13 +17,13 @@
 {% block extrahead %}
     {{ block.super }}
     {% include '_base_css.html' %}
-    {% render_bundle 'form' 'css' %}
+    {% render_bundle 'mrsrequest' 'css' %}
 {% endblock %}
 
 {% block footer %}
     {{ block.super }}
     {% include '_base_js.html' %}
-    {% render_bundle 'form' 'js' %}
+    {% render_bundle 'mrsrequest' 'js' %}
 {% endblock %}
 
 {% block content %}

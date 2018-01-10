@@ -9,6 +9,7 @@ urlpatterns = [
         url=reverse_lazy('mrsrequest:wizard'))
     ),
     path('pmt/', include('pmt.urls', namespace='pmt')),
+    path('contact/', include('contact.urls', namespace='contact')),
     path('mrsrequest/', include('mrsrequest.urls', namespace='mrsrequest')),
     path('transport/', include('transport.urls', namespace='transport')),
     path('admin/', admin.site.urls),
