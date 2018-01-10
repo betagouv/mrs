@@ -22,7 +22,7 @@ class MRSRequestAdmin(admin.ModelAdmin):
     )
 
     list_display = (
-        'form_id',
+        'verbose_id',
         'insured_first_name',
         'insured_last_name',
         'insured_nir',
