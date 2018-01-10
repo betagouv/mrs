@@ -81,5 +81,5 @@ Executer les tests contre Django 2.0 avec la commande suivante::
 Ressources
 ==========
 
-- https://codecov.io/gh/sgmap/mrs Code coverage
-- https://circleci.com/gh/sgmap/mrs CI
+- https://codecov.io/gh/betagouv/mrs Code coverage
+- https://circleci.com/gh/betagouv/mrs CI
