@@ -1,4 +1,4 @@
-/*global $ jQuery */
+/*global $ */
 import Cookie from 'js-cookie'
 
 var contactForm = function(form) {
@@ -50,7 +50,7 @@ var submitForm = function(form) {
   )
 };
 
-(($) => {
+(() => {
   var form = document.querySelector('form#contact')
   contactForm(form)
 })(window.jQuery)

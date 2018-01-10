@@ -1,7 +1,7 @@
 import ScrollReveal from 'scrollreveal'
 import '../sass/landing.sass'
 import mrsrequestForm from './mrsrequest'
-import contactForm from './contact'
+import './contact'
 
 (($) => {
   $('body').on('click', '[data-load-in-form]', function() {
