@@ -3,6 +3,7 @@ from django.views import generic
 
 import material
 
+from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 
 from .models import Bill, MRSRequest, PMT
@@ -55,25 +56,12 @@ class MRSRequestForm(MRSRequestFormMixin, forms.ModelForm):
         )
     )
 
-    date_depart = forms.DateField(
-        input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        initial='jj/mm/aaaa',
+    date_depart = DateField(
         label='Date de l\'aller',
-        widget=forms.DateInput(
-            attrs={
-                'type': 'date',
-            }
-        )
     )
 
-    date_return = forms.DateField(
-        input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        initial='jj/mm/aaaa',
+    date_return = DateField(
         label='Date de retour',
-        widget=forms.DateInput(
-            attrs={
-                'type': 'date',
-            }
     )
 
     layouts = dict(
