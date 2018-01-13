@@ -10,7 +10,6 @@ from django.utils.datastructures import MultiValueDict
 from django.views import generic
 
 from person.forms import PersonForm
-from person.models import Person
 
 from .forms import CertifyForm, MRSRequestForm
 from .models import Bill, MRSRequest, PMT, Transport
@@ -82,15 +81,7 @@ class MRSRequestCreateView(MRSRequestFormViewMixin, generic.TemplateView):
 
     def save(self):
         # Update relation with existing Person
-        self.object.insured = Person.objects.filter(
-            birth_date=self.forms['person'].cleaned_data['birth_date'],
-            nir=self.forms['person'].cleaned_data['nir'],
-        ).first()
-
-        if not self.object.insured:
-            # Otherwise create a new Person
-            self.object.insured = self.forms['person'].save()
-
+        self.object.insured = self.forms['person'].get_or_create()
         self.object.save()
 
         # Assign uploaded PMT

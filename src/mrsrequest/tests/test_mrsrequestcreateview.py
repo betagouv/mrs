@@ -157,7 +157,7 @@ def test_mrsrequestcreateview_hydrate_person(p):
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.django_db
-def test_mrsrequestcreateview_save(p):
+def test_mrsrequestcreateview_post_save_integration(p):
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
     data['mrsrequestform-date_depart'] = '2017-02-02'
     data['mrsrequestform-date_return'] = '2017-02-02'
@@ -186,6 +186,6 @@ def test_mrsrequestcreateview_save(p):
     p.post(**data)
 
     Fixture(
-        './src/mrsrequest/tests/test_mrsrequestcreateview_hydrate_mrsrequest.json',  # noqa
+        './src/mrsrequest/tests/test_mrsrequestcreateview.json',  # noqa
         models=[MRSAttachment, MRSRequest, PMT, Person, Bill, Transport]
     ).assertNoDiff()
