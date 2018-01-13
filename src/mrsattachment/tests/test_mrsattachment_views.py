@@ -42,8 +42,13 @@ def test_mrsfileuploadview_security(srf, id):
     '''Save upload if request had MRSRequest.allow(request).'''
     record = type(
         'TestModel',
-        (mock.Mock,),
-        dict(get_delete_url=lambda s: '/del'),
+        (object,),
+        dict(
+            get_delete_url=lambda s: '/del',
+            get_download_url=lambda s: '/down',
+            get_upload_url=lambda s: '/up',
+            filename='test_mrsfileuploadview_security.jpg',
+        ),
     )
 
     model = mock.Mock()
@@ -62,20 +67,19 @@ def test_mrsfileuploadview_security(srf, id):
         assert model.objects.record_upload.call_count == 0, (
             'record_upload should not have been called')
 
-        pytest.skip('Deny test passed, inihibiting other tests for refactor')
         # Allow
         MRSRequest(id=id).allow(request)
 
         # Test allow
         response = view(request, mrsrequest_uuid=id)
-        assert response.status_code == 201
+        assert response.status_code == 200
 
         # Test record_upload call: mrsrequest argument
-        mrsrequest = model.objects.record_upload.call_args_list[0][0][0]
-        assert mrsrequest.id == id, 'should have kept uuid from upload_request'
+        arg0 = model.objects.record_upload.call_args_list[0][0][0]
+        assert arg0 == id, 'should have kept uuid from upload_request'
 
         # Test record_upload call: file argument
-        mrsrequest = model.objects.record_upload.call_args_list[0][0][0]
+        arg0 = model.objects.record_upload.call_args_list[0][0][0]
         upload = model.objects.record_upload.call_args_list[0][0][1]
         assert upload == request.FILES['file'], (
             'should have used the passed file'
@@ -86,4 +90,8 @@ def test_mrsfileuploadview_security(srf, id):
 
         # Test response
         data = json.loads(response.content)
-        assert data['deleteUrl'] == '/del', 'should be get_delete_url()'
+        assert len(data['files']) == 1
+        f = data['files'][0]
+        assert f['deleteUrl'] == '/del', 'should be get_delete_url()'
+        assert f['thumbnailUrl'] == '/down', 'should be get_download_url()'
+        assert f['url'] == '/down', 'should be get_download_url()'

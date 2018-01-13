@@ -1,6 +1,33 @@
+from decimal import Decimal
 import uuid
 
+from django.core import validators
 from django.db import models
+from django.urls import reverse
+from django.utils import timezone
+
+from mrsattachment.models import MRSAttachment
+
+
+class Bill(MRSAttachment):
+    mrsrequest = models.ForeignKey(
+        'MRSRequest',
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        ordering = ['mrsrequest', 'id']
+        verbose_name = 'Justificatif'
+
+    def unlink(self):
+        self.transport = None
+
+    def get_delete_url(self):
+        return reverse('mrsrequest:bill_destroy', args=[self.pk])
+
+    def get_download_url(self):
+        return reverse('mrsrequest:bill_download', args=[self.pk])
 
 
 class MRSRequestManager(models.Manager):
@@ -32,14 +59,29 @@ class MRSRequest(models.Model):
         unique=True,
     )
     creation_datetime = models.DateTimeField(
-        auto_now_add=True,
+        default=timezone.now,
         db_index=True,
         verbose_name='Date et heure d\'enregistrement du formulaire',
     )
     insured = models.ForeignKey(
         'person.Person',
-        null=True,
         on_delete=models.SET_NULL,
+        null=True,
+    )
+    distance = models.PositiveIntegerField(
+        verbose_name='Distance (km)',
+        help_text='Kilométrage total parcouru',
+        null=True,
+    )
+    expense = models.DecimalField(
+        decimal_places=2, max_digits=6,
+        blank=True, default=0,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        verbose_name='Montant total des frais (en € TTC)',
+        help_text=(
+            'Parking et/ou péage ou '
+            'justificatif(s) de transport en commun'
+        )
     )
 
     status = models.IntegerField(
@@ -67,3 +109,47 @@ class MRSRequest(models.Model):
         # The above doesn't use the request.session setter, won't automatically
         # trigger session save unless we do the following
         request.session.modified = True
+
+
+class PMT(MRSAttachment):
+    mrsrequest = models.OneToOneField(
+        'mrsrequest.MRSRequest',
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    def unlink(self):
+        self.mrsrequest = None
+
+    def __str__(self):
+        return 'PMT: {}'.format(self.mrsrequest_uuid)
+
+    def get_delete_url(self):
+        return reverse('mrsrequest:pmt_destroy', args=[self.pk])
+
+    def get_download_url(self):
+        return reverse('mrsrequest:pmt_download', args=[self.pk])
+
+    class Meta:
+        ordering = ['mrsrequest', 'id']
+
+
+class Transport(models.Model):
+    mrsrequest = models.ForeignKey(
+        'mrsrequest.MRSRequest',
+        on_delete=models.CASCADE,
+    )
+
+    date_depart = models.DateField(
+        verbose_name='Aller',
+        help_text='Date du trajet aller',
+        null=True
+    )
+    date_return = models.DateField(
+        verbose_name='Retour',
+        help_text='Date du trajet retour',
+        null=True
+    )
+
+    class Meta:
+        ordering = ['mrsrequest']

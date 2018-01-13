@@ -22,6 +22,8 @@
 {
     "fields": {
         "creation_datetime": "2017-12-19T05:51:11Z",
+        "distance": null,
+        "expense": "0",
         "form_id": "",
         "insured": 1,
         "status": 0
@@ -33,7 +35,23 @@
     "fields": {
         "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
     },
-    "model": "pmt.pmt",
+    "model": "mrsrequest.pmt",
+    "pk": 1
+},
+{
+    "fields": {
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsrequest.bill",
+    "pk": 2
+},
+{
+    "fields": {
+        "date_depart": "2017-02-02",
+        "date_return": "2017-02-02",
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsrequest.transport",
     "pk": 1
 },
 {
@@ -45,24 +63,6 @@
         "nir": 1234567890123
     },
     "model": "person.person",
-    "pk": 1
-},
-{
-    "fields": {
-        "transport": 1
-    },
-    "model": "transport.bill",
-    "pk": 2
-},
-{
-    "fields": {
-        "date_depart": "2017-02-02",
-        "date_return": "2017-02-02",
-        "distance": 100,
-        "expense": "1E+1",
-        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
-    },
-    "model": "transport.transport",
     "pk": 1
 }
 ]

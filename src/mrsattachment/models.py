@@ -2,8 +2,6 @@ import io
 
 from django.db import models
 
-from mrsrequest.models import MRSRequest
-
 from .settings import DEFAULT_MIME_TYPES
 
 
@@ -40,6 +38,7 @@ class MRSAttachmentField(models.BinaryField):
 
 class MRSAttachmentManager(models.Manager):
     def allowed_objects(self, request):
+        from mrsrequest.models import MRSRequest
         return self.filter(
             mrsrequest_uuid__in=MRSRequest.objects.allowed_uuids(request)
         )

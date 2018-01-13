@@ -10,8 +10,8 @@ var mrsrequestForm = function(container) {
 
 var initForms = function ($container) {
   // Bills
-  var $expense = $('[name=transportform-expense]')
-  var $bills = $('#id_transportform-bills_container')
+  var $expense = $('[name=mrsrequestform-expense]')
+  var $bills = $('#id_mrsrequestform-bills_container')
   var billsChange = function() {
     ($expense && parseInt($expense.val()) > 0) ? $bills.show() : $bills.hide()
   }

@@ -41,8 +41,6 @@ LOGIN_REDIRECT_URL = '/mrsrequest/'
 INSTALLED_APPS = [
     'contact',
     'person',
-    'transport',
-    'pmt',
     'mrs',
     'mrsrequest',
     'mrsattachment',

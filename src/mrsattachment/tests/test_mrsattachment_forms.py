@@ -1,16 +1,16 @@
 import mock
 
 from django import forms
-from pmt.models import PMT
 from mrsattachment.forms import MRSAttachmentField
+from mrsrequest.models import PMT
 from mrsrequest.forms import MRSRequestFormMixin
 
 
 class TestForm(MRSRequestFormMixin, forms.Form):
     test = MRSAttachmentField(
         mock.Mock(),
-        'transport:bill_upload',
-        'transport:bill_download',
+        'mrsrequest:bill_upload',
+        'mrsrequest:bill_download',
         20,
     )
 
@@ -18,8 +18,8 @@ class TestForm(MRSRequestFormMixin, forms.Form):
 def test_widget_attrs(mocker):
     field = MRSAttachmentField(
         PMT,
-        'pmt:pmt_upload',
-        'pmt:pmt_download',
+        'mrsrequest:pmt_upload',
+        'mrsrequest:pmt_download',
         66,
         ['foo/bar', 'test/lol'],
     )
@@ -28,6 +28,7 @@ def test_widget_attrs(mocker):
     field.widget.view = mock.Mock()
     field.widget.view.mrsrequest_uuid = '123'
 
-    assert field.widget.attrs['data-upload-url'] == '/pmt/123/upload'
-    assert field.widget.attrs['data-max-files'] == 66
-    assert field.widget.attrs['data-mime-types'] == 'foo/bar,test/lol'
+    attrs = field.widget.attrs
+    assert attrs['data-upload-url'] == '/mrsrequest/pmt/123/upload'
+    assert attrs['data-max-files'] == 66
+    assert attrs['data-mime-types'] == 'foo/bar,test/lol'

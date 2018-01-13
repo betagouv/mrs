@@ -13,9 +13,14 @@
         {% csrf_token %}
         <input type="hidden" name="mrsrequest_uuid" value="{{ view.mrsrequest_uuid }}" />
 
-        {% for form in view.forms.values %}
-            {% form form=form %}{% endform %}
-        {% endfor %}
+        {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.top %}
+        {% endform %}
+        {% form form=view.forms.person layout=view.forms.person.layout %}
+        {% endform %}
+        {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.bottom %}
+        {% endform %}
+        {% form form=view.forms.certify %}
+        {% endform %}
 
         <br />
 
