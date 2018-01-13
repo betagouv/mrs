@@ -44,30 +44,6 @@ var initForms = function ($container) {
   if(lang) {
     jQuery.datetimepicker.setLocale(lang.substr(0, 2))
   }
-
-  // Date/DateTime/Time
-  // https://github.com/xdan/datetimepicker
-  $container
-    .find('[data-form-control="time"]')
-    .each(function () {
-      $(this).datetimepicker({
-        format: this.dataset.dateFormat,
-        datepicker: false,
-        timepicker: true,
-        mask: false,
-        scrollInput: false
-      })
-    })
-  $container.find('[data-form-control="datetime"]').each(
-    function () {
-      $(this).datetimepicker({
-        format: this.dataset.dateFormat,
-        datepicker: true,
-        timepicker: true,
-        mask: false,
-        scrollInput: false
-      })
-    })
 }
 
 /* to be implemented and used ...
