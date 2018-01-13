@@ -18,6 +18,9 @@ var initForms = function ($container) {
   $expense.on('change', billsChange)
   billsChange()
 
+  // Activate label on date inputs because they have placeholders
+  $('[data-form-control="date"]').siblings('label').addClass('active')
+
   // Return date
   $container.find('[name*=depart]').on('input', function() {
     var retName = $(this).attr('name').replace('depart', 'return')
