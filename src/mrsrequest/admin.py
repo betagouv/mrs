@@ -3,21 +3,13 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
 
 from .forms import MRSRequestAdminForm
-from .models import MRSRequest, Transport
+from .models import MRSRequest
 
 csrf_protect_m = method_decorator(csrf_protect)
 
 
-class TransportInline(admin.TabularInline):
-    model = Transport
-    extra = 0
-
-
 class MRSRequestAdmin(admin.ModelAdmin):
     form = MRSRequestAdminForm
-    inlines = [
-        TransportInline,
-    ]
     list_display = (
         'verbose_id',
         'insured_first_name',
@@ -35,6 +27,11 @@ class MRSRequestAdmin(admin.ModelAdmin):
     list_filter = (
         'status',
     )
+    readonly_fields = (
+        'expense',
+        'distance',
+        'form_id',
+    )
     autocomplete_fields = ['insured']
 
     def insured_first_name(self, obj):
@@ -51,4 +48,7 @@ class MRSRequestAdmin(admin.ModelAdmin):
         if obj.insured:
             return obj.insured.nir
     insured_nir.admin_order_field = 'insured__nir'
+
+    def has_add_permission(self, request):
+        return False
 admin.site.register(MRSRequest, MRSRequestAdmin)

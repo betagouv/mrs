@@ -1,10 +1,114 @@
 {% extends "admin/change_form.html" %}
 {% load render_bundle from webpack_loader %}
 {% load i18n admin_urls admin_static admin_modify %}
-{% load material_form %}
+
+{% block object-tools %}{% endblock %}
 
 {% block footer %}
     {{ block.super }}
     {% include '_base_js.html' %}
     {% render_bundle 'admin' 'js' %}
+{% endblock %}
+
+{% block field_sets %}
+<fieldset class="module aligned">
+    <h2>PMT</h2>
+    <div class="form-row field-pmt">
+        <div>
+            <label>PMT:</label>
+            <div class="readonly">
+                <a
+                    href="{{ original.pmt.get_download_url }}"
+                    target="_blank"
+                >{{ original.pmt.filename }}</a>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<fieldset class="module aligned ">
+    <h2>Identité de la personne transportée</h2>
+    <div class="form-row">
+        <div class="field-box">
+            <label>Prénom:</label>
+            <div class="readonly">{{ original.insured.first_name }}</div>
+        </div>
+        <div class="field-box">
+            <label class="inline">Nom:</label>
+            <div class="readonly">{{ original.insured.last_name }}</div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="field-box">
+          <label class="inline">Date de naissance:</label>
+          <div class="readonly">{{ original.insured.birth_date }}</div>
+        </div>
+    </div>
+</fieldset>
+<fieldset class="module aligned ">
+    <h2>Identité de l'assuré-e</h2>
+      <div class="form-row">
+        <div class="field-box">
+            <label>NIR:</label>
+            <div class="readonly">{{ original.insured.nir }}</div>
+        </div>
+        <div class="field-box">
+            <label class="inline">Email:</label>
+            <div class="readonly">{{ original.insured.email }}</div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="field-box">
+            <label class="inline">Date de naissance:</label>
+            <div class="readonly">{{ original.insured.birth_date }}</div>
+        </div>
+    </div>
+</fieldset>
+<fieldset class="module aligned ">
+    <h2>Informations sur le transport</h2>
+    <div class="form-row">
+        <div class="field-box">
+              <label>Date de l'aller:</label>
+            <div class="readonly">{{ original.transport_set.first.date_depart }}</div>
+        </div>
+        <div class="field-box">
+              <label>Date du retour:</label>
+            <div class="readonly">{{ original.transport_set.first.date_return }}</div>
+        </div>
+        <div class="field-box">
+              <label>Distance (km parcourus)</label>
+            <div class="readonly">{{ original.distance }}</div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="field-box">
+            <label class="inline">Montant total des frais (en € TTC):</label>
+            <div class="readonly">{{ original.expense }}</div>
+        </div>
+    </div>
+    {% if original.expense %}
+        <h2>Justificatifs</h2>
+        <div class="form-row">
+        <label>Justificatifs attachés:</label>
+        {% for bill in original.bill_set.all %}
+            <ul>
+                <li>
+                    <a
+                        href="{{ bill.get_download_url }}"
+                        target="_blank"
+                    >{{ bill.filename }}</a>
+                </li>
+            </ul>
+        {% endfor %}
+        </div>
+    {% endif %}
+</fieldset>
+{% endblock %}
+
+{% block submit_buttons_bottom %}
+<div class="submit-row">
+    <p class="deletelink-box">
+        <a href="{{ original.get_reject_url }}" class="deletelink">Rejeter</a>
+    </p>
+    <input href="{{ original.get_validate_url }}" value="Valider" type="submit" />
+</div>
 {% endblock %}

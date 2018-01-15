@@ -240,3 +240,41 @@ class CertifyForm(forms.Form):
         widget=forms.RadioSelect(),
         required=True,
     )
+
+
+class MRSRequestRejectForm(forms.ModelForm):
+    REASON_MISSING = 1
+    REASON_UNREADABLE = 2
+    REASON_OTHER = 3
+
+    REASON_CHOICES = (
+        ('', ''),
+        (REASON_MISSING, 'Pièce(s) justificative(s) manquante(s)'),
+        (REASON_UNREADABLE, 'Justificatifs illisibles (PMT ou frais)'),
+        (REASON_OTHER, 'Rejet (raison réglementaire)'),
+    )
+
+    reason = forms.ChoiceField(choices=REASON_CHOICES)
+    mail_body = forms.CharField(widget=forms.Textarea)
+
+    class Meta:
+        model = MRSRequest
+        fields = []
+
+    def save(self, commit=True):
+        self.instance.status = MRSRequest.STATUS_REJECTED
+        if commit:
+            self.instance.save()
+        return self.instance
+
+
+class MRSRequestValidateForm(forms.ModelForm):
+    class Meta:
+        model = MRSRequest
+        fields = []
+
+    def save(self, commit=True):
+        self.instance.status = MRSRequest.STATUS_VALIDATED
+        if commit:
+            self.instance.save()
+        return self.instance

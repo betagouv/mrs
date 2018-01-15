@@ -18,6 +18,7 @@ def test_widget_attrs(mocker):
     field.widget.view.mrsrequest_uuid = '123'
 
     attrs = field.widget.attrs
-    assert attrs['data-upload-url'] == '/mrsrequest/pmt/MRSREQUEST_UUID/upload'
+    assert attrs['data-upload-url'] == (
+        '/mrsrequest/pmt/MRSREQUEST_UUID/upload/')
     assert attrs['data-max-files'] == 66
     assert attrs['data-mime-types'] == 'foo/bar,test/lol'

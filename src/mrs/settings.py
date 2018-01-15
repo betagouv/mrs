@@ -165,7 +165,7 @@ EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', EMAIL_BACKEND)
 try:
     import raven  # noqa
 except ImportError:
-    pass
+    raven = None
 else:
     INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
@@ -174,7 +174,7 @@ if os.getenv('SENTRY_DSN'):
     RAVEN_CONFIG['dsn'] = os.getenv('SENTRY_DSN')
 if os.getenv('GIT_COMMIT'):
     RAVEN_CONFIG['release'] = os.getenv('GIT_COMMIT')
-else:
+elif raven:
     repo = os.path.join(os.path.dirname(__file__), '..', '..')
     if os.path.exists(os.path.join(repo, '.git')):
         RAVEN_CONFIG['release'] = raven.fetch_git_sha(repo)

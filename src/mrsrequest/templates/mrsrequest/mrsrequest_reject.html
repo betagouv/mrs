@@ -1,0 +1,30 @@
+{% extends 'mrsrequest/mrsrequest_admin.html' %}
+
+{% block form %}
+<script type="text/javascript">
+window.rejectTemplates = {{ view.reject_templates_json|safe }}
+</script>
+<style type="text/css">
+#id_mail_body {
+    min-width: 400px;
+    min-height: 400px;
+}
+</style>
+
+<fieldset class="module aligned">
+	<h2>Rejeter la demande</h2>
+	<div class="form-row">
+        <div class="field-box">
+            <label>Raison:</label>
+            {{ form.reason }}
+        </div>
+    </div>
+	<div class="form-row">
+        <div>
+            <label>Courriel:</label>
+            {{ form.mail_body }}
+        </div>
+    </div>
+</fieldset>
+{% csrf_token %}
+{% endblock %}

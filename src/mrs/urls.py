@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.views import generic
 from django.urls import include, path, reverse_lazy
 
+admin.site.site_header = 'MRS Admin'
+admin.site.site_title = 'MRS Admin'
 
 urlpatterns = [
     path('', generic.RedirectView.as_view(
