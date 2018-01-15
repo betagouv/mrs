@@ -150,7 +150,7 @@ def sqlite_form_id_trigger(sender, instance, **kwargs):
     prefix = datetime.date.today().strftime('%Y%m%d')
 
     def _gen():
-        return '{}{:06d}'.format(prefix, i)
+        return '{}{:04d}'.format(prefix, i)
     form_id = _gen()
 
     while MRSRequest.objects.filter(form_id=form_id).count():
