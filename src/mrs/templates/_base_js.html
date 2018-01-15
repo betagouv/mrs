@@ -1,4 +1,8 @@
 {% load static %}
+<script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+Raven.config('{{ SENTRY_DSN }}').install()
+</script>
 <script src="{% static 'material/js/jquery.js' %}"></script>
 <script src="{% static 'material/js/jquery.datetimepicker.full.js' %}"></script>
 <script src="{% static 'material/js/jquery.formset.js' %}"></script>

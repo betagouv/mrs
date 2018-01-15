@@ -162,6 +162,28 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', EMAIL_BACKEND)
 
+try:
+    import raven  # noqa
+except ImportError:
+    pass
+else:
+    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
+
+RAVEN_CONFIG = dict()
+if os.getenv('SENTRY_DSN'):
+    RAVEN_CONFIG['dsn'] = os.getenv('SENTRY_DSN')
+if os.getenv('GIT_COMMIT'):
+    RAVEN_CONFIG['release'] = os.getenv('GIT_COMMIT')
+else:
+    try:
+        RAVEN_CONFIG['release'] = raven.fetch_git_sha(
+            os.path.abspath(os.path.join(
+                os.path.dirname(__file__), '..', '..'
+            ))
+        )
+    except:  # noqa
+        if DEBUG:
+            raise
 
 if os.getenv('LOG'):
     LOGGING = {
