@@ -1,0 +1,9 @@
+<li data-file-name"{{ attachment.filename }}">
+    <a target="_blank" href="{{ attachment.get_download_url }}" class="file-name">
+        {{ attachment.filename }}
+    </a>
+
+    <a data-delete-url="{{ attachment.get_delete_url }}" class="delete-file">
+      Éffacer
+    </a>
+</li>

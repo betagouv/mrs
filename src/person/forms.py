@@ -3,13 +3,12 @@ from django.utils.timezone import now
 
 import material
 
-from mrsrequest.forms import MRSRequestFormMixin
 from mrs.forms import DateField
 
 from .models import Person
 
 
-class PersonForm(MRSRequestFormMixin, forms.ModelForm):
+class PersonForm(forms.ModelForm):
     nir = forms.CharField(
         label='Numéro de sécurité sociale',
         max_length=13,

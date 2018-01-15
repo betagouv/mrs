@@ -6,29 +6,15 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.utils.datastructures import MultiValueDict
 from django.views import generic
 
 from person.forms import PersonForm
 
-from .forms import CertifyForm, MRSRequestForm
-from .models import Bill, MRSRequest, PMT, Transport
+from .forms import CertifyForm, MRSRequestCreateForm
+from .models import MRSRequest
 
 
-class MRSRequestFormViewMixin(object):
-    def form_errors(self):
-        return [form for form in self.forms.values() if not form.is_valid()]
-
-    def form_data(self):
-        data = MultiValueDict(self.request.POST)
-        if self.pmt:
-            data['mrsrequestform-pmt'] = [self.pmt]
-        if self.bills:
-            data['mrsrequestform-bills'] = self.bills
-        return data
-
-
-class MRSRequestCreateView(MRSRequestFormViewMixin, generic.TemplateView):
+class MRSRequestCreateView(generic.TemplateView):
     template_name = 'mrsrequest/form.html'
 
     def get(self, request, *args, **kwargs):
@@ -37,8 +23,8 @@ class MRSRequestCreateView(MRSRequestFormViewMixin, generic.TemplateView):
         self.mrsrequest_uuid = str(self.object.id)
 
         self.forms = collections.OrderedDict([
-            ('mrsrequest', MRSRequestForm.factory(self)),
-            ('person', PersonForm.factory(self)),
+            ('mrsrequest', MRSRequestCreateForm(instance=self.object)),
+            ('person', PersonForm()),
             ('certify', CertifyForm()),
         ])
 
@@ -61,17 +47,13 @@ class MRSRequestCreateView(MRSRequestFormViewMixin, generic.TemplateView):
         if not MRSRequest(id=self.mrsrequest_uuid).is_allowed(self.request):
             return http.HttpResponseBadRequest()
 
-        self.object = MRSRequest(id=self.mrsrequest_uuid)
-        self.pmt = PMT.objects.recorded_uploads(self.mrsrequest_uuid).last()
-        self.bills = Bill.objects.recorded_uploads(self.mrsrequest_uuid)
-
-        data = self.form_data()
-
         self.forms = collections.OrderedDict([
-            ('mrsrequest', MRSRequestForm.factory(
-                self, data=data, files=data)),
-            ('person', PersonForm.factory(self, data=request.POST)),
-            ('certify', CertifyForm(self.request.POST)),
+            ('mrsrequest', MRSRequestCreateForm(
+                request.POST,
+                mrsrequest_uuid=self.mrsrequest_uuid
+            )),
+            ('person', PersonForm(request.POST)),
+            ('certify', CertifyForm(request.POST)),
         ])
 
         with transaction.atomic():
@@ -80,22 +62,9 @@ class MRSRequestCreateView(MRSRequestFormViewMixin, generic.TemplateView):
         return generic.TemplateView.get(self, request, *args, **kwargs)
 
     def save(self):
-        # Update relation with existing Person
-        self.object.insured = self.forms['person'].get_or_create()
-        self.object.save()
-
-        # Assign uploaded PMT
-        self.pmt.mrsrequest = self.object
-        self.pmt.save()
-
-        # Assign uploaded Bills
-        self.bills.update(mrsrequest=self.object)
-
-        Transport.objects.create(
-            mrsrequest=self.object,
-            date_depart=self.forms['mrsrequest'].cleaned_data['date_depart'],
-            date_return=self.forms['mrsrequest'].cleaned_data['date_return'],
-        )
+        self.forms['mrsrequest'].instance.insured = (
+            self.forms['person'].get_or_create())
+        self.object = self.forms['mrsrequest'].save()
 
         send_mail(
             template.loader.get_template(
@@ -110,62 +79,9 @@ class MRSRequestCreateView(MRSRequestFormViewMixin, generic.TemplateView):
 
         return True
 
-
-class MRSRequestUpdateView(MRSRequestFormViewMixin, generic.TemplateView):
-    mrsrequest_uuid = None
-    template_name = 'admin/mrsrequest/change_form.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return http.HttpResponseBadRequest()
-        return super().dispatch(request, *args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        self.object = MRSRequest.objects.get(id=self.mrsrequest_uuid)
-        self.pmt = self.object.pmt if self.object.pmt_id else None
-        self.bills = self.object.bill_set.all()
-
-        self.forms = collections.OrderedDict([
-            ('mrsrequest', MRSRequestForm.factory(
-                self, instance=self.object)),
-            ('person', PersonForm.factory(
-                self, instance=self.object.insured)),
-        ])
-
-        return generic.TemplateView.get(self, request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-
-        pmtfiles = MultiValueDict()
-        try:
-            self.pmt = self.object.pmt
-        except PMT.DoesNotExist:
-            self.pmt = self.pmt_get_object()
-
-        if self.pmt:
-            pmtfiles['pmtform-pmt'] = [self.pmt]
-
-        self.bills = self.bills_get_queryset()
-        data = self.form_data()
-
-        self.forms = collections.OrderedDict([
-            ('mrsrequest', MRSRequestForm.factory(
-                self, instance=self.object, data=data, files=data)),
-            ('person', PersonForm.factory(
-                self, instance=self.object.insured, data=request.POST)),
-        ])
-
-        with transaction.atomic():
-            self.success = not self.form_errors() and self.save()
-
-        return generic.TemplateView.get(self, request, *args, **kwargs)
-
-    def save(self):
-        self.pmt.mrsrequest = self.object
-        self.pmt.save()
-        self.bills.update(transport=self.transport)
-        self.forms['person'].save()
-        self.forms['mrsrequest'].save()
-        self.forms['transport'].save()
-        return True
+    def form_errors(self):
+        return [
+            (form.errors, form.non_field_errors)
+            for form in self.forms.values()
+            if not form.is_valid()
+        ]

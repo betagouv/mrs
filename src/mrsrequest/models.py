@@ -1,8 +1,11 @@
+import datetime
 from decimal import Decimal
 import uuid
 
+from django.conf import settings
 from django.core import validators
 from django.db import models
+from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
 
@@ -95,10 +98,16 @@ class MRSRequest(models.Model):
         verbose_name = 'Requête'
         ordering = ['-creation_datetime']
 
+    def __str__(self):
+        return self.verbose_id
+
+    @property
     def verbose_id(self):
-        return self.form_id if self.form_id else self.id
+        return self.form_id if self.form_id else str(self.id)
 
     def is_allowed(self, request):
+        if request.user.is_staff:
+            return True
         return str(self.id) in request.session.get(self.SESSION_KEY, {})
 
     def allow(self, request):
@@ -109,6 +118,48 @@ class MRSRequest(models.Model):
         # The above doesn't use the request.session setter, won't automatically
         # trigger session save unless we do the following
         request.session.modified = True
+
+    def save_attachments(self):
+        self.save_bills()
+        self.save_pmt()
+
+    def save_bills(self):
+        Bill.objects.recorded_uploads(self.id).update(mrsrequest=self)
+
+    def save_pmt(self):
+        new_pmt = PMT.objects.recorded_uploads(self.id).last()
+
+        try:
+            current_pmt = self.pmt
+        except PMT.DoesNotExist:
+            pass
+        else:
+            if current_pmt == new_pmt:
+                return
+            else:
+                current_pmt.delete()
+
+        if new_pmt:
+            new_pmt.mrsrequest = self
+            new_pmt.save()
+
+
+def sqlite_form_id_trigger(sender, instance, **kwargs):
+    """Postgresql has a trigger for this. SQLite is for testing."""
+    i = 0
+    prefix = datetime.date.today().strftime('%Y%m%d')
+
+    def _gen():
+        return '{}{:06d}'.format(prefix, i)
+    form_id = _gen()
+
+    while MRSRequest.objects.filter(form_id=form_id).count():
+        i += 1
+        form_id = _gen()
+    instance.form_id = form_id
+if 'postgres' not in settings.DATABASES['default']['ENGINE']:
+    # an atomic trigger is setup for postgres by a migration
+    signals.pre_save.connect(sqlite_form_id_trigger, sender=MRSRequest)
 
 
 class PMT(MRSAttachment):

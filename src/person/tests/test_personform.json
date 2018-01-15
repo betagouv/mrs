@@ -1,0 +1,13 @@
+[
+{
+    "fields": {
+        "birth_date": "1990-01-01",
+        "email": "example@example.com",
+        "first_name": "jamesy",
+        "last_name": "lebowski",
+        "nir": 1234567890123
+    },
+    "model": "person.person",
+    "pk": 1
+}
+]

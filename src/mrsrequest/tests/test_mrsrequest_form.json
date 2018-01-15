@@ -1,20 +1,20 @@
 [
 {
     "fields": {
-        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
+        "binary": "dGVzdF9tcnNhdHRhY2htZW50Zm9ybTA=",
         "creation_datetime": "2017-12-19T05:51:11Z",
-        "filename": "test_mrsrequestcreateview_story.jpg",
-        "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
+        "filename": "test_mrsattachmentform0.jpg",
+        "mrsrequest_uuid": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
     },
     "model": "mrsattachment.mrsattachment",
     "pk": 1
 },
 {
     "fields": {
-        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
+        "binary": "dGVzdF9tcnNhdHRhY2htZW50Zm9ybTE=",
         "creation_datetime": "2017-12-19T05:51:11Z",
-        "filename": "test_mrsrequestcreateview_story.jpg",
-        "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
+        "filename": "test_mrsattachmentform1.jpg",
+        "mrsrequest_uuid": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
     },
     "model": "mrsattachment.mrsattachment",
     "pk": 2
@@ -29,30 +29,21 @@
         "status": 0
     },
     "model": "mrsrequest.mrsrequest",
-    "pk": "e29db065-0566-48be-822d-66bd3277d823"
+    "pk": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
 },
 {
     "fields": {
-        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+        "mrsrequest": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
     },
     "model": "mrsrequest.pmt",
     "pk": 1
 },
 {
     "fields": {
-        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+        "mrsrequest": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
     },
     "model": "mrsrequest.bill",
     "pk": 2
-},
-{
-    "fields": {
-        "date_depart": "2017-02-02",
-        "date_return": "2017-02-02",
-        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
-    },
-    "model": "mrsrequest.transport",
-    "pk": 1
 },
 {
     "fields": {

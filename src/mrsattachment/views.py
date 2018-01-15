@@ -99,7 +99,7 @@ class MRSFileUploadView(generic.View):
         mrsrequest_uuid = kwargs['mrsrequest_uuid']
 
         if not MRSRequest(id=mrsrequest_uuid).is_allowed(request):
-            return http.HttpResponseBadRequest('Token de formulaire invalidé')
+            return http.HttpResponseBadRequest('Token de formulaire invalide')
 
         if not request.FILES:
             return http.HttpResponseBadRequest('Pas de fichier reçu')

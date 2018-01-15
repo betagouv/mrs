@@ -55,7 +55,7 @@ class MRSAttachmentManager(models.Manager):
         '''
         return self.model.objects.create(
             mrsrequest_uuid=mrsrequest_uuid,
-            filename=str(upload),
+            filename=upload.name,
             binary=MRSAttachment.get_upload_body(upload),
         )
 

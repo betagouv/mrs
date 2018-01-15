@@ -1,5 +1,5 @@
 from django import forms
-
+from django import template
 from django.urls import reverse
 
 from .settings import DEFAULT_MIME_TYPES
@@ -44,19 +44,14 @@ class MRSAttachmentWidget(forms.FileInput):
     def attrs(self):
         self._attrs = self._attrs or {}
 
-        if getattr(self, 'view', False):
-            # Should be set by MRSRequestFormMixin factory
-            mrsrequest_uuid = getattr(self.view, 'mrsrequest_uuid', False)
-
-            if mrsrequest_uuid:
-                self._attrs.update({
-                    'data-mime-types': ','.join(self.field.mime_types),
-                    'data-max-files': self.field.max_files,
-                    'data-upload-url': reverse(
-                        self.field.upload,
-                        args=[mrsrequest_uuid]
-                    ),
-                })
+        self._attrs.update({
+            'data-mime-types': ','.join(self.field.mime_types),
+            'data-max-files': self.field.max_files,
+            'data-upload-url': reverse(
+                self.field.upload,
+                args=['MRSREQUEST_UUID']
+            ),
+        })
 
         if self.field.max_files > 1:
             self._attrs.setdefault('multiple', 'multiple')
@@ -67,3 +62,18 @@ class MRSAttachmentWidget(forms.FileInput):
     @attrs.setter
     def attrs(self, value):
         self._attrs = value
+
+    def render(self, name, value, attrs=None):
+        # Note that is not used by material design Why ? In reality
+        # Django's default rendering patterns are not compatible
+        # with material design rendering, because material design
+        # ties label with widget
+        result = super().render(name, value, attrs)
+        result += template.Template(
+            '<ul class="files">'
+            '{% for attachment in value %}'
+            '{% include "mrsattachment/_attachment.html" %}'
+            '{% endfor %}'
+            '</ul>'
+        ).render(template.Context(dict(value=value)))
+        return result

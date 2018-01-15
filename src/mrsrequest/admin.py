@@ -1,15 +1,23 @@
 from django.contrib import admin
-from django.db import transaction
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
 
-from .views import MRSRequestUpdateView
-from .models import MRSRequest
+from .forms import MRSRequestAdminForm
+from .models import MRSRequest, Transport
 
 csrf_protect_m = method_decorator(csrf_protect)
 
 
+class TransportInline(admin.TabularInline):
+    model = Transport
+    extra = 0
+
+
 class MRSRequestAdmin(admin.ModelAdmin):
+    form = MRSRequestAdminForm
+    inlines = [
+        TransportInline,
+    ]
     list_display = (
         'verbose_id',
         'insured_first_name',
@@ -27,6 +35,7 @@ class MRSRequestAdmin(admin.ModelAdmin):
     list_filter = (
         'status',
     )
+    autocomplete_fields = ['insured']
 
     def insured_first_name(self, obj):
         if obj.insured:
@@ -42,11 +51,4 @@ class MRSRequestAdmin(admin.ModelAdmin):
         if obj.insured:
             return obj.insured.nir
     insured_nir.admin_order_field = 'insured__nir'
-
-    @csrf_protect_m
-    @transaction.atomic
-    def changeform_view(self, request, object_id=None, form_url='',
-                        extra_context=None):
-        return MRSRequestUpdateView.as_view(mrsrequest_uuid=object_id)(request)
-
 admin.site.register(MRSRequest, MRSRequestAdmin)

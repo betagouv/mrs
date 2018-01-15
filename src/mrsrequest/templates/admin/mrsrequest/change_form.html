@@ -1,55 +1,10 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/change_form.html" %}
 {% load render_bundle from webpack_loader %}
 {% load i18n admin_urls admin_static admin_modify %}
 {% load material_form %}
 
-{% if not is_popup %}
-{% block breadcrumbs %}
-<div class="breadcrumbs">
-<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
-&rsaquo; <a href="{% url 'admin:app_list' app_label='mrsrequest' %}">Requêtes</a>
-&rsaquo; {% if has_change_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">Requêtes</a>{% else %}Requêtes {% endif %}
-&rsaquo; {% if add %}{% trans 'Add' %} Requête{% else %}Requête #{{ view.object.form_id|truncatewords:"18" }}{% endif %}
-</div>
-{% endblock %}
-{% endif %}
-
-{% block extrahead %}
-    {{ block.super }}
-    {% include '_base_css.html' %}
-    {% render_bundle 'mrsrequest' 'css' %}
-{% endblock %}
-
 {% block footer %}
     {{ block.super }}
     {% include '_base_js.html' %}
-    {% render_bundle 'mrsrequest' 'js' %}
+    {% render_bundle 'admin' 'js' %}
 {% endblock %}
-
-{% block content %}
-<form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
-    <div class="card-panel orange lighten-4">
-        ATTENTION à l'éffacement de fichier qui est sans confirmation et irréversible.
-    </div>
-    {% if view.success %}
-        <div class="card-panel teal lighten-4">
-            Merci pour vos modifications qui ont été sauvegardées.
-        </div>
-    {% elif request.method == 'POST' %}
-        <div class="card-panel red lighten-4">
-            Une erreur dans le formulaire a empêché la sauvegarde complête.
-        </div>
-    {% endif %}
-
-    {% csrf_token %}
-
-    {% for form in view.forms.values %}
-        {% form form=form %}{% endform %}
-    {% endfor %}
-
-    <br />
-
-    <button type="submit" name="_submit" class="btn">Enregistrer</button>
-</form>
-{% endblock %}
-{% load i18n admin_urls admin_static admin_modify %}

@@ -1,39 +1,17 @@
+import uuid
+
 from django import forms
-from django.views import generic
+from django.utils.datastructures import MultiValueDict
 
 import material
 
 from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 
-from .models import Bill, MRSRequest, PMT
+from .models import Bill, MRSRequest, PMT, Transport
 
 
-class MRSRequestFormMixin(object):
-    @classmethod
-    def factory(cls, view, *args, **kwargs):
-        if not isinstance(view, generic.View):
-            raise Exception('First argument should be View instance')
-
-        # Create a form subclass with the view instance
-        cls = type(cls.__name__, (cls,), dict(view=view))
-
-        kwargs.setdefault(
-            'prefix', '{}'.format(cls.__name__.lower())
-        )
-
-        # The above made self.view available in the constructor
-        form = cls(*args, **kwargs)
-
-        for name, field in form.fields.items():
-            # Joy
-            form.fields[name].view = view
-            form.fields[name].widget.view = view
-
-        return form
-
-
-class MRSRequestForm(MRSRequestFormMixin, forms.ModelForm):
+class MRSRequestForm(forms.ModelForm):
     pmt = MRSAttachmentField(
         PMT,
         'mrsrequest:pmt_upload',
@@ -56,6 +34,133 @@ class MRSRequestForm(MRSRequestFormMixin, forms.ModelForm):
         )
     )
 
+    # do not trust this field, it's used for javascript and checked
+    # by the view for permission against the request session, but is
+    # NOT to be trusted, don't use data['mrsrequest_uuid'] nor
+    # cleaned_data['mrsrequest_uuid'], you've been warned.
+    # Except for staff, in the admin version of the form.
+    mrsrequest_uuid = forms.CharField(widget=forms.HiddenInput)
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('initial', {})
+        initial = kwargs['initial']
+
+        if 'mrsrequest_uuid' in kwargs:
+            mrsrequest_uuid = kwargs.pop('mrsrequest_uuid')
+            instance = kwargs.get('instance')
+            if not instance:
+                kwargs['instance'] = MRSRequest()
+            kwargs['instance'].id = mrsrequest_uuid
+        elif 'instance' in kwargs:
+            mrsrequest_uuid = str(kwargs['instance'].id)
+        else:
+            raise Exception('No instance, no uuid, secure it yourself')
+
+        initial['mrsrequest_uuid'] = mrsrequest_uuid
+
+        data, files, args, kwargs = self.args_extract(args, kwargs)
+
+        if data:
+            data, files = self.data_attachments(data, files, mrsrequest_uuid)
+
+        kwargs['data'] = data
+        kwargs['files'] = files
+        super().__init__(*args, **kwargs)
+
+    def data_attachments(self, data, files, mrsrequest_uuid):
+        pmt = PMT.objects.recorded_uploads(mrsrequest_uuid).last()
+        if pmt:
+            data['pmt'] = [pmt]
+        else:
+            data['pmt'] = []
+
+        data['bills'] = Bill.objects.recorded_uploads(mrsrequest_uuid)
+
+        if files:
+            files.update(data)
+        else:
+            files = data
+        return data, files
+
+    def args_extract(self, args, kwargs):
+        """Extract data and files args, return mutable objects."""
+        # make popable (can't pop tuple of args)
+        args = list(args)
+
+        def getarg(name, num):
+            if args and len(args) > num:
+                return args.pop(num)
+            elif kwargs.get('files'):
+                return kwargs.pop('files')
+            return None
+
+        # First to not affect data = args.pop(0)
+        files = getarg('files', 1)
+        data = getarg('data', 0)
+
+        # make mutable if something
+        if files:
+            files = MultiValueDict(files)
+        if data:
+            data = MultiValueDict(data)
+
+        return data, files, args, kwargs
+
+    def save(self, commit=True):
+        obj = super().save(commit=commit)
+        save_m2m = getattr(self, 'save_m2m', None)
+        if save_m2m:
+            def _save_m2m():
+                obj.save_attachments()
+                save_m2m()
+            self.save_m2m = _save_m2m
+        else:
+            obj.save_attachments()
+        return obj
+
+    class Meta:
+        model = MRSRequest
+        fields = [
+            'expense',
+            'distance',
+        ]
+
+
+class MRSRequestAdminForm(MRSRequestForm):
+    '''This form is not secure: it uses any uuid that is posted.'''
+    def __init__(self, *args, **kwargs):
+        data, files, args, kwargs = self.args_extract(args, kwargs)
+        kwargs.setdefault('initial', {})
+
+        instance = kwargs.get('instance')
+        if instance:
+            try:
+                instance.pmt
+            except PMT.DoesNotExist:
+                pass
+            else:
+                kwargs['initial']['pmt'] = [instance.pmt]
+            kwargs['initial']['bills'] = instance.bill_set.all()
+            kwargs['initial']['mrsrequest_uuid'] = str(instance.id)
+        else:
+            if data and 'mrsrequest_uuid' in data:
+                kwargs['mrsrequest_uuid'] = data.get('mrsrequest_uuid')
+            else:
+                kwargs['mrsrequest_uuid'] = str(uuid.uuid4())
+
+        super().__init__(data, files, *args, **kwargs)
+
+    class Meta:
+        model = MRSRequest
+        fields = [
+            'mrsrequest_uuid',
+            'expense',
+            'distance',
+            'insured',
+        ]
+
+
+class MRSRequestCreateForm(MRSRequestForm):
     date_depart = DateField(
         label='Date de l\'aller',
     )
@@ -107,6 +212,15 @@ class MRSRequestForm(MRSRequestFormMixin, forms.ModelForm):
             )
 
         return cleaned_data
+
+    def save(self):
+        obj = super().save()
+        Transport.objects.create(
+            mrsrequest=obj,
+            date_depart=self.cleaned_data['date_depart'],
+            date_return=self.cleaned_data['date_return'],
+        )
+        return obj
 
     class Meta:
         model = MRSRequest

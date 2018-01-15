@@ -31,16 +31,8 @@
 
         <ul class="files">
             {% if bound_field.value != None %}
-                {% for value in bound_field.value %}
-                <li data-file-name"{{ value.filename }}">
-                    <a target="_blank" href="{{ value.get_download_url }}" class="file-name">
-                        {{ value.filename }}
-                    </a>
-
-                    <a data-delete-url="{{ value.get_delete_url }}" class="delete-file">
-                      Éffacer
-                    </a>
-                </li>
+                {% for attachment in bound_field.value %}
+                    {% include 'mrsattachment/_attachment.html' %}
                 {% endfor %}
             {% endif %}
         </ul>
