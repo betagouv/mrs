@@ -143,6 +143,15 @@ class MRSRequest(models.Model):
             new_pmt.mrsrequest = self
             new_pmt.save()
 
+    def get_admin_url(self):
+        return reverse('admin:mrsrequest_mrsrequest_change', args=[self.pk])
+
+    def get_reject_url(self):
+        return reverse('mrsrequest:reject', args=[self.pk])
+
+    def get_validate_url(self):
+        return reverse('mrsrequest:validate', args=[self.pk])
+
 
 def sqlite_form_id_trigger(sender, instance, **kwargs):
     """Postgresql has a trigger for this. SQLite is for testing."""
