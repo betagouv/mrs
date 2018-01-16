@@ -1,1 +1,1 @@
-Demande de validation {{ object.verbose_id }}
+Demande de remboursement MRS n°{{ object.verbose_id }} à traiter
