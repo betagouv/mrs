@@ -12,10 +12,25 @@
 
 {% block field_sets %}
 <fieldset class="module aligned">
+    <h2>Général</h2>
+    <div class="form-row field-create_time">
+        <div>
+            <label>Date de création :</label>
+            <div class="readonly">{{ original.creation_datetime }}</div>
+        </div>
+    </div>
+    <div class="form-row field-verbose_id">
+        <div>
+            <label>Numéro :</label>
+            <div class="readonly">{{ original.verbose_id }}</div>
+        </div>
+    </div>
+</fieldset>
+<fieldset class="module aligned">
     <h2>PMT</h2>
     <div class="form-row field-pmt">
         <div>
-            <label>PMT:</label>
+            <label>PMT :</label>
             <div class="readonly">
                 <a
                     href="{{ original.pmt.get_download_url }}"
@@ -29,17 +44,17 @@
     <h2>Identité de la personne transportée</h2>
     <div class="form-row">
         <div class="field-box">
-            <label>Prénom:</label>
+            <label>Prénom :</label>
             <div class="readonly">{{ original.insured.first_name }}</div>
         </div>
         <div class="field-box">
-            <label class="inline">Nom:</label>
+            <label class="inline">Nom :</label>
             <div class="readonly">{{ original.insured.last_name }}</div>
         </div>
     </div>
     <div class="form-row">
         <div class="field-box">
-          <label class="inline">Date de naissance:</label>
+          <label class="inline">Date de naissance :</label>
           <div class="readonly">{{ original.insured.birth_date }}</div>
         </div>
     </div>
@@ -48,11 +63,11 @@
     <h2>Identité de l'assuré-e</h2>
       <div class="form-row">
         <div class="field-box">
-            <label>NIR:</label>
+            <label>NIR :</label>
             <div class="readonly">{{ original.insured.nir }}</div>
         </div>
         <div class="field-box">
-            <label class="inline">Email:</label>
+            <label class="inline">Email :</label>
             <div class="readonly">{{ original.insured.email }}</div>
         </div>
     </div>
@@ -62,39 +77,41 @@
     {% for transport in original.transport_set.all %}
     <div class="form-row">
         <div class="field-box">
-            <label>Date de l'aller {{ forloop.counter }}:</label>
+            <label>Date de l'aller {{ forloop.counter }} :</label>
             <div class="readonly">{{ transport.date_depart }}</div>
         </div>
         <div class="field-box">
-            <label>Date de retour {{ forloop.counter }}:</label>
+            <label>Date de retour {{ forloop.counter }} :</label>
             <div class="readonly">{{ transport.date_return }}</div>
         </div>
     </div>
     {% endfor %}
     <div class="form-row">
         <div class="field-box">
-              <label>Distance (km parcourus)</label>
+              <label>Distance (km parcourus) :</label>
             <div class="readonly">{{ original.distance }}</div>
         </div>
+    </div>
+    <div class="form-row">
         <div class="field-box">
-            <label class="inline">Montant total des frais (en € TTC):</label>
+            <label class="inline">Montant total des frais (en € TTC) :</label>
             <div class="readonly">{{ original.expense }}</div>
         </div>
     </div>
     {% if original.expense %}
         <h2>Justificatifs</h2>
         <div class="form-row">
-        <label>Justificatifs attachés:</label>
-        {% for bill in original.bill_set.all %}
-            <ul>
-                <li>
-                    <a
-                        href="{{ bill.get_download_url }}"
-                        target="_blank"
-                    >{{ bill.filename }}</a>
-                </li>
-            </ul>
-        {% endfor %}
+            <label>Justificatifs attachés :</label>
+            {% for bill in original.bill_set.all %}
+                <ul>
+                    <li>
+                        <a
+                            href="{{ bill.get_download_url }}"
+                            target="_blank"
+                        >{{ bill.filename }}</a>
+                    </li>
+                </ul>
+            {% endfor %}
         </div>
     {% endif %}
 </fieldset>

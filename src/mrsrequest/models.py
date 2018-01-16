@@ -65,7 +65,7 @@ class MRSRequest(models.Model):
     creation_datetime = models.DateTimeField(
         default=timezone.now,
         db_index=True,
-        verbose_name='Date et heure d\'enregistrement du formulaire',
+        verbose_name='Date et heure de la demande',
     )
     insured = models.ForeignKey(
         'person.Person',
@@ -103,9 +103,11 @@ class MRSRequest(models.Model):
     def __str__(self):
         return self.verbose_id
 
-    @property
-    def verbose_id(self):
+    def displayed_verbose_id(self):
         return self.form_id if self.form_id else str(self.id)
+    displayed_verbose_id.short_description = 'Numéro de demande'
+
+    verbose_id = property(displayed_verbose_id)
 
     def is_allowed(self, request):
         if request.user.is_staff:
