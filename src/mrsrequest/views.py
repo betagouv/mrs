@@ -171,7 +171,8 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
             form.instance.verbose_id))
 
         email = EmailMessage(
-            'Problème avec votre demande de remboursement',
+            'Problème avec votre demande de remboursement MRS n°#{}'.format(
+                form.instance.verbose_id),
             form.cleaned_data['mail_body'],
             settings.DEFAULT_FROM_EMAIL,
             [self.object.insured.email],
