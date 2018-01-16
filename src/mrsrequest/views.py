@@ -103,6 +103,9 @@ class MRSRequestCreateView(generic.TemplateView):
                 continue
             form.save()
 
+        # refresh to get generated form_id
+        self.object.refresh_from_db()
+
         send_mail(
             template.loader.get_template(
                 'mrsrequest/success_mail_title.txt'
