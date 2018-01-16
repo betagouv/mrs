@@ -4,6 +4,7 @@ import uuid
 
 from django.conf import settings
 from django.core import validators
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import signals
 from django.urls import reverse
@@ -195,6 +196,13 @@ class PMT(MRSAttachment):
         ordering = ['mrsrequest', 'id']
 
 
+def transport_date_validate(value):
+    if value > timezone.now().date():
+        raise ValidationError(
+            'La date doit être égale ou anterieure à la date du jour',
+        )
+
+
 class Transport(models.Model):
     mrsrequest = models.ForeignKey(
         'mrsrequest.MRSRequest',
@@ -204,12 +212,14 @@ class Transport(models.Model):
     date_depart = models.DateField(
         verbose_name='Aller',
         help_text='Date du trajet aller',
-        null=True
+        null=True,
+        validators=[transport_date_validate],
     )
     date_return = models.DateField(
         verbose_name='Retour',
         help_text='Date du trajet retour',
-        null=True
+        null=True,
+        validators=[transport_date_validate],
     )
 
     class Meta:

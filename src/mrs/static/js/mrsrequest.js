@@ -20,6 +20,60 @@ var formInit = function (form) {
   // Setup ajax attachment
   mrsattachment(form)
 
+  // Show/hide iterative
+  var $iterativeShow = $(form).find('[name=iterative_show]')
+  var $iterativeNumberContainer = $(form).find('#id_iterative_number_container')
+  var iterativeShowChange = function() {
+    if ($iterativeShow.is(':checked')) {
+      $iterativeNumberContainer.slideDown()
+    } else {
+      $iterativeNumberContainer.hide()
+      $iterativeNumberContainer.find(':input').val('1')
+      $(form).find('[name*=-date_depart]').each(function() {
+        $(this).parents('div.layout-row.row').remove()
+      })
+    }
+  }
+  $iterativeShow.on('change', iterativeShowChange)
+  iterativeShowChange()
+
+  // Generate transport date fields
+  var $dateRow = $('#id_date_depart_container').parents('div.layout-row.row')
+  var $iterativeNumber = $(form).find('[name=iterative_number]')
+  var iterativeNumberChange = function() {
+    var i = parseInt($iterativeNumber.val())
+
+    $(form).find('[data-transport-number]').each(function() {
+      if (parseInt($(this).attr('data-transport-number')) > i) {
+        $(this).remove()
+      }
+    })
+
+    while(i > 1) {
+      var $existing = $(form).find('[name=' + i + '-date_depart]')
+      if ($existing.length) {
+        i--
+        continue
+      }
+
+      var $target = $(form).find('[data-transport-number=' + (i + 1) + ']')
+      if (!$target.length)
+        $target = $(form).find('#id_distance_container').parents('div.layout-row.row')
+
+      var $newRow = $dateRow.clone(false)
+      $newRow.attr('data-transport-number', i)
+      $newRow.find(':input').each(function() {
+        $(this).attr('name', i + '-' + $(this).attr('name'))
+        $(this).val('')
+      })
+      $newRow.find('label').append(' ' + i)
+      $newRow.insertBefore($target)
+      i--
+    }
+  }
+  $iterativeNumber.on('change', iterativeNumberChange)
+  iterativeNumberChange()
+
   // Expense bills field
   var $expense = $(form).find('[name=expense]')
   var $bills = $(form).find('#id_bills_container')
@@ -33,7 +87,7 @@ var formInit = function (form) {
   $(form).find('[data-form-control="date"]').siblings('label').addClass('active')
 
   // Return date
-  $(form).find('[name*=depart]').on('input', function() {
+  $(form).on('input', '[name*=depart]', function() {
     var retName = $(this).attr('name').replace('depart', 'return')
     var $ret = $(form).find('[name="' + retName + '"]')
     $ret.val($(this).val())
