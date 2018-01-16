@@ -13,9 +13,11 @@ Veuillez trouver ci-joint une demande de remboursement via MRS n°{{ object.verb
 - Date de trajet retour : {{ object.transport_set.first.date_return }}
 - Kilométrage total parcouru en voiture : {{ object.distance }}
 - Montant total des frais : {{ object.expense }}
+{% if object.expense %}
 - Justificatifs :
 {% for bill in object.bill_set.all %}  - {{ bill.filename }}
 {% endfor %}
+{% endif %}
 
 Cordialement,
 L'équipe MRS
