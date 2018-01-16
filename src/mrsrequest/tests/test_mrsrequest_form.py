@@ -33,10 +33,12 @@ def test_form_save_m2m(monkeypatch, person):
 
     with io.BytesIO(b'test_mrsattachmentform0') as f:
         f.name = 'test_mrsattachmentform0.jpg'
+        f.content_type = 'image/jpg'
         PMT.objects.record_upload(mrsrequest_uuid, f)
 
     with io.BytesIO(b'test_mrsattachmentform1') as f:
         f.name = 'test_mrsattachmentform1.jpg'
+        f.content_type = 'image/jpg'
         Bill.objects.record_upload(mrsrequest_uuid, f)
 
     data = dict(mrsrequest_uuid=[mrsrequest_uuid])

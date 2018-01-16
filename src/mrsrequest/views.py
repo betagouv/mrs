@@ -5,7 +5,7 @@ from django import http
 from django import template
 from django.conf import settings
 from django.contrib import messages
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage, send_mail
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.urls import reverse
@@ -123,6 +123,19 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
         resp = super().form_valid(form)
         messages.info(self.request, 'Demande #{} validée'.format(
             form.instance.verbose_id))
+
+        email = EmailMessage(
+            'Demande de remboursement de transport',
+            self.get_mail_body(),
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.LIQUIDATION_EMAIL],
+            reply_to=[settings.TEAM_EMAIL],
+            attachments=[self.object.pmt.tuple()] + [
+                bill.tuple() for bill in self.object.bill_set.all()
+            ]
+        )
+        email.send()
+
         return resp
 
     def get_success_url(self):
@@ -151,6 +164,16 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         resp = super().form_valid(form)
         messages.info(self.request, 'Demande #{} rejetée'.format(
             form.instance.verbose_id))
+
+        email = EmailMessage(
+            'Problème avec votre demande de remboursement',
+            form.cleaned_data['mail_body'],
+            settings.DEFAULT_FROM_EMAIL,
+            [self.object.insured.email],
+            reply_to=[settings.TEAM_EMAIL],
+        )
+        email.send()
+
         return resp
 
     def get_success_url(self):

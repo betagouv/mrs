@@ -96,6 +96,7 @@ def test_mrsrequestcreateview_requires_pmt(p):
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
+        mimetype='image/jpg',
     )
     p.post(mrsrequest_uuid=p.mrsrequest.id)
     assert 'pmt' not in p.view.forms['mrsrequest'].errors
@@ -116,6 +117,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p):
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
+        mimetype='image/jpg',
     )
     p.post(**data)
     assert not p.view.forms['mrsrequest'].errors
@@ -130,6 +132,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p):
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
+        mimetype='image/jpg',
     )
     p.post(**data)
     assert not p.view.forms['mrsrequest'].errors
@@ -176,11 +179,13 @@ def test_mrsrequestcreateview_post_save_integration(p):
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
+        mimetype='image/jpg',
     )
     Bill.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
+        mimetype='image/jpg',
     )
 
     p.post(**data)

@@ -4,6 +4,7 @@
         "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsrequestcreateview_story.jpg",
+        "mimetype": "image/jpg",
         "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
     },
     "model": "mrsattachment.mrsattachment",
@@ -14,6 +15,7 @@
         "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsrequestcreateview_story.jpg",
+        "mimetype": "image/jpg",
         "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
     },
     "model": "mrsattachment.mrsattachment",

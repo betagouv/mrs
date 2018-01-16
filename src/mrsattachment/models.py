@@ -56,6 +56,7 @@ class MRSAttachmentManager(models.Manager):
         return self.model.objects.create(
             mrsrequest_uuid=mrsrequest_uuid,
             filename=upload.name,
+            mimetype=upload.content_type,
             binary=MRSAttachment.get_upload_body(upload),
         )
 
@@ -69,8 +70,16 @@ class MRSAttachment(models.Model):
         auto_now_add=True,
         verbose_name='Heure d\'enregistrement du fichier')
     binary = models.BinaryField(verbose_name='Attachement')
+    mimetype = models.CharField(max_length=50, default='image/jpeg')
 
     objects = MRSAttachmentManager()
+
+    def tuple(self):
+        return (
+            self.filename,
+            self.binary,
+            self.mimetype,
+        )
 
     @classmethod
     def get_upload_body(cls, upload):
