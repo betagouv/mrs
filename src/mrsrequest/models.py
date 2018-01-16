@@ -52,7 +52,7 @@ class MRSRequest(models.Model):
     STATUS_CHOICES = (
         (STATUS_NEW, 'Soumise'),
         (STATUS_VALIDATED, 'Validée'),
-        (STATUS_REJECTED, 'Rejettée'),
+        (STATUS_REJECTED, 'Rejetée'),
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -89,6 +89,7 @@ class MRSRequest(models.Model):
 
     status = models.IntegerField(
         choices=STATUS_CHOICES,
+        verbose_name='Statut',
         default=0,
     )
 
