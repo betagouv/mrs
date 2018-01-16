@@ -158,7 +158,7 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
 
     def form_valid(self, form):
         resp = super().form_valid(form)
-        messages.info(self.request, 'Demande #{} validée'.format(
+        messages.info(self.request, 'Demande n°{} validée'.format(
             form.instance.verbose_id))
 
         email = EmailMessage(
@@ -199,11 +199,11 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
 
     def form_valid(self, form):
         resp = super().form_valid(form)
-        messages.info(self.request, 'Demande #{} rejetée'.format(
+        messages.info(self.request, 'Demande n°{} rejetée'.format(
             form.instance.verbose_id))
 
         email = EmailMessage(
-            'Problème avec votre demande de remboursement MRS n°#{}'.format(
+            'Problème avec votre demande de remboursement MRS n°{}'.format(
                 form.instance.verbose_id),
             form.cleaned_data['mail_body'],
             settings.DEFAULT_FROM_EMAIL,
