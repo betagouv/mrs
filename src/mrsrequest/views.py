@@ -119,13 +119,18 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
             'mrsrequest/liquidation_validation_mail_body.txt',
         ).render(dict(object=self.object)).strip()
 
+    def get_mail_title(self):
+        return template.loader.get_template(
+            'mrsrequest/liquidation_validation_mail_title.txt',
+        ).render(dict(object=self.object)).strip()
+
     def form_valid(self, form):
         resp = super().form_valid(form)
         messages.info(self.request, 'Demande #{} validée'.format(
             form.instance.verbose_id))
 
         email = EmailMessage(
-            'Demande de remboursement de transport',
+            self.get_mail_title(),
             self.get_mail_body(),
             settings.DEFAULT_FROM_EMAIL,
             [settings.LIQUIDATION_EMAIL],
