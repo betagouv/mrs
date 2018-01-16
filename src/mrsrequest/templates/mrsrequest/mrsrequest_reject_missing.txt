@@ -1,8 +1,11 @@
 Bonjour,
 
-Nous avons bien reçu votre demande de remboursement de vos frais de transport en véhicule personnel.
+Nous avons bien reçu votre demande de remboursement de vos frais de transport.
+
 Vous ne nous avez pas transmis le justificatif de paiement de :
+<*********** A MODIFIER **********>
 -	Vos frais de stationnement ou de péage (au choix selon la situation)
+<*********************************>
 
 Nous vous invitons à nous les adresser par retour de mail sous une semaine. A défaut, nous procéderons à votre remboursement en excluant vos frais de  péage ou stationnement (au choix selon situation).
 
