@@ -153,8 +153,9 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', None)
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', None)
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', None)
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', None)
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@example.com')
-TEAM_EMAIL = os.getenv('TEAM_EMAIL', None)
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'from@example.com')
+TEAM_EMAIL = os.getenv('TEAM_EMAIL', 'team@example.com')
+LIQUIDATION_EMAIL = os.getenv('LIQUIDATION_EMAIL', 'liquidation@example.com')
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
