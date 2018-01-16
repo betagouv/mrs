@@ -43,9 +43,9 @@ var formInit = function (form) {
   var iterativeNumberChange = function() {
     var i = parseInt($iterativeNumber.val())
 
-    $(form).find('[data-transport-number]').each(function() {
-      if (parseInt($(this).attr('data-transport-number')) > i) {
-        $(this).remove()
+    $(form).find('[name*=-date_depart]').each(function() {
+      if (parseInt($(this).attr('name').split('-')[0]) > i) {
+        $(this).parents('div.layout-row.row').remove()
       }
     })
 
@@ -56,12 +56,13 @@ var formInit = function (form) {
         continue
       }
 
-      var $target = $(form).find('[data-transport-number=' + (i + 1) + ']')
-      if (!$target.length)
+      var $target = $(form).find('[name=' + (i + 1) + '-date_depart]')
+      if ($target.length)
+        $target = $target.parents('div.layout-row.row')
+      else
         $target = $(form).find('#id_distance_container').parents('div.layout-row.row')
 
       var $newRow = $dateRow.clone(false)
-      $newRow.attr('data-transport-number', i)
       $newRow.find(':input').each(function() {
         $(this).attr('name', i + '-' + $(this).attr('name'))
         $(this).val('')
