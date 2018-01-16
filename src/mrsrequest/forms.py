@@ -161,14 +161,6 @@ class MRSRequestAdminForm(MRSRequestForm):
 
 
 class MRSRequestCreateForm(MRSRequestForm):
-    date_depart = DateField(
-        label='Date de l\'aller',
-    )
-
-    date_return = DateField(
-        label='Date de retour',
-    )
-
     layouts = dict(
         top=material.Layout(
             material.Fieldset(
@@ -177,18 +169,52 @@ class MRSRequestCreateForm(MRSRequestForm):
             ),
         ),
         bottom=material.Layout(
-            material.Fieldset(
-                'Informations sur le transport',
-                material.Row(
-                    'date_depart',
-                    'date_return',
-                    'distance',
-                ),
-                'expense',
-                'bills',
+            material.Row(
+                'distance',
             ),
+            'expense',
+            'bills',
         )
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        expense = cleaned_data.get('expense')
+        bills = cleaned_data.get('bills')
+        if expense and not bills:
+            self.add_error(
+                'bills',
+                'Merci de soumettre vos justificatifs de transport'
+            )
+
+        return cleaned_data
+
+    class Meta:
+        model = MRSRequest
+        fields = [
+            'distance',
+            'expense',
+        ]
+
+
+class TransportForm(forms.ModelForm):
+    date_depart = DateField(label='Date de l\'aller')
+    date_return = DateField(label='Date de retour')
+
+    layout = material.Layout(
+        material.Row(
+            'date_depart',
+            'date_return',
+        ),
+    )
+
+    class Meta:
+        model = Transport
+        fields = [
+            'date_depart',
+            'date_return',
+        ]
 
     def clean(self):
         cleaned_data = super().clean()
@@ -202,32 +228,32 @@ class MRSRequestCreateForm(MRSRequestForm):
                 ' date aller',
             )
 
-        expense = cleaned_data.get('expense')
-        bills = cleaned_data.get('bills')
-
-        if expense and not bills:
-            self.add_error(
-                'bills',
-                'Merci de soumettre vos justificatifs de transport'
-            )
-
         return cleaned_data
 
-    def save(self):
-        obj = super().save()
-        Transport.objects.create(
-            mrsrequest=obj,
-            date_depart=self.cleaned_data['date_depart'],
-            date_return=self.cleaned_data['date_return'],
-        )
-        return obj
 
-    class Meta:
-        model = MRSRequest
-        fields = [
-            'distance',
-            'expense',
-        ]
+class TransportIterativeForm(TransportForm):
+    iterative_show = forms.BooleanField(
+        label='Avez-vous des transports itératifs à déclarer ?',
+        widget=forms.CheckboxInput,
+        required=False,
+    )
+    iterative_number = forms.IntegerField(
+        label='Combien de trajets itératifs souhaitez-vous déclarer ?',
+        initial=1,
+        required=False,
+    )
+
+    layout = material.Layout(
+        material.Fieldset(
+            'Informations sur le transport',
+            material.Row(
+                'date_depart',
+                'date_return',
+            ),
+            'iterative_show',
+            'iterative_number',
+        ),
+    )
 
 
 class CertifyForm(forms.Form):

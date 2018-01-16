@@ -2,6 +2,11 @@
 {% load material_form %}
 
 {% block content %}
+<style type="text/css">
+#id_iterative_number_container {
+    display: none;
+}
+</style>
 <form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
     {% if view.success %}
     <div class="card-panel teal lighten-4">
@@ -16,6 +21,14 @@
         {% endform %}
         {% form form=view.forms.person layout=view.forms.person.layout %}
         {% endform %}
+        {% form form=view.forms.transport layout=view.forms.transport.layout %}
+        {% endform %}
+        {% for name, f in view.forms.items %}
+            {% if 'transport-' in name %}
+                {% form form=f layout=f.layout %}
+                {% endform %}
+            {% endif %}
+        {% endfor %}
         {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.bottom %}
         {% endform %}
         {% form form=view.forms.certify %}

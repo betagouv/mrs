@@ -8,12 +8,11 @@ Veuillez trouver, ci-joint, une demande de remboursement via MRS n°{{ object.ve
 - Nom de famille : {{ object.insured.last_name }}
 - Date de naissance : {{ object.insured.birth_date }}
 - NIR : {{ object.insured.nir }}
-- Adresse email : {{ object.insured.email }}
-- Date du trajet aller : {{ object.transport_set.first.date_depart }}
-- Date de trajet retour : {{ object.transport_set.first.date_return }}
+- Adresse email : {{ object.insured.email }}{% for transport in object.transport_set.all %}
+- Date du trajet aller {{ forloop.counter }}: {{ transport.date_depart }}
+- Date de trajet retour {{ forloop.counter }}: {{ transport.date_return }}{% endfor %}
 - Kilométrage total parcouru en voiture : {{ object.distance }}
-- Montant total des frais : {{ object.expense }}
-{% if object.expense %}
+- Montant total des frais : {{ object.expense }}{% if object.expense %}
 - Justificatifs :
 {% for bill in object.bill_set.all %}  - {{ bill.filename }}
 {% endfor %}

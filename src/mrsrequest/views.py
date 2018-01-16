@@ -18,8 +18,10 @@ from .forms import (
     MRSRequestCreateForm,
     MRSRequestRejectForm,
     MRSRequestValidateForm,
+    TransportForm,
+    TransportIterativeForm,
 )
-from .models import MRSRequest
+from .models import MRSRequest, Transport
 
 
 class MRSRequestCreateView(generic.TemplateView):
@@ -33,26 +35,32 @@ class MRSRequestCreateView(generic.TemplateView):
         self.forms = collections.OrderedDict([
             ('mrsrequest', MRSRequestCreateForm(instance=self.object)),
             ('person', PersonForm()),
+            ('transport', TransportIterativeForm()),
             ('certify', CertifyForm()),
         ])
 
         return super().get(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        self.mrsrequest_uuid = self.request.POST.get('mrsrequest_uuid', None)
-
+    def has_perm(self):
         if not self.mrsrequest_uuid:  # require mrsrequest_uuid on post
-            return http.HttpResponseBadRequest()
+            return False
 
         # view is supposed to create a new request
         try:
             if MRSRequest.objects.filter(id=self.mrsrequest_uuid):
-                return http.HttpResponseBadRequest()
+                return False
         except ValidationError:  # badly formated uuid
-            return http.HttpResponseBadRequest()
+            return False
 
         # Let's not even load the object from db if request aint allowed
         if not MRSRequest(id=self.mrsrequest_uuid).is_allowed(self.request):
+            return False
+
+        return True
+
+    def post(self, request, *args, **kwargs):
+        self.mrsrequest_uuid = self.request.POST.get('mrsrequest_uuid', None)
+        if not self.has_perm():
             return http.HttpResponseBadRequest()
 
         self.forms = collections.OrderedDict([
@@ -63,6 +71,22 @@ class MRSRequestCreateView(generic.TemplateView):
             ('person', PersonForm(request.POST)),
             ('certify', CertifyForm(request.POST)),
         ])
+        self.forms['transport'] = TransportIterativeForm(
+            request.POST,
+            instance=Transport(mrsrequest_id=self.mrsrequest_uuid),
+        )
+        for key, value in self.request.POST.items():
+            if '-date_return' not in key:
+                continue
+
+            number = key.split('-')[0]
+            self.forms['transport-{}'.format(number)] = form = TransportForm(
+                request.POST,
+                instance=Transport(mrsrequest_id=self.mrsrequest_uuid),
+                prefix=number,
+            )
+            form.fields['date_depart'].label += ' {}'.format(number)
+            form.fields['date_return'].label += ' {}'.format(number)
 
         with transaction.atomic():
             self.success = not self.form_errors() and self.save()
@@ -73,6 +97,11 @@ class MRSRequestCreateView(generic.TemplateView):
         self.forms['mrsrequest'].instance.insured = (
             self.forms['person'].get_or_create())
         self.object = self.forms['mrsrequest'].save()
+        self.forms['transport'].save()
+        for name, form in self.forms.items():
+            if 'transport-' not in name:
+                continue
+            form.save()
 
         send_mail(
             template.loader.get_template(

@@ -58,22 +58,24 @@
     </div>
 </fieldset>
 <fieldset class="module aligned ">
-    <h2>Informations sur le transport</h2>
+    <h2>Informations sur les {{ original.transport_set.all|length }} transport(s)</h2>
+    {% for transport in original.transport_set.all %}
     <div class="form-row">
         <div class="field-box">
-              <label>Date de l'aller:</label>
-            <div class="readonly">{{ original.transport_set.first.date_depart }}</div>
+            <label>Date de l'aller {{ forloop.counter }}:</label>
+            <div class="readonly">{{ transport.date_depart }}</div>
         </div>
         <div class="field-box">
-              <label>Date du retour:</label>
-            <div class="readonly">{{ original.transport_set.first.date_return }}</div>
+            <label>Date de retour {{ forloop.counter }}:</label>
+            <div class="readonly">{{ transport.date_return }}</div>
         </div>
+    </div>
+    {% endfor %}
+    <div class="form-row">
         <div class="field-box">
               <label>Distance (km parcourus)</label>
             <div class="readonly">{{ original.distance }}</div>
         </div>
-    </div>
-    <div class="form-row">
         <div class="field-box">
             <label class="inline">Montant total des frais (en € TTC):</label>
             <div class="readonly">{{ original.expense }}</div>
