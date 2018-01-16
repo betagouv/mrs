@@ -5,7 +5,7 @@ from material.frontend.apps import ModuleMixin
 class MRSRequestAppConfig(ModuleMixin, apps.AppConfig):
     name = 'mrsrequest'
     icon = '<i class="material-icons">people</i>'
-    verbose_name = 'Requêtes'
+    verbose_name = 'Demandes'
 
     def has_perm(self, user):
         return user.is_superuser

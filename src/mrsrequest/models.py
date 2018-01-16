@@ -97,7 +97,7 @@ class MRSRequest(models.Model):
     objects = MRSRequestManager()
 
     class Meta:
-        verbose_name = 'Requête'
+        verbose_name = 'Demande'
         ordering = ['-creation_datetime']
 
     def __str__(self):
