@@ -140,6 +140,12 @@ class MRSRequestAdminBaseView(generic.UpdateView):
             )
         return super().dispatch(request, *args, **kwargs)
 
+    def get_object(self):
+        obj = super().get_object()
+        if obj.status:
+            raise Exception()
+        return obj
+
 
 class MRSRequestValidateView(MRSRequestAdminBaseView):
     form_class = MRSRequestValidateForm
