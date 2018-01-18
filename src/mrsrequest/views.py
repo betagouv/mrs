@@ -5,7 +5,7 @@ from django import http
 from django import template
 from django.conf import settings
 from django.contrib import messages
-from django.core.mail import EmailMessage, send_mail
+from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.urls import reverse
@@ -106,7 +106,7 @@ class MRSRequestCreateView(generic.TemplateView):
         # refresh to get generated form_id
         self.object.refresh_from_db()
 
-        send_mail(
+        email = EmailMessage(
             template.loader.get_template(
                 'mrsrequest/success_mail_title.txt'
             ).render(dict(view=self)).strip(),
@@ -115,7 +115,9 @@ class MRSRequestCreateView(generic.TemplateView):
             ).render().strip(),
             settings.DEFAULT_FROM_EMAIL,
             [self.object.insured.email],
+            reply_to=[settings.TEAM_EMAIL],
         )
+        email.send()
 
         return True
 
