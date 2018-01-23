@@ -115,7 +115,6 @@ class MRSRequestCreateView(generic.TemplateView):
             ).render().strip(),
             settings.DEFAULT_FROM_EMAIL,
             [self.object.insured.email],
-            reply_to=[settings.TEAM_EMAIL],
         )
         email.send()
 
@@ -216,7 +215,6 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
             form.cleaned_data['mail_body'],
             settings.DEFAULT_FROM_EMAIL,
             [self.object.insured.email],
-            reply_to=[settings.TEAM_EMAIL],
         )
         email.send()
 
