@@ -21,13 +21,12 @@ set +x  # silence password from output
 echo $VAULT_PASSWORD > .vault
 set -x
 
-# Please forgive the horror you are going to see but I cannot refactor this
-# until I have recovered from RSI
-if [ $CIRCLE_STAGE = 'production' ]; then
-    host=mrs-prod
-else
-    host=mrs
-fi
-
 export ANSIBLE_VAULT_PASSWORD_FILE=.vault
-~/.local/bin/ansible-playbook --tags update -u deploy -i inventory -l $host -e prefix=mrs -e image=betagouv/mrs:$CIRCLE_SHA1 -e instance=$CIRCLE_STAGE playbooks/django.yml
+~/.local/bin/ansible-playbook \
+    --tags update \
+    --user deploy \
+    --inventory inventory.yml \
+    -e image=betagouv/mrs:$CIRCLE_SHA1 \
+    -e prefix=mrs \
+    -e instance=$CIRCLE_STAGE \
+    playbooks/django.yml
