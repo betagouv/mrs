@@ -79,7 +79,7 @@ class MRSRequest(models.Model):
     )
     expense = models.DecimalField(
         decimal_places=2, max_digits=6,
-        blank=True, default=0,
+        default=0,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
         verbose_name='Montant total des frais (en € TTC)',
         help_text=(
