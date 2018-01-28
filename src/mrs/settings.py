@@ -173,6 +173,8 @@ else:
 RAVEN_CONFIG = dict()
 if os.getenv('SENTRY_DSN'):
     RAVEN_CONFIG['dsn'] = os.getenv('SENTRY_DSN')
+if os.getenv('INSTANCE'):
+    RAVEN_CONFIG['environment'] = os.getenv('INSTANCE')
 if os.getenv('GIT_COMMIT'):
     RAVEN_CONFIG['release'] = os.getenv('GIT_COMMIT')
 elif raven:
