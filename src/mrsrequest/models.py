@@ -147,6 +147,11 @@ class MRSRequest(models.Model):
             new_pmt.mrsrequest = self
             new_pmt.save()
 
+    @property
+    def total_size(self):
+        return len(self.pmt.binary) + sum(
+            [len(b.binary) for b in self.bill_set.all()])
+
     def get_admin_url(self):
         return reverse('admin:mrsrequest_mrsrequest_change', args=[self.pk])
 

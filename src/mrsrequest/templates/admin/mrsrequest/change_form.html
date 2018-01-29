@@ -1,6 +1,6 @@
 {% extends "admin/change_form.html" %}
 {% load render_bundle from webpack_loader %}
-{% load i18n admin_urls admin_static admin_modify %}
+{% load i18n admin_urls admin_static admin_modify humanizelib %}
 
 {% block object-tools %}{% endblock %}
 
@@ -25,6 +25,12 @@
             <div class="readonly">{{ original.verbose_id }}</div>
         </div>
     </div>
+    <div class="form-row field-total_size">
+        <div>
+            <label>Taille totale :</label>
+            <div class="readonly">{{ original.total_size|naturalsize }}</div>
+        </div>
+    </div>
 </fieldset>
 <fieldset class="module aligned">
     <h2>PMT</h2>
@@ -36,6 +42,7 @@
                     href="{{ original.pmt.get_download_url }}"
                     target="_blank"
                 >{{ original.pmt.filename }}</a>
+                {{ original.pmt.binary|length|naturalsize }}
             </div>
         </div>
     </div>
@@ -109,6 +116,7 @@
                             href="{{ bill.get_download_url }}"
                             target="_blank"
                         >{{ bill.filename }}</a>
+                        {{ bill.binary|length|naturalsize }}
                     </li>
                 </ul>
             {% endfor %}
