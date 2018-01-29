@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'jfu',
     'material',
     'webpack_loader' if shutil.which('npm') else 'webpack_mock',
+    'django_humanize',
 
     'django.contrib.auth',
     'django.contrib.admin',
