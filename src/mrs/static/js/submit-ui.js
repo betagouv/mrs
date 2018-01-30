@@ -42,8 +42,8 @@ export default class {
   }
 
   /**
-     * Shows form processing overlay
-     */
+  * Shows form processing overlay
+  */
   showOverlay() {
     this.overlay.style.opacity = 1
     this.overlay.style.pointerEvents = 'inherit'
@@ -89,7 +89,7 @@ export default class {
             border-left-color: rgba(0, 0, 0, 0);
         `
 
-      loadingTextWrapper.style.marginTop = '1rem'
+    loadingTextWrapper.style.marginTop = '1rem'
 
     this.overlay.appendChild(loader)
     this.overlay.appendChild(loadingTextWrapper)
