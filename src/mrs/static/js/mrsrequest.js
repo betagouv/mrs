@@ -125,7 +125,7 @@ var formSubmit = function(form) {
       data: $(form).serialize(),
       error: function() {
         // Show overlay with error state
-        var errorMsg = 'Une erreur est survenue'
+        var errorMsg = 'Une erreur inconnue est survenue. Veuillez reessayer dans quelques minutes, merci.'
         submitUi.showSubmitError(errorMsg, () => {
           submitUi.hideOverlay() // hide overlay
           $(form).find(':input').each(function() {
@@ -143,7 +143,7 @@ var formSubmit = function(form) {
         var $error = $('.has-error')
         if ($error.length) {
           // show error overlay
-          var errorMsg = 'Une erreur est survenue'
+          var errorMsg = 'Le formulaire contient une ou plusieurs erreurs'
           submitUi.showSubmitError(errorMsg, () => {
             submitUi.hideOverlay() // hide overlay
 
@@ -152,16 +152,17 @@ var formSubmit = function(form) {
             }, 'fast')
           })
         } else {
-          submitUi.showSubmitSuccess('success') // show success overlay
+          var successMsg = 'Soumission du formulaire reussie'
+          submitUi.showSubmitSuccess(successMsg) // show success overlay
 
-          // artificially show success overlay for 0.5s so user has feedback
+          // artificially show success overlay for 3s so user has feedback
           window.setTimeout(() => {
             submitUi.hideOverlay() // hide overlay
 
             $('html, body').animate({
               scrollTop: $(form).offset().top + 'px'
             }, 'fast')
-          }, 1000)
+          }, 3000)
         }
       },
       beforeSend: function(xhr) {

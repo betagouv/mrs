@@ -112,7 +112,9 @@ export default class {
     okButton.appendChild(okButtonText)
 
     errorWrapper.style.cssText = `
+            text-align: center;
         `
+
     okButton.id = 'submit-ui-error-button'
     okButton.style.cssText = `
             height: 2rem;
