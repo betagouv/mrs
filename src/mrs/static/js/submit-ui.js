@@ -5,20 +5,21 @@
  * @param {dom el} mountPoint where to insert form submission state UI
  */
 export default class {
-    constructor(mountPoint) {
-        this.mountPoint = mountPoint
-        this.document = this.mountPoint.ownerDocument
+  constructor(mountPoint) {
+    this.mountPoint = mountPoint
+    this.document = this.mountPoint.ownerDocument
 
-        this.overlay = this.createOverlay()
-    }
+    this.overlay = this.createOverlay()
+    this.hideOverlay()
+  }
 
-    /**
+  /**
      * Creates overlay for form submission info
      */
-    createOverlay(){
-        // insert child node of overlay
-        const loadingOverlay = this.document.createElement('DIV')
-        loadingOverlay.style.cssText = `
+  createOverlay(){
+    // insert child node of overlay
+    const loadingOverlay = this.document.createElement('DIV')
+    loadingOverlay.style.cssText = `
             position: fixed;
             top: 0;
             bottom: 0;
@@ -29,95 +30,99 @@ export default class {
             align-items: center;
             justify-content: center;
 
-            opacity: 0;
             background-color: rgba(0, 0, 0, 0.2);
             zIndex: 2;
             transition: opacity 0.2s linear;
+            pointer-events: none;
         `
-        this.mountPoint.appendChild(loadingOverlay)
+    this.mountPoint.appendChild(loadingOverlay)
 
-        return loadingOverlay
-    }
+    return loadingOverlay
+  }
 
-    /**
+  /**
      * Shows form processing overlay
      */
-    showOverlay() {
-        this.overlay.style.opacity = 1
-    }
+  showOverlay() {
+    this.overlay.style.opacity = 1
+    this.overlay.style.pointerEvents = 'inherit'
+  }
 
-    /**
+  /**
      * Hides form processing overlay
      */
-    hideOverlay() {
-        this.overlay.style.opacity = 0
-    }
+  hideOverlay() {
+    this.overlay.style.opacity = 0
+    this.overlay.style.pointerEvents = 'none'
+  }
 
-    /**
+  /**
      * Removes overlay content
      */
-    removeOverlayContent() {
-        if(this.overlay.childNodes.length) {
-            this.overlay.removeChild(this.overlay.firstChild)
-        }
+  removeOverlayContent() {
+    if(this.overlay.childNodes.length) {
+      this.overlay.removeChild(this.overlay.firstChild)
     }
+  }
 
-    /**
+  /**
      * Shows UI submission loader overlay
      */
-    showSubmitLoading() {
-        this.removeOverlayContent()
+  showSubmitLoading() {
+    this.removeOverlayContent()
+    this.showOverlay()
 
-        const loader = this.document.createElement('DIV')
-        const text = this.document.createTextNode('Loading...')
-        loader.appendChild(text)
+    const loader = this.document.createElement('DIV')
+    const text = this.document.createTextNode('Loading...')
+    loader.appendChild(text)
 
-        loader.style.cssText = `
+    loader.style.cssText = `
             height: 2rem;
             width: 2rem;
             background-color: red;
         `
 
-        this.overlay.appendChild(loader)
-    }
+    this.overlay.appendChild(loader)
+  }
 
-    /**
+  /**
      * Shows UI form submission error message
      * @param {text} errorMsg error message to show
      */
-    showSubmitError(errorMsg) {
-        this.removeOverlayContent()
+  showSubmitError(errorMsg) {
+    this.removeOverlayContent()
+    this.showOverlay()
 
-        const errorWrapper = this.document.createElement('DIV')
-        const errorText = this.document.createTextNode(errorMsg)
-        errorWrapper.appendChild(errorText)
+    const errorWrapper = this.document.createElement('DIV')
+    const errorText = this.document.createTextNode(errorMsg)
+    errorWrapper.appendChild(errorText)
 
-        errorWrapper.style.cssText = `
+    errorWrapper.style.cssText = `
             height: 2rem;
             width: 2rem;
             background-color: red;
         `
 
-        this.overlay.appendChild(errorWrapper)
-    }
+    this.overlay.appendChild(errorWrapper)
+  }
 
-    /**
+  /**
      * Shows UI form submission success message
      * @param {text} successMsg success message to show
      */
-    showSubmitSuccess(successMsg) {
-        this.removeOverlayContent()
+  showSubmitSuccess(successMsg) {
+    this.removeOverlayContent()
 
-        const successWrapper = this.document.createElement('DIV')
-        const successText = this.document.createTextNode(successMsg)
-        successWrapper.appendChild(successText)
+    const successWrapper = this.document.createElement('DIV')
+    const successText = this.document.createTextNode(successMsg)
+    successWrapper.appendChild(successText)
 
-        successWrapper.style.cssText = `
+    successWrapper.style.cssText = `
             height: 2rem;
             width: 2rem;
             background-color: red;
         `
 
-        this.overlay.appendChild(successWrapper)
-    }
+    this.overlay.appendChild(successWrapper)
+  }
 }
