@@ -148,17 +148,23 @@ export default class {
      */
   showSubmitSuccess(successMsg) {
     this.removeOverlayContent()
+    this.showOverlay()
 
     const successWrapper = this.document.createElement('DIV')
+    const successIconWrapper = this.document.createElement('DIV')
     const successText = this.document.createTextNode(successMsg)
+    successIconWrapper.innerHTML = '&#10003;'
     successWrapper.appendChild(successText)
 
     successWrapper.style.cssText = `
-            height: 2rem;
-            width: 2rem;
-            background-color: red;
+            text-align: center;
         `
 
+    successIconWrapper.style.cssText = `
+            font-size: 14vh;
+        `
+
+    this.overlay.appendChild(successIconWrapper)
     this.overlay.appendChild(successWrapper)
   }
 }
