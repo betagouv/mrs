@@ -54,13 +54,33 @@ describe('submit-ui dom tests', () => {
     submitUi.showOverlay = jest.fn()
 
     const errorMsg = 'error'
-    submitUi.showSubmitError(errorMsg)
+    const mockCallback = jest.fn()
+    submitUi.showSubmitError(errorMsg, mockCallback)
 
     expect(submitUi.removeOverlayContent.mock.calls).toEqual([[]])
     expect(submitUi.showOverlay.mock.calls).toEqual([[]])
-    expect(submitUi.overlay.querySelectorAll('div').length).toBe(1)
+    expect(submitUi.overlay.querySelectorAll('div').length).toBe(2)
     expect(submitUi.overlay.querySelectorAll('div')[0].innerHTML)
       .toEqual(errorMsg)
+
+      // error button events
+    const errorButton = submitUi.overlay
+      .querySelector('#submit-ui-error-button')
+
+    errorButton.onmouseenter()
+    expect(errorButton.style.backgroundColor)
+      .toEqual('rgba(0, 0, 0, 0.7)')
+
+    errorButton.onmouseleave()
+    expect(errorButton.style.backgroundColor)
+      .toEqual('rgba(0, 0, 0, 0)')
+
+    submitUi.hideOverlay = jest.fn()
+    errorButton.onclick()
+    expect(submitUi.hideOverlay.mock.calls)
+      .toEqual([[]])
+    expect(mockCallback.mock.calls)
+      .toEqual([[]])
   })
 
   test('showSubmitSuccess()', () => {

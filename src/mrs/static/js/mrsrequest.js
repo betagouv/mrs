@@ -124,15 +124,14 @@ var formSubmit = function(form) {
       type: 'POST',
       data: $(form).serialize(),
       error: function() {
-        submitUi.showSubmitError('error') // Show overlay with error state
-
-        // artificially show error overlay for 0.5s so user has feedback
-        window.setTimeout(() => {
+        // Show overlay with error state
+        var errorMsg = 'Une erreur est survenue'
+        submitUi.showSubmitError(errorMsg, () => {
           submitUi.hideOverlay() // hide overlay
           $(form).find(':input').each(function() {
             $(this).removeAttr('disabled')
           })
-        }, 500)
+        })
       },
       success: function(data) {
         var dom = $(data)
@@ -143,16 +142,15 @@ var formSubmit = function(form) {
 
         var $error = $('.has-error')
         if ($error.length) {
-          submitUi.showSubmitError('error') // show error overlay
-
-          // artificially show error overlay for 0.5s so user has feedback
-          window.setTimeout(() => {
+          // show error overlay
+          var errorMsg = 'Une erreur est survenue'
+          submitUi.showSubmitError(errorMsg, () => {
             submitUi.hideOverlay() // hide overlay
 
             $('html, body').animate({
               scrollTop: $error.offset().top + 'px'
             }, 'fast')
-          }, 1000)
+          })
         } else {
           submitUi.showSubmitSuccess('success') // show success overlay
 

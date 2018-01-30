@@ -98,22 +98,48 @@ export default class {
   /**
      * Shows UI form submission error message
      * @param {text} errorMsg error message to show
+     * @param {function} callback callback to be called on error button click
      */
-  showSubmitError(errorMsg) {
+  showSubmitError(errorMsg, callback) {
     this.removeOverlayContent()
     this.showOverlay()
 
     const errorWrapper = this.document.createElement('DIV')
+    const okButton = this.document.createElement('DIV')
+    const okButtonText = this.document.createTextNode('OK')
     const errorText = this.document.createTextNode(errorMsg)
     errorWrapper.appendChild(errorText)
+    okButton.appendChild(okButtonText)
 
     errorWrapper.style.cssText = `
-            height: 2rem;
-            width: 2rem;
-            background-color: red;
         `
+    okButton.id = 'submit-ui-error-button'
+    okButton.style.cssText = `
+            height: 2rem;
+            padding: 0rem 2rem;
+            border: 1px solid white;
+            border-radius: 5%;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: color 0.1s linear, background-color 0.1s linear;
+        `
+    okButton.onmouseenter = () => {
+      okButton.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'
+    }
+
+    okButton.onmouseleave = () => {
+      okButton.style.backgroundColor = 'rgba(0, 0, 0, 0)'
+    }
+
+    okButton.onclick = () => {
+      this.hideOverlay()
+      callback()
+    }
 
     this.overlay.appendChild(errorWrapper)
+    this.overlay.appendChild(okButton)
   }
 
   /**
