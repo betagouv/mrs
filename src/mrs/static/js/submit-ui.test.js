@@ -86,13 +86,15 @@ describe('submit-ui dom tests', () => {
   test('showSubmitSuccess()', () => {
     const submitUi = submitUiFactory()
     submitUi.removeOverlayContent = jest.fn()
+    submitUi.showOverlay = jest.fn()
 
     const successMsg = 'Success !'
     submitUi.showSubmitSuccess(successMsg)
 
     expect(submitUi.removeOverlayContent.mock.calls).toEqual([[]])
-    expect(submitUi.overlay.querySelectorAll('div').length).toBe(1)
-    expect(submitUi.overlay.querySelectorAll('div')[0].innerHTML)
+    expect(submitUi.showOverlay.mock.calls).toEqual([[]])
+    expect(submitUi.overlay.querySelectorAll('div').length).toBe(2)
+    expect(submitUi.overlay.querySelectorAll('div')[1].innerHTML)
       .toEqual(successMsg)
   })
 
