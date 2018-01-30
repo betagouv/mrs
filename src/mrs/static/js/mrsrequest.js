@@ -1,8 +1,11 @@
 /*global $ */
 import Cookie from 'js-cookie'
 import mrsattachment from './mrsattachment'
+import SubmitUi from './submit-ui'
 
 var listen = false
+
+var submitUi = new SubmitUi(document.querySelector('body'))
 
 var formInit = function (form) {
   // Make form ajax
@@ -98,10 +101,15 @@ var formInit = function (form) {
 }
 
 var formSubmit = function(form) {
+  // show loading overlay
+  submitUi.showSubmitLoading()
+
   var $form = $(form)
 
   if ($.active) {
     if ($(form).find('.wait').length < 1) {
+      submitUi.hideOverlay() // hide overlay and show message
+
       $(`<div class="wait card-panel orange lighten-4">
             Merci de laisser le site ouvert pendant téléchargement complêt de vos documents
         </div>`).appendTo($(form))
@@ -116,9 +124,15 @@ var formSubmit = function(form) {
       type: 'POST',
       data: $(form).serialize(),
       error: function() {
-        $(form).find(':input').each(function() {
-          $(this).removeAttr('disabled')
-        })
+        submitUi.showSubmitError('error') // Show overlay with error state
+
+        // artificially show error overlay for 0.5s so user has feedback
+        window.setTimeout(() => {
+          submitUi.hideOverlay() // hide overlay
+          $(form).find(':input').each(function() {
+            $(this).removeAttr('disabled')
+          })
+        }, 500)
       },
       success: function(data) {
         var dom = $(data)
@@ -129,13 +143,27 @@ var formSubmit = function(form) {
 
         var $error = $('.has-error')
         if ($error.length) {
-          $('html, body').animate({
-            scrollTop: $error.offset().top + 'px'
-          }, 'fast')
+          submitUi.showSubmitError('error') // show error overlay
+
+          // artificially show error overlay for 0.5s so user has feedback
+          window.setTimeout(() => {
+            submitUi.hideOverlay() // hide overlay
+
+            $('html, body').animate({
+              scrollTop: $error.offset().top + 'px'
+            }, 'fast')
+          }, 1000)
         } else {
-          $('html, body').animate({
-            scrollTop: $(form).offset().top + 'px'
-          }, 'fast')
+          submitUi.showSubmitSuccess('success') // show success overlay
+
+          // artificially show success overlay for 0.5s so user has feedback
+          window.setTimeout(() => {
+            submitUi.hideOverlay() // hide overlay
+
+            $('html, body').animate({
+              scrollTop: $(form).offset().top + 'px'
+            }, 'fast')
+          }, 1000)
         }
       },
       beforeSend: function(xhr) {
