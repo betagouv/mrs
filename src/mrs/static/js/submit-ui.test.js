@@ -45,7 +45,7 @@ describe('submit-ui dom tests', () => {
 
     expect(submitUi.removeOverlayContent.mock.calls).toEqual([[]])
     expect(submitUi.showOverlay.mock.calls).toEqual([[]])
-    expect(submitUi.overlay.querySelectorAll('div').length).toBe(1)
+    expect(submitUi.overlay.querySelectorAll('div').length).toBe(2)
   })
 
   test('showSubmitError()', () => {
