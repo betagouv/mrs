@@ -1,6 +1,7 @@
 import ScrollReveal from 'scrollreveal'
 import '../sass/landing.sass'
 import '../sass/form.sass'
+import '../sass/animations.sass'
 import mrsrequest from './mrsrequest'
 import './contact'
 

@@ -29,8 +29,9 @@ export default class {
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
 
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.6);
             zIndex: 2;
             transition: opacity 0.2s linear;
             pointer-events: none;
@@ -62,6 +63,7 @@ export default class {
   removeOverlayContent() {
     if(this.overlay.childNodes.length) {
       this.overlay.removeChild(this.overlay.firstChild)
+      this.removeOverlayContent() // remove other child node if need be
     }
   }
 
@@ -73,16 +75,24 @@ export default class {
     this.showOverlay()
 
     const loader = this.document.createElement('DIV')
-    const text = this.document.createTextNode('Loading...')
-    loader.appendChild(text)
+    const loadingTextWrapper = this.document.createElement('DIV')
+    const text = this.document.createTextNode('Chargement...')
+    loadingTextWrapper.appendChild(text)
 
     loader.style.cssText = `
-            height: 2rem;
-            width: 2rem;
-            background-color: red;
+            height: 10vh;
+            width: 10vh;
+            border-radius: 50%;
+            animation: rotate 1s linear;
+            animation-iteration-count: infinite;
+            border: 5px solid rgba(255, 255, 255, 1);
+            border-left-color: rgba(0, 0, 0, 0);
         `
 
+      loadingTextWrapper.style.marginTop = '1rem'
+
     this.overlay.appendChild(loader)
+    this.overlay.appendChild(loadingTextWrapper)
   }
 
   /**
