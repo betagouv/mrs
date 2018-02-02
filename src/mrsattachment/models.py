@@ -2,8 +2,6 @@ import io
 
 from django.db import models
 
-from .settings import DEFAULT_MIME_TYPES
-
 
 class MRSAttachmentManager(models.Manager):
     def allowed_objects(self, request):
