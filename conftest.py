@@ -1,7 +1,10 @@
+import io
 import pytest
+from uuid import uuid4
 
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.sessions.backends.base import SessionBase
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.test.client import RequestFactory as drf
 
 
@@ -23,3 +26,20 @@ class RequestFactory(drf):
 @pytest.fixture
 def srf():
     return RequestFactory(AnonymousUser())
+
+
+@pytest.fixture
+def uuid():
+    return str(uuid4())
+
+
+@pytest.fixture
+def upload():
+    return InMemoryUploadedFile(
+        io.BytesIO(b'aoeu'),
+        'field_name',
+        'foo.png',
+        'image/png',
+        4,  # length of b'aoeu'
+        None,
+    )

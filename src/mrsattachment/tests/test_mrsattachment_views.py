@@ -4,8 +4,15 @@ import json
 import mock
 import pytest
 
+from django import http
+
+from mrsattachment.models import MRSAttachment
 from mrsattachment.tests.utils import upload_request
-from mrsattachment.views import MRSFileDeleteView, MRSFileUploadView
+from mrsattachment.views import (
+    MRSFileDeleteView,
+    MRSFileDownloadView,
+    MRSFileUploadView,
+)
 from mrsrequest.models import MRSRequest
 
 
@@ -56,10 +63,22 @@ def test_mrsfileuploadview_security(srf, id):
 
     view = MRSFileUploadView.as_view(model=model)
 
+    # Test missing FILE
+    request = srf.post('/')
+    MRSRequest(id=id).allow(request)
+    response = view(request, mrsrequest_uuid=id)
+    assert response.status_code == 400
+    assert response.content == b'Pas de fichier re\xc3\xa7u'
+
     with io.BytesIO(b'test_mrsfileuploadview_security') as f:
         f.name = 'test_mrsfileuploadview_security.jpg'
 
         request = upload_request(srf, id, f)
+
+        # Test missing uuid
+        response = view(request)
+        assert response.status_code == 400
+        assert response.content == b'Nous avons perdu le UUID'
 
         # Test deny
         response = view(request, mrsrequest_uuid=id)
@@ -95,3 +114,26 @@ def test_mrsfileuploadview_security(srf, id):
         assert f['deleteUrl'] == '/del', 'should be get_delete_url()'
         assert f['thumbnailUrl'] == '/down', 'should be get_download_url()'
         assert f['url'] == '/down', 'should be get_download_url()'
+
+
+@pytest.mark.django_db
+def test_mrsfiledownloadview_security(srf, attachment):
+    view = MRSFileDownloadView.as_view(model=MRSAttachment)
+    request = srf.get('/')
+
+    with pytest.raises(http.Http404):
+        view(request, pk=attachment.id)
+
+    def _():
+        response = view(request, pk=attachment.id)
+        assert response.status_code == 200
+        assert b''.join(response.streaming_content) == b'aoeu'
+        assert response['Content-Length'] == '4'
+        assert isinstance(response, http.FileResponse)
+
+    request.user.is_staff = True
+    _()
+
+    request.user.is_staff = False
+    MRSRequest(attachment.mrsrequest_uuid).allow(request)
+    _()
