@@ -164,6 +164,8 @@ def test_mrsrequestcreateview_post_save_integration(p):
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
     data['date_depart'] = '2017-02-02'
     data['date_return'] = '2017-02-02'
+    data['1-date_depart'] = '2017-01-02'
+    data['1-date_return'] = '2017-01-02'
     data['distance'] = '100'
     data['expense'] = '10'
     data['first_name'] = 'jamesy'
