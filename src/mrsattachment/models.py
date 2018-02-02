@@ -5,37 +5,6 @@ from django.db import models
 from .settings import DEFAULT_MIME_TYPES
 
 
-class MRSAttachmentField(models.BinaryField):
-    description = 'Binary attachment field'
-
-    def __init__(self, upload=None, download=None, delete=None, max_files=20,
-                 mime_types=None, *args, **kwargs):
-
-        self.upload = upload
-        self.download = download
-        self.delete = delete
-        self.max_files = max_files
-        self.mime_types = mime_types or DEFAULT_MIME_TYPES
-
-        # https://code.djangoproject.com/ticket/28937
-        kwargs['editable'] = True
-
-        models.Field.__init__(self, *args, **kwargs)
-
-    def deconstruct(self):
-        # https://code.djangoproject.com/ticket/28937#comment:3
-        return models.Field.deconstruct(self)
-
-    def value_from_object(self, obj):
-        return obj.filename
-
-    def save(self, name, content, save=True):
-        pass
-
-    def to_python(self, value):
-        return []
-
-
 class MRSAttachmentManager(models.Manager):
     def allowed_objects(self, request):
         from mrsrequest.models import MRSRequest
