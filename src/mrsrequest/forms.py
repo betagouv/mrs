@@ -128,6 +128,7 @@ class MRSRequestForm(forms.ModelForm):
 
 class MRSRequestAdminForm(MRSRequestForm):
     '''This form is not secure: it uses any uuid that is posted.'''
+
     def __init__(self, *args, **kwargs):
         data, files, args, kwargs = self.args_extract(args, kwargs)
         kwargs.setdefault('initial', {})
