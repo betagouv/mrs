@@ -1,0 +1,19 @@
+{% extends "admin/app_index.html" %}
+{% load i18n %}
+{% load mrsrequest_tags %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>Statistiques</h2>
+        <h3>Soumises</h3>
+        <p>{% mrsrequest_new_count %}</p>
+        <h3>Validées</h3>
+        <p>{% mrsrequest_validated_count %}</p>
+        <h3>Rejettées</h3>
+        <p>{% mrsrequest_rejected_count %}</p>
+        <h3>Total</h3>
+        <p>{% mrsrequest_total_count %}</p>
+    </div>
+</div>
+{% endblock %}
