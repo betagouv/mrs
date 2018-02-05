@@ -129,6 +129,8 @@
 {% if original.status %}
 <div class="submit-row">
     Statut: {{ original.get_status_display }}
+    Par: {{ original.status_user }}
+    Le: {{ original.status_datetime }}
 </div>
 {% else %}
 <div class="submit-row">
