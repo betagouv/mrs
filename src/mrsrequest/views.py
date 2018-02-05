@@ -11,6 +11,7 @@ from django.db import transaction
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
+from ipware import get_client_ip
 
 from person.forms import PersonForm
 
@@ -97,6 +98,8 @@ class MRSRequestCreateView(generic.TemplateView):
     def save(self):
         self.forms['mrsrequest'].instance.insured = (
             self.forms['person'].get_or_create())
+        self.forms['mrsrequest'].instance.creation_ip = get_client_ip(
+            self.request)[0]
         self.object = self.forms['mrsrequest'].save()
         self.forms['transport'].save()
         for name, form in self.forms.items():

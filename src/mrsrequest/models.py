@@ -67,6 +67,7 @@ class MRSRequest(models.Model):
         db_index=True,
         verbose_name='Date et heure de la demande',
     )
+    creation_ip = models.GenericIPAddressField(null=True)
     status_datetime = models.DateTimeField(
         db_index=True,
         null=True,

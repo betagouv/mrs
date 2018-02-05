@@ -6,3 +6,4 @@ django-material>=1.2,<1.3
 django-jpic-jfu
 raven
 django-humanize==0.1.2
+django-ipware==2.0.1
