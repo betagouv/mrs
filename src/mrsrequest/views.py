@@ -9,6 +9,7 @@ from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.urls import reverse
+from django.utils import timezone
 from django.views import generic
 
 from person.forms import PersonForm
@@ -146,6 +147,11 @@ class MRSRequestAdminBaseView(generic.UpdateView):
         if obj.status:
             raise Exception()
         return obj
+
+    def form_valid(self, form):
+        self.object.status_user = self.request.user
+        self.object.status_datetime = timezone.now()
+        return super().form_valid(form)
 
 
 class MRSRequestValidateView(MRSRequestAdminBaseView):

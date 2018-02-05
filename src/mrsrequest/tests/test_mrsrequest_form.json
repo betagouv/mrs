@@ -28,7 +28,9 @@
         "expense": 10,
         "form_id": "201712190000",
         "insured": 1,
-        "status": 0
+        "status": 0,
+        "status_datetime": null,
+        "status_user": null
     },
     "model": "mrsrequest.mrsrequest",
     "pk": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
