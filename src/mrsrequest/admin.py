@@ -12,7 +12,7 @@ class MRSRequestAdmin(admin.ModelAdmin):
     form = MRSRequestAdminForm
     list_display = (
         'creation_datetime',
-        'verbose_id',
+        'display_id',
         'insured_first_name',
         'insured_last_name',
         'insured_nir',
@@ -23,7 +23,7 @@ class MRSRequestAdmin(admin.ModelAdmin):
         'insured__last_name',
         'insured__email',
         'insured__nir',
-        'form_id',
+        'display_id',
     )
     list_filter = (
         'status',
@@ -31,7 +31,7 @@ class MRSRequestAdmin(admin.ModelAdmin):
     readonly_fields = (
         'expense',
         'distance',
-        'form_id',
+        'display_id',
     )
     autocomplete_fields = ['insured']
 

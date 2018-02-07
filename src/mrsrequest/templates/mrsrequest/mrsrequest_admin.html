@@ -2,7 +2,7 @@
 {% load i18n admin_urls admin_static admin_modify %}
 {% load render_bundle from webpack_loader %}
 
-{% block title %}{{ view.action_name }} #{{ view.object.verbose_id }}{% endblock %}
+{% block title %}{{ view.action_name }} #{{ view.object.display_id }}{% endblock %}
 
 {% block footer %}
     {{ block.super }}
@@ -21,7 +21,7 @@
 <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
 &rsaquo; <a href="{% url 'admin:app_list' app_label='mrsrequest' %}">Requêtes</a>
 &rsaquo; <a href="{% url 'admin:mrsrequest_mrsrequest_changelist' %}">Requêtes</a>
-&rsaquo; <a href="{{ object.get_admin_url }}">Requêtes #{{ view.object.verbose_id }}</a>
+&rsaquo; <a href="{{ object.get_admin_url }}">Requêtes #{{ view.object.display_id }}</a>
 &rsaquo; {{ view.action_name }}
 </div>
 {% endblock %}

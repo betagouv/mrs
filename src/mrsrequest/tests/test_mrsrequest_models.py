@@ -1,5 +1,9 @@
+import datetime
 import pytest
 import uuid
+
+from django.utils import timezone
+from freezegun import freeze_time
 
 from mrsrequest.models import MRSRequest
 
@@ -37,3 +41,15 @@ def test_mrsrequestmanager_allowed_objects(srf):
 
     # Test allow
     assert mrsrequest in MRSRequest.objects.allowed_objects(request)
+
+
+@freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
+@pytest.mark.django_db
+def test_display_id():
+    assert MRSRequest.objects.create(
+        display_id=300012301111,
+        creation_datetime=timezone.now() - datetime.timedelta(days=1),
+    ).display_id == 300012301111
+
+    assert MRSRequest.objects.create().display_id == '300012310000'
+    assert MRSRequest.objects.create().display_id == '300012310001'

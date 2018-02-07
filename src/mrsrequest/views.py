@@ -107,9 +107,6 @@ class MRSRequestCreateView(generic.TemplateView):
                 continue
             form.save()
 
-        # refresh to get generated form_id
-        self.object.refresh_from_db()
-
         email = EmailMessage(
             template.loader.get_template(
                 'mrsrequest/success_mail_title.txt'
@@ -175,7 +172,7 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
     def form_valid(self, form):
         resp = super().form_valid(form)
         messages.info(self.request, 'Demande n°{} validée'.format(
-            form.instance.verbose_id))
+            form.instance.display_id))
 
         email = EmailMessage(
             self.get_mail_title(),
@@ -216,11 +213,11 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
     def form_valid(self, form):
         resp = super().form_valid(form)
         messages.info(self.request, 'Demande n°{} rejetée'.format(
-            form.instance.verbose_id))
+            form.instance.display_id))
 
         email = EmailMessage(
             'Problème avec votre demande de remboursement MRS n°{}'.format(
-                form.instance.verbose_id),
+                form.instance.display_id),
             form.cleaned_data['mail_body'],
             settings.DEFAULT_FROM_EMAIL,
             [self.object.insured.email],
