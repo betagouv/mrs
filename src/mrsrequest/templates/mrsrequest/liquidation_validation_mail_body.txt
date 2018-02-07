@@ -1,8 +1,8 @@
 Bonjour,
 
-Veuillez trouver, ci-joint, une demande de remboursement via MRS n°{{ object.verbose_id }} :
+Veuillez trouver, ci-joint, une demande de remboursement via MRS n°{{ object.display_id }} :
 
-- Référence : {{ object.verbose_id }}
+- Référence : {{ object.display_id }}
 - Prescription Médicale de Transport (PMT) : {{ object.pmt.filename }}
 - Prénom : {{ object.insured.first_name }}
 - Nom de famille : {{ object.insured.last_name }}

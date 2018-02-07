@@ -1,4 +1,3 @@
-import datetime
 from decimal import Decimal
 import uuid
 
@@ -57,17 +56,16 @@ class MRSRequest(models.Model):
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    form_id = models.CharField(
-        max_length=12,
-        verbose_name='Identifiant de formulaire',
-        unique=True,
-    )
     creation_datetime = models.DateTimeField(
         default=timezone.now,
         db_index=True,
         verbose_name='Date et heure de la demande',
     )
     creation_ip = models.GenericIPAddressField(null=True)
+    display_id = models.IntegerField(
+        verbose_name='Numéro de demande',
+        unique=True,
+    )
     status_datetime = models.DateTimeField(
         db_index=True,
         null=True,
@@ -114,13 +112,7 @@ class MRSRequest(models.Model):
         ordering = ['-creation_datetime']
 
     def __str__(self):
-        return self.verbose_id
-
-    def displayed_verbose_id(self):
-        return self.form_id if self.form_id else str(self.id)
-    displayed_verbose_id.short_description = 'Numéro de demande'
-
-    verbose_id = property(displayed_verbose_id)
+        return self.display_id
 
     def is_allowed(self, request):
         if request.user.is_staff:
@@ -175,22 +167,25 @@ class MRSRequest(models.Model):
         return reverse('mrsrequest:validate', args=[self.pk])
 
 
-def sqlite_form_id_trigger(sender, instance, **kwargs):
-    """Postgresql has a trigger for this. SQLite is for testing."""
-    i = 0
-    prefix = datetime.date.today().strftime('%Y%m%d')
+def creation_datetime_and_display_id(sender, instance, **kwargs):
+    """Signal receiver executed at the beginning of MRSRequest.save()"""
+    if instance.display_id:
+        return
 
-    def _gen():
-        return '{}{:04d}'.format(prefix, i)
-    form_id = _gen()
+    if not instance.creation_datetime:
+        instance.creation_datetime = timezone.now()
 
-    while MRSRequest.objects.filter(form_id=form_id).count():
-        i += 1
-        form_id = _gen()
-    instance.form_id = form_id
-if 'postgres' not in settings.DATABASES['default']['ENGINE']:
-    # an atomic trigger is setup for postgres by a migration
-    signals.pre_save.connect(sqlite_form_id_trigger, sender=MRSRequest)
+    last = MRSRequest.objects.filter(
+        creation_datetime__date=instance.creation_datetime.date()
+    ).order_by('-display_id').first()
+
+    number = 0
+    if getattr(last, 'display_id', None) and len(str(last.display_id)) == 12:
+        number = int(str(last.display_id)[-4:]) + 1
+
+    prefix = instance.creation_datetime.strftime('%Y%m%d')
+    instance.display_id = '{}{:04d}'.format(prefix, number)
+signals.pre_save.connect(creation_datetime_and_display_id, sender=MRSRequest)
 
 
 class PMT(MRSAttachment):

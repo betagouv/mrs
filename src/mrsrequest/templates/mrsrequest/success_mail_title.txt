@@ -1,1 +1,1 @@
-Votre demande de remboursement MRS n°{{ view.object.verbose_id }}
+Votre demande de remboursement MRS n°{{ view.object.display_id }}
