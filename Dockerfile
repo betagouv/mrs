@@ -3,9 +3,6 @@ FROM ubuntu:artful
 # utf8
 ENV PYTHONIOENCODING UTF-8
 
-ARG GIT_COMMIT
-ENV GIT_COMMIT ${GIT_COMMIT}
-
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y python3-pip python3-psycopg2 unzip uwsgi-plugin-python3 uwsgi wget curl cron dumb-init locales gettext
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
@@ -35,6 +32,9 @@ RUN pip3 install --editable /code
 
 # Use DEBUG here to inhibate security checks in settings for this command
 RUN DEBUG=1 django-admin collectstatic --noinput --clear
+
+ARG GIT_COMMIT
+ENV GIT_COMMIT ${GIT_COMMIT}
 
 CMD /usr/bin/dumb-init uwsgi \
   --socket=0.0.0.0:6789 \
