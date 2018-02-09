@@ -1,5 +1,4 @@
 import io
-import mimetypes
 
 from django import http
 from django.views import generic
@@ -31,12 +30,11 @@ class MRSFileDownloadView(MRSFileDetailViewMikin, generic.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         f = io.BytesIO(self.object.binary)
-        content_type, encoding = mimetypes.guess_type(self.object.filename)
-        content_type = content_type or 'application/octet-stream'
+        content_type = self.object.mimetype or 'application/octet-stream'
         response = http.FileResponse(f, content_type=content_type)
         response['Content-Length'] = len(self.object.binary)
-        if encoding:
-            response['Content-Encoding'] = encoding
+        if self.object.encoding:
+            response['Content-Encoding'] = self.object.encoding
         return response
 
 

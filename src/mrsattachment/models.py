@@ -1,4 +1,5 @@
 import io
+import mimetypes
 
 from django.db import models
 
@@ -23,7 +24,6 @@ class MRSAttachmentManager(models.Manager):
         return self.model.objects.create(
             mrsrequest_uuid=mrsrequest_uuid,
             filename=upload.name,
-            mimetype=upload.content_type,
             binary=MRSAttachment.get_upload_body(upload),
         )
 
@@ -37,9 +37,16 @@ class MRSAttachment(models.Model):
         auto_now_add=True,
         verbose_name='Heure d\'enregistrement du fichier')
     binary = models.BinaryField(verbose_name='Attachement')
-    mimetype = models.CharField(max_length=50, default='image/jpeg')
 
     objects = MRSAttachmentManager()
+
+    @property
+    def encoding(self):
+        return mimetypes.guess_type(self.filename)[1]
+
+    @property
+    def mimetype(self):
+        return mimetypes.guess_type(self.filename)[0]
 
     def tuple(self):
         return (
