@@ -23,9 +23,10 @@
     "fields": {
         "creation_datetime": "2017-12-19T05:51:11Z",
         "creation_ip": "127.0.0.1",
+        "display_id": 201712190000,
         "distance": 100,
         "expense": 10,
-        "display_id": 201712190000,
+        "institution": null,
         "insured": 1,
         "status": 0,
         "status_datetime": null,

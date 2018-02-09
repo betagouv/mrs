@@ -10,6 +10,7 @@ module.exports = {
   context: __dirname,
   entry: {
     landing: ['babel-polyfill', './src/mrs/static/js/landing'],
+    iframe: ['babel-polyfill', './src/mrs/static/js/iframe'],
     admin: ['babel-polyfill', './src/mrs/static/js/admin'],
     contact: ['babel-polyfill', './src/mrs/static/js/contact']
   },

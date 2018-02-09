@@ -1,0 +1,45 @@
+{% load static %}
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include '_base_css.html' %}
+    {% render_bundle 'iframe' 'css' %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mes Remboursements Simplifiés</title>
+    {% include '_piwik.html' %}
+  </head>
+  <body>
+    <div id="app--wrapper">
+        <section id="s4">
+            <a name="5"></a>
+            <div class="section-content--wrapper">
+                <h2 class="scroll-reveal">Formulaire de remboursement</h2>
+                <p class="scroll-reveal">
+                    Réalisez votre demande de remboursement en ligne dès maintenant. <br />
+                    Ce service s'adresse pour le moment uniquement aux assurés de la CPAM de la Haute-Garonne
+                </p>
+                <div class="form--wrapper scroll-reveal">
+                    {% block content %}
+                    base
+                    {% endblock %}
+                </div>
+                <div class="disclaimer--wrapper scroll-reveal">
+                    <p>
+                        La loi rend passible d'amende et/ ou d'emprisonnement quiconque sera rend coupable de fraude ou de fausse déclaration en vue d'obtenir ou de tenter d'obtenir des avantages indus (articles 313-1 à 313-3, 433-19, 441-1 et suivants du Code pénal).
+                    </p>
+                    <p>
+                        En outre, l'inexactitude, le caractère incomplet des déclarations ou l'absence de déclaration d'un changement de situation dans le but d'obtenir le versement de prestations indues, peuvent faire l'objet d'une pénalité financière en application de l'article L.162-1-14 du Code de la sécurité sociale.
+                    </p>
+                    <p>
+                        La loi 78.17 du 6/01/78 modifiée relative à l'informatique, aux fichiers et aux libertés s'applique aux réponses faites sur ce formulaire. Elle garantit un droit d'accès et de rectification pour les données vous concernant
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {% include '_base_js.html' %}
+    {% render_bundle 'iframe' 'js' %}
+  </body>
+</html>

@@ -17,16 +17,19 @@ class MRSRequestAdmin(admin.ModelAdmin):
         'insured_last_name',
         'insured_nir',
         'status',
+        'institution',
     )
     search_fields = (
         'insured__first_name',
         'insured__last_name',
         'insured__email',
         'insured__nir',
+        'institution__finess',
         'display_id',
     )
     list_filter = (
         'status',
+        'institution',
     )
     readonly_fields = (
         'expense',
