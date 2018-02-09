@@ -40,6 +40,7 @@ LOGIN_REDIRECT_URL = '/mrsrequest/'
 
 INSTALLED_APPS = [
     'contact',
+    'institution',
     'person',
     'mrs',
     'mrsrequest',

@@ -104,6 +104,12 @@ class MRSRequest(models.Model):
         verbose_name='Statut',
         default=0,
     )
+    institution = models.ForeignKey(
+        'institution.Institution',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
 
     objects = MRSRequestManager()
 
