@@ -21,5 +21,4 @@ def test_mrsattachment_tuple():
     assert MRSAttachment(
         filename='a.png',
         binary=b'aoeu',
-        mimetype='image/png'
     ).tuple() == ('a.png', b'aoeu', 'image/png')

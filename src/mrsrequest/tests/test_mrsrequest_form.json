@@ -4,7 +4,6 @@
         "binary": "dGVzdF9tcnNhdHRhY2htZW50Zm9ybTA=",
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsattachmentform0.jpg",
-        "mimetype": "image/jpg",
         "mrsrequest_uuid": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
     },
     "model": "mrsattachment.mrsattachment",
@@ -15,7 +14,6 @@
         "binary": "dGVzdF9tcnNhdHRhY2htZW50Zm9ybTE=",
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsattachmentform1.jpg",
-        "mimetype": "image/jpg",
         "mrsrequest_uuid": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
     },
     "model": "mrsattachment.mrsattachment",
