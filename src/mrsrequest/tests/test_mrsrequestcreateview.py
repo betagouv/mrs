@@ -92,7 +92,6 @@ def test_mrsrequestcreateview_requires_pmt(p):
     assert 'pmt' in p.view.forms['mrsrequest'].errors
 
     p.mrsrequest.pmt = PMT.objects.create(
-        mrsrequest=p.mrsrequest,
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
@@ -112,7 +111,6 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p):
     data['distance'] = '100'
     data['expense'] = '0'
     p.mrsrequest.pmt = PMT.objects.create(
-        mrsrequest=p.mrsrequest,
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
@@ -126,7 +124,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p):
     assert list(p.view.forms['mrsrequest'].errors) == ['bills']
     assert not p.view.forms['mrsrequest'].is_valid()
 
-    p.mrsrequest.bill_set.create(
+    Bill.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
@@ -156,7 +154,7 @@ def test_mrsrequestcreateview_hydrate_person(p):
 
 
 @freeze_time('2017-12-19 05:51:11')
-@pytest.mark.django_db
+@pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
 def test_mrsrequestcreateview_post_save_integration(p):
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
     data['date_depart'] = '2017-02-02'

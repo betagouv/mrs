@@ -79,6 +79,7 @@ jobs:
   python-test:
     docker:
     - image: circleci/python:3.6.1
+    - image: circleci/postgres:10-alpine
     working_directory: ~/repo
     steps:
     - checkout
@@ -87,12 +88,12 @@ jobs:
         - test-dependencies-{{ checksum "tox.ini" }}
     - run:
         name: Tox environment setup
-        command: pip install --user tox && ~/.local/bin/tox -r -e py36-dj20 --notest
+        command: pip install --user tox && ~/.local/bin/tox -r -e py36-dj20-pg --notest
     - save_cache:
         paths: [~/.local, ~/.cache/pip]
         key: test-dependencies-{{ checksum "tox.ini" }}
     - run:
-        name: TEST tox -e py36-dj20
+        name: TEST tox -e py36-dj20-pg
         command: |
           ~/.local/bin/tox -e py36-dj20
           PATH=.tox/py36-dj20/bin:$PATH codecov --token $CODECOV_TOKEN -e $TOXENV

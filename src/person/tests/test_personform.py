@@ -16,7 +16,7 @@ def d():
     )
 
 
-@pytest.mark.django_db
+@pytest.mark.dbdiff(models=[Person])
 def test_personform_get_or_create(d):
     form = PersonForm(d)
     form.full_clean()

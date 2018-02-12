@@ -22,7 +22,7 @@ def person():
 
 
 @freeze_time('2017-12-19 05:51:11')
-@pytest.mark.django_db
+@pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
 def test_form_save_m2m(monkeypatch, person):
     mrsrequest_uuid = '6bf490e6-4521-458a-adfe-8d4ef5a64687'
 
@@ -59,8 +59,8 @@ def test_form_save_m2m(monkeypatch, person):
     assert form.is_valid()
 
     obj = form.save(commit=False)
-    form.save_m2m()
     obj.save()
+    form.save_m2m()
 
     Fixture(
         './src/mrsrequest/tests/test_mrsrequest_form.json',  # noqa
