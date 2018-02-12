@@ -53,3 +53,8 @@ def test_display_id():
 
     assert MRSRequest.objects.create().display_id == '300012310000'
     assert MRSRequest.objects.create().display_id == '300012310001'
+
+
+@freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
+def test_mrsrequest_str():
+    assert str(MRSRequest(display_id=300012301111)) == '300012301111'
