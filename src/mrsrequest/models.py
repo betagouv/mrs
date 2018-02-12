@@ -118,7 +118,7 @@ class MRSRequest(models.Model):
         ordering = ['-creation_datetime']
 
     def __str__(self):
-        return self.display_id
+        return str(self.display_id)
 
     def is_allowed(self, request):
         if request.user.is_staff:
