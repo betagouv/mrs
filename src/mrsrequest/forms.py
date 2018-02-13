@@ -20,7 +20,7 @@ class MRSRequestForm(forms.ModelForm):
         label='Prescription Médicale de Transport obligatoire',
         help_text=(
             'Joindre le volet 2 de la prescription médicale'
-            'ou le volet 3 de la demande d\'accord préalable'
+            'ou le volet 3 de la demande accord préalable'
     )
 
     bills = MRSAttachmentField(
