@@ -21,6 +21,7 @@ class MRSRequestForm(forms.ModelForm):
         help_text=(
             'Joindre le volet 2 de la prescription médicale'
             'ou le volet 3 de la demande accord préalable'
+        )
     )
 
     bills = MRSAttachmentField(
