@@ -55,4 +55,7 @@ CMD /usr/bin/dumb-init uwsgi \
   --enable-threads \
   --reload-os-env \
   --post-buffering=8192 \
+  --ignore-sigpipe \
+  --ignore-write-errors \
+  --disable-write-exception \
   --wsgi-disable-file-wrapper
