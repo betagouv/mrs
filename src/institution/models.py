@@ -12,6 +12,10 @@ def institution_finess(value):
 class Institution(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     finess = models.IntegerField(validators=[institution_finess])
+    origin = models.CharField(
+        max_length=255,
+        help_text='URI du site patients'
+    )
 
     class Meta:
         ordering = ['finess']

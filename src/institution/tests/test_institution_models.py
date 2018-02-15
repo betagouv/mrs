@@ -11,7 +11,7 @@ def test_institution_str():
 
 @pytest.mark.django_db
 def test_institution_finess():
-    Institution(finess=310000000).full_clean()
+    Institution(finess=310000000, origin='o').full_clean()
 
     with pytest.raises(ValidationError):
-        Institution(finess=30999999).full_clean()
+        Institution(finess=30999999, origin='o').full_clean()
