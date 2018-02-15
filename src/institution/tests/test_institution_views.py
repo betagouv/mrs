@@ -24,9 +24,11 @@ def test_mrsrequest_create_view_finess_validation(client, finess):
     response = client.get(url)
     assert response.status_code == 404
 
-    Institution.objects.create(finess=finess)
+    Institution.objects.create(finess=finess, origin='origin')
     response = client.get(url)
     assert response.status_code == 200
+    assert response['X-Frame-Options'] == 'ALLOW-FROM origin'
+    assert response['Access-Control-Allow-Origin'] == 'origin'
 
 
 @pytest.mark.django_db
@@ -43,6 +45,7 @@ def test_mrsrequest_status_view(
 
     institution = Institution.objects.create(
         finess=finess,
+        origin='origin',
         id=institution_uuid
     )
     response = client.get(url)
@@ -90,7 +93,7 @@ def test_mrsrequestcreateview_post_save_integration(
         binary=b'test_institutionmrsrequestcreateview_story',
     )
 
-    Institution.objects.create(finess=finess, id=institution_uuid)
+    Institution.objects.create(finess=finess, id=institution_uuid, origin='o')
     p.view_class = InstitutionMRSRequestCreateView
     p.view_kwargs = {'finess': finess}
     p.url = reverse('institution:mrsrequest_iframe', args=[finess])
