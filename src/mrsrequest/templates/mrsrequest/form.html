@@ -6,6 +6,11 @@
 #id_iterative_number_container {
     display: none;
 }
+{% if request.GET.hidePMT %}
+#pmt-form {
+    display: none;
+}
+{% endif %}
 </style>
 <form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
     {% if view.success %}
@@ -17,8 +22,10 @@
     {% else %}
         {% csrf_token %}
 
+        <div id="pmt-form">
         {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.top %}
         {% endform %}
+        </div>
         {% form form=view.forms.person layout=view.forms.person.layout %}
         {% endform %}
         {% form form=view.forms.transport layout=view.forms.transport.layout %}
