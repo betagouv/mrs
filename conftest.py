@@ -6,9 +6,14 @@ from django.contrib.auth.models import AnonymousUser
 from django.contrib.sessions.backends.base import SessionBase
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.test.client import RequestFactory as drf
+from django.urls import reverse
+
+from mrsrequest.models import MRSRequest
+from mrsrequest.views import MRSRequestCreateView
 
 
-id = pytest.fixture(lambda: '2b88b740-3920-44e9-b086-c851f58e7ea7')
+id = mrsrequest_uuid = pytest.fixture(
+    lambda: '2b88b740-3920-44e9-b086-c851f58e7ea7')
 
 
 class RequestFactory(drf):
@@ -43,3 +48,25 @@ def upload():
         4,  # length of b'aoeu'
         None,
     )
+
+
+class Payload(object):
+    def __init__(self, srf):
+        self.srf = srf
+        self.mrsrequest = MRSRequest(
+            id='e29db065-0566-48be-822d-66bd3277d823'
+        )
+        self.url = reverse('mrsrequest:wizard')
+        self.view_class = MRSRequestCreateView
+        self.view_kwargs = dict()
+
+    def post(self, **data):
+        self.request = self.srf.post(self.url, data)
+        self.mrsrequest.allow(self.request)
+        self.view = self.view_class(request=self.request, **self.view_kwargs)
+        self.response = self.view.dispatch(self.request, **self.view_kwargs)
+
+
+@pytest.fixture
+def p(srf):
+    return Payload(srf)

@@ -13,7 +13,6 @@ from django.utils import timezone
 from django.views import generic
 from ipware import get_client_ip
 
-from institution.models import Institution
 from person.forms import PersonForm
 
 from .forms import (
@@ -29,15 +28,7 @@ from .models import MRSRequest, Transport
 
 class MRSRequestCreateView(generic.TemplateView):
     template_name = 'mrsrequest/form.html'
-
-    def get_context_data(self):
-        c = super().get_context_data()
-        c['base'] = (
-            'base_iframe.html'
-            if 'institution' in self.request.GET.keys()
-            else 'base.html'
-        )
-        return c
+    base = 'base.html'
 
     def get(self, request, *args, **kwargs):
         self.object = MRSRequest()
@@ -109,13 +100,6 @@ class MRSRequestCreateView(generic.TemplateView):
     def save(self):
         self.forms['mrsrequest'].instance.insured = (
             self.forms['person'].get_or_create())
-
-        if self.request.GET.get('institution', None):
-            self.forms['mrsrequest'].instance.institution = (
-                Institution.objects.get_or_create(
-                    finess=self.request.GET.get('institution'),
-                )[0]
-            )
         self.forms['mrsrequest'].instance.creation_ip = get_client_ip(
             self.request)[0]
         self.object = self.forms['mrsrequest'].save()
