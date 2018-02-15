@@ -97,6 +97,6 @@ def test_mrsrequestcreateview_post_save_integration(
     p.post(**data)
 
     Fixture(
-        './src/institution/tests/test_mrsrequestcreateview.json',  # noqa
+        './src/institution/tests/test_mrsrequest_iframe.json',  # noqa
         models=[MRSAttachment, MRSRequest, PMT, Person, Bill, Transport]
     ).assertNoDiff()
