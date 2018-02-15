@@ -22,6 +22,12 @@ class InstitutionMixin(object):
 class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
     base = 'base_iframe.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        # todo: omfg, security in the cloud yes ?
+        response['Access-Control-Allow-Origin'] = request.META['HTTP_REFERER']
+        return response
+
     def save(self):
         self.forms['mrsrequest'].instance.institution = self.institution
         return super().save()
@@ -30,6 +36,9 @@ class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
 class InstitutionMRSRequestIframeExampleView(generic.TemplateView):
     template_name = 'institution/mrsrequest_iframe_example.html'
     mrsrequest_statuses = MRSRequest.STATUS_CHOICES
+
+    def base_url(self):
+        return '/'.join(self.request.build_absolute_uri().split('/')[:3])
 
 
 class InstitutionMRSRequestStatusView(InstitutionMixin, generic.View):
