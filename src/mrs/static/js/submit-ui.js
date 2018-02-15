@@ -35,6 +35,7 @@ export default class {
             zIndex: 2;
             transition: opacity 0.2s linear;
             pointer-events: none;
+            color: white;
         `
     this.mountPoint.appendChild(loadingOverlay)
 
