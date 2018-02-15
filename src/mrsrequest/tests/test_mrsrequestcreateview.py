@@ -21,25 +21,6 @@ def test_mrsrequestcreateview_get(srf):
     assert view.mrsrequest_uuid == str(view.object.id)
 
 
-class Payload(object):
-    def __init__(self, srf):
-        self.srf = srf
-        self.mrsrequest = MRSRequest(
-            id='e29db065-0566-48be-822d-66bd3277d823'
-        )
-
-    def post(self, **data):
-        self.request = self.srf.post(reverse('mrsrequest:wizard'), data)
-        self.mrsrequest.allow(self.request)
-        self.view = MRSRequestCreateView(request=self.request)
-        self.response = self.view.dispatch(self.request)
-
-
-@pytest.fixture
-def p(srf):
-    return Payload(srf)
-
-
 def test_mrsrequestcreateview_post_fail_without_uuid(srf):
     request = srf.post('/')
     response = MRSRequestCreateView(request=request).dispatch(request)

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Exemple d'integration iframe</title>
+  </head>
+  <body>
+    <h2>Exemple de recuperation de statut d'une demande</h2>
+    <p>Il suffit d'appeler votre URL d'institution avec votre finess puis mrsrequest/uuid-de-la-demande/status/:</p>
+    <pre>
+        curl https://mrs.beta.gouv.fr/institution/310000000/mrsrequest/470f3dbe-1f0a-4dfc-8bf1-95f8d504deb3/status/
+    </pre>
+    <p>Retournera une telle reponse ou une erreur HTTP standard:</p>
+    <pre>
+        {"status": 0}
+    </pre>
+    <p>Liste des codes de status:
+    <ul>
+        {% for value, label in view.mrsrequest_statuses %}
+        <li>{{ value }}: {{ label }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Exemple d'utilisation de l'iframe</h2>
+
+    <iframe
+      src="{% url 'institution:mrsrequest_iframe' view.kwargs.finess %}?first_name=Étienne&last_name=∞&birth_date=2000-12-31&nir=111111111&email=exemple@exemple.com"
+      width=800
+      height=800
+    />
+  </body>
+</html>
