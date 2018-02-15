@@ -75,6 +75,7 @@ var formInit = function (form) {
       i--
     }
   }
+  $iterativeNumber.on('input', iterativeNumberChange)
   $iterativeNumber.on('change', iterativeNumberChange)
   iterativeNumberChange()
 
@@ -84,6 +85,7 @@ var formInit = function (form) {
   var billsChange = function() {
     ($expense && parseInt($expense.val()) > 0) ? $bills.show() : $bills.hide()
   }
+  $expense.on('input', billsChange)
   $expense.on('change', billsChange)
   billsChange()
 
