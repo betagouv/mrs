@@ -1,7 +1,7 @@
 /*global $,allowOrigin */
 import '../sass/form.sass'
 import Cookie from 'js-cookie'
-import mrsrequest from './mrsrequest'
+import './mrsrequest'
 
 window.addEventListener('message', receiveMessage, false)
 
@@ -37,7 +37,3 @@ function receiveMessage(event) {
   oReq.responseType = 'blob'
   oReq.send()
 }
-
-(() => {
-  mrsrequest(document.querySelector('form#mrsrequest-wizard'))
-})()
