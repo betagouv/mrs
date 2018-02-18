@@ -150,7 +150,8 @@ var formSubmit = function(form) {
             submitUi.hideOverlay() // hide overlay
 
             $('html, body').animate({
-              scrollTop: $error.offset().top + 'px'
+              // Compensate for potential heading to show
+              scrollTop: $error.offset().top - 60 + 'px'
             }, 'fast')
           })
         } else {
