@@ -6,8 +6,10 @@ import './mrsrequest'
 window.addEventListener('message', receiveMessage, false)
 
 function receiveMessage(event) {
-  if (allowInsecure === false && event.origin !== allowOrigin)
+  if (allowInsecure === false && event.origin !== allowOrigin) {
+    alert('Dropping insecure message from origin: ' + allowOrigin)
     return
+  }
 
   var $pmt = $('input[name=pmt][type=file]')
   var $uuid = $('input[name=mrsrequest_uuid][type=hidden]')
