@@ -184,7 +184,7 @@ elif raven:
     if os.path.exists(os.path.join(repo, '.git')):
         RAVEN_CONFIG['release'] = raven.fetch_git_sha(repo)
 
-if os.getenv('LOG'):
+if os.getenv('LOG') and not DEBUG:
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
