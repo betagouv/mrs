@@ -32,6 +32,7 @@ class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
                     request.META['HTTP_REFERER']
                 )
                 response['Access-Control-Allow-Origin'] = '*'
+                self.ALLOW_INSECURE = True
             else:
                 response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
                     self.institution.origin)

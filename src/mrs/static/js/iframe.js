@@ -1,4 +1,4 @@
-/*global $,allowOrigin */
+/*global $,allowOrigin,allowInsecure */
 import '../sass/form.sass'
 import Cookie from 'js-cookie'
 import './mrsrequest'
@@ -6,7 +6,7 @@ import './mrsrequest'
 window.addEventListener('message', receiveMessage, false)
 
 function receiveMessage(event) {
-  if (event.origin !== allowOrigin)
+  if (allowInsecure === false && event.origin !== allowOrigin)
     return
 
   var $pmt = $('input[name=pmt][type=file]')
