@@ -1,4 +1,5 @@
 from django import http
+from django.conf import settings
 from django.views import generic
 
 from mrsrequest.models import MRSRequest
@@ -26,9 +27,16 @@ class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
         response = super().dispatch(request, *args, **kwargs)
 
         if self.institution:
-            response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
-                self.institution.origin)
-            response['Access-Control-Allow-Origin'] = self.institution.origin
+            if settings.DEBUG:
+                response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
+                    '/'.join(request.META['HTTP_REFERER'].split('/')[:3])
+                )
+                response['Access-Control-Allow-Origin'] = '*'
+            else:
+                response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
+                    self.institution.origin)
+                response['Access-Control-Allow-Origin'] = (
+                    self.institution.origin)
 
         return response
 
