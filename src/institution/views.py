@@ -27,7 +27,7 @@ class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
         response = super().dispatch(request, *args, **kwargs)
 
         if self.institution:
-            if settings.DEBUG:
+            if settings.DEBUG and 'HTTP_REFERER' in request.META:
                 response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
                     request.META['HTTP_REFERER']
                 )
