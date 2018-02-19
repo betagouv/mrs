@@ -41,6 +41,9 @@ class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
 
         return response
 
+    def origin_base(self):
+        return '/'.join(self.institution.origin.split('/')[:3])
+
     def save(self):
         self.forms['mrsrequest'].instance.institution = self.institution
         return super().save()

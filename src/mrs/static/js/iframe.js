@@ -6,7 +6,7 @@ import './mrsrequest'
 window.addEventListener('message', receiveMessage, false)
 
 function receiveMessage(event) {
-  if (allowInsecure === false && event.origin !== allowOrigin) {
+  if (allowInsecure === false && event.origin !== allowOrigin.split('/').slice(0, 3).join('/')) {
     alert('Dropping insecure message from origin: ' + allowOrigin)
     return
   }
