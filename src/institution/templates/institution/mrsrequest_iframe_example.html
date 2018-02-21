@@ -1,6 +1,12 @@
 <html>
   <head>
     <title>Exemple d'integration iframe</title>
+    <script type="text/javascript">
+        function receiveMessage(event) {
+            console.log('mrsrequest_uuid:', event.data.mrsrequest_uuid)
+        }
+        window.addEventListener('message', receiveMessage)
+    </script>
   </head>
   <body>
     <h2>Code source</h2>
@@ -40,6 +46,14 @@
     )
     </pre>
     <input type="button" name="pmt-upload" value="Executer" id="pmt-upload" />
+    <h2>Recevoir l'uuid au chargement de l'iframe</h3>
+    <p>Script a mettre ou vous voulez, c'est l'iframe qui va le trigger.</p>
+    <pre>
+        function receiveMessage(event) {
+            console.log('mrsrequest_uuid:', event.data.mrsrequest_uuid)
+        }
+        window.addEventListener('message', receiveMessage)
+    </pre>
     <h2>Exemple d'utilisation de l'iframe</h2>
     <iframe
       id="mrsrequest"

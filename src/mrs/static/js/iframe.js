@@ -1,13 +1,17 @@
-/*global $,allowOrigin,allowInsecure */
+/*global $ */
 import '../sass/form.sass'
 import Cookie from 'js-cookie'
 import './mrsrequest'
 
 window.addEventListener('message', receiveMessage, false)
 
+var allowOrigin = window.allowOrigin
+var allowInsecure = window.allowInsecure
+var allowOriginRoot = allowOrigin.split('/').slice(0, 3).join('/')
+
 function receiveMessage(event) {
-  if (allowInsecure === false && event.origin !== allowOrigin.split('/').slice(0, 3).join('/')) {
-    alert('Dropping insecure message from origin: ' + allowOrigin)
+  if (allowInsecure === false && event.origin !== allowOriginRoot) {
+    alert('Dropping insecure message from origin: ' + event.origin)
     return
   }
 
@@ -39,3 +43,15 @@ function receiveMessage(event) {
   oReq.responseType = 'blob'
   oReq.send()
 }
+
+
+var mrsrequest_uuid = document.querySelector(
+  'input[name="mrsrequest_uuid"]'
+).value
+
+window.parent.postMessage(
+  {
+    'mrsrequest_uuid': mrsrequest_uuid,
+  },
+  allowInsecure ? '*' : allowOriginRoot
+)
