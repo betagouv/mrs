@@ -1,3 +1,5 @@
+import uuid
+
 from django import http
 from django.conf import settings
 from django.views import generic
@@ -55,11 +57,16 @@ class InstitutionMRSRequestIframeExampleView(generic.TemplateView):
 
 class InstitutionMRSRequestStatusView(InstitutionMixin, generic.View):
     def get(self, request, *args, **kwargs):
+        try:
+            uuid.UUID(kwargs['mrsrequest_uuid'])
+        except ValueError:
+            return http.HttpResponseBadRequest('Malformed UUID')
+
         self.mrsrequest = self.institution.mrsrequest_set.filter(
             id=kwargs['mrsrequest_uuid']).first()
 
         if not self.mrsrequest:
-            return http.HttpResponseNotFound()
+            return http.HttpResponseNotFound('MRSRequest not found')
 
         return http.JsonResponse(dict(
             status=self.mrsrequest.status,
