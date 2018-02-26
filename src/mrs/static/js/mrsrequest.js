@@ -120,6 +120,9 @@ var formSubmit = function(form) {
   }
   $(form).find('.wait').remove()
 
+  // For postMessage in success callback
+  var mrsrequest_uuid = $form.find('input[name="mrsrequest_uuid"]').val()
+
   $.post(
     {
       url: document.location.href,
@@ -155,6 +158,13 @@ var formSubmit = function(form) {
             }, 'fast')
           })
         } else {
+          document.querySelector('html').dispatchEvent(
+            new CustomEvent(
+              'mrsrequest-save',
+              {detail: {'mrsrequest_uuid': mrsrequest_uuid}}
+            )
+          )
+
           var successMsg = 'Soumission du formulaire reussie'
           submitUi.showSubmitSuccess(successMsg) // show success overlay
 
