@@ -16,6 +16,11 @@ urlpatterns = [
         name='mrsrequest_iframe_example'
     ),
     path(
+        'example.jpg',
+        views.ExampleJpg.as_view(),
+        name='example_jpg',
+    ),
+    path(
         '<finess>/mrsrequest/<mrsrequest_uuid>/status/',
         views.InstitutionMRSRequestStatusView.as_view(),
         name='mrsrequest_status'
