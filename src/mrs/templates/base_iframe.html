@@ -44,7 +44,7 @@
     </div>
 
     <script type="text/javascript">
-        window.allowOrigin = '{{ view.origin_base }}'
+        window.allowOrigin = '{{ view.allow_origin }}'
         window.allowInsecure = {% if view.ALLOW_INSECURE %}true{% else %}false{% endif %}
     </script>
     {% include '_base_js.html' %}

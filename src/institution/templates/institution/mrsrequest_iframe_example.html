@@ -1,11 +1,32 @@
+{% load static %}
 <html>
   <head>
     <title>Exemple d'integration iframe</title>
+
+    <script src="{% static 'material/js/jquery.js' %}"></script>
     <script type="text/javascript">
+
         function receiveMessage(event) {
-            console.log('mrsrequest_uuid:', event.data.mrsrequest_uuid)
+          console.log('mrsrequest_uuid:', event.data.mrsrequest_uuid)
+
+          var $button = $('#mrsrequest-status')
+          $button.attr('disabled', false)
+          $button.attr(
+            'href',
+            '{{ view.iframe_base_url }}/institution/{{ view.kwargs.finess }}/mrsrequest/' + event.data.mrsrequest_uuid + '/status/'
+          )
         }
         window.addEventListener('message', receiveMessage)
+
+        $(document).ready(function() {
+          $('#mrsrequest-status').on('click', function() {
+            var url = $(this).attr('href')
+            if (!url) return
+            $.get(url, {}, function(data, textStatus, jqXHR) {
+              console.log(data)
+            })
+          })
+        })
     </script>
   </head>
   <body>
@@ -36,28 +57,29 @@
         <li>{{ value }}: {{ label }}</li>
         {% endfor %}
     </ul>
+    <input type="button" id="mrsrequest-status" disabled="disabled" value="Test get status (soumettre un formulaire valide avant)" />
     <h2>Exemple d'upload de fichier</h3>
     <pre>
     document.getElementById('mrsrequest').contentWindow.postMessage(
       // votre pmt
-      '{"pmt_url": "{{ view.base_url }}/static/img/mrsHeaderFiltreBleu-logo_ito86r.jpg"}',
+      '{"pmt_url": "{{ view.pmt_url }}"}',
       // origine du message (votre url)
-      '{{ view.base_url }}/institution/310000000/mrsrequest/iframe/example/'
+      '{{ request.build_absolute_uri }}'
     )
     </pre>
     <input type="button" name="pmt-upload" value="Executer" id="pmt-upload" />
     <h2>Recevoir l'uuid au succes du form</h3>
     <p>Script a mettre ou vous voulez, c'est l'iframe qui va le trigger si le formulaire passe.</p>
     <pre>
-        function receiveMessage(event) {
-            console.log('mrsrequest_uuid:', event.data.mrsrequest_uuid)
-        }
-        window.addEventListener('message', receiveMessage)
+      function receiveMessage(event) {
+          console.log('mrsrequest_uuid:', event.data.mrsrequest_uuid)
+      }
+      window.addEventListener('message', receiveMessage)
     </pre>
     <h2>Exemple d'utilisation de l'iframe</h2>
     <iframe
       id="mrsrequest"
-      src="{% url 'institution:mrsrequest_iframe' view.kwargs.finess %}?first_name=Étienne&last_name=∞&birth_date=2000-12-31&nir=1234567890123&email=exemple@exemple.com&hidePMT=1"
+      src="{{ view.iframe_url }}?first_name=Étienne&last_name=∞&birth_date=2000-12-31&nir=1234567890123&email=exemple@exemple.com&hidePMT=1"
       width="100%"
       height="800"
       style="border: none"
@@ -65,8 +87,8 @@
     <script type="text/javascript">
       document.getElementById('pmt-upload').addEventListener('click', function() {
         document.getElementById('mrsrequest').contentWindow.postMessage(
-          '{"pmt_url": "{{ view.base_url }}/static/img/mrsHeaderFiltreBleu-logo_ito86r.jpg"}',
-          '{{ view.base_url }}/institution/310000000/mrsrequest/iframe/example/'
+          '{"pmt_url": "{{ view.pmt_url }}"}',
+          '{{ request.build_absolute_uri }}'
         )
       })
     </script>
