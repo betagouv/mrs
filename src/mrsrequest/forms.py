@@ -5,6 +5,7 @@ from django.utils.datastructures import MultiValueDict
 
 import material
 
+from cpam.forms import CPAMChoiceField
 from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 
@@ -36,6 +37,8 @@ class MRSRequestForm(forms.ModelForm):
             ' ou justificatif(s) de transport en commun)'
         )
     )
+
+    cpam = CPAMChoiceField()
 
     # do not trust this field, it's used for javascript and checked
     # by the view for permission against the request session, but is
@@ -124,6 +127,7 @@ class MRSRequestForm(forms.ModelForm):
     class Meta:
         model = MRSRequest
         fields = [
+            'cpam',
             'expense',
             'distance',
         ]
@@ -166,6 +170,10 @@ class MRSRequestAdminForm(MRSRequestForm):
 
 class MRSRequestCreateForm(MRSRequestForm):
     layouts = dict(
+        cpam=material.Fieldset(
+            'Votre CPAM',
+            'cpam',
+        ),
         top=material.Layout(
             material.Fieldset(
                 'Votre prescription médicale',
@@ -197,6 +205,7 @@ class MRSRequestCreateForm(MRSRequestForm):
     class Meta:
         model = MRSRequest
         fields = [
+            'cpam',
             'distance',
             'expense',
         ]

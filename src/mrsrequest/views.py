@@ -13,6 +13,7 @@ from django.utils import timezone
 from django.views import generic
 from ipware import get_client_ip
 
+from contact.forms import ContactForm
 from person.forms import PersonForm
 
 from .forms import (
@@ -42,6 +43,8 @@ class MRSRequestCreateView(generic.TemplateView):
             ('transport', TransportIterativeForm()),
             ('certify', CertifyForm()),
         ])
+
+        self.contact_form = ContactForm()
 
         return super().get(request, *args, **kwargs)
 
