@@ -17,29 +17,25 @@ class InstitutionMixin(object):
         if not self.institution:
             return http.HttpResponseNotFound()
 
-        return super().dispatch(request, *args, **kwargs)
+        response = super().dispatch(request, *args, **kwargs)
+
+        if settings.DEBUG and 'HTTP_REFERER' in request.META:
+            response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
+                request.META['HTTP_REFERER']
+            )
+            response['Access-Control-Allow-Origin'] = '*'
+            self.ALLOW_INSECURE = True
+        else:
+            response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
+                self.institution.origin)
+            response['Access-Control-Allow-Origin'] = (
+                self.institution.origin)
+
+        return response
 
 
 class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
     base = 'base_iframe.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-
-        if self.institution:
-            if settings.DEBUG and 'HTTP_REFERER' in request.META:
-                response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
-                    request.META['HTTP_REFERER']
-                )
-                response['Access-Control-Allow-Origin'] = '*'
-                self.ALLOW_INSECURE = True
-            else:
-                response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
-                    self.institution.origin)
-                response['Access-Control-Allow-Origin'] = (
-                    self.institution.origin)
-
-        return response
 
     def origin_base(self):
         return '/'.join(self.institution.origin.split('/')[:3])
