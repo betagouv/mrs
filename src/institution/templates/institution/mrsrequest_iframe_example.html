@@ -88,7 +88,7 @@
       document.getElementById('pmt-upload').addEventListener('click', function() {
         document.getElementById('mrsrequest').contentWindow.postMessage(
           '{"pmt_url": "{{ view.pmt_url }}"}',
-          '{{ request.build_absolute_uri }}'
+          '{{ view.iframe_url }}'
         )
       })
     </script>
