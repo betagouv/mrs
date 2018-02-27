@@ -47,17 +47,16 @@ class InstitutionMixin(object):
         else:
             response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
                 self.institution.origin)
-            response['Access-Control-Allow-Origin'] = (
-                self.institution.origin)
+            response['Access-Control-Allow-Origin'] = self.allow_origin()
 
         return response
+
+    def allow_origin(self):
+        return '/'.join(self.institution.origin.split('/')[:3])
 
 
 class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
     base = 'base_iframe.html'
-
-    def allow_origin(self):
-        return '/'.join(self.institution.origin.split('/')[:3])
 
     def save(self):
         self.forms['mrsrequest'].instance.institution = self.institution
