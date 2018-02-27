@@ -19,6 +19,7 @@ class Institution(models.Model):
 
     class Meta:
         ordering = ['finess']
+        verbose_name = 'Établissement'
 
     def __str__(self):
         return str(self.finess)
