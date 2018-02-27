@@ -4,7 +4,7 @@ from .models import Institution
 
 
 class InstitutionAdmin(admin.ModelAdmin):
-    list_editable = ('finess', 'origin')
+    list_display = ('finess', 'origin')
 
 
-admin.site.register(Institution)
+admin.site.register(Institution, InstitutionAdmin)
