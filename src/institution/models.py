@@ -16,6 +16,14 @@ class Institution(models.Model):
         max_length=255,
         help_text='URI du site patients'
     )
+    dynamic_allow = models.BooleanField(
+        default=False,
+        verbose_name='Autorisation CORS dynamique',
+        help_text=(
+            'Cocher pour les hebergeurs non-HDS qui veulent leur iframe en'
+            ' mode passoire'
+        )
+    )
 
     class Meta:
         ordering = ['finess']

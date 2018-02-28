@@ -38,7 +38,7 @@ class InstitutionMixin(object):
 
         response = super().dispatch(request, *args, **kwargs)
 
-        if settings.DEBUG and 'HTTP_REFERER' in request.META:
+        if self.institution.dynamic_allow:
             response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
                 request.META['HTTP_REFERER']
             )
