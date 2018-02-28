@@ -83,7 +83,7 @@ var formInit = function (form) {
   var $expense = $(form).find('[name=expense]')
   var $bills = $(form).find('#id_bills_container')
   var billsChange = function() {
-    ($expense && parseInt($expense.val()) > 0) ? $bills.show() : $bills.hide()
+    ($expense && parseFloat($expense.val()) > 0) ? $bills.show() : $bills.hide()
   }
   $expense.on('input', billsChange)
   $expense.on('change', billsChange)
