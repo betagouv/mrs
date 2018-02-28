@@ -38,8 +38,11 @@ class InstitutionMixin(object):
         response = super().dispatch(request, *args, **kwargs)
 
         if self.institution.dynamic_allow:
+            if 'origin' not in request.GET:
+                return http.HttpResponseBadRequest('"origin" required in GET')
+
             response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
-                request.META['HTTP_REFERER']
+                request.GET['origin']
             )
             response['Access-Control-Allow-Origin'] = '*'
             self.ALLOW_INSECURE = True
