@@ -1,7 +1,6 @@
 import uuid
 
 from django import http
-from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.urls import reverse
 from django.views import generic
@@ -38,7 +37,7 @@ class InstitutionMixin(object):
 
         response = super().dispatch(request, *args, **kwargs)
 
-        if settings.DEBUG and 'HTTP_REFERER' in request.META:
+        if self.institution.dynamic_allow:
             response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
                 request.META['HTTP_REFERER']
             )
