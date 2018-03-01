@@ -4,8 +4,9 @@ FROM ubuntu:artful
 ENV PYTHONIOENCODING UTF-8
 
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y python3-pip python3-psycopg2 unzip uwsgi-plugin-python3 uwsgi wget curl cron dumb-init locales gettext
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
 RUN apt-get install -y nodejs
+RUN npm install -g yarn
 
 RUN useradd -md /code uwsgi
 WORKDIR /code
@@ -18,13 +19,14 @@ EXPOSE 6789
 ENV STATIC_ROOT /code/static
 RUN mkdir -p ${STATIC_ROOT}
 ADD package.json /code
-RUN npm install
+ADD yarn.lock /code
+RUN yarn install --force --ignore-scripts --pure-lockfile
 RUN pip3 install --upgrade pip
 ADD requirements.txt /code/requirements.txt
 RUN pip3 install --upgrade -r /code/requirements.txt
 ADD webpack.config.js /code
 ADD src/mrs/static /code/src/mrs/static
-RUN ./node_modules/.bin/webpack --config webpack.config.js
+RUN yarn install
 
 ADD setup.py /code/setup.py
 ADD src /code/src
