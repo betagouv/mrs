@@ -40,6 +40,7 @@ LOGIN_REDIRECT_URL = '/mrsrequest/'
 
 INSTALLED_APPS = [
     'contact',
+    'cpam',
     'institution',
     'person',
     'mrs',

@@ -8,6 +8,8 @@ var listen = false
 var submitUi = new SubmitUi(document.querySelector('body'))
 
 var formInit = function (form) {
+  var $form = $(form)
+
   // Make form ajax
   if (listen == false) {
     form.addEventListener('submit', function (e) {
@@ -22,6 +24,32 @@ var formInit = function (form) {
 
   // Setup ajax attachment
   mrsattachment(form)
+
+  // http://materializecss.com/forms.html#select
+  $form
+    .find('select')
+    .not('.disabled')
+    .not('.material-ignore')
+    .select()
+
+  // Show/hide contact form
+  var $cpam = $form.find('[name=cpam]')
+  var $contactForm = $form.find('.mrsrequest-contact-form')
+  var $mrsrequestForm = $form.find('.mrsrequest-form')
+  var cpamUpdate = function() {
+    if ($cpam.val() == 'other') {
+      $mrsrequestForm.is(':visible') && $mrsrequestForm.slideUp()
+      $contactForm.is(':visible') || $contactForm.slideDown()
+    } else if ($cpam.val()) {
+      $mrsrequestForm.is(':visible') || $mrsrequestForm.slideDown()
+      $contactForm.is(':visible') && $contactForm.slideUp()
+    } else {
+      $mrsrequestForm.is(':visible') && $mrsrequestForm.slideUp()
+      $contactForm.is(':visible') && $contactForm.slideUp()
+    }
+  }
+  $cpam.on('change', cpamUpdate)
+  cpamUpdate()
 
   // Show/hide iterative
   var $iterativeShow = $(form).find('[name=iterative_show]')

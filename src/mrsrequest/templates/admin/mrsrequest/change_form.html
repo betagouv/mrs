@@ -37,6 +37,31 @@
     </div>
 </fieldset>
 <fieldset class="module aligned">
+    <h2>CPAM</h2>
+    <div class="form-row">
+        <div class="field-box">
+            <label>CPAM :</label>
+            <div class="readonly">
+                <a href="{% url 'admin:cpam_cpam_change' original.cpam.pk %}">
+                    {{ original.cpam }}
+                </a>
+            </div>
+        </div>
+        <div class="field-box">
+            <label>Code :</label>
+            <div class="readonly">
+                {{ original.cpam.code }}
+            </div>
+        </div>
+        <div class="field-box">
+            <label>Email :</label>
+            <div class="readonly">
+                {{ original.cpam.liquidation_email }}
+            </div>
+        </div>
+    </div>
+</fieldset>
+<fieldset class="module aligned">
     <h2>PMT</h2>
     <div class="form-row field-pmt">
         <div>

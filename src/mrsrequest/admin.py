@@ -28,6 +28,7 @@ class MRSRequestAdmin(admin.ModelAdmin):
         'display_id',
     )
     list_filter = (
+        'cpam',
         'status',
         'institution',
     )

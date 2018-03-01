@@ -98,6 +98,7 @@ class MRSRequest(models.Model):
             'justificatif(s) de transport en commun'
         )
     )
+    cpam = models.ForeignKey('cpam.CPAM', on_delete=models.CASCADE)
 
     status = models.IntegerField(
         choices=STATUS_CHOICES,
