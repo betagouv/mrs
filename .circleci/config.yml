@@ -104,17 +104,17 @@ jobs:
     steps:
     - checkout
     - restore_cache:
-        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        key: dependency-cache-js-{{ checksum "yarn.lock" }}
     - run:
-        name: RUN npm install --dev
-        command: npm install --dev
+        name: RUN yarn install
+        command: sudo npm install -g yarn && yarn install
     - save_cache:
-        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        key: dependency-cache-js-{{ checksum "yarn.lock" }}
         paths:
           - ./node_modules
     - run:
-        name: RUN npm run lint
-        command: npm run lint
+        name: RUN yarn run lint
+        command: yarn run lint
 
   js-test:
     docker:
@@ -122,18 +122,18 @@ jobs:
     steps:
     - checkout
     - restore_cache:
-        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        key: dependency-cache-js-{{ checksum "yarn.lock" }}
     - run:
-        name: NPM install --dev
-        command: npm install --dev
+        name: RUN yarn install
+        command: sudo npm install -g yarn && yarn install
     - save_cache:
-        key: dependency-cache-js-{{ checksum "package-lock.json" }}
+        key: dependency-cache-js-{{ checksum "yarn.lock" }}
         paths:
           - ./node_modules
     - run:
         name: Npm test & coverage upload
         command: |
-          npm test
+          yarn test
           ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
 
   docker-build:
