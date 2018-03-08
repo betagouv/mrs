@@ -16,8 +16,12 @@ function receiveMessage(event) {
   var $pmt = $('input[name=pmt][type=file]')
   var $uuid = $('input[name=mrsrequest_uuid][type=hidden]')
   var url = $pmt.attr('data-upload-url').replace('MRSREQUEST_UUID', $uuid.val())
-  var pmtUrl = JSON.parse(event.data).pmt_url
-  var fileName = pmtUrl.split('/')[pmtUrl.split('/').length - 1]  // -1 didn't
+  var data = JSON.parse(event.data)
+  var pmtUrl = data.pmt_url
+  var fileName = data.file_name
+  if (fileName === undefined) {
+    fileName = pmtUrl.split('/')[pmtUrl.split('/').length - 1]  // -1 didn't
+  }
 
   function reqListener () {
     var formData = new FormData()
