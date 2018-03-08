@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'mrs',
     'mrsrequest',
     'mrsattachment',
+    'mrspage',
 
     'jfu',
     'material',

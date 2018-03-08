@@ -12,6 +12,7 @@ module.exports = {
     landing: ['babel-polyfill', './src/mrs/static/js/landing'],
     iframe: ['babel-polyfill', './src/mrs/static/js/iframe'],
     admin: ['babel-polyfill', './src/mrs/static/js/admin'],
+    statistics: ['babel-polyfill', './src/mrs/static/js/statistics'],
     contact: ['babel-polyfill', './src/mrs/static/js/contact']
   },
   output: {
