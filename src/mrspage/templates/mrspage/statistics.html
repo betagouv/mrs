@@ -1,0 +1,17 @@
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <iframe
+      width="100%"
+      height="100%"
+      id="autoheight"
+      src="https://app.powerbi.com/view?r=eyJrIjoiNDkyMTJlNTgtYjUwMi00MjVkLWFiN2EtOGRkZDUwYWQ4ZDY1IiwidCI6IjZiOTQwZTMyLTNlZjMtNGNiYi04OTBiLWMzMzcxY2U5M2M5ZCIsImMiOjh9"
+      frameborder="0"
+      allowFullScreen="true"
+    ></iframe>
+    {% render_bundle 'statistics' %}
+  </body>
+</html>

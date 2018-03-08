@@ -50,6 +50,7 @@
     ]
   },
   "dependencies": {
+    "jpic-iframe-autoheight": "^1.0.0",
     "jquery": "^3.2.1",
     "js-cookie": "^2.2.0",
     "scrollreveal": "^3.3.6"
