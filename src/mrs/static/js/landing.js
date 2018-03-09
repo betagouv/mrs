@@ -4,6 +4,7 @@ import '../sass/form.sass'
 import '../sass/animations.sass'
 import './mrsrequest'
 import './contact'
+import foo from './preact-test.js'
 
 (($) => {
   const sr = ScrollReveal()
@@ -16,4 +17,6 @@ import './contact'
       scrollTop: $target.offset().top + 'px'
     }, 'fast')
   })
+
+  foo()
 })(window.jQuery)
