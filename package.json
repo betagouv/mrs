@@ -54,6 +54,7 @@
     "webpack": "^3.10.0",
     "webpack-bundle-tracker": "^0.2.0",
     "preact": "^8.2.7",
+    "preact-render-spy": "^1.2.2",
     "scrollreveal": "^3.3.6"
   }
 }
