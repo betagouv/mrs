@@ -4,7 +4,11 @@ import '../sass/form.sass'
 import '../sass/animations.sass'
 import './mrsrequest'
 import './contact'
-import foo from './preact-test.js'
+
+// Preact imports
+import { h, render } from 'preact'
+import Header from './components/Header.js'
+
 
 (($) => {
   const sr = ScrollReveal()
@@ -18,5 +22,6 @@ import foo from './preact-test.js'
     }, 'fast')
   })
 
-  foo()
+  render(<Header />, document.getElementById('header'))
+
 })(window.jQuery)
