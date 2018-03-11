@@ -27,7 +27,8 @@
       "src/mrs/static/js/main.js"
     ],
     "collectCoverageFrom": [
-      "src/mrs/static/js/*{js,jsx}"
+      "src/mrs/static/js/*{js,jsx}",
+      "src/mrs/static/js/components/*{js,jsx}"
     ]
   },
   "dependencies": {
