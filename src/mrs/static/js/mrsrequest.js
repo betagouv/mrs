@@ -189,7 +189,8 @@ var formSubmit = function(form) {
   $(form).fadeIn()
 }
 
-formInit(document.querySelector('form#mrsrequest-wizard'))
+if(document.querySelector('form#mrsrequest-wizard'))
+    formInit(document.querySelector('form#mrsrequest-wizard'))
 
 $('body').on('click', '[data-load-in-form]', function() {
   $.ajax({
