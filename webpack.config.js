@@ -13,7 +13,8 @@ module.exports = {
     iframe: ['babel-polyfill', './src/mrs/static/js/iframe'],
     admin: ['babel-polyfill', './src/mrs/static/js/admin'],
     statistics: ['babel-polyfill', './src/mrs/static/js/statistics'],
-    contact: ['babel-polyfill', './src/mrs/static/js/contact']
+    contact: ['babel-polyfill', './src/mrs/static/js/contact'],
+    header: ['./src/mrs/static/js/load-header']
   },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
