@@ -1,0 +1,30 @@
+{% load static %}
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include '_base_css.html' %}
+    {% render_bundle 'iframe' 'css' %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mes Remboursements Simplifiés</title>
+    {% include '_piwik.html' %}
+    <style type="text/css">
+    body {
+      /* compensate for form .row margins of -0.75rem */
+      padding: 0 0.75rem;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="app--wrapper">
+        {% include 'mrsrequest/_form.html' %}
+    </div>
+
+    <script type="text/javascript">
+        window.allowOrigin = '{{ view.allow_origin }}'
+        window.allowInsecure = {% if view.ALLOW_INSECURE %}true{% else %}false{% endif %}
+    </script>
+    {% include '_base_js.html' %}
+    {% render_bundle 'iframe' 'js' %}
+  </body>
+</html>

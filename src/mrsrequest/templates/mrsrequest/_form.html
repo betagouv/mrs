@@ -1,0 +1,74 @@
+{% load material_form %}
+
+<section id="s4">
+    <a name="5"></a>
+    <div class="section-content--wrapper">
+        <h2 class="scroll-reveal">Formulaire de remboursement</h2>
+        <p class="scroll-reveal">
+            Réalisez votre demande de remboursement en ligne dès maintenant. <br />
+            Ce service s'adresse pour le moment uniquement aux assurés de la CPAM de la Haute-Garonne
+        </p>
+        <div class="form--wrapper scroll-reveal">
+            <form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
+                {% if view.success %}
+                <div class="card-panel teal lighten-4">
+                    Merci pour votre demande ! Nous reviendrons vers vous dès que possible.
+                    <br />
+                    <a data-load-in-form="{{ path_info }}">Cliquez ici pour faire une nouvelle demande.</a>
+                </div>
+                {% else %}
+                    {% comment %}
+                    in my tests, moving this elsewhere causes view.forms.mrsrequest.errors.pmt to
+                    always be empty, bug needs isolation and upstream report prolly
+                    {% endcomment %}
+                    <style type="text/css">
+                    #id_iterative_number_container {
+                        display: none;
+                    }
+                    {% if request.GET.hidePMT %}
+                    {# hack for institution iframe #}
+                    #pmt-form {
+                        display: {% if view.forms.mrsrequest.errors.pmt %}block{% else %}none{% endif %};
+                    }
+                    {% endif %}
+                    </style>
+
+                    {% csrf_token %}
+                    <div id="pmt-form">
+                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.top %}
+                    {% endform %}
+                    </div>
+                    {% form form=view.forms.person layout=view.forms.person.layout %}
+                    {% endform %}
+                    {% form form=view.forms.transport layout=view.forms.transport.layout %}
+                    {% endform %}
+                    {% for name, f in view.forms.items %}
+                        {% if 'transport-' in name %}
+                            {% form form=f layout=f.layout %}
+                            {% endform %}
+                        {% endif %}
+                    {% endfor %}
+                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.bottom %}
+                    {% endform %}
+                    {% form form=view.forms.certify %}
+                    {% endform %}
+
+                    <br />
+
+                    <button type="submit" name="_submit" class="btn">Soumettre</button>
+                {% endif %}
+            </form>
+        </div>
+        <div class="disclaimer--wrapper scroll-reveal">
+            <p>
+                La loi rend passible d'amende et/ ou d'emprisonnement quiconque sera rend coupable de fraude ou de fausse déclaration en vue d'obtenir ou de tenter d'obtenir des avantages indus (articles 313-1 à 313-3, 433-19, 441-1 et suivants du Code pénal).
+            </p>
+            <p>
+                En outre, l'inexactitude, le caractère incomplet des déclarations ou l'absence de déclaration d'un changement de situation dans le but d'obtenir le versement de prestations indues, peuvent faire l'objet d'une pénalité financière en application de l'article L.162-1-14 du Code de la sécurité sociale.
+            </p>
+            <p>
+                La loi 78.17 du 6/01/78 modifiée relative à l'informatique, aux fichiers et aux libertés s'applique aux réponses faites sur ce formulaire. Elle garantit un droit d'accès et de rectification pour les données vous concernant
+            </p>
+        </div>
+    </div>
+</section>

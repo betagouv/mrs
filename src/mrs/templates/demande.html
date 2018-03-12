@@ -1,0 +1,53 @@
+{% extends view.base %}
+{% load material_form %}
+
+{% block content %}
+<form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
+    {% if view.success %}
+    <div class="card-panel teal lighten-4">
+        Merci pour votre demande ! Nous reviendrons vers vous dès que possible.
+        <br />
+        <a data-load-in-form="{{ path_info }}">Cliquez ici pour faire une nouvelle demande.</a>
+    </div>
+    {% else %}
+        {% comment %}
+        in my tests, moving this elsewhere causes view.forms.mrsrequest.errors.pmt to
+        always be empty, bug needs isolation and upstream report prolly
+        {% endcomment %}
+        <style type="text/css">
+        #id_iterative_number_container {
+            display: none;
+        }
+        {% if request.GET.hidePMT %}
+        #pmt-form {
+            display: {% if view.forms.mrsrequest.errors.pmt %}block{% else %}none{% endif %};
+        }
+        {% endif %}
+        </style>
+
+        {% csrf_token %}
+        <div id="pmt-form">
+        {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.top %}
+        {% endform %}
+        </div>
+        {% form form=view.forms.person layout=view.forms.person.layout %}
+        {% endform %}
+        {% form form=view.forms.transport layout=view.forms.transport.layout %}
+        {% endform %}
+        {% for name, f in view.forms.items %}
+            {% if 'transport-' in name %}
+                {% form form=f layout=f.layout %}
+                {% endform %}
+            {% endif %}
+        {% endfor %}
+        {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.bottom %}
+        {% endform %}
+        {% form form=view.forms.certify %}
+        {% endform %}
+
+        <br />
+
+        <button type="submit" name="_submit" class="btn">Soumettre</button>
+    {% endif %}
+</form>
+{% endblock %}

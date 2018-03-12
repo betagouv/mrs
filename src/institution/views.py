@@ -58,7 +58,7 @@ class InstitutionMixin(object):
 
 
 class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
-    base = 'base_iframe.html'
+    base = 'institution/iframe.html'
 
     def save(self):
         self.forms['mrsrequest'].instance.institution = self.institution
