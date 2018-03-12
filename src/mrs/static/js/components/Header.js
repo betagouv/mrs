@@ -27,6 +27,23 @@ MenuLinks.defaultProps = {
     links: [],
 }
 
+const Burger = props => {
+    return (
+      <div
+        onClick={ props.toggleMenu }
+        className="burger--wrapper">
+        <img
+          src="/static/img/icones/burger.png"
+          alt="menu"
+          className={ "burger" + (!props.isMenuOpened ? "" : " hidden") } />
+        <img
+          src="/static/img/icones/croix.png"
+          alt="femer"
+          className={ "burger close " + (props.isMenuOpened ? "" : " hidden") } />
+      </div>
+    )
+}
+
 const HeaderFat = props => {
     return (
         <UI.Row>
@@ -39,18 +56,9 @@ const HeaderFat = props => {
           <MenuLinks
             links={ props.links }
             isOpened={ props.isMenuOpened } />
-          <div
-            onClick={ props.toggleMenu }
-            className="burger--wrapper">
-            <img
-                src="/static/img/icones/burger.png"
-                alt="menu"
-                className={ "burger" + (!props.isMenuOpened ? "" : " hidden") } />
-            <img
-              src="/static/img/icones/croix.png"
-              alt="femer"
-              className={ "burger close " + (props.isMenuOpened ? "" : " hidden") } />
-          </div>
+          <Burger
+            isMenuOpened={ props.isMenuOpened }
+            toggleMenu={ props.toggleMenu } />
         </UI.Row>
     )
 }
