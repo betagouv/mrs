@@ -8,14 +8,24 @@ const extractSass = new ExtractTextPlugin({
 
 module.exports = {
   context: __dirname,
+
+  /*
+    pages:
+      - index (/)
+      - mrsrequest (/demande)
+      - contact (/contact)
+      - FAQ (/faq)
+      - legal (/legal)
+      - statistics (/stats)
+
+    base.html:
+      - header
+      - footer
+  */
   entry: {
     base: ['babel-polyfill', './src/mrs/static/js/base'],
-    index: ['babel-polyfill', './src/mrs/static/js/contact'],
-    iframe: ['babel-polyfill', './src/mrs/static/js/iframe'],
-    admin: ['babel-polyfill', './src/mrs/static/js/admin'],
-    statistics: ['babel-polyfill', './src/mrs/static/js/statistics'],
-    contact: ['babel-polyfill', './src/mrs/static/js/contact'],
-    header: ['./src/mrs/static/js/load-header']
+    iframe: ['./src/mrs/static/js/iframe'],
+    admin: ['./src/mrs/static/js/admin'],
   },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
