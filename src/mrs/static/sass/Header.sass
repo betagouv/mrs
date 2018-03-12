@@ -6,15 +6,49 @@
   height: $headerHeight
   position: relative
 
+  &.thin
+    height: 3rem
+
+    .cnam-logo--wrapper
+      display: inherit
+
+    .burger--wrapper
+      width: 3rem
+      height: 3rem
+
+      .burger
+        height: 2rem
+        width: 2rem
+        top: 0.5rem
+        left: 0.5rem
+
+        &.close
+          height: 1.5rem
+          width: 1.5rem
+          top: 0.75rem
+          left: 0.75rem
+
   .mrs-logo--wrapper
     display: flex
     flex: 1
     background-color: white
 
+    &.hidden
+      opacity: 0
+
     .logo-mrs
       height: $headerHeight
       box-sizing: border-box
       padding: 0.5rem
+
+  .cnam-logo--wrapper
+    position: absolute
+    left: 50%
+    transform: translateX(-50%)
+    display: none
+
+    .logo-cnam
+      height: 5rem
 
   .burger--wrapper
     display: flex
@@ -84,6 +118,44 @@
     padding: 0rem 10vw
     height: $headerHeight
 
+    &.thin
+      height: 3rem
+
+      .HeaderFat--wrapper
+        justify-content: center
+
+      .mrs-logo--wrapper
+        display: none
+
+      .cnam-logo--wrapper
+        top: 100%
+        left: 10vw
+
+      .burger--wrapper
+        width: 3rem
+        height: 3rem
+
+        .burger
+          height: 2rem
+          width: 2rem
+          top: 0.5rem
+          left: 0.5rem
+
+          &.close
+            height: 1.5rem
+            width: 1.5rem
+            top: 0.75rem
+            left: 0.75rem
+
+      .menu-links--wrapper
+        position: inherit
+        flex-direction: row
+
+        .link
+          height: 3rem
+
+          &:first-child
+            border-left: 2px solid white
 
     .mrs-logo--wrapper
       flex: inherit
@@ -106,6 +178,7 @@
     .menu-links--wrapper
       position: inherit
       flex-direction: row
+      width: inherit
 
       &.hidden
         opacity: 1
