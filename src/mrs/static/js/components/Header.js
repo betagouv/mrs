@@ -11,6 +11,7 @@ const Link = props => {
         </a>
     )
 }
+
 const MenuLinks = props => {
     const links = props.links
           .map((e, i) => <Link key={ i } url={ e.url } alias={ e.alias } />)
@@ -46,12 +47,18 @@ const Burger = props => {
 
 const HeaderFat = props => {
     return (
-        <UI.Row>
-          <div className="mrs-logo--wrapper">
+        <UI.Row className="HeaderFat--wrapper">
+          <div className={ "mrs-logo--wrapper" + (props.isFat ? "" : " hidden") }>
             <img
                 src="/static/img/logos/mrs.png"
                 alt="mrs"
                 className="logo-mrs" />
+          </div>
+          <div className="cnam-logo--wrapper">
+            <img
+              src="/static/img/logos/cnam.png"
+              alt="cnam"
+              className={ "logo-cnam" + (props.isFat ? " hidden" : "") } />
           </div>
           <MenuLinks
             links={ props.links }
@@ -65,7 +72,7 @@ const HeaderFat = props => {
 
 const Header = props => {
     return (
-        <div className="Header--wrapper">
+          <div className={ "Header--wrapper" + (props.isFat ? "" : " thin") }>
           <HeaderFat { ...props } />
         </div>
     )
@@ -107,11 +114,15 @@ class HeaderSmart extends Component {
 
     render() {
         return <Header
+            isFat={ this.props.isFat }
             links={ this.state.links }
             toggleMenu={ this.toggleIsOpened }
             isMenuOpened={ this.state.isOpened } />
     }
+}
 
+HeaderSmart.defaultProps = {
+    isFat: true,
 }
 
 export default HeaderSmart
