@@ -76,4 +76,45 @@
 
 
 
-  // @media screen and (max-width: 992px)
+@media screen and (min-width: 992px)
+  .Header--wrapper
+    $headerHeight: 4rem
+    $primaryColor: #ef776f
+
+    padding: 0rem 10vw
+    height: $headerHeight
+
+
+    .mrs-logo--wrapper
+      flex: inherit
+      padding-right: 2rem
+
+      .logo-mrs
+        background-color: white
+        height: $headerHeight
+
+    .burger--wrapper
+      display: none
+
+      .burger
+        display: none
+
+        &.close
+
+        &.hidden
+
+    .menu-links--wrapper
+      position: inherit
+      flex-direction: row
+
+      &.hidden
+        opacity: 1
+        pointer-events: inherit
+
+      .link
+        height: $headerHeight
+        padding: 0 2rem
+        border-right: 2px solid white
+
+        &:hover
+          background-color: white
