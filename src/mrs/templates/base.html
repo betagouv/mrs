@@ -10,7 +10,7 @@
     {% render_bundle 'base' 'css' %}
     {% endblock %}
   </head>
-  <body>
+  <body class="{% block body_class %} {% endblock %}">
     <div
       style="background-image: url('{% static "img/landing-intro-bg.png" %}')"
       id="background-img--wrapper">
