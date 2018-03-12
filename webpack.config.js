@@ -9,7 +9,8 @@ const extractSass = new ExtractTextPlugin({
 module.exports = {
   context: __dirname,
   entry: {
-    landing: ['babel-polyfill', './src/mrs/static/js/landing'],
+    base: ['babel-polyfill', './src/mrs/static/js/base'],
+    index: ['babel-polyfill', './src/mrs/static/js/contact'],
     iframe: ['babel-polyfill', './src/mrs/static/js/iframe'],
     admin: ['babel-polyfill', './src/mrs/static/js/admin'],
     statistics: ['babel-polyfill', './src/mrs/static/js/statistics'],

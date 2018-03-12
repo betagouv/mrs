@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 
 from mrsattachment.urls import factory
 
@@ -10,7 +10,8 @@ app_name = 'mrsrequest'
 urlpatterns = [
     path(
         'wizard/',
-        views.MRSRequestCreateView.as_view(),
+        views.generic.RedirectView.as_view(
+            url=reverse_lazy('demande'), permanent=True),
         name='wizard'
     ),
     path(
