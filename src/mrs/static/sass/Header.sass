@@ -1,5 +1,79 @@
 .Header--wrapper
-  background-color: #ef776f
-  height: 5rem
+  $headerHeight: 5rem
+  $primaryColor: #ef776f
+
+  background-color: $primaryColor
+  height: $headerHeight
+  position: relative
+
+  .mrs-logo--wrapper
+    display: flex
+    flex: 1
+    background-color: white
+
+    .logo-mrs
+      height: $headerHeight
+      box-sizing: border-box
+      padding: 0.5rem
+
+  .burger--wrapper
+    display: flex
+    justify-content: center
+    align-items: center
+    width: $headerHeight
+    height: $headerHeight
+    position: relative
+
+    .burger
+      height: 3rem
+      width: 3rem
+      position: absolute
+      transition: opacity 0.1s linear
+      top: 1rem
+      left: 1rem
+
+      &.close
+        height: 2rem
+        width: 2rem
+        top: 1.5rem
+        left: 1.5rem
+
+      &.hidden
+        opacity: 0
+        pointer-events: none
+
+  .menu-links--wrapper
+    $width: 15rem
+
+    display: flex
+    flex-direction: column
+    position: absolute
+    top: 100%
+    right: 0
+    width: $width
+    z-index: 2
+    transition: opacity 0.1s linear
+
+    &.hidden
+      opacity: 0
+      pointer-events: none
+
+    .link
+      height: 4rem
+      background-color: $primaryColor
+      display: flex
+      align-items: center
+      text-transform: uppercase
+      font-size: 1rem
+      padding-left: 1rem
+      box-sizing: border-box
+      font-weight: bold
+      border: none
+
+      &:hover
+        background-color: #f7bbb7
+        color: $primaryColor
+
+
 
   // @media screen and (max-width: 992px)
