@@ -28,25 +28,6 @@ MenuLinks.defaultProps = {
 }
 
 const HeaderFat = props => {
-    const links = [
-        {
-            url: '/',
-            alias: 'fonctionnement',
-        },
-        {
-            url: '/foo',
-            alias: 'formulaire',
-        },
-        {
-            url: '/bar',
-            alias: 'faq',
-        },
-        {
-            url: '/bar',
-            alias: 'contact',
-        },
-    ]
-
     return (
         <UI.Row>
           <div className="mrs-logo--wrapper">
@@ -56,7 +37,7 @@ const HeaderFat = props => {
                 className="logo-mrs" />
           </div>
           <MenuLinks
-            links={ links }
+            links={ props.links }
             isOpened={ props.isMenuOpened } />
           <div
             onClick={ props.toggleMenu }
@@ -85,8 +66,28 @@ const Header = props => {
 class HeaderSmart extends Component {
     constructor(props) {
         super(props)
+
         this.state = {
             isOpened: false,
+            links: [
+                {
+                    url: '/',
+                    alias: 'fonctionnement',
+                },
+                {
+                    url: '/foo',
+                    alias: 'formulaire',
+                },
+                {
+                    url: '/bar',
+                    alias: 'faq',
+                },
+                {
+                    url: '/bar',
+                    alias: 'contact',
+                },
+            ]
+
         }
 
         this.toggleIsOpened = this.toggleIsOpened.bind(this)
@@ -98,6 +99,7 @@ class HeaderSmart extends Component {
 
     render() {
         return <Header
+            links={ this.state.links }
             toggleMenu={ this.toggleIsOpened }
             isMenuOpened={ this.state.isOpened } />
     }
