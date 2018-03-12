@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% load render_bundle from webpack_loader %}
-
 {% block extra_head %}
+    {{ block.super }}
     {% include 'mrsrequest/_form_css.html' %}
-    {% render_bundle 'index' 'css' %}
 {% endblock %}
 
 {% block extra_body %}
     {% include 'mrsrequest/_form_js.html' %}
-    {% render_bundle 'index' 'js' %}
+    {{ block.super }}
 {% endblock %}
+
+{% block body_class %}index{% endblock %}
 
 {% block content %}
     <div id="header" ></div>
