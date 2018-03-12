@@ -122,7 +122,7 @@ class HeaderSmart extends Component {
 }
 
 HeaderSmart.defaultProps = {
-    isFat: true,
+    isFat: false,
 }
 
 export default HeaderSmart
