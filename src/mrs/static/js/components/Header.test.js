@@ -25,7 +25,7 @@ describe('<HeaderMobile />', () => {
 
 // Jest wants at least 1 test in the file
 describe('placeholder-test', () => {
-    test('test', () => {
-        expect(1).toBe(1)
-    })
+  test('test', () => {
+    expect(1).toBe(1)
+  })
 })
