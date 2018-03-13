@@ -1,4 +1,5 @@
 import ScrollReveal from 'scrollreveal'
+import '../sass/base.sass'
 import '../sass/landing.sass'
 import '../sass/base.sass'
 import '../sass/form.sass'
