@@ -190,7 +190,7 @@ var formSubmit = function(form) {
 }
 
 if(document.querySelector('form#mrsrequest-wizard'))
-    formInit(document.querySelector('form#mrsrequest-wizard'))
+  formInit(document.querySelector('form#mrsrequest-wizard'))
 
 $('body').on('click', '[data-load-in-form]', function() {
   $.ajax({
