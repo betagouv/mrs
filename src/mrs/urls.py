@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib import admin
-from django.views import generic
-from django.urls import include, path, reverse_lazy
+from django.urls import include, path
 
 from mrsrequest.views import MRSRequestCreateView
 
