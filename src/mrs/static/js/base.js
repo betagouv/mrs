@@ -5,6 +5,7 @@ import '../sass/base.sass'
 import '../sass/form.sass'
 import '../sass/animations.sass'
 import './mrsrequest'
+import './contact'
 import initStatistics from './statistics.js'
 
 // Preact imports

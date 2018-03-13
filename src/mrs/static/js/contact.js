@@ -52,7 +52,10 @@ var submitForm = function(form) {
 
 (() => {
   var form = document.querySelector('form#contact')
-  contactForm(form)
+
+  if(form)
+    contactForm(form)
 })(window.jQuery)
 
 export default contactForm
+
