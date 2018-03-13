@@ -27,7 +27,8 @@ import Header from './components/Header.js'
             }, 'fast')
         })
 
-        render(<Header />, document.getElementById('header'))
+        // comment for now
+        // render(<Header />, document.getElementById('header'))
     }
 
     // use bodyclass to detect statistics
