@@ -16,6 +16,8 @@ import Header from './components/Header.js'
 (($) => {
   let body = document.querySelector('body')
 
+  const renderHeader = isFat => render(<Header isFat={ isFat } />, document.getElementById('header'))
+
   // show correct header based on path
   if(body.classList.contains('index')) {
     const sr = ScrollReveal()
@@ -30,13 +32,14 @@ import Header from './components/Header.js'
     })
 
     // comment for now
-    // render(<Header />, document.getElementById('header'))
+    renderHeader(false)
+  } else {
+    renderHeader(true)
   }
 
   // use bodyclass to detect statistics
   if(body.classList.contains('statistics')) {
     initStatistics()
-    render(<Header isFat={ true }/>, document.getElementById('header'))
   }
 
 })(window.jQuery)
