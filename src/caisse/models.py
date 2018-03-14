@@ -24,7 +24,7 @@ class Caisse(models.Model):
         validators=[validate_caisse_number],
     )
     liquidation_email = models.EmailField(
-        verbose_name='email vers les liquidateureuses',
+        verbose_name='email du service de liquidation',
         blank=True,
         null=True
     )
