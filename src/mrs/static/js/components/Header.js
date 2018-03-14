@@ -26,6 +26,7 @@ const MenuLinks = props => {
 
 MenuLinks.defaultProps = {
   links: [],
+  isOpened: false,
 }
 
 const Burger = props => {
@@ -39,27 +40,52 @@ const Burger = props => {
         className={ 'burger' + (!props.isMenuOpened ? '' : ' hidden') } />
       <img
         src="/static/img/icones/croix.png"
-        alt="femer"
-        className={ 'burger close ' + (props.isMenuOpened ? '' : ' hidden') } />
+        alt="fermer"
+        className={ 'burger close' + (props.isMenuOpened ? '' : ' hidden') } />
     </div>
   )
 }
 
-const HeaderFat = props => {
-  return (
-    <UI.Row className="HeaderFat--wrapper">
-      <div className={ 'mrs-logo--wrapper' + (props.isFat ? '' : ' hidden') }>
+const MrsLogo = props => {
+    const wrapperClassName = 'mrs-logo--wrapper' + (props.isHidden ? ' hidden' : '')
+
+    return (
+      <div className={ wrapperClassName }>
         <img
-          src="/static/img/logos/mrs.png"
-          alt="mrs"
-          className="logo-mrs" />
+            src="/static/img/logos/mrs.png"
+            alt="mrs"
+            className="logo-mrs" />
       </div>
+    )
+}
+
+MrsLogo.defaultProps = {
+    isHidden: false,
+}
+
+const CnamLogo = props => {
+    const imgClassName = 'logo-cnam' + (props.isHidden ? ' hidden' : '')
+
+    return (
       <div className="cnam-logo--wrapper">
         <img
           src="/static/img/logos/cnam.png"
           alt="cnam"
-          className={ 'logo-cnam' + (props.isFat ? ' hidden' : '') } />
+          className={ imgClassName } />
       </div>
+    )
+}
+
+MrsLogo.defaultProps = {
+    isHidden: false,
+}
+
+
+const HeaderFat = props => {
+  return (
+    <UI.Row className="HeaderFat--wrapper">
+      <MrsLogo isHidden={ !props.isFat } />
+      <CnamLogo isHidden={ props.isFat } />
       <MenuLinks
         links={ props.links }
         isOpened={ props.isMenuOpened } />
@@ -76,6 +102,13 @@ const Header = props => {
       <HeaderFat { ...props } />
     </div>
   )
+}
+
+Header.defaultProps = {
+    isFat: true,
+    isMenuOpened: false,
+    links: [],
+    toggleMenu: () => {},
 }
 
 class HeaderSmart extends Component {
@@ -127,5 +160,11 @@ HeaderSmart.defaultProps = {
 
 export default HeaderSmart
 export {
+  Burger,
+  CnamLogo,
+  Header,
   HeaderFat,
+  Link,
+  MenuLinks,
+  MrsLogo,
 }
