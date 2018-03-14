@@ -1,5 +1,5 @@
 {% load material_form %}
-<form method="POST" action="{% url 'contact:contact_create' %}" id="contact" class="contact" style="display: none">
+<form method="POST" action="{% url 'contact' %}" id="contact" class="contact" style="display: none">
     {% csrf_token %}
     {% if view.success %}
     <div class="card-panel teal lighten-4">
