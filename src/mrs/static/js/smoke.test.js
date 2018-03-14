@@ -31,6 +31,14 @@ describe('smoke tests', () => {
     })
   })
 
+  test('demande page should show form', () => {
+    return fetch('/demande').then(dom => {
+      let mrsrequest = display(dom, '#mrsrequest-wizard')
+      dom.window.close()
+      expect(mrsrequest).toEqual('')
+    })
+  })
+
   test('institution iframe', () => {
     return fetch('/institution/310000000/mrsrequest/iframe/').then(dom => {
       let mrsrequest = display(dom, '#mrsrequest-wizard')

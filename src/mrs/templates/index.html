@@ -13,6 +13,13 @@
 
 {% block body_class %}index{% endblock %}
 
+{% block before_content %}
+<div
+  style="background-image: url('{% static "img/mrsHeaderOld.jpg" %}')"
+  id="background-img--wrapper">
+</div>
+{% endblock %}
+
 {% block content %}
     <div id="header" ></div>
     <section id="s1">

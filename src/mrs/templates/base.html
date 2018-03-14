@@ -11,10 +11,8 @@
     {% endblock %}
   </head>
   <body class="{% block body_class %} {% endblock %}">
-    <div
-      style="background-image: url('{% static "img/mrsHeaderOld.jpg" %}')"
-      id="background-img--wrapper">
-    </div>
+    {% block before_content %}
+    {% endblock %}
 
     <div id="app--wrapper">
 
