@@ -28,7 +28,7 @@ var submitForm = function(form) {
         })
       },
       success: function(data) {
-        $(form).html(data)
+        $(form).html($(data).find('form').html())
 
         var $error = $('.has-error')
         if ($error.length) {
