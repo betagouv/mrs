@@ -68,7 +68,10 @@ jobs:
     steps:
     - run:
         name: MRS Runserver
-        command: ALLOWED_HOSTS="localhost" SECRET_KEY=notsecret mrs runserver
+        command: |
+          export ALLOWED_HOSTS="localhost"
+          export SECRET_KEY=notsecret
+          mrs migrate && mrs runserver
         working_directory: /code
         background: true
     - run:
