@@ -31,6 +31,14 @@ describe('smoke tests', () => {
     })
   })
 
+  test('contact should display contact form', () => {
+    return fetch('/contact').then(dom => {
+      let contact = display(dom, '#contact')
+      dom.window.close()
+      expect(contact).toEqual('')
+    })
+  })
+
   test('demande page should show form', () => {
     return fetch('/demande').then(dom => {
       let mrsrequest = display(dom, '#mrsrequest-wizard')
