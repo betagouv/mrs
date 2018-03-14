@@ -1,16 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extra_head %}
-    {% include 'mrsrequest/_form_css.html' %}
-    {{ block.super }}
-{% endblock %}
-
-{% block extra_body %}
-    {% include 'mrsrequest/_form_js.html' %}
-    {{ block.super }}
-{% endblock %}
-
 {% block body_class %}index{% endblock %}
 
 {% block before_content %}
