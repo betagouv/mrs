@@ -32,6 +32,7 @@ class Caisse(models.Model):
         verbose_name='activé',
         default=False,
     )
+    score = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ['code']
