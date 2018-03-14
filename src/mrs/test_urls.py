@@ -19,9 +19,8 @@ def test_demande_template(client):
     assert r.template_name == ['mrsrequest/form.html']
 
 
-# see comment in mrsrequests.urls
-# @pytest.mark.django_db
-# def test_demande_redirect(client):
-#     r = client.get('/mrsrequest/wizard/')
-#     assert r.status_code == 301
-#     assert r['Location'] == '/demande'
+@pytest.mark.django_db
+def test_demande_redirect(client):
+    r = client.get('/mrsrequest/wizard/')
+    assert r.status_code == 301
+    assert r['Location'] == '/demande'
