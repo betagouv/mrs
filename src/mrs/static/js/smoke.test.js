@@ -3,7 +3,7 @@
 
 import jsdom from 'jsdom'
 
-var display = dom, selector => dom.window.document.querySelector(selector).style.display
+var display = (dom, selector) => dom.window.document.querySelector(selector).style.display
 
 describe('index', () => {
   test('should display contact and mrsrequest forms', () => {
@@ -23,7 +23,7 @@ describe('index', () => {
       let contact = display(dom, '#contact')
       dom.window.close()
       expect(mrsrequest).toEqual('')
-      expect(id).toEqual('')
+      expect(contact).toEqual('')
     })
   })
 })
