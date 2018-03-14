@@ -1,6 +1,8 @@
 {% extends view.base %}
 {% load material_form %}
 
+{% block body_class %}demande{% endblock %}
+
 {% block content %}
 <form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
     {% if view.success %}
