@@ -1,0 +1,149 @@
+$primary-blue: #537c89
+$secondary-blue: #edf1f4
+$primary-green: #74be8b
+$primary-red: #ef776f
+
+$page-margin-left: 1.5rem
+
+=flex-column()
+  display: flex
+  flex-direction: column
+
+=flex-center()
+  display: flex
+  justify-content: center
+  align-items: center
+
+=wrapper()
+  padding-left: $page-margin-left
+
+=button($bg-color)
+  $height: 2.5rem
+  border-radius: $height
+  background-color: $bg-color
+  padding: 0.5rem 1rem
+  height: $height
+  cursor: pointer
+
+.thumb--wrapper
+  position: relative
+  height: 0
+
+  .thumb
+    $height: 7rem
+    position: absolute
+    height: $height
+    width: 20rem
+    transform: translateY(-50%)
+    border-top-right-radius: $height
+    border-bottom-right-radius: $height
+    background-color: red
+    display: flex
+    align-items: center
+
+#index--wrapper
+  .mrs-logo--wrapper
+    +flex-center()
+    background-color: white
+
+    .mrs-logo
+      width: 70vw
+      max-width: 20rem
+      margin: 3rem 0 2rem 0
+
+  #intro--wrapper
+    +flex-center()
+    $padding-left: $page-margin-left
+
+    flex-direction: column
+    background-color: $primary-blue
+    color: $secondary-blue
+    position: relative
+    height: 5rem
+    padding: 0 $padding-left
+
+    p
+      margin: 0
+      font-size: 1.2rem
+      font-weight: bold
+      line-height: 1.3rem
+
+    .start-button
+      +button($primary-blue)
+      position: absolute
+      top: calc(100% + 1rem)
+      left: $padding-left
+      color: white
+
+  #intro-bg-img
+    background-size: cover
+    height: 60vw
+    width: 100vw
+    max-height: 30rem
+
+  #intro-descr--wrapper
+    .thumb
+      +flex-column()
+      justify-content: center
+      background-color: $primary-green
+      color: white
+      padding-left: $page-margin-left
+      padding-right: 2rem
+
+      h3
+        font-size: 1.05rem
+        font-weight: bold
+        font-style: italic
+        margin: 0
+        margin-bottom: 0.5rem
+
+      p
+        font-size: 0.9rem
+        line-height: 0.9rem
+        margin: 0
+
+  #hier-ajd--wrapper
+    +flex-column()
+    +wrapper()
+    background-color: $secondary-blue
+    color: $primary-blue
+    padding-top: 5rem
+    padding-bottom: 5rem
+
+    .hier--wrapper, .ajd--wrapper
+      +flex-column()
+      padding-left: 1rem
+
+      h3
+        margin: 0
+
+    .hier--wrapper h3 span, .ajd--wrapper h3 span
+      +button(white)
+      font-size: 1.2rem
+      color: $primary-red
+      font-style: italic
+      padding-top: 0
+      padding-bottom: 0
+      font-weight: bold
+
+    .ajd--wrapper h3 span
+      background-color: $primary-red
+      color: white
+
+    ul
+      li
+        font-size: 0.9rem
+        list-style-type: disc
+        color: $primary-red
+
+        span
+          color: $primary-blue
+
+  #etapes-descr--wrapper
+    .thumb
+      +wrapper()
+      justify-content: center
+      background-color: white
+      color: $primary-blue
+      font-size: 1.5rem
+      line-height: 1.5rem

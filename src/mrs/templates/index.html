@@ -4,370 +4,367 @@
 {% block body_class %}index{% endblock %}
 
 {% block before_content %}
-<div
-  style="background-image: url('{% static "img/mrsHeaderOld.jpg" %}')"
-  id="background-img--wrapper">
-</div>
 {% endblock %}
 
 {% block content %}
-    <section id="s1">
-        <div class="center--wrapper">
-            <div class="section-content--wrapper scroll-reveal">
-                <h1>Mes Remboursements Simplifiés</h1>
+    <div id="index--wrapper">
+
+        <div class="mrs-logo--wrapper">
+            <img src={% static "img/logos/mrs.png" %} alt="MRS" class="mrs-logo" />
+        </div>
+
+        <div id="intro--wrapper">
+            <p class="scroll-reveal">
+                En 3 clics, mon transport personnel remboursé en moins d'une semaine.
+            </p>
+            <div class="start-button scroll-reveal" data-callback="scroll-to" data-target="#s4">
+                COMMENCER
+            </div>
+        </div>
+
+        <div
+            style="background-image: url('{% static "img/landing-intro-bg.png" %}')"
+            id="intro-bg-img">
+        </div>
+
+        <div id="intro-descr--wrapper" class="thumb--wrapper">
+            <div class="thumb">
+                <h3>Une semaine pour etre remboursé !</h3>
                 <p>
-                    En 3 clics, mon transport personnel remboursé en moins d'une semaine.
+                    Sur prescription de votre médecin, l'Assurance Maladie rembourse les frais d'utilisation de votre véhicule personnel ou des transports en commun.
                 </p>
-                <div class="button" data-callback="scroll-to" data-target="#s4">
-                    DÉMARRER
-                </div>
             </div>
         </div>
-    </section>
 
-    <div class="section-arrow--wrapper">
-        <div class="arrow-left">
+        <div id="hier-ajd--wrapper">
+            <div class="hier--wrapper">
+                <h3><span>Hier :</span></h3>
+                <ul>
+                    <li><span>vous complétiez <strong>le formulaire papier Cerfa <a href="https://www.ameli.fr/sites/default/files/formualires/176/s3140.pdf" target="_blank">s3140</a></strong>,</span></li>
+                    <li><span>ajoutiez les justificatifs</span></li>
+                    <li><span>et les envoyiez par voie postale.</span></li>
+                </ul>
+            </div>
+            <div class="ajd--wrapper">
+                <h3><span>Aujourd'hui :</span></h3>
+                <ul>
+                    <li><span>vous déclarez vos frais directement en ligne,</span></li>
+                    <li><span>vous êtes remboursé en une semaine.</span></li>
+                </ul>
+            </div>
         </div>
-        <div class="arrow-right">
+
+        <div id="etapes-descr--wrapper" class="thumb--wrapper">
+            <div class="thumb">
+                <p>
+                    <strong>3 étapes</strong> pour accélérer le remboursement<br /> du transport prescrit
+                </p>
+            </div>
         </div>
+
+        <section id="s3">
+            <a name="3"></a>
+            <div class="section-content--wrapper">
+                <h2 class="scroll-reveal">
+                </h2>
+                <div class="processes--wrapper">
+                    <div class="process--wrapper scroll-reveal">
+                        <img src="{% static 'img/04.png' %}" alt="icon" />
+                        <div class="description--wrapper">
+                            <h2>1/ Je déclare mon trajet</h2>
+                            <p>
+                                Je saisis les informations nécessaires : nombre de kilomètres, frais de péage, frais de stationnement...
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="process--wrapper scroll-reveal">
+                        <img src="{% static 'img/135.png' %}" alt="icon" />
+                        <div class="description--wrapper">
+                            <h2>2/ Je transmets mes justificatifs</h2>
+                            <p>
+                                Je photographie ou scanne ma prescription médicale de transport et mes justificatifs et les joins à ma demande (tickets de parking, de bus, de péage...).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="process--wrapper scroll-reveal">
+                        <img src="{% static 'img/26.png' %}" alt="icon" />
+                        <div class="description--wrapper">
+                            <h2>3/ Je valide ma demande</h2>
+                            <p>
+                                Je vérifie les informations et j'envoie ma demande de remboursement directement en ligne. Je reçois une confirmation de traitement.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s7">
+            <a name="4"></a>
+            <div class="section-content--wrapper">
+                <div class="titles--wrapper">
+                    <h2 class="scroll-reveal">Ils ont déjà utilisé notre service</h2>
+                    <h3 class="scroll-reveal">
+                        N'hésitez pas vous aussi à nous faire part de vos retours et suggestions.
+                    </h3>
+                </div>
+                <div class="temoignages--wrapper">
+                    <div class="temoignage--wrapper scroll-reveal">
+                        <div class="author">
+                            Amélie F.
+                        </div>
+                        <div class="citation">
+                            "Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière, paiement très rapide et simplifié grâce à l’envoi par internet! <br /> Merci"
+                        </div>
+                    </div>
+
+                    <div class="temoignage--wrapper scroll-reveal">
+                        <div class="author">
+                            Jean-Marie P.
+                        </div>
+                        <div class="citation">
+                            "...sympa <br /> je reste à votre disposition <br /> et très belle initiative que la vôtre"
+                        </div>
+                    </div>
+
+                    <div class="temoignage--wrapper scroll-reveal">
+                        <div class="author">
+                            Natacha B.
+                        </div>
+                        <div class="citation">
+                            "J’ai eu le plaisir de faire partie des premières patientes à être remboursées grâce à ce système. Ce fut très rapide donc fort appréciable ! En espérant que bientôt tous les moyens transports soient également remboursés grâce à ce système. Merci pour les patients de mettre en place ce genre d’initiative."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s4">
+            <a name="5"></a>
+            <div class="section-content--wrapper">
+                {% include 'mrsrequest/_form.html' %}
+            </div>
+        </section>
+
+        <section id="s5">
+            <a name="6"></a>
+            <div class="section-content--wrapper">
+                <h2 class="scroll-reveal">FOIRE AUX QUESTIONS</h2>
+                <h3 class="scroll-reveal">Toutes les questions que vous vous posez sur le transport médical</h3>
+
+                <!--
+                    For the iframe video to resize with viewport with, we need 2 containers:
+                    https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
+                -->
+                <div id="youtube-video--wrapper-1" class="scroll-reveal">
+                    <div id="youtube-video--wrapper-2">
+                        <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/9xgIX-kCsCw" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="FAQ--wrapper">
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Est-ce que tous les transports médicaux sont remboursés ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Non, la prise en charge par l’Assurance Maladie couvre de nombreuses situations mais reste étroitement liée à votre situation administrative et médicale. Quoi qu’il en soit, elle est dépendante d’une prescription médicale de transport.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Aller en voiture à l'hôpital, c'est possible ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Oui, c'est possible ! Votre médecin est le seul à pouvoir estimer si votre état de santé justifie la prise en charge de votre véhicule personnel.
+                            </p>
+                            <p>
+                                Dans cette situation, il cochera sur la prescription médicale de transport "véhicule personnel", accompagné si besoin par une autre personne.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Si je vais en tramway à l’hôpital, est-ce que je suis remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Au même titre que la voiture, les transports en commun peuvent être pris en charge sous réserve d'une prescription médicale de transport.
+                            </p>
+                            <p>
+                                Si votre état de santé justifie la prise en charge, votre médecin cochera la case "transport en commun" sur la prescription médicale.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Quels justificatifs dois-je fournir pour être remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Pour que votre transport soit pris en charge par l’Assurance Maladie, vous devez fournir les documents suivants :
+                            </p>
+                            <ul>
+                                <li>la prescription médicale de transport,</li>
+                                <li>les justificatifs de paiement (ex : facture, ticket de péage, de stationnement, ticket de transport en commun…).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Pourquoi est-ce plus intéressant d'utiliser mon véhicule personnel ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                L'utilisation de votre voiture ou des transports en commun est plus flexible et plus économique :
+                            </p>
+                            <ul>
+                                <li>vous n'avez pas de temps d'attente et vous êtes libre de votre trajet,</li>
+                                <li>la franchise médicale de 2€, par trajet et par jour, n'est pas retenue de vos remboursements.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Si mon voisin m’amène à l’hôpital avec sa voiture, qui est remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                C'est toujours la personne qui a eu une prescription médicale de transport qui est remboursée, même si ce n'est pas elle qui conduit (dans le cas du transport en voiture personnelle).
+                            </p>
+                            <p>
+                                Par exemple, votre voisin peut vous conduire à l'hôpital avec son véhicule, mais c'est vous qui serez remboursé.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Si je prends ma voiture, de combien serai-je remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Vos frais de transport en véhicule personnel sont remboursés à 65 % sur la base du tarif kilométrique en vigueur, fixé à 0,30 €/km (arrêté du 30 mars 2015) plus vos frais de péage et de parking. Selon votre situation médicale, votre prise en charge peut être de 100% (Accident de Travail, Affection de Longue Durée, Maternité...). Plus d'informations sur ameli.fr.
+                            </p>
+                            <p>
+                                Par exemple, Madame A. est hospitalisée à 25 km de chez elle pour une opération chirurgicale.<br />
+                                Sous réserve d'une prescription médicale de transport, la CPAM lui remboursera <strong>9,75 euros</strong>.<br />
+                                Mode de calcul : [(25 km x 0.30 € ) x 2 (aller/retour)] x 65% = 9,75 euros
+                            </p>
+                            <p>
+                                Par exemple, Monsieur D. est hospitalisé à 25 km de chez lui, pour une maladie en rapport avec son ALD.<br />
+                                Sous réserve d'une prescription médicale de transport, la CPAM lui remboursera <strong>15 euros</strong>.<br />
+                                Mode de calcul : [(25 km x 0.30 € ) x 2 (aller/retour)] x 100% = 15 euros
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « En combien de temps serai-je remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Dès réception de l'ensemble des éléments par l'Assurance Maladie, vous êtes remboursé en moins d'une semaine
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Quel document dois je-fournir ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Vous devez nous envoyer le volet 2 de la prescription médicale de transport réalisée par votre médecin.
+                            </p>
+                            <img src="{% static 'img/c874e665e60d4174abdde90ed42c780c_skjjoy.png' %}" alt="Speciment du document a fournir" />
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Qu'est-ce que des transports itératifs ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                            Les transports itératifs sont des transports réguliers, fréquents et de proximité, de distance identique <br />
+                            (même lieu de départ, même lieu d'arrivée). Le nombre de transports itératifs est défini par le médecin sur <br />
+                            la prescription médicale de transport.
+                            </p>
+                            <p>
+                            Le transport en série est un transport itératif particulier qui nécessite une Demande d'Accord Préalable (DAP) :<br />
+                            au moins 4 transports de plus de 50 kilomètres aller, sur une période de 2 mois, au titre d'un même traitement.
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Est-ce que je dois conserver mes pièces justificatives ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Oui, vous devez conserver vos pièces justificatives (prescription médicale de transport, tickets de métro, de parking...) pendant 2 ans et un trimestre. En effet, les originaux de ces documents pourraient vous être demandés en cas de contrôle par l'Assurance Maladie.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p class="plus-d-info scroll-reveal">
+                        Retrouvez plus d'informations sur <a href="https://www.ameli.fr/assure/remboursements/rembourse/transport/transport" target="_blank">ameli.fr</a>
+                    </p>
+                </div>
+            </div>
+
+
+
+        </section>
+
+        <section id="s6">
+            <div class="section-content--wrapper scroll-reveal">
+                <a name="7"></a>
+                <h2>Une question sur ce nouveau service ?</h2>
+
+                {% include 'contact/_form.html' with form=contact_form %}
+
+                <a href="https://www.ameli.fr" target="_blank">
+                    <img class="logo" src="{% static 'img/logoAmeli_gtnwya.png' %}" alt="Logo ameli.fr" />
+                </a>
+                <a href="https://beta.gouv.fr/" target="_blank">
+                    <img class="logo" src="{% static 'img/logo-incubateur-avec-titre_rnoq0u.png' %}" alt="Logo beta.gouv.fr" />
+                </a>
+            </div>
+        </section>
     </div>
-
-    <section id="s2">
-        <a name="2"></a>
-        <div class="section-content--wrapper">
-            <h2 class="caps scroll-reveal">UNE SEMAINE POUR ÊTRE REMBOURSÉ</h2>
-            <p class="scroll-reveal">
-                Sur prescription de votre médecin, l'Assurance Maladie rembourse les frais d'utilisation de votre véhicule personnel ou des transports en commun.
-            </p>
-            <div id="today-tomorrow--wrapper">
-                <div class="bullet--wrapper scroll-reveal">
-                    <h3>HIER :</h3>
-                    <ul>
-                        <li>vous complétiez <strong>le formulaire papier Cerfa <a href="https://www.ameli.fr/sites/default/files/formualires/176/s3140.pdf" target="_blank">s3140</a></strong>,</li>
-                        <li>ajoutiez les justificatifs</li>
-                        <li>et les envoyiez par voie postale.</li>
-                    </ul>
-                </div>
-                <div class="bullet--wrapper scroll-reveal">
-                    <h3>AUJOURD’HUI :</h3>
-                    <ul>
-                        <li>vous déclarez vos frais <strong>directement en ligne</strong>,</li>
-                        <li>vous êtes remboursé en <strong>une semaine.</strong></li>
-                    </ul>
-               </div>
-            </div>
-            <p class="scroll-reveal">
-                <strong>
-                    C'est simple, économique, rapide !
-                </strong>
-            </p>
-        </div>
-    </section>
-
-    <section id="s3">
-        <a name="3"></a>
-        <div class="section-content--wrapper">
-            <h2 class="scroll-reveal">
-                <strong>3 étapes</strong> pour accélérer le remboursement<br />
-                du transport prescrit
-            </h2>
-            <div class="processes--wrapper">
-                <div class="process--wrapper scroll-reveal">
-                    <img src="{% static 'img/04.png' %}" alt="icon" />
-                    <div class="description--wrapper">
-                        <h2>1/ Je déclare mon trajet</h2>
-                        <p>
-                            Je saisis les informations nécessaires : nombre de kilomètres, frais de péage, frais de stationnement...
-                        </p>
-                    </div>
-                </div>
-
-                <div class="process--wrapper scroll-reveal">
-                    <img src="{% static 'img/135.png' %}" alt="icon" />
-                    <div class="description--wrapper">
-                        <h2>2/ Je transmets mes justificatifs</h2>
-                        <p>
-                            Je photographie ou scanne ma prescription médicale de transport et mes justificatifs et les joins à ma demande (tickets de parking, de bus, de péage...).
-                        </p>
-                    </div>
-                </div>
-
-                <div class="process--wrapper scroll-reveal">
-                    <img src="{% static 'img/26.png' %}" alt="icon" />
-                    <div class="description--wrapper">
-                        <h2>3/ Je valide ma demande</h2>
-                        <p>
-                            Je vérifie les informations et j'envoie ma demande de remboursement directement en ligne. Je reçois une confirmation de traitement.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="s7">
-        <a name="4"></a>
-        <div class="section-content--wrapper">
-            <div class="titles--wrapper">
-                <h2 class="scroll-reveal">Ils ont déjà utilisé notre service</h2>
-                <h3 class="scroll-reveal">
-                    N'hésitez pas vous aussi à nous faire part de vos retours et suggestions.
-                </h3>
-            </div>
-            <div class="temoignages--wrapper">
-                <div class="temoignage--wrapper scroll-reveal">
-                    <div class="author">
-                        Amélie F.
-                    </div>
-                    <div class="citation">
-                        "Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière, paiement très rapide et simplifié grâce à l’envoi par internet! <br /> Merci"
-                    </div>
-                </div>
-
-                <div class="temoignage--wrapper scroll-reveal">
-                    <div class="author">
-                        Jean-Marie P.
-                    </div>
-                    <div class="citation">
-                        "...sympa <br /> je reste à votre disposition <br /> et très belle initiative que la vôtre"
-                    </div>
-                </div>
-
-                <div class="temoignage--wrapper scroll-reveal">
-                    <div class="author">
-                        Natacha B.
-                    </div>
-                    <div class="citation">
-                        "J’ai eu le plaisir de faire partie des premières patientes à être remboursées grâce à ce système. Ce fut très rapide donc fort appréciable ! En espérant que bientôt tous les moyens transports soient également remboursés grâce à ce système. Merci pour les patients de mettre en place ce genre d’initiative."
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="s4">
-        <a name="5"></a>
-        <div class="section-content--wrapper">
-            {% include 'mrsrequest/_form.html' %}
-        </div>
-    </section>
-
-    <section id="s5">
-        <a name="6"></a>
-        <div class="section-content--wrapper">
-            <h2 class="scroll-reveal">FOIRE AUX QUESTIONS</h2>
-            <h3 class="scroll-reveal">Toutes les questions que vous vous posez sur le transport médical</h3>
-
-            <!--
-                For the iframe video to resize with viewport with, we need 2 containers:
-                https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
-            -->
-            <div id="youtube-video--wrapper-1" class="scroll-reveal">
-                <div id="youtube-video--wrapper-2">
-                    <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/9xgIX-kCsCw" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-
-            <div class="FAQ--wrapper">
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Est-ce que tous les transports médicaux sont remboursés ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            Non, la prise en charge par l’Assurance Maladie couvre de nombreuses situations mais reste étroitement liée à votre situation administrative et médicale. Quoi qu’il en soit, elle est dépendante d’une prescription médicale de transport.
-                        </p>
-                    </div>
-                </div>
-
-                <p><strong>...</strong></p>
-
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Aller en voiture à l'hôpital, c'est possible ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            Oui, c'est possible ! Votre médecin est le seul à pouvoir estimer si votre état de santé justifie la prise en charge de votre véhicule personnel.
-                        </p>
-                        <p>
-                            Dans cette situation, il cochera sur la prescription médicale de transport "véhicule personnel", accompagné si besoin par une autre personne.
-                        </p>
-                    </div>
-                </div>
-
-                <p><strong>...</strong></p>
-
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Si je vais en tramway à l’hôpital, est-ce que je suis remboursé ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            Au même titre que la voiture, les transports en commun peuvent être pris en charge sous réserve d'une prescription médicale de transport.
-                        </p>
-                        <p>
-                            Si votre état de santé justifie la prise en charge, votre médecin cochera la case "transport en commun" sur la prescription médicale.
-                        </p>
-                    </div>
-                </div>
-
-                <p><strong>...</strong></p>
-
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Quels justificatifs dois-je fournir pour être remboursé ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            Pour que votre transport soit pris en charge par l’Assurance Maladie, vous devez fournir les documents suivants :
-                        </p>
-                        <ul>
-                            <li>la prescription médicale de transport,</li>
-                            <li>les justificatifs de paiement (ex : facture, ticket de péage, de stationnement, ticket de transport en commun…).</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <p><strong>...</strong></p>
-
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Pourquoi est-ce plus intéressant d'utiliser mon véhicule personnel ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            L'utilisation de votre voiture ou des transports en commun est plus flexible et plus économique :
-                        </p>
-                        <ul>
-                            <li>vous n'avez pas de temps d'attente et vous êtes libre de votre trajet,</li>
-                            <li>la franchise médicale de 2€, par trajet et par jour, n'est pas retenue de vos remboursements.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <p><strong>...</strong></p>
-
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Si mon voisin m’amène à l’hôpital avec sa voiture, qui est remboursé ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            C'est toujours la personne qui a eu une prescription médicale de transport qui est remboursée, même si ce n'est pas elle qui conduit (dans le cas du transport en voiture personnelle).
-                        </p>
-                        <p>
-                            Par exemple, votre voisin peut vous conduire à l'hôpital avec son véhicule, mais c'est vous qui serez remboursé.
-                        </p>
-                    </div>
-                </div>
-
-                <p><strong>...</strong></p>
-
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Si je prends ma voiture, de combien serai-je remboursé ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            Vos frais de transport en véhicule personnel sont remboursés à 65 % sur la base du tarif kilométrique en vigueur, fixé à 0,30 €/km (arrêté du 30 mars 2015) plus vos frais de péage et de parking. Selon votre situation médicale, votre prise en charge peut être de 100% (Accident de Travail, Affection de Longue Durée, Maternité...). Plus d'informations sur ameli.fr.
-                        </p>
-                        <p>
-                            Par exemple, Madame A. est hospitalisée à 25 km de chez elle pour une opération chirurgicale.<br />
-                            Sous réserve d'une prescription médicale de transport, la CPAM lui remboursera <strong>9,75 euros</strong>.<br />
-                            Mode de calcul : [(25 km x 0.30 € ) x 2 (aller/retour)] x 65% = 9,75 euros
-                        </p>
-                        <p>
-                            Par exemple, Monsieur D. est hospitalisé à 25 km de chez lui, pour une maladie en rapport avec son ALD.<br />
-                            Sous réserve d'une prescription médicale de transport, la CPAM lui remboursera <strong>15 euros</strong>.<br />
-                            Mode de calcul : [(25 km x 0.30 € ) x 2 (aller/retour)] x 100% = 15 euros
-                        </p>
-                    </div>
-                </div>
-
-                <p><strong>...</strong></p>
-
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « En combien de temps serai-je remboursé ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            Dès réception de l'ensemble des éléments par l'Assurance Maladie, vous êtes remboursé en moins d'une semaine
-                        </p>
-                    </div>
-                </div>
-
-                <p><strong>...</strong></p>
-
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Quel document dois je-fournir ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            Vous devez nous envoyer le volet 2 de la prescription médicale de transport réalisée par votre médecin.
-                        </p>
-                        <img src="{% static 'img/c874e665e60d4174abdde90ed42c780c_skjjoy.png' %}" alt="Speciment du document a fournir" />
-                    </div>
-                </div>
-
-                <p><strong>...</strong></p>
-
-              <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Qu'est-ce que des transports itératifs ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                          Les transports itératifs sont des transports réguliers, fréquents et de proximité, de distance identique <br />
-                          (même lieu de départ, même lieu d'arrivée). Le nombre de transports itératifs est défini par le médecin sur <br />
-                          la prescription médicale de transport.
-                        </p>
-                        <p>
-                          Le transport en série est un transport itératif particulier qui nécessite une Demande d'Accord Préalable (DAP) :<br />
-                          au moins 4 transports de plus de 50 kilomètres aller, sur une période de 2 mois, au titre d'un même traitement.
-                        </p>
-
-                    </div>
-                </div>
-
-
-                <div class="question--wrapper scroll-reveal">
-                    <p class="question">
-                        « Est-ce que je dois conserver mes pièces justificatives ? »
-                    </p>
-                    <div class="answer">
-                        <p>
-                            Oui, vous devez conserver vos pièces justificatives (prescription médicale de transport, tickets de métro, de parking...) pendant 2 ans et un trimestre. En effet, les originaux de ces documents pourraient vous être demandés en cas de contrôle par l'Assurance Maladie.
-                        </p>
-                    </div>
-                </div>
-
-                <p class="plus-d-info scroll-reveal">
-                    Retrouvez plus d'informations sur <a href="https://www.ameli.fr/assure/remboursements/rembourse/transport/transport" target="_blank">ameli.fr</a>
-                </p>
-            </div>
-        </div>
-
-
-
-    </section>
-
-    <section id="s6">
-        <div class="section-content--wrapper scroll-reveal">
-            <a name="7"></a>
-            <h2>Une question sur ce nouveau service ?</h2>
-
-            {% include 'contact/_form.html' with form=contact_form %}
-
-            <a href="https://www.ameli.fr" target="_blank">
-                <img class="logo" src="{% static 'img/logoAmeli_gtnwya.png' %}" alt="Logo ameli.fr" />
-            </a>
-            <a href="https://beta.gouv.fr/" target="_blank">
-                <img class="logo" src="{% static 'img/logo-incubateur-avec-titre_rnoq0u.png' %}" alt="Logo beta.gouv.fr" />
-            </a>
-        </div>
-    </section>
 {% endblock %}
