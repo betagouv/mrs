@@ -292,3 +292,30 @@ describe('<Header />', () => {
         expect(subject.attr('toggleMenu')).toBe(props.toggleMenu)
     })
 })
+
+describe('<HeaderSmart />', () => {
+    test('renders with props', () => {
+        const props = {
+            isFat: true,
+            links: [],
+        }
+
+        const headerSmart = shallow(<HeaderSmart { ...props } />)
+        const subject1 = headerSmart.find(<Header />)
+        expect(subject1.attr('isFat')).toBe(props.isFat)
+        expect(subject1.attr('links')).toBe(props.links)
+        expect(subject1.attr('isMenuOpened')).toBe(false)
+
+        headerSmart.setState({isOpened: true})
+        const subject2 = headerSmart.find(<Header />)
+        expect(subject2.attr('isMenuOpened')).toBe(true)
+    })
+
+    test('toggleIsOpened', () => {
+        const subject = new HeaderSmart()
+
+        expect(subject.state.isOpened).toBe(false)
+        subject.toggleIsOpened()
+        expect(subject.state.isOpened).toBe(true)
+    })
+})
