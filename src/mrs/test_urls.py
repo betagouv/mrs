@@ -24,3 +24,10 @@ def test_demande_redirect(client):
     r = client.get('/mrsrequest/wizard/')
     assert r.status_code == 301
     assert r['Location'] == '/demande'
+
+
+@pytest.mark.django_db
+def test_legal(client):
+    r = client.get('/mentions-legales')
+    assert r.template_name == ['legal.html']
+    assert r.status_code == 200
