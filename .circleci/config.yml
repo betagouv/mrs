@@ -31,6 +31,9 @@ workflows:
       - docker-build
       - js-qa
       - js-test
+      - smoketest:
+          requires:
+          - docker-build
       - jpic:
           requires: [docker-build]
           filters:
@@ -47,6 +50,7 @@ workflows:
           - python-qa
           - python-test
           - docker-build
+          - smoketest
           - js-qa
           - js-test
       - validate-staging:
@@ -58,6 +62,12 @@ workflows:
           requires: [validate-staging]
 
 jobs:
+  smoketest:
+    docker:
+    - image: betagouv/mrs:$CIRCLE_SHA1
+    steps:
+    - run: mrs dev & node_modules/.bin/jest smoke.test.js
+
   python-qa:
     docker:
     - image: circleci/python:3.6.1
