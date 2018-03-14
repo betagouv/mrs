@@ -8,7 +8,7 @@ var display = (dom, selector) => dom.window.document.querySelector(selector).sty
 
 function fetch(url) {
   return JSDOM.fromURL(
-    'http://localhost:8000',
+    'http://localhost:8000' + url,
     {
       resources: 'usable',
       runScripts:'dangerously'
@@ -32,7 +32,7 @@ describe('smoke tests', () => {
   })
 
   test('institution iframe', () => {
-    return fetch('/institution/310000000/iframe/').then(dom => {
+    return fetch('/institution/310000000/mrsrequest/iframe/').then(dom => {
       let mrsrequest = display(dom, '#mrsrequest-wizard')
       dom.window.close()
       expect(mrsrequest).toEqual('')
