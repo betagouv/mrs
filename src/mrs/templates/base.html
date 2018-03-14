@@ -8,13 +8,12 @@
     {% include '_piwik.html' %}
     {% block extra_head %}
     {% render_bundle 'base' 'css' %}
+    {% include 'mrsrequest/_form_css.html' %}
     {% endblock %}
   </head>
   <body class="{% block body_class %} {% endblock %}">
-    <div
-      style="background-image: url('{% static "img/mrsHeaderOld.jpg" %}')"
-      id="background-img--wrapper">
-    </div>
+    {% block before_content %}
+    {% endblock %}
 
     <div id="app--wrapper">
 
@@ -38,6 +37,7 @@
     <script src="{% static 'material/js/jquery.js' %}"></script>
     {% block extra_body %}
     {% render_bundle 'base' 'js' %}
+    {% include 'mrsrequest/_form_js.html' %}
     {% endblock %}
   </body>
 </html>

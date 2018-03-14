@@ -1,13 +1,6 @@
 {% extends view.base %}
 
-{% block extra_head %}
-    {% include 'mrsrequest/_form_css.html' %}
-{% endblock %}
-
 {% block content %}
     {% include 'mrsrequest/_form.html' %}
-{% endblock %}
-
-{% block extra_body %}
-    {% include 'mrsrequest/_form_js.html' %}
+    {{ block.super }}
 {% endblock %}

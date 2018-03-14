@@ -71,7 +71,9 @@ jobs:
         command: |
           export ALLOWED_HOSTS="localhost"
           export SECRET_KEY=notsecret
-          mrs migrate && mrs runserver
+          mrs migrate
+          echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://localhost:8000")' | mrs shell
+          mrs runserver
         working_directory: /code
         background: true
     - run:
