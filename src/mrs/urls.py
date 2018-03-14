@@ -5,6 +5,8 @@ from django.urls import include, path
 from contact.views import ContactView
 from mrsrequest.views import MRSRequestCreateView
 
+from . import views
+
 admin.site.site_header = 'MRS Admin'
 admin.site.site_title = 'MRS Admin'
 
@@ -14,6 +16,7 @@ urlpatterns = [
     path('', include('mrspage.urls', namespace='mrspage')),
     path('demande', MRSRequestCreateView.as_view(), name='demande'),
     path('contact', ContactView.as_view(), name='contact'),
+    path('mentions-legales', views.LegalView.as_view(), name='legal'),
     path('contact/', include('contact.urls', namespace='contact')),
     path('mrsrequest/', include('mrsrequest.urls', namespace='mrsrequest')),
     path('institution/', include('institution.urls', namespace='institution')),
