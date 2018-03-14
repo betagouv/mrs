@@ -29,6 +29,9 @@
     "collectCoverageFrom": [
       "src/mrs/static/js/*{js,jsx}",
       "src/mrs/static/js/components/*{js,jsx}"
+    ],
+    "testPathIgnorePatterns": [
+      "smoke.test.js"
     ]
   },
   "dependencies": {
