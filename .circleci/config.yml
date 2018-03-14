@@ -31,6 +31,9 @@ workflows:
       - docker-build
       - js-qa
       - js-test
+      - smoketest:
+          requires:
+          - docker-build
       - jpic:
           requires: [docker-build]
           filters:
@@ -47,6 +50,7 @@ workflows:
           - python-qa
           - python-test
           - docker-build
+          - smoketest
           - js-qa
           - js-test
       - validate-staging:
@@ -58,6 +62,26 @@ workflows:
           requires: [validate-staging]
 
 jobs:
+  smoketest:
+    docker:
+    - image: betagouv/mrs:$CIRCLE_SHA1
+    steps:
+    - run:
+        name: MRS Runserver
+        command: |
+          export ALLOWED_HOSTS="localhost"
+          export SECRET_KEY=notsecret
+          mrs migrate && mrs runserver
+        working_directory: /code
+        background: true
+    - run:
+        name: WAIT runserver
+        command: until curl localhost:8000 &> /dev/null; do sleep 1; done
+    - run:
+        name: RUN smoke tests
+        command: node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+        working_directory: /code
+
   python-qa:
     docker:
     - image: circleci/python:3.6.1
