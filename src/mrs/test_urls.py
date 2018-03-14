@@ -31,3 +31,10 @@ def test_legal(client):
     r = client.get('/mentions-legales')
     assert r.template_name == ['legal.html']
     assert r.status_code == 200
+
+
+@pytest.mark.django_db
+def test_faq(client):
+    r = client.get('/faq')
+    assert r.template_name == ['faq.html']
+    assert r.status_code == 200
