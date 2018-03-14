@@ -66,7 +66,7 @@ jobs:
     docker:
     - image: betagouv/mrs:$CIRCLE_SHA1
     steps:
-    - run: cd /code && mrs dev & && until curl localhost:8000 &> /dev/null; do sleep 1; done; /code/node_modules/.bin/jest /code/src/mrs/static/js/smoke.test.js 2> /dev/null
+    - run: cd /code && mrs dev & until curl localhost:8000 &> /dev/null; do sleep 1; done; /code/node_modules/.bin/jest /code/src/mrs/static/js/smoke.test.js 2> /dev/null
 
   python-qa:
     docker:
