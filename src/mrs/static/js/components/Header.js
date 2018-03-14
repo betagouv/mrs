@@ -117,24 +117,6 @@ class HeaderSmart extends Component {
 
     this.state = {
       isOpened: false,
-      links: [
-        {
-          url: '/',
-          alias: 'fonctionnement',
-        },
-        {
-          url: '/foo',
-          alias: 'formulaire',
-        },
-        {
-          url: '/bar',
-          alias: 'faq',
-        },
-        {
-          url: '/bar',
-          alias: 'contact',
-        },
-      ]
 
     }
 
@@ -148,7 +130,7 @@ class HeaderSmart extends Component {
   render() {
     return <Header
       isFat={ this.props.isFat }
-      links={ this.state.links }
+      links={ this.props.links }
       toggleMenu={ this.toggleIsOpened }
       isMenuOpened={ this.state.isOpened } />
   }
@@ -156,6 +138,24 @@ class HeaderSmart extends Component {
 
 HeaderSmart.defaultProps = {
   isFat: false,
+  links: [
+    {
+        url: '/',
+        alias: 'fonctionnement',
+    },
+    {
+        url: '/foo',
+        alias: 'formulaire',
+    },
+    {
+        url: '/bar',
+        alias: 'faq',
+    },
+    {
+        url: '/bar',
+        alias: 'contact',
+    },
+  ]
 }
 
 export default HeaderSmart
