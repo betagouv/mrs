@@ -14,12 +14,12 @@ from .models import Institution
 class ExampleJpg(generic.View):
     def get(self, request, *args, **kwargs):
         path = finders.find(
-            'img/mrsHeaderFiltreBleu-logo_ito86r.jpg',
+            'img/icones/burger.png'
         )
 
         response = http.FileResponse(
             open(path, 'rb'),
-            content_type='image/jpeg',
+            content_type='image/png',
         )
 
         response['Access-Control-Allow-Origin'] = '*'
