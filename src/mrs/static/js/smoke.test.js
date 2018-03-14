@@ -9,7 +9,7 @@ describe('smoke test', () => {
     return JSDOM.fromURL(
       'http://localhost:8000',
       {
-        resources: "usable",
+        resources: 'usable',
         runScripts:'dangerously'
       }
     ).then(dom => {
