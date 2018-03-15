@@ -24,7 +24,7 @@
         window.allowOrigin = '{{ view.allow_origin }}'
         window.allowInsecure = {% if view.ALLOW_INSECURE %}true{% else %}false{% endif %}
     </script>
-    {% include '_base_js.html' %}
+    {% include 'mrsrequest/_form_js.html' %}
     {% render_bundle 'iframe' 'js' %}
   </body>
 </html>
