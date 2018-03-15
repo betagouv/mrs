@@ -1,42 +1,5 @@
-$primary-blue: #537c89
-$secondary-blue: #edf1f4
-$primary-green: #74be8b
-$primary-red: #ef776f
-
-$page-margin-left: 1.5rem
-$desktop-page-margin-left: 20vw
-
-$desktop-min-width: 992px
-
-=flex-column()
-  display: flex
-  flex-direction: column
-
-=flex-center()
-  display: flex
-  justify-content: center
-  align-items: center
-
-=wrapper()
-  padding-left: $page-margin-left
-
-  @media (min-width: $desktop-min-width)
-    padding-left: $desktop-page-margin-left
-
-=button($bg-color)
-  $height: 2.5rem
-  border-radius: $height
-  background-color: $bg-color
-  padding: 0.5rem 1rem
-  height: $height
-  cursor: pointer
-
-  @media (min-width: $desktop-min-width)
-    $height: 1.5rem
-    border-radius: $height
-    height: $height
-    padding-top: 0
-    padding-bottom: 0
+@import './mixins.sass'
+@import './vars.sass'
 
 .thumb--wrapper
   position: relative
