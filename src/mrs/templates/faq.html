@@ -2,22 +2,36 @@
 {% load static %}
 
 {% block content %}
+<div class="mrs-std-page--wrapper">
+    <div class="mrs-std-page small-padding">
+        <!--
+             For the iframe video to resize with viewport with, we need 2 containers:
+             https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
+        -->
+        <div id="youtube-video--wrapper-1" class="scroll-reveal">
+            <div id="youtube-video--wrapper-2">
+                <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/9xgIX-kCsCw" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+
+        <div id="faq--wrapper">
+            <div class="left col--wrapper">
+                <h3><span>comment etre bien rembouse :</span></h3>
+            </div>
+            <div class="righ col--wrapper">
+                <h3><span>les transports pris en charge :</span></h3>
+            </div>
+        </div>
+
+
         <section id="s5">
             <a name="6"></a>
             <div class="section-content--wrapper">
                 <h2 class="scroll-reveal">FOIRE AUX QUESTIONS</h2>
                 <h3 class="scroll-reveal">Toutes les questions que vous vous posez sur le transport médical</h3>
 
-                <!--
-                    For the iframe video to resize with viewport with, we need 2 containers:
-                    https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
-                -->
-                <div id="youtube-video--wrapper-1" class="scroll-reveal">
-                    <div id="youtube-video--wrapper-2">
-                        <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/9xgIX-kCsCw" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
 
                 <div class="FAQ--wrapper">
                     <div class="question--wrapper scroll-reveal">
@@ -204,4 +218,6 @@
 
 
         </section>
+    </div>
+</div>
 {% endblock %}
