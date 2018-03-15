@@ -44,3 +44,11 @@ class Caisse(models.Model):
 def caisse_number_format(sender, instance, **kwargs):
     instance.number = '{:03d}'.format(int(instance.number))
 models.signals.pre_save.connect(caisse_number_format, sender=Caisse)
+
+
+class Email(models.Model):
+    email = models.EmailField()
+    caisse = models.ForeignKey('Caisse', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.email
