@@ -144,15 +144,15 @@ HeaderSmart.defaultProps = {
         alias: 'fonctionnement',
     },
     {
-        url: '/foo',
+        url: '/demande',
         alias: 'formulaire',
     },
     {
-        url: '/bar',
+        url: '/faq',
         alias: 'faq',
     },
     {
-        url: '/bar',
+        url: '/contact',
         alias: 'contact',
     },
   ]
