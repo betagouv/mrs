@@ -6,7 +6,7 @@
 
 {% block footer %}
     {{ block.super }}
-    {% include '_base_js.html' %}
+    <script src="{% static 'material/js/jquery.js' %}"></script>
     {% render_bundle 'admin' 'js' %}
 {% endblock %}
 
