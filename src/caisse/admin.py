@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Caisse
+from .models import Caisse, Email
 
 
 class CaisseAdmin(admin.ModelAdmin):
@@ -10,3 +10,10 @@ class CaisseAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Caisse, CaisseAdmin)
+
+
+class EmailAdmin(admin.ModelAdmin):
+    list_display = ('email', 'caisse')
+
+
+admin.site.register(Email, EmailAdmin)
