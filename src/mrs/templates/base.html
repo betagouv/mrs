@@ -22,11 +22,15 @@
         {% block content %}
         {% endblock %}
 
-        <section id="footer">
+        <div id="footer">
+            <div class="links">
+                <a href="/legal">mentions legales</a>
+                <a href="/stats">statistiques</a>
+            </div>
             <p>
                 © 2017 - CNAM - CPAM DE LA HAUTE-GARONNE
             </p>
-        </section>
+        </div>
     </div>
 
     {% if SENTRY_DSN %}
