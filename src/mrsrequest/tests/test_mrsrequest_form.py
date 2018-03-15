@@ -23,7 +23,7 @@ def person():
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_form_save_m2m(monkeypatch, person):
+def test_form_save_m2m(monkeypatch, person, caisse):
     mrsrequest_uuid = '6bf490e6-4521-458a-adfe-8d4ef5a64687'
 
     monkeypatch.setattr(
@@ -42,6 +42,7 @@ def test_form_save_m2m(monkeypatch, person):
         Bill.objects.record_upload(mrsrequest_uuid, f)
 
     data = dict(mrsrequest_uuid=[mrsrequest_uuid])
+    data['caisse'] = [caisse.pk]
     data['date_depart'] = ['2017-02-02']
     data['date_return'] = ['2017-02-02']
     data['distance'] = ['100']

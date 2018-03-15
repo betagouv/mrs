@@ -98,6 +98,8 @@ class MRSRequestCreateView(generic.TemplateView):
         return generic.TemplateView.get(self, request, *args, **kwargs)
 
     def save(self):
+        self.forms['mrsrequest'].instance.caisse = (
+            self.forms['mrsrequest'].cleaned_data['caisse'])
         self.forms['mrsrequest'].instance.insured = (
             self.forms['person'].get_or_create())
         self.forms['mrsrequest'].instance.creation_ip = get_client_ip(
@@ -181,7 +183,7 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
             self.get_mail_title(),
             self.get_mail_body(),
             settings.DEFAULT_FROM_EMAIL,
-            [settings.LIQUIDATION_EMAIL],
+            [self.object.caisse.liquidation_email],
             reply_to=[settings.TEAM_EMAIL],
             attachments=[self.object.pmt.tuple()] + [
                 bill.tuple() for bill in self.object.bill_set.all()

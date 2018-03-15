@@ -8,6 +8,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.test.client import RequestFactory as drf
 from django.urls import reverse
 
+from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
 from mrsrequest.views import MRSRequestCreateView
 
@@ -70,3 +71,17 @@ class Payload(object):
 @pytest.fixture
 def p(srf):
     return Payload(srf)
+
+
+@pytest.fixture
+def caisse():
+    return Caisse.objects.update_or_create(
+        pk=9,
+        defaults=dict(
+            code='010000000',
+            number=311,
+            name='test',
+            active=True,
+            liquidation_email='taoeu@aoeu.com',
+        )
+    )[0]

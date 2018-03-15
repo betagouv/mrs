@@ -21,6 +21,7 @@
 },
 {
     "fields": {
+        "caisse": 9,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "creation_ip": "127.0.0.1",
         "display_id": 201712190000,

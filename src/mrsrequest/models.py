@@ -78,6 +78,11 @@ class MRSRequest(models.Model):
         on_delete=models.SET_NULL,
         verbose_name='Auteur du changement de statut',
     )
+    caisse = models.ForeignKey(
+        'caisse.Caisse',
+        on_delete=models.SET_NULL,
+        null=True,
+    )
     insured = models.ForeignKey(
         'person.Person',
         on_delete=models.SET_NULL,

@@ -82,11 +82,12 @@ def test_mrsrequestcreateview_requires_pmt(p):
 
 
 @pytest.mark.django_db
-def test_mrsrequestcreateview_hydrate_mrsrequest(p):
+def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
     p.post(**data)
     assert not p.view.forms['mrsrequest'].is_valid()
 
+    data['caisse'] = caisse.pk
     data['date_depart'] = '2017-02-02'
     data['date_return'] = '2017-02-02'
     data['distance'] = '100'
@@ -136,8 +137,9 @@ def test_mrsrequestcreateview_hydrate_person(p):
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_mrsrequestcreateview_post_save_integration(p):
+def test_mrsrequestcreateview_post_save_integration(p, caisse):
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
+    data['caisse'] = caisse.pk
     data['date_depart'] = '2017-02-02'
     data['date_return'] = '2017-02-02'
     data['1-date_depart'] = '2017-01-02'
