@@ -196,3 +196,22 @@ $desktop-min-width: 992px
 
       p
         margin: auto
+
+  #index-footer--wrapper
+    display: flex
+    justify-content: center
+    margin: 3rem 0
+
+    a
+
+      &:first-child
+        margin-right: 1.5rem
+
+        @media (min-width: $desktop-min-width)
+          justify-content: flex-end
+          margin-right: 2.5rem
+          padding-right: 2.5rem
+          border-right: 2px solid #bfbfbf
+
+      img
+        max-height: 2rem

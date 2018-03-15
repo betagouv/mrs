@@ -141,20 +141,13 @@
             </div>
         </section>
 
-        <section id="s6">
-            <div class="section-content--wrapper scroll-reveal">
-                <a name="7"></a>
-                <h2>Une question sur ce nouveau service ?</h2>
-
-                {% include 'contact/_form.html' with form=contact_form %}
-
-                <a href="https://www.ameli.fr" target="_blank">
-                    <img class="logo" src="{% static 'img/logoAmeli_gtnwya.png' %}" alt="Logo ameli.fr" />
-                </a>
-                <a href="https://beta.gouv.fr/" target="_blank">
-                    <img class="logo" src="{% static 'img/logo-incubateur-avec-titre_rnoq0u.png' %}" alt="Logo beta.gouv.fr" />
-                </a>
-            </div>
-        </section>
+        <div id="index-footer--wrapper">
+            <a href="https://beta.gouv.fr/" target="_blank">
+                <img class="logo" src="{% static 'img/logos/beta-gouv-marianne.png' %}" alt="Logo beta.gouv.fr" />
+            </a>
+            <a href="https://www.ameli.fr" target="_blank">
+                <img class="logo" src="{% static 'img/logos/ameli.png' %}" alt="Logo ameli.fr" />
+            </a>
+        </div>
     </div>
 {% endblock %}
