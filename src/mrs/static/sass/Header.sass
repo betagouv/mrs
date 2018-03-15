@@ -119,10 +119,12 @@
     height: $headerHeight
 
     &.thin
-      height: 3rem
+      $height: 2.3rem
+      height: $height
+      padding-right: 25vw
 
       .HeaderFat--wrapper
-        justify-content: center
+        justify-content: flex-end
 
       .mrs-logo--wrapper
         display: none
@@ -131,31 +133,13 @@
         top: 100%
         left: 10vw
 
-      .burger--wrapper
-        width: 3rem
-        height: 3rem
-
-        .burger
-          height: 2rem
-          width: 2rem
-          top: 0.5rem
-          left: 0.5rem
-
-          &.close
-            height: 1.5rem
-            width: 1.5rem
-            top: 0.75rem
-            left: 0.75rem
-
       .menu-links--wrapper
         position: inherit
         flex-direction: row
 
         .link
-          height: 3rem
-
-          &:first-child
-            border-left: 2px solid white
+          height: $height
+          border: none
 
     .mrs-logo--wrapper
       flex: inherit
@@ -164,6 +148,7 @@
       .logo-mrs
         background-color: white
         height: $headerHeight
+        margin-top: 2rem
 
     .burger--wrapper
       display: none
