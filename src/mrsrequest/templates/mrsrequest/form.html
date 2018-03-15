@@ -1,6 +1,10 @@
 {% extends view.base %}
 
 {% block content %}
-    {% include 'mrsrequest/_form.html' %}
-    {{ block.super }}
+    <div class="mrs-std-page--wrapper">
+        <div class="mrs-std-page">
+            {% include 'mrsrequest/_form.html' %}
+            {{ block.super }}
+        </div>
+    </div>
 {% endblock %}
