@@ -1,0 +1,23 @@
+@import './mixins.sass'
+@import './vars.sass'
+
+#faq--wrapper
+  display: flex
+
+  h3 > span
+    $height: 1.5rem
+
+    height: $height
+    padding: 1 rem
+    background-color: $primary-blue
+    border-top-right-radius: calc(#{$height} / 2)
+    border-bottom-right-radius: calc(#{$height} / 2)
+    font-size: 1rem
+    padding: 0 1rem
+    text-transform: uppercase
+    color: white
+    font-weight: bold
+
+  .col--wrapper
+    +flex-column()
+    flex: 1
