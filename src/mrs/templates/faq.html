@@ -1,5 +1,207 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-mentions legales
+        <section id="s5">
+            <a name="6"></a>
+            <div class="section-content--wrapper">
+                <h2 class="scroll-reveal">FOIRE AUX QUESTIONS</h2>
+                <h3 class="scroll-reveal">Toutes les questions que vous vous posez sur le transport médical</h3>
+
+                <!--
+                    For the iframe video to resize with viewport with, we need 2 containers:
+                    https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
+                -->
+                <div id="youtube-video--wrapper-1" class="scroll-reveal">
+                    <div id="youtube-video--wrapper-2">
+                        <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/9xgIX-kCsCw" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="FAQ--wrapper">
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Est-ce que tous les transports médicaux sont remboursés ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Non, la prise en charge par l’Assurance Maladie couvre de nombreuses situations mais reste étroitement liée à votre situation administrative et médicale. Quoi qu’il en soit, elle est dépendante d’une prescription médicale de transport.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Aller en voiture à l'hôpital, c'est possible ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Oui, c'est possible ! Votre médecin est le seul à pouvoir estimer si votre état de santé justifie la prise en charge de votre véhicule personnel.
+                            </p>
+                            <p>
+                                Dans cette situation, il cochera sur la prescription médicale de transport "véhicule personnel", accompagné si besoin par une autre personne.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Si je vais en tramway à l’hôpital, est-ce que je suis remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Au même titre que la voiture, les transports en commun peuvent être pris en charge sous réserve d'une prescription médicale de transport.
+                            </p>
+                            <p>
+                                Si votre état de santé justifie la prise en charge, votre médecin cochera la case "transport en commun" sur la prescription médicale.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Quels justificatifs dois-je fournir pour être remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Pour que votre transport soit pris en charge par l’Assurance Maladie, vous devez fournir les documents suivants :
+                            </p>
+                            <ul>
+                                <li>la prescription médicale de transport,</li>
+                                <li>les justificatifs de paiement (ex : facture, ticket de péage, de stationnement, ticket de transport en commun…).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Pourquoi est-ce plus intéressant d'utiliser mon véhicule personnel ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                L'utilisation de votre voiture ou des transports en commun est plus flexible et plus économique :
+                            </p>
+                            <ul>
+                                <li>vous n'avez pas de temps d'attente et vous êtes libre de votre trajet,</li>
+                                <li>la franchise médicale de 2€, par trajet et par jour, n'est pas retenue de vos remboursements.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Si mon voisin m’amène à l’hôpital avec sa voiture, qui est remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                C'est toujours la personne qui a eu une prescription médicale de transport qui est remboursée, même si ce n'est pas elle qui conduit (dans le cas du transport en voiture personnelle).
+                            </p>
+                            <p>
+                                Par exemple, votre voisin peut vous conduire à l'hôpital avec son véhicule, mais c'est vous qui serez remboursé.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Si je prends ma voiture, de combien serai-je remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Vos frais de transport en véhicule personnel sont remboursés à 65 % sur la base du tarif kilométrique en vigueur, fixé à 0,30 €/km (arrêté du 30 mars 2015) plus vos frais de péage et de parking. Selon votre situation médicale, votre prise en charge peut être de 100% (Accident de Travail, Affection de Longue Durée, Maternité...). Plus d'informations sur ameli.fr.
+                            </p>
+                            <p>
+                                Par exemple, Madame A. est hospitalisée à 25 km de chez elle pour une opération chirurgicale.<br />
+                                Sous réserve d'une prescription médicale de transport, la CPAM lui remboursera <strong>9,75 euros</strong>.<br />
+                                Mode de calcul : [(25 km x 0.30 € ) x 2 (aller/retour)] x 65% = 9,75 euros
+                            </p>
+                            <p>
+                                Par exemple, Monsieur D. est hospitalisé à 25 km de chez lui, pour une maladie en rapport avec son ALD.<br />
+                                Sous réserve d'une prescription médicale de transport, la CPAM lui remboursera <strong>15 euros</strong>.<br />
+                                Mode de calcul : [(25 km x 0.30 € ) x 2 (aller/retour)] x 100% = 15 euros
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « En combien de temps serai-je remboursé ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Dès réception de l'ensemble des éléments par l'Assurance Maladie, vous êtes remboursé en moins d'une semaine
+                            </p>
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Quel document dois je-fournir ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Vous devez nous envoyer le volet 2 de la prescription médicale de transport réalisée par votre médecin.
+                            </p>
+                            <img src="{% static 'img/c874e665e60d4174abdde90ed42c780c_skjjoy.png' %}" alt="Speciment du document a fournir" />
+                        </div>
+                    </div>
+
+                    <p><strong>...</strong></p>
+
+                <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Qu'est-ce que des transports itératifs ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                            Les transports itératifs sont des transports réguliers, fréquents et de proximité, de distance identique <br />
+                            (même lieu de départ, même lieu d'arrivée). Le nombre de transports itératifs est défini par le médecin sur <br />
+                            la prescription médicale de transport.
+                            </p>
+                            <p>
+                            Le transport en série est un transport itératif particulier qui nécessite une Demande d'Accord Préalable (DAP) :<br />
+                            au moins 4 transports de plus de 50 kilomètres aller, sur une période de 2 mois, au titre d'un même traitement.
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="question--wrapper scroll-reveal">
+                        <p class="question">
+                            « Est-ce que je dois conserver mes pièces justificatives ? »
+                        </p>
+                        <div class="answer">
+                            <p>
+                                Oui, vous devez conserver vos pièces justificatives (prescription médicale de transport, tickets de métro, de parking...) pendant 2 ans et un trimestre. En effet, les originaux de ces documents pourraient vous être demandés en cas de contrôle par l'Assurance Maladie.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p class="plus-d-info scroll-reveal">
+                        Retrouvez plus d'informations sur <a href="https://www.ameli.fr/assure/remboursements/rembourse/transport/transport" target="_blank">ameli.fr</a>
+                    </p>
+                </div>
+            </div>
+
+
+
+        </section>
 {% endblock %}
