@@ -23,6 +23,9 @@ var formInit = function (form) {
   // Setup ajax attachment
   mrsattachment(form)
 
+  // Initialize select fields
+  $(form).find('select').select()
+
   // Show/hide iterative
   var $iterativeShow = $(form).find('[name=iterative_show]')
   var $iterativeNumberContainer = $(form).find('#id_iterative_number_container')

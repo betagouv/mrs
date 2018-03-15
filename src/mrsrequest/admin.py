@@ -18,6 +18,7 @@ class MRSRequestAdmin(admin.ModelAdmin):
         'insured_nir',
         'status',
         'institution',
+        'caisse',
     )
     search_fields = (
         'insured__first_name',
@@ -26,10 +27,14 @@ class MRSRequestAdmin(admin.ModelAdmin):
         'insured__nir',
         'institution__finess',
         'display_id',
+        'caisse__name',
+        'caisse__number',
+        'caisse__code',
     )
     list_filter = (
         'status',
         'institution',
+        'caisse',
     )
     readonly_fields = (
         'expense',

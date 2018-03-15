@@ -64,9 +64,10 @@ def test_mrsrequest_status_view(
 @freeze_time('2017-12-19 13:33:37')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
 def test_mrsrequestcreateview_post_save_integration(
-        p, finess, institution_uuid):
+        p, finess, institution_uuid, caisse):
 
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
+    data['caisse'] = caisse.pk
     data['date_depart'] = '2017-02-02'
     data['date_return'] = '2017-02-02'
     data['1-date_depart'] = '2017-01-02'

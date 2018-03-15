@@ -5,6 +5,7 @@ from django.utils.datastructures import MultiValueDict
 
 import material
 
+from caisse.models import Caisse
 from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 
@@ -35,6 +36,11 @@ class MRSRequestForm(forms.ModelForm):
             'Joindre vos justificatifs si vous avez des frais (parking, péage'
             ' ou justificatif(s) de transport en commun)'
         )
+    )
+
+    caisse = forms.ModelChoiceField(
+        Caisse.objects.filter(active=True),
+        label='Votre caisse de rattachement',
     )
 
     # do not trust this field, it's used for javascript and checked
@@ -167,6 +173,10 @@ class MRSRequestAdminForm(MRSRequestForm):
 class MRSRequestCreateForm(MRSRequestForm):
     layouts = dict(
         top=material.Layout(
+            material.Fieldset(
+                'Votre caisse d\'assurance maladie',
+                'caisse',
+            ),
             material.Fieldset(
                 'Votre prescription médicale',
                 'pmt',
