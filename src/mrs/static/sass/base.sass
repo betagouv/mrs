@@ -1,6 +1,8 @@
 @import './UI'
 @import './Header'
 
+$desktop-min-width: 992px
+
 html
   max-width: 100vw
   font-size: 20px
@@ -25,11 +27,19 @@ body
     color: rgba(0, 0, 0, 0.6)
     font-size: 0.8rem
 
+    @media (min-width: $desktop-min-width)
+      display: flex
+      flex-direction: row-reverse
+      justify-content: center
+      background-color: #f3efef
+      color: #838282
+
     .links
       display: flex
       background-color: #f3efef
       text-transform: uppercase
       height: 3rem
+      white-space: nowrap
 
       a
         display: flex
@@ -37,7 +47,21 @@ body
         align-items: center
         justify-content: center
         color: #838282
+        border: none
 
+        &:first-child
+          border-right: 2px solid #bfbfbf
+
+          @media (min-width: $desktop-min-width)
+            margin: 0 3rem
+            border: none
 
     p
       text-align: center
+      display: flex
+      align-items: center
+      justify-content: center
+
+      @media (min-width: $desktop-min-width)
+        width: inherit
+
