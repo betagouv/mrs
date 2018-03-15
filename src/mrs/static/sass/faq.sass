@@ -26,5 +26,34 @@
     +flex-column()
     flex: 1
 
+    &.left
+      margin-right: 2rem
+
     img
       width: 100%
+
+    .question--wrapper
+      margin: 1rem 0 0 0
+
+      &:last-child
+        margin: 1rem 0 1rem 0
+
+      .question
+        color: $primary-red
+        font-size: 1rem
+        font-weight: bold
+        font-style: italic
+        text-align: left
+
+      .answer
+        font-size: 0.8rem
+        color: $primary-blue
+
+        p
+          text-align: left
+
+        li
+          list-style-type: disc
+          text-align: left
+          list-style-position: inside
+
