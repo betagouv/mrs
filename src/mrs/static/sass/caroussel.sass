@@ -19,7 +19,7 @@
     .arrow--wrapper
       position: absolute
       top: 50%
-      transform: translateY(-50%)
+      transform: translateY(calc(-50% - 1rem))
       cursor: pointer
 
       &.next-slide
@@ -35,12 +35,24 @@
         width: 1rem
 
     .carousel
+      $height: 12rem
       width: 70vw
-      height: 5rem!important
+      height: $height!important
 
       @media (min-width: $desktop-min-width)
         width: 50vw
 
       .carousel-item
         color: black
-        height: 5rem
+        height: $height
+        text-align: center
+
+        .citation
+          color: white
+          font-size: 0.85rem
+
+        .author
+          color: $primary-blue
+          margin: 0.5rem 0
+          font-weight: bold
+          font-style: italic
