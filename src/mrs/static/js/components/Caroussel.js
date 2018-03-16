@@ -90,9 +90,9 @@ class Carousel extends Component {
         }
 
         const instance = M.Carousel.init(elem, options)
-        this.setState({ instance })
-
         this.startTimer(instance)
+
+        this.setState({ instance })
     }
 
     startTimer(instance) {
