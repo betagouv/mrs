@@ -149,4 +149,6 @@ export default Carousel
 export {
     CarouselDumb,
     CarouselSlide,
+    CitationSlide,
+    CarouselUI,
 }
