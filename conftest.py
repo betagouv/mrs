@@ -85,3 +85,16 @@ def caisse():
             liquidation_email='taoeu@aoeu.com',
         )
     )[0]
+
+
+@pytest.fixture
+def other_caisse():
+    return Caisse.objects.update_or_create(
+        pk=10,
+        defaults=dict(
+            code='110000000',
+            number=333,
+            name='test inactive',
+            active=False,
+        )
+    )[0]
