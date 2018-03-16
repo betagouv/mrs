@@ -23,10 +23,8 @@ function fetch(url) {
 describe('smoke tests', () => {
   test('index should display contact and mrsrequest forms', () => {
     return fetch('/').then(dom => {
-      let mrsrequest = display(dom, '#mrsrequest-wizard')
       let contact = display(dom, '#contact')
       dom.window.close()
-      expect(mrsrequest).toEqual('')
       expect(contact).toEqual('')
     })
   })
