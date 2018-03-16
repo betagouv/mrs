@@ -47,37 +47,37 @@ const Burger = props => {
 }
 
 const MrsLogo = props => {
-    const wrapperClassName = 'mrs-logo--wrapper' + (props.isHidden ? ' hidden' : '')
+  const wrapperClassName = 'mrs-logo--wrapper' + (props.isHidden ? ' hidden' : '')
 
-    return (
-      <div className={ wrapperClassName }>
-        <img
-            src="/static/img/logos/mrs.png"
-            alt="mrs"
-            className="logo-mrs" />
-      </div>
-    )
+  return (
+    <div className={ wrapperClassName }>
+      <img
+        src="/static/img/logos/mrs.png"
+        alt="mrs"
+        className="logo-mrs" />
+    </div>
+  )
 }
 
 MrsLogo.defaultProps = {
-    isHidden: false,
+  isHidden: false,
 }
 
 const CnamLogo = props => {
-    const imgClassName = 'logo-cnam' + (props.isHidden ? ' hidden' : '')
+  const imgClassName = 'logo-cnam' + (props.isHidden ? ' hidden' : '')
 
-    return (
-      <div className="cnam-logo--wrapper">
-        <img
-          src="/static/img/logos/cnam.png"
-          alt="cnam"
-          className={ imgClassName } />
-      </div>
-    )
+  return (
+    <div className="cnam-logo--wrapper">
+      <img
+        src="/static/img/logos/cnam.png"
+        alt="cnam"
+        className={ imgClassName } />
+    </div>
+  )
 }
 
 MrsLogo.defaultProps = {
-    isHidden: false,
+  isHidden: false,
 }
 
 
@@ -105,10 +105,10 @@ const Header = props => {
 }
 
 Header.defaultProps = {
-    isFat: true,
-    isMenuOpened: false,
-    links: [],
-    toggleMenu: () => {},
+  isFat: true,
+  isMenuOpened: false,
+  links: [],
+  toggleMenu: () => {},
 }
 
 class HeaderSmart extends Component {
@@ -140,20 +140,20 @@ HeaderSmart.defaultProps = {
   isFat: false,
   links: [
     {
-        url: '/',
-        alias: 'fonctionnement',
+      url: '/',
+      alias: 'fonctionnement',
     },
     {
-        url: '/demande',
-        alias: 'formulaire',
+      url: '/demande',
+      alias: 'formulaire',
     },
     {
-        url: '/faq',
-        alias: 'faq',
+      url: '/faq',
+      alias: 'faq',
     },
     {
-        url: '/contact',
-        alias: 'contact',
+      url: '/contact',
+      alias: 'contact',
     },
   ]
 }
