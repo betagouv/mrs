@@ -131,7 +131,7 @@ jobs:
         key: dependency-cache-js-{{ checksum "yarn.lock" }}
     - run:
         name: RUN yarn install
-        command: sudo npm install -g yarn && yarn install
+        command: yarn install
     - save_cache:
         key: dependency-cache-js-{{ checksum "yarn.lock" }}
         paths:
@@ -149,7 +149,7 @@ jobs:
         key: dependency-cache-js-{{ checksum "yarn.lock" }}
     - run:
         name: RUN yarn install
-        command: sudo npm install -g yarn && yarn install
+        command: yarn install
     - save_cache:
         key: dependency-cache-js-{{ checksum "yarn.lock" }}
         paths:
