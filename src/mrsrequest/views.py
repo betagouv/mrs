@@ -13,6 +13,8 @@ from django.utils import timezone
 from django.views import generic
 from ipware import get_client_ip
 
+from caisse.models import Email
+from caisse.forms import CaisseVoteForm
 from person.forms import PersonForm
 
 from .forms import (
@@ -34,6 +36,7 @@ class MRSRequestCreateView(generic.TemplateView):
         self.object = MRSRequest()
         self.object.allow(request)
         self.mrsrequest_uuid = str(self.object.id)
+        self.caisse_form = CaisseVoteForm(prefix='other')
 
         self.forms = collections.OrderedDict([
             ('mrsrequest', MRSRequestCreateForm(instance=self.object)),
@@ -64,8 +67,51 @@ class MRSRequestCreateView(generic.TemplateView):
 
     def post(self, request, *args, **kwargs):
         self.mrsrequest_uuid = self.request.POST.get('mrsrequest_uuid', None)
+        caisse = request.POST.get('caisse', None)
+
+        if caisse == 'other':
+            return self.post_caisse(request, *args, **kwargs)
+        else:
+            return self.post_mrsrequest(request, *args, **kwargs)
+
+    def post_caisse(self, request, *args, **kwargs):
+        # needed for rendering
+        self.forms = collections.OrderedDict([
+            ('mrsrequest', MRSRequestCreateForm(
+                initial={'caisse': 'other'},
+                mrsrequest_uuid=self.mrsrequest_uuid
+            )),
+            ('person', PersonForm()),
+            ('certify', CertifyForm()),
+        ])
+        self.forms['transport'] = TransportIterativeForm(
+            instance=Transport(mrsrequest_id=self.mrsrequest_uuid),
+        )
+
+        self.caisse_form = CaisseVoteForm(request.POST, prefix='other')
+        with transaction.atomic():
+            self.success = self.caisse_form.is_valid() and self.save_caisse()
+
+        return generic.TemplateView.get(self, request, *args, **kwargs)
+
+    def save_caisse(self):
+        caisse = self.caisse_form.cleaned_data['caisse']
+
+        email = self.caisse_form.cleaned_data.get('email', None)
+        if email:
+            Email.objects.create(email=email, caisse=caisse)
+
+        caisse.score += 1
+        caisse.save()
+
+        return True
+
+    def post_mrsrequest(self, request, *args, **kwargs):
         if not self.has_perm():
             return http.HttpResponseBadRequest()
+
+        # for display
+        self.caisse_form = CaisseVoteForm(prefix='other')
 
         self.forms = collections.OrderedDict([
             ('mrsrequest', MRSRequestCreateForm(
@@ -93,13 +139,11 @@ class MRSRequestCreateView(generic.TemplateView):
             form.fields['date_return'].label += ' {}'.format(number)
 
         with transaction.atomic():
-            self.success = not self.form_errors() and self.save()
+            self.success = not self.form_errors() and self.save_mrsrequest()
 
         return generic.TemplateView.get(self, request, *args, **kwargs)
 
-    def save(self):
-        self.forms['mrsrequest'].instance.caisse = (
-            self.forms['mrsrequest'].cleaned_data['caisse'])
+    def save_mrsrequest(self):
         self.forms['mrsrequest'].instance.insured = (
             self.forms['person'].get_or_create())
         self.forms['mrsrequest'].instance.creation_ip = get_client_ip(

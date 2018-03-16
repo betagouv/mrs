@@ -23,6 +23,25 @@ var formInit = function (form) {
   // Setup ajax attachment
   mrsattachment(form)
 
+  // Show/hide mrsrequest or vote form
+  var $caisse = $(form).find('#id_caisse')
+  var $mrsrequestForm = $(form).find('#mrsrequest-form')
+  var $caisseForm = $(form).find('#caisse-form')
+  var caisseChange = function() {
+    if ($caisse.val() == 'other') {
+      $caisseForm.show()
+      $mrsrequestForm.hide()
+    } else if ($caisse.val()) {
+      $caisseForm.hide()
+      $mrsrequestForm.show()
+    } else {
+      $mrsrequestForm.hide()
+      $caisseForm.hide()
+    }
+  }
+  $caisse.change(caisseChange)
+  caisseChange()
+
   // Initialize select fields
   $(form).find('select').select()
 

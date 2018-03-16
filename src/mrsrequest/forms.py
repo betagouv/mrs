@@ -5,7 +5,7 @@ from django.utils.datastructures import MultiValueDict
 
 import material
 
-from caisse.models import Caisse
+from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 
@@ -38,8 +38,7 @@ class MRSRequestForm(forms.ModelForm):
         )
     )
 
-    caisse = forms.ModelChoiceField(
-        Caisse.objects.filter(active=True),
+    caisse = ActiveCaisseChoiceField(
         label='Votre caisse de rattachement',
     )
 
@@ -130,6 +129,7 @@ class MRSRequestForm(forms.ModelForm):
     class Meta:
         model = MRSRequest
         fields = [
+            'caisse',
             'expense',
             'distance',
         ]
@@ -172,11 +172,13 @@ class MRSRequestAdminForm(MRSRequestForm):
 
 class MRSRequestCreateForm(MRSRequestForm):
     layouts = dict(
-        top=material.Layout(
+        above=material.Layout(
             material.Fieldset(
                 'Votre caisse d\'assurance maladie',
                 'caisse',
             ),
+        ),
+        top=material.Layout(
             material.Fieldset(
                 'Votre prescription médicale',
                 'pmt',
@@ -207,6 +209,7 @@ class MRSRequestCreateForm(MRSRequestForm):
     class Meta:
         model = MRSRequest
         fields = [
+            'caisse',
             'distance',
             'expense',
         ]

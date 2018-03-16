@@ -1,0 +1,26 @@
+[
+{
+    "fields": {
+        "active": true,
+        "code": "010000000",
+        "liquidation_email": "taoeu@aoeu.com",
+        "name": "test",
+        "number": "311",
+        "score": 0
+    },
+    "model": "caisse.caisse",
+    "pk": 9
+},
+{
+    "fields": {
+        "active": false,
+        "code": "110000000",
+        "liquidation_email": null,
+        "name": "test inactive",
+        "number": "333",
+        "score": 1
+    },
+    "model": "caisse.caisse",
+    "pk": 10
+}
+]
