@@ -1,0 +1,47 @@
+@import './vars.sass'
+@import './mixins.sass'
+
+.carousel--wrapper
+  +flex-center()
+  background-color: $primary-green
+
+  .CarouselDumb--wrapper
+    position: relative
+
+    h3
+      font-size: 1.2rem
+      font-weight: bold
+
+    .quote-img
+      display: flex
+      margin: 3rem auto 2rem auto
+
+    .arrow--wrapper
+      position: absolute
+      top: 50%
+      transform: translateY(-50%)
+      cursor: pointer
+
+      &.next-slide
+        right: -2rem
+
+      &.prev-slide
+        left: -2rem
+
+        img
+          transform: rotateZ(180deg)
+
+      img
+        width: 1rem
+
+    .carousel
+      width: 70vw
+      height: 5rem!important
+
+      @media (min-width: $desktop-min-width)
+        width: 50vw
+
+
+      .carousel-item
+        color: black
+        height: 5rem
