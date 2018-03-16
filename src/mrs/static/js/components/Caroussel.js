@@ -8,28 +8,31 @@ const CarouselSlide = props => {
     )
 }
 
+const CarouselUI = props => {
+    return (
+      <div className="CarouselDumb--wrapper">
+        <div className="arrow--wrapper prev-slide">
+          <img
+            src="/static/img/icones/arrow.png"
+            onClick={ props.prevSlide }
+            alt="precedent"
+            class="prev-slide-arrow" />
+        </div>
+        <div className="arrow--wrapper next-slide">
+          <img
+            src="/static/img/icones/arrow.png"
+            onClick={ props.nextSlide }
+            alt="suivant"
+            class="next-slide-arrow" />
+        </div>
+        { props.children }
+      </div>
+    )
+}
+
 const CarouselDumb = props => {
     return (
-        <div className="CarouselDumb--wrapper">
-          <h3>Ils ont deja utilise notre service !</h3>
-          <img
-            src="/static/img/icones/open-quotes.png"
-            alt="icone"
-            class="quote-img" />
-          <div className="arrow--wrapper prev-slide">
-            <img
-              src="/static/img/icones/arrow.png"
-              onClick={ props.prevSlide }
-              alt="precedent"
-              class="prev-slide-arrow" />
-          </div>
-          <div className="arrow--wrapper next-slide">
-            <img
-              src="/static/img/icones/arrow.png"
-              onClick={ props.nextSlide }
-              alt="suivant"
-              class="next-slide-arrow" />
-            </div>
+        <CarouselUI { ...props }>
           <div className="carousel carousel-slider">
             <CarouselSlide>
               <div>TEST1</div>
@@ -43,7 +46,7 @@ const CarouselDumb = props => {
               <div>TEST3</div>
             </CarouselSlide>
           </div>
-        </div>
+        </CarouselUI>
     )
 }
 
