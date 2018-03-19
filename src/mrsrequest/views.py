@@ -90,7 +90,8 @@ class MRSRequestCreateView(generic.TemplateView):
 
         self.caisse_form = CaisseVoteForm(request.POST, prefix='other')
         with transaction.atomic():
-            self.success = self.caisse_form.is_valid() and self.save_caisse()
+            self.success_caisse = (
+                self.caisse_form.is_valid() and self.save_caisse())
 
         return generic.TemplateView.get(self, request, *args, **kwargs)
 
