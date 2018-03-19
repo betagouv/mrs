@@ -1,4 +1,5 @@
 from decimal import Decimal
+import pytz
 import uuid
 
 from django.conf import settings
@@ -186,7 +187,9 @@ def creation_datetime_and_display_id(sender, instance, **kwargs):
     if not instance.creation_datetime:
         instance.creation_datetime = timezone.now()
 
-    prefix = instance.creation_datetime.strftime('%Y%m%d')
+    normalized = pytz.timezone(settings.TIME_ZONE).normalize(
+        instance.creation_datetime)
+    prefix = normalized.strftime('%Y%m%d')
     last = MRSRequest.objects.filter(
         display_id__startswith=prefix,
     ).order_by('display_id').last()

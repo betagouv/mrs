@@ -63,14 +63,20 @@ def test_mrsrequest_str():
 
 @pytest.mark.django_db
 def test_mrsrequest_increments_at_minute_zero():
-    cet = pytz.timezone('Europe/Paris')
-    cet_yesterday = datetime.datetime(1999, 12, 31, 23, 55, tzinfo=cet)
-
+    paris = pytz.timezone('Europe/Paris')
+    paris_yesterday = datetime.datetime(1999, 12, 31, 0, 5, tzinfo=paris)
     assert MRSRequest.objects.create(
-        creation_datetime=cet_yesterday).display_id == '199912310000'
+        creation_datetime=paris_yesterday).display_id == '199912310000'
 
-    cet_today = datetime.datetime(2000, 1, 1, 0, 5, tzinfo=cet)
+    # this is 2000-01-01 in Europe/Paris
+    utc_today = datetime.datetime(1999, 12, 31, 23, 5, tzinfo=pytz.utc)
 
     # do not count the abouve as first
     assert MRSRequest.objects.create(
-        creation_datetime=cet_today).display_id == '200001010000'
+        creation_datetime=utc_today).display_id == '200001010000'
+
+    paris_today = datetime.datetime(2000, 1, 1, 0, 5, tzinfo=paris)
+
+    # do not count the abouve as first
+    assert MRSRequest.objects.create(
+        creation_datetime=paris_today).display_id == '200001010001'
