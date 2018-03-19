@@ -2,10 +2,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
+from graphene_django.views import GraphQLView
+
 from contact.views import ContactView
 from mrsrequest.views import MRSRequestCreateView
 
 from . import views
+from .schema import schema
 
 admin.site.site_header = 'MRS Admin'
 admin.site.site_title = 'MRS Admin'
@@ -22,6 +25,7 @@ urlpatterns = [
     path('mrsrequest/', include('mrsrequest.urls', namespace='mrsrequest')),
     path('institution/', include('institution.urls', namespace='institution')),
     path('admin/', admin.site.urls),
+    path('graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
 ]
 
 if 'debug_toolbar' in settings.INSTALLED_APPS and settings.DEBUG:  # noqa pragma: no cover

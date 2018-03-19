@@ -4,7 +4,6 @@ from graphene_django.views import GraphQLView
 from mrsattachment.urls import factory
 
 from .models import Bill, PMT
-from .schema import schema
 from . import views
 
 
@@ -26,7 +25,6 @@ urlpatterns = [
         views.MRSRequestValidateView.as_view(),
         name='validate'
     ),
-    path('graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
 ]
 
 urlpatterns += factory(PMT)
