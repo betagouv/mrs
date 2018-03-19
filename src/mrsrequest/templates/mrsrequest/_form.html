@@ -14,6 +14,10 @@
             <br />
             <a data-load-in-form="{{ path_info }}">Cliquez ici pour faire une nouvelle demande.</a>
         </div>
+        {% elif view.success_caisse %}
+        <div class="card-panel teal lighten-4">
+            Merci pour votre intérêt ! Nous reviendrons vers vous dès que votre caisse entrera dans le dispositif MRS
+        </div>
         {% else %}
             {% comment %}
             in my tests, moving this elsewhere causes view.forms.mrsrequest.errors.pmt to
