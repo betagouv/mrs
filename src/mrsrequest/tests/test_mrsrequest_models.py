@@ -1,5 +1,6 @@
 import datetime
 import pytest
+import pytz
 import uuid
 
 from django.utils import timezone
@@ -58,3 +59,18 @@ def test_display_id():
 @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
 def test_mrsrequest_str():
     assert str(MRSRequest(display_id=300012301111)) == '300012301111'
+
+
+@pytest.mark.django_db
+def test_mrsrequest_increments_at_minute_zero():
+    cet = pytz.timezone('Europe/Paris')
+    cet_yesterday = datetime.datetime(1999, 12, 31, 23, 55, tzinfo=cet)
+
+    assert MRSRequest.objects.create(
+        creation_datetime=cet_yesterday).display_id == '199912310000'
+
+    cet_today = datetime.datetime(2000, 1, 1, 0, 5, tzinfo=cet)
+
+    # do not count the abouve as first
+    assert MRSRequest.objects.create(
+        creation_datetime=cet_today).display_id == '200001010000'

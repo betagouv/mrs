@@ -186,15 +186,15 @@ def creation_datetime_and_display_id(sender, instance, **kwargs):
     if not instance.creation_datetime:
         instance.creation_datetime = timezone.now()
 
+    prefix = instance.creation_datetime.strftime('%Y%m%d')
     last = MRSRequest.objects.filter(
-        creation_datetime__date=instance.creation_datetime.date()
-    ).order_by('-display_id').first()
+        display_id__startswith=prefix,
+    ).order_by('display_id').last()
 
     number = 0
     if getattr(last, 'display_id', None) and len(str(last.display_id)) == 12:
         number = int(str(last.display_id)[-4:]) + 1
 
-    prefix = instance.creation_datetime.strftime('%Y%m%d')
     instance.display_id = '{}{:04d}'.format(prefix, number)
 signals.pre_save.connect(creation_datetime_and_display_id, sender=MRSRequest)
 
