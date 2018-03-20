@@ -30,7 +30,7 @@ class ActiveCaisseChoiceField(forms.ModelChoiceField):
 class CaisseVoteForm(forms.Form):
     caisse = forms.ModelChoiceField(
         Caisse.objects.filter(active=False),
-        label='Votre caisse d\'assurance maladie',
+        label='Votre régime d\'Assurance Maladie',
         required=True,
     )
     email = forms.EmailField(
