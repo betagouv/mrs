@@ -106,7 +106,13 @@
             <img src="{% static '/img/icones/open-quotes.png' %}" alt="icone" />
         </div>
 
-        {% include 'contact/_form.html' %}
+        <div id="contact--wrapper">
+            <div class="wrapper2">
+                <h3>Nous Contacter</h3>
+                <h4>Une question sur ce nouveau service ?</h4>
+                {% include 'contact/_form.html' %}
+            </div>
+        </div>
 
         <div id="index-footer--wrapper">
             <a href="https://beta.gouv.fr/" target="_blank">
