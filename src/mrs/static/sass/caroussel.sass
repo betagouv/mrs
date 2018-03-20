@@ -30,22 +30,34 @@
 
         img
           transform: rotateZ(180deg)
+          margin-botttom: 0
 
       img
         width: 1rem
 
     .carousel
-      $height: 12rem
+      $height: 18rem
+      $height-desktop: 12rem
       width: 70vw
       height: $height!important
 
       @media (min-width: $desktop-min-width)
-        width: 50vw
+        height: $height-desktop!important
+        width: 30vw
+        min-width: 25rem
 
       .carousel-item
+        +flex-center()
+        +flex-column()
         color: black
         height: $height
         text-align: center
+        min-height: 10rem
+        padding-bottom: 4rem
+
+        @media (min-width: $desktop-min-width)
+          min-height: 10rem
+          height: $height-desktop
 
         .citation
           color: white
