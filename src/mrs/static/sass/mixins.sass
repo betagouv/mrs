@@ -1,5 +1,34 @@
 @import './vars.sass'
 
+
+//
+// FONTS
+//
+=barlow-condensed-bold()
+  font-family: 'Barlow Condensed', serif
+  font-weight: 700
+
+=barlow-bold()
+  font-family: 'Barlow', serif
+  font-weight: 700
+
+=barlow-extra-bold()
+  font-family: 'Barlow', serif
+  font-weight: 800
+
+=faustina-bold-italic()
+  font-family: 'Faustina', serif
+  font-weight: 700
+  font-style: italic
+
+=barlow-regular()
+  font-family: 'Barlow', serif
+  font-weight: 400
+
+
+//
+// LAYOUT
+//
 =flex-column()
   display: flex
   flex-direction: column
@@ -15,7 +44,12 @@
   @media (min-width: $desktop-min-width)
     padding-left: $desktop-page-margin-left
 
+
+//
+// UI
+//
 =button($bg-color)
+  +barlow-condensed-bold()
   $height: 2.5rem
   border-radius: $height
   background-color: $bg-color
