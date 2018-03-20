@@ -114,9 +114,32 @@
     padding-bottom: 5rem
 
     @media (min-width: $desktop-min-width)
-      flex-direction: row
       padding-right: $desktop-page-margin-left
       justify-content: space-between
+
+    a
+      color: $primary-blue
+      border: 0
+
+    .wrapper2
+      display: flex
+      +flex-column()
+
+      @media (min-width: $desktop-min-width)
+        flex-direction: row
+
+    .conclusion--wrapper
+      display: flex
+      margin: 1rem 0
+
+      .conclusion
+        +barlow-regular()
+        font-size: 1.2rem
+        padding-right: 1rem
+        padding-left: 0.5rem
+
+      .arrow
+        font-size: 1.2rem
 
     .hier--wrapper, .ajd--wrapper
       +flex-column()
