@@ -321,7 +321,7 @@
           flex-direction: column
 
         img
-          $width: 3rem
+          $width: 3.5rem
           max-width: $width
           position: absolute
           bottom: 0
@@ -365,9 +365,17 @@
           font-size: 1.2rem
           margin-bottom: 0
 
+          &.translate
+            @media (min-width: $desktop-min-width)
+              line-height: 2.5rem
+
       p
         +barlow-regular()
         max-width: 20rem
+        font-size: 0.8rem
+
+        @media (min-width: $desktop-min-width)
+          min-height: 5rem
 
       .deco
         max-height: 3rem
@@ -375,4 +383,5 @@
         height: auto
         align-self: center
         transform: translateX(calc(-#{$paddingLeft} / 2))
+        margin: 0
 
