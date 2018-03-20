@@ -81,23 +81,29 @@
       +wrapper()
       background-color: $primary-green
       color: white
-      padding-right: 2rem
+      padding-right: 3rem
       width: 85vw
       max-width: 50rem
 
       h3
         +faustina-bold-italic()
-        font-size: 1.05rem
         font-weight: bold
         font-style: italic
         margin: 0
         margin-bottom: 0.5rem
+        font-size: 0.8rem
+
+        @media (min-width: $desktop-min-width)
+          font-size: 1.05rem
 
       p
         +barlow-regular()
-        font-size: 0.9rem
         line-height: 0.9rem
         margin: 0
+        font-size: 0.7rem
+
+        @media (min-width: $desktop-min-width)
+          font-size: 0.9rem
 
   #hier-ajd--wrapper
     +flex-column()
@@ -153,17 +159,20 @@
       +barlow-regular()
       background-color: white
       color: $primary-blue
-      font-size: 1.5rem
       line-height: 1.5rem
       width: 95vw
       max-width: 65rem
+      padding-right: 3rem
+      font-size: 1.1rem
+
+      @media (min-width: $desktop-min-width)
+        font-size: 1.5rem
+        transform: translateY(75%)
+        height: 2.5rem
+
 
       strong
         +barlow-bold()
-
-      @media (min-width: $desktop-min-width)
-        transform: translateY(75%)
-        height: 2.5rem
 
       p
         margin: auto
