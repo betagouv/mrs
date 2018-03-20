@@ -153,7 +153,9 @@ var formSubmit = function(form) {
     }
     return setTimeout($.proxy(formSubmit, this, form), 1000)
   }
-  $(form).find('.wait').remove()
+  var $expense = $(form).find('[name=expense]')
+  if ($expense.val() == '') $expense.val('0')
+  $form.find('.wait').remove()
 
   // For postMessage in success callback
   var mrsrequest_uuid = $form.find('input[name="mrsrequest_uuid"]').val()
