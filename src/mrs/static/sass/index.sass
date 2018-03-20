@@ -200,3 +200,78 @@
       display: flex
       margin: 0 auto 2rem auto
 
+  #contact--wrapper
+    display: none
+    background-color: $primary-grey
+    border-top: 1px solid white
+
+    .wrapper2
+      width: 25rem
+      padding: 6rem 0
+
+    h3
+      +barlow-extra-bold()
+      font-size: 2rem
+      margin-bottom: 0
+      margin-top: 0
+
+    h4
+      +barlow-bold()
+      font-size: 1rem
+      color: $secondary-grey
+      margin-top: 1rem
+
+    h5
+      display: none
+
+    form
+      +flex-column()
+      justify-content: flex-start
+
+    input, textarea, button
+      +barlow-condensed-bold()
+      $height: 2rem
+      background-color: $secondary-black
+      border-radius: calc(#{$height})
+      border: none
+      color: white
+      height: $height
+      box-sizing: border-box
+      padding-left: 2rem
+
+      &:focus
+        background-color: $primary-black
+        border: 2px solid #8799a3
+
+    textarea
+      min-height: 6rem
+      border-radius: 1.5rem
+
+    label
+      top: -15%
+      padding-left: 2.8rem
+      left: 0
+      right: 0
+      font-size: 0.8rem
+      height: 100%
+      top: -35%
+      display: flex
+      align-items: center
+
+
+      &.active
+        transform: translateY(-20px) scale(0.8)translateX(5%)
+        opacity: 0
+        pointer-events: none
+
+    button
+      background-color: $primary-green
+      margin-left: 0
+      height: 2.4rem
+
+
+    @media (min-width: $desktop-min-width)
+      +flex-center()
+      +flex-column()
+      justify-content: center
+
