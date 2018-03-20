@@ -140,8 +140,8 @@ Carousel.defaultProps = {
       author: 'Jean-Marie P.',
     },
     {
-      citation: 'J’ai eu le plaisir de faire partie des premières patientes à être remboursées grâce à ce système. Ce fut très rapide donc fort appréciable ! En espérant que bientôt tous les moyens transports soient également remboursés grâce à ce système. Merci pour les patients de mettre en place ce genre d’initiative',
-      author: 'Natacha B. ',
+      citation: 'J’ai eu le plaisir de faire partie des premièrs patients à être remboursés grâce à ce système. Ce fut très rapide donc fort appréciable ! En espérant que bientôt tous les moyens transports soient également remboursés grâce à ce système. Merci pour les patients de mettre en place ce genre d’initiative',
+      author: 'Maurice D. ',
     },
   ]
 }
