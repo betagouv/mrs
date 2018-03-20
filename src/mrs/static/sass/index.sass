@@ -285,3 +285,57 @@
       +flex-column()
       justify-content: center
 
+  #processes--wrapper
+    +wrapper()
+    +flex-column()
+
+    background-color: $primary-blue
+    padding-top: 4rem
+    padding-right: 2rem
+
+    .process--wrapper
+      $paddingLeft: 4rem
+      padding: 0
+      align-items: flex-start
+      padding-left: $paddingLeft
+
+      .title--wrapper
+        display: flex
+        position: relative
+
+        img
+          $width: 3rem
+          max-width: $width
+          position: absolute
+          bottom: 0
+          right: calc(100% + 1rem)
+          margin: 0
+          width: auto
+          height: auto
+
+          &.mobile
+            @media (min-width: $desktop-min-width)
+              display: none
+
+          &.desktop
+            display: none
+
+            @media (min-width: $desktop-min-width)
+              display: block
+
+        h4
+          +faustina-bold-italic()
+          font-size: 1.2rem
+          margin-bottom: 0
+
+      p
+        +barlow-regular()
+        max-width: 20rem
+
+      .deco
+        max-height: 3rem
+        width: auto
+        height: auto
+        align-self: center
+        transform: translateX(calc(-#{$paddingLeft} / 2))
+
