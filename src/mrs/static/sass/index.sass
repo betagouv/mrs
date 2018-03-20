@@ -286,22 +286,39 @@
       justify-content: center
 
   #processes--wrapper
-    +wrapper()
     +flex-column()
+    +wrapper()
 
     background-color: $primary-blue
-    padding-top: 4rem
+    padding-top: 6rem
+    padding-bottom: 4rem
     padding-right: 2rem
+    justify-content: center
+
+    @media (min-width: $desktop-min-width)
+      flex-direction: row
+      padding-left: 0
 
     .process--wrapper
       $paddingLeft: 4rem
       padding: 0
       align-items: flex-start
       padding-left: $paddingLeft
+      flex-direction: column
+
+      @media (min-width: $desktop-min-width)
+        flex-direction: column
+        padding-left: 0
+        max-width: 15rem
+        margin: 0 1rem
 
       .title--wrapper
         display: flex
         position: relative
+        width: 100%
+
+        @media (min-width: $desktop-min-width)
+          flex-direction: column
 
         img
           $width: 3rem
@@ -313,6 +330,11 @@
           width: auto
           height: auto
 
+          @media (min-width: $desktop-min-width)
+            position: inherit
+            right: inherit
+            padding-top: 1.5rem
+
           &.mobile
             @media (min-width: $desktop-min-width)
               display: none
@@ -322,6 +344,21 @@
 
             @media (min-width: $desktop-min-width)
               display: block
+
+            &.num-1
+              margin-left: 2rem
+
+            &.num-2
+              max-width: auto
+              max-height: 4rem
+              object-fit: contain
+              padding: 0
+              align-self: center
+
+            &.num-3
+              margin-right: 4rem
+              box-sizing: initial
+              align-self: flex-end
 
         h4
           +faustina-bold-italic()
