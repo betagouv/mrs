@@ -19,8 +19,8 @@
 
 #index--wrapper
   .mrs-logo--wrapper
-    +flex-center()
-    flex-direction: column
+    +flex-column()
+    align-items: center
     background-color: white
 
     @media (min-width: $desktop-min-width)
@@ -28,7 +28,7 @@
 
     .mrs-logo
       width: 70vw
-      max-width: 20rem
+      max-width: 15rem
       margin: 3rem 0 2rem 0
 
       @media (min-width: $desktop-min-width)
@@ -51,7 +51,8 @@
       @media (min-width: $desktop-min-width)
         background-color: rgba(0, 0, 0, 0)
         color: $primary-blue
-        margin-right: $desktop-page-margin-left
+        transform: translateY(-0.5rem)
+        max-width: 24rem
 
       p
         margin: 0
