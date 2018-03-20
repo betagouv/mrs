@@ -2,10 +2,11 @@ import { h as React, Component } from 'preact'
 import * as UI from './UI'
 
 const Link = props => {
+  const isActive = window.location.pathname == props.url ? ' active' : ''
   return (
     <a
       href={ props.url }
-      className="link"
+      className={ 'link' + isActive }
       key={ props.key }>
       { props.alias }
     </a>
