@@ -31,6 +31,7 @@ workflows:
       - docker-build
       - js-qa
       - js-test
+      - docs-qa
       - smoketest:
           requires:
           - docker-build
@@ -123,6 +124,24 @@ jobs:
         command: |
           ~/.local/bin/tox -e py36-dj20
           PATH=.tox/py36-dj20/bin:$PATH codecov --token $CODECOV_TOKEN -e $TOXENV
+
+  docs-qa:
+    docker:
+    - image: circleci/python:3.6.1
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: tox environment setup
+        command: pip install --user tox && ~/.local/bin/tox -r -e docs --notest
+    - save_cache:
+        paths: [~/.local, ~/.cache/pip]
+        key: qa-dependencies-{{ checksum "tox.ini" }}
+    - run:
+        name: run qa checks
+        command: ~/.local/bin/tox -e docs
 
   js-qa:
     docker:

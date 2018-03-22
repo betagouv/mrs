@@ -1,0 +1,91 @@
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script type="text/javascript">
+
+    function receiveMessage(event) {
+      console.log('mrsrequest_uuid:', event.data.mrsrequest_uuid)
+
+      var $button = $('#mrsrequest-status')
+      $button.attr('disabled', false)
+      $button.attr(
+        'href',
+        'https://www.mrs.beta.gouv.fr/institution/310000000/mrsrequest/' + event.data.mrsrequest_uuid + '/status/'
+      )
+    }
+    window.addEventListener('message', receiveMessage)
+
+    $(document).ready(function() {
+      $('#mrsrequest-status').on('click', function() {
+        var url = $(this).attr('href')
+        if (!url) return
+        $.get(url, {}, function(data, textStatus, jqXHR) {
+          console.log(data)
+        })
+      })
+    })
+</script>
+<h2>Code source</h2>
+<ul>
+    <li>
+        <a href="https://github.com/betagouv/mrs/tree/master/src/institution">Projet</a>
+    </li>
+    <li>
+        <a href="https://github.com/betagouv/mrs/blob/master/src/institution/templates/institution/mrsrequest_iframe_example.html">Ce template</a>
+    </li>
+    <li>
+        <a href="https://github.com/betagouv/mrs/blob/master/src/mrs/templates/base_iframe.html">Contribuer au template de l'iframe</a>
+    </li>
+</ul>
+<h2>Exemple de recuperation de statut d'une demande</h2>
+<p>Il suffit d'appeler votre URL d'institution avec votre finess puis mrsrequest/uuid-de-la-demande/status/:</p>
+<pre>
+    curl https://mrs.beta.gouv.fr/institution/310000000/mrsrequest/470f3dbe-1f0a-4dfc-8bf1-95f8d504deb3/status/
+</pre>
+<p>Retournera une telle reponse ou une erreur HTTP standard:</p>
+<pre>
+    {"status": 0}
+</pre>
+<p>Liste des codes de status:
+<ul>
+
+    <li>0: Soumise</li>
+
+    <li>1: Validée</li>
+
+    <li>2: Rejetée</li>
+
+</ul>
+<input type="button" id="mrsrequest-status" disabled="disabled" value="Test get status (soumettre un formulaire valide avant)" />
+<h2>Exemple d'upload de fichier</h3>
+<pre>
+document.getElementById('mrsrequest').contentWindow.postMessage(
+  // votre pmt
+  '{"pmt_url": "https://www.mrs.beta.gouv.fr/institution/example.jpg"}',
+  // origine du message (votre url)
+  'https://www.mrs.beta.gouv.fr/institution/310000003/mrsrequest/iframe/example/'
+)
+</pre>
+<input type="button" name="pmt-upload" value="Executer" id="pmt-upload" />
+<h2>Recevoir l'uuid au succes du form</h3>
+<p>Script a mettre ou vous voulez, c'est l'iframe qui va le trigger si le formulaire passe.</p>
+<pre>
+  function receiveMessage(event) {
+      console.log('mrsrequest_uuid:', event.data.mrsrequest_uuid)
+  }
+  window.addEventListener('message', receiveMessage)
+</pre>
+<h2>Exemple d'utilisation de l'iframe</h2>
+<iframe
+  id="mrsrequest"
+  src="https://www.mrs.beta.gouv.fr/institution/310000000/mrsrequest/iframe/?origin=http://mrs.readthedocs.io/en/docs/iframe.html&first_name=Test%20Étienne&last_name=∞&birth_date=2000-12-31&nir=1234567890123&email=exemple@exemple.com&hidePMT=1"
+  width="100%"
+  height="800"
+  style="border: none"
+></iframe>
+<script type="text/javascript">
+  document.getElementById('pmt-upload').addEventListener('click', function() {
+    document.getElementById('mrsrequest').contentWindow.postMessage(
+      '{"pmt_url": "https://www.mrs.beta.gouv.fr/institution/example.jpg"}',
+      'https://www.mrs.beta.gouv.fr/institution/310000000/mrsrequest/iframe/'
+    )
+  })
+</script>
