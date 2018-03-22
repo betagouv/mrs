@@ -1,32 +1,37 @@
 import graphene
-
-from graphene import Schema, relay, resolve_only_args
 from graphene_django.types import DjangoObjectType
 
-from .models import MRSRequest, Transport
+from .models import MRSRequest
 
 
-class MRSRequestNode(DjangoObjectType):
+class CreateMRSRequest(graphene.Mutation):
+    ok = graphene.Boolean()
+    mrsrequest = graphene.Field(lambda: MRSRequestType)
+
+    def mutate(self, info, caisse, distance, expense, institution):
+        mrsrequest = MRSRequest(
+            distance=distance,
+            expense=expense,
+            institution=institution,
+        )
+        ok = True
+        return CreateMRSRequest(mrsrequest=mrsrequest, ok=ok)
+
+
+class MRSRequestType(DjangoObjectType):
     class Meta:
         model = MRSRequest
-        interfaces = (relay.Node,)
+        only_fields = (
+            'caisse',
+            'distance',
+            'expense',
+            'institution',
+        )
 
 
-class MRSRequestInput(graphene.InputObjectType):
-    institution = graphene.String()
+class Mutation(graphene.ObjectType):
+    create_mrs_request = CreateMRSRequest.Field()
 
 
-class CreateMRSRequest(relay.ClientIDMutation):
-    class Input:
-        mrsrequest = graphene.Argument(MRSRequestInput)
-
-    new_mrsrequest = graphene.Field(MRSRequestNode)
-
-    @classmethod
-    def mutate_and_get_payload(cls, args, context, info):
-        data = args.get('mrsrequest')
-        print('mrsrequest', data)
-        return cls(new_mrsrequest=MRSRequest())
-
-class Query(object):
-    mrsrequest = graphene.Field(MRSRequestNode)
+class Query(graphene.ObjectType):
+    mrsrequest = graphene.Field(MRSRequestType)
