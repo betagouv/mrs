@@ -1,11 +1,12 @@
 (($) => {
-  $(':input[name=reason]').on('change', function() {
+  $(':input[name=template]').on('change', function() {
     var choice = $(this).val()
     if (!choice) {
       return
     }
 
-    $(':input[name=mail_body]').html(window.rejectTemplates[choice])
+    $(':input[name=subject]').val(window.rejectTemplates[choice].subject)
+    $(':input[name=body]').val(window.rejectTemplates[choice].body)
   })
 
   // ok, i'd rather add 3 lines of JS than battle with django admin's css
