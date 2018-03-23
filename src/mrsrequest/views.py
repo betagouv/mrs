@@ -16,6 +16,7 @@ from ipware import get_client_ip
 from caisse.models import Email
 from caisse.forms import CaisseVoteForm
 from person.forms import PersonForm
+from mrsemail.models import EmailTemplate
 
 from .forms import (
     CertifyForm,
@@ -248,15 +249,12 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
     action_name = 'Rejeter'
 
     def reject_templates_json(self):
+        context = template.Context({'display_id': self.object.display_id})
         templates = {
-            k: template.loader.get_template(
-                'mrsrequest/mrsrequest_reject_{}.txt'.format(v)
-            ).render()
-            for k, v in (
-                (self.form_class.REASON_OTHER, 'other'),
-                (self.form_class.REASON_MISSING, 'missing'),
-                (self.form_class.REASON_UNREADABLE, 'unreadable'),
-            )
+            i.pk: dict(
+                subject=template.Template(i.subject).render(context),
+                body=template.Template(i.body).render(context),
+            ) for i in EmailTemplate.objects.all()
         }
         return json.dumps(templates)
 
@@ -266,9 +264,8 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
             form.instance.display_id))
 
         email = EmailMessage(
-            'Problème avec votre demande de remboursement MRS n°{}'.format(
-                form.instance.display_id),
-            form.cleaned_data['mail_body'],
+            form.cleaned_data['subject'],
+            form.cleaned_data['body'],
             settings.DEFAULT_FROM_EMAIL,
             [self.object.insured.email],
             reply_to=[settings.TEAM_EMAIL],

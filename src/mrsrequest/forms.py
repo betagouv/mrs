@@ -8,6 +8,7 @@ import material
 from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
+from mrsemail.models import EmailTemplate
 
 from .models import Bill, MRSRequest, PMT, Transport
 
@@ -286,19 +287,9 @@ class CertifyForm(forms.Form):
 
 
 class MRSRequestRejectForm(forms.ModelForm):
-    REASON_MISSING = 1
-    REASON_UNREADABLE = 2
-    REASON_OTHER = 3
-
-    REASON_CHOICES = (
-        ('', ''),
-        (REASON_MISSING, 'Pièce(s) justificative(s) manquante(s)'),
-        (REASON_UNREADABLE, 'Justificatifs illisibles (PMT ou frais)'),
-        (REASON_OTHER, 'Rejet (raison réglementaire)'),
-    )
-
-    reason = forms.ChoiceField(choices=REASON_CHOICES)
-    mail_body = forms.CharField(widget=forms.Textarea)
+    template = forms.ModelChoiceField(EmailTemplate.objects.all())
+    subject = forms.CharField()
+    body = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = MRSRequest
