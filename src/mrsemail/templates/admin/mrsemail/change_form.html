@@ -1,0 +1,16 @@
+{% extends 'admin/change_form.html' %}
+
+{% block content %}
+<style type="text/css">
+#id_body {
+    width: 80%;
+    min-width: 400px;
+    min-height: 400px;
+}
+#id_subject {
+    min-width: 400px;
+    width: 80%;
+}
+</style>
+{{ block.super }}
+{% endblock %}
