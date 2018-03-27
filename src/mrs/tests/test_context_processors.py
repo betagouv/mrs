@@ -10,4 +10,4 @@ def test_strip_password():
 def test_settings():
     os.environ['INSTANCE'] = 'testinstance'
     assert settings(None) == dict(settings=dict(
-        RAVEN_DNS='', INSTANCE='testinstance'))
+        SENTRY_DSN='', INSTANCE='testinstance'))

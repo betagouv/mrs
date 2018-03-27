@@ -20,6 +20,6 @@ def settings(request):
     return dict(
         settings=dict(
             INSTANCE=os.getenv('INSTANCE'),
-            RAVEN_DNS=raven_dsn,
+            SENTRY_DSN=raven_dsn,
         )
     )

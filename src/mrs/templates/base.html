@@ -38,10 +38,10 @@
         </div>
     </div>
 
-    {% if SENTRY_DSN %}
+    {% if settings.SENTRY_DSN %}
     <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
-    Raven.config('{{ SENTRY_DSN }}', {environment: '{{ INSTANCE }}'}).install()
+    Raven.config('{{ settings.SENTRY_DSN }}', {environment: '{{ sentry.INSTANCE }}'}).install()
     </script>
     {% endif %}
 
