@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'mrsrequest',
     'mrsattachment',
     'mrsemail',
-    'mrspage',
     'caisse',
 
     'jfu',
