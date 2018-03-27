@@ -252,4 +252,4 @@ class Transport(models.Model):
     )
 
     class Meta:
-        ordering = ['mrsrequest']
+        ordering = ['mrsrequest', 'date_depart']
