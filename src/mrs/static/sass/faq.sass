@@ -1,7 +1,17 @@
 @import './mixins.sass'
 @import './vars.sass'
 
-#faq--wrapper
+#legals--wrapper
+  h2
+    +barlow-condensed-bold()
+    margin-bottom: 0
+    margin-top: 0
+    color: $primary-red
+    margin-top: 3rem
+    margin-bottom: 2rem
+
+
+#faq--wrapper, #legals--wrapper
   display: flex
   flex-direction: column
 
@@ -46,24 +56,24 @@
       &:last-child
         margin: 1rem 0 1rem 0
 
-      .question
-        +faustina-bold-italic()
-        color: $primary-red
-        font-size: 1rem
-        font-weight: bold
-        font-style: italic
-        text-align: left
+    .question
+      +faustina-bold-italic()
+      color: $primary-red
+      font-size: 1rem
+      font-weight: bold
+      font-style: italic
+      text-align: left
 
-      .answer
-        +barlow-regular()
-        font-size: 0.8rem
-        color: $primary-blue
+    .answer, p, li
+      +barlow-regular()
+      font-size: 0.8rem
+      color: $primary-blue
 
-        p
-          text-align: left
+    p
+      text-align: left
 
-        li
-          list-style-type: disc
-          text-align: left
-          list-style-position: inside
+    li
+      list-style-type: disc
+      text-align: left
+      list-style-position: inside
 
