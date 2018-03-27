@@ -9,6 +9,12 @@
   height: $headerHeight
   position: relative
 
+  @media (min-width: $desktop-min-width)
+    padding: 0 5vw
+
+  @media (min-width: 1300px)
+    padding: 0 $desktop-secondary-page-margin
+
   &.thin
     height: 3rem
 
@@ -118,7 +124,7 @@
     $headerHeight: 4rem
     $primaryColor: #ef776f
 
-    padding: 0rem 15vw
+    // padding: 0rem $desktop-secondary-page-margin
     height: $headerHeight
 
     &.thin
