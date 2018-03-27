@@ -34,7 +34,8 @@ class MRSRequestForm(forms.ModelForm):
         label='Justificatifs',
         required=False,
         help_text=(
-            'Joindre vos justificatifs de péage / stationnement / transport en commun'
+            'Joindre vos justificatifs de péage / stationnement /'
+            ' transport en commun'
             ' - voir FAQ pour la liste des justificatifs acceptés'
         )
     )
