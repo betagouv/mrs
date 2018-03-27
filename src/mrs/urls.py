@@ -17,6 +17,7 @@ urlpatterns = [
     path('contact', ContactView.as_view(), name='contact'),
     path('mentions-legales', views.LegalView.as_view(), name='legal'),
     path('faq', views.FaqView.as_view(), name='faq'),
+    path('stats/', views.generic.RedirectView.as_view(url='/stats')),
     path('stats', views.StatisticsView.as_view(), name='statistics'),
     path('contact/', include('contact.urls', namespace='contact')),
     path('mrsrequest/', include('mrsrequest.urls', namespace='mrsrequest')),

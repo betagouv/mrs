@@ -45,3 +45,6 @@ def test_stats(client):
     r = client.get('/stats')
     assert r.template_name == ['statistics.html']
     assert r.status_code == 200
+    r = client.get('/stats/')
+    assert r.status_code == 301
+    assert r['Location'] == '/stats'
