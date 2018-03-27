@@ -17,7 +17,7 @@ import Header from './components/Header.js'
 import Carousel from './components/Caroussel.js'
 
 
-(($) => {
+(() => {
   let body = document.querySelector('body')
 
   const renderHeader = isFat => render(<Header isFat={ isFat } />, document.getElementById('header'))
@@ -27,15 +27,6 @@ import Carousel from './components/Caroussel.js'
   if(body.classList.contains('index')) {
     const sr = ScrollReveal()
     sr.reveal('.scroll-reveal')
-
-    $('body').on('click', '[data-callback=scroll-to]', function() {
-      var $target = $($(this).attr('data-target'))
-
-      $('html, body').animate({
-        scrollTop: $target.offset().top + 'px'
-      }, 'fast')
-    })
-
     renderHeader(false)
     renderCarousel()
   } else {
@@ -47,4 +38,4 @@ import Carousel from './components/Caroussel.js'
     initStatistics()
   }
 
-})(window.jQuery)
+})()
