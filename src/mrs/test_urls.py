@@ -38,3 +38,10 @@ def test_faq(client):
     r = client.get('/faq')
     assert r.template_name == ['faq.html']
     assert r.status_code == 200
+
+
+@pytest.mark.django_db
+def test_stats(client):
+    r = client.get('/stats')
+    assert r.template_name == ['statistics.html']
+    assert r.status_code == 200
