@@ -100,8 +100,8 @@ class MRSRequest(models.Model):
         validators=[validators.MinValueValidator(Decimal('0.00'))],
         verbose_name='Montant total des frais (en € TTC)',
         help_text=(
-            'Parking et/ou péage ou '
-            'justificatif(s) de transport en commun'
+            'Somme totale des frais de stationnement et/ou péage ' 
+            'et/ou de transport en commun'
         )
     )
 
