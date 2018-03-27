@@ -163,7 +163,7 @@ class MRSRequestCreateView(generic.TemplateView):
             ).render(dict(view=self)).strip(),
             template.loader.get_template(
                 'mrsrequest/success_mail_body.txt'
-            ).render().strip(),
+            ).render(dict(view=self)).strip(),
             settings.DEFAULT_FROM_EMAIL,
             [self.object.insured.email],
             reply_to=[settings.TEAM_EMAIL],
