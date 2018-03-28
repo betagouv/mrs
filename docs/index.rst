@@ -2,7 +2,7 @@
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contenu:
 
    tutorial
    iframe
