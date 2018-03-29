@@ -21,7 +21,7 @@ RUN mkdir -p ${STATIC_ROOT}
 ADD package.json /code
 ADD yarn.lock /code
 RUN yarn install --force --ignore-scripts --pure-lockfile
-RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade pip setuptools
 ADD requirements.txt /code/requirements.txt
 RUN pip3 install --upgrade -r /code/requirements.txt
 ADD .babelrc /code

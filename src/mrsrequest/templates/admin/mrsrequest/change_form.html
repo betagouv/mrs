@@ -11,131 +11,226 @@
 {% endblock %}
 
 {% block field_sets %}
-<fieldset class="module aligned">
+<fieldset class="suit-form module aligned ">
     <h2>Général</h2>
-    <div class="form-row field-create_time">
-        <div class="field-box">
-            <label>Date de création :</label>
-            <div class="readonly">{{ original.creation_datetime }}</div>
-        </div>
-        <div class="field-box">
-            <label>Addresse ip :</label>
-            <div class="readonly">{{ original.creation_ip }}</div>
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+			Date et heure de soumission :
+		</label>
+		<div class="col-xs-12 col-sm-9 col-md-10 col-multi-fields">
+			<div class="multi-field readonly">
+				<p class="form-control-static">
+                    {{ original.creation_datetime }}
+                </p>
+			</div>
+			<div class="multi-field readonly">
+				<label class="form-control-label"><label class="inline">
+                    Addresse ip :
+                </label></label>
+				<div class="multi-field-content widget-CheckboxInput">
+                    <p class="form-control-static">
+                        {{ original.creation_ip }}
+                    </p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+            Numéro :
+		</label>
+		<div class="col-xs-12 col-sm-9 col-md-10 col-multi-fields">
+			<div class="multi-field readonly">
+				<p class="form-control-static">
+                    {{ original.display_id }}
+                </p>
+			</div>
+			<div class="multi-field readonly">
+				<label class="form-control-label"><label class="inline">
+                    Taille totale :
+                </label></label>
+				<div class="multi-field-content widget-CheckboxInput">
+                    <p class="form-control-static">
+                        {{ original.total_size|naturalsize }}
+                    </p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+			Caisse :
+		</label>
+        <div class=" col-xs-12 col-sm-9 col-md-8 col-lg-7 widget-AdminTextInputWidget ">
+            <p class="form-control-static">
+                {{ original.caisse }}
+            </p>
         </div>
     </div>
-    <div class="form-row field-display_id">
-        <div>
-            <label>Numéro :</label>
-            <div class="readonly">{{ original.display_id }}</div>
-        </div>
-    </div>
-    <div class="form-row field-total_size">
-        <div>
-            <label>Taille totale :</label>
-            <div class="readonly">{{ original.total_size|naturalsize }}</div>
-        </div>
-    </div>
-</fieldset>
-<fieldset class="module aligned">
-    <h2>Caisse</h2>
-    <div class="form-row field-pmt">
-        <div>
-            <label>Caisse :</label>
-            <div class="readonly">{{ original.caisse }}</div>
-        </div>
-    </div>
-</fieldset>
-<fieldset class="module aligned">
-    <h2>PMT</h2>
-    <div class="form-row field-pmt">
-        <div>
-            <label>PMT :</label>
-            <div class="readonly">
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+			PMT :
+		</label>
+        <div class=" col-xs-12 col-sm-9 col-md-8 col-lg-7 widget-AdminTextInputWidget ">
+            <p class="form-control-static">
                 <a
                     href="{{ original.pmt.get_download_url }}"
                     target="_blank"
                 >{{ original.pmt.filename }}</a>
                 {{ original.pmt.binary|length|naturalsize }}
-            </div>
+            </p>
         </div>
     </div>
 </fieldset>
-<fieldset class="module aligned ">
+
+<fieldset class="suit-form module aligned ">
     <h2>Identité de la personne transportée</h2>
-    <div class="form-row">
-        <div class="field-box">
-            <label>Prénom :</label>
-            <div class="readonly">{{ original.insured.first_name }}</div>
-        </div>
-        <div class="field-box">
-            <label class="inline">Nom :</label>
-            <div class="readonly">{{ original.insured.last_name }}</div>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="field-box">
-          <label class="inline">Date de naissance :</label>
-          <div class="readonly">{{ original.insured.birth_date }}</div>
-        </div>
-    </div>
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+			Prénom :
+		</label>
+		<div class="col-xs-12 col-sm-9 col-md-10 col-multi-fields">
+			<div class="multi-field readonly">
+				<p class="form-control-static">
+                    {{ original.insured.first_name }}
+                </p>
+			</div>
+			<div class="multi-field readonly">
+				<label class="form-control-label"><label class="inline">
+                    Nom :
+                </label></label>
+				<div class="multi-field-content widget-CheckboxInput">
+                    <p class="form-control-static">
+                        {{ original.insured.last_name }}
+                    </p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+			Date de naissance :
+		</label>
+		<div class="col-xs-12 col-sm-9 col-md-10 col-multi-fields">
+			<div class="multi-field readonly">
+				<p class="form-control-static">
+                    {{ original.insured.birth_date }}
+                </p>
+			</div>
+		</div>
+	</div>
 </fieldset>
-<fieldset class="module aligned ">
+
+<fieldset class="suit-form module aligned ">
     <h2>Identité de l'assuré-e</h2>
-      <div class="form-row">
-        <div class="field-box">
-            <label>NIR :</label>
-            <div class="readonly">{{ original.insured.nir }}</div>
-        </div>
-        <div class="field-box">
-            <label class="inline">Email :</label>
-            <div class="readonly">{{ original.insured.email }}</div>
-        </div>
-    </div>
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+			NIR :
+		</label>
+		<div class="col-xs-12 col-sm-9 col-md-10 col-multi-fields">
+			<div class="multi-field readonly">
+				<p class="form-control-static">
+                    {{ original.insured.nir }}
+                </p>
+			</div>
+			<div class="multi-field readonly">
+				<label class="form-control-label"><label class="inline">
+                    Courriel :
+                </label></label>
+				<div class="multi-field-content widget-CheckboxInput">
+                    <p class="form-control-static">
+                        {{ original.insured.email }}
+                    </p>
+				</div>
+			</div>
+		</div>
+	</div>
 </fieldset>
-<fieldset class="module aligned ">
-    <h2>Informations sur les {{ original.transport_set.all|length }} transport(s)</h2>
+
+
+<fieldset class="suit-form module aligned ">
+    <h2>Informations sur {% if original.transport_set.all|length > 1 %}les {{ original.transport_set.all|length }} transports{% else %}le transport{% endif %}</h2>
     {% for transport in original.transport_set.all %}
-    <div class="form-row">
-        <div class="field-box">
-            <label>Date de l'aller {{ forloop.counter }} :</label>
-            <div class="readonly">{{ transport.date_depart }}</div>
-        </div>
-        <div class="field-box">
-            <label>Date de retour {{ forloop.counter }} :</label>
-            <div class="readonly">{{ transport.date_return }}</div>
-        </div>
-    </div>
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+            Date de l'aller {% if original.transport_set.all|length > 1 %}{{ forloop.counter }} {% endif %}:
+		</label>
+		<div class="col-xs-12 col-sm-9 col-md-10 col-multi-fields">
+			<div class="multi-field readonly">
+				<p class="form-control-static">
+                    {{ transport.date_depart }}
+                </p>
+			</div>
+			<div class="multi-field readonly">
+				<label class="form-control-label"><label class="inline">
+                        Date du retour {% if original.transport_set.all|length > 1 %}{{ forloop.counter }} {% endif %}:
+                </label></label>
+				<div class="multi-field-content widget-CheckboxInput">
+                    <p class="form-control-static">
+                        {{ transport.date_return }}
+                    </p>
+				</div>
+			</div>
+		</div>
+	</div>
     {% endfor %}
-    <div class="form-row">
-        <div class="field-box">
-              <label>Distance (km parcourus) :</label>
-            <div class="readonly">{{ original.distance }}</div>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="field-box">
-            <label class="inline">Montant total des frais (en € TTC) :</label>
-            <div class="readonly">{{ original.expense }}</div>
-        </div>
-    </div>
-    {% if original.expense %}
-        <h2>Justificatifs</h2>
-        <div class="form-row">
-            <label>Justificatifs attachés :</label>
-            {% for bill in original.bill_set.all %}
-                <ul>
-                    <li>
-                        <a
-                            href="{{ bill.get_download_url }}"
-                            target="_blank"
-                        >{{ bill.filename }}</a>
-                        {{ bill.binary|length|naturalsize }}
-                    </li>
-                </ul>
-            {% endfor %}
-        </div>
-    {% endif %}
+
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+			Distance (km parcourus) :
+		</label>
+		<div class="col-xs-12 col-sm-9 col-md-10 col-multi-fields">
+			<div class="multi-field readonly">
+				<p class="form-control-static">
+                    {{ original.distance }}
+                </p>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+			Montant total des frais (en € TTC) :
+		</label>
+		<div class="col-xs-12 col-sm-9 col-md-10 col-multi-fields">
+			<div class="multi-field readonly">
+				<p class="form-control-static">
+                    {{ original.expense }}
+                </p>
+			</div>
+		</div>
+	</div>
 </fieldset>
+
+{% if original.expense %}
+<fieldset class="suit-form module aligned ">
+    <h2>Justificatif{% if original.bill_set.all|length > 1 %}s{% endif %}</h2>
+	<div class="form-group row form-row  field-number field-active">
+		<label class="form-control-label col-xs-12 col-sm-3 col-md-2">
+			Justificatifs attachés :
+		</label>
+		<div class="col-xs-12 col-sm-9 col-md-10 col-multi-fields">
+			<div class="multi-field readonly">
+				<p class="form-control-static">
+                {% for bill in original.bill_set.all %}
+                    <ul>
+                        <li>
+                            <a
+                                href="{{ bill.get_download_url }}"
+                                target="_blank"
+                            >{{ bill.filename }}</a>
+                            {{ bill.binary|length|naturalsize }}
+                        </li>
+                    </ul>
+                {% endfor %}
+                </p>
+			</div>
+		</div>
+	</div>
+</fieldset>
+{% endif %}
 {% endblock %}
 
 {% block submit_buttons_bottom %}
