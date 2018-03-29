@@ -29,7 +29,7 @@
     .mrs-logo
       width: 70vw
       max-width: 15rem
-      margin: 3rem 0 2rem 0
+      margin: 5rem 0 2rem 0
 
       @media (min-width: $desktop-min-width)
         margin-left: $desktop-page-margin-left
@@ -61,14 +61,18 @@
         line-height: 1.3rem
 
       .start-button
-        +button($primary-blue)
+        +button($primary-red)
         position: absolute
         top: calc(100% + 1rem)
         left: $padding-left
         color: white
+        display: none
 
         @media (min-width: $desktop-min-width)
-          top: 100%
+          align-self: flex-start
+          transform: translateY(20px)!important
+          position: initial
+          display: flex
 
   #intro-bg-img
     background-size: cover
@@ -121,6 +125,17 @@
       color: $primary-blue
       border: 0
 
+    .start-button
+      +button($primary-blue)
+      height: 3rem
+      font-size: 1.3rem
+      color: white
+      align-self: center
+      margin: 1rem 0
+
+      @media (min-width: $desktop-min-width)
+        display: none
+
     .wrapper2
       display: flex
       +flex-column()
@@ -157,6 +172,7 @@
       padding-top: 0
       padding-bottom: 0
       font-weight: bold
+      display: initial!important
 
     .ajd--wrapper
       @media (min-width: $desktop-min-width)
