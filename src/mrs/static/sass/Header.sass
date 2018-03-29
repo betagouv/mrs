@@ -7,10 +7,14 @@
 
   background-color: $primaryColor
   height: $headerHeight
-  position: relative
+  position: fixed
+  left: 0
+  right: 0
+  z-index: 10
 
   @media (min-width: $desktop-min-width)
     padding: 0 5vw
+    position: relative
 
   @media (min-width: 1300px)
     padding: 0 $desktop-secondary-page-margin
