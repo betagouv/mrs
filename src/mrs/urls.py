@@ -17,6 +17,8 @@ urlpatterns = [
     path('contact', ContactView.as_view(), name='contact'),
     path('mentions-legales', views.LegalView.as_view(), name='legal'),
     path('faq', views.FaqView.as_view(), name='faq'),
+    path('manifest.json', views.generic.RedirectView.as_view(
+        url='/static/manifest.json', permanent=True)),
     path('stats/', views.generic.RedirectView.as_view(
         url='/stats', permanent=True)),
     path('stats', views.StatisticsView.as_view(), name='statistics'),
