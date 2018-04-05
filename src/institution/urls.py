@@ -1,5 +1,6 @@
 from django.urls import path
 
+from mrs.views import StaticView
 from . import views
 
 
@@ -17,7 +18,11 @@ urlpatterns = [
     ),
     path(
         'example.jpg',
-        views.ExampleJpg.as_view(),
+        StaticView.as_view(
+            path='img/icones/burger.png',
+            content_type='image/png',
+            allow_origin='*',
+        ),
         name='example_jpg',
     ),
     path(

@@ -1,7 +1,6 @@
 import uuid
 
 from django import http
-from django.contrib.staticfiles import finders
 from django.urls import reverse
 from django.views import generic
 
@@ -9,21 +8,6 @@ from mrsrequest.models import MRSRequest
 from mrsrequest.views import MRSRequestCreateView
 
 from .models import Institution
-
-
-class ExampleJpg(generic.View):
-    def get(self, request, *args, **kwargs):
-        path = finders.find(
-            'img/icones/burger.png'
-        )
-
-        response = http.FileResponse(
-            open(path, 'rb'),
-            content_type='image/png',
-        )
-
-        response['Access-Control-Allow-Origin'] = '*'
-        return response
 
 
 class InstitutionMixin(object):
