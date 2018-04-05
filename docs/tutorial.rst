@@ -112,9 +112,10 @@ container, et le serveur de développement devrait recharger le python, et toute
 modification de fichier JS, JSX ou SCSS causera une re compilation des bundles
 par le watcher webpack.
 
-Attention cependant, la base de données SQLite de développement se trouve dans
-le dossier ``mrs/src/db.sqlite3``, vous pouvez aussi bien l'effacer et
-redémarrer le container lorsque vous souhaitez repartir à zéro.
+.. danger:: Attention cependant, la base de données SQLite de développement se
+            trouve dans le dossier ``mrs/src/db.sqlite3``, vous pouvez aussi
+            bien l'effacer et redémarrer le container lorsque vous souhaitez
+            repartir à zéro.
 
 Hacker MRS: tout faire en local
 ===============================
