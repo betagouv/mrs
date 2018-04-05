@@ -105,7 +105,7 @@ Pour hacker MRS, rien de tel que de démarrer le container avec un bind mount du
 dossier::
 
     git clone https://github.com/betagouv/mrs
-    docker run -v $(pwd)/mrs:/code -e DEBUG=1 --name mrs -d -p 8000:8000 -it betagouv/mrs:master mrs dev 0:8000
+    docker run -v $(pwd)/mrs/src:/code/src -e DEBUG=1 --name mrs -d -p 8000:8000 -it betagouv/mrs:master mrs dev 0:8000
 
 Ainsi, toute modification faite dans le code source sera visible dans le
 container, et le serveur de développement devrait recharger le python, et toute
