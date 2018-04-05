@@ -345,6 +345,7 @@
       padding-right: 0rem
 
     .process--wrapper
+      position: relative
       $paddingLeft: 4rem
       padding: 0
       align-items: flex-start
@@ -429,4 +430,19 @@
         height: auto
         align-self: center
         margin: 0
+    .picto-bus, .picto-auto
+      position: absolute
+      display: none
+      top: 50%
+      transform: translateY(-50%)
+      width: auto
+
+      @media (min-width: $desktop-min-width)
+        display: block
+
+    .picto-bus
+      right: calc(140% + 0rem)
+
+    .picto-auto
+      left: calc(140% + 0rem)
 
