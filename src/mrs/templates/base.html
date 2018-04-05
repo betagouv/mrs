@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Mes Remboursements Simplifiés</title>
+    <title>{% block title %}Mes Remboursements Simplifiés{% endblock %} | MRS</title>
     {% include '_piwik.html' %}
     {% block extra_head %}
     {% include 'mrsrequest/_form_css.html' %}
@@ -14,7 +14,7 @@
     <meta property="og:title" content="Mes Remboursements Simplifiés" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="{% static 'img/logos/mrs.png' %}" />
-    <meta property="og:description" content="En 3 clics, mon transport personnel remboursé en moins d'une semaine. Sur prescription de votre médecin, l'Assurance Maladie rembourse les frais d'utilisation de votre véhicule personnel ou des transports en commun. " />
+    <meta property="og:description" content="{% block description %}En 3 clics, mon transport personnel remboursé en moins d'une semaine. Sur prescription de votre médecin, l'Assurance Maladie rembourse les frais d'utilisation de votre véhicule personnel ou des transports en commun.{% endblock %}" />
     <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}" />
     {% endblock %}
   </head>
