@@ -41,6 +41,8 @@ body
       text-transform: uppercase
       height: 3rem
       white-space: nowrap
+      @media (min-width: $desktop-min-width)
+        min-width: 20rem // ie11 hack
 
       a
         display: flex
