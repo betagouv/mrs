@@ -110,6 +110,12 @@ class MRSRequest(models.Model):
         verbose_name='Statut',
         default=0,
     )
+    reject_template = models.ForeignKey(
+        'mrsemail.EmailTemplate',
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
     institution = models.ForeignKey(
         'institution.Institution',
         null=True,

@@ -288,7 +288,7 @@ class CertifyForm(forms.Form):
 
 
 class MRSRequestRejectForm(forms.ModelForm):
-    template = forms.ModelChoiceField(EmailTemplate.objects.all())
+    template = forms.ModelChoiceField(EmailTemplate.objects.active())
     subject = forms.CharField()
     body = forms.CharField(widget=forms.Textarea)
 

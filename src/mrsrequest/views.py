@@ -260,6 +260,10 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
 
     def form_valid(self, form):
         resp = super().form_valid(form)
+
+        self.object.reject_template = form.cleaned_data['template']
+        self.object.save()
+
         messages.info(self.request, 'Demande n°{} rejetée'.format(
             form.instance.display_id))
 
