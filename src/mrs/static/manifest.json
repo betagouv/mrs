@@ -3,23 +3,23 @@
   "name": "Mes Remboursements Simplifiés",
   "description": "MRS simplifie et accélère le remboursement de vos transports médicaux prescrits.",
   "start_url": "/?from=webapp",
-  "theme_color": "#EF786F",  
-  "background_color": "#C3D2D9",  
-  "display": "fullscreen",  
+  "theme_color": "#EF786F",
+  "background_color": "#C3D2D9",
+  "display": "fullscreen",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "launcher-icon-1x.png",
+      "src": "/static/img/logos/launcher-icon-1x.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "launcher-icon-2x.png",
+      "src": "/static/img/logos/launcher-icon-2x.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "launcher-icon-4x.png",
+      "src": "/static/img/logos/launcher-icon-4x.png",
       "type": "image/png",
       "sizes": "192x192"
     }
