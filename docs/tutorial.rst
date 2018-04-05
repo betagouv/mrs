@@ -123,20 +123,6 @@ Hacker MRS: tout faire en local
 Autrement, il suffit d'une toolchain nodejs et python normale a jour sur son
 système.
 
-Python
-------
-
-Pour tester le Python, installer le paquetage Python ``tox`` avec ``pip install
---user tox``, puis exécuter a la racine du code source qui contient
-``tox.ini``:
-
-- ``PATH=~/.local/bin:$PATH tox -e qa`` pour lancer l'analyse statique
-- ``PATH=~/.local/bin:$PATH tox -e py36-dj20`` pour exécuter les tests dans un
-  environnement python 3.6 avec Django 2.0.
-
-Tox fera le baby sitting des environnements dans le dossier ``.tox``, par
-exemple dans le dossier ``.tox/py36-dj20``  l'environnement ``-e py36-dj20``.
-
 JavaScript
 ----------
 
@@ -148,8 +134,8 @@ et exécuter a la racine du code source qui contient ``package.json``:
 - ``yarn test`` pour exécuter les tests,
 - ``yarn run lint`` pour exécuter le linter.
 
-``mrs dev``
------------
+Python
+------
 
 Vous pouvez installer MRS et les dépendances dans ``~/.local`` avec ``pip
 install --user -e /chemin/vers/mrs``, ensuite vous pouvez exécuter la commande::
@@ -160,13 +146,24 @@ Cela exécutera un serveur de développement sur ``localhost:8000`` ainsi qu'un
 watcher webpack, il faut donc que la commande ``yarn install`` décrite
 ci-dessus fonctionne.
 
-Aussi, cela effectuera automatiquement les migrations de database. En dev,
-c'est un fichier ``db.sqlite3`` dans le dossier ``src``. N'hésitez pas a
-l'effacer et a relancer la commande pour le recréer en cas de problème avec la
-DB.
+.. danger:: Aussi, cela effectuera automatiquement les migrations de database.
+            En dev, c'est un fichier ``db.sqlite3`` dans le dossier ``src``.
+            N'hésitez pas a l'effacer et a relancer la commande pour le recréer
+            en cas de problème avec la DB.
 
-tests
+Tests
 -----
+
+Pour tester le Python, installer le paquetage Python ``tox`` avec ``pip install
+--user tox``, puis exécuter a la racine du code source qui contient
+``tox.ini``:
+
+- ``PATH=~/.local/bin:$PATH tox -e qa`` pour lancer l'analyse statique
+- ``PATH=~/.local/bin:$PATH tox -e py36-dj20`` pour exécuter les tests dans un
+  environnement python 3.6 avec Django 2.0.
+
+Tox fera le baby sitting des environnements dans le dossier ``.tox``, par
+exemple dans le dossier ``.tox/py36-dj20``  l'environnement ``-e py36-dj20``.
 
 En outre, les tests exécutés par notre pipeline sont définis dans
 ``.circleci/config.yml``.
