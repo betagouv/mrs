@@ -192,6 +192,7 @@
         span
           color: $primary-blue
 
+  $etapes-descr--wrapper-font-size: 1.1rem
   #etapes-descr--wrapper
     .thumb
       +wrapper()
@@ -202,7 +203,7 @@
       width: 95vw
       max-width: 65rem
       padding-right: 3rem
-      font-size: 1.1rem
+      font-size: $etapes-descr--wrapper-font-size
 
       @media (min-width: $desktop-min-width)
         font-size: 1.5rem
@@ -408,6 +409,9 @@
           &.translate
             @media (min-width: $desktop-min-width)
               line-height: 2.5rem
+        p
+          font-size: $etapes-descr--wrapper-font-size
+
 
       p
         +barlow-regular()
