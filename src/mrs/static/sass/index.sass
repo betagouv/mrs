@@ -201,14 +201,18 @@
       color: $primary-blue
       line-height: 1.5rem
       width: 95vw
-      max-width: 65rem
+      max-width: 60rem
       padding-right: 3rem
       font-size: $etapes-descr--wrapper-font-size
 
       @media (min-width: $desktop-min-width)
-        font-size: 1.5rem
+        font-size: 1.25rem
         transform: translateY(75%)
         height: 2.5rem
+
+      @media (min-width: $tablet-min-width)
+        font-size: 1.5rem
+        max-width: 67rem
 
 
       strong
