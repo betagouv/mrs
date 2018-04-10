@@ -1,3 +1,5 @@
+from crudlfap import crudlfap
+
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
@@ -11,6 +13,7 @@ admin.site.site_header = 'MRS Admin'
 admin.site.site_title = 'MRS Admin'
 
 urlpatterns = [
+    crudlfap.site.get_urlpattern('newadmin'),
     path('', MRSRequestCreateView.as_view(
         template_name='index.html'), name='index'),
     path('demande', MRSRequestCreateView.as_view(), name='demande'),

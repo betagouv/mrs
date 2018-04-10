@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import shutil
 import os
 
+from crudlfap.settings import (
+    CRUDLFAP_APPS,
+    CRUDLFAP_TEMPLATE_BACKEND,
+)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -43,13 +48,11 @@ INSTALLED_APPS = [
     'institution',
     'person',
     'mrs',
-    'mrsrequest',
+    'mrsrequest', 'jfu',
     'mrsattachment',
     'mrsemail',
     'caisse',
 
-    'jfu',
-    'material',
     'webpack_loader' if shutil.which('npm') else 'webpack_mock',
     'django_humanize',
 
@@ -59,7 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+] + CRUDLFAP_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,6 +78,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'mrs.urls'
 
 TEMPLATES = [
+    CRUDLFAP_TEMPLATE_BACKEND,
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "APP_DIRS": True,
