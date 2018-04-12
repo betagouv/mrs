@@ -4,10 +4,13 @@ import { Application } from 'stimulus'
 import { definitionsFromContext } from 'stimulus/webpack-helpers'
 import M from 'materialize-css'
 import 'crudlfap/js/style.sass'
+//
 
 (() => {
-  var Turbolinks = require('turbolinks')
-  Turbolinks.start()
+  if (window.Turbolinks === undefined) {
+    var Turbolinks = require('turbolinks')
+    Turbolinks.start()
+  }
 }).bind(window)()
 
 const application = Application.start()
