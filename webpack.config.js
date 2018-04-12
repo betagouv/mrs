@@ -25,7 +25,11 @@ module.exports = {
   entry: {
     base: ['babel-polyfill', './src/mrs/static/js/base'],
     iframe: ['./src/mrs/static/js/iframe'],
-    admin: ['./src/mrs/static/js/admin'],
+    crudlfap: [
+      'babel-polyfill',
+      './src/mrs/static/js/crudlfap',
+      './node_modules/materialize-css/sass/materialize.scss',
+    ],
   },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
@@ -42,7 +46,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        //exclude: /(node_modules|bower_components)/,
+        exclude: /(turbolinks)/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -51,7 +55,7 @@ module.exports = {
         }
       },
       {
-        test: /\.sass$/,
+        test: /\.s(a|c)ss$/,
         use: extractSass.extract({
           use: [{
             loader: 'css-loader', options: {

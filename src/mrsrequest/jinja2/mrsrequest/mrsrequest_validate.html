@@ -1,0 +1,22 @@
+{% extends 'crudlfap/update.html' %}
+
+{% block success %}
+    <div class="card-panel green lighten-4">
+        La requête est passée au statut "validée" et le mail suivant est parti vers le service de liquidation.
+    </div>
+    <pre>
+        {{ view.get_success_mail_body() }}
+    </pre>
+{% endblock %}
+
+{% block content %}
+<div class="red darken-1 white-text center">
+  <p class="flow-text">
+    ATTENTION la validation entraine l'envoie du mail suivant à la liquidation.
+  </p>
+</div>
+<div class="form-row">
+    <pre style="color: black">{{ view.get_mail_body() }}</pre>
+</div>
+{% csrf_token %}
+{% endblock %}
