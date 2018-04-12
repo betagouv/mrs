@@ -12,6 +12,8 @@ from . import views
 admin.site.site_header = 'MRS Admin'
 admin.site.site_title = 'MRS Admin'
 
+crudlfap.site.title = 'MRS Admin'
+
 urlpatterns = [
     crudlfap.site.get_urlpattern('newadmin'),
     path('', MRSRequestCreateView.as_view(
