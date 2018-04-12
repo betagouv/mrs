@@ -1,6 +1,8 @@
 import collections
 import json
 
+from crudlfap import crudlfap
+
 from django import http
 from django import template
 from django.conf import settings
@@ -205,10 +207,12 @@ class MRSRequestAdminBaseView(generic.UpdateView):
         return super().form_valid(form)
 
 
-class MRSRequestValidateView(MRSRequestAdminBaseView):
+class MRSRequestValidateView(crudlfap.UpdateView):
     form_class = MRSRequestValidateForm
     template_name = 'mrsrequest/mrsrequest_validate.html'
     action_name = 'Valider'
+    material_icon = 'check_circle'
+    color = 'green'
 
     def get_mail_body(self):
         return template.loader.get_template(
@@ -243,10 +247,12 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
         return reverse('admin:mrsrequest_mrsrequest_changelist')
 
 
-class MRSRequestRejectView(MRSRequestAdminBaseView):
+class MRSRequestRejectView(crudlfap.UpdateView):
     form_class = MRSRequestRejectForm
     template_name = 'mrsrequest/mrsrequest_reject.html'
     action_name = 'Rejeter'
+    material_icon = 'do_not_disturb_on'
+    color = 'red'
 
     def reject_templates_json(self):
         context = template.Context({'display_id': self.object.display_id})
