@@ -235,7 +235,7 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
         return reverse('admin:mrsrequest_mrsrequest_changelist')
 
 
-class MRSRequestRejectView(crudlfap.UpdateView):
+class MRSRequestRejectView(MRSRequestAdminBaseView):
     form_class = MRSRequestRejectForm
     template_name = 'mrsrequest/mrsrequest_reject.html'
     action_name = 'Rejeter'
