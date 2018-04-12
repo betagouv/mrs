@@ -1,7 +1,7 @@
 {% extends 'crudlfap/base.html' %}
 
 {% block bundles %}
-{{ render_bundle('crudlfap') }}
+{{ render_bundle('crudlfap', attrs='data-turbolinks-track="reload"') }}
 <style type="text/css">
 textarea {
     min-height: 300px;

@@ -13,7 +13,7 @@ class MRSRequestListView(crudlfap.FilterTables2ListView):
         'caisse',
     )
 
-    table_columns=dict(  # our extra columns
+    table_columns = dict(  # our extra columns
         first_name=tables.Column(
             accessor='insured.first_name',
             verbose_name='Prénom',
@@ -31,7 +31,7 @@ class MRSRequestListView(crudlfap.FilterTables2ListView):
         ),
     )
 
-    table_sequence=(
+    table_sequence = (
         'creation_datetime',
         'display_id',
         'first_name',
