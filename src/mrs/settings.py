@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'mrsrequest',
     'mrsattachment',
     'mrsemail',
+    'mrsuser',
     'caisse',
 
     'jfu',
@@ -60,6 +61,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+AUTH_USER_MODEL = 'mrsuser.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
