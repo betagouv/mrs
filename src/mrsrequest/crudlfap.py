@@ -64,7 +64,7 @@ crudlfap.Router(
     material_icon='insert_drive_file',
     views=[
         crudlfap.DeleteView,
-        crudlfap.DetailView,
+        crudlfap.DetailView.clone(locks=True),
         MRSRequestValidateView,
         MRSRequestRejectView,
         MRSRequestListView,
