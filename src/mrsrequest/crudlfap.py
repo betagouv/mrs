@@ -59,14 +59,38 @@ class MRSRequestListView(crudlfap.FilterTables2ListView):
         qs = qs.select_related('caisse', 'insured')
         return qs
 
-crudlfap.Router(
-    MRSRequest,
-    material_icon='insert_drive_file',
-    views=[
+
+class MRSRequestRouter(crudlfap.Router):
+    model = MRSRequest
+    material_icon = 'insert_drive_file'
+    views = [
         crudlfap.DeleteView,
         crudlfap.DetailView.clone(locks=True),
         MRSRequestValidateView,
         MRSRequestRejectView,
         MRSRequestListView,
     ]
-).register()
+
+    def allowed(self, view):
+        user = view.request.user
+
+        if not (user.is_staff or user.is_superuser):
+            return False
+
+        if getattr(view, 'object', None):
+            if user.is_superuser:
+                return True
+            return view.object.caisse in user.caisses.all()
+        if view.urlname == 'list':
+            return True
+
+    def get_objects_for_user(self, user, perms):
+        if not (user.is_staff or user.is_superuser):
+            return self.model.objects.none()
+
+        if user.is_superuser:
+            return self.model.objects.all()
+
+        return self.model.objects.filter(caisse__in=user.caisses.all())
+
+MRSRequestRouter(namespace='mrsrequestrouter').register()

@@ -19,7 +19,7 @@ def test_mrsrequestvalidateview_get(srf, mrsrequest):
     # Test deny non staff
     response = view(request, pk=mrsrequest.pk)
     assert response.status_code == 302
-    assert response['Location'] == '/newadmin/login?next=/page'
+    assert 'login' in response['Location']
 
     # Test allow superuser
     request.user = User.objects.create(is_superuser=True)
@@ -29,5 +29,6 @@ def test_mrsrequestvalidateview_get(srf, mrsrequest):
     # Test deny if has status
     mrsrequest.status = 2
     mrsrequest.save()
-    with pytest.raises(Exception):
-        view(request, pk=mrsrequest.pk)
+    view(request, pk=mrsrequest.pk)
+    mrsrequest.refresh_from_db()
+    assert mrsrequest.status == 2
