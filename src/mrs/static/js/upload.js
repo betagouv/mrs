@@ -207,7 +207,8 @@ class FileSelect {
   success (response, el) {
     // bind delete url
     const deleteButton = this.getElement(this.deleteElType, this.deleteClass, el)
-    deleteButton.addEventListener('click', this.bindDeleteUrlCallback(JSON.parse(response).deleteUrl, el))
+    const deleteUrl = JSON.parse(response).files[0].deleteUrl
+    deleteButton.addEventListener('click', this.bindDeleteUrlCallback(deleteUrl, el))
 
     // update and show remove element
     this.showElement(this.deleteElType, this.deleteClass, el)
