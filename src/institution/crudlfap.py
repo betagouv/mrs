@@ -6,6 +6,7 @@ from .models import Institution
 crudlfap.Router(
     Institution,
     material_icon='local_hospital',
+    namespace='institutionrouter',
     views=[
         crudlfap.FilterTables2ListView(
             table_sequence=('finess', 'origin')
