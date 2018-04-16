@@ -41,8 +41,7 @@ if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
 
 LOGIN_REDIRECT_URL = '/mrsrequest/'
 
-# Application definition
-
+CRUDLFAP_APPS.pop(CRUDLFAP_APPS.index('crudlfap_auth'))
 INSTALLED_APPS = [
     'contact',
     'institution',
@@ -51,7 +50,7 @@ INSTALLED_APPS = [
     'mrsrequest', 'jfu',
     'mrsattachment',
     'mrsemail',
-    'mrsuser',
+    'crudlfap_auth', 'mrsuser',  # the second overrides the first
     'caisse',
 
     'webpack_loader' if shutil.which('npm') else 'webpack_mock',
