@@ -77,10 +77,14 @@ class MRSRequestRouter(crudlfap.Router):
         if not (user.is_staff or user.is_superuser):
             return False
 
+        if view.urlname == 'delete':
+            return user.is_superuser
+
         if getattr(view, 'object', None):
             if user.is_superuser:
                 return True
             return view.object.caisse in user.caisses.all()
+
         if view.urlname == 'list':
             return True
 
