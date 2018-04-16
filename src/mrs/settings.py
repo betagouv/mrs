@@ -79,6 +79,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mrs.urls'
 
+CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault(
+    'naturalsize', 'humanize.naturalsize')
+
 TEMPLATES = [
     CRUDLFAP_TEMPLATE_BACKEND,
     {

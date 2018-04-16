@@ -1,0 +1,158 @@
+{% extends 'crudlfap/detail.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col m3 s6">
+        <label>Date de création:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.creation_datetime.strftime('%d/%m/%y %H:%M') }}
+    </div>
+    <div class="col m3 s6">
+        <label>Addresse ip:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.creation_ip }}
+    </div>
+    <div class="col m3 s6">
+        <label>Numéro:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.display_id }}
+    </div>
+    <div class="col m3 s6">
+        <label>Taille totale:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ naturalsize(object.total_size) }}
+    </div>
+    <div class="col m3 s6">
+        <label>Caisse:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.caisse }}
+    </div>
+</div>
+<h5>PMT</h5>
+<div class="row">
+    <a
+        href="{{ object.pmt.get_download_url() }}"
+        title="{{ object.pmt.filename }}"
+        target="_blank"
+    >{{ object.pmt.filename }} ({{ naturalsize(object.pmt.binary|length) }})</a>
+</div>
+<h5>Identité de la personne transportée</h5>
+<div class="row">
+    <div class="col l2 m3 s6">
+        <label>Prénom:</label>
+    </div>
+    <div class="col l2 m3 s6">
+        {{ object.insured.first_name }}
+    </div>
+    <div class="col l2 m3 s6">
+        <label>Nom:</label>
+    </div>
+    <div class="col l2 m3 s6">
+        <div>{{ object.insured.last_name }}</div>
+    </div>
+    <div class="col l2 m3 s6">
+        <label>Date de naissance:</label>
+    </div>
+    <div class="col l2 m3 s6">
+        {{ object.insured.birth_date }}
+    </div>
+</div>
+<h5>Identité de l'assuré-e</h5>
+<div class="row">
+    <div class="col l2 m3 s6">
+        <label>NIR:</label>
+    </div>
+    <div class="col l2 m3 s6">
+        {{ object.insured.nir }}
+    </div>
+    <div class="col l2 m3 s6">
+        <label>Email:</label>
+    </div>
+    <div class="col l2 m3 s6">
+        {{ object.insured.email }}
+    </div>
+</div>
+<h5>Informations sur les {{ object.transport_set.all()|length }} transport(s)</h5>
+<div class="row">
+{% for transport in object.transport_set.all() %}
+    <div class="col m3 s6">
+        <label>Date de l'aller {{ loop.index }}:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ transport.date_depart }}
+    </div>
+    <div class="col m3 s6">
+        <label>Date de retour {{ loop.index }}:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ transport.date_return }}
+    </div>
+{% endfor %}
+</div>
+<div class="row">
+    <div class="col m3 s6">
+        <label>Distance (km parcourus):</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.distance }}
+    </div>
+    <div class="col m3 s6">
+        <label>Montant total des frais:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.expense }}€ TTC
+    </div>
+</div>
+{% if object.expense %}
+<h5>Justificatif{% if object.bill_set.all()|length > 1 %}s{% endif %} attaché{% if object.bill_set.all()|length > 1 %}s{% endif %}</h5>
+<div class="row">
+    {% for bill in object.bill_set.all() %}
+        <ul>
+            <li>
+                <a
+                    href="{{ bill.get_download_url() }}"
+                    target="_blank"
+                >{{ bill.filename }} ({{ naturalsize(bill.binary|length) }})</a>
+            </li>
+        </ul>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if object.status %}
+<h5>Statut</h5>
+<div class="row">
+    <div class="col m3 s6">
+        <label>Statut:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.get_status_display() }}
+    </div>
+    <div class="col m3 s6">
+        <label>Par:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.status_user }}
+    </div>
+    <div class="col m3 s6">
+        <label>Le:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.status_datetime.strftime('%d/%m/%y %H:%M') }}
+    </div>
+    {% if object.reject_template %}
+    <div class="col m3 s6">
+        <label>Raison:</label>
+    </div>
+    <div class="col m3 s6">
+        {{ object.reject_template }}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}
