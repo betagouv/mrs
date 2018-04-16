@@ -13,9 +13,10 @@ admin.site.site_header = 'MRS Admin'
 admin.site.site_title = 'MRS Admin'
 
 crudlfap.site.title = 'MRS Admin'
+crudlfap.site.urlpath = 'newadmin'
 
 urlpatterns = [
-    crudlfap.site.get_urlpattern('newadmin'),
+    crudlfap.site.get_urlpattern(),
     path('', MRSRequestCreateView.as_view(
         template_name='index.html'), name='index'),
     path('demande', MRSRequestCreateView.as_view(), name='demande'),
