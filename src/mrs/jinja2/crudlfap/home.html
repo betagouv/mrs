@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h4>Demandes</h2>
+<div class="row">
+    <label>Soumises</label>
+    <p>{{ view.count_new }}</p>
+    <label>Validées</label>
+    <p>{{ view.count_valid }}</p>
+    <label>Rejettées</label>
+    <p>{{ view.count_invalid }}</p>
+    <label>Total</label>
+    <p>{{ view.count_total }}</p>
+</div>
+{% endblock %}

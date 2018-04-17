@@ -1,6 +1,33 @@
+from crudlfap import crudlfap
+
 from django import http
 from django.contrib.staticfiles import finders
 from django.views import generic
+
+from mrsrequest.models import MRSRequest
+
+
+class Dashboard(crudlfap.TemplateView):
+    urlname = 'home'
+    urlpath = ''
+    title_heading = ''
+    template_name = 'crudlfap/home.html'
+
+    def get_queryset(self):
+        return crudlfap.site[MRSRequest].get_objects_for_user(
+            self.request.user, [])
+
+    def get_count_new(self):
+        return self.queryset.filter(status=0).count()
+
+    def get_count_valid(self):
+        return self.queryset.filter(status=1).count()
+
+    def get_count_invalid(self):
+        return self.queryset.filter(status=2).count()
+
+    def get_count_total(self):
+        return self.queryset.count()
 
 
 class LegalView(generic.TemplateView):
