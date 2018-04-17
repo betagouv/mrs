@@ -10,7 +10,6 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 from ipware import get_client_ip
@@ -231,9 +230,6 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
 
         return resp
 
-    def get_success_url(self):
-        return reverse('admin:mrsrequest_mrsrequest_changelist')
-
 
 class MRSRequestRejectView(MRSRequestAdminBaseView):
     form_class = MRSRequestRejectForm
@@ -271,6 +267,3 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         email.send()
 
         return resp
-
-    def get_success_url(self):
-        return reverse('admin:mrsrequest_mrsrequest_changelist')
