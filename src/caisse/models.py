@@ -35,7 +35,7 @@ class Caisse(models.Model):
     score = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ['code']
+        ordering = ['name']
 
     def __str__(self):
         return self.name
