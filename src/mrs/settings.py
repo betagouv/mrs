@@ -39,7 +39,7 @@ if 'ALLOWED_HOSTS' in os.environ:
 if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
     raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
-LOGIN_REDIRECT_URL = '/mrsrequest/'
+LOGIN_REDIRECT_URL = '/newadmin/'
 
 CRUDLFAP_APPS.pop(CRUDLFAP_APPS.index('crudlfap_auth'))
 INSTALLED_APPS = [
