@@ -141,7 +141,7 @@ var formInit = function(form) {
           var $li = data.context[i]
           $(`
             <a data-delete-url="${file.deleteUrl}" class="delete-file">
-              Éffacer
+              Effacer
             </a>
           `).appendTo($li)
           $li.find('a.file-name').attr('target', '_blank')
