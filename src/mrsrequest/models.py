@@ -34,7 +34,16 @@ class Bill(MRSAttachment):
         return reverse('mrsrequest:bill_download', args=[self.pk])
 
 
+class MRSRequestQuerySet(models.QuerySet):
+    def status(self, name):
+        return self.filter(
+            status=getattr(self.model, 'STATUS_{}'.format(name.upper())))
+
+
 class MRSRequestManager(models.Manager):
+    def get_queryset(self):
+        return MRSRequestQuerySet(self.model, using=self._db)
+
     def allowed_objects(self, request):
         return self.filter(id__in=self.allowed_uuids(request))
 

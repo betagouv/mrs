@@ -12,22 +12,11 @@ class Dashboard(crudlfap.TemplateView):
     urlpath = ''
     title_heading = ''
     template_name = 'crudlfap/home.html'
+    model = MRSRequest
 
     def get_queryset(self):
-        return crudlfap.site[MRSRequest].get_objects_for_user(
+        return crudlfap.site[self.model].get_objects_for_user(
             self.request.user, [])
-
-    def get_count_new(self):
-        return self.queryset.filter(status=0).count()
-
-    def get_count_valid(self):
-        return self.queryset.filter(status=1).count()
-
-    def get_count_invalid(self):
-        return self.queryset.filter(status=2).count()
-
-    def get_count_total(self):
-        return self.queryset.count()
 
 
 class LegalView(generic.TemplateView):
