@@ -14,14 +14,7 @@ admin.site.site_title = 'MRS Admin'
 
 crudlfap.site.title = 'MRS Admin'
 crudlfap.site.urlpath = 'newadmin'
-
-# temp hack for overriding home view
-# better would be a nice Views object and site.views['home'] = ...
-for i, v in enumerate(crudlfap.site.views):
-    if v.urlname == 'home':
-        crudlfap.site.views.pop(i)
-        crudlfap.site.views.insert(i, views.Dashboard)
-        break
+crudlfap.site.views['home'] = views.Dashboard
 
 urlpatterns = [
     crudlfap.site.get_urlpattern(),
