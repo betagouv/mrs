@@ -40,7 +40,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1",
     "codecov": "^3.0.0",
-    "crudlfap": "^0.3.12",
+    "crudlfap": "^0.3.13",
     "css-loader": "^0.28.7",
     "eslint": "^4.18.2",
     "eslint-plugin-react": "^7.7.0",
