@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h4>Demandes</h4>
-<div class="row">
-    <label>Soumises</label>
-    <p>{{ view.count_new }}</p>
-    <label>Validées</label>
-    <p>{{ view.count_valid }}</p>
-    <label>Rejettées</label>
-    <p>{{ view.count_invalid }}</p>
-    <label>Total</label>
-    <p>{{ view.count_total }}</p>
-</div>
+<h4>Demandes</h2>
+<label>Soumises</label>
+<p>{{ view.get_queryset().status('new').count() }}</p>
+<label>Validées</label>
+<p>{{ view.get_queryset().status('validated').count() }}</p>
+<label>Rejettées</label>
+<p>{{ view.get_queryset().status('rejected').count() }}</p>
+<label>Total</label>
+<p>{{ view.get_queryset().count() }}</p>
 {% endblock %}
