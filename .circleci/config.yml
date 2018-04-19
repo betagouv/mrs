@@ -183,7 +183,7 @@ jobs:
 
   docker-build:
     docker:
-    - image: docker:17.05.0-ce-git
+    - image: docker:latest
     steps:
     - checkout
     - setup_remote_docker:
@@ -196,7 +196,7 @@ jobs:
     - deploy:
         name: DOCKER image push betagouv/mrs:{{ .Branch }} & betagouv/mrs:{{ .Environment.CIRCLE_SHA1 }} tags
         command: |
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push betagouv/mrs:$CIRCLE_SHA1
           docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:$CIRCLE_BRANCH
           docker push betagouv/mrs:$CIRCLE_BRANCH
