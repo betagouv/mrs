@@ -23,6 +23,7 @@ from .forms import (
     CertifyForm,
     MRSRequestCreateForm,
     MRSRequestRejectForm,
+    MRSRequestProgressForm,
     MRSRequestValidateForm,
     TransportForm,
     TransportIterativeForm,
@@ -184,10 +185,6 @@ class MRSRequestCreateView(generic.TemplateView):
 class MRSRequestAdminBaseView(crudlfap.UpdateView):
     menus = ['object_detail']
 
-    def get_allowed(self):
-        if super().get_allowed():
-            return not self.object.status
-
     def form_valid(self, form):
         self.object.status_user = self.request.user
         self.object.status_datetime = timezone.now()
@@ -200,6 +197,10 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
     action_name = 'Valider'
     material_icon = 'check_circle'
     color = 'green'
+
+    def get_allowed(self):
+        if super().get_allowed():
+            return self.object.status == self.model.STATUS_INPROGRESS
 
     def get_mail_body(self):
         return template.loader.get_template(
@@ -238,6 +239,10 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
     material_icon = 'do_not_disturb_on'
     color = 'red'
 
+    def get_allowed(self):
+        if super().get_allowed():
+            return self.object.status != self.model.STATUS_REJECTED
+
     def reject_templates_json(self):
         context = template.Context({'display_id': self.object.display_id})
         templates = {
@@ -267,3 +272,15 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         email.send()
 
         return resp
+
+
+class MRSRequestProgressView(MRSRequestAdminBaseView):
+    form_class = MRSRequestProgressForm
+    template_name = 'mrsrequest/mrsrequest_progress.html'
+    action_name = 'En cours'
+    material_icon = 'check_circle'
+    color = 'green'
+
+    def get_allowed(self):
+        if super().get_allowed():
+            return self.object.status == self.model.STATUS_NEW

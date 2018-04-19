@@ -21,8 +21,13 @@ def test_mrsrequestvalidateview_get(srf, mrsrequest):
     assert response.status_code == 302
     assert 'login' in response['Location']
 
-    # Test allow superuser
+    # Test allow superuser fails if not inprogress
     request.user = User.objects.create(is_superuser=True)
+    response = view(request, pk=mrsrequest.pk)
+    assert response.status_code == 403
+
+    mrsrequest.status = mrsrequest.STATUS_INPROGRESS
+    mrsrequest.save()
     response = view(request, pk=mrsrequest.pk)
     assert response.status_code == 200
 

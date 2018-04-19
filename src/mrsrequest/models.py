@@ -56,13 +56,15 @@ class MRSRequest(models.Model):
     SESSION_KEY = 'MRSRequest.ids'
 
     STATUS_NEW = 0
-    STATUS_VALIDATED = 1
-    STATUS_REJECTED = 2
+    STATUS_REJECTED = 1
+    STATUS_INPROGRESS = 2
+    STATUS_VALIDATED = 9
 
     STATUS_CHOICES = (
         (STATUS_NEW, 'Soumise'),
-        (STATUS_VALIDATED, 'Validée'),
         (STATUS_REJECTED, 'Rejetée'),
+        (STATUS_INPROGRESS, 'En cours'),
+        (STATUS_VALIDATED, 'Validée'),
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
