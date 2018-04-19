@@ -197,6 +197,8 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
     action_name = 'Valider'
     material_icon = 'check_circle'
     color = 'green'
+    controller = None
+    action = None
 
     def get_allowed(self):
         if super().get_allowed():
@@ -238,6 +240,8 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
     action_name = 'Rejeter'
     material_icon = 'do_not_disturb_on'
     color = 'red'
+    controller = None
+    action = None
 
     def get_allowed(self):
         if super().get_allowed():
