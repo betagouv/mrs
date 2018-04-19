@@ -2,7 +2,11 @@ from crudlfap import crudlfap
 
 import django_tables2 as tables
 
-from .views import MRSRequestRejectView, MRSRequestValidateView
+from .views import (
+    MRSRequestRejectView,
+    MRSRequestProgressView,
+    MRSRequestValidateView,
+)
 from .models import MRSRequest
 
 
@@ -68,6 +72,7 @@ class MRSRequestRouter(crudlfap.Router):
         crudlfap.DetailView.clone(locks=True),
         MRSRequestValidateView,
         MRSRequestRejectView,
+        MRSRequestProgressView,
         MRSRequestListView,
     ]
 

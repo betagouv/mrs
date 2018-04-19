@@ -319,3 +319,15 @@ class MRSRequestValidateForm(forms.ModelForm):
         if commit:
             self.instance.save()
         return self.instance
+
+
+class MRSRequestProgressForm(forms.ModelForm):
+    class Meta:
+        model = MRSRequest
+        fields = []
+
+    def save(self, commit=True):
+        self.instance.status = MRSRequest.STATUS_INPROGRESS
+        if commit:
+            self.instance.save()
+        return self.instance

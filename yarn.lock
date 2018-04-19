@@ -1557,9 +1557,9 @@ cross-spawn@^5.0.1, cross-spawn@^5.1.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-crudlfap@^0.3.12:
-  version "0.3.12"
-  resolved "https://registry.yarnpkg.com/crudlfap/-/crudlfap-0.3.12.tgz#572371217a3776661a19db8d262603825f2ca263"
+crudlfap@0.3.15:
+  version "0.3.15"
+  resolved "https://registry.yarnpkg.com/crudlfap/-/crudlfap-0.3.15.tgz#19a8bb5d4b757d0606a333cbf2feca41dac052f5"
   dependencies:
     babel-polyfill "^6.26.0"
     debug "^3.1.0"
