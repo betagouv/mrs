@@ -18,16 +18,15 @@ EXPOSE 6789
 
 ENV STATIC_ROOT /code/static
 RUN mkdir -p ${STATIC_ROOT}
-ADD package.json /code
-ADD yarn.lock /code
-RUN yarn install --force --ignore-scripts --pure-lockfile
+ADD package.json yarn.lock /code
+RUN yarn --ignore-scripts --pure-lockfile
 RUN pip3 install --upgrade pip
 ADD requirements.txt /code/requirements.txt
 RUN pip3 install --upgrade -r /code/requirements.txt
 ADD .babelrc /code
 ADD webpack.config.js /code
 ADD src/mrs/static /code/src/mrs/static
-RUN yarn install
+RUN yarn install --frozen-lockfile --production
 
 ADD setup.py /code/setup.py
 ADD src /code/src
