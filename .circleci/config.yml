@@ -82,7 +82,9 @@ jobs:
         command: until curl localhost:8000 &> /dev/null; do sleep 1; done
     - run:
         name: RUN smoke tests
-        command: node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+        command: |
+          yarn install --frozen-lockfile
+          node_modules/.bin/jest src/mrs/static/js/smoke.test.js
         working_directory: /code
 
   python-qa:
