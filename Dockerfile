@@ -14,20 +14,21 @@ WORKDIR /code
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE mrs.settings
 ENV VIRTUAL_PROTO uwsgi
+ENV NODE_ENV=production
 EXPOSE 6789
 
 ENV STATIC_ROOT /code/static
 RUN mkdir -p ${STATIC_ROOT}
-ADD package.json /code
-ADD yarn.lock /code
-RUN yarn install --force --ignore-scripts --pure-lockfile
+
+COPY yarn.lock .babelrc package.json /code/
+RUN yarn install --frozen-lockfile
+ADD src/mrs/static /code/src/mrs/static
+ADD webpack.config.js /code
+RUN yarn prepare
+
 RUN pip3 install --upgrade pip
 ADD requirements.txt /code/requirements.txt
 RUN pip3 install --upgrade -r /code/requirements.txt
-ADD .babelrc /code
-ADD webpack.config.js /code
-ADD src/mrs/static /code/src/mrs/static
-RUN yarn install
 
 ADD setup.py /code/setup.py
 ADD src /code/src

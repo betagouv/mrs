@@ -4,7 +4,7 @@
   "description": "BetaGouv: Mes Remboursements Simplifiés",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --config webpack.config.js",
+    "start": "webpack --watch",
     "prepare": "webpack",
     "test": "jest --testPathIgnorePatterns smoke.test.js",
     "lint": "eslint ./src/mrs/static/js/"
