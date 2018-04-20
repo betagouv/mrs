@@ -195,6 +195,29 @@ class MRSRequest(models.Model):
     def get_validate_url(self):
         return reverse('mrsrequest:validate', args=[self.pk])
 
+    @property
+    def creation_datetime_normalized(self):
+        return pytz.timezone(settings.TIME_ZONE).normalize(
+            self.creation_datetime)
+
+    @property
+    def day_number(self):
+        return '{:03d}'.format(
+            self.creation_datetime_normalized.timetuple().tm_yday)
+
+    @property
+    def order_number(self):
+        number = type(self).objects.filter(
+            insured=self.insured,
+            creation_datetime__lt=self.creation_datetime,
+            creation_datetime__day=self.creation_datetime.day,
+        ).count() + 1
+
+        if number > 99:
+            return '99'
+
+        return '{:02d}'.format(number)
+
 
 def creation_datetime_and_display_id(sender, instance, **kwargs):
     """Signal receiver executed at the beginning of MRSRequest.save()"""

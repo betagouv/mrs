@@ -40,6 +40,10 @@ class Caisse(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def short_code(self):
+        return self.code[:5]
+
 
 def caisse_number_format(sender, instance, **kwargs):
     instance.number = '{:03d}'.format(int(instance.number))

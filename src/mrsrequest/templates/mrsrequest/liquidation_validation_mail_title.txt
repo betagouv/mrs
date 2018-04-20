@@ -1,1 +1,1 @@
-Demande de remboursement MRS n°{{ object.display_id }} à traiter
+{{ object.caisse.short_code }}-{{ object.creation_datetime.year }}-{{ object.day_number }}_{{ object.insured.nir }}+{{ object.order_number }}
