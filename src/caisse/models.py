@@ -1,5 +1,14 @@
+from django import template
+from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.mail import EmailMessage
 from django.db import models
+
+
+try:
+    import uwsgi
+except ImportError:
+    uwsgi = None
 
 
 def validate_caisse_number(value):
@@ -48,6 +57,32 @@ class Caisse(models.Model):
 def caisse_number_format(sender, instance, **kwargs):
     instance.number = '{:03d}'.format(int(instance.number))
 models.signals.pre_save.connect(caisse_number_format, sender=Caisse)
+
+
+def daily_mail():
+    for caisse in Caisse.objects.filter(active=True):
+        mrsrequests = caisse.mrsrequest_set.status('new')
+        num = len(mrsrequests)
+        if not num:
+            continue
+
+        email = EmailMessage(
+            template.loader.get_template(
+                'caisse/liquidation_daily_mail_title.txt',
+            ).render(dict(object_list=mrsrequests)).strip(),
+            template.loader.get_template(
+                'caisse/liquidation_daily_mail_body.html',
+            ).render(dict(object_list=mrsrequests)).strip(),
+            settings.DEFAULT_FROM_EMAIL,
+            [caisse.liquidation_email],
+            reply_to=[settings.DEFAULT_FROM_EMAIL],
+        )
+        email.content_subtype = 'html'
+        email.send()
+
+uwsgi.register_signal(99, "", daily_mail)
+for i in range(1, 5):
+    uwsgi.add_cron(99, 0, 8, -1, -1, i)
 
 
 class Email(models.Model):
