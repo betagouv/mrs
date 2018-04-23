@@ -1,4 +1,5 @@
 /* global M */
+import M from 'materialize-css'
 import { h as React, Component } from 'preact'
 
 const CarouselSlide = props => {

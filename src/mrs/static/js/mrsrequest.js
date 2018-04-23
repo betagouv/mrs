@@ -1,7 +1,8 @@
-/*global $ */
+import $ from 'jquery'
 import Cookie from 'js-cookie'
 import mrsattachment from './mrsattachment'
 import SubmitUi from './submit-ui'
+import M from 'materialize-css'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
 (function () {
@@ -241,6 +242,7 @@ $('body').on('click', '[data-load-in-form]', function() {
       var newform = dom.find('form#mrsrequest-wizard')
       var form = document.querySelector('form#mrsrequest-wizard')
       $(form).html(newform.html())
+      M.AutoInit(form)
       formInit(form)
     },
   })

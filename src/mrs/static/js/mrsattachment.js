@@ -1,5 +1,9 @@
-/*global $ */
+import 'expose-loader?jQuery!jquery'
+import 'expose-loader?$!jquery'
 import Cookie from 'js-cookie'
+import 'blueimp-file-upload'
+
+var $ = jQuery
 
 var formInit = function(form) {
   var $form = $(form)
