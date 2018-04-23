@@ -5,12 +5,19 @@ import uuid
 from django.conf import settings
 from django.core import validators
 from django.core.exceptions import ValidationError
+from django.core.mail import EmailMessage
 from django.db import models
 from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
 
 from mrsattachment.models import MRSAttachment
+
+
+try:
+    import uwsgi
+except ImportError:
+    uwsgi = None
 
 
 class Bill(MRSAttachment):
@@ -240,6 +247,32 @@ def creation_datetime_and_display_id(sender, instance, **kwargs):
 
     instance.display_id = '{}{:04d}'.format(prefix, number)
 signals.pre_save.connect(creation_datetime_and_display_id, sender=MRSRequest)
+
+
+def daily_mail():
+    for caisse in Caisse.objects.filter(active=True):
+        mrsrequests = caisse.mrsrequest_set.status('new')
+        num = len(mrsrequest)
+        if not num:
+            continue
+
+        email = EmailMessage(
+            template.loader.get_template(
+                'mrsrequest/liquidation_daily_mail_title.txt',
+            ).render(dict(object_list=mrsrequests)).strip()
+            template.loader.get_template(
+                'mrsrequest/liquidation_daily_mail_body.html',
+            ).render(dict(object_list=mrsrequests)).strip()
+            settings.DEFAULT_FROM_EMAIL,
+            [caisse.liquidation_email],
+            reply_to=[settings.DEFAULT_FROM_EMAIL],
+        )
+        email.content_subtype = 'html'
+        email.send()
+
+uwsgi.register_signal(99, "", daily_mail)
+for i in range(1, 5):
+    uwsgi.add_cron(99, 0, 8, -1, -1, i)
 
 
 class PMT(MRSAttachment):

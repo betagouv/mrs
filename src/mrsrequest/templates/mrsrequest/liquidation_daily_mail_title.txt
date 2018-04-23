@@ -1,0 +1,1 @@
+MRS {{ object_list|length }} demande{% if object_list|length == 1 %}s{% endif %} en attente de traitement
