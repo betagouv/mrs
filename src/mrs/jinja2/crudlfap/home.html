@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h4>Demandes</h2>
+<h4>Demandes</h4>
 <label>Soumises</label>
 <p>{{ view.get_queryset().status('new').count() }}</p>
 <label>Validées</label>
@@ -10,4 +10,5 @@
 <p>{{ view.get_queryset().status('rejected').count() }}</p>
 <label>Total</label>
 <p>{{ view.get_queryset().count() }}</p>
+<script src="{% static 'material/js/jquery.js' %}"></script>
 {% endblock %}
