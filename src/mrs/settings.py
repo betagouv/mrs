@@ -197,7 +197,7 @@ elif raven:
 
 BASE_URL = 'http://localhost:8000'
 if 'LETSENCRYPT_HOST' in os.environ:
-    BASE_URL = 'https://{}'.format(os.environ('LETSENCRYPT_HOST'))
+    BASE_URL = 'https://{}'.format(os.environ.get('LETSENCRYPT_HOST'))
 
 if os.getenv('LOG') and not DEBUG:
     LOGGING = {
