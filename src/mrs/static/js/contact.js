@@ -1,4 +1,4 @@
-/*global $ */
+import $ from 'jquery'
 import Cookie from 'js-cookie'
 
 var contactForm = function(form) {
