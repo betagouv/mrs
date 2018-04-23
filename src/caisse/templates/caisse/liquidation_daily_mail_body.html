@@ -9,13 +9,13 @@ Merci de traiter {% if object_list|length == 1 %}la demande suivante{% else %}le
 <ul>
 {% for object in object_list %}
   <li>
-    <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+      <a href="{{ BASE_URL }}{{ object.get_absolute_url }}">{{ object }}</a>
   </li>
 {% endfor %}
 </ul>
 
 <p>
-Si vous n'avez l'accès à <a href="https://www.mrs.beta.gouv.fr">MRS</a>, merci de
+Si vous n'avez l'accès à <a href="{{ BASE_URL }}{{ ADMIN_ROOT }}">MRS</a>, merci de
 faire la demande à contact@mrs.beta.gouv.fr en justifiant votre besoin dans le
 cadre du projet MRS.
 </p>
