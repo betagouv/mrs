@@ -1,12 +1,15 @@
 var path = require('path')
 var BundleTracker = require('webpack-bundle-tracker')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
     filename: '[name].[contenthash].css',
 })
 
-module.exports = {
+var production = process.env.NODE_ENV == 'production'
+
+var cfg = {
   context: __dirname,
 
   /*
@@ -71,3 +74,9 @@ module.exports = {
     ]
   }
 }
+
+if (production) {
+  cfg.plugins.push(new UglifyJSPlugin())
+}
+
+module.exports = cfg
