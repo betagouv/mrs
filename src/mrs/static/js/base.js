@@ -1,4 +1,5 @@
 import ScrollReveal from 'scrollreveal'
+import 'materialize-css/sass/materialize.scss'
 import '../sass/base.sass'
 import '../sass/landing.sass'
 import '../sass/base.sass'
@@ -10,6 +11,7 @@ import '../sass/caroussel.sass'
 import './mrsrequest'
 import './contact'
 import initStatistics from './statistics.js'
+import M from 'materialize-css'
 
 // Preact imports
 import { h as React, render } from 'preact'
@@ -38,4 +40,5 @@ import Carousel from './components/Caroussel.js'
     initStatistics()
   }
 
+  M.AutoInit()
 })()

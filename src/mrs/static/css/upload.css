@@ -1,7 +1,0 @@
-/* doesn't seem to work when through SASS */
-progress::-webkit-progress-value {
-    background: #0dc5b9;
-}
-progress::-moz-progress-bar {
-    background: #0dc5b9;
-}
