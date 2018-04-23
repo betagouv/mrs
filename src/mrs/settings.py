@@ -195,6 +195,11 @@ elif raven:
     if os.path.exists(os.path.join(repo, '.git')):
         RAVEN_CONFIG['release'] = raven.fetch_git_sha(repo)
 
+BASE_URL = 'http://localhost:8000'
+if 'LETSENCRYPT_HOST' in os.environ:
+    SITE_DOMAIN = os.environ.get('LETSENCRYPT_HOST').split(',')[0]
+    BASE_URL = 'https://{}'.format(SITE_DOMAIN)
+
 if os.getenv('LOG') and not DEBUG:
     LOGGING = {
         'version': 1,
