@@ -204,15 +204,26 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
         if super().get_allowed():
             return self.object.status == self.model.STATUS_INPROGRESS
 
-    def get_mail_body(self):
+    def render_mail_template(self, template_name):
         return template.loader.get_template(
-            'mrsrequest/liquidation_validation_mail_body.txt',
+            template_name
         ).render(dict(object=self.object)).strip()
 
-    def get_mail_title(self):
-        return template.loader.get_template(
-            'mrsrequest/liquidation_validation_mail_title.txt',
-        ).render(dict(object=self.object)).strip()
+    def get_insured_mail_body(self):
+        return self.render_mail_template(
+            'mrsrequest/insured_validation_mail_body.txt')
+
+    def get_insured_mail_title(self):
+        return self.render_mail_template(
+            'mrsrequest/insured_validation_mail_title.txt')
+
+    def get_liquidation_mail_body(self):
+        return self.render_mail_template(
+            'mrsrequest/liquidation_validation_mail_body.txt')
+
+    def get_liquidation_mail_title(self):
+        return self.render_mail_template(
+            'mrsrequest/liquidation_validation_mail_title.txt')
 
     def form_valid(self, form):
         resp = super().form_valid(form)
@@ -220,8 +231,16 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
             form.instance.display_id))
 
         email = EmailMessage(
-            self.get_mail_title(),
-            self.get_mail_body(),
+            self.get_insured_mail_title(),
+            self.get_insured_mail_body(),
+            settings.DEFAULT_FROM_EMAIL,
+            [self.object.insured.email],
+        )
+        email.send()
+
+        email = EmailMessage(
+            self.get_liquidation_mail_title(),
+            self.get_liquidation_mail_body(),
             settings.DEFAULT_FROM_EMAIL,
             [self.object.caisse.liquidation_email],
             reply_to=[settings.TEAM_EMAIL],
