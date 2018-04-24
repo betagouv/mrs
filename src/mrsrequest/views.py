@@ -190,6 +190,9 @@ class MRSRequestAdminBaseView(crudlfap.UpdateView):
         self.object.status_datetime = timezone.now()
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return self.router.views['list'].url
+
 
 class MRSRequestValidateView(MRSRequestAdminBaseView):
     form_class = MRSRequestValidateForm
