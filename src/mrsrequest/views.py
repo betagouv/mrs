@@ -6,7 +6,6 @@ from crudlfap import crudlfap
 from django import http
 from django import template
 from django.conf import settings
-from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.db import transaction
@@ -228,10 +227,11 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
         return self.render_mail_template(
             'mrsrequest/liquidation_validation_mail_title.txt')
 
+    def get_form_valid_message(self):
+        return 'Demande n°{} validée'.format(self.object.display_id)
+
     def form_valid(self, form):
         resp = super().form_valid(form)
-        messages.info(self.request, 'Demande n°{} validée'.format(
-            form.instance.display_id))
 
         email = EmailMessage(
             self.get_insured_mail_title(),
@@ -286,9 +286,6 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         self.object.reject_template = form.cleaned_data['template']
         self.object.save()
 
-        messages.info(self.request, 'Demande n°{} rejetée'.format(
-            form.instance.display_id))
-
         email = EmailMessage(
             form.cleaned_data['subject'],
             form.cleaned_data['body'],
@@ -299,6 +296,9 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         email.send()
 
         return resp
+
+    def get_form_valid_message(self):
+        return 'Demande n°{} rejetée'.format(self.object.display_id)
 
 
 class MRSRequestProgressView(MRSRequestAdminBaseView):
@@ -311,3 +311,6 @@ class MRSRequestProgressView(MRSRequestAdminBaseView):
     def get_allowed(self):
         if super().get_allowed():
             return self.object.status == self.model.STATUS_NEW
+
+    def get_form_valid_message(self):
+        return 'Demande n°{} en cours'.format(self.object.display_id)
