@@ -31,6 +31,7 @@ var cfg = {
     crudlfap: [
       'babel-polyfill',
       './src/mrs/static/js/crudlfap',
+      './node_modules/formdata-polyfill/formdata.min.js',
       './node_modules/materialize-css/sass/materialize.scss',
     ],
   },

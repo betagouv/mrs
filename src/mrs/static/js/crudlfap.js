@@ -4,6 +4,7 @@ import { Application } from 'stimulus'
 import { definitionsFromContext } from 'stimulus/webpack-helpers'
 import M from 'materialize-css'
 import 'crudlfap/js/style.sass'
+import CustomURLSearchParams from './search-params'
 //
 
 (() => {
@@ -28,6 +29,21 @@ import 'crudlfap/js/style.sass'
       } while (el != null && el.nodeType === 1)
       return el
     }
+  }
+  
+  function detectIe() {
+    let ua = window.navigator.userAgent
+    let ie = ua.indexOf('MSIE ')
+
+    if (ie > 0 || !!navigator.userAgent.match(/Trident.*rv:11./))
+      return true
+    else
+      return false
+  }
+
+  if (detectIe()) {
+    window['URLSearchParams'] = CustomURLSearchParams
+    window['Request'] = XMLHttpRequest
   }
 }).bind(window)()
 
