@@ -264,7 +264,8 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
 
     def get_allowed(self):
         if super().get_allowed():
-            return self.object.status != self.model.STATUS_REJECTED
+            return self.object.status in (
+                self.model.STATUS_NEW, self.model.STATUS_INPROGRESS)
 
     def reject_templates_json(self):
         context = template.Context({'display_id': self.object.display_id})
