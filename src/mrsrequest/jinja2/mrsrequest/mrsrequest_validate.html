@@ -12,11 +12,20 @@
 {% block content %}
 <div class="red darken-1 white-text center">
   <p class="flow-text">
+    ATTENTION la validation entraine l'envoie du mail suivant à l'assuré-e.
+  </p>
+</div>
+<div class="form-row">
+    <pre style="color: black">{{ view.get_insured_mail_body() }}</pre>
+</div>
+
+<div class="red darken-1 white-text center">
+  <p class="flow-text">
     ATTENTION la validation entraine l'envoie du mail suivant à la liquidation.
   </p>
 </div>
 <div class="form-row">
-    <pre style="color: black">{{ view.get_mail_body() }}</pre>
+    <pre style="color: black">{{ view.get_liquidation_mail_body() }}</pre>
 </div>
 {% csrf_token %}
 {% endblock %}
