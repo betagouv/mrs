@@ -4,6 +4,7 @@ import { Application } from 'stimulus'
 import { definitionsFromContext } from 'stimulus/webpack-helpers'
 import M from 'materialize-css'
 import 'crudlfap/js/style.sass'
+import CustomURLSearchParams from './search-params'
 //
 
 (() => {
@@ -29,6 +30,26 @@ import 'crudlfap/js/style.sass'
       return el
     }
   }
+  
+  function detectIe() {
+    let ua = window.navigator.userAgent
+    let ie = ua.indexOf("MSIE ")
+
+    if (ie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))
+      return true
+    else
+      return false
+  }
+
+  if (detectIe()) {
+    console.log("IEs")
+    window['URLSearchParams'] = CustomURLSearchParams
+    window['Request'] = XMLHttpRequest
+  } else {
+    window['URLSearchParams'] = CustomURLSearchParams
+    console.log("Chrome")
+  }
+  
 }).bind(window)()
 
 const application = Application.start()
