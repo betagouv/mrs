@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h4>Demandes</h2>
+<h4>Demandes</h4>
 <label>Soumises</label>
 <p>{{ view.get_queryset().status('new').count() }}</p>
 <label>Validées</label>
