@@ -281,9 +281,9 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         return json.dumps(templates)
 
     def form_valid(self, form):
-        resp = super().form_valid(form)
-
+        # get_log_message will use this, set before calling super()
         self.object.reject_template = form.cleaned_data['template']
+        resp = super().form_valid(form)
         self.object.save()
 
         email = EmailMessage(
@@ -299,6 +299,9 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
 
     def get_form_valid_message(self):
         return 'Demande n°{} rejetée'.format(self.object.display_id)
+
+    def get_log_message(self):
+        return self.object.reject_template
 
 
 class MRSRequestProgressView(MRSRequestAdminBaseView):
