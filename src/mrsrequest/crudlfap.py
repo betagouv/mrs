@@ -73,6 +73,7 @@ class MRSRequestRouter(crudlfap.Router):
         MRSRequestValidateView,
         MRSRequestRejectView,
         MRSRequestProgressView,
+        crudlfap.HistoryView,
         MRSRequestListView,
     ]
 
