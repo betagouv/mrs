@@ -60,6 +60,7 @@
     "scrollreveal": "^3.3.6",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^3.10.0",
-    "webpack-bundle-tracker": "^0.2.0"
+    "webpack-bundle-tracker": "^0.2.0",
+    "whatwg-fetch": "^2.0.4"
   }
 }

@@ -30,6 +30,7 @@ var cfg = {
     iframe: ['./src/mrs/static/js/iframe'],
     crudlfap: [
       'babel-polyfill',
+      'whatwg-fetch',
       './src/mrs/static/js/crudlfap',
       './node_modules/materialize-css/sass/materialize.scss',
     ],
