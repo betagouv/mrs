@@ -17,7 +17,14 @@ class MRSRequestListView(crudlfap.FilterTables2ListView):
         'caisse',
     )
 
+    DISPLAY_ID_TEMPLATE = '''
+    <span class="{{ record.color }}">{{ record.display_id }}</span>
+    '''
+
     table_columns = dict(  # our extra columns
+        display_id=tables.TemplateColumn(
+            DISPLAY_ID_TEMPLATE,
+        ),
         first_name=tables.Column(
             accessor='insured.first_name',
             verbose_name='Prénom',
