@@ -39,7 +39,7 @@ if 'ALLOWED_HOSTS' in os.environ:
 if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
     raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
-LOGIN_REDIRECT_URL = '/newadmin/'
+LOGIN_REDIRECT_URL = '/admin/'
 
 CRUDLFAP_APPS.pop(CRUDLFAP_APPS.index('crudlfap_auth'))
 INSTALLED_APPS = [
@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'django_humanize',
 
     'django.contrib.auth',
-    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
