@@ -147,7 +147,7 @@ jobs:
 
   js-qa:
     docker:
-    - image: circleci/node@sha256:0a639cc671d763fc330faf68d06884b2c4085aa7b6f129930176b09d4fb68a03
+    - image: circleci/node:9
     steps:
     - checkout
     - restore_cache:
@@ -165,7 +165,7 @@ jobs:
 
   js-test:
     docker:
-    - image: circleci/node@sha256:0a639cc671d763fc330faf68d06884b2c4085aa7b6f129930176b09d4fb68a03
+    - image: circleci/node:9
     steps:
     - checkout
     - restore_cache:
