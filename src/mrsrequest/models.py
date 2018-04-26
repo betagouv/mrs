@@ -63,7 +63,7 @@ class MRSRequest(models.Model):
     STATUS_CHOICES = (
         (STATUS_NEW, 'Soumise'),
         (STATUS_REJECTED, 'Rejetée'),
-        (STATUS_INPROGRESS, 'En cours'),
+        (STATUS_INPROGRESS, 'En cours de liquidation'),
         (STATUS_VALIDATED, 'Validée'),
     )
 
