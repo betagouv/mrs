@@ -1,10 +1,14 @@
 Bonjour,
 
-Nous avons bien reçu votre demande de remboursement de vos frais de transport en véhicule particulier concernant le(s) trajet(s) suivant(s) :{% for transport in object.transport_set.all %}
-- Date du trajet aller {{ forloop.counter }}: {{ transport.date_depart }}, date de trajet retour {{ forloop.counter }}: {{ transport.date_return }}{% endfor %}
-Votre demande a été traité. le règlement vous sera versé dans quelques jours sur votre compte bancaire.
+Nous avons bien reçu votre demande de remboursement de vos frais de transport concernant le(s) trajet(s) suivant(s) : 
+{% for transport in object.transport_set.all %}
 
-Pour toutes réclamations nous vous invitons à vous rapprocher de votre caisse d'assurance maladie : https://www.ameli.fr/assure/adresses-et-contacts/vos-paiements-vos-remboursements.
+- Date du trajet aller {{ forloop.counter }} : {{ transport.date_depart }}, date de trajet retour {{ forloop.counter }} : {{ transport.date_return }}
+{% endfor %}
+
+Votre demande a été traitée et payée. Le règlement sera visible d'ici quelques jours sur votre compte bancaire.
+
+Pour toutes réclamations, nous vous invitons à vous rapprocher de votre caisse d'assurance maladie : https://www.ameli.fr/assure/adresses-et-contacts/vos-paiements-vos-remboursements.
 
 Cordialement,
 L'équipe MRS - Assurance Maladie
