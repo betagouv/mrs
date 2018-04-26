@@ -307,8 +307,8 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
 class MRSRequestProgressView(MRSRequestAdminBaseView):
     form_class = MRSRequestProgressForm
     template_name = 'mrsrequest/mrsrequest_progress.html'
-    action_name = 'En cours'
-    material_icon = 'check_circle'
+    action_name = 'En cours de liquidation'
+    material_icon = 'playlist_add_check'
     color = 'green'
 
     def get_allowed(self):
@@ -316,4 +316,4 @@ class MRSRequestProgressView(MRSRequestAdminBaseView):
             return self.object.status == self.model.STATUS_NEW
 
     def get_form_valid_message(self):
-        return 'Demande n°{} en cours'.format(self.object.display_id)
+        return 'Demande n°{} en cours de liquidation'.format(self.object.display_id)
