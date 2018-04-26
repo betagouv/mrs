@@ -1,1 +1,1 @@
-Demande de remboursement {{ object.display_id }} traitée
+Demande de remboursement {{ object.display_id }} payée
