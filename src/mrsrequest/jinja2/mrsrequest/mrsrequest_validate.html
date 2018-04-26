@@ -2,7 +2,7 @@
 
 {% block success %}
     <div class="card-panel green lighten-4">
-        La requête est passée au statut "validée" et le mail suivant est parti vers le service de liquidation.
+        La requête est passée au statut "validée" et le mail suivant est parti vers le service du Contrôle.
     </div>
     <pre>
         {{ view.get_success_mail_body() }}
@@ -21,7 +21,7 @@
 
 <div class="red darken-1 white-text center">
   <p class="flow-text">
-    ATTENTION la validation entraine l'envoie du mail suivant à la liquidation.
+    ATTENTION la validation entraine l'envoie du mail suivant au service du Contrôle pour archivage.
   </p>
 </div>
 <div class="form-row">
