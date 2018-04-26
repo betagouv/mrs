@@ -8,9 +8,9 @@ class EmailTemplateManager(models.Manager):
 
 class EmailTemplate(models.Model):
     name = models.CharField(max_length=50, verbose_name='Nom')
-    subject = models.CharField(max_length=255, verbose_name='Modèle de sujet')
-    body = models.TextField(verbose_name='Modèle de contenu')
-    active = models.BooleanField(verbose_name='Cocher si actif', default=True)
+    subject = models.CharField(max_length=255, verbose_name='Sujet du mail')
+    body = models.TextField(verbose_name='Contenu du mail')
+    active = models.BooleanField(verbose_name='Activé', default=True)
 
     objects = EmailTemplateManager()
 
