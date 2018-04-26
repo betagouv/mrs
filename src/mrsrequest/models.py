@@ -125,7 +125,7 @@ class MRSRequest(models.Model):
         'mrsemail.EmailTemplate',
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
     )
     institution = models.ForeignKey(
         'institution.Institution',
