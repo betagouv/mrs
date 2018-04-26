@@ -316,4 +316,6 @@ class MRSRequestProgressView(MRSRequestAdminBaseView):
             return self.object.status == self.model.STATUS_NEW
 
     def get_form_valid_message(self):
-        return 'Demande n°{} en cours de liquidation'.format(self.object.display_id)
+        return 'Demande n°{} en cours de liquidation'.format(
+            self.object.display_id
+        )
