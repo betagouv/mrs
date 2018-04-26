@@ -1,8 +1,8 @@
 Bonjour,
 
 Nous avons bien reçu votre demande de remboursement de vos frais de transport concernant le(s) trajet(s) suivant(s) : 
-{% for transport in object.transport_set.all %}
 
+{% for transport in object.transport_set.all %}
 - Date du trajet aller {{ forloop.counter }} : {{ transport.date_depart }}, date de trajet retour {{ forloop.counter }} : {{ transport.date_return }}
 {% endfor %}
 
