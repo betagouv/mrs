@@ -33,16 +33,16 @@ var formInit = function(form) {
   })
 
   var constants = {
-    validMimeTypes: [
-      'image/jpeg',
-      'image/jpg',
-      'image/png',
-      'image/gif',
-      'application/pdf'
+    validExtensions: [
+      'jpeg',
+      'jpg',
+      'png',
+      'gif',
+      'pdf'
     ],
     maxFileSize: Math.pow(10, 7), // 10 MB
     errorMsg: {
-      mimeType: 'Type de fichier refusé',
+      mimeType: 'Extension de fichier refusé',
       fileSize: 'Fichier trop lourd (10MB max.)'
     }
   }
@@ -50,9 +50,10 @@ var formInit = function(form) {
   //// validate file MIME type
   //// private, tested through this.validateFile
   // mimeType (string): file mime type
-  function mimeTypeValidate(mimeType) {
+  function extensionValidate(ext) {
     // todo: print mimetypes to user if not valid
-    return constants.validMimeTypes.indexOf(mimeType) >= 0
+    // Due to some versions IE11 failing to send a non-empty mimetype, use ext
+    return constants.validExtensions.indexOf(ext) >= 0
   }
 
   //// Validate file size
@@ -67,8 +68,11 @@ var formInit = function(form) {
   // file (file object): upload file object
   function validateFile(file) {
     // todo: raise both errors is better for the user
-    if (!mimeTypeValidate(file.type)) {
-      throw `${constants.errorMsg.mimeType}: ${file.type}`
+    var parts = file.name.split('.')
+    var ext = parts[parts.length - 1].toLowerCase()
+
+    if (!extensionValidate(ext)) {
+      throw `${constants.errorMsg.mimeType}: ${ext}`
     }
 
     if (!fileSizeValidate(file.size)) {
