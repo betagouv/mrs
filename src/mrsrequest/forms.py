@@ -287,7 +287,13 @@ class CertifyForm(forms.Form):
     )
 
 
-class MRSRequestRejectForm(forms.ModelForm):
+class MRSRequestForm(forms.ModelForm):
+    class Meta:
+        model = MRSRequest
+        fields = []
+
+
+class MRSRequestRejectForm(MRSRequestForm):
     template = forms.ModelChoiceField(
         EmailTemplate.objects.active(),
         widget=forms.Select(attrs={
@@ -297,37 +303,3 @@ class MRSRequestRejectForm(forms.ModelForm):
     )
     subject = forms.CharField()
     body = forms.CharField(widget=forms.Textarea)
-
-    class Meta:
-        model = MRSRequest
-        fields = []
-
-    def save(self, commit=True):
-        self.instance.status = MRSRequest.STATUS_REJECTED
-        if commit:
-            self.instance.save()
-        return self.instance
-
-
-class MRSRequestValidateForm(forms.ModelForm):
-    class Meta:
-        model = MRSRequest
-        fields = []
-
-    def save(self, commit=True):
-        self.instance.status = MRSRequest.STATUS_VALIDATED
-        if commit:
-            self.instance.save()
-        return self.instance
-
-
-class MRSRequestProgressForm(forms.ModelForm):
-    class Meta:
-        model = MRSRequest
-        fields = []
-
-    def save(self, commit=True):
-        self.instance.status = MRSRequest.STATUS_INPROGRESS
-        if commit:
-            self.instance.save()
-        return self.instance

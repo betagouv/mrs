@@ -20,10 +20,9 @@ from mrsemail.models import EmailTemplate
 
 from .forms import (
     CertifyForm,
+    MRSRequestForm,
     MRSRequestCreateForm,
     MRSRequestRejectForm,
-    MRSRequestProgressForm,
-    MRSRequestValidateForm,
     TransportForm,
     TransportIterativeForm,
 )
@@ -185,22 +184,25 @@ class MRSRequestAdminBaseView(crudlfap.UpdateView):
     menus = ['object_detail']
 
     def form_valid(self, form):
-        self.object.status_user = self.request.user
+        self.object.status = self.log_action_flag
         self.object.status_datetime = timezone.now()
+        self.object.status_user = self.request.user
+        self.object.save()
         return super().form_valid(form)
 
-    def get_success_url(self):
-        return self.router.views['list'].url
+    def get_log_message(self):
+        for flag, label in self.model.STATUS_CHOICES:
+            if flag == self.log_action_flag:
+                return label
 
 
 class MRSRequestValidateView(MRSRequestAdminBaseView):
-    form_class = MRSRequestValidateForm
+    form_class = MRSRequestForm
     template_name = 'mrsrequest/mrsrequest_validate.html'
     action_name = 'Valider'
     material_icon = 'check_circle'
     color = 'green'
-    controller = None
-    action = None
+    log_action_flag = MRSRequest.STATUS_VALIDATED
 
     def get_allowed(self):
         if super().get_allowed():
@@ -262,8 +264,7 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
     action_name = 'Rejeter'
     material_icon = 'do_not_disturb_on'
     color = 'red'
-    controller = None
-    action = None
+    log_action_flag = MRSRequest.STATUS_REJECTED
 
     def get_allowed(self):
         if super().get_allowed():
@@ -281,7 +282,8 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         return json.dumps(templates)
 
     def form_valid(self, form):
-        # get_log_message will use this, set before calling super()
+        # set before calling super()
+        self.log_message = str(form.cleaned_data['template'])
         self.object.reject_template = form.cleaned_data['template']
         resp = super().form_valid(form)
         self.object.save()
@@ -300,16 +302,14 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
     def get_form_valid_message(self):
         return 'Demande n°{} rejetée'.format(self.object.display_id)
 
-    def get_log_message(self):
-        return self.object.reject_template
-
 
 class MRSRequestProgressView(MRSRequestAdminBaseView):
-    form_class = MRSRequestProgressForm
+    form_class = MRSRequestForm
     template_name = 'mrsrequest/mrsrequest_progress.html'
     action_name = 'En cours de liquidation'
     material_icon = 'playlist_add_check'
     color = 'green'
+    log_action_flag = MRSRequest.STATUS_INPROGRESS
 
     def get_allowed(self):
         if super().get_allowed():

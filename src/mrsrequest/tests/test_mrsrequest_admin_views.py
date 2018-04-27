@@ -3,37 +3,152 @@ import pytest
 from crudlfap import crudlfap
 from crudlfap_auth.crudlfap import User
 
-from mrsrequest.models import MRSRequest
+from dbdiff.fixture import Fixture
+
+from django.contrib.admin.models import LogEntry
+from django import http
+
+from freezegun import freeze_time
+
+from caisse.models import Caisse
+from mrsemail.models import EmailTemplate
+from mrsrequest.models import MRSRequest, PMT
+from person.models import Person
+
+
+VIEWS = [
+    'progress',
+    'reject',
+    'validate',
+    'detail'
+]
+
+
+def view(v):
+    return crudlfap.site['mrsrequest.mrsrequest'][v].as_view()
 
 
 @pytest.fixture
-def mrsrequest(uuid):
-    return MRSRequest.objects.create(pk=uuid)
+def ur(request_factory):
+    def user_request(method=None, **kwargs):
+        user = None
+        if kwargs:
+            caisse = None
+            if 'caisse' in kwargs:
+                caisse = kwargs.pop('caisse')
+            kwargs.setdefault('username', str(kwargs))
+            user = User.objects.get_or_create(**kwargs)[0]
+            if caisse:
+                user.is_staff = True
+                user.caisses.add(caisse)
+        return getattr(request_factory(user), method or 'get')('/path')
+    return user_request
+
+
+@freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
+@pytest.mark.dbdiff(models=[LogEntry, Caisse, Person])
+@pytest.fixture
+def mrsrequest():
+    uuid = '4255e33f-88c0-4dbf-b8ee-69cb283a7cea'
+    mrsrequest = MRSRequest.objects.create(
+        pk=uuid,
+        caisse=Caisse.objects.create(name='adminviews', number=9),
+        insured=Person.objects.create(
+            email='t@tt.tt',
+            nir=111111111111,
+        ),
+        pmt=PMT.objects.create(
+            mrsrequest_uuid=uuid,
+            filename='test_mrsrequest_admin_views.jpg',
+            binary=b'test_mrsrequest_admin_views',
+        )
+    )
+    mrsrequest.pmt.mrsrequest = mrsrequest
+    mrsrequest.pmt.save()
+    return mrsrequest
+
+
+@pytest.fixture
+def emailtemplate():
+    return EmailTemplate.objects.get_or_create(
+        name='reject',
+        subject='reject {{ display_id }}',
+        body='reject {{ display_id }}',
+    )[0]
 
 
 @pytest.mark.django_db
-def test_mrsrequestvalidateview_get(srf, mrsrequest):
-    request = srf.get('/page')
-    view = crudlfap.site['mrsrequest.mrsrequest']['validate'].as_view()
-
-    # Test deny non staff
-    response = view(request, pk=mrsrequest.pk)
+@pytest.mark.parametrize('v', VIEWS + ['list'])
+def test_validate_redirects_anonymous(v, ur, mrsrequest):
+    response = view('validate')(ur(), pk=mrsrequest.pk)
     assert response.status_code == 302
     assert 'login' in response['Location']
 
-    # Test allow superuser fails if not inprogress
-    request.user = User.objects.create(is_superuser=True)
-    response = view(request, pk=mrsrequest.pk)
-    assert response.status_code == 403
 
-    mrsrequest.status = mrsrequest.STATUS_INPROGRESS
-    mrsrequest.save()
-    response = view(request, pk=mrsrequest.pk)
+@pytest.mark.django_db
+@pytest.mark.parametrize('v', VIEWS)
+def test_get_404_for_non_caisse_staff(v, ur, mrsrequest):
+    with pytest.raises(http.Http404):
+        view(v)(ur(is_staff=True), pk=mrsrequest.pk)
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize('v', ['detail', 'progress', 'reject'])
+def test_get_200_for_caisse_staff(v, ur, mrsrequest):
+    response = view(v)(ur(caisse=mrsrequest.caisse), pk=mrsrequest.pk)
     assert response.status_code == 200
 
-    # Test deny if has status
-    mrsrequest.status = 2
-    mrsrequest.save()
-    view(request, pk=mrsrequest.pk)
-    mrsrequest.refresh_from_db()
-    assert mrsrequest.status == 2
+
+@pytest.mark.django_db
+def test_validate_get_fail_if_not_inprogress(ur, mrsrequest):
+    response = view('validate')(ur(caisse=mrsrequest.caisse), pk=mrsrequest.pk)
+    assert response.status_code == 403
+
+
+@pytest.mark.django_db
+def test_progress_post_fails_for_non_caisse_staff(ur, mrsrequest):
+    with pytest.raises(http.Http404):
+        view('progress')(ur('post', is_staff=True), pk=mrsrequest.pk)
+
+
+@freeze_time('3000-12-31 13:37:42')
+@pytest.mark.dbdiff(models=[LogEntry, Caisse, Person])
+def test_progress_validate_success(ur, mrsrequest):
+    request = ur('post', caisse=mrsrequest.caisse)
+    view('progress')(request, pk=mrsrequest.pk)
+    assert view('progress')(request, pk=mrsrequest.pk).status_code == 403
+
+    response = view('validate')(request, pk=mrsrequest.pk)
+    assert response['Location'] == mrsrequest.get_absolute_url()
+
+    Fixture(
+        './src/mrsrequest/tests/test_mrsrequest_admin_progress_validate.json',  # noqa
+        models=[MRSRequest, LogEntry]
+    ).assertNoDiff()
+
+    for v in ('progress', 'reject', 'validate'):
+        assert view(v)(request, pk=mrsrequest.pk).status_code == 403
+
+
+@freeze_time('3000-12-31 13:37:42')
+@pytest.mark.dbdiff(models=[LogEntry, Caisse, Person, EmailTemplate])
+def test_progress_reject_success(ur, mrsrequest, emailtemplate):
+    request = ur('post', caisse=mrsrequest.caisse)
+    view('progress')(request, pk=mrsrequest.pk)
+    assert view('progress')(request, pk=mrsrequest.pk).status_code == 403
+
+    request.POST = dict(
+        template=emailtemplate.pk,
+        subject='reject {}'.format(mrsrequest.pk),
+        body='reject body {}'.format(mrsrequest.pk),
+    )
+    response = view('reject')(request, pk=mrsrequest.pk)
+    assert response['Location'] == mrsrequest.get_absolute_url()
+
+    Fixture(
+        './src/mrsrequest/tests/test_mrsrequest_admin_progress_reject.json',  # noqa
+        models=[MRSRequest, LogEntry]
+    ).assertNoDiff()
+
+    for v in ('progress', 'reject', 'validate'):
+        assert view(v)(request, pk=mrsrequest.pk).status_code == 403

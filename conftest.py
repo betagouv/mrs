@@ -19,8 +19,8 @@ id = mrsrequest_uuid = pytest.fixture(
 
 
 class RequestFactory(drf):
-    def __init__(self, user):
-        self.user = user
+    def __init__(self, user=None):
+        self.user = user or AnonymousUser()
         super().__init__()
 
     def generic(self, *args, **kwargs):
@@ -29,6 +29,11 @@ class RequestFactory(drf):
         request.user = self.user
         request._messages = default_storage(request)
         return request
+
+
+@pytest.fixture
+def request_factory():
+    return RequestFactory
 
 
 @pytest.fixture

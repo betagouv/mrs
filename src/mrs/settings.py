@@ -80,6 +80,9 @@ ROOT_URLCONF = 'mrs.urls'
 
 CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault(
     'naturalsize', 'humanize.naturalsize')
+CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault(
+    'localtime', 'django.utils.timezone.template_localtime')
+CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault('list', list)
 
 TEMPLATES = [
     CRUDLFAP_TEMPLATE_BACKEND,
