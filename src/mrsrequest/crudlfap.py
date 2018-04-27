@@ -18,7 +18,7 @@ class MRSRequestListView(crudlfap.FilterTables2ListView):
     )
 
     DISPLAY_ID_TEMPLATE = '''
-    <span class="{{ record.color }}">{{ record.display_id }}</span>
+    <span class="{{ record.color }}-text">{{ record.display_id }}</span>
     '''
 
     table_columns = dict(  # our extra columns
@@ -76,11 +76,10 @@ class MRSRequestRouter(crudlfap.Router):
     material_icon = 'insert_drive_file'
     views = [
         crudlfap.DeleteView,
-        crudlfap.DetailView.clone(locks=True),
+        crudlfap.DetailView.clone(locks=True, title_heading=None),
         MRSRequestValidateView,
         MRSRequestRejectView,
         MRSRequestProgressView,
-        crudlfap.HistoryView,
         MRSRequestListView,
     ]
 

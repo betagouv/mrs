@@ -29,10 +29,7 @@
         "expense": 10,
         "institution": "aaadb065-0566-48be-822d-66bd3277d823",
         "insured": 1,
-        "reject_template": null,
-        "status": 0,
-        "status_datetime": null,
-        "status_user": null
+        "status": 1
     },
     "model": "mrsrequest.mrsrequest",
     "pk": "e29db065-0566-48be-822d-66bd3277d823"
