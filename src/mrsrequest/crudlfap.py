@@ -11,11 +11,14 @@ from .models import MRSRequest
 
 
 class MRSRequestListView(crudlfap.FilterTables2ListView):
-    filter_fields = (
-        'status',
-        'institution',
-        'caisse',
-    )
+    def get_filter_fields(self):
+        filter_fields = [
+            'status',
+            'institution',
+        ]
+        if self.request.user.is_superuser:
+            filter_fields.append('caisse')
+        return filter_fields
 
     DISPLAY_ID_TEMPLATE = '''
     <span
