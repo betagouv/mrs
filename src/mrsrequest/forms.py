@@ -257,7 +257,7 @@ class TransportIterativeForm(TransportForm):
         required=False,
     )
     iterative_number = forms.IntegerField(
-        label='Combien de trajets itératifs souhaitez-vous déclarer ?',
+        label='Combien de trajets itératifs ?',
         initial=1,
         required=False,
     )
