@@ -18,7 +18,11 @@ class MRSRequestListView(crudlfap.FilterTables2ListView):
     )
 
     DISPLAY_ID_TEMPLATE = '''
-    <span class="{{ record.color }}-text">{{ record.display_id }}</span>
+    <span
+        data-position="bottom"
+        data-tooltip="En attente de traitement depuis {{ record.days }} jours"
+        class="{{ record.color }}-text tooltipped"
+    >{{ record.display_id }}</span>
     '''
 
     table_columns = dict(  # our extra columns
