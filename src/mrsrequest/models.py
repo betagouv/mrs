@@ -134,15 +134,19 @@ class MRSRequest(models.Model):
         ).order_by('-action_time')
 
     @property
+    def days(self):
+        return (timezone.now() - self.creation_datetime_normalized).days
+
+    @property
     def color(self):
         if self.status not in (self.STATUS_INPROGRESS, self.STATUS_NEW):
             return ''
 
-        delta = timezone.now() - self.creation_datetime_normalized
-        if delta.days >= 6:
+        if self.days >= 6:
             return 'red'
-        elif delta.days >= 4:
+        elif self.days >= 4:
             return 'orange'
+
         return ''
 
     def is_allowed(self, request):
