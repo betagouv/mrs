@@ -38,6 +38,9 @@ def status_to_logentry(apps, schema_editor):
             object_id=m.pk,
         ).delete()
 
+        if not m.status_datetime:
+            continue  # Old requests without status_datetime
+
         LogEntry.objects.create(
             user=m.status_user,
             action_time=m.status_datetime,
