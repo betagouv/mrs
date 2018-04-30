@@ -2,7 +2,6 @@
 
 import { Application } from 'stimulus'
 import { definitionsFromContext } from 'stimulus/webpack-helpers'
-import M from 'materialize-css'
 import Crudlfap from 'crudlfap/js'
 
 (() => {
