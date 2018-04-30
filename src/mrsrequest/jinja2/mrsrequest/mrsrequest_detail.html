@@ -11,7 +11,10 @@
                     class="card-title tooltipped activator {{ object.color }}-text"
                 >{{ object.display_id }}<i class="material-icons right">more_vert</i></span>
                 <div class="section">
-                    {{ localtime(object.creation_datetime).strftime('%d/%m/%y %H:%M') }}
+                    Soumise
+                    <span class="right">
+                        {{ localtime(object.creation_datetime).strftime('%d/%m/%y %H:%M') }}
+                    </span>
                 </div>
             </div>
             <div class="card-reveal">
