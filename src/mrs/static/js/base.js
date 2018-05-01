@@ -13,8 +13,8 @@ import './contact'
 import initStatistics from './statistics.js'
 import M from 'materialize-css'
 
-// Preact imports
-import { h as React, render } from 'preact'
+import React from 'react'
+import { render } from 'react-dom'
 import Header from './components/Header.js'
 import Carousel from './components/Caroussel.js'
 

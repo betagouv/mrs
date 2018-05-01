@@ -1,4 +1,4 @@
-import { h as React } from 'preact'
+import React from 'react'
 
 const Flex = props => {
   const className = 'ui flex ' + props.className

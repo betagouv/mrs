@@ -1,6 +1,6 @@
 {
   "presets": ["env"],
   "plugins": [
-    ["transform-react-jsx", { "pragma":"React" }]
+    ["transform-react-jsx"]
   ]
 }

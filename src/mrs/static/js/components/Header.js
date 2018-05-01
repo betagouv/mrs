@@ -1,4 +1,4 @@
-import { h as React, Component } from 'preact'
+import React, { Component } from 'react'
 import * as UI from './UI'
 
 const Link = props => {

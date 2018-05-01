@@ -1,5 +1,5 @@
 /* global M */
-import { h as React, Component } from 'preact'
+import React from 'react'
 
 const CarouselSlide = props => {
   return (
@@ -67,7 +67,7 @@ CarouselDumb.defaultProps = {
   nextSlide: () => {},
 }
 
-class Carousel extends Component {
+class Carousel extends React.Component {
   constructor(props) {
     super(props)
 
