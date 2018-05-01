@@ -199,7 +199,7 @@ class MRSRequestAdminBaseView(crudlfap.UpdateView):
 class MRSRequestValidateView(MRSRequestAdminBaseView):
     form_class = MRSRequestForm
     template_name = 'mrsrequest/mrsrequest_validate.html'
-    action_name = 'Valider'
+    view_label = 'Valider'
     material_icon = 'check_circle'
     color = 'green'
     log_action_flag = MRSRequest.STATUS_VALIDATED
@@ -261,7 +261,7 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
 class MRSRequestRejectView(MRSRequestAdminBaseView):
     form_class = MRSRequestRejectForm
     template_name = 'mrsrequest/mrsrequest_reject.html'
-    action_name = 'Rejeter'
+    view_label = 'Rejeter'
     material_icon = 'do_not_disturb_on'
     color = 'red'
     log_action_flag = MRSRequest.STATUS_REJECTED
@@ -306,7 +306,8 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
 class MRSRequestProgressView(MRSRequestAdminBaseView):
     form_class = MRSRequestForm
     template_name = 'mrsrequest/mrsrequest_progress.html'
-    action_name = 'En cours de liquidation'
+    view_label = 'En cours de liquidation'
+    title_submit = 'Oui'
     material_icon = 'playlist_add_check'
     color = 'green'
     log_action_flag = MRSRequest.STATUS_INPROGRESS
