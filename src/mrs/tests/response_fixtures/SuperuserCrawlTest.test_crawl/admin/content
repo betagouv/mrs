@@ -36,6 +36,7 @@ textarea {
       <ul class="right">
         
   <li class="">
+    test
     <a class="waves-effect" href="/admin/logout">Déconnexion</a>
   </li>
   
@@ -207,6 +208,7 @@ textarea {
   
   
   <li class="no-padding">
+    test
     <a class="waves-effect" href="/admin/logout">Déconnexion</a>
   </li>
   

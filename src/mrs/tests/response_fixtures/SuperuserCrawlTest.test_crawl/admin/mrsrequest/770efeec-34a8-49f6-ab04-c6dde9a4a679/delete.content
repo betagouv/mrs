@@ -1,7 +1,7 @@
 <div class="container" id="modal-body-ajax">
     
       
-      <h2 class="text-danger hide-in-modal" id="modal-title-ajax">Demande "201805010001": delete</h2>
+      <h2 class="text-danger hide-in-modal" id="modal-title-ajax">Demande "201805010001": effacer</h2>
       
     
 
@@ -13,7 +13,7 @@
   <br/>
 
     
-    <button class="btn btn-primary" type="submit">delete</button>
+    <button class="btn btn-primary" type="submit">Effacer</button>
 
     
     <input name="_next" type="hidden" value="/"/></form>

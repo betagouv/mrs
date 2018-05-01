@@ -113,7 +113,7 @@
                             <td>0</td>
                         
                             <td>
-<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/delete" title='Caisse "aaaaaaa": delete'><i class="material-icons">delete</i>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/delete" title='Caisse "aaaaaaa": effacer'><i class="material-icons">delete</i>
 </a>
 
 <a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/update" title='Caisse "aaaaaaa": modifier'><i class="material-icons">edit</i>
@@ -140,7 +140,7 @@
                             <td>0</td>
                         
                             <td>
-<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/delete" title='Caisse "bbbb": delete'><i class="material-icons">delete</i>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/delete" title='Caisse "bbbb": effacer'><i class="material-icons">delete</i>
 </a>
 
 <a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/update" title='Caisse "bbbb": modifier'><i class="material-icons">edit</i>
@@ -167,7 +167,7 @@
                             <td>2</td>
                         
                             <td>
-<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/delete" title='Caisse "inactive": delete'><i class="material-icons">delete</i>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/delete" title='Caisse "inactive": effacer'><i class="material-icons">delete</i>
 </a>
 
 <a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update" title='Caisse "inactive": modifier'><i class="material-icons">edit</i>

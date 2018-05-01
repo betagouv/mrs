@@ -199,7 +199,7 @@
 <a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update" title='Utilisateur "test": modifier'><i class="material-icons">edit</i>
 </a>
 
-<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password" title='Utilisateur "test": modifier'><i class="material-icons">vpn_key</i>
+<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password" title='Utilisateur "test": mot de passe'><i class="material-icons">vpn_key</i>
 </a>
 
 <a class="pink darken-4 btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/test/su" title='Utilisateur "test": su'><i class="material-icons">attach_money</i>
@@ -235,7 +235,7 @@
 <a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/update" title='Utilisateur "a": modifier'><i class="material-icons">edit</i>
 </a>
 
-<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/password" title='Utilisateur "a": modifier'><i class="material-icons">vpn_key</i>
+<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/password" title='Utilisateur "a": mot de passe'><i class="material-icons">vpn_key</i>
 </a>
 
 <a class="pink darken-4 btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/a/su" title='Utilisateur "a": su'><i class="material-icons">attach_money</i>
@@ -271,7 +271,7 @@
 <a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/update" title='Utilisateur "b": modifier'><i class="material-icons">edit</i>
 </a>
 
-<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/password" title='Utilisateur "b": modifier'><i class="material-icons">vpn_key</i>
+<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/password" title='Utilisateur "b": mot de passe'><i class="material-icons">vpn_key</i>
 </a>
 
 <a class="pink darken-4 btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/b/su" title='Utilisateur "b": su'><i class="material-icons">attach_money</i>
