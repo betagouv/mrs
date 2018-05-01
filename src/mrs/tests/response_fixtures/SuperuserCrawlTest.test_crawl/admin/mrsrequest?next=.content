@@ -163,7 +163,7 @@
                             <td>bbbb</td>
                         
                             <td>
-<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679/delete" title='Demande "201805010001": delete'><i class="material-icons">delete</i>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679/delete" title='Demande "201805010001": effacer'><i class="material-icons">delete</i>
 </a>
 
 <a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679" title="201805010001"><i class="material-icons">search</i>
@@ -195,7 +195,7 @@
                             <td>aaaaaaa</td>
                         
                             <td>
-<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae/delete" title='Demande "201805010000": delete'><i class="material-icons">delete</i>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae/delete" title='Demande "201805010000": effacer'><i class="material-icons">delete</i>
 </a>
 
 <a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae" title="201805010000"><i class="material-icons">search</i>

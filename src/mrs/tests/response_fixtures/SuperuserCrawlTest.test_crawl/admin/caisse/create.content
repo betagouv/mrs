@@ -69,7 +69,7 @@
 
 
     
-    <button class="btn btn-primary" type="submit">Add</button>
+    <button class="btn btn-primary" type="submit">Ajouter</button>
 
     
     <input name="_next" type="hidden" value="/"/></form>
