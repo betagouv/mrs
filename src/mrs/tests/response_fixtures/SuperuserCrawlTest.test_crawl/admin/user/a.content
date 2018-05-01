@@ -1,0 +1,108 @@
+<div class="container" id="modal-body-ajax">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">a</h2>
+      
+    
+
+    
+    
+<table class="table">
+  <thead class="thead-inverse">
+    
+    <tr>
+        <th>
+            Id
+        </th>
+        <td>
+            2
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Last_login
+        </th>
+        <td>
+            2018-05-01 17:12:17+00:00
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Is_superuser
+        </th>
+        <td>
+            False
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Username
+        </th>
+        <td>
+            a
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            First_name
+        </th>
+        <td>
+            
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Last_name
+        </th>
+        <td>
+            
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Email
+        </th>
+        <td>
+            a@aa.aa
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Is_staff
+        </th>
+        <td>
+            True
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Is_active
+        </th>
+        <td>
+            True
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Date_joined
+        </th>
+        <td>
+            2018-05-01 17:11:24+00:00
+        </td>
+    </tr>
+    
+  
+</thead></table>
+
+    
+    
+    </div>

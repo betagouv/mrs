@@ -1,0 +1,41 @@
+<div id="app--wrapper">
+
+        <div id="header">
+            <noscript>
+                
+                <a href="/" title="fonctionnement">fonctionnement</a>
+                
+                <a href="/demande" title="formulaire">formulaire</a>
+                
+                <a href="/faq" title="faq">faq</a>
+                
+                <a href="/contact" title="contact">contact</a>
+                
+            </noscript>
+            <script id="header-links" type="text/json">
+                [{"url": "/", "alias": "fonctionnement"}, {"url": "/demande", "alias": "formulaire"}, {"url": "/faq", "alias": "faq"}, {"url": "/contact", "alias": "contact"}]
+            </script>
+        </div>
+
+        
+    <div id="header"></div>
+    <div class="mrs-std-page--wrapper">
+        <div class="mrs-std-page no-padding">
+            <div class="iframe--wrapper">
+                <iframe allowfullscreen="true" frameborder="0" height="100%" id="autoheight" src="https://app.powerbi.com/view?r=eyJrIjoiNDkyMTJlNTgtYjUwMi00MjVkLWFiN2EtOGRkZDUwYWQ4ZDY1IiwidCI6IjZiOTQwZTMyLTNlZjMtNGNiYi04OTBiLWMzMzcxY2U5M2M5ZCIsImMiOjh9" width="100%"></iframe>
+                <div class="hideout"></div>
+            </div>
+        </div>
+    </div>
+
+
+        <div id="footer">
+            <div class="links">
+                <a href="/mentions-legales">mentions legales</a>
+                <a href="/stats">statistiques</a>
+            </div>
+            <p>
+                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE
+            </p>
+        </div>
+    </div>

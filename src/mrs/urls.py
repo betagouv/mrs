@@ -25,7 +25,9 @@ urlpatterns = [
     path('mentions-legales', views.LegalView.as_view(), name='legal'),
     path('faq', views.FaqView.as_view(), name='faq'),
     path('manifest.json', views.StaticView.as_view(
-        path='manifest.json', content_type='application/manifest+json',
+        path='manifest.json',
+        content_type='application/manifest+json',
+        stream=False,
     )),
     path('stats/', views.generic.RedirectView.as_view(
         url='/stats', permanent=True)),

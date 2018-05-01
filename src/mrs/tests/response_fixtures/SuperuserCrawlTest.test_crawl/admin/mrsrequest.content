@@ -1,0 +1,229 @@
+<div id="modal-body-ajax" style="padding: 0 24px">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Demandes: liste</h2>
+      
+    
+
+    
+    
+<style type="text/css">
+#render-table .table-container .pagination { display: none; }
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m2">
+    <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+      
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+      
+<div class="row">
+    <div class="select-field col s12" id="id_status_container">
+        <label for="id_status">Statut</label>
+        <select id="id_status" name="status">
+            <option value="">---------</option>
+            <option value="1">Soumise</option>
+            <option value="999">Rejetée</option>
+            <option value="1000">En cours de liquidation</option>
+            <option value="2000">Validée</option>
+        </select>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="select-field col s12" id="id_institution_container">
+        <label for="id_institution">Institution</label>
+        <select id="id_institution" name="institution">
+            <option value="">---------</option>
+        </select>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="select-field col s12" id="id_caisse_container">
+        <label for="id_caisse">Caisse</label>
+        <select id="id_caisse" name="caisse">
+            <option value="">---------</option>
+            <option value="1">aaaaaaa</option>
+            <option value="2">bbbb</option>
+        </select>
+        
+    </div>
+</div>
+
+    </form>
+  </div>
+  
+
+  <div class="table-responsive col s12 m10" id="render-table">
+    <div class="table-container">
+      
+    
+
+
+<div class="table-container">
+    
+        <table>
+            
+            
+                <thead>
+                    <tr>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=creation_datetime">Date et heure de la demande</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=display_id">Numéro de demande</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=first_name">Prénom</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=last_name">Nom</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=nir">NIR</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=status">Statut</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=institution">Institution</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=caisse">Caisse</a>
+                            
+                        </th>
+                    
+                        <th>
+                            
+                                Actions
+                            
+                        </th>
+                    
+                    </tr>
+                </thead>
+            
+            
+            
+                <tbody>
+                
+                    
+                    <tr class="even">
+                        
+                            <td>1 mai 2018 19:10</td>
+                        
+                            <td>
+    <span class="red-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 358911 jours">201805010001</span>
+    </td>
+                        
+                            <td>uea</td>
+                        
+                            <td>ue</td>
+                        
+                            <td>2333333333333</td>
+                        
+                            <td>Soumise</td>
+                        
+                            <td>—</td>
+                        
+                            <td>bbbb</td>
+                        
+                            <td>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679/delete" title='Demande "201805010001": delete'><i class="material-icons">delete</i>
+</a>
+
+<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679" title="201805010001"><i class="material-icons">search</i>
+</a>
+</td>
+                        
+                    </tr>
+                    
+                
+                    
+                    <tr class="odd">
+                        
+                            <td>1 mai 2018 19:10</td>
+                        
+                            <td>
+    <span class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 358911 jours">201805010000</span>
+    </td>
+                        
+                            <td>aoeu</td>
+                        
+                            <td>aoeu</td>
+                        
+                            <td>1111111111111</td>
+                        
+                            <td>Rejetée</td>
+                        
+                            <td>—</td>
+                        
+                            <td>aaaaaaa</td>
+                        
+                            <td>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae/delete" title='Demande "201805010000": delete'><i class="material-icons">delete</i>
+</a>
+
+<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae" title="201805010000"><i class="material-icons">search</i>
+</a>
+</td>
+                        
+                    </tr>
+                    
+                
+                </tbody>
+            
+            
+            
+            
+        </table>
+    
+
+    
+</div>
+
+
+    
+    </div>
+
+    
+  </div>
+</div>
+
+    
+    
+    </div>

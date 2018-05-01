@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Découvrez MRS | MRS</title>
+    
+
+    
+    
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Faustina" rel="stylesheet" />
+    <link rel="manifest" href="/static/manifest.json" />
+    <meta property="og:title" content="Mes Remboursements Simplifiés" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/static/img/logos/mrs.png" />
+    <meta property="og:description" content="Mes Remboursements Simplifiés (MRS) est un service innovant de l'Assurance Maladie pour accélérer et faciliter le remboursement des frais d’utilisation du véhicule particulier ou du transport en commun suite à une prescription médicale. MRS permet de déclarer directement en ligne et d’être remboursé en une semaine." />
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" />
+    <link rel="icon" sizes="48x48" href="/static/img/logos/launcher-icon-1x.png">
+    <link rel="icon" sizes="96x96" href="/static/img/logos/launcher-icon-2x.png">
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <style type="text/css">
+    /* doesn't seem to work when through SASS */
+    progress::-webkit-progress-value {
+        background: #0dc5b9;
+    }
+    progress::-moz-progress-bar {
+        background: #0dc5b9;
+    }
+    </style>
+  </head>
+  <body class="index">
+    
+
+
+    <div id="app--wrapper">
+
+        <div id="header">
+            <noscript>
+                
+                <a href="/" title="fonctionnement">fonctionnement</a>
+                
+                <a href="/demande" title="formulaire">formulaire</a>
+                
+                <a href="/faq" title="faq">faq</a>
+                
+                <a href="/contact" title="contact">contact</a>
+                
+            </noscript>
+            <script type="text/json" id="header-links">
+                [{"url": "/", "alias": "fonctionnement"}, {"url": "/demande", "alias": "formulaire"}, {"url": "/faq", "alias": "faq"}, {"url": "/contact", "alias": "contact"}]
+            </script>
+        </div>
+
+        
+    <div id="index--wrapper">
+
+        <div class="mrs-logo--wrapper">
+            <img src=/static/img/logos/mrs.png alt="MRS" class="mrs-logo" />
+            <div id="intro--wrapper">
+                <p class="scroll-reveal">
+                    En 3 clics, mon transport personnel remboursé en moins d'une semaine.
+                </p>
+                <a class="start-button scroll-reveal" href="/demande">
+                    COMMENCER
+                </a>
+            </div>
+        </div>
+
+
+        <div
+            style="background-image: url('/static/img/landing-intro-bg.png')"
+            id="intro-bg-img">
+        </div>
+
+        <div id="intro-descr--wrapper" class="thumb--wrapper">
+            <div class="thumb">
+                <h3>Une semaine pour être remboursé !</h3>
+                <p>
+                    Sur prescription de votre médecin, l'Assurance Maladie rembourse les frais d'utilisation de votre véhicule personnel ou des transports en commun.
+                </p>
+            </div>
+        </div>
+
+        <div id="hier-ajd--wrapper">
+            <a class="start-button scroll-reveal" href="/demande">
+                COMMENCER
+            </a>
+            <div class="wrapper2">
+                <div class="hier--wrapper">
+                    <h3><span>Hier :</span></h3>
+                    <ul>
+                        <li><span>vous complétiez le formulaire papier <strong><a href="https://www.ameli.fr/sites/default/files/formualires/176/s3140.pdf" target="_blank">Cerfa s3140</a></strong>,</span></li>
+                        <li><span>ajoutiez les justificatifs</span></li>
+                        <li><span>et les envoyiez par voie postale.</span></li>
+                    </ul>
+                </div>
+                <div class="ajd--wrapper">
+                    <h3><span>Aujourd'hui :</span></h3>
+                    <ul>
+                        <li><span>vous déclarez vos frais directement en ligne,</span></li>
+                        <li><span>vous êtes remboursé en une semaine.</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="conclusion--wrapper">
+                <div class="arrow">
+                    ➤
+                </div>
+                <div class="conclusion">
+                    C'est plus <strong>rapide</strong>, plus <strong>flexible</strong>, plus <strong>economique</strong> !
+                </div>
+            </div>
+        </div>
+
+        <div id="etapes-descr--wrapper" class="thumb--wrapper">
+            <div class="thumb">
+                <p>
+                    <strong>3 étapes</strong> pour accélérer le remboursement du transport prescrit
+                </p>
+            </div>
+        </div>
+
+        <div id="processes--wrapper">
+            <div class="process--wrapper">
+                <img class="picto-bus" alt="picto" src="/static/img/3-etapes/bus.png" />
+                <div class="title--wrapper">
+                    <img
+                        src="/static/img/3-etapes/1.png"
+                        class="mobile"
+                        alt="1" />
+                    <img
+                        src="/static/img/3-etapes/1-desktop.png"
+                        class="desktop num-1"
+                        alt="1" />
+                    <h4 class="translate">Je déclare mon trajet</h4>
+                </div>
+                <p>
+                    Je saisis les informations nécessaires : nombre de kilomètres, frais de péage, frais de stationnement...
+                </p>
+                <img
+                    src="/static/img/3-etapes/deco-1.png"
+                    class="deco"
+                    alt="deco" />
+            </div>
+            <div class="process--wrapper">
+                <div class="title--wrapper">
+                    <img
+                        src="/static/img/3-etapes/2.png"
+                        class="mobile"
+                        alt="2" />
+                    <img
+                        src="/static/img/3-etapes/2-desktop.png"
+                        class="desktop num-2"
+                        alt="2" />
+                    <h4 class="">Je transmets mes justificatifs</h4>
+                </div>
+                <p>
+                    Je photographie ou scanne ma prescription médicale de transport et mes justificatifs et les joins à ma demande (tickets de parking, de bus, de péage...).
+                </p>
+                <img
+                    src="/static/img/3-etapes/deco-2.png"
+                    class="deco"
+                    alt="deco" />
+            </div>
+            <div class="process--wrapper">
+                <img class="picto-auto" alt="picto" src="/static/img/3-etapes/auto.png" />
+                <div class="title--wrapper">
+                    <img
+                        src="/static/img/3-etapes/3.png"
+                        class="mobile"
+                        alt="3" />
+                    <img
+                        src="/static/img/3-etapes/3-desktop.png"
+                        class="desktop num-3"
+                        alt="3" />
+                    <h4 class="translate">Je valide ma demande</h4>
+                </div>
+                <p>
+                    Je vérifie les informations et j'envoie ma demande de remboursement directement en ligne. Je reçois une confirmation de traitement.
+                </p>
+                <img
+                    src="/static/img/3-etapes/deco-3.png"
+                    class="deco"
+                    alt="deco" />
+            </div>
+        </div>
+
+        <div id="caroussel">
+            <h2>Ils ont déjà utilisé notre service</h2>
+            <img src="/static/img/icones/open-quotes.png" alt="icone" />
+        </div>
+
+        <div id="contact--wrapper">
+            <div class="wrapper2">
+                <h3>Nous Contacter</h3>
+                <h4>Une question sur ce nouveau service ?</h4>
+                
+<form method="POST" action="/contact" id="contact" class="contact" style="display: none">    
+
+    
+      
+<div class="section row">
+    <div class="col s12">
+        <h5>N&#39;hésitez pas à nous contacter !</h5>
+        
+<div class="layout-row row"><div class="col s12 m6">
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_nom_container">
+        <input id="id_nom" name="nom" type="text">
+        <label for="id_nom">Nom</label>
+        
+    </div>
+</div>
+</div><div class="col s12 m6">
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_email_container">
+        <input id="id_email" name="email" type="email">
+        <label for="id_email">Email</label>
+        
+    </div>
+</div>
+</div></div>
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_message_container">
+        <textarea class="materialize-textarea" cols="40" id="id_message" name="message" rows="10"></textarea>
+        <label for="id_message">Message</label>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+    
+
+    <br />
+    <button type="submit" name="_submit" class="btn">Envoyer</button>
+</form>
+
+            </div>
+        </div>
+
+        <div id="index-footer--wrapper">
+            <a href="https://beta.gouv.fr/" target="_blank">
+                <img class="logo" src="/static/img/logos/beta-gouv-marianne.png" alt="Logo beta.gouv.fr" />
+            </a>
+            <a href="https://www.ameli.fr" target="_blank">
+                <img class="logo" src="/static/img/logos/ameli.png" alt="Logo ameli.fr" />
+            </a>
+        </div>
+    </div>
+
+
+        <div id="footer">
+            <div class="links">
+                <a href="/mentions-legales">mentions legales</a>
+                <a href="/stats">statistiques</a>
+            </div>
+            <p>
+                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE
+            </p>
+        </div>
+    </div>
+
+    
+
+    
+    
+    
+  </body>
+</html>

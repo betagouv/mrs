@@ -37,7 +37,16 @@
 
     <div id="app--wrapper">
 
-        <div id="header"></div>
+        <div id="header">
+            <noscript>
+                {% for link in header_links %}
+                <a href="{{ link.url }}" title="{{ link.alias }}">{{ link.alias }}</a>
+                {% endfor %}
+            </noscript>
+            <script type="text/json" id="header-links">
+                {{ header_links_json|safe }}
+            </script>
+        </div>
 
         {% block content %}
         {% endblock %}

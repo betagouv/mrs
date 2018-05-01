@@ -1,0 +1,81 @@
+<div class="container" id="modal-body-ajax">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">inactive</h2>
+      
+    
+
+    
+    
+<table class="table">
+  <thead class="thead-inverse">
+    
+    <tr>
+        <th>
+            Id
+        </th>
+        <td>
+            3
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Code
+        </th>
+        <td>
+            333333333
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Name
+        </th>
+        <td>
+            inactive
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Number
+        </th>
+        <td>
+            333
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Liquidation_email
+        </th>
+        <td>
+            None
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Active
+        </th>
+        <td>
+            False
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Score
+        </th>
+        <td>
+            2
+        </td>
+    </tr>
+    
+  
+</thead></table>
+
+    
+    
+    </div>

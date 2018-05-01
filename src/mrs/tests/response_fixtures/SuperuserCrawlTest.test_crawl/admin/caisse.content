@@ -1,0 +1,204 @@
+<div id="modal-body-ajax" style="padding: 0 24px">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Caisses: liste</h2>
+      
+    
+
+    
+    
+<style type="text/css">
+#render-table .table-container .pagination { display: none; }
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m2">
+    <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+      
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+      
+<div class="row">
+    <div class="select-field col s12" id="id_active_container">
+        <label for="id_active">Activé</label>
+        <select id="id_active" name="active">
+            <option selected="selected" value="1">Inconnu</option>
+            <option value="2">Oui</option>
+            <option value="3">Non</option>
+        </select>
+        
+    </div>
+</div>
+
+    </form>
+  </div>
+  
+
+  <div class="table-responsive col s12 m10" id="render-table">
+    <div class="table-container">
+      
+    
+
+
+<div class="table-container">
+    
+        <table>
+            
+            
+                <thead>
+                    <tr>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=code">Code</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=name">Nom</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=number">Numéro</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=active">Activé</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?sort=score">Score</a>
+                            
+                        </th>
+                    
+                        <th>
+                            
+                                Actions
+                            
+                        </th>
+                    
+                    </tr>
+                </thead>
+            
+            
+            
+                <tbody>
+                
+                    
+                    <tr class="even">
+                        
+                            <td><a href="/admin/caisse/1">111111111</a></td>
+                        
+                            <td>aaaaaaa</td>
+                        
+                            <td>111</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td>0</td>
+                        
+                            <td>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/delete" title='Caisse "aaaaaaa": delete'><i class="material-icons">delete</i>
+</a>
+
+<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/update" title='Caisse "aaaaaaa": modifier'><i class="material-icons">edit</i>
+</a>
+
+<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/caisse/1" title="aaaaaaa"><i class="material-icons">search</i>
+</a>
+</td>
+                        
+                    </tr>
+                    
+                
+                    
+                    <tr class="odd">
+                        
+                            <td><a href="/admin/caisse/2">222222222</a></td>
+                        
+                            <td>bbbb</td>
+                        
+                            <td>222</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td>0</td>
+                        
+                            <td>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/delete" title='Caisse "bbbb": delete'><i class="material-icons">delete</i>
+</a>
+
+<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/update" title='Caisse "bbbb": modifier'><i class="material-icons">edit</i>
+</a>
+
+<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/caisse/2" title="bbbb"><i class="material-icons">search</i>
+</a>
+</td>
+                        
+                    </tr>
+                    
+                
+                    
+                    <tr class="even">
+                        
+                            <td><a href="/admin/caisse/3">333333333</a></td>
+                        
+                            <td>inactive</td>
+                        
+                            <td>333</td>
+                        
+                            <td><span class="false">✘</span></td>
+                        
+                            <td>2</td>
+                        
+                            <td>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/delete" title='Caisse "inactive": delete'><i class="material-icons">delete</i>
+</a>
+
+<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update" title='Caisse "inactive": modifier'><i class="material-icons">edit</i>
+</a>
+
+<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/caisse/3" title="inactive"><i class="material-icons">search</i>
+</a>
+</td>
+                        
+                    </tr>
+                    
+                
+                </tbody>
+            
+            
+            
+            
+        </table>
+    
+
+    
+</div>
+
+
+    
+    </div>
+
+    
+  </div>
+</div>
+
+    
+    
+    </div>

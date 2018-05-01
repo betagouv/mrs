@@ -1,0 +1,485 @@
+[
+{
+    "fields": {
+        "birth_date": "2018-04-30",
+        "email": "aoeu@example.com",
+        "first_name": "aoeu",
+        "last_name": "aoeu",
+        "nir": 1111111111111
+    },
+    "model": "person.person",
+    "pk": 1
+},
+{
+    "fields": {
+        "birth_date": "2018-04-30",
+        "email": "aoeaoeuu@example.com",
+        "first_name": "uea",
+        "last_name": "ue",
+        "nir": 2333333333333
+    },
+    "model": "person.person",
+    "pk": 2
+},
+{
+    "fields": {
+        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae"
+    },
+    "model": "mrsrequest.bill",
+    "pk": 2
+},
+{
+    "fields": {
+        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae"
+    },
+    "model": "mrsrequest.bill",
+    "pk": 3
+},
+{
+    "fields": {
+        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae"
+    },
+    "model": "mrsrequest.pmt",
+    "pk": 1
+},
+{
+    "fields": {
+        "mrsrequest": "770efeec-34a8-49f6-ab04-c6dde9a4a679"
+    },
+    "model": "mrsrequest.pmt",
+    "pk": 4
+},
+{
+    "fields": {
+        "date_depart": "2018-04-30",
+        "date_return": "2018-04-30",
+        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae"
+    },
+    "model": "mrsrequest.transport",
+    "pk": 1
+},
+{
+    "fields": {
+        "date_depart": "2018-04-29",
+        "date_return": "2018-04-29",
+        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae"
+    },
+    "model": "mrsrequest.transport",
+    "pk": 2
+},
+{
+    "fields": {
+        "date_depart": "2018-04-29",
+        "date_return": "2018-04-29",
+        "mrsrequest": "770efeec-34a8-49f6-ab04-c6dde9a4a679"
+    },
+    "model": "mrsrequest.transport",
+    "pk": 3
+},
+{
+    "fields": {
+        "binary": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=",
+        "creation_datetime": "2018-05-01T17:09:27Z",
+        "filename": "1x1.png",
+        "mrsrequest_uuid": "13751dc2-18bb-4925-a8b4-84383a042bae"
+    },
+    "model": "mrsattachment.mrsattachment",
+    "pk": 1
+},
+{
+    "fields": {
+        "binary": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=",
+        "creation_datetime": "2018-05-01T17:09:58Z",
+        "filename": "1x1.png",
+        "mrsrequest_uuid": "13751dc2-18bb-4925-a8b4-84383a042bae"
+    },
+    "model": "mrsattachment.mrsattachment",
+    "pk": 2
+},
+{
+    "fields": {
+        "binary": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=",
+        "creation_datetime": "2018-05-01T17:10:01Z",
+        "filename": "1x1.png",
+        "mrsrequest_uuid": "13751dc2-18bb-4925-a8b4-84383a042bae"
+    },
+    "model": "mrsattachment.mrsattachment",
+    "pk": 3
+},
+{
+    "fields": {
+        "binary": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=",
+        "creation_datetime": "2018-05-01T17:10:22Z",
+        "filename": "1x1.png",
+        "mrsrequest_uuid": "770efeec-34a8-49f6-ab04-c6dde9a4a679"
+    },
+    "model": "mrsattachment.mrsattachment",
+    "pk": 4
+},
+{
+    "fields": {
+        "active": true,
+        "body": "PMT manquante sur {{ display_id }}: Contenu de mail",
+        "name": "PMT: manquante",
+        "subject": "PMT manquante sur {{ display_id }}"
+    },
+    "model": "mrsemail.emailtemplate",
+    "pk": 1
+},
+{
+    "fields": {
+        "active": true,
+        "code": "111111111",
+        "liquidation_email": "aaa@example.com",
+        "name": "aaaaaaa",
+        "number": "111",
+        "score": 0
+    },
+    "model": "caisse.caisse",
+    "pk": 1
+},
+{
+    "fields": {
+        "active": true,
+        "code": "222222222",
+        "liquidation_email": "bbb@example.com",
+        "name": "bbbb",
+        "number": "222",
+        "score": 0
+    },
+    "model": "caisse.caisse",
+    "pk": 2
+},
+{
+    "fields": {
+        "active": false,
+        "code": "333333333",
+        "liquidation_email": null,
+        "name": "inactive",
+        "number": "333",
+        "score": 2
+    },
+    "model": "caisse.caisse",
+    "pk": 3
+},
+{
+    "fields": {
+        "caisse": 3,
+        "email": "xxx@example.com"
+    },
+    "model": "caisse.email",
+    "pk": 1
+},
+{
+    "fields": {
+        "caisses": [],
+        "date_joined": "2018-05-01T17:05:57Z",
+        "email": "t@tt.tt",
+        "first_name": "",
+        "groups": [],
+        "is_active": true,
+        "is_staff": true,
+        "is_superuser": true,
+        "last_login": "2018-05-01T17:06:11Z",
+        "last_name": "",
+        "password": "pbkdf2_sha256$100000$UFg967PHT26y$FbgutuXw8aKNbKdcNFBmGkw8v6UFaU/RlxVA3BjaPmo=",
+        "user_permissions": [],
+        "username": "test"
+    },
+    "model": "mrsuser.user"
+},
+{
+    "fields": {
+        "caisses": [
+            1
+        ],
+        "date_joined": "2018-05-01T17:11:24Z",
+        "email": "a@aa.aa",
+        "first_name": "",
+        "groups": [],
+        "is_active": true,
+        "is_staff": true,
+        "is_superuser": false,
+        "last_login": "2018-05-01T17:12:17Z",
+        "last_name": "",
+        "password": "pbkdf2_sha256$100000$Yef9WFYm6ZjD$M02E/lCuR9dQ4rnmSI+pFQEUd9OBewIa9nDMxdKJNjA=",
+        "user_permissions": [],
+        "username": "a"
+    },
+    "model": "mrsuser.user"
+},
+{
+    "fields": {
+        "caisses": [
+            2
+        ],
+        "date_joined": "2018-05-01T17:11:40Z",
+        "email": "b@example.com",
+        "first_name": "",
+        "groups": [],
+        "is_active": true,
+        "is_staff": true,
+        "is_superuser": false,
+        "last_login": null,
+        "last_name": "",
+        "password": "pbkdf2_sha256$100000$miYUiMg5XfbU$paXWoidD8EHHWYBlSrMFJt6nUkkSBU+X7U2YgzoUquY=",
+        "user_permissions": [],
+        "username": "b"
+    },
+    "model": "mrsuser.user"
+},
+{
+    "fields": {
+        "caisse": 1,
+        "creation_datetime": "2018-05-01T17:10:12Z",
+        "creation_ip": "127.0.0.1",
+        "display_id": 201805010000,
+        "distance": 123,
+        "expense": 1,
+        "institution": null,
+        "insured": 1,
+        "reject_template": 1,
+        "status": 999,
+        "status_datetime": "2018-05-01T17:13:27Z",
+        "status_user": [
+            "a"
+        ]
+    },
+    "model": "mrsrequest.mrsrequest",
+    "pk": "13751dc2-18bb-4925-a8b4-84383a042bae"
+},
+{
+    "fields": {
+        "caisse": 2,
+        "creation_datetime": "2018-05-01T17:10:48Z",
+        "creation_ip": "127.0.0.1",
+        "display_id": 201805010001,
+        "distance": 12,
+        "expense": 0,
+        "institution": null,
+        "insured": 2,
+        "reject_template": null,
+        "status": 1,
+        "status_datetime": null,
+        "status_user": null
+    },
+    "model": "mrsrequest.mrsrequest",
+    "pk": "770efeec-34a8-49f6-ab04-c6dde9a4a679"
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2018-05-01T17:06:31Z",
+        "change_message": "Ajouter",
+        "content_type": [
+            "caisse",
+            "caisse"
+        ],
+        "object_id": "1",
+        "object_repr": "aaaaaaa",
+        "user": [
+            "test"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 1
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2018-05-01T17:06:55Z",
+        "change_message": "Ajouter",
+        "content_type": [
+            "caisse",
+            "caisse"
+        ],
+        "object_id": "2",
+        "object_repr": "bbbb",
+        "user": [
+            "test"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 2
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2018-05-01T17:07:19Z",
+        "change_message": "Ajouter",
+        "content_type": [
+            "caisse",
+            "caisse"
+        ],
+        "object_id": "3",
+        "object_repr": "inactive",
+        "user": [
+            "test"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 3
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2018-05-01T17:07:45Z",
+        "change_message": "Ajouter",
+        "content_type": [
+            "mrsemail",
+            "emailtemplate"
+        ],
+        "object_id": "1",
+        "object_repr": "PMT: manquante",
+        "user": [
+            "test"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 4
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2018-05-01T17:11:24Z",
+        "change_message": "Ajouter",
+        "content_type": [
+            "mrsuser",
+            "user"
+        ],
+        "object_id": "2",
+        "object_repr": "a",
+        "user": [
+            "test"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 5
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2018-05-01T17:11:40Z",
+        "change_message": "Ajouter",
+        "content_type": [
+            "mrsuser",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "b",
+        "user": [
+            "test"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 6
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2018-05-01T17:11:50Z",
+        "change_message": "Modifier",
+        "content_type": [
+            "mrsuser",
+            "user"
+        ],
+        "object_id": "2",
+        "object_repr": "a",
+        "user": [
+            "test"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 7
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2018-05-01T17:11:59Z",
+        "change_message": "Modifier",
+        "content_type": [
+            "mrsuser",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "b",
+        "user": [
+            "test"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 8
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2018-05-01T17:12:43Z",
+        "change_message": "Modifier",
+        "content_type": [
+            "mrsuser",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "b",
+        "user": [
+            "a"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 9
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2018-05-01T17:12:56Z",
+        "change_message": "Modifier",
+        "content_type": [
+            "mrsuser",
+            "user"
+        ],
+        "object_id": "2",
+        "object_repr": "a",
+        "user": [
+            "a"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 10
+},
+{
+    "fields": {
+        "action_flag": 1000,
+        "action_time": "2018-05-01T17:13:15Z",
+        "change_message": "En cours de liquidation",
+        "content_type": [
+            "mrsrequest",
+            "mrsrequest"
+        ],
+        "object_id": "13751dc2-18bb-4925-a8b4-84383a042bae",
+        "object_repr": "201805010000",
+        "user": [
+            "a"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 11
+},
+{
+    "fields": {
+        "action_flag": 999,
+        "action_time": "2018-05-01T17:13:27Z",
+        "change_message": "PMT: manquante",
+        "content_type": [
+            "mrsrequest",
+            "mrsrequest"
+        ],
+        "object_id": "13751dc2-18bb-4925-a8b4-84383a042bae",
+        "object_repr": "201805010000",
+        "user": [
+            "a"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 12
+}
+]
