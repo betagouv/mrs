@@ -1,7 +1,7 @@
 {% extends 'crudlfap/update.html' %}
 
-{% block success %}
+{% block content %}
     <div class="card-panel green lighten-4">
-        La requête est passée au statut "en cours de liquidation".
+        Vous allez passer la demande {{ object.display_id }} en cours de liquidation pour la traiter dans Progrès, confirmez-vous ?
     </div>
 {% endblock %}
