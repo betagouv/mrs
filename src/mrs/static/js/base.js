@@ -23,7 +23,7 @@ import Carousel from './components/Caroussel.js'
   let body = document.querySelector('body')
 
   const renderHeader = isFat => render(<Header isFat={ isFat } />, document.getElementById('header'))
-  const renderCarousel = () => render(<Carousel />, document.getElementById('caroussel'))
+  const renderCarousel = () => render(<Carousel />, document.getElementById('caroussel-react-mount-point'))
 
   // show correct header based on path
   if(body.classList.contains('index')) {
