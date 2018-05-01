@@ -21,7 +21,7 @@
     
 <div class="row">
     <div class="select-field col s12 required" id="id_template_container">
-        <label for="id_template">Template</label>
+        <label for="id_template">Modèle d'email</label>
         <select data-action="change-&gt;emailtemplate#change" data-controller="emailtemplate" id="id_template" name="template">
             <option value="">---------</option>
             <option value="1">PMT: manquante</option>
@@ -34,7 +34,7 @@
 <div class="row">
     <div class="input-field col s12 required" id="id_subject_container">
         <input id="id_subject" name="subject" type="text"/>
-        <label for="id_subject">Subject</label>
+        <label for="id_subject">Sujet</label>
         
     </div>
 </div>
@@ -42,7 +42,7 @@
 <div class="row">
     <div class="input-field col s12 required" id="id_body_container">
         <textarea class="materialize-textarea" cols="40" id="id_body" name="body" rows="10"></textarea>
-        <label for="id_body">Body</label>
+        <label for="id_body">Corps</label>
         
     </div>
 </div>
