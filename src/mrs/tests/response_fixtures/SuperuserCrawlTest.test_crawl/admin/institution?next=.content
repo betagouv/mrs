@@ -1,0 +1,109 @@
+<div id="modal-body-ajax" style="padding: 0 24px">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Établissements: liste</h2>
+      
+    
+
+    
+    
+<style type="text/css">
+#render-table .table-container .pagination { display: none; }
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m2">
+    <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+      
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+      
+
+
+    </form>
+  </div>
+  
+
+  <div class="table-responsive col s12 m10" id="render-table">
+    <div class="table-container">
+      
+    
+
+
+<div class="table-container">
+    
+        <table>
+            
+            
+                <thead>
+                    <tr>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=id">Id</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=finess">Finess</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=origin">Origin</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=dynamic_allow">Autorisation CORS dynamique</a>
+                            
+                        </th>
+                    
+                        <th>
+                            
+                                Actions
+                            
+                        </th>
+                    
+                    </tr>
+                </thead>
+            
+            
+            
+                <tbody>
+                
+                    
+                
+                </tbody>
+            
+            
+            
+            
+        </table>
+    
+
+    
+</div>
+
+
+    
+    </div>
+
+    
+  </div>
+</div>
+
+    
+    
+    </div>

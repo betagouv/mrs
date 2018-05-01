@@ -1,0 +1,58 @@
+<div class="container" id="modal-body-ajax">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Demande "201805010001": modifier</h2>
+      
+    
+
+    
+<form action="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679/reject" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+
+    
+<script id="emailtemplates" type="text/json">
+{"1": {"subject": "PMT manquante sur 201805010001", "body": "PMT manquante sur 201805010001: Contenu de mail"}}
+</script>
+
+    <div class="form-loading" style="display: none">
+        Data upload progress
+        <br/>
+        <progress></progress>
+    </div>
+    
+<div class="row">
+    <div class="select-field col s12 required" id="id_template_container">
+        <label for="id_template">Template</label>
+        <select data-action="change-&gt;emailtemplate#change" data-controller="emailtemplate" id="id_template" name="template">
+            <option value="">---------</option>
+            <option value="1">PMT: manquante</option>
+        </select>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_subject_container">
+        <input id="id_subject" name="subject" type="text"/>
+        <label for="id_subject">Subject</label>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="input-field col s12 required" id="id_body_container">
+        <textarea class="materialize-textarea" cols="40" id="id_body" name="body" rows="10"></textarea>
+        <label for="id_body">Body</label>
+        
+    </div>
+</div>
+
+
+
+    
+    <button class="btn btn-primary" type="submit">Change</button>
+
+    
+    <input name="_next" type="hidden" value="/"/></form>
+
+    </div>

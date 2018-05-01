@@ -1,0 +1,317 @@
+<div id="modal-body-ajax" style="padding: 0 24px">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Users: liste</h2>
+      
+    
+
+    
+    
+<style type="text/css">
+#render-table .table-container .pagination { display: none; }
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m2">
+    <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+      
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+      
+<div class="row">
+    <div class="select-field col s12 multiselect" id="id_groups_container">
+        <label for="id_groups">Groupes</label>
+        <select id="id_groups" multiple="True" name="groups">
+            <option disabled="" value="">Choisissez votre option</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+
+
+<div class="row">
+    <div class="select-field col s12" id="id_is_superuser_container">
+        <label for="id_is_superuser">Statut super-utilisateur</label>
+        <select id="id_is_superuser" name="is_superuser">
+            <option selected="selected" value="1">Inconnu</option>
+            <option value="2">Oui</option>
+            <option value="3">Non</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+
+
+<div class="row">
+    <div class="select-field col s12" id="id_is_staff_container">
+        <label for="id_is_staff">Statut équipe</label>
+        <select id="id_is_staff" name="is_staff">
+            <option selected="selected" value="1">Inconnu</option>
+            <option value="2">Oui</option>
+            <option value="3">Non</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+
+
+<div class="row">
+    <div class="select-field col s12 multiselect" id="id_caisses_container">
+        <label for="id_caisses">Caisses</label>
+        <select id="id_caisses" multiple="True" name="caisses">
+            <option disabled="" value="">Choisissez votre option</option>
+            <option value="1">aaaaaaa</option>
+            <option value="2">bbbb</option>
+            <option value="3">inactive</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+
+
+<div class="row">
+    <div class="select-field col s12" id="id_is_active_container">
+        <label for="id_is_active">Actif</label>
+        <select id="id_is_active" name="is_active">
+            <option selected="selected" value="1">Inconnu</option>
+            <option value="2">Oui</option>
+            <option value="3">Non</option>
+        </select>
+        
+    </div>
+</div>
+
+    </form>
+  </div>
+  
+
+  <div class="table-responsive col s12 m10" id="render-table">
+    <div class="table-container">
+      
+    
+
+
+<div class="table-container">
+    
+        <table>
+            
+            
+                <thead>
+                    <tr>
+                    
+                        <th>
+                            
+                                Caisses
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=is_active">Actif</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=username">Nom d'utilisateur</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=email">Adresse électronique</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=first_name">Prénom</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=last_name">Nom</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=is_staff">Statut équipe</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?next=&amp;sort=is_superuser">Statut super-utilisateur</a>
+                            
+                        </th>
+                    
+                        <th>
+                            
+                                Actions
+                            
+                        </th>
+                    
+                    </tr>
+                </thead>
+            
+            
+            
+                <tbody>
+                
+                    
+                    <tr class="even">
+                        
+                            <td>-</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td><a href="/admin/user/test">test</a></td>
+                        
+                            <td><a href="mailto:t@tt.tt">t@tt.tt</a></td>
+                        
+                            <td>—</td>
+                        
+                            <td>—</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/delete" title='User "test": delete'><i class="material-icons">delete</i>
+</a>
+
+<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update" title='User "test": modifier'><i class="material-icons">edit</i>
+</a>
+
+<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password" title='User "test": modifier'><i class="material-icons">vpn_key</i>
+</a>
+
+<a class="pink darken-4 btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/test/su" title='User "test": su'><i class="material-icons">attach_money</i>
+</a>
+
+<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/test" title="test"><i class="material-icons">search</i>
+</a>
+</td>
+                        
+                    </tr>
+                    
+                
+                    
+                    <tr class="odd">
+                        
+                            <td>aaaaaaa</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td><a href="/admin/user/a">a</a></td>
+                        
+                            <td><a href="mailto:a@aa.aa">a@aa.aa</a></td>
+                        
+                            <td>—</td>
+                        
+                            <td>—</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td><span class="false">✘</span></td>
+                        
+                            <td>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/delete" title='User "a": delete'><i class="material-icons">delete</i>
+</a>
+
+<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/update" title='User "a": modifier'><i class="material-icons">edit</i>
+</a>
+
+<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/password" title='User "a": modifier'><i class="material-icons">vpn_key</i>
+</a>
+
+<a class="pink darken-4 btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/a/su" title='User "a": su'><i class="material-icons">attach_money</i>
+</a>
+
+<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/a" title="a"><i class="material-icons">search</i>
+</a>
+</td>
+                        
+                    </tr>
+                    
+                
+                    
+                    <tr class="even">
+                        
+                            <td>bbbb</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td><a href="/admin/user/b">b</a></td>
+                        
+                            <td><a href="mailto:b@example.com">b@example.com</a></td>
+                        
+                            <td>—</td>
+                        
+                            <td>—</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td><span class="false">✘</span></td>
+                        
+                            <td>
+<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/delete" title='User "b": delete'><i class="material-icons">delete</i>
+</a>
+
+<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/update" title='User "b": modifier'><i class="material-icons">edit</i>
+</a>
+
+<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/password" title='User "b": modifier'><i class="material-icons">vpn_key</i>
+</a>
+
+<a class="pink darken-4 btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/b/su" title='User "b": su'><i class="material-icons">attach_money</i>
+</a>
+
+<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/b" title="b"><i class="material-icons">search</i>
+</a>
+</td>
+                        
+                    </tr>
+                    
+                
+                </tbody>
+            
+            
+            
+            
+        </table>
+    
+
+    
+</div>
+
+
+    
+    </div>
+
+    
+  </div>
+</div>
+
+    
+    
+    </div>

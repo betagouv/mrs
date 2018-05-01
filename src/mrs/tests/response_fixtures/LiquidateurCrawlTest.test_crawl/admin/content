@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="turbolinks-cache-control" content="no-cache">
+    <link rel="canonical" href="/admin/" />
+    <link rel="icon" href="/static/favicon.ico">
+
+    <title>Accueil - MRS Admin</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    
+
+<style type="text/css">
+textarea {
+    min-height: 300px;
+}
+</style>
+
+
+    
+  </head>
+
+  <body class="">
+    <div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper teal darken-3">
+      <span href="#" data-action="click->sidenav#click" data-controller="sidenav" data-target="slide-out" class="sidenav-trigger"><i class="waves-effect material-icons">menu</i></span>
+      <a class="brand-logo" href="/admin/" class="waves-effect brand-logo">MRS Admin</a>
+      <ul class="right">
+        
+  <li class="">
+    <a class="waves-effect" href="/admin/logout">Déconnexion</a>
+  </li>
+  
+
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<ul id="slide-out" class="sidenav">
+
+  <li class="no-padding active"><a href="/admin/">Home</a></li>
+  <li class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      
+        
+          <li class="">
+            <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">insert_drive_file</i> Demandes</a>
+            <div class="collapsible-body">
+              <ul>
+                
+                  <li>
+                    <a
+                      class="waves-effect"
+                      href="/admin/mrsrequest?next="
+                      title="Demandes: liste"
+                    ><i class="material-icons">list</i>Liste</a>
+                  </li>
+                
+              </ul>
+            </div>
+          </li>
+        
+      
+    </ul>
+  </li>
+
+  
+
+  
+  
+  <li class="no-padding">
+    <a class="waves-effect" href="/admin/logout">Déconnexion</a>
+  </li>
+  
+
+  
+</ul>
+    
+    <ul style="display: none" data-controller="messages">
+  
+</ul>
+    
+    <div class="container" id="modal-body-ajax">
+    
+      
+    
+
+    
+    
+<h4>Demandes</h4>
+<label>Soumises</label>
+<p>0</p>
+<label>Validées</label>
+<p>0</p>
+<label>Rejettées</label>
+<p>1</p>
+<label>Total</label>
+<p>1</p>
+
+    
+    
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content" id="modal-body">
+           <p>Ooopsy</p>
+        </div>
+    </div>
+
+    
+    
+    
+  </body>
+</html>

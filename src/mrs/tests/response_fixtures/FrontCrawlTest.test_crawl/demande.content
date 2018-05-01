@@ -1,0 +1,327 @@
+<div id="app--wrapper">
+
+        <div id="header">
+            <noscript>
+                
+                <a href="/" title="fonctionnement">fonctionnement</a>
+                
+                <a href="/demande" title="formulaire">formulaire</a>
+                
+                <a href="/faq" title="faq">faq</a>
+                
+                <a href="/contact" title="contact">contact</a>
+                
+            </noscript>
+            <script id="header-links" type="text/json">
+                [{"url": "/", "alias": "fonctionnement"}, {"url": "/demande", "alias": "formulaire"}, {"url": "/faq", "alias": "faq"}, {"url": "/contact", "alias": "contact"}]
+            </script>
+        </div>
+
+        
+    <div class="mrs-std-page--wrapper">
+        <div class="mrs-std-page">
+            
+
+<h2 class="scroll-reveal">Formulaire de remboursement</h2>
+<p class="scroll-reveal">
+    Réalisez votre demande de remboursement en ligne dès maintenant.
+</p>
+
+<div class="form--wrapper scroll-reveal">
+    <form class="mrsrequest-wizard" id="mrsrequest-wizard" method="POST" style="display: none">
+        
+            
+            <style type="text/css">
+            #id_iterative_number_container {
+                display: none;
+            }
+            
+            </style>
+
+                <div class="section row">
+    <div class="col s12">
+        <h5>Votre caisse d'assurance maladie</h5>
+        
+<div class="row">
+    <div class="select-field col s12 required" id="id_caisse_container">
+        <label for="id_caisse">Votre caisse de rattachement</label>
+        <select id="id_caisse" name="caisse">
+            <option value="">---------</option>
+            <option value="other">Autre</option>
+        </select>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+            <div id="mrsrequest-form" style="display: none">
+                <div id="pmt-form">
+                    <div class="section row">
+    <div class="col s12">
+        <h5>Votre prescription médicale</h5>
+        
+
+
+<div class="row">
+    <div class="input-field file-field col s12 required" id="id_pmt_container">
+        <div class="btn">
+            <span>Fichier</span>
+            <input data-max-files="1" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" name="pmt" type="file"/>
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path" data-max-files="1" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" name="file" placeholder="Prescription Médicale de Transport obligatoire"/>
+        </div>
+        <div class="help-block">Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande accord préalable</div>
+
+        <ul class="files">
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+                </div>
+                
+<div class="section row">
+    <div class="col s12">
+        <h5>Identité de la personne transportée</h5>
+        
+<div class="layout-row row"><div class="col s12 m6">
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_first_name_container">
+        <input id="id_first_name" maxlength="200" name="first_name" type="text"/>
+        <label for="id_first_name">Prénom</label>
+        
+    </div>
+</div>
+</div><div class="col s12 m6">
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_last_name_container">
+        <input id="id_last_name" maxlength="200" name="last_name" type="text"/>
+        <label for="id_last_name">Nom de famille</label>
+        
+    </div>
+</div>
+</div></div>
+
+
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_birth_date_container">
+        <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" placeholder="jj/mm/aaaa" type="date"/>
+        <label for="id_birth_date">Date de naissance</label>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    
+<div class="section row">
+    <div class="col s12">
+        <h5>Identité de l'assuré</h5>
+        
+<div class="layout-row row"><div class="col s12 m6">
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_nir_container">
+        <input id="id_nir" maxlength="13" minlength="13" name="nir" type="text"/>
+        <label for="id_nir">Numéro de sécurité sociale</label>
+        
+    </div>
+</div>
+</div><div class="col s12 m6">
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_email_container">
+        <input id="id_email" maxlength="254" name="email" type="email"/>
+        <label for="id_email">Email</label>
+        
+    </div>
+</div>
+</div></div>
+
+    </div>
+</div>
+
+                
+<div class="section row">
+    <div class="col s12">
+        <h5>Informations sur le transport</h5>
+        
+<div class="layout-row row"><div class="col s12 m6">
+
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_date_depart_container">
+        <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_date_depart" name="date_depart" placeholder="jj/mm/aaaa" type="date"/>
+        <label for="id_date_depart">Date de l'aller</label>
+        
+    </div>
+</div>
+</div><div class="col s12 m6">
+
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_date_return_container">
+        <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_date_return" name="date_return" placeholder="jj/mm/aaaa" type="date"/>
+        <label for="id_date_return">Date de retour</label>
+        
+    </div>
+</div>
+</div></div>
+
+<div class="row">
+    <div class="checkbox-field col s12" id="id_iterative_show_container">
+        <label>
+        <input class="filled-in " id="id_iterative_show" name="iterative_show" type="checkbox"/><span for="id_iterative_show">Avez-vous des transports itératifs à déclarer ?</span></label>
+        
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="input-field col s12" id="id_iterative_number_container">
+        <input id="id_iterative_number" name="iterative_number" type="number" value="1"/>
+        <label class="active" for="id_iterative_number">Combien de trajets itératifs ?</label>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    <div class="layout-row row"><div class="col s12 m12">
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_distance_container">
+        <input id="id_distance" min="0" name="distance" type="number"/>
+        <label for="id_distance">Distance (km)</label>
+        <div class="help-block">Total des kilomètres parcourus</div>
+    </div>
+</div>
+</div></div>
+
+
+    
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_expense_container">
+        <input id="id_expense" name="expense" step="0.01" type="number" value="0"/>
+        <label class="active" for="id_expense">Montant total des frais (en € TTC)</label>
+        <div class="help-block">Somme totale des frais de stationnement et/ou péage et/ou de transport en commun</div>
+    </div>
+</div>
+
+
+    
+
+
+<div class="row">
+    <div class="input-field file-field col s12" id="id_bills_container">
+        <div class="btn">
+            <span>Fichier</span>
+            <input data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/bill/MRSREQUEST_UUID/upload/" multiple="multiple" name="bills" type="file"/>
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/bill/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
+        </div>
+        <div class="help-block">Joindre vos justificatifs de péage / stationnement / transport en commun - voir FAQ pour la liste des justificatifs acceptés</div>
+
+        <ul class="files">
+            
+        </ul>
+    </div>
+</div>
+
+                
+<div class="row radio-field">
+    <div class="col s12">
+        <label class="" for="id_certify_0">Validation de la demande de remboursement</label>
+    </div>
+    <div class="col s12 required" id="id_certify_container">
+        <div class="radio" id="id_certify"><label>
+            <input class="with-gap" id="id_certify_0" name="certify" type="radio" value="True"/>
+            <span class="item-label" for="id_certify_0">J'atteste sur l'honneur l'exactitude des renseignements portés ci-dessus</span>
+        </label></div>
+    </div>
+</div>
+
+            </div>
+
+            <div id="caisse-form" style="display: none">
+                
+<div class="row">
+    <div class="select-field col s12 required" id="id_other-caisse_container">
+        <label for="id_other-caisse">Votre régime d'Assurance Maladie</label>
+        <select id="id_other-caisse" name="other-caisse">
+            <option value="">---------</option>
+        </select>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12" id="id_other-email_container">
+        <input id="id_other-email" name="other-email" type="email"/>
+        <label for="id_other-email">Votre email</label>
+        <div class="help-block">Nous vous informerons quand cette caisse ouvrira</div>
+    </div>
+</div>
+
+            </div>
+
+            <br/>
+
+            <button class="btn" name="_submit" type="submit">Soumettre</button>
+        
+    </form>
+</div>
+
+<div class="disclaimer--wrapper scroll-reveal">
+    <p>
+        La loi rend passible d'amende et/ ou d'emprisonnement quiconque sera rend coupable de fraude ou de fausse déclaration en vue d'obtenir ou de tenter d'obtenir des avantages indus (articles 313-1 à 313-3, 433-19, 441-1 et suivants du Code pénal).
+    </p>
+    <p>
+        En outre, l'inexactitude, le caractère incomplet des déclarations ou l'absence de déclaration d'un changement de situation dans le but d'obtenir le versement de prestations indues, peuvent faire l'objet d'une pénalité financière en application de l'article L.162-1-14 du Code de la sécurité sociale.
+    </p>
+    <p>
+        La loi 78.17 du 6/01/78 modifiée relative à l'informatique, aux fichiers et aux libertés s'applique aux réponses faites sur ce formulaire. Elle garantit un droit d'accès et de rectification pour les données vous concernant
+    </p>
+</div>
+
+            
+        
+        </div>
+    </div>
+
+
+        <div id="footer">
+            <div class="links">
+                <a href="/mentions-legales">mentions legales</a>
+                <a href="/stats">statistiques</a>
+            </div>
+            <p>
+                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE
+            </p>
+        </div>
+    </div>

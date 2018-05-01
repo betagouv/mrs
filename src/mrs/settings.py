@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import shutil
 import os
 
 from crudlfap.settings import (
@@ -53,7 +52,7 @@ INSTALLED_APPS = [
     'crudlfap_auth', 'mrsuser',  # the second overrides the first
     'caisse',
 
-    'webpack_loader' if shutil.which('npm') else 'webpack_mock',
+    os.getenv('WEBPACK_LOADER', 'webpack_loader'),
     'django_humanize',
 
     'django.contrib.auth',
@@ -84,6 +83,10 @@ CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault(
     'localtime', 'django.utils.timezone.template_localtime')
 CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault('list', list)
 
+if os.getenv('WEBPACK_LOADER') == 'webpack_mock':
+    CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals']['render_bundle'] = (
+        'webpack_mock.templatetags.webpack_loader.render_bundle')
+
 TEMPLATES = [
     CRUDLFAP_TEMPLATE_BACKEND,
     {
@@ -97,6 +100,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "contact.context_processors.contact_form",
                 "mrs.context_processors.settings",
+                "mrs.context_processors.header_links",
             ],
         },
     },
