@@ -1,5 +1,5 @@
-import { h as React } from 'preact'
-import { shallow } from 'preact-render-spy'
+import React from 'react'
+import {shallow} from 'enzyme'
 
 import HeaderSmart, {
   Burger,
@@ -14,22 +14,6 @@ import HeaderSmart, {
 
 import * as UI from './UI.js'
 
-/*
-describe('<Header />', () => {
-  test('Renders HeaderMobile inside wrapper div', () => {
-    const header = shallow(<Header />)
-    expect(header.find('div').contains(<HeaderMobile />)).toBeTruthy()
-  })
-})
-
-describe('<HeaderMobile />', () => {
-  test('Renders HeaderMobile inside wrapper div', () => {
-    const header = shallow(<Header />)
-    expect(header.find('div').contains(<HeaderMobile />)).toBeTruthy()
-  })
-})
-*/
-
 describe('<Link />', () => {
   test('maps props correctly', () => {
     const alias = 'foo'
@@ -42,9 +26,8 @@ describe('<Link />', () => {
 
     const subject = header.find('a')
     expect(subject.contains(alias)).toBeTruthy()
-    expect(subject.attr('className')).toBe('link')
-    expect(subject.attr('href')).toBe(url)
-
+    expect(subject.props().className).toBe('link')
+    expect(subject.props().href).toBe(url)
   })
 })
 
@@ -60,8 +43,8 @@ describe('<MenuLinks />', () => {
     const subject1 = menuLinks1.find('div')
     const subject2 = menuLinks2.find('div')
 
-    expect(subject1.attr('className')).toBe('menu-links--wrapper')
-    expect(subject2.attr('className')).toBe('menu-links--wrapper hidden')
+    expect(subject1.props().className).toBe('menu-links--wrapper')
+    expect(subject2.props().className).toBe('menu-links--wrapper hidden')
   })
 
   test('maps links correctly', () => {
@@ -83,21 +66,21 @@ describe('<MenuLinks />', () => {
     const menuLinks = shallow(<MenuLinks
       links={ links } />)
 
-    const subject1 = menuLinks.find(<Link />).at(0)
-    const subject2 = menuLinks.find(<Link />).at(1)
-    const subject3 = menuLinks.find(<Link />).at(2)
+    const subject1 = menuLinks.find(Link).at(0)
+    const subject2 = menuLinks.find(Link).at(1)
+    const subject3 = menuLinks.find(Link).at(2)
 
-    expect(subject1.attr('key')).toBe(0)
-    expect(subject2.attr('key')).toBe(1)
-    expect(subject3.attr('key')).toBe(2)
+    expect(subject1.props().key).toBe(0)
+    expect(subject2.props().key).toBe(1)
+    expect(subject3.props().key).toBe(2)
 
-    expect(subject1.attr('url')).toBe(links[0].url)
-    expect(subject2.attr('url')).toBe(links[1].url)
-    expect(subject3.attr('url')).toBe(links[2].url)
+    expect(subject1.props().url).toBe(links[0].url)
+    expect(subject2.props().url).toBe(links[1].url)
+    expect(subject3.props().url).toBe(links[2].url)
 
-    expect(subject1.attr('alias')).toBe(links[0].alias)
-    expect(subject2.attr('alias')).toBe(links[1].alias)
-    expect(subject3.attr('alias')).toBe(links[2].alias)
+    expect(subject1.props().alias).toBe(links[0].alias)
+    expect(subject2.props().alias).toBe(links[1].alias)
+    expect(subject3.props().alias).toBe(links[2].alias)
   })
 })
 
@@ -114,10 +97,10 @@ describe('<Burger />', () => {
     const subject3 = burger2.find('img').at(0)
     const subject4 = burger2.find('img').at(1)
 
-    expect(subject1.attr('className')).toBe('burger')
-    expect(subject2.attr('className')).toBe('burger close hidden')
-    expect(subject3.attr('className')).toBe('burger hidden')
-    expect(subject4.attr('className')).toBe('burger close')
+    expect(subject1.props().className).toBe('burger')
+    expect(subject2.props().className).toBe('burger close hidden')
+    expect(subject3.props().className).toBe('burger hidden')
+    expect(subject4.props().className).toBe('burger close')
   })
 
   test('renders with proper image urls', () => {
@@ -126,8 +109,8 @@ describe('<Burger />', () => {
     const subject1 = burger.find('img').at(0)
     const subject2 = burger.find('img').at(1)
 
-    expect(subject1.attr('src')).toBe('/static/img/icones/burger.png')
-    expect(subject2.attr('src')).toBe('/static/img/icones/croix.png')
+    expect(subject1.props().src).toBe('/static/img/icones/burger.png')
+    expect(subject2.props().src).toBe('/static/img/icones/croix.png')
   })
 
   test('renders with image alt texts', () => {
@@ -136,8 +119,8 @@ describe('<Burger />', () => {
     const subject1 = burger.find('img').at(0)
     const subject2 = burger.find('img').at(1)
 
-    expect(subject1.attr('alt')).toBe('menu')
-    expect(subject2.attr('alt')).toBe('fermer')
+    expect(subject1.props().alt).toBe('menu')
+    expect(subject2.props().alt).toBe('fermer')
   })
 
   test('renders with wrapper props', () => {
@@ -146,8 +129,8 @@ describe('<Burger />', () => {
 
     const subject = burger.find('div')
 
-    expect(subject.attr('onClick')).toBe(toggleMenu)
-    expect(subject.attr('className')).toBe('burger--wrapper')
+    expect(subject.props().onClick).toBe(toggleMenu)
+    expect(subject.props().className).toBe('burger--wrapper')
   })
 })
 
@@ -162,8 +145,8 @@ describe('<MrsLogo />', () => {
     const subject1 = mrsLogo1.find('div')
     const subject2 = mrsLogo2.find('div')
 
-    expect(subject1.attr('className')).toBe('mrs-logo--wrapper hidden')
-    expect(subject2.attr('className')).toBe('mrs-logo--wrapper')
+    expect(subject1.props().className).toBe('mrs-logo--wrapper hidden')
+    expect(subject2.props().className).toBe('mrs-logo--wrapper')
   })
 
   test('img src and alt', () => {
@@ -171,8 +154,8 @@ describe('<MrsLogo />', () => {
 
     const subject = mrsLogo.find('img')
 
-    expect(subject.attr('src')).toBe('/static/img/logos/mrs.png')
-    expect(subject.attr('alt')).toBe('mrs')
+    expect(subject.props().src).toBe('/static/img/logos/mrs.png')
+    expect(subject.props().alt).toBe('mrs')
   })
 })
 
@@ -186,8 +169,8 @@ describe('<CnamLogo />', () => {
     const subject1 = cnamLogo1.find('img')
     const subject2 = cnamLogo2.find('img')
 
-    expect(subject1.attr('className')).toBe('logo-cnam hidden')
-    expect(subject2.attr('className')).toBe('logo-cnam')
+    expect(subject1.props().className).toBe('logo-cnam hidden')
+    expect(subject2.props().className).toBe('logo-cnam')
   })
 
   test('img src and alt', () => {
@@ -195,8 +178,8 @@ describe('<CnamLogo />', () => {
 
     const subject = mrsLogo.find('img')
 
-    expect(subject.attr('src')).toBe('/static/img/logos/cnam.png')
-    expect(subject.attr('alt')).toBe('cnam')
+    expect(subject.props().src).toBe('/static/img/logos/cnam.png')
+    expect(subject.props().alt).toBe('cnam')
   })
 })
 
@@ -204,34 +187,30 @@ describe('<HeaderFat />', () => {
   test('proper wrapper', () => {
     const headerFat = shallow(<HeaderFat />)
 
-    const subject = headerFat.find(<UI.Row />)
-    expect(subject.attr('className')).toBe('HeaderFat--wrapper')
+    const subject = headerFat.find(UI.Row)
+    expect(subject.props().className).toBe('HeaderFat--wrapper')
   })
 
   test('renders MrsLogo with correct props', () => {
-    const headerFat1 = shallow(<HeaderFat
-      isFat={ true } />)
-    const headerFat2 = shallow(<HeaderFat
-      isFat={ false } />)
+    const headerFat1 = shallow(<HeaderFat isFat={ true } />)
+    const headerFat2 = shallow(<HeaderFat isFat={ false } />)
 
-    const subject1 = headerFat1.find(<MrsLogo />)
-    const subject2 = headerFat2.find(<MrsLogo />)
+    const subject1 = headerFat1.find(MrsLogo)
+    const subject2 = headerFat2.find(MrsLogo)
 
-    expect(subject1.attr('isHidden')).toBe(false)
-    expect(subject2.attr('isHidden')).toBe(true)
+    expect(subject1.props().isHidden).toBe(false)
+    expect(subject2.props().isHidden).toBe(true)
   })
 
   test('renders CnamLogo with correct props', () => {
-    const headerFat1 = shallow(<HeaderFat
-      isFat={ true } />)
-    const headerFat2 = shallow(<HeaderFat
-      isFat={ false } />)
+    const headerFat1 = shallow(<HeaderFat isFat={ true } />)
+    const headerFat2 = shallow(<HeaderFat isFat={ false } />)
 
-    const subject1 = headerFat1.find(<CnamLogo />)
-    const subject2 = headerFat2.find(<CnamLogo />)
+    const subject1 = headerFat1.find(CnamLogo)
+    const subject2 = headerFat2.find(CnamLogo)
 
-    expect(subject1.attr('isHidden')).toBe(true)
-    expect(subject2.attr('isHidden')).toBe(false)
+    expect(subject1.props().isHidden).toBe(true)
+    expect(subject2.props().isHidden).toBe(false)
   })
 
   test('renders MenuLinks with correct props', () => {
@@ -241,10 +220,10 @@ describe('<HeaderFat />', () => {
       isMenuOpened={ isOpened }
       links={ links } />)
 
-    const subject = headerFat.find(<MenuLinks />)
+    const subject = headerFat.find(MenuLinks)
 
-    expect(subject.attr('links')).toBe(links)
-    expect(subject.attr('isOpened')).toBe(isOpened)
+    expect(subject.props().links).toBe(links)
+    expect(subject.props().isOpened).toBe(isOpened)
   })
 
   test('renders Burger with correct props', () => {
@@ -255,10 +234,10 @@ describe('<HeaderFat />', () => {
       isMenuOpened={ isOpened }
       toggleMenu={ toggleMenu } />)
 
-    const subject = headerFat.find(<Burger />)
+    const subject = headerFat.find(Burger)
 
-    expect(subject.attr('isMenuOpened')).toBe(isOpened)
-    expect(subject.attr('toggleMenu')).toBe(toggleMenu)
+    expect(subject.props().isMenuOpened).toBe(isOpened)
+    expect(subject.props().toggleMenu).toBe(toggleMenu)
   })
 })
 
@@ -270,8 +249,8 @@ describe('<Header />', () => {
     const subject1 = header1.find('div')
     const subject2 = header2.find('div')
 
-    expect(subject1.attr('className')).toBe('Header--wrapper')
-    expect(subject2.attr('className')).toBe('Header--wrapper thin')
+    expect(subject1.props().className).toBe('Header--wrapper')
+    expect(subject2.props().className).toBe('Header--wrapper thin')
   })
 
   test('HeaderFat', () => {
@@ -284,12 +263,12 @@ describe('<Header />', () => {
 
     const header = shallow(<Header { ...props } />)
 
-    const subject = header.find(<HeaderFat />)
+    const subject = header.find(HeaderFat)
 
-    expect(subject.attr('isFat')).toBe(props.isFat)
-    expect(subject.attr('isMenuOpened')).toBe(props.isMenuOpened)
-    expect(subject.attr('links')).toBe(props.links)
-    expect(subject.attr('toggleMenu')).toBe(props.toggleMenu)
+    expect(subject.props().isFat).toBe(props.isFat)
+    expect(subject.props().isMenuOpened).toBe(props.isMenuOpened)
+    expect(subject.props().links).toBe(props.links)
+    expect(subject.props().toggleMenu).toBe(props.toggleMenu)
   })
 })
 
@@ -301,14 +280,14 @@ describe('<HeaderSmart />', () => {
     }
 
     const headerSmart = shallow(<HeaderSmart { ...props } />)
-    const subject1 = headerSmart.find(<Header />)
-    expect(subject1.attr('isFat')).toBe(props.isFat)
-    expect(subject1.attr('links')).toBe(props.links)
-    expect(subject1.attr('isMenuOpened')).toBe(false)
+    const subject1 = headerSmart.find(Header)
+    expect(subject1.props().isFat).toBe(props.isFat)
+    expect(subject1.props().links).toBe(props.links)
+    expect(subject1.props().isMenuOpened).toBe(false)
 
     headerSmart.setState({isOpened: true})
-    const subject2 = headerSmart.find(<Header />)
-    expect(subject2.attr('isMenuOpened')).toBe(true)
+    const subject2 = headerSmart.find(Header)
+    expect(subject2.props().isMenuOpened).toBe(true)
   })
 
   test('toggleIsOpened', () => {

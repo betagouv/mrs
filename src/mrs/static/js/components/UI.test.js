@@ -1,5 +1,5 @@
-import { h as React } from 'preact'
-import {shallow} from 'preact-render-spy'
+import React from 'react'
+import {shallow} from 'enzyme'
 
 import * as UI from './UI'
 
