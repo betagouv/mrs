@@ -126,7 +126,7 @@ textarea {
       
         
           <li class="">
-            <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">person</i> Users</a>
+            <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">person</i> Utilisateurs</a>
             <div class="collapsible-body">
               <ul>
                 
@@ -134,7 +134,7 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/user/create?next="
-                      title="User: ajouter"
+                      title="Utilisateur: ajouter"
                     ><i class="material-icons">add</i>Ajouter</a>
                   </li>
                 
@@ -142,7 +142,7 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/user?next="
-                      title="Users: liste"
+                      title="Utilisateurs: liste"
                     ><i class="material-icons">list</i>Liste</a>
                   </li>
                 
