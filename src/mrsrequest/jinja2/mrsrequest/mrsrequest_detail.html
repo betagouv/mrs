@@ -73,7 +73,7 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right">{{ object.insured.birth_date }}</span>
+                    <span class="right">{{ object.insured.birth_date.strftime('%d/%m/%y') }}</span>
                 </p>
             </div>
         </div>
@@ -135,8 +135,8 @@
                         {% for transport in object.transport_set.all() %}
                         <tr>
                             <td>{{ loop.index }}</td>
-                            <td>{{ transport.date_depart }}</td>
-                            <td>{{ transport.date_return }}</td>
+                            <td>{{ transport.date_depart.strftime('%d/%m/%y') }}</td>
+                            <td>{{ transport.date_return.strftime('%d/%m/%y') }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
