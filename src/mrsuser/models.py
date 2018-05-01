@@ -9,5 +9,5 @@ class User(AbstractUser):
         blank=True,
     )
 
-    class Meta:
+    class Meta(AbstractUser.Meta):
         db_table = 'auth_user'

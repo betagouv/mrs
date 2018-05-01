@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from .models import User
 
 
+del crudlfap.site[User].views['delete']
 crudlfap.site[User]['update'].fields.append('caisses')
 crudlfap.site[User]['create'].fields.append('caisses')
 crudlfap.site[User]['list'].filter_fields.append('caisses')
