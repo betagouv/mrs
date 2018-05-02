@@ -1,0 +1,159 @@
+<div id="modal-body-ajax" style="padding: 0 24px">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Demandes: liste</h2>
+      
+    
+
+    
+    
+<style type="text/css">
+#render-table .table-container .pagination { display: none; }
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m2">
+    <div class="card-panel">
+      <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+        
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+        
+<div class="row">
+    <div class="select-field col s12" id="id_status_container">
+        <label for="id_status">Statut</label>
+        <select id="id_status" name="status">
+            <option value="">---------</option>
+            <option value="1">Soumise</option>
+            <option value="999">Rejetée</option>
+            <option value="1000">En cours de liquidation</option>
+            <option selected="selected" value="2000">Validée</option>
+        </select>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="select-field col s12" id="id_institution_container">
+        <label for="id_institution">Institution</label>
+        <select id="id_institution" name="institution">
+            <option value="">---------</option>
+        </select>
+        
+    </div>
+</div>
+
+      </form>
+    </div>
+  </div>
+  
+
+  <div class="table-responsive col s12 m10" id="render-table">
+    <div class="table-container card-panel">
+      
+    
+
+
+<div class="table-container">
+    
+        <table>
+            
+            
+                <thead>
+                    <tr>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?status=2000&amp;sort=creation_datetime">Date et heure de la demande</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?status=2000&amp;sort=display_id">Numéro de demande</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?status=2000&amp;sort=first_name">Prénom</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?status=2000&amp;sort=last_name">Nom</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?status=2000&amp;sort=nir">NIR</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?status=2000&amp;sort=status">Statut</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?status=2000&amp;sort=institution">Institution</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?status=2000&amp;sort=caisse">Caisse</a>
+                            
+                        </th>
+                    
+                        <th>
+                            
+                                Actions
+                            
+                        </th>
+                    
+                    </tr>
+                </thead>
+            
+            
+            
+                <tbody>
+                
+                    
+                
+                </tbody>
+            
+            
+            
+            
+        </table>
+    
+
+    
+</div>
+
+
+    
+    </div>
+
+    
+  </div>
+</div>
+
+    <div id="modal-buttons-ajax">
+    
+    </div>
+    
+    </div>
