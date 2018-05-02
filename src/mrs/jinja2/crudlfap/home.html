@@ -1,13 +1,59 @@
 {% extends 'base.html' %}
 
+{% block content_open %}<div style="padding: 0 24px" id="modal-body-ajax">{% endblock %}
+
 {% block content %}
-<h4>Demandes</h4>
-<label>Soumises</label>
-<p>{{ view.get_queryset().status('new').count() }}</p>
-<label>Validées</label>
-<p>{{ view.get_queryset().status('validated').count() }}</p>
-<label>Rejettées</label>
-<p>{{ view.get_queryset().status('rejected').count() }}</p>
-<label>Total</label>
-<p>{{ view.get_queryset().count() }}</p>
+<div class="row">
+    <div class="col m3 s12">
+        <div class="card-panel">
+            <h5>Demandes</h5>
+            <p>
+                Soumises
+                <span class="right">
+                    <a href="{{ crudlfap_site[view.model].views['list'].url }}?status={{ view.model.STATUS_NEW }}">
+                        {{ view.get_queryset().status('new').count() }}
+                    </a>
+                </span>
+            </p>
+            <p>
+                En cours de liquidation
+                <span class="right">
+                    <a href="{{ crudlfap_site[view.model].views['list'].url }}?status={{ view.model.STATUS_INPROGRESS }}">
+                        {{ view.get_queryset().status('inprogress').count() }}
+                    </a>
+                </span>
+            </p>
+            <p>
+                Validées
+                <span class="right">
+                    <a href="{{ crudlfap_site[view.model].views['list'].url }}?status={{ view.model.STATUS_VALIDATED }}">
+                        {{ view.get_queryset().status('validated').count() }}
+                    </a>
+                </span>
+            </p>
+            <p>
+                Rejettées
+                <span class="right">
+                    <a href="{{ crudlfap_site[view.model].views['list'].url }}?status={{ view.model.STATUS_REJECTED }}">
+                        {{ view.get_queryset().status('rejected').count() }}
+                    </a>
+                </span>
+            </p>
+            <p>
+                Total
+                <span class="right">
+                    <a href="{{ crudlfap_site[view.model].views['list'].url }}">
+                        {{ view.get_queryset().count() }}
+                    </a>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="col m9 s12">
+        <div class="card-panel">
+            <h5>Demandes en cours de liquidation</h5>
+            {{ render_table(request, view.table, view.queryset) }}
+        </div>
+    </div>
+</div>
 {% endblock %}
