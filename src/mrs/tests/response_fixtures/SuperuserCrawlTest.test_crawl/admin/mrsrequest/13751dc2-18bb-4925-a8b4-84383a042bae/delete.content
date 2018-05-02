@@ -12,9 +12,11 @@
   Êtes-vous sûr ?
   <br/>
 
+    <div id="modal-buttons-ajax">
     
     <button class="btn btn-primary" type="submit">Effacer</button>
 
+    </div>
     
     <input name="_next" type="hidden" value="/"/></form>
 

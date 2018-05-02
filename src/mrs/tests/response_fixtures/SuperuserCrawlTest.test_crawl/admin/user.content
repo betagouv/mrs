@@ -15,8 +15,9 @@
 <div class="row">
   
   <div class="col s12 m2">
-    <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
-      
+    <div class="card-panel">
+      <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+        
 <div class="row">
     <div class="input-field col s12" id="id_q_container">
         <input id="id_q" name="q" type="text"/>
@@ -25,7 +26,7 @@
     </div>
 </div>
 
-      
+        
 <div class="row">
     <div class="select-field col s12 multiselect" id="id_groups_container">
         <label for="id_groups">Groupes</label>
@@ -97,12 +98,13 @@
     </div>
 </div>
 
-    </form>
+      </form>
+    </div>
   </div>
   
 
   <div class="table-responsive col s12 m10" id="render-table">
-    <div class="table-container">
+    <div class="table-container card-panel">
       
     
 
@@ -303,6 +305,8 @@
   </div>
 </div>
 
+    <div id="modal-buttons-ajax">
     
+    </div>
     
     </div>

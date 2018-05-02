@@ -14,7 +14,8 @@
         <br/>
         <progress></progress>
     </div>
-    
+    <div class="card-panel">
+        
 <div class="row">
     <div class="input-field col s12 required" id="id_finess_container">
         <input id="id_finess" name="finess" type="number"/>
@@ -40,10 +41,13 @@
     </div>
 </div>
 
+    </div>
 
+    <div id="modal-buttons-ajax">
     
     <button class="btn btn-primary" type="submit">Ajouter</button>
 
+    </div>
     
     <input name="_next" type="hidden" value="/"/></form>
 

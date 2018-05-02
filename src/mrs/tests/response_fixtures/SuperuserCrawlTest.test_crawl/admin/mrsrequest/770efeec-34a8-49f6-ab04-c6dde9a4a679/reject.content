@@ -18,7 +18,8 @@
         <br/>
         <progress></progress>
     </div>
-    
+    <div class="card-panel">
+        
 <div class="row">
     <div class="select-field col s12 required" id="id_template_container">
         <label for="id_template">Modèle d'email</label>
@@ -47,11 +48,14 @@
     </div>
 </div>
 
+    </div>
 
 
+    <div id="modal-buttons-ajax">
     
     <button class="btn btn-primary" type="submit">Rejeter</button>
 
+    </div>
     
     <input name="_next" type="hidden" value="/"/></form>
 
