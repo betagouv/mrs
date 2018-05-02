@@ -36,8 +36,7 @@ textarea {
       <ul class="right">
         
   <li class="">
-    a
-    <a class="waves-effect" href="/admin/logout">Déconnexion</a>
+    <a class="waves-effect" href="/admin/logout">Déconnexion (a)</a>
   </li>
   
 
@@ -79,8 +78,7 @@ textarea {
   
   
   <li class="no-padding">
-    a
-    <a class="waves-effect" href="/admin/logout">Déconnexion</a>
+    <a class="waves-effect" href="/admin/logout">Déconnexion (a)</a>
   </li>
   
 
@@ -108,7 +106,9 @@ textarea {
 <label>Total</label>
 <p>1</p>
 
+    <div id="modal-buttons-ajax">
     
+    </div>
     
     </div>
 

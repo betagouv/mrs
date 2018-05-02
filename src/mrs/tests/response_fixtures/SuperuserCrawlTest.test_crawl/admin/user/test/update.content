@@ -14,7 +14,8 @@
         <br/>
         <progress></progress>
     </div>
-    
+    <div class="card-panel">
+        
 <div class="row">
     <div class="input-field col s12 required" id="id_username_container">
         <input id="id_username" maxlength="150" name="username" type="text" value="test"/>
@@ -102,10 +103,13 @@
     </div>
 </div>
 
+    </div>
 
+    <div id="modal-buttons-ajax">
     
     <button class="btn btn-primary" type="submit">Modifier</button>
 
+    </div>
     
     <input name="_next" type="hidden" value="/"/></form>
 

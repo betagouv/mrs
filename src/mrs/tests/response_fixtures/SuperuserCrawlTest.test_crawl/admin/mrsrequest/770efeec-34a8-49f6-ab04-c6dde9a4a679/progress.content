@@ -13,9 +13,11 @@
         Vous allez passer la demande 201805010001 en cours de liquidation pour la traiter dans Progrès, confirmez-vous ?
     </div>
 
+    <div id="modal-buttons-ajax">
     
     <button class="btn btn-primary" type="submit">Oui</button>
 
+    </div>
     
     <input name="_next" type="hidden" value="/"/></form>
 
