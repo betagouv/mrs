@@ -98,10 +98,10 @@
         font-style: italic
         margin: 0
         margin-bottom: 0.5rem
-        font-size: 0.8rem
+        font-size: 0.9rem
 
-        @media (min-width: $desktop-min-width)
-          font-size: 1.05rem
+        @media screen and (min-width: 415px)
+          font-size: 1.2rem
 
       p
         +barlow-regular()
@@ -109,7 +109,7 @@
         margin: 0
         font-size: 0.7rem
 
-        @media (min-width: $desktop-min-width)
+        @media screen and (min-width: 415px)
           font-size: 0.9rem
 
   #hier-ajd--wrapper
@@ -179,6 +179,7 @@
       padding-top: 0
       padding-bottom: 0
       font-weight: bold
+      line-height: 2.5rem
 
     .ajd--wrapper
       @media (min-width: $desktop-min-width)
@@ -210,6 +211,9 @@
       max-width: 60rem
       padding-right: 3rem
       font-size: $etapes-descr--wrapper-font-size
+      display: flex;
+      flex-direction: row;
+      align-items: center;
 
       @media (min-width: $desktop-min-width)
         font-size: 1.25rem
@@ -223,10 +227,6 @@
 
       strong
         +barlow-bold()
-
-      p
-        margin: auto
-        height: 1.5rem
 
 
   #index-footer--wrapper
@@ -330,6 +330,7 @@
       background-color: $primary-green
       margin-left: 0
       height: 2.4rem
+      padding: 0
 
 
     @media (min-width: $desktop-min-width)

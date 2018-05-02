@@ -1,0 +1,62 @@
+<div class="container" id="modal-body-ajax">
+    
+      
+      <h2 class="text-success hide-in-modal" id="modal-title-ajax">Modèle d'email: ajouter</h2>
+      
+    
+
+    
+<form action="/admin/emailtemplate/create?next=" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+
+    
+    <div class="form-loading" style="display: none">
+        Data upload progress
+        <br/>
+        <progress></progress>
+    </div>
+    <div class="card-panel">
+        
+<div class="row">
+    <div class="input-field col s12 required" id="id_name_container">
+        <input id="id_name" maxlength="50" name="name" type="text"/>
+        <label for="id_name">Nom</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_subject_container">
+        <input id="id_subject" maxlength="255" name="subject" type="text"/>
+        <label for="id_subject">Sujet du mail</label>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="input-field col s12 required" id="id_body_container">
+        <textarea class="materialize-textarea" cols="40" id="id_body" name="body" rows="10"></textarea>
+        <label for="id_body">Contenu du mail</label>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="checkbox-field col s12" id="id_active_container">
+        <label>
+        <input checked="" class="filled-in " id="id_active" name="active" type="checkbox"/><span for="id_active">Activé</span></label>
+        
+    </div>
+</div>
+
+    </div>
+
+    <div id="modal-buttons-ajax">
+    
+    <button class="btn btn-primary" type="submit">Ajouter</button>
+
+    </div>
+    
+    <input name="_next" type="hidden" value="/"/></form>
+
+    </div>

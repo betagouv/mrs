@@ -1,0 +1,187 @@
+<div class="container" id="modal-body-ajax">
+    
+      
+    
+
+    
+    
+<div class="row">
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title tooltipped activator -text" data-position="bottom" data-tooltip="En attente de traitement depuis 358911 jours">201805010000<i class="material-icons right">more_vert</i></span>
+                <div class="section">
+                    Soumise
+                    <span class="right">
+                        01/05/18 19:10
+                    </span>
+                </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">285 Bytes <span style="font-size: 50% !important">127.0.0.1</span><i class="material-icons right">close</i></span>
+                <div class="section">
+                    aaaaaaa
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                
+                <div class="card-title red-text">
+                    PMT: manquante
+                </div>
+                01/05/18 19:13
+                <span class="right">
+                    a
+                </span>
+                
+                <div class=" yellow-text text-darken-3">
+                    En cours de liquidation
+                </div>
+                01/05/18 19:13
+                <span class="right">
+                    a
+                </span>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+<div class="row">
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Personne transportée
+                </div>
+                <a href="/mrsrequest/pmt/1/download/" target="_blank" title="1x1.png">PMT (95 Bytes)</a>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Prénom
+                    </span>
+                    <span class="right">aoeu</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Nom
+                    </span>
+                    <span class="right">aoeu</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Date de naissance
+                    </span>
+                    <span class="right">30/04/18</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Assuré-e
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        NIR
+                    </span>
+                    <span class="right">1111111111111</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Email
+                    </span>
+                    <span class="right">aoeu@example.com</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Transport(s)
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Distance (km parcourus)
+                    </span>
+                    <span class="right">
+                        123
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant total des frais
+                    </span>
+                    <span class="right">
+                        1.00€ TTC
+                    </span>
+                </p>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td>1</td>
+                            <td>29/04/18</td>
+                            <td>29/04/18</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>2</td>
+                            <td>30/04/18</td>
+                            <td>30/04/18</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Justificatifs attachés
+                </div>
+                
+                <ul>
+                    <li>
+                        <a href="/mrsrequest/bill/2/download/" target="_blank">1x1.png (95 Bytes)</a>
+                    </li>
+                </ul>
+                
+                <ul>
+                    <li>
+                        <a href="/mrsrequest/bill/3/download/" target="_blank">1x1.png (95 Bytes)</a>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div id="modal-buttons-ajax">
+    
+    </div>
+    
+    </div>

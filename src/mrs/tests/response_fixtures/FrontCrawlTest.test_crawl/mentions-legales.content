@@ -1,0 +1,124 @@
+<div id="app--wrapper">
+
+        <div id="header">
+            <noscript>
+                
+                <a href="/" title="fonctionnement">fonctionnement</a>
+                
+                <a href="/demande" title="formulaire">formulaire</a>
+                
+                <a href="/faq" title="faq">faq</a>
+                
+                <a href="/contact" title="contact">contact</a>
+                
+            </noscript>
+            <script id="header-links" type="text/json">
+                [{"url": "/", "alias": "fonctionnement"}, {"url": "/demande", "alias": "formulaire"}, {"url": "/faq", "alias": "faq"}, {"url": "/contact", "alias": "contact"}]
+            </script>
+        </div>
+
+        
+<div class="mrs-std-page--wrapper" id="legals--wrapper">
+    <div class="mrs-std-page small-padding">
+        <h2>Conditions d'utilisation</h2>
+        <div id="legals--wrapper">
+            <div class="left col--wrapper">
+                <h3><span>1. Informations légales</span></h3>
+                <p>
+                    <b>Siège social :</b>
+                    <br/>
+                    26-50 avenue du Professeur-André-Lemierre
+                    <br/>
+                    75986 Paris Cedex 20
+                    <br/>
+                    Tél. : +33 (0) 1 72 60 10 00
+                    <br/>
+                    RCS : CNAM n° 180-035-024
+                </p>
+                <p>
+                    <b>Directeur(s) de la publication</b> : Frédéric Boulay et Brice Jones
+                    <br/>
+                    <b>Crédit photographique</b> : Getty images
+                    <br/>
+                    <b>Hébergeur</b> :
+                    <br/>
+                    OVH
+                    <br/>
+                    2 rue Kellermann
+                    <br/>
+                    59100 Roubaix
+                    <br/>
+                    Tél. 09 72 10 10 07
+                </p>
+
+                <h3><span>2. Objet du site internet mrs.beta.gouv.fr</span></h3>
+                <p>
+                    Le site internet mrs.beta.gouv.fr a pour objet de faciliter les démarches de remboursement de frais de transport personnel suite à une prescription médicale des assurés de la Haute-Garonne et de l'Ariège.
+                </p>
+
+                <h3><span>3. Données collectées</span></h3>
+                <p>
+                    Les données collectées, pour permettre le fonctionnement du service, sont la prescription medicale (volet 2) ou la demande d'accord préalable (volet 3), les coordonnées des bénéficiaires et des assurés ainsi que les justificatifs de transport. Ces données sont collectées et traitées par l’Assurance Maladie pour la seule finalité définie à l’article 2 et seront conservées pendant 2 ans et un trimestre dans le cadre de contrôle éventuel.
+                </p>
+                <p>
+                    Toutefois, l’utilisateur est informé que conformément aux articles 39 et suivants de la loi n°78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, il dispose d’un droit d’accès aux informations le concernant, en s’adressant :
+                    </p><ul>
+                        <li>
+                            au correspondant informatique et libertés aux coordonnées suivantes : Assurance Maladie de la Haute-Garonne, Correspondant informatique et libertés, CPAM - 31 093 Toulouse Cedex 9
+                        </li>
+                        <li>
+                            ou par courrier électronique : cil@cpam-toulouse.cnamts.fr
+                        </li>
+                    </ul>
+                <p></p>
+
+                <h3><span>4. Cookies</span></h3>
+                <p>
+                    L’Assurance Maladie utilise des cookies permettant d’enregistrer des informations relatives à la navigation de l’utilisateur de manière anonyme et dans un but d’analyses statistiques. Le cookie généré a une durée de conservation limitée à 12 mois. Les données anonymes recueillies sont conservées 24 mois par l’Assurance Maladie. L’utilisateur peut s’opposer à l'enregistrement de cookies sur son ordinateur.
+                </p>
+            </div>
+            <div class="right col--wrapper">
+                <h3><span>5. Fonctionnement du service</span></h3>
+                <p>
+                    Le service proposé par mrs.beta.gouv.fr permet à l’assuré de l’Assurance Maladie de demander directement en ligne le remboursement de frais d’utilisation d’un véhicule personnel suite à une prescription médicale de transport.
+                </p>
+
+                <h3><span>6. Responsabilités</span></h3>
+                <div class="question">Accessibilité et utilisation du service</div>
+                <p>
+                    L’Assurance Maladie ne peut être tenu pour responsable vis-à-vis de l’utilisateur des dommages de toute nature, directs ou indirects, résultant de l’utilisation du site internet mrs.beta.gouv.fr, ni de l’impossibilité d’y accéder.
+                </p>
+
+                <h3><span>7. Obligations de l'utilisateur</span></h3>
+                <p>
+                L’utilisateur du site reconnaît avoir pris connaissance et accepter les présentes conditions d’utilisation avant toute utilisation du site.
+                </p>
+                <p>
+                L’utilisation du site internet mrs.beta.gouv.fr  est soumise au respect par l’utilisateur de : la législation française et des présentes conditions d’utilisation
+                </p>
+                <p>
+                Les présentes conditions d’utilisation peuvent être modifiées à tout moment ; la date de mise à jour est mentionnée. Ces modifications sont opposables à l’utilisateur dès leur mise en ligne sur le site internet mrs.beta.gouv.fr. L’utilisateur est donc invité à consulter régulièrement la dernière version mise à jour.
+                </p>
+                <h3><span>8. Propriété intellectuelle</span></h3>
+                <p>
+                Le site internet mrs.beta.gouv.fr. est protégé au titre des dispositions relatives au droit d’auteur défini aux articles L.111-1 et suivants du code de la propriété intellectuelle et au titre des dispositions relatives aux bases de données définies aux articles L.341-1 et suivants du même code. L’Assurance Maladie est titulaire de l’ensemble des droits de propriété intellectuelle sur les éléments composant le site.
+                </p>
+                <p>
+                Sans préjudice des dispositions prévues à l’article L.122-5 du code de la propriété intellectuelle, toute représentation, reproduction ou diffusion, intégrale ou partielle du site, sur quelque support que ce soit, sans l'autorisation expresse et préalable de l’Assurance Maladie constitue un acte de contrefaçon, sanctionné au titre des articles L.335-2 et L.335.3 du même code.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="footer">
+            <div class="links">
+                <a href="/mentions-legales">mentions legales</a>
+                <a href="/stats">statistiques</a>
+            </div>
+            <p>
+                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE
+            </p>
+        </div>
+    </div>

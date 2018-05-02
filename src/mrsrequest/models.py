@@ -3,6 +3,8 @@ import pytz
 import uuid
 
 from django.conf import settings
+from django.contrib.admin.models import LogEntry
+from django.contrib.contenttypes.models import ContentType
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -34,7 +36,16 @@ class Bill(MRSAttachment):
         return reverse('mrsrequest:bill_download', args=[self.pk])
 
 
+class MRSRequestQuerySet(models.QuerySet):
+    def status(self, name):
+        return self.filter(
+            status=getattr(self.model, 'STATUS_{}'.format(name.upper())))
+
+
 class MRSRequestManager(models.Manager):
+    def get_queryset(self):
+        return MRSRequestQuerySet(self.model, using=self._db)
+
     def allowed_objects(self, request):
         return self.filter(id__in=self.allowed_uuids(request))
 
@@ -46,14 +57,17 @@ class MRSRequestManager(models.Manager):
 class MRSRequest(models.Model):
     SESSION_KEY = 'MRSRequest.ids'
 
-    STATUS_NEW = 0
-    STATUS_VALIDATED = 1
-    STATUS_REJECTED = 2
+    STATUS_NEW = 1  # matches admin.models.ADDITION
+    # Those have status different from admin flags
+    STATUS_REJECTED = 999
+    STATUS_INPROGRESS = 1000
+    STATUS_VALIDATED = 2000
 
     STATUS_CHOICES = (
         (STATUS_NEW, 'Soumise'),
-        (STATUS_VALIDATED, 'Validée'),
         (STATUS_REJECTED, 'Rejetée'),
+        (STATUS_INPROGRESS, 'En cours de liquidation'),
+        (STATUS_VALIDATED, 'Validée'),
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -66,18 +80,6 @@ class MRSRequest(models.Model):
     display_id = models.IntegerField(
         verbose_name='Numéro de demande',
         unique=True,
-    )
-    status_datetime = models.DateTimeField(
-        db_index=True,
-        null=True,
-        verbose_name='Date et heure de changement de statut',
-    )
-    status_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        db_index=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        verbose_name='Auteur du changement de statut',
     )
     caisse = models.ForeignKey(
         'caisse.Caisse',
@@ -104,17 +106,28 @@ class MRSRequest(models.Model):
             ' et/ou de transport en commun'
         )
     )
-
     status = models.IntegerField(
         choices=STATUS_CHOICES,
         verbose_name='Statut',
-        default=0,
+        default=STATUS_NEW,
+    )
+    status_datetime = models.DateTimeField(
+        db_index=True,
+        null=True,
+        verbose_name='Date et heure de changement de statut',
+    )
+    status_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        db_index=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name='Auteur du changement de statut',
     )
     reject_template = models.ForeignKey(
         'mrsemail.EmailTemplate',
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
     )
     institution = models.ForeignKey(
         'institution.Institution',
@@ -131,6 +144,28 @@ class MRSRequest(models.Model):
 
     def __str__(self):
         return str(self.display_id)
+
+    def logentry_set(self):
+        return LogEntry.objects.filter(
+            content_type=ContentType.objects.get_for_model(type(self)),
+            object_id=self.pk,
+        ).order_by('-action_time')
+
+    @property
+    def days(self):
+        return (timezone.now() - self.creation_datetime_normalized).days
+
+    @property
+    def color(self):
+        if self.status not in (self.STATUS_INPROGRESS, self.STATUS_NEW):
+            return ''
+
+        if self.days >= 6:
+            return 'red'
+        elif self.days >= 4:
+            return 'orange'
+
+        return ''
 
     def is_allowed(self, request):
         if request.user.is_staff:
@@ -183,6 +218,29 @@ class MRSRequest(models.Model):
 
     def get_validate_url(self):
         return reverse('mrsrequest:validate', args=[self.pk])
+
+    @property
+    def creation_datetime_normalized(self):
+        return pytz.timezone(settings.TIME_ZONE).normalize(
+            self.creation_datetime)
+
+    @property
+    def day_number(self):
+        return '{:03d}'.format(
+            self.creation_datetime_normalized.timetuple().tm_yday)
+
+    @property
+    def order_number(self):
+        number = type(self).objects.filter(
+            insured=self.insured,
+            creation_datetime__lt=self.creation_datetime,
+            creation_datetime__day=self.creation_datetime.day,
+        ).count() + 1
+
+        if number > 99:
+            return '99'
+
+        return '{:02d}'.format(number)
 
 
 def creation_datetime_and_display_id(sender, instance, **kwargs):

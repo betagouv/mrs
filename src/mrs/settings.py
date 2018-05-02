@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import shutil
 import os
+
+from crudlfap.settings import (
+    CRUDLFAP_APPS,
+    CRUDLFAP_TEMPLATE_BACKEND,
+)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,32 +38,31 @@ if 'ALLOWED_HOSTS' in os.environ:
 if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
     raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
-LOGIN_REDIRECT_URL = '/mrsrequest/'
+LOGIN_REDIRECT_URL = '/admin/'
 
-# Application definition
-
+CRUDLFAP_APPS.pop(CRUDLFAP_APPS.index('crudlfap_auth'))
 INSTALLED_APPS = [
     'contact',
     'institution',
     'person',
     'mrs',
-    'mrsrequest',
+    'mrsrequest', 'jfu',
     'mrsattachment',
     'mrsemail',
+    'crudlfap_auth', 'mrsuser',  # the second overrides the first
     'caisse',
 
-    'jfu',
-    'material',
-    'webpack_loader' if shutil.which('npm') else 'webpack_mock',
+    os.getenv('WEBPACK_LOADER', 'webpack_loader'),
     'django_humanize',
 
     'django.contrib.auth',
-    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+] + CRUDLFAP_APPS
+
+AUTH_USER_MODEL = 'mrsuser.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,7 +77,18 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mrs.urls'
 
+CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault(
+    'naturalsize', 'humanize.naturalsize')
+CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault(
+    'localtime', 'django.utils.timezone.template_localtime')
+CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault('list', list)
+
+if os.getenv('WEBPACK_LOADER') == 'webpack_mock':
+    CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals']['render_bundle'] = (
+        'webpack_mock.templatetags.webpack_loader.render_bundle')
+
 TEMPLATES = [
+    CRUDLFAP_TEMPLATE_BACKEND,
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "APP_DIRS": True,
@@ -86,6 +100,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "contact.context_processors.contact_form",
                 "mrs.context_processors.settings",
+                "mrs.context_processors.header_links",
             ],
         },
     },
@@ -185,6 +200,11 @@ elif raven:
     repo = os.path.join(os.path.dirname(__file__), '..', '..')
     if os.path.exists(os.path.join(repo, '.git')):
         RAVEN_CONFIG['release'] = raven.fetch_git_sha(repo)
+
+BASE_URL = 'http://localhost:8000'
+if 'LETSENCRYPT_HOST' in os.environ:
+    SITE_DOMAIN = os.environ.get('LETSENCRYPT_HOST').split(',')[0]
+    BASE_URL = 'https://{}'.format(SITE_DOMAIN)
 
 if os.getenv('LOG') and not DEBUG:
     LOGGING = {

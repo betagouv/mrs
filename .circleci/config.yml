@@ -71,7 +71,7 @@ jobs:
         name: MRS Runserver
         command: |
           export ALLOWED_HOSTS="localhost"
-          export SECRET_KEY=notsecret
+          export SECRET_KEY=itsnotsecret
           mrs migrate
           echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://localhost:8000")' | mrs shell
           mrs runserver
@@ -82,7 +82,9 @@ jobs:
         command: until curl localhost:8000 &> /dev/null; do sleep 1; done
     - run:
         name: RUN smoke tests
-        command: node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+        command: |
+          yarn install --frozen-lockfile
+          node_modules/.bin/jest src/mrs/static/js/smoke.test.js
         working_directory: /code
 
   python-qa:
@@ -145,14 +147,14 @@ jobs:
 
   js-qa:
     docker:
-    - image: circleci/node@sha256:0a639cc671d763fc330faf68d06884b2c4085aa7b6f129930176b09d4fb68a03
+    - image: circleci/node:9
     steps:
     - checkout
     - restore_cache:
         key: dependency-cache-js-{{ checksum "yarn.lock" }}
     - run:
         name: RUN yarn install
-        command: sudo npm install -g yarn && yarn install
+        command: yarn install
     - save_cache:
         key: dependency-cache-js-{{ checksum "yarn.lock" }}
         paths:
@@ -163,27 +165,25 @@ jobs:
 
   js-test:
     docker:
-    - image: circleci/node@sha256:0a639cc671d763fc330faf68d06884b2c4085aa7b6f129930176b09d4fb68a03
+    - image: circleci/node:9
     steps:
     - checkout
     - restore_cache:
         key: dependency-cache-js-{{ checksum "yarn.lock" }}
     - run:
         name: RUN yarn install
-        command: sudo npm install -g yarn && yarn install
+        command: sudo npm install -g codecov && yarn install
     - save_cache:
         key: dependency-cache-js-{{ checksum "yarn.lock" }}
         paths:
           - ./node_modules
     - run:
         name: Npm test & coverage upload
-        command: |
-          yarn test
-          ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
+        command: yarn test && codecov --token=$CODECOV_TOKEN
 
   docker-build:
     docker:
-    - image: docker:17.05.0-ce-git
+    - image: docker:latest
     steps:
     - checkout
     - setup_remote_docker:
@@ -196,7 +196,7 @@ jobs:
     - deploy:
         name: DOCKER image push betagouv/mrs:{{ .Branch }} & betagouv/mrs:{{ .Environment.CIRCLE_SHA1 }} tags
         command: |
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push betagouv/mrs:$CIRCLE_SHA1
           docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:$CIRCLE_BRANCH
           docker push betagouv/mrs:$CIRCLE_BRANCH

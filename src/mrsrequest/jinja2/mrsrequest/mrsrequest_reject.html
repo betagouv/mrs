@@ -1,0 +1,9 @@
+{% extends 'crudlfap/update.html' %}
+
+
+{% block content %}
+<script type="text/json" id="emailtemplates">
+{{ view.reject_templates_json()|safe }}
+</script>
+{{ super() }}
+{% endblock %}

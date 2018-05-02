@@ -1,12 +1,15 @@
 var path = require('path')
 var BundleTracker = require('webpack-bundle-tracker')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
     filename: '[name].[contenthash].css',
 })
 
-module.exports = {
+var production = process.env.NODE_ENV == 'production'
+
+var cfg = {
   context: __dirname,
 
   /*
@@ -25,7 +28,13 @@ module.exports = {
   entry: {
     base: ['babel-polyfill', './src/mrs/static/js/base'],
     iframe: ['./src/mrs/static/js/iframe'],
-    admin: ['./src/mrs/static/js/admin'],
+    crudlfap: [
+      'babel-polyfill',
+      'whatwg-fetch',
+      './src/mrs/static/js/form-script',
+      './src/mrs/static/js/crudlfap',
+      './node_modules/materialize-css/sass/materialize.scss',
+    ],
   },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
@@ -42,7 +51,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        //exclude: /(node_modules|bower_components)/,
+        exclude: /(turbolinks)/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -51,7 +60,7 @@ module.exports = {
         }
       },
       {
-        test: /\.sass$/,
+        test: /\.s(a|c)ss$/,
         use: extractSass.extract({
           use: [{
             loader: 'css-loader', options: {
@@ -67,3 +76,9 @@ module.exports = {
     ]
   }
 }
+
+if (production) {
+  cfg.plugins.push(new UglifyJSPlugin())
+}
+
+module.exports = cfg

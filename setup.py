@@ -2,13 +2,8 @@ import pip
 from setuptools import setup, find_packages, Command
 import os, sys
 
-install_reqs = pip.req.parse_requirements(
-    os.path.join(
-        os.path.dirname(__file__),
-        'requirements.txt'
-    ),
-    session=pip.download.PipSession()
-)
+with open('requirements.txt') as reqs_file:
+    install_reqs = reqs_file.readlines()
 
 setup(
     name='mrs',
@@ -22,7 +17,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     license = 'MIT',
-    install_requires = [str(ir.req) for ir in install_reqs],
+    install_requires = install_reqs,
     entry_points = {
         'console_scripts': [
             'mrs = mrs.manage:main',

@@ -1,7 +1,8 @@
-/*global $ */
+import $ from 'jquery'
 import Cookie from 'js-cookie'
 import mrsattachment from './mrsattachment'
 import SubmitUi from './submit-ui'
+import M from 'materialize-css'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
 (function () {
@@ -118,7 +119,7 @@ var formInit = function (form) {
   var $expense = $(form).find('[name=expense]')
   var $bills = $(form).find('#id_bills_container')
   var billsChange = function() {
-    ($expense && parseFloat($expense.val()) > 0) ? $bills.show() : $bills.hide()
+    ($expense.length && parseFloat($expense.val().replace(',', '.')) > 0) ? $bills.show() : $bills.hide()
   }
   $expense.on('input', billsChange)
   $expense.on('change', billsChange)
@@ -241,6 +242,7 @@ $('body').on('click', '[data-load-in-form]', function() {
       var newform = dom.find('form#mrsrequest-wizard')
       var form = document.querySelector('form#mrsrequest-wizard')
       $(form).html(newform.html())
+      M.AutoInit(form)
       formInit(form)
     },
   })

@@ -1,0 +1,24 @@
+<div class="container" id="modal-body-ajax">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Demande "201805010001": en cours de liquidation</h2>
+      
+    
+
+    
+<form action="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679/progress" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+
+    
+    <div class="card-panel green lighten-4">
+        Vous allez passer la demande 201805010001 en cours de liquidation pour la traiter dans Progrès, confirmez-vous ?
+    </div>
+
+    <div id="modal-buttons-ajax">
+    
+    <button class="btn btn-primary" type="submit">Oui</button>
+
+    </div>
+    
+    <input name="_next" type="hidden" value="/"/></form>
+
+    </div>

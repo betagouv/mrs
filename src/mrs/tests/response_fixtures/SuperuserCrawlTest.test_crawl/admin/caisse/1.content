@@ -1,0 +1,83 @@
+<div class="container" id="modal-body-ajax">
+    
+      
+      <h2 class="text-default hide-in-modal" id="modal-title-ajax">aaaaaaa</h2>
+      
+    
+
+    
+    
+<table class="table">
+  <thead class="thead-inverse">
+    
+    <tr>
+        <th>
+            Id
+        </th>
+        <td>
+            1
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Code
+        </th>
+        <td>
+            111111111
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Name
+        </th>
+        <td>
+            aaaaaaa
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Number
+        </th>
+        <td>
+            111
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Liquidation_email
+        </th>
+        <td>
+            aaa@example.com
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Active
+        </th>
+        <td>
+            True
+        </td>
+    </tr>
+    
+    <tr>
+        <th>
+            Score
+        </th>
+        <td>
+            0
+        </td>
+    </tr>
+    
+  
+</thead></table>
+
+    <div id="modal-buttons-ajax">
+    
+    </div>
+    
+    </div>

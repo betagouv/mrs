@@ -139,25 +139,10 @@ class HeaderSmart extends Component {
 
 HeaderSmart.defaultProps = {
   isFat: false,
-  links: [
-    {
-      url: '/',
-      alias: 'fonctionnement',
-    },
-    {
-      url: '/demande',
-      alias: 'formulaire',
-    },
-    {
-      url: '/faq',
-      alias: 'faq',
-    },
-    {
-      url: '/contact',
-      alias: 'contact',
-    },
-  ]
 }
+var links = document.getElementById('header-links')
+if (links)
+  HeaderSmart.defaultProps.links = JSON.parse(links.innerHTML)
 
 export default HeaderSmart
 export {

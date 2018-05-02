@@ -3,6 +3,7 @@ import pytest
 from uuid import uuid4
 
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.messages.storage import default_storage
 from django.contrib.sessions.backends.base import SessionBase
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.test.client import RequestFactory as drf
@@ -18,15 +19,21 @@ id = mrsrequest_uuid = pytest.fixture(
 
 
 class RequestFactory(drf):
-    def __init__(self, user):
-        self.user = user
+    def __init__(self, user=None):
+        self.user = user or AnonymousUser()
         super().__init__()
 
     def generic(self, *args, **kwargs):
         request = super().generic(*args, **kwargs)
         request.session = SessionBase()
         request.user = self.user
+        request._messages = default_storage(request)
         return request
+
+
+@pytest.fixture
+def request_factory():
+    return RequestFactory
 
 
 @pytest.fixture

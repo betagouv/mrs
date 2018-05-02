@@ -1,0 +1,54 @@
+<div class="container" id="modal-body-ajax">
+    
+      
+      <h2 class="text-success hide-in-modal" id="modal-title-ajax">Établissement: ajouter</h2>
+      
+    
+
+    
+<form action="/admin/institution/create" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+
+    
+    <div class="form-loading" style="display: none">
+        Data upload progress
+        <br/>
+        <progress></progress>
+    </div>
+    <div class="card-panel">
+        
+<div class="row">
+    <div class="input-field col s12 required" id="id_finess_container">
+        <input id="id_finess" name="finess" type="number"/>
+        <label for="id_finess">Finess</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_origin_container">
+        <input id="id_origin" maxlength="255" name="origin" type="text"/>
+        <label for="id_origin">Origin</label>
+        <div class="help-block">URI du site patients</div>
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="checkbox-field col s12" id="id_dynamic_allow_container">
+        <label>
+        <input class="filled-in " id="id_dynamic_allow" name="dynamic_allow" type="checkbox"/><span for="id_dynamic_allow">Autorisation CORS dynamique</span></label>
+        <div class="help-block">Cocher pour les hebergeurs non-HDS qui ne veulent pas de controle d'origine</div>
+    </div>
+</div>
+
+    </div>
+
+    <div id="modal-buttons-ajax">
+    
+    <button class="btn btn-primary" type="submit">Ajouter</button>
+
+    </div>
+    
+    <input name="_next" type="hidden" value="/"/></form>
+
+    </div>

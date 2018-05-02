@@ -1,0 +1,58 @@
+[
+{
+    "fields": {
+        "caisse": 1,
+        "creation_datetime": "3000-12-31T13:37:42Z",
+        "creation_ip": null,
+        "display_id": 300012310000,
+        "distance": null,
+        "expense": 0,
+        "institution": null,
+        "insured": 1,
+        "reject_template": 1,
+        "status": 999,
+        "status_datetime": "3000-12-31T13:37:42Z",
+        "status_user": [
+            "{}"
+        ]
+    },
+    "model": "mrsrequest.mrsrequest",
+    "pk": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea"
+},
+{
+    "fields": {
+        "action_flag": 1000,
+        "action_time": "3000-12-31T13:37:42Z",
+        "change_message": "En cours de liquidation",
+        "content_type": [
+            "mrsrequest",
+            "mrsrequest"
+        ],
+        "object_id": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
+        "object_repr": "300012310000",
+        "user": [
+            "{}"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 1
+},
+{
+    "fields": {
+        "action_flag": 999,
+        "action_time": "3000-12-31T13:37:42Z",
+        "change_message": "reject",
+        "content_type": [
+            "mrsrequest",
+            "mrsrequest"
+        ],
+        "object_id": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
+        "object_repr": "300012310000",
+        "user": [
+            "{}"
+        ]
+    },
+    "model": "admin.logentry",
+    "pk": 2
+}
+]

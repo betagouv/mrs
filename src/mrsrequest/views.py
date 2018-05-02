@@ -1,14 +1,14 @@
 import collections
 import json
 
+from crudlfap import crudlfap
+
 from django import http
 from django import template
 from django.conf import settings
-from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 from ipware import get_client_ip
@@ -20,9 +20,9 @@ from mrsemail.models import EmailTemplate
 
 from .forms import (
     CertifyForm,
+    MRSRequestForm,
     MRSRequestCreateForm,
     MRSRequestRejectForm,
-    MRSRequestValidateForm,
     TransportForm,
     TransportIterativeForm,
 )
@@ -180,54 +180,72 @@ class MRSRequestCreateView(generic.TemplateView):
         ]
 
 
-class MRSRequestAdminBaseView(generic.UpdateView):
-    model = MRSRequest
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return http.HttpResponseRedirect(
-                '{}?next={}'.format(
-                    reverse('admin:login'),
-                    request.get_full_path(),
-                )
-            )
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_object(self):
-        obj = super().get_object()
-        if obj.status:
-            raise Exception()
-        return obj
+class MRSRequestAdminBaseView(crudlfap.UpdateView):
+    menus = ['object_detail']
 
     def form_valid(self, form):
-        self.object.status_user = self.request.user
+        self.object.status = self.log_action_flag
         self.object.status_datetime = timezone.now()
+        self.object.status_user = self.request.user
+        self.object.save()
         return super().form_valid(form)
+
+    def get_log_message(self):
+        for flag, label in self.model.STATUS_CHOICES:
+            if flag == self.log_action_flag:
+                return label
 
 
 class MRSRequestValidateView(MRSRequestAdminBaseView):
-    form_class = MRSRequestValidateForm
+    form_class = MRSRequestForm
     template_name = 'mrsrequest/mrsrequest_validate.html'
-    action_name = 'Valider'
+    view_label = 'Valider'
+    material_icon = 'check_circle'
+    color = 'green'
+    log_action_flag = MRSRequest.STATUS_VALIDATED
 
-    def get_mail_body(self):
+    def get_allowed(self):
+        if super().get_allowed():
+            return self.object.status == self.model.STATUS_INPROGRESS
+
+    def render_mail_template(self, template_name):
         return template.loader.get_template(
-            'mrsrequest/liquidation_validation_mail_body.txt',
+            template_name
         ).render(dict(object=self.object)).strip()
 
-    def get_mail_title(self):
-        return template.loader.get_template(
-            'mrsrequest/liquidation_validation_mail_title.txt',
-        ).render(dict(object=self.object)).strip()
+    def get_insured_mail_body(self):
+        return self.render_mail_template(
+            'mrsrequest/insured_validation_mail_body.txt')
+
+    def get_insured_mail_title(self):
+        return self.render_mail_template(
+            'mrsrequest/insured_validation_mail_title.txt')
+
+    def get_liquidation_mail_body(self):
+        return self.render_mail_template(
+            'mrsrequest/liquidation_validation_mail_body.txt')
+
+    def get_liquidation_mail_title(self):
+        return self.render_mail_template(
+            'mrsrequest/liquidation_validation_mail_title.txt')
+
+    def get_form_valid_message(self):
+        return 'Demande n°{} validée'.format(self.object.display_id)
 
     def form_valid(self, form):
         resp = super().form_valid(form)
-        messages.info(self.request, 'Demande n°{} validée'.format(
-            form.instance.display_id))
 
         email = EmailMessage(
-            self.get_mail_title(),
-            self.get_mail_body(),
+            self.get_insured_mail_title(),
+            self.get_insured_mail_body(),
+            settings.DEFAULT_FROM_EMAIL,
+            [self.object.insured.email],
+        )
+        email.send()
+
+        email = EmailMessage(
+            self.get_liquidation_mail_title(),
+            self.get_liquidation_mail_body(),
             settings.DEFAULT_FROM_EMAIL,
             [self.object.caisse.liquidation_email],
             reply_to=[settings.TEAM_EMAIL],
@@ -239,14 +257,19 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
 
         return resp
 
-    def get_success_url(self):
-        return reverse('admin:mrsrequest_mrsrequest_changelist')
-
 
 class MRSRequestRejectView(MRSRequestAdminBaseView):
     form_class = MRSRequestRejectForm
     template_name = 'mrsrequest/mrsrequest_reject.html'
-    action_name = 'Rejeter'
+    view_label = 'Rejeter'
+    material_icon = 'do_not_disturb_on'
+    color = 'red'
+    log_action_flag = MRSRequest.STATUS_REJECTED
+
+    def get_allowed(self):
+        if super().get_allowed():
+            return self.object.status in (
+                self.model.STATUS_NEW, self.model.STATUS_INPROGRESS)
 
     def reject_templates_json(self):
         context = template.Context({'display_id': self.object.display_id})
@@ -259,13 +282,11 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         return json.dumps(templates)
 
     def form_valid(self, form):
-        resp = super().form_valid(form)
-
+        # set before calling super()
+        self.log_message = str(form.cleaned_data['template'])
         self.object.reject_template = form.cleaned_data['template']
+        resp = super().form_valid(form)
         self.object.save()
-
-        messages.info(self.request, 'Demande n°{} rejetée'.format(
-            form.instance.display_id))
 
         email = EmailMessage(
             form.cleaned_data['subject'],
@@ -278,5 +299,24 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
 
         return resp
 
-    def get_success_url(self):
-        return reverse('admin:mrsrequest_mrsrequest_changelist')
+    def get_form_valid_message(self):
+        return 'Demande n°{} rejetée'.format(self.object.display_id)
+
+
+class MRSRequestProgressView(MRSRequestAdminBaseView):
+    form_class = MRSRequestForm
+    template_name = 'mrsrequest/mrsrequest_progress.html'
+    view_label = 'En cours de liquidation'
+    title_submit = 'Oui'
+    material_icon = 'playlist_add_check'
+    color = 'green'
+    log_action_flag = MRSRequest.STATUS_INPROGRESS
+
+    def get_allowed(self):
+        if super().get_allowed():
+            return self.object.status == self.model.STATUS_NEW
+
+    def get_form_valid_message(self):
+        return 'Demande n°{} en cours de liquidation'.format(
+            self.object.display_id
+        )
