@@ -1,83 +1,88 @@
 <div class="container" id="modal-body-ajax">
-    
       
-      <h2 class="text-default hide-in-modal" id="modal-title-ajax">inactive</h2>
+        
+        <h4 class="text-default hide-in-modal" id="modal-title-ajax">inactive</h4>
+        
+      
+
+      
+        <div class="modal-content">
+          
+<div class="card-panel">
+  <table class="table">
+    <thead class="thead-inverse">
+      
+      <tr>
+          <th>
+              Id
+          </th>
+          <td>
+              3
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Code
+          </th>
+          <td>
+              333333333
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Nom
+          </th>
+          <td>
+              inactive
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Numéro
+          </th>
+          <td>
+              333
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Email du service de liquidation
+          </th>
+          <td>
+              None
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Activé
+          </th>
+          <td>
+              False
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Score
+          </th>
+          <td>
+              2
+          </td>
+      </tr>
       
     
+  </thead></table>
+</div>
 
-    
-    
-<table class="table">
-  <thead class="thead-inverse">
-    
-    <tr>
-        <th>
-            Id
-        </th>
-        <td>
-            3
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Code
-        </th>
-        <td>
-            333333333
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Name
-        </th>
-        <td>
-            inactive
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Number
-        </th>
-        <td>
-            333
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Liquidation_email
-        </th>
-        <td>
-            None
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Active
-        </th>
-        <td>
-            False
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Score
-        </th>
-        <td>
-            2
-        </td>
-    </tr>
-    
-  
-</thead></table>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
 
-    <div id="modal-buttons-ajax">
-    
-    </div>
-    
     </div>

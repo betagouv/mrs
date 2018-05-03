@@ -203,6 +203,7 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
     material_icon = 'check_circle'
     color = 'green'
     log_action_flag = MRSRequest.STATUS_VALIDATED
+    body_class = 'modal-fixed-footer'
 
     def get_allowed(self):
         if super().get_allowed():
@@ -265,6 +266,7 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
     material_icon = 'do_not_disturb_on'
     color = 'red'
     log_action_flag = MRSRequest.STATUS_REJECTED
+    body_class = 'modal-fixed-footer'
 
     def get_allowed(self):
         if super().get_allowed():

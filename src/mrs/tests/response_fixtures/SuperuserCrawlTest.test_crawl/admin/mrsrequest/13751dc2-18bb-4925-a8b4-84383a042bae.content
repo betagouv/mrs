@@ -1,10 +1,11 @@
 <div class="container" id="modal-body-ajax">
-    
       
-    
+        
+      
 
-    
-    
+      
+        <div class="modal-content">
+          
 <div class="row">
     <div class="col m6 s12">
         <div class="card">
@@ -180,8 +181,10 @@
 
 </div>
 
-    <div id="modal-buttons-ajax">
-    
-    </div>
-    
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
+
     </div>

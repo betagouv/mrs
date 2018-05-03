@@ -1,12 +1,13 @@
-<div id="modal-body-ajax" style="padding: 0 24px">
-    
+<div class="container" id="modal-body-ajax">
       
-      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Utilisateurs: liste</h2>
+        
+        <h4 class="text-default hide-in-modal" id="modal-title-ajax">Utilisateurs</h4>
+        
       
-    
 
-    
-    
+      
+        <div class="modal-content">
+          
 <style type="text/css">
 #render-table .table-container .pagination { display: none; }
 #render-table .btn-floating { margin-left: 6px; }
@@ -14,7 +15,7 @@
 
 <div class="row">
   
-  <div class="col s12 m2">
+  <div class="col s12 m3">
     <div class="card-panel">
       <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
         
@@ -103,9 +104,10 @@
   </div>
   
 
-  <div class="table-responsive col s12 m10" id="render-table">
-    <div class="table-container card-panel">
-      
+  <div class="table-responsive col s12 m9" id="render-table">
+    <div class="card-panel">
+      <div class="table-container">
+        
     
 
 
@@ -198,17 +200,33 @@
                             <td><span class="true">✔</span></td>
                         
                             <td>
-<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update" title='Utilisateur "test": modifier'><i class="material-icons">edit</i>
-</a>
+  
+    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-1" title="Actions"><i class="material-icons">menu</i></a>
 
-<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password" title='Utilisateur "test": mot de passe'><i class="material-icons">vpn_key</i>
-</a>
-
-<a class="pink darken-4 btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/test/su" title='Utilisateur "test": su'><i class="material-icons">attach_money</i>
-</a>
-
-<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/test" title="test"><i class="material-icons">search</i>
-</a>
+    <ul class="dropdown-content" id="row-actions-1">
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update" title='Utilisateur "test": modifier'><i class="orange-text material-icons">edit</i> Modifier
+          </a>
+      </li>
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password" title='Utilisateur "test": mot de passe'><i class="purple-text darken-4-text material-icons">vpn_key</i> Mot de passe
+          </a>
+      </li>
+      
+      <li>
+          <a href="/admin/user/test/su" title='Utilisateur "test": su'><i class="pink-text darken-4-text material-icons">attach_money</i> Become
+          </a>
+      </li>
+      
+      <li>
+          <a href="/admin/user/test" title="test"><i class="blue-text material-icons">search</i> Detail
+          </a>
+      </li>
+      
+    </ul>
+  
 </td>
                         
                     </tr>
@@ -234,17 +252,33 @@
                             <td><span class="false">✘</span></td>
                         
                             <td>
-<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/update" title='Utilisateur "a": modifier'><i class="material-icons">edit</i>
-</a>
+  
+    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-2" title="Actions"><i class="material-icons">menu</i></a>
 
-<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/password" title='Utilisateur "a": mot de passe'><i class="material-icons">vpn_key</i>
-</a>
-
-<a class="pink darken-4 btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/a/su" title='Utilisateur "a": su'><i class="material-icons">attach_money</i>
-</a>
-
-<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/a" title="a"><i class="material-icons">search</i>
-</a>
+    <ul class="dropdown-content" id="row-actions-2">
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/update" title='Utilisateur "a": modifier'><i class="orange-text material-icons">edit</i> Modifier
+          </a>
+      </li>
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/password" title='Utilisateur "a": mot de passe'><i class="purple-text darken-4-text material-icons">vpn_key</i> Mot de passe
+          </a>
+      </li>
+      
+      <li>
+          <a href="/admin/user/a/su" title='Utilisateur "a": su'><i class="pink-text darken-4-text material-icons">attach_money</i> Become
+          </a>
+      </li>
+      
+      <li>
+          <a href="/admin/user/a" title="a"><i class="blue-text material-icons">search</i> Detail
+          </a>
+      </li>
+      
+    </ul>
+  
 </td>
                         
                     </tr>
@@ -270,17 +304,33 @@
                             <td><span class="false">✘</span></td>
                         
                             <td>
-<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/update" title='Utilisateur "b": modifier'><i class="material-icons">edit</i>
-</a>
+  
+    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-3" title="Actions"><i class="material-icons">menu</i></a>
 
-<a class="purple darken-4 btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/password" title='Utilisateur "b": mot de passe'><i class="material-icons">vpn_key</i>
-</a>
-
-<a class="pink darken-4 btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/b/su" title='Utilisateur "b": su'><i class="material-icons">attach_money</i>
-</a>
-
-<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/user/b" title="b"><i class="material-icons">search</i>
-</a>
+    <ul class="dropdown-content" id="row-actions-3">
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/update" title='Utilisateur "b": modifier'><i class="orange-text material-icons">edit</i> Modifier
+          </a>
+      </li>
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/password" title='Utilisateur "b": mot de passe'><i class="purple-text darken-4-text material-icons">vpn_key</i> Mot de passe
+          </a>
+      </li>
+      
+      <li>
+          <a href="/admin/user/b/su" title='Utilisateur "b": su'><i class="pink-text darken-4-text material-icons">attach_money</i> Become
+          </a>
+      </li>
+      
+      <li>
+          <a href="/admin/user/b" title="b"><i class="blue-text material-icons">search</i> Detail
+          </a>
+      </li>
+      
+    </ul>
+  
 </td>
                         
                     </tr>
@@ -299,14 +349,16 @@
 
 
     
+      </div>
+      
     </div>
-
-    
   </div>
 </div>
 
-    <div id="modal-buttons-ajax">
-    
-    </div>
-    
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
+
     </div>
