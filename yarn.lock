@@ -1640,9 +1640,9 @@ cross-spawn@^5.0.1, cross-spawn@^5.1.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-crudlfap@0.3.37:
-  version "0.3.37"
-  resolved "https://registry.yarnpkg.com/crudlfap/-/crudlfap-0.3.37.tgz#20adeff5de5691ec0c16d287394b8d4449386e49"
+crudlfap@0.3.42:
+  version "0.3.42"
+  resolved "https://registry.yarnpkg.com/crudlfap/-/crudlfap-0.3.42.tgz#acfd9d706d31d8e6c6c193d77f69ffa78a59f12a"
   dependencies:
     babel-core "^6.26.0"
     babel-jest "^22.4.1"
@@ -1660,7 +1660,7 @@ crudlfap@0.3.37:
     formdata-polyfill "^3.0.10"
     jest "^22.4.2"
     js-cookie "^2.2.0"
-    materialize-css "1.0.0-rc.1"
+    materialize-css "^1.0.0-beta"
     node-sass "^4.9.0"
     sass-loader "^7.0.1"
     selenium-webdriver "^4.0.0-alpha.1"
@@ -4242,7 +4242,7 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-materialize-css@1.0.0-rc.1:
+materialize-css@1.0.0-rc.1, materialize-css@^1.0.0-beta:
   version "1.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/materialize-css/-/materialize-css-1.0.0-rc.1.tgz#41ba75ab929dc97f2d8af68ed01a5b345a64df1c"
 

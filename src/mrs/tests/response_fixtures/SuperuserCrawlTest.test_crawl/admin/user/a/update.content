@@ -1,21 +1,19 @@
 <div class="container" id="modal-body-ajax">
-    
       
-      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Utilisateur "a": modifier</h2>
-      
-    
-
-    
-<form action="/admin/user/a/update" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
-
-    
-    <div class="form-loading" style="display: none">
-        Data upload progress
-        <br/>
-        <progress></progress>
-    </div>
-    <div class="card-panel">
         
+        <h4 class="text-default hide-in-modal" id="modal-title-ajax">Utilisateur "a": modifier</h4>
+        
+      
+
+      
+
+<div class="card-panel">
+
+<form action="/admin/user/a/update" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="form-object-user" method="post">
+
+        <div class="modal-content">
+          
+  
 <div class="row">
     <div class="input-field col s12 required" id="id_username_container">
         <input id="id_username" maxlength="150" name="username" type="text" value="a"/>
@@ -103,14 +101,18 @@
     </div>
 </div>
 
-    </div>
 
-    <div id="modal-buttons-ajax">
-    
+        </div>
+        <div class="modal-footer">
+          
     <button class="btn btn-primary" type="submit">Modifier</button>
 
-    </div>
-    
-    <input name="_next" type="hidden" value="/"/></form>
+        </div>
+      
+    <input name="_next" type="hidden" value=""/></form>
+
+</div>
+
+
 
     </div>

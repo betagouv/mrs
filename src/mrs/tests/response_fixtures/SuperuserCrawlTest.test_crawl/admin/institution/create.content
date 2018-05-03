@@ -1,21 +1,19 @@
 <div class="container" id="modal-body-ajax">
-    
       
-      <h2 class="text-success hide-in-modal" id="modal-title-ajax">Établissement: ajouter</h2>
-      
-    
-
-    
-<form action="/admin/institution/create" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
-
-    
-    <div class="form-loading" style="display: none">
-        Data upload progress
-        <br/>
-        <progress></progress>
-    </div>
-    <div class="card-panel">
         
+        <h4 class="text-success hide-in-modal" id="modal-title-ajax">Établissement: ajouter</h4>
+        
+      
+
+      
+
+<div class="card-panel">
+
+<form action="/admin/institution/create" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="form-object-institution" method="post">
+
+        <div class="modal-content">
+          
+  
 <div class="row">
     <div class="input-field col s12 required" id="id_finess_container">
         <input id="id_finess" name="finess" type="number"/>
@@ -41,14 +39,18 @@
     </div>
 </div>
 
-    </div>
 
-    <div id="modal-buttons-ajax">
-    
+        </div>
+        <div class="modal-footer">
+          
     <button class="btn btn-primary" type="submit">Ajouter</button>
 
-    </div>
-    
-    <input name="_next" type="hidden" value="/"/></form>
+        </div>
+      
+    <input name="_next" type="hidden" value=""/></form>
+
+</div>
+
+
 
     </div>

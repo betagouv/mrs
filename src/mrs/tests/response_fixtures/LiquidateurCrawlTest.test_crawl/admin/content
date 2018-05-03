@@ -60,7 +60,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/mrsrequest?next="
+                      href="/admin/mrsrequest"
                       title="Demandes: liste"
                     ><i class="material-icons">list</i>Liste</a>
                   </li>
@@ -90,12 +90,13 @@ textarea {
 </ul>
     
     <div style="padding: 0 24px" id="modal-body-ajax">
-    
       
-    
+        
+      
 
-    
-    
+      
+        <div class="modal-content">
+          
 <div class="row">
     <div class="col m3 s12">
         <div class="card-panel">
@@ -237,17 +238,15 @@ textarea {
     </div>
 </div>
 
-    <div id="modal-buttons-ajax">
-    
-    </div>
-    
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
+
     </div>
 
-    <div id="modal" class="modal">
-        <div class="modal-content" id="modal-body">
-           <p>Ooopsy</p>
-        </div>
-    </div>
+    <div id="modal" class="modal modal-fixed-footer"></div>
 
     
     

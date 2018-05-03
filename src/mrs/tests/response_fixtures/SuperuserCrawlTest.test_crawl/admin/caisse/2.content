@@ -1,83 +1,88 @@
 <div class="container" id="modal-body-ajax">
-    
       
-      <h2 class="text-default hide-in-modal" id="modal-title-ajax">bbbb</h2>
+        
+        <h4 class="text-default hide-in-modal" id="modal-title-ajax">bbbb</h4>
+        
+      
+
+      
+        <div class="modal-content">
+          
+<div class="card-panel">
+  <table class="table">
+    <thead class="thead-inverse">
+      
+      <tr>
+          <th>
+              Id
+          </th>
+          <td>
+              2
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Code
+          </th>
+          <td>
+              222222222
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Nom
+          </th>
+          <td>
+              bbbb
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Numéro
+          </th>
+          <td>
+              222
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Email du service de liquidation
+          </th>
+          <td>
+              bbb@example.com
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Activé
+          </th>
+          <td>
+              True
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
+              Score
+          </th>
+          <td>
+              0
+          </td>
+      </tr>
       
     
+  </thead></table>
+</div>
 
-    
-    
-<table class="table">
-  <thead class="thead-inverse">
-    
-    <tr>
-        <th>
-            Id
-        </th>
-        <td>
-            2
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Code
-        </th>
-        <td>
-            222222222
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Name
-        </th>
-        <td>
-            bbbb
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Number
-        </th>
-        <td>
-            222
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Liquidation_email
-        </th>
-        <td>
-            bbb@example.com
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Active
-        </th>
-        <td>
-            True
-        </td>
-    </tr>
-    
-    <tr>
-        <th>
-            Score
-        </th>
-        <td>
-            0
-        </td>
-    </tr>
-    
-  
-</thead></table>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
 
-    <div id="modal-buttons-ajax">
-    
-    </div>
-    
     </div>

@@ -1,12 +1,13 @@
-<div id="modal-body-ajax" style="padding: 0 24px">
-    
+<div class="container" id="modal-body-ajax">
       
-      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Caisses: liste</h2>
+        
+        <h4 class="text-default hide-in-modal" id="modal-title-ajax">Caisses</h4>
+        
       
-    
 
-    
-    
+      
+        <div class="modal-content">
+          
 <style type="text/css">
 #render-table .table-container .pagination { display: none; }
 #render-table .btn-floating { margin-left: 6px; }
@@ -14,7 +15,7 @@
 
 <div class="row">
   
-  <div class="col s12 m2">
+  <div class="col s12 m3">
     <div class="card-panel">
       <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
         
@@ -44,9 +45,10 @@
   </div>
   
 
-  <div class="table-responsive col s12 m10" id="render-table">
-    <div class="table-container card-panel">
-      
+  <div class="table-responsive col s12 m9" id="render-table">
+    <div class="card-panel">
+      <div class="table-container">
+        
     
 
 
@@ -115,14 +117,28 @@
                             <td>0</td>
                         
                             <td>
-<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/delete" title='Caisse "aaaaaaa": effacer'><i class="material-icons">delete</i>
-</a>
+  
+    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-1" title="Actions"><i class="material-icons">menu</i></a>
 
-<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/update" title='Caisse "aaaaaaa": modifier'><i class="material-icons">edit</i>
-</a>
-
-<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/caisse/1" title="aaaaaaa"><i class="material-icons">search</i>
-</a>
+    <ul class="dropdown-content" id="row-actions-1">
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/delete" title='Caisse "aaaaaaa": effacer'><i class="red-text material-icons">delete</i> Effacer
+          </a>
+      </li>
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/update" title='Caisse "aaaaaaa": modifier'><i class="orange-text material-icons">edit</i> Modifier
+          </a>
+      </li>
+      
+      <li>
+          <a href="/admin/caisse/1" title="aaaaaaa"><i class="blue-text material-icons">search</i> Detail
+          </a>
+      </li>
+      
+    </ul>
+  
 </td>
                         
                     </tr>
@@ -142,14 +158,28 @@
                             <td>0</td>
                         
                             <td>
-<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/delete" title='Caisse "bbbb": effacer'><i class="material-icons">delete</i>
-</a>
+  
+    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-2" title="Actions"><i class="material-icons">menu</i></a>
 
-<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/update" title='Caisse "bbbb": modifier'><i class="material-icons">edit</i>
-</a>
-
-<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/caisse/2" title="bbbb"><i class="material-icons">search</i>
-</a>
+    <ul class="dropdown-content" id="row-actions-2">
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/delete" title='Caisse "bbbb": effacer'><i class="red-text material-icons">delete</i> Effacer
+          </a>
+      </li>
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/update" title='Caisse "bbbb": modifier'><i class="orange-text material-icons">edit</i> Modifier
+          </a>
+      </li>
+      
+      <li>
+          <a href="/admin/caisse/2" title="bbbb"><i class="blue-text material-icons">search</i> Detail
+          </a>
+      </li>
+      
+    </ul>
+  
 </td>
                         
                     </tr>
@@ -169,14 +199,28 @@
                             <td>2</td>
                         
                             <td>
-<a class="red btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/delete" title='Caisse "inactive": effacer'><i class="material-icons">delete</i>
-</a>
+  
+    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-3" title="Actions"><i class="material-icons">menu</i></a>
 
-<a class="orange btn-small secondary-content waves-effect waves-light btn-floating" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update" title='Caisse "inactive": modifier'><i class="material-icons">edit</i>
-</a>
-
-<a class="blue btn-small secondary-content waves-effect waves-light btn-floating" href="/admin/caisse/3" title="inactive"><i class="material-icons">search</i>
-</a>
+    <ul class="dropdown-content" id="row-actions-3">
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/delete" title='Caisse "inactive": effacer'><i class="red-text material-icons">delete</i> Effacer
+          </a>
+      </li>
+      
+      <li>
+          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update" title='Caisse "inactive": modifier'><i class="orange-text material-icons">edit</i> Modifier
+          </a>
+      </li>
+      
+      <li>
+          <a href="/admin/caisse/3" title="inactive"><i class="blue-text material-icons">search</i> Detail
+          </a>
+      </li>
+      
+    </ul>
+  
 </td>
                         
                     </tr>
@@ -195,14 +239,16 @@
 
 
     
+      </div>
+      
     </div>
-
-    
   </div>
 </div>
 
-    <div id="modal-buttons-ajax">
-    
-    </div>
-    
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
+
     </div>

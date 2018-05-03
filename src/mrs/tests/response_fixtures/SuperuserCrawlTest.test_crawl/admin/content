@@ -60,7 +60,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/institution?next="
+                      href="/admin/institution"
                       title="Établissements: liste"
                     ><i class="material-icons">list</i>Liste</a>
                   </li>
@@ -68,7 +68,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/institution/create?next="
+                      href="/admin/institution/create"
                       title="Établissement: ajouter"
                     ><i class="material-icons">add</i>Ajouter</a>
                   </li>
@@ -87,7 +87,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/mrsrequest?next="
+                      href="/admin/mrsrequest"
                       title="Demandes: liste"
                     ><i class="material-icons">list</i>Liste</a>
                   </li>
@@ -106,7 +106,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/emailtemplate?next="
+                      href="/admin/emailtemplate"
                       title="Modèles d&#39;emails: liste"
                     ><i class="material-icons">list</i>Liste</a>
                   </li>
@@ -114,7 +114,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/emailtemplate/create?next="
+                      href="/admin/emailtemplate/create"
                       title="Modèle d&#39;email: ajouter"
                     ><i class="material-icons">add</i>Ajouter</a>
                   </li>
@@ -133,7 +133,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/user/create?next="
+                      href="/admin/user/create"
                       title="Utilisateur: ajouter"
                     ><i class="material-icons">add</i>Ajouter</a>
                   </li>
@@ -141,7 +141,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/user?next="
+                      href="/admin/user"
                       title="Utilisateurs: liste"
                     ><i class="material-icons">list</i>Liste</a>
                   </li>
@@ -160,7 +160,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/caisse/create?next="
+                      href="/admin/caisse/create"
                       title="Caisse: ajouter"
                     ><i class="material-icons">add</i>Ajouter</a>
                   </li>
@@ -168,7 +168,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/caisse?next="
+                      href="/admin/caisse"
                       title="Caisses: liste"
                     ><i class="material-icons">list</i>Liste</a>
                   </li>
@@ -185,7 +185,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/email?next="
+                      href="/admin/email"
                       title="Emails: liste"
                     ><i class="material-icons">list</i>Liste</a>
                   </li>
@@ -219,12 +219,13 @@ textarea {
 </ul>
     
     <div style="padding: 0 24px" id="modal-body-ajax">
-    
       
-    
+        
+      
 
-    
-    
+      
+        <div class="modal-content">
+          
 <div class="row">
     <div class="col m3 s12">
         <div class="card-panel">
@@ -366,17 +367,15 @@ textarea {
     </div>
 </div>
 
-    <div id="modal-buttons-ajax">
-    
-    </div>
-    
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
+
     </div>
 
-    <div id="modal" class="modal">
-        <div class="modal-content" id="modal-body">
-           <p>Ooopsy</p>
-        </div>
-    </div>
+    <div id="modal" class="modal modal-fixed-footer"></div>
 
     
     

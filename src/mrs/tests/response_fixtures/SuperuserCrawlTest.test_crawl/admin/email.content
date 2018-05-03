@@ -1,12 +1,13 @@
-<div id="modal-body-ajax" style="padding: 0 24px">
-    
+<div class="container" id="modal-body-ajax">
       
-      <h2 class="text-default hide-in-modal" id="modal-title-ajax">Emails: liste</h2>
+        
+        <h4 class="text-default hide-in-modal" id="modal-title-ajax">Emails</h4>
+        
       
-    
 
-    
-    
+      
+        <div class="modal-content">
+          
 <style type="text/css">
 #render-table .table-container .pagination { display: none; }
 #render-table .btn-floating { margin-left: 6px; }
@@ -14,7 +15,7 @@
 
 <div class="row">
   
-  <div class="col s12 m2">
+  <div class="col s12 m3">
     <div class="card-panel">
       <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
         
@@ -34,9 +35,10 @@
   </div>
   
 
-  <div class="table-responsive col s12 m10" id="render-table">
-    <div class="table-container card-panel">
-      
+  <div class="table-responsive col s12 m9" id="render-table">
+    <div class="card-panel">
+      <div class="table-container">
+        
     
 
 
@@ -98,14 +100,16 @@
 
 
     
+      </div>
+      
     </div>
-
-    
   </div>
 </div>
 
-    <div id="modal-buttons-ajax">
-    
-    </div>
-    
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
+
     </div>
