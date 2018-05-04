@@ -204,6 +204,7 @@ class MRSRequestValidateView(MRSRequestAdminBaseView):
     color = 'green'
     log_action_flag = MRSRequest.STATUS_VALIDATED
     body_class = 'modal-fixed-footer'
+    menus = ['object', 'object_detail']
 
     def get_allowed(self):
         if super().get_allowed():
