@@ -21,7 +21,8 @@ class Dashboard(crudlfap.TemplateView):
     def get_table(self):
         list_view = crudlfap.site['mrsrequest.MRSRequest'].views['list'].clone(
             request=self.request,
-            object_list=self.queryset.status('inprogress'),
+            object_list=self.queryset.in_status_by(
+                'inprogress', self.request.user),
         )
         return list_view().table
 
