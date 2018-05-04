@@ -38,8 +38,18 @@ class Bill(MRSAttachment):
 
 class MRSRequestQuerySet(models.QuerySet):
     def status(self, name):
-        return self.filter(
-            status=getattr(self.model, 'STATUS_{}'.format(name.upper())))
+        return self.filter(status=MRSRequest.get_status_id(name))
+
+    def status_by(self, name, user):
+        ids = LogEntry.objects.filter(
+            content_type=ContentType.objects.get_for_model(self.model),
+            action_flag=MRSRequest.get_status_id(name),
+            user=user,
+        ).values_list('object_id', flat=True)
+        return self.filter(id__in=list(ids))
+
+    def in_status_by(self, name, user):
+        return self.status(name).status_by(name, user)
 
 
 class MRSRequestManager(models.Manager):
@@ -150,6 +160,10 @@ class MRSRequest(models.Model):
             content_type=ContentType.objects.get_for_model(type(self)),
             object_id=self.pk,
         ).order_by('-action_time')
+
+    @classmethod
+    def get_status_id(self, name):
+        return getattr(self, 'STATUS_{}'.format(name.upper()))
 
     @property
     def days(self):

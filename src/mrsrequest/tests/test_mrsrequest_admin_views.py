@@ -118,6 +118,12 @@ def test_progress_validate_success(ur, mrsrequest):
     view('progress')(request, pk=mrsrequest.pk)
     assert view('progress')(request, pk=mrsrequest.pk).status_code == 403
 
+    # test in_status_by
+    result = list(MRSRequest.objects.all().in_status_by(
+        'inprogress', request.user))
+    assert len(result) == 1
+    assert str(result[0].pk) == str(mrsrequest.pk)
+
     response = view('validate')(request, pk=mrsrequest.pk)
     assert response['Location'] == mrsrequest.get_absolute_url()
 
