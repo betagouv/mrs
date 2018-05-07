@@ -3,9 +3,12 @@ import pytest
 import pytz
 import uuid
 
+from django.contrib.admin.models import LogEntry
+from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from freezegun import freeze_time
 
+from mrsuser.models import User
 from person.models import Person
 from mrsrequest.models import MRSRequest
 
@@ -66,8 +69,8 @@ paris = pytest.fixture(lambda: pytz.timezone('Europe/Paris'))
 
 
 @pytest.fixture
-def paris_yesterday(paris):
-    return datetime.datetime(1999, 12, 31, 0, 5, tzinfo=paris)
+def paris_yesterday():
+    return datetime.datetime(1999, 12, 31, 0, 5, tzinfo=paris())
 
 
 @pytest.fixture
@@ -77,10 +80,10 @@ def utc_today():
 
 
 @pytest.fixture
-def paris_today(paris):
+def paris_today():
     # objects created with paris_today should be affected by those
     # created with utc_today
-    return datetime.datetime(2000, 1, 1, 0, 5, tzinfo=paris)
+    return datetime.datetime(2000, 1, 1, 0, 5, tzinfo=paris())
 
 
 @pytest.mark.django_db
@@ -102,16 +105,22 @@ def test_mrsrequest_increments_at_minute_zero(
     ).display_id == '200001010001'
 
 
-def test_mrsrequest_day_number_three_digits(paris_yesterday):
-    assert MRSRequest(creation_datetime=paris_yesterday).day_number == '365'
-
-
-def test_mrsrequest_day_number_one_digit(paris_today):
-    assert MRSRequest(creation_datetime=paris_today).day_number == '001'
-
-
-def test_mrsrequest_day_number_timezone_conversion(utc_today):
-    assert MRSRequest(creation_datetime=utc_today).day_number == '001'
+@pytest.mark.django_db
+@pytest.mark.parametrize('dt,expected', [
+    (paris_yesterday, '365'),
+    (paris_today, '001'),
+    (utc_today, '001'),
+])
+def test_mrsrequest_inprogress_day_number_three_digits(dt, expected):
+    mrsrequest = MRSRequest.objects.create()
+    LogEntry.objects.create(
+        action_flag=MRSRequest.STATUS_INPROGRESS,
+        action_time=dt(),
+        content_type=ContentType.objects.get_for_model(MRSRequest),
+        user=User.objects.get_or_create(username='test')[0],
+        object_id=mrsrequest.pk,
+    )
+    assert mrsrequest.inprogress_day_number == expected
 
 
 @pytest.mark.django_db
