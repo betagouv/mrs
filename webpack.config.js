@@ -2,6 +2,7 @@ var path = require('path')
 var BundleTracker = require('webpack-bundle-tracker')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const es3ifyPlugin = require('es3ify-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
     filename: '[name].[contenthash].css',
@@ -42,7 +43,8 @@ var cfg = {
 
   plugins: [
     new BundleTracker({filename: './webpack-stats.json'}),
-    extractSass
+    extractSass,
+    new es3ifyPlugin()
   ],
 
   devtool: 'source-map',
@@ -50,7 +52,7 @@ var cfg = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(turbolinks)/,
+        exclude: [/(turbolinks)/, /node_modules/],
         use: {
           loader: 'babel-loader',
           options: {
