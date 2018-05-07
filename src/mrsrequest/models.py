@@ -239,9 +239,16 @@ class MRSRequest(models.Model):
             self.creation_datetime)
 
     @property
-    def day_number(self):
-        return '{:03d}'.format(
-            self.creation_datetime_normalized.timetuple().tm_yday)
+    def inprogress_day_number(self):
+        event = self.logentry_set().filter(
+            action_flag=self.get_status_id('inprogress')
+        ).first()
+
+        if not event:
+            return 0
+
+        dt = pytz.timezone(settings.TIME_ZONE).normalize(event.action_time)
+        return '{:03d}'.format(dt.timetuple().tm_yday)
 
     @property
     def order_number(self):
