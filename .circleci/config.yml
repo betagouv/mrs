@@ -147,7 +147,7 @@ jobs:
 
   js-qa:
     docker:
-    - image: circleci/node:9
+    - image: circleci/node:10
     steps:
     - checkout
     - restore_cache:
@@ -165,7 +165,7 @@ jobs:
 
   js-test:
     docker:
-    - image: circleci/node:9
+    - image: circleci/node:10
     steps:
     - checkout
     - restore_cache:
