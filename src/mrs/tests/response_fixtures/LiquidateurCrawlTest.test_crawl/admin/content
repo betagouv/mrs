@@ -13,6 +13,7 @@
     <title>Accueil - MRS Admin</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fengyuanchen.github.io/viewerjs/css/viewer.css" />
 
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
     
