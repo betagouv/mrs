@@ -37,7 +37,7 @@
                 <div class="card-title">
                     Personne transportée
                 </div>
-                <a href="/mrsrequest/pmt/4/download/" target="_blank" title="1x1.png">PMT (95 Bytes)</a>
+                <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-viewerjs="uploads" href="/mrsrequest/pmt/4/download/" target="_blank" title="1x1.png">PMT (95 Bytes)</a>
                 <p>
                     <span class="grey-text text-darken-2">
                         Prénom
