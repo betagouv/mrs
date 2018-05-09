@@ -128,6 +128,13 @@
     
 </div>
 
+<ul id="uploads" style="display: none">
+  <li>
+    <img alt="1x1.png (95 Bytes)" data-original="/mrsrequest/pmt/4/download/" src="/mrsrequest/pmt/4/download/"/>
+  </li>
+  
+</ul>
+
         </div>
         <div class="modal-footer">
           
