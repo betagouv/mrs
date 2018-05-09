@@ -151,7 +151,7 @@
                             <td>1 mai 2018 19:10</td>
                         
                             <td>
-    <span class="red-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 358911 jours">201805010001</span>
+    <a class="red-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 358911 jours" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679">201805010001</a>
     </td>
                         
                             <td>uea</td>
