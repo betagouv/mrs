@@ -61,7 +61,14 @@
                 <div class="card-title">
                     Personne transportée
                 </div>
-                <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-viewerjs="uploads" href="/mrsrequest/pmt/1/download/" target="_blank" title="1x1.png">PMT (95 Bytes)</a>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        PMT
+                    </span>
+                    <span class="right">
+                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-viewerjs="uploads" href="/mrsrequest/pmt/1/download/" title="1x1.png">1x1.png (95 Bytes)</a>
+                    </span>
+                </p>
                 <p>
                     <span class="grey-text text-darken-2">
                         Prénom
@@ -165,13 +172,13 @@
                 
                 <ul>
                     <li>
-                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-viewerjs="uploads" href="/mrsrequest/bill/2/download/" target="_blank">1x1.png (95 Bytes)</a>
+                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-viewerjs="uploads" href="/mrsrequest/bill/2/download/">1x1.png (95 Bytes)</a>
                     </li>
                 </ul>
                 
                 <ul>
                     <li>
-                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-viewerjs="uploads" href="/mrsrequest/bill/3/download/" target="_blank">1x1.png (95 Bytes)</a>
+                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-viewerjs="uploads" href="/mrsrequest/bill/3/download/">1x1.png (95 Bytes)</a>
                     </li>
                 </ul>
                 
@@ -180,21 +187,6 @@
     </div>
 
 </div>
-
-<ul id="uploads" style="display: none">
-  <li>
-    <img alt="1x1.png (95 Bytes)" data-original="/mrsrequest/pmt/1/download/" src="/mrsrequest/pmt/1/download/"/>
-  </li>
-  
-  <li>
-      <img alt="1x1.png (95 Bytes)" data-original="/mrsrequest/bill/2/download/" src="/mrsrequest/bill/2/download/"/>
-  </li>
-  
-  <li>
-      <img alt="1x1.png (95 Bytes)" data-original="/mrsrequest/bill/3/download/" src="/mrsrequest/bill/3/download/"/>
-  </li>
-  
-</ul>
 
         </div>
         <div class="modal-footer">

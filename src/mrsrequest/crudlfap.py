@@ -23,7 +23,7 @@ class MRSRequestListView(crudlfap.FilterTables2ListView):
     DISPLAY_ID_TEMPLATE = '''
     <a
         data-position="bottom"
-        data-tooltip="En attente de traitement depuis {{ record.days }} jours"
+        data-tooltip="{{ record.tooltip }}"
         class="{{ record.color }}-text tooltipped"
         href="{{ record.get_absolute_url }}"
     >{{ record.display_id }}</a>

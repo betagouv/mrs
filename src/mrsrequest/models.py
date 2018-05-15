@@ -166,12 +166,34 @@ class MRSRequest(models.Model):
         return getattr(self, 'STATUS_{}'.format(name.upper()))
 
     @property
+    def status_days(self):
+        return (timezone.now() - self.creation_datetime_normalized).days
+
+    @property
     def days(self):
         return (timezone.now() - self.creation_datetime_normalized).days
 
     @property
+    def waiting(self):
+        return self.status not in (
+            self.STATUS_VALIDATED,
+            self.STATUS_REJECTED
+        )
+
+    @property
+    def tooltip(self):
+        if self.waiting:
+            if self.days:
+                return 'En attente de traitement depuis {} jours'.format(
+                    self.days
+                )
+            else:
+                return 'En attente de traitement depuis aujourd\'hui'
+        return 'Traité'
+
+    @property
     def color(self):
-        if self.status not in (self.STATUS_INPROGRESS, self.STATUS_NEW):
+        if not self.waiting:
             return ''
 
         if self.days >= 6:
