@@ -52,14 +52,24 @@
                 <div class="card-title">
                     Personne transportée
                 </div>
-                <a
-                    href="{{ object.pmt.get_download_url() }}"
-                    title="{{ object.pmt.filename }}"
-                    data-controller="viewerjs"
-                    data-action="click->viewerjs#click"
-                    data-viewerjs="uploads"
-                    target="_blank"
-                >PMT ({{ naturalsize(object.pmt.binary|length) }})</a>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        PMT
+                    </span>
+                    <span class="right">
+                        <a
+                            href="{{ object.pmt.get_download_url() }}"
+                            title="{{ object.pmt.filename }}"
+                            {% if object.pmt.filename.lower().endswith('pdf') %}
+                            target="_blank"
+                            {% else %}
+                            data-controller="viewerjs"
+                            data-action="click->viewerjs#click"
+                            data-viewerjs="uploads"
+                            {% endif %}
+                        >{{ object.pmt.filename }} ({{ naturalsize(object.pmt.binary|length) }})</a>
+                    </span>
+                </p>
                 <p>
                     <span class="grey-text text-darken-2">
                         Prénom
@@ -159,10 +169,13 @@
                     <li>
                         <a
                             href="{{ bill.get_download_url() }}"
+                            {% if bill.filename.lower().endswith('pdf') %}
                             target="_blank"
+                            {% else %}
                             data-controller="viewerjs"
                             data-action="click->viewerjs#click"
                             data-viewerjs="uploads"
+                            {% endif %}
                         >{{ bill.filename }} ({{ naturalsize(bill.binary|length) }})</a>
                     </li>
                 </ul>
@@ -172,15 +185,4 @@
     </div>
 {% endif %}
 </div>
-
-<ul style="display: none" id="uploads">
-  <li>
-    <img data-original="{{ object.pmt.get_download_url() }}" src="{{ object.pmt.get_download_url() }}" alt="{{ object.pmt.filename }} ({{ naturalsize(object.pmt.binary|length) }})" />
-  </li>
-  {% for bill in object.bill_set.all() %}
-  <li>
-      <img data-original="{{ bill.get_download_url() }}" src="{{ bill.get_download_url() }}" alt="{{ bill.filename }} ({{ naturalsize(bill.binary|length) }})"/>
-  </li>
-  {% endfor %}
-</ul>
 {% endblock %}
