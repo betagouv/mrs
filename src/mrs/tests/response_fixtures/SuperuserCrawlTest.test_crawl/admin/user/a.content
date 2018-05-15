@@ -1,12 +1,11 @@
 <div class="container" id="modal-body-ajax">
       
-        
-        <h4 class="text-default hide-in-modal" id="modal-title-ajax">a</h4>
-        
-      
-
-      
         <div class="modal-content">
+        
+          
+          <h4 class="text-default hide-in-modal" id="modal-title-ajax">a</h4>
+          
+        
           
 <div class="card-panel">
   <table class="table">

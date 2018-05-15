@@ -1,17 +1,16 @@
 <div class="container" id="modal-body-ajax">
       
-        
-        <h4 class="text-danger hide-in-modal" id="modal-title-ajax">Caisse "aaaaaaa": effacer</h4>
-        
-      
-
-      
 
 <div class="card-panel">
 
 <form action="/admin/caisse/1/delete" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
 
         <div class="modal-content">
+        
+          
+          <h4 class="text-danger hide-in-modal" id="modal-title-ajax">Caisse "aaaaaaa": effacer</h4>
+          
+        
           
   Êtes-vous sûr ?
   <br/>
@@ -19,6 +18,7 @@
         </div>
         <div class="modal-footer">
           
+    
     <button class="btn btn-primary" type="submit">Effacer</button>
 
         </div>
