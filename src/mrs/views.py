@@ -54,7 +54,7 @@ class StaticView(generic.View):
                 content_type=self.content_type,
             )
         else:
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding='utf8') as f:
                 response = http.HttpResponse(
                     f.read(),
                     content_type=self.content_type,
