@@ -164,8 +164,8 @@
                 <div class="card-title">
                     Justificatif{% if object.bill_set.all()|length > 1 %}s{% endif %} attaché{% if object.bill_set.all()|length > 1 %}s{% endif %}
                 </div>
-                {% for bill in object.bill_set.all() %}
                 <ul>
+                {% for bill in object.bill_set.all() %}
                     <li>
                         <a
                             href="{{ bill.get_download_url() }}"
@@ -178,8 +178,8 @@
                             {% endif %}
                         >{{ bill.filename }} ({{ naturalsize(bill.binary|length) }})</a>
                     </li>
-                </ul>
                 {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
