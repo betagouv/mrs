@@ -25,7 +25,6 @@
         window.allowInsecure = {% if view.ALLOW_INSECURE %}true{% else %}false{% endif %}
     </script>
     <script src="{% static 'material/js/jquery.js' %}"></script>
-    {% include 'mrsrequest/_form_js.html' %}
     {% render_bundle 'iframe' 'js' %}
   </body>
 </html>
