@@ -2,6 +2,8 @@
 import '../sass/form.sass'
 import Cookie from 'js-cookie'
 import './mrsrequest'
+import 'materialize-css/sass/materialize.scss'
+import M from 'materialize-css'
 
 window.addEventListener('message', receiveMessage, false)
 
@@ -52,3 +54,5 @@ document.querySelector('html').addEventListener('mrsrequest-save', function(e) {
     window.allowInsecure ? '*' : allowOriginRoot
   )
 })
+
+M.AutoInit()
