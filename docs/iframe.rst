@@ -219,8 +219,9 @@ demande avec votre :term:`FINESS`, par exemple::
 Les codes de statut sont:
 
 - 0: Soumise
-- 1: Validée
-- 2: Rejetée
+- 999: Rejetée
+- 1000: En cours
+- 2000: Validée
 
 .. note:: Si le :term:`CORS` dynamique est actif alors vous devrez passer le
           parametre origin.
