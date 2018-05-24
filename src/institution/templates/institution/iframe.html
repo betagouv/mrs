@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    {% include 'mrsrequest/_form_css.html' %}
     {% render_bundle 'iframe' 'css' %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mes Remboursements Simplifiés</title>
@@ -24,7 +23,6 @@
         window.allowOrigin = '{{ view.allow_origin }}'
         window.allowInsecure = {% if view.ALLOW_INSECURE %}true{% else %}false{% endif %}
     </script>
-    <script src="{% static 'material/js/jquery.js' %}"></script>
     {% render_bundle 'iframe' 'js' %}
   </body>
 </html>
