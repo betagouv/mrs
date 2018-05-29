@@ -3,7 +3,7 @@
         <div class="modal-content">
         
           
-          <h4 class="text-default hide-in-modal" id="modal-title-ajax">Demandes</h4>
+          <h4 class="text-default " id="modal-title-ajax">Demandes</h4>
           
         
           
@@ -50,18 +50,6 @@
         
     </div>
 </div>
- 
-<div class="row">
-    <div class="select-field col s12" id="id_caisse_container">
-        <label for="id_caisse">Caisse</label>
-        <select id="id_caisse" name="caisse">
-            <option value="">---------</option>
-            <option value="1">aaaaaaa</option>
-            <option value="2">bbbb</option>
-        </select>
-        
-    </div>
-</div>
 
       </form>
     </div>
@@ -72,7 +60,6 @@
     <div class="card-panel">
       <div class="table-container">
         
-    
 
 
 <div class="table-container">
@@ -82,6 +69,17 @@
             
                 <thead>
                     <tr>
+                    
+                        <th>
+                            
+                                
+            <label>
+                <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
+                <span></span>
+            </label>
+        
+                            
+                        </th>
                     
                         <th class="orderable">
                             
@@ -147,6 +145,8 @@
                     
                     <tr class="even">
                         
+                            <td></td>
+                        
                             <td>1 mai 2018 19:10</td>
                         
                             <td>
@@ -166,24 +166,20 @@
                             <td>aaaaaaa</td>
                         
                             <td>
+                
+                
+    
+      
+        <a class="btn-floating red blue" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae?_next=/admin/mrsrequest" title="201805010000">
+    <i class=" material-icons">search</i>
+    
+    Detail
+    
+  </a>
+      
+    
   
-    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-13751dc2-18bb-4925-a8b4-84383a042bae" title="Actions"><i class="material-icons">menu</i></a>
-
-    <ul class="dropdown-content" id="row-actions-13751dc2-18bb-4925-a8b4-84383a042bae">
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae/delete" title='Demande "201805010000": effacer'><i class="red-text material-icons">delete</i> Effacer
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae" title="201805010000"><i class="blue-text material-icons">search</i> Detail
-          </a>
-      </li>
-      
-    </ul>
-  
-</td>
+                </td>
                         
                     </tr>
                     
@@ -200,7 +196,6 @@
 </div>
 
 
-    
       </div>
       
     </div>

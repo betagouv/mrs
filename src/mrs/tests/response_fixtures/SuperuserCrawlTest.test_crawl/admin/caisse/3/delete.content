@@ -3,27 +3,32 @@
 
 <div class="card-panel">
 
-<form action="/admin/caisse/3/delete" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+<form action="/admin/caisse/3/delete" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
 
         <div class="modal-content">
         
           
-          <h4 class="text-danger hide-in-modal" id="modal-title-ajax">Caisse "inactive": effacer</h4>
+          <h4 class="text-danger " id="modal-title-ajax">Caisse "inactive": supprimer</h4>
           
         
           
-  Êtes-vous sûr ?
-  <br/>
+  
+
+  
+
+  
+
+
 
         </div>
         <div class="modal-footer">
           
     
-    <button class="btn btn-primary" type="submit">Effacer</button>
+    <button class="btn btn-primary" type="submit">Supprimer</button>
 
         </div>
       
-    <input name="_next" type="hidden" value=""/></form>
+  </form>
 
 </div>
 

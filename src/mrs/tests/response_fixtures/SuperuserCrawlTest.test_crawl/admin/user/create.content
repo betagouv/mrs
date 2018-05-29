@@ -8,10 +8,14 @@
         <div class="modal-content">
         
           
-          <h4 class="text-success hide-in-modal" id="modal-title-ajax">Utilisateur: ajouter</h4>
+          <h4 class="text-success " id="modal-title-ajax">Utilisateur: create</h4>
           
         
           
+  
+
+  
+
   
 <div class="row">
     <div class="input-field col s12 required" id="id_username_container">
@@ -79,11 +83,11 @@
         <div class="modal-footer">
           
     
-    <button class="btn btn-primary" type="submit">Ajouter</button>
+    <button class="btn btn-primary" type="submit">Create</button>
 
         </div>
       
-    <input name="_next" type="hidden" value=""/></form>
+  </form>
 
 </div>
 

@@ -180,15 +180,24 @@ class MRSRequestCreateView(generic.TemplateView):
         ]
 
 
-class MRSRequestAdminBaseView(crudlfap.UpdateView):
-    menus = ['object_detail']
+class MRSRequestStatusMixin:
+    controller = 'modal'
+    action = 'click->modal#open'
 
-    def form_valid(self, form):
-        self.object.status = self.log_action_flag
-        self.object.status_datetime = timezone.now()
-        self.object.status_user = self.request.user
-        self.object.save()
-        return super().form_valid(form)
+    def update_status(self, mrsrequest=None):
+        mrsrequest = mrsrequest or self.object
+        mrsrequest.status = self.log_action_flag
+        mrsrequest.status_datetime = timezone.now()
+        mrsrequest.status_user = self.request.user
+        mrsrequest.save()
+
+    def form_valid(self):
+        if hasattr(self, 'object'):
+            self.update_status()
+        else:
+            for obj in self.object_list:
+                self.update_status(obj)
+        return super().form_valid()
 
     def get_log_message(self):
         for flag, label in self.model.STATUS_CHOICES:
@@ -196,71 +205,81 @@ class MRSRequestAdminBaseView(crudlfap.UpdateView):
                 return label
 
 
-class MRSRequestValidateView(MRSRequestAdminBaseView):
+class MRSRequestValidateMixin(MRSRequestStatusMixin):
     form_class = MRSRequestForm
-    template_name = 'mrsrequest/mrsrequest_validate.html'
     view_label = 'Valider'
     material_icon = 'check_circle'
     color = 'green'
     log_action_flag = MRSRequest.STATUS_VALIDATED
-    body_class = 'modal-fixed-footer'
+    short_permission_code = 'validate'
+
+    def mail_render(self, destination, part, mrsrequest=None):
+        mrsrequest = mrsrequest or self.object
+        return template.loader.get_template(
+            'mrsrequest/{}_validation_mail_{}.txt'.format(
+                destination, part
+            )
+        ).render(dict(object=mrsrequest or self.object)).strip()
+
+    def mail_insured(self, mrsrequest=None):
+        mrsrequest = mrsrequest or self.object
+        email = EmailMessage(
+            self.mail_render('insured', 'title', mrsrequest),
+            self.mail_render('insured', 'body', mrsrequest),
+            settings.DEFAULT_FROM_EMAIL,
+            [(mrsrequest or self.object).insured.email],
+        )
+        email.send()
+
+    def mail_liquidation(self, mrsrequest=None):
+        mrsrequest = mrsrequest or self.object
+        email = EmailMessage(
+            self.mail_render('liquidation', 'title', mrsrequest),
+            self.mail_render('liquidation', 'body', mrsrequest),
+            settings.DEFAULT_FROM_EMAIL,
+            [mrsrequest.caisse.liquidation_email],
+            reply_to=[settings.TEAM_EMAIL],
+            attachments=[mrsrequest.pmt.tuple()] + [
+                bill.tuple() for bill in mrsrequest.bill_set.all()
+            ]
+        )
+        email.send()
+
+
+class MRSRequestValidateView(MRSRequestValidateMixin, crudlfap.ObjectFormView):
     menus = ['object', 'object_detail']
+    template_name = 'mrsrequest/mrsrequest_validate.html'
+    body_class = 'modal-fixed-footer'
 
     def get_allowed(self):
         if super().get_allowed():
             return self.object.status == self.model.STATUS_INPROGRESS
 
-    def render_mail_template(self, template_name):
-        return template.loader.get_template(
-            template_name
-        ).render(dict(object=self.object)).strip()
-
-    def get_insured_mail_body(self):
-        return self.render_mail_template(
-            'mrsrequest/insured_validation_mail_body.txt')
-
-    def get_insured_mail_title(self):
-        return self.render_mail_template(
-            'mrsrequest/insured_validation_mail_title.txt')
-
-    def get_liquidation_mail_body(self):
-        return self.render_mail_template(
-            'mrsrequest/liquidation_validation_mail_body.txt')
-
-    def get_liquidation_mail_title(self):
-        return self.render_mail_template(
-            'mrsrequest/liquidation_validation_mail_title.txt')
-
     def get_form_valid_message(self):
         return 'Demande n°{} validée'.format(self.object.display_id)
 
-    def form_valid(self, form):
-        resp = super().form_valid(form)
-
-        email = EmailMessage(
-            self.get_insured_mail_title(),
-            self.get_insured_mail_body(),
-            settings.DEFAULT_FROM_EMAIL,
-            [self.object.insured.email],
-        )
-        email.send()
-
-        email = EmailMessage(
-            self.get_liquidation_mail_title(),
-            self.get_liquidation_mail_body(),
-            settings.DEFAULT_FROM_EMAIL,
-            [self.object.caisse.liquidation_email],
-            reply_to=[settings.TEAM_EMAIL],
-            attachments=[self.object.pmt.tuple()] + [
-                bill.tuple() for bill in self.object.bill_set.all()
-            ]
-        )
-        email.send()
-
+    def form_valid(self):
+        resp = super().form_valid()
+        self.mail_insured()
+        self.mail_liquidation()
         return resp
 
 
-class MRSRequestRejectView(MRSRequestAdminBaseView):
+class MRSRequestValidateObjectsView(
+        MRSRequestValidateMixin, crudlfap.ObjectsFormView):
+
+    def get_form_valid_message(self):
+        return '{} demandes validée'.format(len(self.object_list))
+
+    def form_valid(self):
+        resp = super().form_valid()
+        for obj in self.object_list:
+            self.mail_insured(obj)
+            self.mail_liquidation(obj)
+        return resp
+
+
+class MRSRequestRejectView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
     form_class = MRSRequestRejectForm
     template_name = 'mrsrequest/mrsrequest_reject.html'
     view_label = 'Rejeter'
@@ -268,11 +287,13 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
     color = 'red'
     log_action_flag = MRSRequest.STATUS_REJECTED
     body_class = 'modal-fixed-footer'
+    menus = ['object_detail']
 
     def get_allowed(self):
         if super().get_allowed():
             return self.object.status in (
-                self.model.STATUS_NEW, self.model.STATUS_INPROGRESS)
+                self.model.STATUS_NEW, self.model.STATUS_INPROGRESS
+            )
 
     def reject_templates_json(self):
         context = template.Context({'display_id': self.object.display_id})
@@ -284,16 +305,16 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         }
         return json.dumps(templates)
 
-    def form_valid(self, form):
+    def form_valid(self):
         # set before calling super()
-        self.log_message = str(form.cleaned_data['template'])
-        self.object.reject_template = form.cleaned_data['template']
-        resp = super().form_valid(form)
+        self.log_message = str(self.form.cleaned_data['template'])
+        self.object.reject_template = self.form.cleaned_data['template']
+        resp = super().form_valid()
         self.object.save()
 
         email = EmailMessage(
-            form.cleaned_data['subject'],
-            form.cleaned_data['body'],
+            self.form.cleaned_data['subject'],
+            self.form.cleaned_data['body'],
             settings.DEFAULT_FROM_EMAIL,
             [self.object.insured.email],
             reply_to=[settings.TEAM_EMAIL],
@@ -306,7 +327,7 @@ class MRSRequestRejectView(MRSRequestAdminBaseView):
         return 'Demande n°{} rejetée'.format(self.object.display_id)
 
 
-class MRSRequestProgressView(MRSRequestAdminBaseView):
+class MRSRequestProgressView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
     form_class = MRSRequestForm
     template_name = 'mrsrequest/mrsrequest_progress.html'
     view_label = 'En cours de liquidation'
@@ -314,6 +335,8 @@ class MRSRequestProgressView(MRSRequestAdminBaseView):
     material_icon = 'playlist_add_check'
     color = 'green'
     log_action_flag = MRSRequest.STATUS_INPROGRESS
+    short_permission_code = 'inprogress'
+    menus = ['object_detail']
 
     def get_allowed(self):
         if super().get_allowed():

@@ -4,13 +4,14 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
-    filename: '[name].[contenthash].css',
+    filename: '[name].[hash].css',
 })
 
 var production = process.env.NODE_ENV == 'production'
 
 var cfg = {
   context: __dirname,
+  mode: production ? 'production' : 'development',
 
   /*
     pages:

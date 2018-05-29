@@ -10,7 +10,7 @@
     <link rel="canonical" href="/admin/" />
     <link rel="icon" href="/static/favicon.ico">
 
-    <title>Accueil - MRS Admin</title>
+    <title>Dashboard - MRS Admin</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fengyuanchen.github.io/viewerjs/css/viewer.css" />
@@ -62,16 +62,16 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/institution"
-                      title="Établissements: liste"
-                    ><i class="material-icons">list</i>Liste</a>
+                      title="Établissements: list"
+                    ><i class="material-icons">list</i>List</a>
                   </li>
                 
                   <li>
                     <a
                       class="waves-effect"
                       href="/admin/institution/create"
-                      title="Établissement: ajouter"
-                    ><i class="material-icons">add</i>Ajouter</a>
+                      title="Établissement: create"
+                    ><i class="material-icons">add</i>Create</a>
                   </li>
                 
               </ul>
@@ -89,8 +89,8 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/mrsrequest"
-                      title="Demandes: liste"
-                    ><i class="material-icons">list</i>Liste</a>
+                      title="Demandes: list"
+                    ><i class="material-icons">list</i>List</a>
                   </li>
                 
               </ul>
@@ -108,16 +108,16 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/emailtemplate"
-                      title="Modèles d&#39;emails: liste"
-                    ><i class="material-icons">list</i>Liste</a>
+                      title="Modèles d&#39;emails: list"
+                    ><i class="material-icons">list</i>List</a>
                   </li>
                 
                   <li>
                     <a
                       class="waves-effect"
                       href="/admin/emailtemplate/create"
-                      title="Modèle d&#39;email: ajouter"
-                    ><i class="material-icons">add</i>Ajouter</a>
+                      title="Modèle d&#39;email: create"
+                    ><i class="material-icons">add</i>Create</a>
                   </li>
                 
               </ul>
@@ -135,16 +135,16 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/user/create"
-                      title="Utilisateur: ajouter"
-                    ><i class="material-icons">add</i>Ajouter</a>
+                      title="Utilisateur: create"
+                    ><i class="material-icons">add</i>Create</a>
                   </li>
                 
                   <li>
                     <a
                       class="waves-effect"
                       href="/admin/user"
-                      title="Utilisateurs: liste"
-                    ><i class="material-icons">list</i>Liste</a>
+                      title="Utilisateurs: list"
+                    ><i class="material-icons">list</i>List</a>
                   </li>
                 
               </ul>
@@ -162,16 +162,16 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/caisse/create"
-                      title="Caisse: ajouter"
-                    ><i class="material-icons">add</i>Ajouter</a>
+                      title="Caisse: create"
+                    ><i class="material-icons">add</i>Create</a>
                   </li>
                 
                   <li>
                     <a
                       class="waves-effect"
                       href="/admin/caisse"
-                      title="Caisses: liste"
-                    ><i class="material-icons">list</i>Liste</a>
+                      title="Caisses: list"
+                    ><i class="material-icons">list</i>List</a>
                   </li>
                 
               </ul>
@@ -187,8 +187,8 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/email"
-                      title="Emails: liste"
-                    ><i class="material-icons">list</i>Liste</a>
+                      title="Emails: list"
+                    ><i class="material-icons">list</i>List</a>
                   </li>
                 
               </ul>
@@ -276,7 +276,6 @@ textarea {
         <div class="card-panel">
             <h5>Demandes en cours de liquidation</h5>
             
-    
 
 
 <div class="table-container">
@@ -286,6 +285,22 @@ textarea {
             
                 <thead>
                     <tr>
+                    
+                        <th >
+                            
+                                
+            <label>
+                <input
+                    type="checkbox"
+                    data-controller="listaction"
+                    data-action="change->listaction#selectAllChange"
+                    data-master="1"
+                />
+                <span></span>
+            </label>
+        
+                            
+                        </th>
                     
                         <th class="orderable">
                             
@@ -362,7 +377,6 @@ textarea {
 </div>
 
 
-    
         </div>
     </div>
 </div>
@@ -378,7 +392,38 @@ textarea {
     <div id="modal" class="modal modal-fixed-footer"></div>
 
     
+
+    <div class="fixed-actions">
+      
+    </div>
+    
+<div style="display: none" class="bottom center-align" id="listaction">
+  
+    
+      
+        <a
+    class="btn waves-effect waves-light green"
+    href="/admin/mrsrequest/validateobjects"
+    title="Demandes: valider"
+    
+      data-listaction="urlupdate"
     
     
+    data-controller="modal"
+    
+    
+    data-action="click-&gt;modal#open"
+    
+    >
+    <i class="left material-icons">check_circle</i>
+    
+    Valider
+    
+  </a>
+      
+    
+  
+</div>
+
   </body>
 </html>

@@ -3,7 +3,7 @@
         <div class="modal-content">
         
           
-          <h4 class="text-default hide-in-modal" id="modal-title-ajax">Caisses</h4>
+          <h4 class="text-default " id="modal-title-ajax">Caisses</h4>
           
         
           
@@ -48,7 +48,6 @@
     <div class="card-panel">
       <div class="table-container">
         
-    
 
 
 <div class="table-container">
@@ -116,29 +115,47 @@
                             <td>0</td>
                         
                             <td>
-  
-    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-1" title="Actions"><i class="material-icons">menu</i></a>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-1" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
 
-    <ul class="dropdown-content" id="row-actions-1">
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/delete" title='Caisse "aaaaaaa": effacer'><i class="red-text material-icons">delete</i> Effacer
-          </a>
-      </li>
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/update" title='Caisse "aaaaaaa": modifier'><i class="orange-text material-icons">edit</i> Modifier
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/caisse/1" title="aaaaaaa"><i class="blue-text material-icons">search</i> Detail
-          </a>
-      </li>
-      
-    </ul>
+      <ul class="dropdown-content" id="row-actions-1">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/delete?_next=/admin/caisse" title='Caisse "aaaaaaa": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/update?_next=/admin/caisse" title='Caisse "aaaaaaa": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/caisse/1?_next=/admin/caisse" title="aaaaaaa">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
   
-</td>
+                </td>
                         
                     </tr>
                     
@@ -157,29 +174,47 @@
                             <td>0</td>
                         
                             <td>
-  
-    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-2" title="Actions"><i class="material-icons">menu</i></a>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-2" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
 
-    <ul class="dropdown-content" id="row-actions-2">
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/delete" title='Caisse "bbbb": effacer'><i class="red-text material-icons">delete</i> Effacer
-          </a>
-      </li>
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/update" title='Caisse "bbbb": modifier'><i class="orange-text material-icons">edit</i> Modifier
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/caisse/2" title="bbbb"><i class="blue-text material-icons">search</i> Detail
-          </a>
-      </li>
-      
-    </ul>
+      <ul class="dropdown-content" id="row-actions-2">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/delete?_next=/admin/caisse" title='Caisse "bbbb": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/update?_next=/admin/caisse" title='Caisse "bbbb": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/caisse/2?_next=/admin/caisse" title="bbbb">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
   
-</td>
+                </td>
                         
                     </tr>
                     
@@ -198,29 +233,47 @@
                             <td>2</td>
                         
                             <td>
-  
-    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-3" title="Actions"><i class="material-icons">menu</i></a>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-3" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
 
-    <ul class="dropdown-content" id="row-actions-3">
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/delete" title='Caisse "inactive": effacer'><i class="red-text material-icons">delete</i> Effacer
-          </a>
-      </li>
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update" title='Caisse "inactive": modifier'><i class="orange-text material-icons">edit</i> Modifier
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/caisse/3" title="inactive"><i class="blue-text material-icons">search</i> Detail
-          </a>
-      </li>
-      
-    </ul>
+      <ul class="dropdown-content" id="row-actions-3">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/delete?_next=/admin/caisse" title='Caisse "inactive": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update?_next=/admin/caisse" title='Caisse "inactive": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/caisse/3?_next=/admin/caisse" title="inactive">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
   
-</td>
+                </td>
                         
                     </tr>
                     
@@ -237,7 +290,6 @@
 </div>
 
 
-    
       </div>
       
     </div>

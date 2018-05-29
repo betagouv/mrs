@@ -10,7 +10,7 @@
     <link rel="canonical" href="/admin/" />
     <link rel="icon" href="/static/favicon.ico">
 
-    <title>Accueil - MRS Admin</title>
+    <title>Dashboard - MRS Admin</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fengyuanchen.github.io/viewerjs/css/viewer.css" />
@@ -62,8 +62,8 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/mrsrequest"
-                      title="Demandes: liste"
-                    ><i class="material-icons">list</i>Liste</a>
+                      title="Demandes: list"
+                    ><i class="material-icons">list</i>List</a>
                   </li>
                 
               </ul>
@@ -147,7 +147,6 @@ textarea {
         <div class="card-panel">
             <h5>Demandes en cours de liquidation</h5>
             
-    
 
 
 <div class="table-container">
@@ -157,6 +156,22 @@ textarea {
             
                 <thead>
                     <tr>
+                    
+                        <th >
+                            
+                                
+            <label>
+                <input
+                    type="checkbox"
+                    data-controller="listaction"
+                    data-action="change->listaction#selectAllChange"
+                    data-master="1"
+                />
+                <span></span>
+            </label>
+        
+                            
+                        </th>
                     
                         <th class="orderable">
                             
@@ -233,7 +248,6 @@ textarea {
 </div>
 
 
-    
         </div>
     </div>
 </div>
@@ -249,7 +263,38 @@ textarea {
     <div id="modal" class="modal modal-fixed-footer"></div>
 
     
+
+    <div class="fixed-actions">
+      
+    </div>
+    
+<div style="display: none" class="bottom center-align" id="listaction">
+  
+    
+      
+        <a
+    class="btn waves-effect waves-light green"
+    href="/admin/mrsrequest/validateobjects"
+    title="Demandes: valider"
+    
+      data-listaction="urlupdate"
     
     
+    data-controller="modal"
+    
+    
+    data-action="click-&gt;modal#open"
+    
+    >
+    <i class="left material-icons">check_circle</i>
+    
+    Valider
+    
+  </a>
+      
+    
+  
+</div>
+
   </body>
 </html>

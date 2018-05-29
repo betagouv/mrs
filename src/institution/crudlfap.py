@@ -8,7 +8,7 @@ crudlfap.Router(
     material_icon='local_hospital',
     namespace='institutionrouter',
     views=[
-        crudlfap.FilterTables2ListView(
+        crudlfap.ListView(
             table_sequence=('finess', 'origin')
         ),
         crudlfap.CreateView,

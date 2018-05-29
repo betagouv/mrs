@@ -1,0 +1,89 @@
+<div class="container" id="modal-body-ajax">
+      
+
+<div class="card-panel">
+
+<form action="/admin/caisse/create?_next=/admin/caisse" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="form-object-caisse" method="post">
+
+        <div class="modal-content">
+        
+          
+          <h4 class="text-success " id="modal-title-ajax">Caisse: create</h4>
+          
+        
+          
+  
+
+  
+
+  
+<div class="row">
+    <div class="input-field col s12 required" id="id_code_container">
+        <input id="id_code" maxlength="9" name="code" type="text"/>
+        <label for="id_code">Code</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_name_container">
+        <input id="id_name" maxlength="50" name="name" type="text"/>
+        <label for="id_name">Nom</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_number_container">
+        <input id="id_number" maxlength="3" name="number" type="text"/>
+        <label for="id_number">Numéro</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12" id="id_liquidation_email_container">
+        <input id="id_liquidation_email" maxlength="254" name="liquidation_email" type="email"/>
+        <label for="id_liquidation_email">Email du service de liquidation</label>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="checkbox-field col s12" id="id_active_container">
+        <label>
+        <input class="filled-in " id="id_active" name="active" type="checkbox"/><span for="id_active">Activé</span></label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_score_container">
+        <input id="id_score" min="0" name="score" type="number" value="0"/>
+        <label class="active" for="id_score">Score</label>
+        
+    </div>
+</div>
+
+
+        </div>
+        <div class="modal-footer">
+          
+    
+    <button class="btn btn-primary" type="submit">Create</button>
+
+        </div>
+      
+  
+    <input name="_next" type="hidden" value="/admin/caisse"/>
+  </form>
+
+</div>
+
+
+
+    </div>

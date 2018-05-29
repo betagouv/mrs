@@ -3,7 +3,7 @@
         <div class="modal-content">
         
           
-          <h4 class="text-default hide-in-modal" id="modal-title-ajax">Demandes</h4>
+          <h4 class="text-default " id="modal-title-ajax">Demandes</h4>
           
         
           
@@ -60,7 +60,6 @@
     <div class="card-panel">
       <div class="table-container">
         
-    
 
 
 <div class="table-container">
@@ -70,6 +69,17 @@
             
                 <thead>
                     <tr>
+                    
+                        <th>
+                            
+                                
+            <label>
+                <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
+                <span></span>
+            </label>
+        
+                            
+                        </th>
                     
                         <th class="orderable">
                             
@@ -135,6 +145,8 @@
                     
                     <tr class="even">
                         
+                            <td></td>
+                        
                             <td>1 mai 2018 19:10</td>
                         
                             <td>
@@ -154,13 +166,20 @@
                             <td>aaaaaaa</td>
                         
                             <td>
-  
+                
+                
     
-     <a class="btn btn-floating blue" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae" title="201805010000"><i class="material-icons">search</i>
-     </a>
+      
+        <a class="btn-floating red blue" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae?_next=/admin/mrsrequest" title="201805010000">
+    <i class=" material-icons">search</i>
+    
+    Detail
+    
+  </a>
+      
     
   
-</td>
+                </td>
                         
                     </tr>
                     
@@ -177,7 +196,6 @@
 </div>
 
 
-    
       </div>
       
     </div>

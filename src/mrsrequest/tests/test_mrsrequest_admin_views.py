@@ -101,8 +101,8 @@ def test_get_200_for_caisse_staff(v, ur, mrsrequest):
 
 @pytest.mark.django_db
 def test_validate_get_fail_if_not_inprogress(ur, mrsrequest):
-    response = view('validate')(ur(caisse=mrsrequest.caisse), pk=mrsrequest.pk)
-    assert response.status_code == 403
+    with pytest.raises(http.Http404):
+        view('validate')(ur(caisse=mrsrequest.caisse), pk=mrsrequest.pk)
 
 
 @pytest.mark.django_db
@@ -116,7 +116,8 @@ def test_progress_post_fails_for_non_caisse_staff(ur, mrsrequest):
 def test_progress_validate_success(ur, mrsrequest):
     request = ur('post', caisse=mrsrequest.caisse)
     view('progress')(request, pk=mrsrequest.pk)
-    assert view('progress')(request, pk=mrsrequest.pk).status_code == 403
+    with pytest.raises(http.Http404):
+        view('progress')(request, pk=mrsrequest.pk)
 
     # test in_status_by
     result = list(MRSRequest.objects.all().in_status_by(
@@ -133,7 +134,8 @@ def test_progress_validate_success(ur, mrsrequest):
     ).assertNoDiff()
 
     for v in ('progress', 'reject', 'validate'):
-        assert view(v)(request, pk=mrsrequest.pk).status_code == 403
+        with pytest.raises(http.Http404):
+            view(v)(request, pk=mrsrequest.pk)
 
 
 @freeze_time('3000-12-31 13:37:42')
@@ -141,7 +143,8 @@ def test_progress_validate_success(ur, mrsrequest):
 def test_progress_reject_success(ur, mrsrequest, emailtemplate):
     request = ur('post', caisse=mrsrequest.caisse)
     view('progress')(request, pk=mrsrequest.pk)
-    assert view('progress')(request, pk=mrsrequest.pk).status_code == 403
+    with pytest.raises(http.Http404):
+        view('progress')(request, pk=mrsrequest.pk)
 
     request.POST = dict(
         template=emailtemplate.pk,
@@ -157,4 +160,5 @@ def test_progress_reject_success(ur, mrsrequest, emailtemplate):
     ).assertNoDiff()
 
     for v in ('progress', 'reject', 'validate'):
-        assert view(v)(request, pk=mrsrequest.pk).status_code == 403
+        with pytest.raises(http.Http404):
+            view(v)(request, pk=mrsrequest.pk)
