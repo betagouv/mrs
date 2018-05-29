@@ -3,7 +3,7 @@
         <div class="modal-content">
         
           
-          <h4 class="text-default hide-in-modal" id="modal-title-ajax">Utilisateurs</h4>
+          <h4 class="text-default " id="modal-title-ajax">Utilisateurs</h4>
           
         
           
@@ -107,7 +107,6 @@
     <div class="card-panel">
       <div class="table-container">
         
-    
 
 
 <div class="table-container">
@@ -117,6 +116,17 @@
             
                 <thead>
                     <tr>
+                    
+                        <th>
+                            
+                                
+            <label>
+                <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
+                <span></span>
+            </label>
+        
+                            
+                        </th>
                     
                         <th>
                             
@@ -182,6 +192,13 @@
                     
                     <tr class="even">
                         
+                            <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="1" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+                        
                             <td>-</td>
                         
                             <td><span class="true">✔</span></td>
@@ -199,40 +216,69 @@
                             <td><span class="true">✔</span></td>
                         
                             <td>
-  
-    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-1" title="Actions"><i class="material-icons">menu</i></a>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-1" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
 
-    <ul class="dropdown-content" id="row-actions-1">
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update" title='Utilisateur "test": modifier'><i class="orange-text material-icons">edit</i> Modifier
-          </a>
-      </li>
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password" title='Utilisateur "test": mot de passe'><i class="purple-text darken-4-text material-icons">vpn_key</i> Mot de passe
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/user/test/su" title='Utilisateur "test": su'><i class="pink-text darken-4-text material-icons">attach_money</i> Become
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/user/test" title="test"><i class="blue-text material-icons">search</i> Detail
-          </a>
-      </li>
-      
-    </ul>
+      <ul class="dropdown-content" id="row-actions-1">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update?_next=/admin/user" title='Utilisateur "test": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password?_next=/admin/user" title='Utilisateur "test": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/test/su?_next=/admin/user" title='Utilisateur "test": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Become
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/test?_next=/admin/user" title="test">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
   
-</td>
+                </td>
                         
                     </tr>
                     
                 
                     
                     <tr class="odd">
+                        
+                            <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="2" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
                         
                             <td>aaaaaaa</td>
                         
@@ -251,40 +297,69 @@
                             <td><span class="false">✘</span></td>
                         
                             <td>
-  
-    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-2" title="Actions"><i class="material-icons">menu</i></a>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-2" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
 
-    <ul class="dropdown-content" id="row-actions-2">
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/update" title='Utilisateur "a": modifier'><i class="orange-text material-icons">edit</i> Modifier
-          </a>
-      </li>
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/password" title='Utilisateur "a": mot de passe'><i class="purple-text darken-4-text material-icons">vpn_key</i> Mot de passe
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/user/a/su" title='Utilisateur "a": su'><i class="pink-text darken-4-text material-icons">attach_money</i> Become
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/user/a" title="a"><i class="blue-text material-icons">search</i> Detail
-          </a>
-      </li>
-      
-    </ul>
+      <ul class="dropdown-content" id="row-actions-2">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/update?_next=/admin/user" title='Utilisateur "a": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/password?_next=/admin/user" title='Utilisateur "a": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/a/su?_next=/admin/user" title='Utilisateur "a": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Become
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/a?_next=/admin/user" title="a">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
   
-</td>
+                </td>
                         
                     </tr>
                     
                 
                     
                     <tr class="even">
+                        
+                            <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="3" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
                         
                             <td>bbbb</td>
                         
@@ -303,34 +378,56 @@
                             <td><span class="false">✘</span></td>
                         
                             <td>
-  
-    <a class="dropdown-trigger no-autoinit btn btn-floating red" data-target="row-actions-3" title="Actions"><i class="material-icons">menu</i></a>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-3" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
 
-    <ul class="dropdown-content" id="row-actions-3">
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/update" title='Utilisateur "b": modifier'><i class="orange-text material-icons">edit</i> Modifier
-          </a>
-      </li>
-      
-      <li>
-          <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/password" title='Utilisateur "b": mot de passe'><i class="purple-text darken-4-text material-icons">vpn_key</i> Mot de passe
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/user/b/su" title='Utilisateur "b": su'><i class="pink-text darken-4-text material-icons">attach_money</i> Become
-          </a>
-      </li>
-      
-      <li>
-          <a href="/admin/user/b" title="b"><i class="blue-text material-icons">search</i> Detail
-          </a>
-      </li>
-      
-    </ul>
+      <ul class="dropdown-content" id="row-actions-3">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/update?_next=/admin/user" title='Utilisateur "b": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/password?_next=/admin/user" title='Utilisateur "b": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/b/su?_next=/admin/user" title='Utilisateur "b": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Become
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/b?_next=/admin/user" title="b">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
   
-</td>
+                </td>
                         
                     </tr>
                     
@@ -347,7 +444,6 @@
 </div>
 
 
-    
       </div>
       
     </div>

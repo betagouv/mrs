@@ -3,7 +3,7 @@
         <div class="modal-content">
         
           
-          <h4 class="text-default hide-in-modal" id="modal-title-ajax">Demandes</h4>
+          <h4 class="text-default " id="modal-title-ajax">Demandes</h4>
           
         
           
@@ -50,18 +50,6 @@
         
     </div>
 </div>
- 
-<div class="row">
-    <div class="select-field col s12" id="id_caisse_container">
-        <label for="id_caisse">Caisse</label>
-        <select id="id_caisse" name="caisse">
-            <option value="">---------</option>
-            <option value="1">aaaaaaa</option>
-            <option value="2">bbbb</option>
-        </select>
-        
-    </div>
-</div>
 
       </form>
     </div>
@@ -72,7 +60,6 @@
     <div class="card-panel">
       <div class="table-container">
         
-    
 
 
 <div class="table-container">
@@ -82,6 +69,17 @@
             
                 <thead>
                     <tr>
+                    
+                        <th>
+                            
+                                
+            <label>
+                <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
+                <span></span>
+            </label>
+        
+                            
+                        </th>
                     
                         <th class="orderable">
                             
@@ -158,7 +156,6 @@
 </div>
 
 
-    
       </div>
       
     </div>

@@ -7,7 +7,7 @@ import django_tables2 as tables
 from .models import EmailTemplate
 
 
-class EmailTemplateListView(crudlfap.FilterTables2ListView):
+class EmailTemplateListView(crudlfap.ListView):
     table_sequence = (
         'name',
         'subject',

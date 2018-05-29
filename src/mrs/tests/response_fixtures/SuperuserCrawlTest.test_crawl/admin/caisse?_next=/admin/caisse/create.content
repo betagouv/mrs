@@ -1,0 +1,305 @@
+<div class="container" id="modal-body-ajax">
+      
+        <div class="modal-content">
+        
+          
+          <h4 class="text-default " id="modal-title-ajax">Caisses</h4>
+          
+        
+          
+<style type="text/css">
+#render-table .table-container .pagination { display: none; }
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m3">
+    <div class="card-panel">
+      <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+        
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+        
+<div class="row">
+    <div class="select-field col s12" id="id_active_container">
+        <label for="id_active">Activé</label>
+        <select id="id_active" name="active">
+            <option selected="selected" value="1">Inconnu</option>
+            <option value="2">Oui</option>
+            <option value="3">Non</option>
+        </select>
+        
+    </div>
+</div>
+
+      </form>
+    </div>
+  </div>
+  
+
+  <div class="table-responsive col s12 m9" id="render-table">
+    <div class="card-panel">
+      <div class="table-container">
+        
+
+
+<div class="table-container">
+    
+        <table>
+            
+            
+                <thead>
+                    <tr>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=code">Code</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=name">Nom</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=number">Numéro</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=active">Activé</a>
+                            
+                        </th>
+                    
+                        <th class="orderable">
+                            
+                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=score">Score</a>
+                            
+                        </th>
+                    
+                        <th>
+                            
+                                Actions
+                            
+                        </th>
+                    
+                    </tr>
+                </thead>
+            
+            
+            
+                <tbody>
+                
+                    
+                    <tr class="even">
+                        
+                            <td><a href="/admin/caisse/1">111111111</a></td>
+                        
+                            <td>aaaaaaa</td>
+                        
+                            <td>111</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td>0</td>
+                        
+                            <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-1" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-1">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/delete?_next=/admin/caisse" title='Caisse "aaaaaaa": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/update?_next=/admin/caisse" title='Caisse "aaaaaaa": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/caisse/1?_next=/admin/caisse" title="aaaaaaa">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+                        
+                    </tr>
+                    
+                
+                    
+                    <tr class="odd">
+                        
+                            <td><a href="/admin/caisse/2">222222222</a></td>
+                        
+                            <td>bbbb</td>
+                        
+                            <td>222</td>
+                        
+                            <td><span class="true">✔</span></td>
+                        
+                            <td>0</td>
+                        
+                            <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-2" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-2">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/delete?_next=/admin/caisse" title='Caisse "bbbb": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/update?_next=/admin/caisse" title='Caisse "bbbb": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/caisse/2?_next=/admin/caisse" title="bbbb">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+                        
+                    </tr>
+                    
+                
+                    
+                    <tr class="even">
+                        
+                            <td><a href="/admin/caisse/3">333333333</a></td>
+                        
+                            <td>inactive</td>
+                        
+                            <td>333</td>
+                        
+                            <td><span class="false">✘</span></td>
+                        
+                            <td>2</td>
+                        
+                            <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-3" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-3">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/delete?_next=/admin/caisse" title='Caisse "inactive": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update?_next=/admin/caisse" title='Caisse "inactive": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/caisse/3?_next=/admin/caisse" title="inactive">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+                        
+                    </tr>
+                    
+                
+                </tbody>
+            
+            
+            
+            
+        </table>
+    
+
+    
+</div>
+
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
+
+    </div>

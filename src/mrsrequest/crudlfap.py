@@ -6,11 +6,12 @@ from .views import (
     MRSRequestRejectView,
     MRSRequestProgressView,
     MRSRequestValidateView,
+    MRSRequestValidateObjectsView,
 )
 from .models import MRSRequest
 
 
-class MRSRequestListView(crudlfap.FilterTables2ListView):
+class MRSRequestListView(crudlfap.ListView):
     def get_filter_fields(self):
         filter_fields = [
             'status',
@@ -73,16 +74,24 @@ class MRSRequestListView(crudlfap.FilterTables2ListView):
         'caisse__code',
     )
 
+    def get_table_meta_checkbox_column_template(self):
+        return ''.join([
+            '{% if record.status == record.STATUS_INPROGRESS %}',
+            super().get_table_meta_checkbox_column_template(),
+            '{% endif %}',
+        ])
+
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.select_related('caisse', 'insured')
-        return qs
+        self.queryset = qs.select_related('caisse', 'insured')
+        return self.queryset
 
 
 class MRSRequestRouter(crudlfap.Router):
     model = MRSRequest
     material_icon = 'insert_drive_file'
     views = [
+        MRSRequestValidateObjectsView,
         crudlfap.DeleteView,
         crudlfap.DetailView.clone(locks=True, title_heading=None),
         MRSRequestValidateView,
@@ -95,7 +104,10 @@ class MRSRequestRouter(crudlfap.Router):
         user = view.request.user
 
         if not (user.is_staff or user.is_superuser):
-            return False
+            return False  # require superuser attribute
+
+        if view.urlname in ('list', 'validateobjects'):
+            return True  # secure by get_objects_for_user below
 
         if view.urlname == 'delete':
             return user.is_superuser
@@ -105,16 +117,24 @@ class MRSRequestRouter(crudlfap.Router):
                 return True
             return view.object.caisse in user.caisses.all()
 
-        if view.urlname == 'list':
-            return True
-
     def get_objects_for_user(self, user, perms):
         if not (user.is_staff or user.is_superuser):
             return self.model.objects.none()
 
         if user.is_superuser:
-            return self.model.objects.all()
+            qs = self.model.objects.all()
+        else:
+            qs = self.model.objects.filter(caisse__in=user.caisses.all())
 
-        return self.model.objects.filter(caisse__in=user.caisses.all())
+        if 'mrsrequest.inprogress_mrsrequest' in perms:
+            qs = qs.status('new')
+        elif 'mrsrequest.validate_mrsrequest' in perms:
+            qs = qs.status('inprogress')
+        elif 'mrsrequest.reject_mrsrequest' in perms:
+            qs = qs.filter(status__in=(
+                self.model.STATUS_NEW, self.model.STATUS_INPROGRESS
+            ))
+
+        return qs
 
 MRSRequestRouter(namespace='mrsrequestrouter').register()

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% import 'crudlfap.html' as crudlfap %}
+
 {% block content_open %}<div style="padding: 0 24px" id="modal-body-ajax">{% endblock %}
 
 {% block content %}
@@ -52,8 +54,21 @@
     <div class="col m9 s12">
         <div class="card-panel">
             <h5>Demandes en cours de liquidation</h5>
-            {{ render_table(request, view.table, view.queryset) }}
+            {{ view.table.as_html(view.request) }}
         </div>
     </div>
+</div>
+{% endblock %}
+
+{% block after_container %}
+{{ super() }}
+<div style="display: none" class="bottom center-align" id="listaction">
+  {{ crudlfap.dropdown(
+    view.listactions,
+    'listaction-dropdown',
+    class='btn waves-effect waves-light',
+    text='select',
+    iclass='left',
+  ) }}
 </div>
 {% endblock %}

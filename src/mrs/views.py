@@ -14,17 +14,24 @@ class Dashboard(crudlfap.TemplateView):
     template_name = 'crudlfap/home.html'
     model = MRSRequest
 
-    def get_queryset(self):
-        return crudlfap.site[self.model].get_objects_for_user(
-            self.request.user, [])
-
-    def get_table(self):
-        list_view = crudlfap.site['mrsrequest.MRSRequest'].views['list'].clone(
+    def get_listview(self):
+        router = crudlfap.site['mrsrequest.MRSRequest']
+        self.listview = router.views['list'].clone(
             request=self.request,
             object_list=self.queryset.in_status_by(
                 'inprogress', self.request.user),
-        )
-        return list_view().table
+        )()
+        return self.listview
+
+    def get_listactions(self):
+        return self.listview.listactions
+
+    def get_table(self):
+        return self.listview.table
+
+    def get_queryset(self):
+        return crudlfap.site[self.model].get_objects_for_user(
+            self.request.user, [])
 
 
 class LegalView(generic.TemplateView):

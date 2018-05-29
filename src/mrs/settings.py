@@ -15,6 +15,7 @@ import os
 from crudlfap.settings import (
     CRUDLFAP_APPS,
     CRUDLFAP_TEMPLATE_BACKEND,
+    DJANGO_APPS,
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -54,13 +55,7 @@ INSTALLED_APPS = [
 
     os.getenv('WEBPACK_LOADER', 'webpack_loader'),
     'django_humanize',
-
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-] + CRUDLFAP_APPS
+] + CRUDLFAP_APPS + DJANGO_APPS
 
 AUTH_USER_MODEL = 'mrsuser.User'
 

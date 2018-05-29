@@ -8,10 +8,14 @@
         <div class="modal-content">
         
           
-          <h4 class="text-default hide-in-modal" id="modal-title-ajax">Caisse "aaaaaaa": modifier</h4>
+          <h4 class="text-default " id="modal-title-ajax">Caisse "aaaaaaa": update</h4>
           
         
           
+  
+
+  
+
   
 <div class="row">
     <div class="input-field col s12 required" id="id_code_container">
@@ -70,11 +74,11 @@
         <div class="modal-footer">
           
     
-    <button class="btn btn-primary" type="submit">Modifier</button>
+    <button class="btn btn-primary" type="submit">Update</button>
 
         </div>
       
-    <input name="_next" type="hidden" value=""/></form>
+  </form>
 
 </div>
 

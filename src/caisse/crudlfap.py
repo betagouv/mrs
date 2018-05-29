@@ -11,7 +11,7 @@ crudlfap.Router(
         crudlfap.DeleteView,
         crudlfap.UpdateView,
         crudlfap.DetailView,
-        crudlfap.FilterTables2ListView.clone(
+        crudlfap.ListView.clone(
             table_sequence=(
                 'code',
                 'name',
@@ -36,7 +36,7 @@ crudlfap.Router(
     Email,
     material_icon='contact_mail',
     views=[
-        crudlfap.FilterTables2ListView.clone(
+        crudlfap.ListView.clone(
             table_sequence=('email', 'caisse'),
         ),
     ]
