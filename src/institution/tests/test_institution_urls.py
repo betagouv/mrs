@@ -12,10 +12,9 @@ def test_institution_iframe(client):
         origin='*',
         dynamic_allow=True,
     )
-    r = client.get(
-        reverse(
-            'institution:mrsrequest_iframe',
-            args=[i.finess]
-        )
-    )
+    url = reverse(
+        'institution:mrsrequest_iframe',
+        args=[i.finess]
+    ) + '?origin=' + 'http://localhost'
+    r = client.get(url)
     assert r.status_code == 200
