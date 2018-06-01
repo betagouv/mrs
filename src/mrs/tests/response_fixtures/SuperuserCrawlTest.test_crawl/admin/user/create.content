@@ -18,6 +18,24 @@
 
   
 <div class="row">
+    <div class="input-field col s12" id="id_first_name_container">
+        <input id="id_first_name" maxlength="30" name="first_name" type="text"/>
+        <label for="id_first_name">Prénom</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12" id="id_last_name_container">
+        <input id="id_last_name" maxlength="150" name="last_name" type="text"/>
+        <label for="id_last_name">Nom</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
     <div class="input-field col s12 required" id="id_username_container">
         <input id="id_username" maxlength="150" name="username" type="text"/>
         <label for="id_username">Nom d'utilisateur</label>
@@ -27,39 +45,19 @@
  
 
 <div class="row">
-    <div class="input-field col s12" id="id_email_container">
-        <input id="id_email" maxlength="254" name="email" type="email"/>
-        <label for="id_email">Adresse électronique</label>
+    <div class="input-field col s12 required" id="id_password_container">
+        <input id="id_password" maxlength="128" name="password" type="text"/>
+        <label for="id_password">Mot de passe</label>
         
     </div>
 </div>
  
 
-
 <div class="row">
-    <div class="select-field col s12 multiselect" id="id_groups_container">
-        <label for="id_groups">Groupes</label>
-        <select id="id_groups" multiple="True" name="groups">
-            <option disabled="" value="">Choisissez votre option</option>
-        </select>
-        <div class="help-block">Les groupes dont fait partie cet utilisateur. Celui-ci obtient tous les droits de tous les groupes auxquels il appartient.</div>
-    </div>
-</div>
-
- 
-<div class="row">
-    <div class="checkbox-field col s12" id="id_is_staff_container">
-        <label>
-        <input class="filled-in " id="id_is_staff" name="is_staff" type="checkbox"/><span for="id_is_staff">Statut équipe</span></label>
-        <div class="help-block">Précise si l'utilisateur peut se connecter à ce site d'administration.</div>
-    </div>
-</div>
- 
-<div class="row">
-    <div class="checkbox-field col s12" id="id_is_superuser_container">
-        <label>
-        <input class="filled-in " id="id_is_superuser" name="is_superuser" type="checkbox"/><span for="id_is_superuser">Statut super-utilisateur</span></label>
-        <div class="help-block">Précise que l'utilisateur possède toutes les permissions sans les assigner explicitement.</div>
+    <div class="input-field col s12" id="id_email_container">
+        <input id="id_email" maxlength="254" name="email" type="email"/>
+        <label for="id_email">Adresse électronique</label>
+        
     </div>
 </div>
  

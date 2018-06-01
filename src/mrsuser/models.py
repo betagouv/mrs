@@ -11,3 +11,12 @@ class User(AbstractUser):
 
     class Meta(AbstractUser.Meta):
         db_table = 'auth_user'
+
+    @property
+    def status(self):
+        if not self.is_active:
+            return 'Desactivé'
+        elif self.is_superuser:
+            return 'Admin'
+        elif self.is_staff:
+            return 'UPN'
