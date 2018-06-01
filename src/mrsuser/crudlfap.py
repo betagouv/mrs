@@ -29,6 +29,12 @@ crudlfap.site[User]['update'].fields.append('caisses')
 crudlfap.site[User]['create'].form_class = UserForm
 crudlfap.site[User]['list'].filter_fields.append('caisses')
 crudlfap.site[User]['list'].filter_fields.append('is_active')
-crudlfap.site[User]['list'].table_fields.insert(0, 'caisses')
-crudlfap.site[User]['list'].table_fields.insert(1, 'is_active')
+crudlfap.site[User]['list'].table_fields = [
+    'caisses',
+    'is_active',
+    'email',
+    'first_name',
+    'last_name',
+    'status',
+]
 del crudlfap.site[Group]

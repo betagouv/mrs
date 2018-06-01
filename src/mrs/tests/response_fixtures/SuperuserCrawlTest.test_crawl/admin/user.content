@@ -142,12 +142,6 @@
                     
                         <th class="orderable">
                             
-                                <a href="?sort=username">Nom d'utilisateur</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
                                 <a href="?sort=email">Adresse électronique</a>
                             
                         </th>
@@ -166,13 +160,7 @@
                     
                         <th class="orderable">
                             
-                                <a href="?sort=is_staff">Statut équipe</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=is_superuser">Statut super-utilisateur</a>
+                                <a href="?sort=status">Status</a>
                             
                         </th>
                     
@@ -203,17 +191,13 @@
                         
                             <td><span class="true">✔</span></td>
                         
-                            <td><a href="/admin/user/test">test</a></td>
-                        
-                            <td><a href="mailto:t@tt.tt">t@tt.tt</a></td>
+                            <td><a href="/admin/user/test">t@tt.tt</a></td>
                         
                             <td>—</td>
                         
                             <td>—</td>
                         
-                            <td><span class="true">✔</span></td>
-                        
-                            <td><span class="true">✔</span></td>
+                            <td>Admin</td>
                         
                             <td>
                 
@@ -284,17 +268,13 @@
                         
                             <td><span class="true">✔</span></td>
                         
-                            <td><a href="/admin/user/a">a</a></td>
-                        
-                            <td><a href="mailto:a@aa.aa">a@aa.aa</a></td>
+                            <td><a href="/admin/user/a">a@aa.aa</a></td>
                         
                             <td>—</td>
                         
                             <td>—</td>
                         
-                            <td><span class="true">✔</span></td>
-                        
-                            <td><span class="false">✘</span></td>
+                            <td>UPN</td>
                         
                             <td>
                 
@@ -365,17 +345,13 @@
                         
                             <td><span class="true">✔</span></td>
                         
-                            <td><a href="/admin/user/b">b</a></td>
-                        
-                            <td><a href="mailto:b@example.com">b@example.com</a></td>
+                            <td><a href="/admin/user/b">b@example.com</a></td>
                         
                             <td>—</td>
                         
                             <td>—</td>
                         
-                            <td><span class="true">✔</span></td>
-                        
-                            <td><span class="false">✘</span></td>
+                            <td>UPN</td>
                         
                             <td>
                 
