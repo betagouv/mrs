@@ -184,7 +184,7 @@
     <div class="checkbox-field col s12" id="id_iterative_show_container">
         <label>
         <input class="filled-in " id="id_iterative_show" name="iterative_show" type="checkbox"/><span for="id_iterative_show">Avez-vous des transports itératifs à déclarer ?</span></label>
-        
+        <div class="help-block">Voir FAQ pour la définition des transports itératifs</div>
     </div>
 </div>
 
