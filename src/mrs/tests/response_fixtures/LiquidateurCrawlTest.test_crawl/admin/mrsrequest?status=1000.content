@@ -8,7 +8,6 @@
         
           
 <style type="text/css">
-#render-table .table-container .pagination { display: none; }
 #render-table .btn-floating { margin-left: 6px; }
 </style>
 
@@ -63,98 +62,77 @@
 
 
 <div class="table-container">
+
+<table>
     
-        <table>
+    
+    <thead>
+        <tr>
+        
             
-            
-                <thead>
-                    <tr>
-                    
-                        <th>
-                            
-                                
+            <th>
             <label>
                 <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
                 <span></span>
             </label>
+        </th>
+            
         
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?status=1000&amp;sort=creation_datetime">Date et heure de la demande</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?status=1000&amp;sort=display_id">Numéro de demande</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?status=1000&amp;sort=first_name">Prénom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?status=1000&amp;sort=last_name">Nom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?status=1000&amp;sort=nir">NIR</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?status=1000&amp;sort=status">Statut</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?status=1000&amp;sort=institution">Institution</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?status=1000&amp;sort=caisse">Caisse</a>
-                            
-                        </th>
-                    
-                        <th>
-                            
-                                Actions
-                            
-                        </th>
-                    
-                    </tr>
-                </thead>
             
+            <th class="orderable"><a href="?status=1000&amp;sort=creation_datetime">Date et heure de la demande</a></th>
             
+        
             
-                <tbody>
-                
-                    
-                
-                </tbody>
+            <th class="orderable"><a href="?status=1000&amp;sort=display_id">Numéro de demande</a></th>
             
+        
             
+            <th class="orderable"><a href="?status=1000&amp;sort=first_name">Prénom</a></th>
             
+        
             
-        </table>
+            <th class="orderable"><a href="?status=1000&amp;sort=last_name">Nom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1000&amp;sort=nir">NIR</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1000&amp;sort=status">Statut</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1000&amp;sort=institution">Institution</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1000&amp;sort=caisse">Caisse</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
     
+    
+    
+    <tbody>
+    
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
 
-    
+
+
 </div>
-
 
       </div>
       

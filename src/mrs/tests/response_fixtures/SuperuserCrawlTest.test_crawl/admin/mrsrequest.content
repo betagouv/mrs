@@ -8,7 +8,6 @@
         
           
 <style type="text/css">
-#render-table .table-container .pagination { display: none; }
 #render-table .btn-floating { margin-left: 6px; }
 </style>
 
@@ -75,109 +74,89 @@
 
 
 <div class="table-container">
+
+<table>
     
-        <table>
+    
+    <thead>
+        <tr>
+        
             
-            
-                <thead>
-                    <tr>
-                    
-                        <th>
-                            
-                                
+            <th>
             <label>
                 <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
                 <span></span>
             </label>
+        </th>
+            
         
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=creation_datetime">Date et heure de la demande</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=display_id">Numéro de demande</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=first_name">Prénom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=last_name">Nom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=nir">NIR</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=status">Statut</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=institution">Institution</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=caisse">Caisse</a>
-                            
-                        </th>
-                    
-                        <th>
-                            
-                                Actions
-                            
-                        </th>
-                    
-                    </tr>
-                </thead>
             
+            <th class="orderable"><a href="?sort=creation_datetime">Date et heure de la demande</a></th>
             
+        
             
-                <tbody>
-                
-                    
-                    <tr class="even">
-                        
-                            <td></td>
-                        
-                            <td>1 mai 2018 19:10</td>
-                        
-                            <td>
+            <th class="orderable"><a href="?sort=display_id">Numéro de demande</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=first_name">Prénom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=last_name">Nom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=nir">NIR</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=status">Statut</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=institution">Institution</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=caisse">Caisse</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+        <tr class="even">
+            
+                <td></td>
+            
+                <td>1 mai 2018 19:10</td>
+            
+                <td>
     <a class="red-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 358911 jours" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679">201805010001</a>
     </td>
-                        
-                            <td>uea</td>
-                        
-                            <td>ue</td>
-                        
-                            <td>2333333333333</td>
-                        
-                            <td>Soumise</td>
-                        
-                            <td>—</td>
-                        
-                            <td>bbbb</td>
-                        
-                            <td>
+            
+                <td>uea</td>
+            
+                <td>ue</td>
+            
+                <td>2333333333333</td>
+            
+                <td>Soumise</td>
+            
+                <td>—</td>
+            
+                <td>bbbb</td>
+            
+                <td>
                 
                 
     
@@ -210,34 +189,34 @@
     
   
                 </td>
-                        
-                    </tr>
-                    
-                
-                    
-                    <tr class="odd">
-                        
-                            <td></td>
-                        
-                            <td>1 mai 2018 19:10</td>
-                        
-                            <td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td></td>
+            
+                <td>1 mai 2018 19:10</td>
+            
+                <td>
     <a class="-text tooltipped" data-position="bottom" data-tooltip="Traité" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae">201805010000</a>
     </td>
-                        
-                            <td>aoeu</td>
-                        
-                            <td>aoeu</td>
-                        
-                            <td>1111111111111</td>
-                        
-                            <td>Rejetée</td>
-                        
-                            <td>—</td>
-                        
-                            <td>aaaaaaa</td>
-                        
-                            <td>
+            
+                <td>aoeu</td>
+            
+                <td>aoeu</td>
+            
+                <td>1111111111111</td>
+            
+                <td>Rejetée</td>
+            
+                <td>—</td>
+            
+                <td>aaaaaaa</td>
+            
+                <td>
                 
                 
     
@@ -270,21 +249,39 @@
     
   
                 </td>
-                        
-                    </tr>
-                    
-                
-                </tbody>
             
-            
-            
-            
-        </table>
+        </tr>
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+
+<ul class="pagination">
     
 
     
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
+
+
 </div>
-
 
       </div>
       

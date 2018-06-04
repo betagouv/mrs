@@ -150,16 +150,15 @@ textarea {
 
 
 <div class="table-container">
+
+<table >
     
-        <table >
+    
+    <thead>
+        <tr>
+        
             
-            
-                <thead>
-                    <tr>
-                    
-                        <th >
-                            
-                                
+            <th >
             <label>
                 <input
                     type="checkbox"
@@ -169,84 +168,64 @@ textarea {
                 />
                 <span></span>
             </label>
+        </th>
+            
         
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=creation_datetime">Date et heure de la demande</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=display_id">Numéro de demande</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=first_name">Prénom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=last_name">Nom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=nir">NIR</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=status">Statut</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=institution">Institution</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=caisse">Caisse</a>
-                            
-                        </th>
-                    
-                        <th >
-                            
-                                Actions
-                            
-                        </th>
-                    
-                    </tr>
-                </thead>
             
+            <th class="orderable"><a href="?sort=creation_datetime">Date et heure de la demande</a></th>
             
+        
             
-                <tbody>
-                
-                    
-                
-                </tbody>
+            <th class="orderable"><a href="?sort=display_id">Numéro de demande</a></th>
             
+        
             
+            <th class="orderable"><a href="?sort=first_name">Prénom</a></th>
             
+        
             
-        </table>
+            <th class="orderable"><a href="?sort=last_name">Nom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=nir">NIR</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=status">Statut</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=institution">Institution</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=caisse">Caisse</a></th>
+            
+        
+            
+            <th >Actions</th>
+            
+        
+        </tr>
+    </thead>
     
+    
+    
+    <tbody>
+    
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
 
-    
+
+
 </div>
-
 
         </div>
     </div>

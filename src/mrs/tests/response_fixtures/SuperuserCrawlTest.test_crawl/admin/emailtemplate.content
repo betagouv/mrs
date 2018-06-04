@@ -8,7 +8,6 @@
         
           
 <style type="text/css">
-#render-table .table-container .pagination { display: none; }
 #render-table .btn-floating { margin-left: 6px; }
 </style>
 
@@ -41,62 +40,52 @@
 
 
 <div class="table-container">
+
+<table>
     
-        <table>
+    
+    <thead>
+        <tr>
+        
             
+            <th class="orderable"><a href="?sort=name">Nom</a></th>
             
-                <thead>
-                    <tr>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=name">Nom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=subject">Sujet du mail</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=requests">Demandes</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=active">Activé</a>
-                            
-                        </th>
-                    
-                        <th>
-                            
-                                Actions
-                            
-                        </th>
-                    
-                    </tr>
-                </thead>
+        
             
+            <th class="orderable"><a href="?sort=subject">Sujet du mail</a></th>
             
+        
             
-                <tbody>
-                
-                    
-                    <tr class="even">
-                        
-                            <td>PMT: manquante</td>
-                        
-                            <td>PMT manquante sur {{ display_id }}</td>
-                        
-                            <td>1</td>
-                        
-                            <td><span class="true">✔</span></td>
-                        
-                            <td>
+            <th class="orderable"><a href="?sort=requests">Demandes</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=active">Activé</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+        <tr class="even">
+            
+                <td>PMT: manquante</td>
+            
+                <td>PMT manquante sur {{ display_id }}</td>
+            
+                <td>1</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td>
                 
                 
     
@@ -111,21 +100,39 @@
     
   
                 </td>
-                        
-                    </tr>
-                    
-                
-                </tbody>
             
-            
-            
-            
-        </table>
+        </tr>
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+
+<ul class="pagination">
     
 
     
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
+
+
 </div>
-
 
       </div>
       

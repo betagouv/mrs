@@ -8,7 +8,6 @@
         
           
 <style type="text/css">
-#render-table .table-container .pagination { display: none; }
 #render-table .btn-floating { margin-left: 6px; }
 </style>
 
@@ -110,96 +109,80 @@
 
 
 <div class="table-container">
+
+<table>
     
-        <table>
+    
+    <thead>
+        <tr>
+        
             
-            
-                <thead>
-                    <tr>
-                    
-                        <th>
-                            
-                                
+            <th>
             <label>
                 <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
                 <span></span>
             </label>
+        </th>
+            
         
-                            
-                        </th>
-                    
-                        <th>
-                            
-                                Caisses
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=is_active">Actif</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=email">Adresse électronique</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=first_name">Prénom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=last_name">Nom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?sort=status">Status</a>
-                            
-                        </th>
-                    
-                        <th>
-                            
-                                Actions
-                            
-                        </th>
-                    
-                    </tr>
-                </thead>
             
+            <th>Caisses</th>
             
+        
             
-                <tbody>
-                
-                    
-                    <tr class="even">
-                        
-                            <td>
+            <th class="orderable"><a href="?sort=is_active">Actif</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=email">Adresse électronique</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=first_name">Prénom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=last_name">Nom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=status">Status</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+        <tr class="even">
+            
+                <td>
             <label>
                 <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="1" type="checkbox"/>
                 <span></span>
             </label>
         </td>
-                        
-                            <td>-</td>
-                        
-                            <td><span class="true">✔</span></td>
-                        
-                            <td><a href="/admin/user/test">t@tt.tt</a></td>
-                        
-                            <td>—</td>
-                        
-                            <td>—</td>
-                        
-                            <td>Admin</td>
-                        
-                            <td>
+            
+                <td>-</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/test">t@tt.tt</a></td>
+            
+                <td>—</td>
+            
+                <td>—</td>
+            
+                <td>Admin</td>
+            
+                <td>
                 
                 
     
@@ -250,33 +233,33 @@
     
   
                 </td>
-                        
-                    </tr>
-                    
-                
-                    
-                    <tr class="odd">
-                        
-                            <td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>
             <label>
                 <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="2" type="checkbox"/>
                 <span></span>
             </label>
         </td>
-                        
-                            <td>aaaaaaa</td>
-                        
-                            <td><span class="true">✔</span></td>
-                        
-                            <td><a href="/admin/user/a">a@aa.aa</a></td>
-                        
-                            <td>—</td>
-                        
-                            <td>—</td>
-                        
-                            <td>UPN</td>
-                        
-                            <td>
+            
+                <td>aaaaaaa</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/a">a@aa.aa</a></td>
+            
+                <td>—</td>
+            
+                <td>—</td>
+            
+                <td>UPN</td>
+            
+                <td>
                 
                 
     
@@ -327,33 +310,33 @@
     
   
                 </td>
-                        
-                    </tr>
-                    
-                
-                    
-                    <tr class="even">
-                        
-                            <td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>
             <label>
                 <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="3" type="checkbox"/>
                 <span></span>
             </label>
         </td>
-                        
-                            <td>bbbb</td>
-                        
-                            <td><span class="true">✔</span></td>
-                        
-                            <td><a href="/admin/user/b">b@example.com</a></td>
-                        
-                            <td>—</td>
-                        
-                            <td>—</td>
-                        
-                            <td>UPN</td>
-                        
-                            <td>
+            
+                <td>bbbb</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/b">b@example.com</a></td>
+            
+                <td>—</td>
+            
+                <td>—</td>
+            
+                <td>UPN</td>
+            
+                <td>
                 
                 
     
@@ -404,21 +387,39 @@
     
   
                 </td>
-                        
-                    </tr>
-                    
-                
-                </tbody>
             
-            
-            
-            
-        </table>
+        </tr>
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+
+<ul class="pagination">
     
 
     
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
+
+
 </div>
-
 
       </div>
       

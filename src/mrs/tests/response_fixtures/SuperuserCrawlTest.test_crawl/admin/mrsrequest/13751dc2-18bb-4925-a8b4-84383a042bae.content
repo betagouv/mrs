@@ -9,7 +9,7 @@
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
-                <span class="card-title tooltipped activator -text" data-position="bottom" data-tooltip="En attente de traitement depuis 358911 jours">201805010000<i class="material-icons right">more_vert</i></span>
+                <span class="card-title tooltipped activator -text" data-position="bottom" data-tooltip="Traité">201805010000<i class="material-icons right">more_vert</i></span>
                 <div class="section">
                     Soumise
                     <span class="right">
