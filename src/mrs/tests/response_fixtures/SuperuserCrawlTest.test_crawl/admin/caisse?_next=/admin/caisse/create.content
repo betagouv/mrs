@@ -8,7 +8,6 @@
         
           
 <style type="text/css">
-#render-table .table-container .pagination { display: none; }
 #render-table .btn-floating { margin-left: 6px; }
 </style>
 
@@ -51,70 +50,58 @@
 
 
 <div class="table-container">
+
+<table>
     
-        <table>
+    
+    <thead>
+        <tr>
+        
             
+            <th class="orderable"><a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=code">Code</a></th>
             
-                <thead>
-                    <tr>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=code">Code</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=name">Nom</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=number">Numéro</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=active">Activé</a>
-                            
-                        </th>
-                    
-                        <th class="orderable">
-                            
-                                <a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=score">Score</a>
-                            
-                        </th>
-                    
-                        <th>
-                            
-                                Actions
-                            
-                        </th>
-                    
-                    </tr>
-                </thead>
+        
             
+            <th class="orderable"><a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=name">Nom</a></th>
             
+        
             
-                <tbody>
-                
-                    
-                    <tr class="even">
-                        
-                            <td><a href="/admin/caisse/1">111111111</a></td>
-                        
-                            <td>aaaaaaa</td>
-                        
-                            <td>111</td>
-                        
-                            <td><span class="true">✔</span></td>
-                        
-                            <td>0</td>
-                        
-                            <td>
+            <th class="orderable"><a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=number">Numéro</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=active">Activé</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?_next=%2Fadmin%2Fcaisse%2Fcreate&amp;sort=score">Score</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+        <tr class="even">
+            
+                <td><a href="/admin/caisse/1">111111111</a></td>
+            
+                <td>aaaaaaa</td>
+            
+                <td>111</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td>0</td>
+            
+                <td>
                 
                 
     
@@ -156,24 +143,24 @@
     
   
                 </td>
-                        
-                    </tr>
-                    
-                
-                    
-                    <tr class="odd">
-                        
-                            <td><a href="/admin/caisse/2">222222222</a></td>
-                        
-                            <td>bbbb</td>
-                        
-                            <td>222</td>
-                        
-                            <td><span class="true">✔</span></td>
-                        
-                            <td>0</td>
-                        
-                            <td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td><a href="/admin/caisse/2">222222222</a></td>
+            
+                <td>bbbb</td>
+            
+                <td>222</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td>0</td>
+            
+                <td>
                 
                 
     
@@ -215,24 +202,24 @@
     
   
                 </td>
-                        
-                    </tr>
-                    
-                
-                    
-                    <tr class="even">
-                        
-                            <td><a href="/admin/caisse/3">333333333</a></td>
-                        
-                            <td>inactive</td>
-                        
-                            <td>333</td>
-                        
-                            <td><span class="false">✘</span></td>
-                        
-                            <td>2</td>
-                        
-                            <td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td><a href="/admin/caisse/3">333333333</a></td>
+            
+                <td>inactive</td>
+            
+                <td>333</td>
+            
+                <td><span class="false">✘</span></td>
+            
+                <td>2</td>
+            
+                <td>
                 
                 
     
@@ -274,21 +261,39 @@
     
   
                 </td>
-                        
-                    </tr>
-                    
-                
-                </tbody>
             
-            
-            
-            
-        </table>
+        </tr>
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+
+<ul class="pagination">
     
 
     
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
+
+
 </div>
-
 
       </div>
       
