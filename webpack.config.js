@@ -55,7 +55,8 @@ var cfg = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['stage-2', 'babel-preset-env']
+            presets: ['stage-2', 'babel-preset-env'],
+            plugins: ['transform-es2015-arrow-functions'],
           }
         }
       },
