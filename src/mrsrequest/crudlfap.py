@@ -34,6 +34,7 @@ class MRSRequestListView(crudlfap.ListView):
         display_id=tables.TemplateColumn(
             DISPLAY_ID_TEMPLATE,
         ),
+        institution=tables.Column(verbose_name='Établissement'),
         first_name=tables.Column(
             accessor='insured.first_name',
             verbose_name='Prénom',
