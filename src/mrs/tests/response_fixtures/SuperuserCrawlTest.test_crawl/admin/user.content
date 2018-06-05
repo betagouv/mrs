@@ -27,45 +27,17 @@
 
         
 <div class="row">
-    <div class="select-field col s12 multiselect" id="id_groups_container">
-        <label for="id_groups">Groupes</label>
-        <select id="id_groups" multiple="True" name="groups">
-            <option disabled="" value="">Choisissez votre option</option>
+    <div class="select-field col s12" id="id_status_container">
+        <label for="id_status">Statut</label>
+        <select id="id_status" name="status">
+            <option value="">---------</option>
+            <option value="disabled">Désactivé</option>
+            <option value="upn">UPN</option>
+            <option value="admin">Admin</option>
         </select>
         
     </div>
 </div>
-
- 
-
-
-<div class="row">
-    <div class="select-field col s12" id="id_is_superuser_container">
-        <label for="id_is_superuser">Statut super-utilisateur</label>
-        <select id="id_is_superuser" name="is_superuser">
-            <option selected="selected" value="1">Inconnu</option>
-            <option value="2">Oui</option>
-            <option value="3">Non</option>
-        </select>
-        
-    </div>
-</div>
-
- 
-
-
-<div class="row">
-    <div class="select-field col s12" id="id_is_staff_container">
-        <label for="id_is_staff">Statut équipe</label>
-        <select id="id_is_staff" name="is_staff">
-            <option selected="selected" value="1">Inconnu</option>
-            <option value="2">Oui</option>
-            <option value="3">Non</option>
-        </select>
-        
-    </div>
-</div>
-
  
 
 
@@ -77,21 +49,6 @@
             <option value="1">aaaaaaa</option>
             <option value="2">bbbb</option>
             <option value="3">inactive</option>
-        </select>
-        
-    </div>
-</div>
-
- 
-
-
-<div class="row">
-    <div class="select-field col s12" id="id_is_active_container">
-        <label for="id_is_active">Actif</label>
-        <select id="id_is_active" name="is_active">
-            <option selected="selected" value="1">Inconnu</option>
-            <option value="2">Oui</option>
-            <option value="3">Non</option>
         </select>
         
     </div>
@@ -146,7 +103,7 @@
             
         
             
-            <th class="orderable"><a href="?sort=status">Status</a></th>
+            <th class="orderable"><a href="?sort=status">statut</a></th>
             
         
             

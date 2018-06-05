@@ -196,7 +196,7 @@ textarea {
             
         
             
-            <th class="orderable"><a href="?sort=institution">Institution</a></th>
+            <th class="orderable"><a href="?sort=institution">Établissement</a></th>
             
         
             
