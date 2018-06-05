@@ -126,7 +126,7 @@ textarea {
                 </span>
             </p>
             <p>
-                Rejettées
+                Rejetées
                 <span class="right">
                     <a href="/admin/mrsrequest?status=999">
                         1
