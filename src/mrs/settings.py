@@ -184,9 +184,14 @@ except ImportError:
 else:
     INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
-RAVEN_CONFIG = dict()
+RAVEN_CONFIG = dict(dsn='', environment='')
 if os.getenv('SENTRY_DSN'):
     RAVEN_CONFIG['dsn'] = os.getenv('SENTRY_DSN')
+    from mrs.context_processors import strip_password
+    CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
+        SENTRY_DSN=strip_password(RAVEN_CONFIG['dsn']),
+        INSTANCE=RAVEN_CONFIG['environment']
+    ))
 if os.getenv('INSTANCE'):
     RAVEN_CONFIG['environment'] = os.getenv('INSTANCE')
 if os.getenv('GIT_COMMIT'):
