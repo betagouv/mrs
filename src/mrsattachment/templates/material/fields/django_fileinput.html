@@ -29,14 +29,14 @@
             {% include  'material/field_errors.html' %}
         {% endif %}{% endpart %}{{ hidden_initial }}
 
-        {% if bound_field.value.0.get_download_url %}
         <ul class="files">
             {% if bound_field.value != None %}
                 {% for attachment in bound_field.value %}
-                    {% include 'mrsattachment/_attachment.html' %}
+                    {% if attachment.get_download_url %}
+                        {% include 'mrsattachment/_attachment.html' %}
+                    {% endif %}
                 {% endfor %}
             {% endif %}
         </ul>
-        {% endif %}
     </div>
 </div>{% endpart %}
