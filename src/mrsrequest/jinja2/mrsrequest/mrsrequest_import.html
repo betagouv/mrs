@@ -1,0 +1,49 @@
+{% extends 'crudlfap/form.html' %}
+
+{% block content %}
+  {% if view.errors %}
+  <h3>Erreurs</h3>
+  <table>
+    <th>Ligne</th>
+    <th>Message</th>
+    {% for key in view.keys %}
+    <th>{{ key }}</th>
+    {% endfor %}
+    {% for linenumber, error in view.errors.items() %}
+    <tr>
+      <td>{{ linenumber + 1 }}</td>
+      <td>{{ error.message }}</td>
+      {% for i in error.row.values() %}
+      <td>{{ i }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  {% if view.success %}
+  <h3>Succès</h3>
+  <table>
+    <tr>
+      <th>Ligne</th>
+      <th>Demande</th>
+      {% for key in view.keys %}
+      <th>{{ key }}</th>
+      {% endfor %}
+    </tr>
+    {% for linenumber, success in view.success.items() %}
+    <tr>
+      <td>{{ linenumber }}</td>
+      <td>
+        <a href="{{ success.object.get_absolute_url() }}">{{ success.object }}</a>
+      </td>
+      {% for i in success.row.values() %}
+      <td>{{ i }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  {{ super() }}
+{% endblock %}

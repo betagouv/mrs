@@ -11,16 +11,34 @@
                     class="card-title tooltipped activator {{ object.color }}-text"
                 >{{ object.display_id }}<i class="material-icons right">more_vert</i></span>
                 <div class="section">
-                    Soumise
-                    <span class="right">
-                        {{ localtime(object.creation_datetime).strftime('%d/%m/%y %H:%M') }}
-                    </span>
+                    <p>
+                        <span class="grey-text text-darken-2">
+                            Soumise
+                        </span>
+                        <span class="right">
+                            {{ localtime(object.creation_datetime).strftime('%d/%m/%y %H:%M') }}
+                        </span>
+                    </p>
+                    {% if object.mandate_date -%}
+                    <p>
+                        <span class="grey-text text-darken-2">
+                            Date de mandatement
+                        </span>
+                        <span class="right">
+                            {{ localtime(object.mandate_date).strftime('%d/%m/%y') }}
+                        </span>
+                    </p>
+                    {% endif -%}
                 </div>
             </div>
             <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">{{ naturalsize(object.total_size) }} <span style="font-size: 50% !important">{{ object.creation_ip }}</span><i class="material-icons right">close</i></span>
                 <div class="section">
                     {{ object.caisse }}
+                    {% if object.insured_shift %}
+                    <br />
+                    Basculé
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -144,6 +162,26 @@
                         {{ object.expense }}€ TTC
                     </span>
                 </p>
+                {% if object.payment_base -%}
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Base de remboursement
+                    </span>
+                    <span class="right">
+                        {{ object.payment_base }}€
+                    </span>
+                </p>
+                {% endif %}
+                {% if object.payment_amount -%}
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant remboursé
+                    </span>
+                    <span class="right">
+                        {{ object.payment_amount }}€
+                    </span>
+                </p>
+                {% endif -%}
                 <table class="centered highlight">
                     <thead>
                         <tr>
