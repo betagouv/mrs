@@ -11,16 +11,21 @@
             <div class="card-content">
                 <span class="card-title tooltipped activator -text" data-position="bottom" data-tooltip="Traité">201805010000<i class="material-icons right">more_vert</i></span>
                 <div class="section">
-                    Soumise
-                    <span class="right">
-                        01/05/18 19:10
-                    </span>
-                </div>
+                    <p>
+                        <span class="grey-text text-darken-2">
+                            Soumise
+                        </span>
+                        <span class="right">
+                            01/05/18 19:10
+                        </span>
+                    </p>
+                    </div>
             </div>
             <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">285 Bytes <span style="font-size: 50% !important">127.0.0.1</span><i class="material-icons right">close</i></span>
                 <div class="section">
                     aaaaaaa
+                    
                 </div>
             </div>
         </div>
@@ -142,6 +147,7 @@
                         1.00€ TTC
                     </span>
                 </p>
+                
                 <table class="centered highlight">
                     <thead>
                         <tr>

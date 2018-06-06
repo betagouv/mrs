@@ -264,6 +264,7 @@ textarea {
     
     data-action="click-&gt;modal#open"
     
+    data-listaction="urlupdate"
     >
     <i class="left material-icons">check_circle</i>
     

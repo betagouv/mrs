@@ -145,6 +145,31 @@ class MRSRequest(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
+    mandate_date = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name='Date de mandatement',
+    )
+    payment_base = models.DecimalField(
+        null=True,
+        blank=True,
+        max_digits=8,
+        decimal_places=2,
+        verbose_name='Base de remboursement',
+    )
+    payment_amount = models.DecimalField(
+        null=True,
+        blank=True,
+        max_digits=8,
+        decimal_places=2,
+        verbose_name='Montant remboursé',
+    )
+    insured_shift = models.NullBooleanField(
+        default=None,
+        null=True,
+        blank=True,
+        verbose_name='Assuré qui bascule',
+    )
 
     objects = MRSRequestManager()
 
