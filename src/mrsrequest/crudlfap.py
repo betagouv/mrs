@@ -182,7 +182,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         obj = self.queryset.filter(display_id=row['id']).first()
 
         if obj:
-            self.import_obj(self, i, row, obj)
+            self.import_obj(i, row, obj)
         else:
             self.errors[i] = dict(
                 row=row,
@@ -202,6 +202,8 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
         if row['finess']:
             obj.institution = self.institution_get_or_create(i, row)
+            if not obj.institution:
+                return
 
         self.save_obj(i, row, obj)
 
@@ -209,7 +211,13 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         try:
             obj.full_clean()
         except ValidationError as e:
-            self.errors[i] = str(e)
+            self.errors[i] = dict(
+                row=row,
+                message=', '.join([
+                    '{}: {}'.format(k, ', '.join(v))
+                    for k, v in e.error_dict
+                ])
+            )
             return
 
         try:
@@ -222,15 +230,16 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
     def institution_get_or_create(self, i, row):
         try:
             Institution(finess=row['finess']).clean_fields()
-        except ValidationError:
-            self.errors[i] = dict(
-                row=row,
-                message='FINESS invalide {}'.format(row['finess'])
-            )
-        else:
-            return Institution.objects.get_or_create(
-                finess=row['finess']
-            )[0]
+        except ValidationError as e:
+            if 'finess' in e.message_dict:
+                self.errors[i] = dict(
+                    row=row,
+                    message='FINESS invalide {}'.format(row['finess'])
+                )
+                return
+        return Institution.objects.get_or_create(
+            finess=row['finess']
+        )[0]
 
 
 class MRSRequestRouter(crudlfap.Router):

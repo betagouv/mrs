@@ -28,7 +28,7 @@
 
 <div class="row">
     <div class="input-field col s12 required" id="id_origin_container">
-        <input id="id_origin" maxlength="255" name="origin" type="text"/>
+        <input id="id_origin" maxlength="255" name="origin" type="text" value=""/>
         <label for="id_origin">Origin</label>
         <div class="help-block">URI du site patients</div>
     </div>
