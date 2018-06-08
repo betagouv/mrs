@@ -45,6 +45,7 @@ class ImportTest(ResponseDiffTestMixin, test.TestCase):
     bbbb,201805010001,2333333333333,30/04/2018,uea ue,29/04/2018,30/04/2018,18,19,1,310123123,12
     aaaaaaa,201805010000,1111111111111,30/04/2018,aoeu aoeu,29/04/2018,30/04/2018,2,3,0,123123123,
     aaaaaaa,999905010000,1111111111111,30/04/2018,aoeu aoeu,29/04/2018,,,,,,
+    aaaaaaa,201805010000,1111111111111,30/04/2018,aoeu aoeu,29/04/2018,30/04/2018,a,3,0,,
     '''.strip()  # noqa
 
     def make_request(self):
@@ -68,11 +69,12 @@ class ImportTest(ResponseDiffTestMixin, test.TestCase):
         view.dispatch(request)
 
         assert view.form.is_valid()
-        assert list(view.success.keys()) == [0]
-        assert view.errors[1]['message'] == 'FINESS invalide 123123123'  # noqa
-        assert view.errors[2]['message'] == 'Demande introuvable en base de données'  # noqa
+        assert list(view.success.keys()) == [1]
+        assert view.errors[2]['message'] == 'FINESS invalide 123123123'  # noqa
+        assert view.errors[3]['message'] == 'Demande introuvable en base de données'  # noqa
+        assert view.errors[4]['message'] == 'payment_base: La valeur « a » doit être un nombre décimal.'  # noqa
 
-        success = view.success[0]['object']
+        success = view.success[1]['object']
         assert success.payment_amount == 19
         assert success.payment_base == 18
         assert success.insured_shift is True
