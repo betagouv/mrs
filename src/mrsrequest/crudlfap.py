@@ -186,7 +186,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         if obj:
             self.import_obj(i, row, obj)
         else:
-            self.errors[i] = dict(
+            self.errors[i + 1] = dict(
                 row=row,
                 message='Demande introuvable en base de données'
             )
@@ -213,11 +213,13 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         try:
             obj.full_clean()
         except ValidationError as e:
-            self.errors[i] = dict(
+            self.errors[i + 1] = dict(
                 row=row,
                 message=', '.join([
-                    '{}: {}'.format(k, ', '.join(v))
-                    for k, v in e.error_dict
+                    '{}: {}'.format(k, ', '.join([
+                        e.message % e.params for e in v
+                    ]))
+                    for k, v in e.error_dict.items()
                 ])
             )
             return
@@ -225,16 +227,16 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         try:
             obj.save()
         except Exception as e:
-            self.errors[i] = dict(row=row, message=e.message)
+            self.errors[i + 1] = dict(row=row, message=e.message)
         else:
-            self.success[i] = dict(object=obj, row=row)
+            self.success[i + 1] = dict(object=obj, row=row)
 
     def institution_get_or_create(self, i, row):
         try:
             Institution(finess=row['finess']).clean_fields()
         except ValidationError as e:
             if 'finess' in e.message_dict:
-                self.errors[i] = dict(
+                self.errors[i + 1] = dict(
                     row=row,
                     message='FINESS invalide {}'.format(row['finess'])
                 )
