@@ -6,6 +6,7 @@ from crudlfap import crudlfap
 
 from django import forms
 from django import http
+from django.conf import settings
 from django.core.exceptions import ValidationError
 
 import django_tables2 as tables
@@ -146,7 +147,8 @@ class MRSRequestExport(crudlfap.ObjectsView):
         f.seek(0)
         response = http.HttpResponse(f.read(), content_type='text/csv')
         response['Content-Disposition'] = (
-            'attachment; filename="mrs-export-{}.csv"'.format(
+            'attachment; filename="mrs-export-{}-{}.csv"'.format(
+                getattr(settings, 'INSTANCE', 'unknown'),
                 self.objects.order_by('-creation_datetime').first().display_id
             )
         )
