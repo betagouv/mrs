@@ -122,6 +122,46 @@
     <tbody>
     
         
+        <tr class="even">
+            
+                <td></td>
+            
+                <td>8 juin 2018 17:16</td>
+            
+                <td>
+    <a class="-text tooltipped" data-position="bottom" data-tooltip="Traité" href="/admin/mrsrequest/c697cf5a-dc4d-434d-89bc-1f606d05d39d">201806080000</a>
+    </td>
+            
+                <td>àôéû</td>
+            
+                <td>àôéûoaeu</td>
+            
+                <td>3212312312312</td>
+            
+                <td>Validée</td>
+            
+                <td>—</td>
+            
+                <td>aaaaaaa</td>
+            
+                <td>
+                
+                
+    
+      
+        <a class="btn-floating red blue" href="/admin/mrsrequest/c697cf5a-dc4d-434d-89bc-1f606d05d39d?_next=/admin/mrsrequest" title="201806080000">
+    <i class=" material-icons">search</i>
+    
+    Detail
+    
+  </a>
+      
+    
+  
+                </td>
+            
+        </tr>
+        
     
     </tbody>
     
@@ -130,6 +170,25 @@
     
 </table>
 
+
+
+
+<ul class="pagination">
+    
+
+    
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
 
 
 </div>

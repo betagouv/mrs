@@ -113,7 +113,7 @@ textarea {
                 En cours de liquidation
                 <span class="right">
                     <a href="/admin/mrsrequest?status=1000">
-                        0
+                        1
                     </a>
                 </span>
             </p>
@@ -121,7 +121,7 @@ textarea {
                 Validées
                 <span class="right">
                     <a href="/admin/mrsrequest?status=2000">
-                        0
+                        1
                     </a>
                 </span>
             </p>
@@ -137,7 +137,7 @@ textarea {
                 Total
                 <span class="right">
                     <a href="/admin/mrsrequest">
-                        1
+                        3
                     </a>
                 </span>
             </p>

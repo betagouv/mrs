@@ -1,0 +1,82 @@
+<div class="container" id="modal-body-ajax">
+      
+
+<div class="card-panel">
+
+<form action="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2/validate?_next=/admin/mrsrequest" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="form-object-mrsrequest" method="post">
+
+        <div class="modal-content">
+        
+          
+          <h4 class="text-default " id="modal-title-ajax">Demande "201806080001": valider</h4>
+          
+        
+          
+<div class="red darken-1 white-text center">
+  <p class="flow-text">
+    ATTENTION la validation entraine l'envoie du mail suivant à l'assuré-e.
+  </p>
+</div>
+<div class="form-row">
+    <pre style="color: black">Bonjour,
+
+Nous avons bien reçu votre demande de remboursement de vos frais de transport
+concernant le(s) trajet(s) suivant(s) :
+
+
+- Date du trajet aller 1 : 7 juin 2018, date de trajet retour 1 : 7 juin 2018
+
+
+Votre demande a été traitée et payée. Le règlement sera visible d'ici quelques
+jours sur votre compte bancaire.
+
+Pour toutes réclamations, nous vous invitons à vous rapprocher de votre caisse
+d'assurance maladie :
+https://www.ameli.fr/assure/adresses-et-contacts/vos-paiements-vos-remboursements.
+
+Cordialement,
+L'équipe MRS - Assurance Maladie</pre>
+</div>
+
+<div class="red darken-1 white-text center">
+  <p class="flow-text">
+    ATTENTION la validation entraine l'envoie du mail suivant au service du Contrôle pour archivage.
+  </p>
+</div>
+<div class="form-row">
+    <pre style="color: black">Bonjour,
+
+Veuillez trouver, ci-joint, une demande de remboursement via MRS n°201806080001 :
+
+- Référence : 201806080001
+- Prescription Médicale de Transport (PMT) : FF4D00-0.8.png
+- Prénom : oaeu
+- Nom de famille : oaeuoaeuao
+- Date de naissance : 29 mai 2018
+- NIR : 1223123123123
+- Adresse email : test@test.com
+- Date du trajet aller 1: 7 juin 2018
+- Date de trajet retour 1: 7 juin 2018
+- Kilométrage total parcouru en voiture : 3
+- Montant total des frais : 0,00
+
+Cordialement,
+L'équipe MRS</pre>
+</div>
+        </div>
+        <div class="modal-footer">
+          
+    
+    <button class="btn btn-primary" type="submit">Valider</button>
+
+        </div>
+      
+  
+    <input name="_next" type="hidden" value="/admin/mrsrequest"/>
+  </form>
+
+</div>
+
+
+
+    </div>
