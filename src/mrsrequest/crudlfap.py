@@ -8,6 +8,7 @@ from django import forms
 from django import http
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.db import transaction
 
 import django_tables2 as tables
 
@@ -191,6 +192,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
                 message='Demande introuvable en base de données'
             )
 
+    @transaction.atomic
     def import_obj(self, i, row, obj):
         if row['mandatement']:
             obj.mandate_date = datetime.strptime(
@@ -198,9 +200,14 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
                 '%d/%m/%Y'
             ).date()
 
-        obj.payment_base = row['base']
-        obj.payment_amount = row['montant']
-        obj.insured_shift = bool(row['bascule'])
+        if row['base']:
+            obj.payment_base = row['base']
+
+        if row['montant']:
+            obj.payment_amount = row['montant']
+
+        if row['bascule'] != '':
+            obj.insured_shift = bool(row['bascule'])
 
         if row['finess']:
             obj.institution = self.institution_get_or_create(i, row)

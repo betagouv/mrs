@@ -42,6 +42,7 @@ class ImportTest(ResponseDiffTestMixin, test.TestCase):
     fixtures = ['src/mrs/tests/data.json']
 
     upload = '''caisse,id,nir,naissance,nom,transport,mandatement,base,montant,bascule,finess,adeli
+    bbbb,201805010001,2333333333333,30/04/2018,uea ue,29/04/2018,,,,,,
     bbbb,201805010001,2333333333333,30/04/2018,uea ue,29/04/2018,30/04/2018,18,19,1,310123123,12
     aaaaaaa,201805010000,1111111111111,30/04/2018,aoeu aoeu,29/04/2018,30/04/2018,2,3,0,123123123,
     aaaaaaa,999905010000,1111111111111,30/04/2018,aoeu aoeu,29/04/2018,,,,,,
@@ -69,12 +70,12 @@ class ImportTest(ResponseDiffTestMixin, test.TestCase):
         view.dispatch(request)
 
         assert view.form.is_valid()
-        assert list(view.success.keys()) == [1]
-        assert view.errors[2]['message'] == 'FINESS invalide 123123123'  # noqa
-        assert view.errors[3]['message'] == 'Demande introuvable en base de données'  # noqa
-        assert view.errors[4]['message'] == 'payment_base: La valeur « a » doit être un nombre décimal.'  # noqa
+        assert list(view.success.keys()) == [1, 2]
+        assert view.errors[3]['message'] == 'FINESS invalide 123123123'  # noqa
+        assert view.errors[4]['message'] == 'Demande introuvable en base de données'  # noqa
+        assert view.errors[5]['message'] == 'payment_base: La valeur « a » doit être un nombre décimal.'  # noqa
 
-        success = view.success[1]['object']
+        success = view.success[2]['object']
         assert success.payment_amount == 19
         assert success.payment_base == 18
         assert success.insured_shift is True
