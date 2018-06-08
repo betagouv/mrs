@@ -87,7 +87,7 @@ class MRSRequest(models.Model):
         verbose_name='Date et heure de la demande',
     )
     creation_ip = models.GenericIPAddressField(null=True)
-    display_id = models.IntegerField(
+    display_id = models.BigIntegerField(
         verbose_name='Numéro de demande',
         unique=True,
     )
