@@ -105,11 +105,13 @@ class MRSRequestExport(crudlfap.ObjectsView):
     turbolinks = False
 
     def get_objects(self):
-        self.objects = self.queryset.filter(mandate_date=None)
+        self.objects = self.queryset.filter(
+            mandate_date=None,
+        ).status('validated')
         return self.objects
 
     def get(self, request, *args, **kwargs):
-        f = io.StringIO()
+        f = io.TextIOWrapper(io.BytesIO(), encoding='utf8')
         w = csv.writer(f)
         w.writerow((
             'caisse',
