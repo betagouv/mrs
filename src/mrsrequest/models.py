@@ -124,12 +124,14 @@ class MRSRequest(models.Model):
     status_datetime = models.DateTimeField(
         db_index=True,
         null=True,
+        blank=True,
         verbose_name='Date et heure de changement de statut',
     )
     status_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         db_index=True,
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         verbose_name='Auteur du changement de statut',
     )

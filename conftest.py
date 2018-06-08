@@ -41,6 +41,11 @@ def srf():
     return RequestFactory(AnonymousUser())
 
 
+@pytest.fixture(scope='class')
+def srf_class(request):
+    request.cls.srf = srf()
+
+
 @pytest.fixture
 def uuid():
     return str(uuid4())
