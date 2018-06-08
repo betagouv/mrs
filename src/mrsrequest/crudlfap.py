@@ -161,6 +161,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
     turbolinks = False
     form_invalid_message = 'Erreurs durant l\'import'
     form_valid_message = 'Importé avec succès'
+    body_class = 'full-width'
 
     class form_class(forms.Form):
         csv = forms.FileField()
