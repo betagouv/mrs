@@ -80,4 +80,5 @@ class ImportTest(ResponseDiffTestMixin, test.TestCase):
         assert success.payment_base == 18
         assert success.insured_shift is True
         assert success.institution.finess == '310123123'
+        assert success.adeli == 12
         assert str(success.mandate_date) == '2018-04-30'

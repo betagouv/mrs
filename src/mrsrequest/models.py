@@ -172,6 +172,7 @@ class MRSRequest(models.Model):
         blank=True,
         verbose_name='Assuré qui bascule',
     )
+    adeli = models.IntegerField(null=True, blank=True)
 
     objects = MRSRequestManager()
 

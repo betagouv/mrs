@@ -212,6 +212,9 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         if row['bascule'] != '':
             obj.insured_shift = bool(row['bascule'])
 
+        if row['adeli'] != '':
+            obj.adeli = row['adeli']
+
         if row['finess']:
             obj.institution = self.institution_get_or_create(i, row)
             if not obj.institution:
