@@ -21,6 +21,7 @@
 },
 {
     "fields": {
+        "adeli": null,
         "caisse": null,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "creation_ip": null,
