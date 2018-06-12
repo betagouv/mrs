@@ -35,7 +35,7 @@
                             Délai de paiement
                         </span>
                         <span class="right">
-                            {{ '%.2f'|format(object.get_delay()) }}
+                            {{ object.get_delay() }}
                         </span>
                     </p>
                     {% endif -%}
@@ -198,7 +198,7 @@
                         Coût théorique du trajet en taxi
                     </span>
                     <span class="right">
-                        {{ '%.2f'|format(object.get_taxi_cost()) }}€
+                        {{ object.get_taxi_cost() }}€
                     </span>
                 </p>
                 {% endif -%}
@@ -208,7 +208,7 @@
                         Economie calculée
                     </span>
                     <span class="right">
-                        {{ '%.2f'|format(object.get_saving()) }}€
+                        {{ object.get_saving() }}€
                     </span>
                 </p>
                 {% endif -%}

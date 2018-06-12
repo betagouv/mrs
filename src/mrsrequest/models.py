@@ -16,6 +16,9 @@ from django.utils import timezone
 from mrsattachment.models import MRSAttachment
 
 
+TWOPLACES = Decimal(10) ** -2
+
+
 class Bill(MRSAttachment):
     mrsrequest = models.ForeignKey(
         'MRSRequest',
@@ -196,9 +199,9 @@ class MRSRequest(models.Model):
 
     def get_taxi_cost(self):
         return Decimal(
-            (self.distance * 1.62)
-            + (1.9 * 2 * self.transport_set.count()) * 0.91
-        )
+            (self.distance * 1.62) +
+            (1.9 * 2 * self.transport_set.count()) * 0.91
+        ).quantize(TWOPLACES)
 
     def get_saving(self):
         if not self.insured_shift:
@@ -208,6 +211,8 @@ class MRSRequest(models.Model):
         return self.get_taxi_cost() - self.payment_base
 
     def get_delay(self):
+        if not self.mandate_date:
+            return
         mandate_datetime = datetime.datetime(
             self.mandate_date.year,
             self.mandate_date.month,
