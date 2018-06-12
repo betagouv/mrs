@@ -3,6 +3,7 @@ import pytest
 import pytz
 import uuid
 
+from django.conf import settings
 from django.contrib.admin.models import LogEntry
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
@@ -32,6 +33,16 @@ def test_mrsrequest_update_taxi_cost():
 
     obj.insured_shift = True
     assert obj.get_saving() == 48.916
+
+
+def test_payment_delay():
+    obj = MRSRequest(
+        creation_datetime=datetime.datetime(
+            2000, 12, 20, 12, tzinfo=pytz.timezone(settings.TIME_ZONE)
+        ),
+        mandate_date=datetime.date(2000, 12, 30),
+    )
+    assert obj.get_delay() == 9.5
 
 
 def test_mrsrequest_allow(srf):
