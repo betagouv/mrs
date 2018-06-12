@@ -29,6 +29,16 @@
                         </span>
                     </p>
                     {% endif -%}
+                    {% if object.get_delay() -%}
+                    <p>
+                        <span class="grey-text text-darken-2">
+                            Délai de paiement
+                        </span>
+                        <span class="right">
+                            {{ '%.2f'|format(object.get_delay()) }}
+                        </span>
+                    </p>
+                    {% endif -%}
                 </div>
             </div>
             <div class="card-reveal">
@@ -179,6 +189,26 @@
                     </span>
                     <span class="right">
                         {{ object.payment_amount }}€
+                    </span>
+                </p>
+                {% endif -%}
+                {% if object.get_taxi_cost() -%}
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Coût théorique du trajet en taxi
+                    </span>
+                    <span class="right">
+                        {{ '%.2f'|format(object.get_taxi_cost()) }}€
+                    </span>
+                </p>
+                {% endif -%}
+                {% if object.get_saving() -%}
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Economie calculée
+                    </span>
+                    <span class="right">
+                        {{ '%.2f'|format(object.get_saving()) }}€
                     </span>
                 </p>
                 {% endif -%}
