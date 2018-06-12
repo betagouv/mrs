@@ -1,3 +1,4 @@
+from decimal import Decimal
 import io
 import pytest
 import os
@@ -41,12 +42,12 @@ class ExportTest(ResponseDiffTestMixin, test.TestCase):
 class ImportTest(ResponseDiffTestMixin, test.TestCase):
     fixtures = ['src/mrs/tests/data.json']
 
-    upload = '''caisse,id,nir,naissance,nom,transport,mandatement,base,montant,bascule,finess,adeli
-    bbbb,201805010001,2333333333333,30/04/2018,uea ue,29/04/2018,,,,,,
-    bbbb,201805010001,2333333333333,30/04/2018,uea ée,29/04/2018,30/04/2018,18,19,1,310123123,12
-    aaaaaaa,201805010000,1111111111111,30/04/2018,aoeu aoeu,29/04/2018,30/04/2018,2,3,0,123123123,
-    aaaaaaa,999905010000,1111111111111,30/04/2018,aoeu aoeu,29/04/2018,,,,,,
-    aaaaaaa,201805010000,1111111111111,30/04/2018,aoeu aoeu,29/04/2018,30/04/2018,a,3,0,,
+    upload = '''caisse;id;nir;naissance;nom;transport;mandatement;base;montant;bascule;finess;adeli
+    bbbb;201805010001;2333333333333;30/04/2018;uea ue;29/04/2018;;;;;;
+    bbbb;201805010001;2333333333333;30/04/2018;uea ée;29/04/2018;30/04/2018;18,32;19;1;310123123;12
+    aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu aoeu;29/04/2018;30/04/2018;2;3;0;123123123;
+    aaaaaaa;999905010000;1111111111111;30/04/2018;aoeu aoeu;29/04/2018;;;;;;
+    aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu aoeu;29/04/2018;30/04/2018;a;3;0;;
     '''.strip()  # noqa
 
     def make_request(self):
@@ -77,7 +78,7 @@ class ImportTest(ResponseDiffTestMixin, test.TestCase):
 
         success = view.success[2]['object']
         assert success.payment_amount == 19
-        assert success.payment_base == 18
+        assert success.payment_base == Decimal('18.32')
         assert success.insured_shift is True
         assert success.institution.finess == '310123123'
         assert success.adeli == 12
