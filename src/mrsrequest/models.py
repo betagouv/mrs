@@ -1,5 +1,5 @@
 import datetime
-from decimal import *
+from decimal import Decimal
 import pytz
 import uuid
 
@@ -195,7 +195,8 @@ class MRSRequest(models.Model):
         return getattr(self, 'STATUS_{}'.format(name.upper()))
 
     def get_taxi_cost(self):
-        return (self.distance * 1.62) + (1.9 * 2 * self.transport_set.count()) * 0.91
+        return (self.distance * 1.62) + (
+            1.9 * 2 * self.transport_set.count()) * 0.91
 
     def get_saving(self):
         if not self.insured_shift:

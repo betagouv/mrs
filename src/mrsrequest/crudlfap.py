@@ -1,3 +1,4 @@
+from chardet.universaldetector import UniversalDetector
 import csv
 from datetime import datetime
 import io
@@ -112,7 +113,7 @@ class MRSRequestExport(crudlfap.ObjectsView):
 
     def get(self, request, *args, **kwargs):
         f = io.TextIOWrapper(io.BytesIO(), encoding='utf8')
-        w = csv.writer(f)
+        w = csv.writer(f, delimiter=';')
         w.writerow((
             'caisse',
             'id',
@@ -169,14 +170,24 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         csv = forms.FileField()
 
     def form_valid(self):
+        detector = UniversalDetector()
+        for line in self.request.FILES['csv'].readlines():
+            detector.feed(line)
+            if detector.done:
+                break
+        detector.close()
+
         def decode_utf8(input_iterator):
             for l in input_iterator:
-                yield l.decode('utf-8')
+                yield l.decode(detector.result['encoding'])
 
         self.errors = dict()
         self.success = dict()
 
-        f = csv.DictReader(decode_utf8(self.request.FILES['csv']))
+        f = csv.DictReader(
+            decode_utf8(self.request.FILES['csv']),
+            delimiter=';'
+        )
 
         for i, row in enumerate(f):
             self.import_row(i, row)
@@ -204,10 +215,10 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
             ).date()
 
         if row['base']:
-            obj.payment_base = row['base']
+            obj.payment_base = row['base'].replace(',', '.')
 
         if row['montant']:
-            obj.payment_amount = row['montant']
+            obj.payment_amount = row['montant'].replace(',', '.')
 
         if row['bascule'] != '':
             obj.insured_shift = bool(row['bascule'])
