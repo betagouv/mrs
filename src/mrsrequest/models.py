@@ -1,3 +1,4 @@
+import datetime
 from decimal import *
 import pytz
 import uuid
@@ -202,6 +203,17 @@ class MRSRequest(models.Model):
         if not self.payment_base:
             return
         return self.get_taxi_cost() - self.payment_base
+
+    def get_delay(self):
+        mandate_datetime = datetime.datetime(
+            self.mandate_date.year,
+            self.mandate_date.month,
+            self.mandate_date.day,
+            0,
+            tzinfo=pytz.timezone(settings.TIME_ZONE),
+        )
+        delta = mandate_datetime - self.creation_datetime_normalized
+        return delta.days + (delta.seconds / 60 / 60 / 24)
 
     @property
     def status_days(self):
