@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import *
 import pytz
 import uuid
 
@@ -192,6 +192,16 @@ class MRSRequest(models.Model):
     @classmethod
     def get_status_id(self, name):
         return getattr(self, 'STATUS_{}'.format(name.upper()))
+
+    def get_taxi_cost(self):
+        return (self.distance * 1.62) + (1.9 * 2 * self.transport_set.count()) * 0.91
+
+    def get_saving(self):
+        if not self.insured_shift:
+            return 0
+        if not self.payment_base:
+            return
+        return self.get_taxi_cost() - self.payment_base
 
     @property
     def status_days(self):

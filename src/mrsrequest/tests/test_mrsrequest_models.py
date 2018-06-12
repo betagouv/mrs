@@ -13,6 +13,27 @@ from person.models import Person
 from mrsrequest.models import MRSRequest
 
 
+@pytest.mark.django_db
+def test_mrsrequest_update_taxi_cost():
+    obj = MRSRequest.objects.create(
+        distance=100,
+        payment_base=120,
+    )
+    obj.transport_set.create(
+        date_depart='2000-12-12',
+        date_return='2000-12-12',
+    )
+    obj.transport_set.create(
+        date_depart='2000-12-10',
+        date_return='2000-12-10',
+    )
+    assert obj.get_taxi_cost() == 168.916
+    assert obj.get_saving() == 0
+
+    obj.insured_shift = True
+    assert obj.get_saving() == 48.916
+
+
 def test_mrsrequest_allow(srf):
     '''allow(request) should be required to pass is_allowed(request)'''
     request = srf.get('/')
