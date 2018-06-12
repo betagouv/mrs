@@ -1,4 +1,5 @@
 import datetime
+from decimal import Decimal
 import pytest
 import pytz
 import uuid
@@ -28,11 +29,11 @@ def test_mrsrequest_update_taxi_cost():
         date_depart='2000-12-10',
         date_return='2000-12-10',
     )
-    assert obj.get_taxi_cost() == 168.916
+    assert obj.get_taxi_cost() == Decimal('168.92')
     assert obj.get_saving() == 0
 
     obj.insured_shift = True
-    assert obj.get_saving() == 48.916
+    assert obj.get_saving() == Decimal('48.92')
 
 
 def test_payment_delay():
