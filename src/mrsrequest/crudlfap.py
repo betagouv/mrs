@@ -200,6 +200,15 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         return self.render_to_response()
 
     def import_row(self, i, row):
+        try:
+            int(row['id'])
+        except ValueError:
+            self.errors[i + 1] = dict(
+                row=row,
+                message='Numéro de demande invalide: {}'.format(row['id'])
+            )
+            return
+
         obj = self.queryset.filter(display_id=row['id']).first()
 
         if obj:
