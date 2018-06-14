@@ -1,5 +1,6 @@
 import datetime
 from decimal import Decimal
+from denorm import denormalized
 import pytz
 import uuid
 
@@ -197,20 +198,38 @@ class MRSRequest(models.Model):
     def get_status_id(self, name):
         return getattr(self, 'STATUS_{}'.format(name.upper()))
 
-    def get_taxi_cost(self):
+    @denormalized(
+        models.DecimalField,
+        decimal_places=2,
+        max_digits=5,
+        null=True,
+    )
+    def taxi_cost(self):
         return Decimal(
-            (self.distance * 1.62) +
+            ((self.distance or 0) * 1.62) +
             (1.9 * 2 * self.transport_set.count()) * 0.91
         ).quantize(TWOPLACES)
 
-    def get_saving(self):
+    @denormalized(
+        models.DecimalField,
+        decimal_places=2,
+        max_digits=5,
+        null=True,
+    )
+    def saving(self):
         if not self.insured_shift:
             return 0
         if not self.payment_base:
             return
-        return self.get_taxi_cost() - self.payment_base
+        return self.taxi_cost - self.payment_base
 
-    def get_delay(self):
+    @denormalized(
+        models.DecimalField,
+        decimal_places=2,
+        max_digits=5,
+        null=True,
+    )
+    def delay(self):
         if not self.mandate_date:
             return
         mandate_datetime = datetime.datetime(

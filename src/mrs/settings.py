@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'mrsemail',
     'crudlfap_auth', 'mrsuser',  # the second overrides the first
     'caisse',
+    'denorm',
 
     os.getenv('WEBPACK_LOADER', 'webpack_loader'),
     'django_humanize',

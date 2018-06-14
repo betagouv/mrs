@@ -2,6 +2,7 @@ from django import test
 
 from freezegun import freeze_time
 
+from mrsrequest.models import MRSRequest
 from mrsuser.models import User
 from responsediff.test import ResponseDiffTestMixin
 
@@ -24,6 +25,10 @@ class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):
     def test_crawl(self):
         client = test.Client()
         client.force_login(User.objects.get(username=self.username))
+
+        for request in MRSRequest.objects.all():
+            # trigger denorm
+            request.save()
 
         self.assertWebsiteSame(
             url='/admin/',

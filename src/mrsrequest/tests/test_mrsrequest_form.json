@@ -25,6 +25,7 @@
         "caisse": null,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "creation_ip": null,
+        "delay": null,
         "display_id": 201712190000,
         "distance": 100,
         "expense": 10,
@@ -35,9 +36,11 @@
         "payment_amount": null,
         "payment_base": null,
         "reject_template": null,
+        "saving": 0,
         "status": 1,
         "status_datetime": null,
-        "status_user": null
+        "status_user": null,
+        "taxi_cost": 162
     },
     "model": "mrsrequest.mrsrequest",
     "pk": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
