@@ -270,7 +270,10 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         try:
             obj.save()
         except Exception as e:
-            self.errors[i + 1] = dict(row=row, message=e.message)
+            self.errors[i + 1] = dict(
+                row=row,
+                message=getattr(e, 'message', str(e)),
+            )
         else:
             self.success[i + 1] = dict(object=obj, row=row)
 

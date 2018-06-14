@@ -145,6 +145,25 @@ textarea {
       
         
           <li class="">
+            <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">multiline_chart</i> Stats</a>
+            <div class="collapsible-body">
+              <ul>
+                
+                  <li>
+                    <a
+                      class="waves-effect"
+                      href="/admin/stat"
+                      title="Stats: list"
+                    ><i class="material-icons">list</i>List</a>
+                  </li>
+                
+              </ul>
+            </div>
+          </li>
+        
+      
+        
+          <li class="">
             <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">person</i> Utilisateurs</a>
             <div class="collapsible-body">
               <ul>

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if view.filterset.form.fields %}
+  <form method="get" action="" data-controller="autosubmit" data-target="render-chart" data-action="input->autosubmit#input change->autosubmit#input">
+    {{ render_form(view.filterset.form) }}
+  </form>
+{% endif %}
+
+<div id="render-chart">
+  <script
+    type="text/json"
+    data-stats="#chart"
+    data-controller="mrsstat"
+  >{{ view.get_chart_json()|safe }}</script>
+
+  <div class="row">
+    <div class="col s4">
+      <p>
+        Délai moyen: {{ view.last_object.validation_average_delay }} jours
+      </p>
+    </div>
+    <div class="col s4">
+      <p>
+        Nombre de demandes cumulées: {{ view.last_object.mrsrequest_count_total }}
+      </p>
+      <p>
+        Nombre de demandes soumises: {{ view.last_object.mrsrequest_count_new }}
+      </p>
+      <p>
+        Nombre de demandes validées: {{ view.last_object.mrsrequest_count_validated }}
+      </p>
+      <p>
+        Nombre de demandes rejetées: {{ view.last_object.mrsrequest_count_rejected }}
+      </p>
+    </div>
+    <div class="col s4">
+      <p>
+        Econnomies réalisées: {{ view.last_object.savings }}&euro;
+      </p>
+    </div>
+  </div>
+
+  <div id="chart">
+  </div>
+</div>
+{% endblock %}

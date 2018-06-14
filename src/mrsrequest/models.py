@@ -201,7 +201,7 @@ class MRSRequest(models.Model):
     @denormalized(
         models.DecimalField,
         decimal_places=2,
-        max_digits=5,
+        max_digits=10,
         null=True,
     )
     def taxi_cost(self):
@@ -213,7 +213,7 @@ class MRSRequest(models.Model):
     @denormalized(
         models.DecimalField,
         decimal_places=2,
-        max_digits=5,
+        max_digits=8,
         null=True,
     )
     def saving(self):
@@ -221,7 +221,9 @@ class MRSRequest(models.Model):
             return 0
         if not self.payment_base:
             return
-        return self.taxi_cost - self.payment_base
+        return Decimal(
+            float(self.taxi_cost) - float(self.payment_base)
+        ).quantize(TWOPLACES)
 
     @denormalized(
         models.DecimalField,

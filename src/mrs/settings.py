@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'mrsrequest', 'jfu',
     'mrsattachment',
     'mrsemail',
+    'mrsstat',
     'crudlfap_auth', 'mrsuser',  # the second overrides the first
     'caisse',
     'denorm',
