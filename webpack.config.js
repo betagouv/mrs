@@ -33,6 +33,7 @@ var cfg = {
       'babel-polyfill',
       'whatwg-fetch',
       './src/mrs/static/js/crudlfap',
+      './node_modules/c3/c3.css',
       './node_modules/materialize-css/sass/materialize.scss',
     ],
   },
@@ -61,7 +62,7 @@ var cfg = {
         }
       },
       {
-        test: /\.s(a|c)ss$/,
+        test: /\.s?(a|c)ss$/,
         use: extractSass.extract({
           use: [{
             loader: 'css-loader', options: {
