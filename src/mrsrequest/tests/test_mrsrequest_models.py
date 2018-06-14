@@ -29,21 +29,25 @@ def test_mrsrequest_update_taxi_cost():
         date_depart='2000-12-10',
         date_return='2000-12-10',
     )
-    assert obj.get_taxi_cost() == Decimal('168.92')
-    assert obj.get_saving() == 0
+    obj.save()
+
+    assert obj.taxi_cost == Decimal('168.92')
+    assert obj.saving == 0
 
     obj.insured_shift = True
-    assert obj.get_saving() == Decimal('48.92')
+    obj.save()
+    assert obj.saving == Decimal('48.92')
 
 
+@pytest.mark.django_db
 def test_payment_delay():
-    obj = MRSRequest(
+    obj = MRSRequest.objects.create(
         creation_datetime=datetime.datetime(
             2000, 12, 20, 12, tzinfo=pytz.timezone(settings.TIME_ZONE)
         ),
         mandate_date=datetime.date(2000, 12, 30),
     )
-    assert obj.get_delay() == 9.5
+    assert obj.delay == 9.5
 
 
 def test_mrsrequest_allow(srf):

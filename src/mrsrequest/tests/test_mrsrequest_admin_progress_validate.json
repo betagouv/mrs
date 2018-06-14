@@ -5,6 +5,7 @@
         "caisse": 1,
         "creation_datetime": "3000-12-31T13:37:42Z",
         "creation_ip": null,
+        "delay": null,
         "display_id": 300012310000,
         "distance": null,
         "expense": 0,
@@ -15,11 +16,13 @@
         "payment_amount": null,
         "payment_base": null,
         "reject_template": null,
+        "saving": 0,
         "status": 2000,
         "status_datetime": "3000-12-31T13:37:42Z",
         "status_user": [
             "{}"
-        ]
+        ],
+        "taxi_cost": 0
     },
     "model": "mrsrequest.mrsrequest",
     "pk": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea"
