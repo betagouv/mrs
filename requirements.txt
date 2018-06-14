@@ -11,3 +11,4 @@ crudlfap==0.4.2
 sqlparse
 holidays
 chardet
+django-denorm
