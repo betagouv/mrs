@@ -2,6 +2,7 @@ from chardet.universaldetector import UniversalDetector
 import csv
 from datetime import datetime
 import io
+import logging
 
 from crudlfap import crudlfap
 
@@ -10,6 +11,7 @@ from django import http
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models import Q
 
 import django_tables2 as tables
 
@@ -22,6 +24,8 @@ from .views import (
     MRSRequestValidateObjectsView,
 )
 from .models import MRSRequest
+
+logger = logging.getLogger(__name__)
 
 
 class MRSRequestListView(crudlfap.ListView):
@@ -193,11 +197,54 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
             delimiter=';'
         )
 
+        objects = []
         for i, row in enumerate(f):
-            self.import_row(i, row)
+            obj = self.import_row(i, row)
+            if obj:
+                objects.append(obj)
+
+        self.update_stats(objects)
 
         self.keys = row.keys()
         return self.render_to_response()
+
+    def update_stats(self, objects):
+        from mrsstat.models import Stat
+
+        dates = []
+        caisses = []
+        institutions = []
+
+        for obj in objects:
+            if obj.creation_datetime.date() not in dates:
+                dates.append(obj.creation_datetime.date())
+            if obj.caisse not in caisses:
+                caisses.append(obj.caisse)
+            if obj.institution not in institutions:
+                institutions.append(obj.institution)
+
+        stats = Stat.objects.filter(
+            date__in=dates,
+        ).filter(
+            Q(
+                caisse__in=caisses,
+            ) | Q(
+                institution__in=institutions,
+            )
+        )
+
+        # update existing stats
+        for stat in stats:
+            logger.info('Refresh stat: {}'.format(stat))
+            stat.save()
+
+        for date in dates:
+            # create missing
+            Stat.objects.create_missing_for_date(
+                date,
+                caisses,
+                institutions
+            )
 
     def import_row(self, i, row):
         try:
@@ -212,7 +259,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         obj = self.queryset.filter(display_id=row['id']).first()
 
         if obj:
-            self.import_obj(i, row, obj)
+            return self.import_obj(i, row, obj)
         else:
             self.errors[i + 1] = dict(
                 row=row,
@@ -245,6 +292,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
                 return
 
         self.save_obj(i, row, obj)
+        return obj
 
     def save_obj(self, i, row, obj):
         try:

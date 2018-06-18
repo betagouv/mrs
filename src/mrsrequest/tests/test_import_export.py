@@ -5,11 +5,13 @@ import os
 
 from crudlfap import crudlfap
 
+from dbdiff.fixture import Fixture
 from django import test
 from django.urls import reverse
 
 from freezegun import freeze_time
 
+from mrsstat.models import Stat
 from mrsuser.models import User
 
 from responsediff.test import ResponseDiffTestMixin
@@ -39,20 +41,26 @@ class ExportTest(ResponseDiffTestMixin, test.TestCase):
 
 
 @pytest.mark.usefixtures('srf_class')
-class ImportTest(ResponseDiffTestMixin, test.TestCase):
+class ImportTest(ResponseDiffTestMixin, test.TransactionTestCase):
     fixtures = ['src/mrs/tests/data.json']
+    reset_sequences = True
 
-    upload = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
+    upload0 = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
 bbbb;201805010001;2333333333333;30/04/2018;uea;ue;29/04/2018;;;;;;
-bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;30/04/2018;18,32;19;1;310123123;12
-aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;30/04/2018;2;3;0;123123123;
+bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;05/05/2018;18,32;19;1;310123123;12
+aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;05/05/2018;2;3;0;123123123;
 aaaaaaa;999905010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;;;;;;
 aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;30/04/2018;a;3;0;;
     '''.strip()  # noqa
 
-    def make_request(self):
+    upload1 = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
+bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;05/05/2018;18,32;22;1;310123123;12
+aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;05/05/2018;2;3;0;310123122;
+    '''.strip()  # noqa
+
+    def upload(self, data):
         fixture = io.BytesIO()
-        fixture.write(self.upload.encode('utf-8'))
+        fixture.write(data.encode('utf-8'))
         fixture.seek(0)
 
         request = self.srf.post(
@@ -60,15 +68,14 @@ aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;30/04/2018;a;
             dict(csv=fixture)
         )
         request.user = User.objects.get(username='test')
-        return request
-
-    @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
-    def test_import(self):
-        request = self.make_request()
-
         view_class = crudlfap.site['mrsrequest.mrsrequest']['import']
         view = view_class(request=request)
         view.dispatch(request)
+        return request, view
+
+    @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
+    def test_import(self):
+        request, view = self.upload(self.upload0)
 
         assert view.form.is_valid()
         assert list(view.success.keys()) == [1, 2]
@@ -82,4 +89,10 @@ aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;30/04/2018;a;
         assert success.insured_shift is True
         assert success.institution.finess == '310123123'
         assert success.adeli == 12
-        assert str(success.mandate_date) == '2018-04-30'
+        assert str(success.mandate_date) == '2018-05-05'
+
+        Fixture('mrsrequest/tests/test_import_0.json',
+                models=[Stat]).assertNoDiff()
+        request, view = self.upload(self.upload1)
+        Fixture('mrsrequest/tests/test_import_1.json',
+                models=[Stat]).assertNoDiff()

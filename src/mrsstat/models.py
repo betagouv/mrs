@@ -1,11 +1,11 @@
 import datetime
 import logging
+import pytz
 
 from denorm import denormalized
 
 from django.db import models
 from django.db import transaction
-from django.db.models import signals
 
 from caisse.models import Caisse
 from institution.models import Institution
@@ -100,7 +100,14 @@ class Stat(models.Model):
             return self._mrsrequest_set
 
         qs = MRSRequest.objects.filter(
-            creation_datetime__lte=self.date
+            creation_datetime__lte=datetime.datetime(
+                self.date.year,
+                self.date.month,
+                self.date.day,
+                23,
+                59,
+                tzinfo=pytz.utc
+            )
         )
         if self.caisse:
             qs = qs.filter(caisse=self.caisse)
@@ -173,11 +180,4 @@ class Stat(models.Model):
         unique_together = (
             ('date', 'caisse', 'institution'),
         )
-        ordering = ('date',)
-
-
-def update_stats(sender, instance, **kwargs):
-    for stat in Stat.objects.filter(date=instance.creation_datetime.date()):
-        logging.info('Refresh stat: {}'.format(stat))
-        stat.save()
-signals.post_save.connect(update_stats, sender=MRSRequest)
+        ordering = ('date', 'caisse', 'institution',)
