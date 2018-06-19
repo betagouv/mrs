@@ -79,6 +79,7 @@ CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault(
 CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault(
     'localtime', 'django.utils.timezone.template_localtime')
 CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault('list', list)
+CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals'].setdefault('float', float)
 
 if os.getenv('WEBPACK_LOADER') == 'webpack_mock':
     CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['globals']['render_bundle'] = (

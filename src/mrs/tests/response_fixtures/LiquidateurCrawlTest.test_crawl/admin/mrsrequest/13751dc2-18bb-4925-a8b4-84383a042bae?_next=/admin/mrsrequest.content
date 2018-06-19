@@ -124,6 +124,14 @@
                     Transport(s)
                 </div>
                 <p>
+                    <span class="red-text" style="font-weight: bold">
+                        Montant total (Base de remboursement)
+                    </span>
+                    <span class="right red-text" style="font-weight: bold">
+                        37.90€ TTC
+                    </span>
+                </p>
+                <p>
                     <span class="grey-text text-darken-2">
                         Distance (km parcourus)
                     </span>
