@@ -89,7 +89,7 @@ class StatListView(crudlfap.ListView):
         return qs
 
     def get_last_object(self):
-        self.last_object = self.object_list.order_by('-date').first()
+        self.last_object = self.get_object_list().last()
         return self.last_object
 
     def get_chart_json(self):
