@@ -270,7 +270,7 @@ textarea {
             <p>
                 Soumises
                 <span class="right">
-                    <a href="/admin/mrsrequest?status=1">
+                    <a href="/admin/mrsrequest?status=1&sort=creation_datetime">
                         1
                     </a>
                 </span>
