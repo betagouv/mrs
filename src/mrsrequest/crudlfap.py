@@ -231,7 +231,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
             ) | Q(
                 institution__in=institutions,
             )
-        )
+        ).distinct()
 
         # update existing stats
         for stat in stats:
