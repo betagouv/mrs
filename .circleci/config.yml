@@ -54,6 +54,9 @@ workflows:
           - smoketest
           - js-qa
           - js-test
+      - ecole:
+          <<: *master_template
+          requires: [staging]
       - validate-staging:
           <<: *master_template
           type: approval
@@ -202,6 +205,9 @@ jobs:
           docker push betagouv/mrs:$CIRCLE_BRANCH
 
   staging:
+    <<: *deploy_template
+
+  ecole:
     <<: *deploy_template
 
   production:
