@@ -12,7 +12,7 @@
             <p>
                 Soumises
                 <span class="right">
-                    <a href="{{ crudlfap_site[view.model].views['list'].url }}?status={{ view.model.STATUS_NEW }}">
+                    <a href="{{ crudlfap_site[view.model].views['list'].url }}?status={{ view.model.STATUS_NEW }}&sort=creation_datetime">
                         {{ view.get_queryset().status('new').count() }}
                     </a>
                 </span>
