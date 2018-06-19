@@ -259,7 +259,14 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         obj = self.queryset.filter(display_id=row['id']).first()
 
         if obj:
-            return self.import_obj(i, row, obj)
+            try:
+                return self.import_obj(i, row, obj)
+            except Exception as e:
+                self.errors[i + 1] = dict(
+                    row=row,
+                    object=obj,
+                    message=repr(e),
+                )
         else:
             self.errors[i + 1] = dict(
                 row=row,
