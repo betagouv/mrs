@@ -22,6 +22,10 @@
         <div class="mrs-std-page">
             
 
+<script id="caissesJson" type="text/json">
+{}
+</script>
+
 <h2 class="scroll-reveal">Formulaire de remboursement</h2>
 <p class="scroll-reveal">
     Réalisez votre demande de remboursement en ligne dès maintenant.
@@ -222,14 +226,25 @@
 
 
     
+<div class="layout-row row"><div class="col s12 m6">
 
 <div class="row">
     <div class="input-field col s12 required" id="id_expense_container">
         <input id="id_expense" name="expense" step="0.01" type="number" value="0"/>
-        <label class="active" for="id_expense">Montant total des frais (en € TTC)</label>
-        <div class="help-block">Somme totale des frais de stationnement et/ou péage et/ou de transport en commun</div>
+        <label class="active" for="id_expense">Frais de péage et/ou transports</label>
+        <div class="help-block">Somme totale des frais de péage et/ou de transport en commun (en € TTC)</div>
     </div>
 </div>
+</div><div class="col s12 m6">
+
+<div class="row">
+    <div class="input-field col s12" id="id_parking_expense_container">
+        <input id="id_parking_expense" name="parking_expense" step="0.01" type="number" value="0"/>
+        <label class="active" for="id_parking_expense">Frais de parking</label>
+        <div class="help-block">Somme totale des frais de parking (en € TTC)</div>
+    </div>
+</div>
+</div></div>
 
 
     

@@ -1,6 +1,8 @@
+from decimal import Decimal
 import uuid
 
 from django import forms
+from django.core import validators
 from django.utils.datastructures import MultiValueDict
 
 import material
@@ -190,10 +192,27 @@ class MRSRequestCreateForm(MRSRequestForm):
             material.Row(
                 'distance',
             ),
-            'expense',
+            material.Row(
+                'expense',
+                'parking_expense',
+            ),
             'bills',
         )
     )
+
+    parking_expense = forms.DecimalField(
+        decimal_places=2,
+        max_digits=6,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        label='Frais de parking',
+        help_text='Somme totale des frais de parking (en € TTC)',
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('initial', {})
+        kwargs['initial'].setdefault('parking_expense', 0)
+        super().__init__(*args, **kwargs)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -207,6 +226,11 @@ class MRSRequestCreateForm(MRSRequestForm):
             )
 
         return cleaned_data
+
+    def save(self, commit=True):
+        if self.cleaned_data.get('parking_expense', None):
+            self.instance.expense += self.cleaned_data.get('parking_expense')
+        return super().save(commit=commit)
 
     class Meta:
         model = MRSRequest

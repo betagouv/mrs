@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.views import generic
 from ipware import get_client_ip
 
-from caisse.models import Email
+from caisse.models import Caisse, Email
 from caisse.forms import CaisseVoteForm
 from person.forms import PersonForm
 from mrsemail.models import EmailTemplate
@@ -48,6 +48,14 @@ class MRSRequestCreateView(generic.TemplateView):
         ])
 
         return super().get(request, *args, **kwargs)
+
+    def caisses_json(self):
+        caisses = {
+            i.pk: dict(
+                parking_enable=i.parking_enable,
+            ) for i in Caisse.objects.all()
+        }
+        return json.dumps(caisses)
 
     def has_perm(self):
         if not self.mrsrequest_uuid:  # require mrsrequest_uuid on post

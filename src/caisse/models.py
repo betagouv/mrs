@@ -47,6 +47,10 @@ class Caisse(models.Model):
         verbose_name='activé',
         default=False,
     )
+    parking_enable = models.BooleanField(
+        verbose_name='active la saisie de frais de parking',
+        default=True,
+    )
     score = models.PositiveIntegerField(default=0)
 
     class Meta:

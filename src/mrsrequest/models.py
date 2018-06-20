@@ -115,10 +115,10 @@ class MRSRequest(models.Model):
         decimal_places=2, max_digits=6,
         default=0,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
-        verbose_name='Montant total des frais (en € TTC)',
+        verbose_name='Frais de péage et/ou transports',
         help_text=(
-            'Somme totale des frais de stationnement et/ou péage'
-            ' et/ou de transport en commun'
+            'Somme totale des frais de péage'
+            ' et/ou de transport en commun (en € TTC)'
         )
     )
     status = models.IntegerField(

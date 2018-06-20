@@ -38,9 +38,11 @@ var formInit = function (form) {
   mrsattachment(form)
 
   // Show/hide mrsrequest or vote form
+  document.caisses = JSON.parse(document.getElementById('caissesJson').innerHTML)
   var $caisse = $(form).find('#id_caisse')
   var $mrsrequestForm = $(form).find('#mrsrequest-form')
   var $caisseForm = $(form).find('#caisse-form')
+  var $parking = $(form).find('#id_parking_expense')
   var caisseChange = function() {
     if ($caisse.val() == 'other') {
       $caisseForm.show()
@@ -48,6 +50,11 @@ var formInit = function (form) {
     } else if ($caisse.val()) {
       $caisseForm.hide()
       $mrsrequestForm.show()
+      if (document.caisses[$caisse.val()].parking_enable) {
+        $parking.parents('.col').show()
+      } else {
+        $parking.parents('.col').hide()
+      }
     } else {
       $mrsrequestForm.hide()
       $caisseForm.hide()
