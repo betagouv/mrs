@@ -67,6 +67,15 @@
       
       <tr>
           <th>
+              Active la saisie de frais de parking
+          </th>
+          <td>
+              True
+          </td>
+      </tr>
+      
+      <tr>
+          <th>
               Score
           </th>
           <td>

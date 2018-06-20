@@ -6,6 +6,7 @@
         "liquidation_email": "taoeu@aoeu.com",
         "name": "test",
         "number": "311",
+        "parking_enable": true,
         "score": 0
     },
     "model": "caisse.caisse",
@@ -18,6 +19,7 @@
         "liquidation_email": null,
         "name": "test inactive",
         "number": "333",
+        "parking_enable": true,
         "score": 1
     },
     "model": "caisse.caisse",
