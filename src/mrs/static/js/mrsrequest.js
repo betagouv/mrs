@@ -125,12 +125,21 @@ var formInit = function (form) {
   // Expense bills field
   var $expense = $(form).find('[name=expense]')
   var $bills = $(form).find('#id_bills_container')
-  var billsChange = function() {
-    ($expense.length && parseFloat($expense.val().replace(',', '.')) > 0) ? $bills.show() : $bills.hide()
+  var expenseChange = function() {
+    function active(field) {
+      return field.length && parseFloat(field.val().replace(',', '.')) > 0
+    }
+    if (active($expense) || active($parking)) {
+      $bills.show()
+    } else {
+      $bills.hide()
+    }
   }
-  $expense.on('input', billsChange)
-  $expense.on('change', billsChange)
-  billsChange()
+  $expense.on('input', expenseChange)
+  $expense.on('change', expenseChange)
+  $parking.on('input', expenseChange)
+  $parking.on('change', expenseChange)
+  expenseChange()
 
   // Activate label on date inputs because they have placeholders
   $(form).find('[data-form-control="date"]').siblings('label').addClass('active')
