@@ -218,8 +218,9 @@ class MRSRequestCreateForm(MRSRequestForm):
         cleaned_data = super().clean()
 
         expense = cleaned_data.get('expense')
+        parking_expense = cleaned_data.get('parking_expense')
         bills = cleaned_data.get('bills')
-        if expense and not bills:
+        if (expense or parking_expense) and not bills:
             self.add_error(
                 'bills',
                 'Merci de soumettre vos justificatifs de transport'
