@@ -130,10 +130,15 @@ class StatListView(crudlfap.ListView):
         ))
 
 
+class StatImportExport(crudlfap.ModelView):
+    material_icon = 'compare_arrows'
+
+
 crudlfap.Router(
     Stat,
     material_icon='multiline_chart',
     views=[
-        StatListView(),
+        StatImportExport,
+        StatListView,
     ]
 ).register()

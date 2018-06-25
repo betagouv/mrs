@@ -152,6 +152,14 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
+                      href="/admin/stat/importexport"
+                      title="Stat: import export"
+                    ><i class="material-icons">compare_arrows</i>Import export</a>
+                  </li>
+                
+                  <li>
+                    <a
+                      class="waves-effect"
                       href="/admin/stat"
                       title="Stats: list"
                     ><i class="material-icons">list</i>List</a>
