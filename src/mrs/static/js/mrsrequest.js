@@ -43,6 +43,7 @@ var formInit = function (form) {
   var $mrsrequestForm = $(form).find('#mrsrequest-form')
   var $caisseForm = $(form).find('#caisse-form')
   var $parking = $(form).find('#id_parking_expense')
+  var $parkingEnable = $(form).find('[data-parking-enable]')
   var caisseChange = function() {
     if ($caisse.val() == 'other') {
       $caisseForm.show()
@@ -52,8 +53,10 @@ var formInit = function (form) {
       $mrsrequestForm.show()
       if (document.caisses[$caisse.val()].parking_enable) {
         $parking.parents('.col').show()
+        $parkingEnable.show()
       } else {
         $parking.parents('.col').hide()
+        $parkingEnable.hide()
       }
     } else {
       $mrsrequestForm.hide()
