@@ -259,7 +259,7 @@
         <div class="file-path-wrapper">
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/bill/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
         </div>
-        <div class="help-block">Joindre vos justificatifs de péage / stationnement / transport en commun - voir FAQ pour la liste des justificatifs acceptés</div>
+        <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement </span> / transport en commun - voir FAQ pour la liste des justificatifs acceptés</div>
 
         <ul class="files">
             
