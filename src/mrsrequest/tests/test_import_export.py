@@ -47,15 +47,17 @@ class ImportTest(ResponseDiffTestMixin, test.TransactionTestCase):
 
     upload0 = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
 bbbb;201805010001;2333333333333;30/04/2018;uea;ue;29/04/2018;;;;;;
-bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;05/05/2018;18,32;19;1;310123123;12
-aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;05/05/2018;2;3;0;123123123;
+bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;18,32;19;1;310123123;12
+aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;123123123;
 aaaaaaa;999905010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;;;;;;
 aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;30/04/2018;a;3;0;;
+aaaaaaa;201806080000;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;5,32;6;1;310123123;12
     '''.strip()  # noqa
 
     upload1 = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
-bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;05/05/2018;18,32;22;1;310123123;12
-aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;05/05/2018;2;3;0;310123122;
+bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;18,32;22;1;310123123;12
+aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;310123122;
+aaaaaaa;201806080000;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;5,32;6;1;310123123;12
     '''.strip()  # noqa
 
     def upload(self, data):
@@ -78,7 +80,7 @@ aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;05/05/2018;2;
         request, view = self.upload(self.upload0)
 
         assert view.form.is_valid()
-        assert list(view.success.keys()) == [1, 2]
+        assert list(view.success.keys()) == [1, 2, 6]
         assert view.errors[3]['message'] == 'FINESS invalide 123123123'  # noqa
         assert view.errors[4]['message'] == 'Demande introuvable en base de données'  # noqa
         assert view.errors[5]['message'] == 'payment_base: La valeur « a » doit être un nombre décimal.'  # noqa
@@ -89,7 +91,7 @@ aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;05/05/2018;2;
         assert success.insured_shift is True
         assert success.institution.finess == '310123123'
         assert success.adeli == 12
-        assert str(success.mandate_date) == '2018-05-05'
+        assert str(success.mandate_date) == '2018-06-10'
 
         Fixture('mrsrequest/tests/test_import_0.json',
                 models=[Stat]).assertNoDiff()

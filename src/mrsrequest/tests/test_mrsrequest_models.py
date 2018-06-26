@@ -15,6 +15,32 @@ from person.models import Person
 from mrsrequest.models import MRSRequest
 
 
+paris = pytest.fixture(lambda: pytz.timezone('Europe/Paris'))
+
+
+@pytest.fixture
+def paris_yesterday():
+    return datetime.datetime(1999, 12, 31, 0, 5, tzinfo=paris())
+
+
+@pytest.fixture
+def utc_today():
+    # this is 2000-01-01 in Europe/Paris
+    return datetime.datetime(1999, 12, 31, 23, 5, tzinfo=pytz.utc)
+
+
+@pytest.fixture
+def paris_today():
+    # objects created with paris_today should be affected by those
+    # created with utc_today
+    return datetime.datetime(2000, 1, 1, 0, 5, tzinfo=paris())
+
+
+@pytest.fixture
+def paris_tomorrow():
+    return datetime.datetime(2000, 1, 2, 23, 59, tzinfo=paris())
+
+
 @pytest.mark.django_db
 def test_mrsrequest_update_taxi_cost():
     obj = MRSRequest.objects.create(
@@ -48,6 +74,23 @@ def test_payment_delay():
         mandate_date=datetime.date(2000, 12, 30),
     )
     assert obj.delay == 9.5
+
+
+@pytest.mark.django_db
+def test_update_status_reflection_status_changed(
+        su, paris_today, paris_yesterday):
+    obj = MRSRequest.objects.create(creation_datetime=paris_yesterday)
+    LogEntry.objects.create(
+        action_flag=MRSRequest.STATUS_VALIDATED,
+        action_time=paris_today,
+        content_type=ContentType.objects.get_for_model(MRSRequest),
+        user=su,
+        object_id=obj.pk,
+    )
+    obj.update_status(su, 'validated', paris_today)
+    qs = MRSRequest.objects.all()
+    result = qs.status_changed('validated', paris_today)
+    assert obj in result
 
 
 def test_mrsrequest_allow(srf):
@@ -100,27 +143,6 @@ def test_display_id():
 @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
 def test_mrsrequest_str():
     assert str(MRSRequest(display_id=300012301111)) == '300012301111'
-
-
-paris = pytest.fixture(lambda: pytz.timezone('Europe/Paris'))
-
-
-@pytest.fixture
-def paris_yesterday():
-    return datetime.datetime(1999, 12, 31, 0, 5, tzinfo=paris())
-
-
-@pytest.fixture
-def utc_today():
-    # this is 2000-01-01 in Europe/Paris
-    return datetime.datetime(1999, 12, 31, 23, 5, tzinfo=pytz.utc)
-
-
-@pytest.fixture
-def paris_today():
-    # objects created with paris_today should be affected by those
-    # created with utc_today
-    return datetime.datetime(2000, 1, 1, 0, 5, tzinfo=paris())
 
 
 @pytest.mark.django_db

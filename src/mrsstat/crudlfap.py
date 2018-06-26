@@ -4,6 +4,7 @@ import json
 from crudlfap import crudlfap
 
 from django import forms
+from django.db import models
 
 import django_filters
 
@@ -15,11 +16,9 @@ from .models import Stat
 class StatListView(crudlfap.ListView):
     keys = [
         'date',
-        'mrsrequest_count_total',
         'mrsrequest_count_new',
         'mrsrequest_count_validated',
         'mrsrequest_count_rejected',
-        'insured_shift_count',
     ]
 
     filter_fields = [
@@ -63,6 +62,21 @@ class StatListView(crudlfap.ListView):
 
     body_class = 'full-width'
 
+    def get_validation_average_delay(self):
+        return self.object_list.aggregate(
+            result=models.Avg('validation_average_delay')
+        )['result']
+
+    def get_mrsrequest_count(self, arg):
+        return self.object_list.aggregate(
+            result=models.Sum('mrsrequest_count_' + arg)
+        )['result']
+
+    def get_savings(self):
+        return self.object_list.aggregate(
+            result=models.Sum('savings')
+        )['result']
+
     def get_filterset_data_default(self):
         today = datetime.date.today()
         return dict(
@@ -86,11 +100,8 @@ class StatListView(crudlfap.ListView):
             qs = qs.filter(caisse=None)
         if not self.request.GET.get('institution'):
             qs = qs.filter(institution=None)
-        return qs
-
-    def get_last_object(self):
-        self.last_object = self.get_object_list().last()
-        return self.last_object
+        self.object_list = qs
+        return self.object_list
 
     def get_chart_json(self):
         columns = [

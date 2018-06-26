@@ -9,7 +9,6 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.utils import timezone
 from django.views import generic
 from ipware import get_client_ip
 
@@ -192,19 +191,13 @@ class MRSRequestStatusMixin:
     controller = 'modal'
     action = 'click->modal#open'
 
-    def update_status(self, mrsrequest=None):
-        mrsrequest = mrsrequest or self.object
-        mrsrequest.status = self.log_action_flag
-        mrsrequest.status_datetime = timezone.now()
-        mrsrequest.status_user = self.request.user
-        mrsrequest.save()
-
     def form_valid(self):
+        args = (self.request.user, self.log_action_flag)
         if hasattr(self, 'object'):
-            self.update_status()
+            self.object.update_status(*args)
         else:
             for obj in self.object_list:
-                self.update_status(obj)
+                obj.update_status(*args)
         return super().form_valid()
 
     def get_log_message(self):
