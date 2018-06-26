@@ -139,7 +139,7 @@
                     <h4 class="translate">Je déclare mon trajet</h4>
                 </div>
                 <p>
-                    Je saisis les informations nécessaires : nombre de kilomètres, frais de péage, frais de stationnement...
+                    Je saisis les informations nécessaires : nombre de kilomètres, frais de péage ...
                 </p>
                 <img
                     src="/static/img/3-etapes/deco-1.png"
@@ -159,7 +159,7 @@
                     <h4 class="">Je transmets mes justificatifs</h4>
                 </div>
                 <p>
-                    Je photographie ou scanne ma prescription médicale de transport et mes justificatifs et les joins à ma demande (tickets de parking, de bus, de péage...).
+                    Je photographie ou scanne ma prescription médicale de transport et mes justificatifs et les joins à ma demande (tickets de bus, de péage...).
                 </p>
                 <img
                     src="/static/img/3-etapes/deco-2.png"
