@@ -31,12 +31,12 @@ def test_mrsrequest_update_taxi_cost():
     )
     obj.save()
 
-    assert obj.taxi_cost == Decimal('168.92')
+    assert obj.taxi_cost == Decimal('154.34')
     assert obj.saving == 0
 
     obj.insured_shift = True
     obj.save()
-    assert obj.saving == Decimal('48.92')
+    assert obj.saving == Decimal('34.34')
 
 
 @pytest.mark.django_db
