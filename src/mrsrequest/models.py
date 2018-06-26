@@ -206,8 +206,10 @@ class MRSRequest(models.Model):
     )
     def taxi_cost(self):
         return Decimal(
-            ((self.distance or 0) * 1.62) +
-            (1.9 * 2 * self.transport_set.count()) * 0.91
+            (
+                ((self.distance or 0) * 1.62) +
+                (1.9 * 2 * self.transport_set.count())
+            ) * 0.91
         ).quantize(TWOPLACES)
 
     @denormalized(

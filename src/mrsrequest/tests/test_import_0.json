@@ -9,7 +9,7 @@
         "mrsrequest_count_rejected": 1,
         "mrsrequest_count_total": 2,
         "mrsrequest_count_validated": 0,
-        "savings": "4.58",
+        "savings": "2.83",
         "validation_average_delay": "3.28"
     },
     "model": "mrsstat.stat",
@@ -25,7 +25,7 @@
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_total": 1,
         "mrsrequest_count_validated": 0,
-        "savings": "4.58",
+        "savings": "2.83",
         "validation_average_delay": "3.28"
     },
     "model": "mrsstat.stat",
@@ -41,7 +41,7 @@
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_total": 1,
         "mrsrequest_count_validated": 0,
-        "savings": "4.58",
+        "savings": "2.83",
         "validation_average_delay": "3.28"
     },
     "model": "mrsstat.stat",
@@ -89,7 +89,7 @@
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_total": 1,
         "mrsrequest_count_validated": 0,
-        "savings": "4.58",
+        "savings": "2.83",
         "validation_average_delay": "3.28"
     },
     "model": "mrsstat.stat",
