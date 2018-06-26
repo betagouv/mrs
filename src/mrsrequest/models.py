@@ -20,6 +20,32 @@ from mrsattachment.models import MRSAttachment
 TWOPLACES = Decimal(10) ** -2
 
 
+def datetime_min(date):
+    return datetime.datetime(
+        date.year,
+        date.month,
+        date.day,
+        0,
+        0,
+        0,
+        0,
+        tzinfo=pytz.timezone(settings.TIME_ZONE),
+    )
+
+
+def datetime_max(date):
+    return datetime.datetime(
+        date.year,
+        date.month,
+        date.day,
+        23,
+        59,
+        59,
+        999999,
+        tzinfo=pytz.timezone(settings.TIME_ZONE),
+    )
+
+
 class Bill(MRSAttachment):
     mrsrequest = models.ForeignKey(
         'MRSRequest',
@@ -42,19 +68,38 @@ class Bill(MRSAttachment):
 
 
 class MRSRequestQuerySet(models.QuerySet):
+    @property
+    def logentries(self):
+        return LogEntry.objects.filter(
+            content_type=ContentType.objects.get_for_model(self.model),
+        )
+
     def status(self, name):
         return self.filter(status=MRSRequest.get_status_id(name))
 
     def status_by(self, name, user):
-        ids = LogEntry.objects.filter(
-            content_type=ContentType.objects.get_for_model(self.model),
+        ids = self.logentries.filter(
             action_flag=MRSRequest.get_status_id(name),
             user=user,
         ).values_list('object_id', flat=True)
         return self.filter(id__in=list(ids))
 
+    def status_changed(self, status, date):
+        ids = self.logentries.filter(
+            action_flag=MRSRequest.get_status_id(status),
+            action_time__gte=datetime_min(date),
+            action_time__lte=datetime_max(date),
+        ).values_list('object_id', flat=True)
+        return self.filter(id__in=list(ids))
+
     def in_status_by(self, name, user):
         return self.status(name).status_by(name, user)
+
+    def created(self, date):
+        return self.filter(
+            creation_datetime__gte=datetime_min(date),
+            creation_datetime__lte=datetime_max(date),
+        )
 
 
 class MRSRequestManager(models.Manager):
@@ -188,6 +233,12 @@ class MRSRequest(models.Model):
     def __str__(self):
         return str(self.display_id)
 
+    def update_status(self, user, status, log_datetime=None):
+        self.status = MRSRequest.get_status_id(status)
+        self.status_datetime = log_datetime or timezone.now()
+        self.status_user = user
+        self.save()
+
     def logentry_set(self):
         return LogEntry.objects.filter(
             content_type=ContentType.objects.get_for_model(type(self)),
@@ -196,6 +247,8 @@ class MRSRequest(models.Model):
 
     @classmethod
     def get_status_id(self, name):
+        if isinstance(name, int):
+            return name
         return getattr(self, 'STATUS_{}'.format(name.upper()))
 
     @denormalized(

@@ -1,10 +1,12 @@
+from datetime import datetime
+
 from django.core.management.base import BaseCommand
 
 from mrsstat.models import Stat
 
 
 class Command(BaseCommand):
-    help = 'Create missing Stat models up to yesterday'
+    help = 'Create missing Stat models'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -13,9 +15,23 @@ class Command(BaseCommand):
             dest='force',
             help='Force update of existing',
         )
+        parser.add_argument(
+            '--date',
+            dest='date',
+            help='Deal with specific date dd/mm/yyyy',
+        )
 
     def handle(self, *args, **options):
         if options['force']:
             for stat in Stat.objects.all():
                 stat.save()
-        Stat.objects.create_missing()
+
+        if options['date']:
+            date = datetime.strptime(options['date'], '%d/%m/%Y').date()
+            for stat in Stat.objects.filter(date=date):
+                print(stat)
+                stat.save()
+            else:
+                Stat.objects.create_missing_for_date(date)
+        else:
+            Stat.objects.create_missing()

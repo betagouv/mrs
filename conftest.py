@@ -1,5 +1,7 @@
+import datetime
 import io
 import pytest
+import pytz
 from uuid import uuid4
 
 from django.contrib.auth.models import AnonymousUser
@@ -12,10 +14,19 @@ from django.urls import reverse
 from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
 from mrsrequest.views import MRSRequestCreateView
+from mrsuser.models import User
 
 
 id = mrsrequest_uuid = pytest.fixture(
     lambda: '2b88b740-3920-44e9-b086-c851f58e7ea7')
+
+
+@pytest.fixture
+def su():
+    return User.objects.update_or_create(
+        username='su',
+        defaults=dict(is_superuser=True)
+    )[0]
 
 
 class RequestFactory(drf):
@@ -39,6 +50,17 @@ def request_factory():
 @pytest.fixture
 def srf():
     return RequestFactory(AnonymousUser())
+
+
+@pytest.fixture
+def admin():
+    return RequestFactory(User.objects.update_or_create(
+        username='test',
+        defaults=dict(
+            is_staff=True,
+            is_superuser=True,
+        ),
+    )[0])
 
 
 @pytest.fixture(scope='class')
