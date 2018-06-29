@@ -34,7 +34,7 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_date__gt_container">
-        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__gt" name="date__gt" type="text" value="01/12/3000"/>
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__gt" name="date__gt" type="text" value="01/05/2018"/>
         <label class="active" for="id_date__gt">Date is greater than or equal to</label>
         
     </div>
@@ -43,7 +43,7 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_date__lt_container">
-        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__lt" name="date__lt" type="text" value="31/12/3000"/>
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__lt" name="date__lt" type="text" value="31/05/2018"/>
         <label class="active" for="id_date__lt">Date is less than or equal to</label>
         
     </div>
