@@ -31,7 +31,6 @@
         "expense": 10,
         "institution": null,
         "insured": 1,
-        "insured_shift": null,
         "mandate_date": null,
         "payment_amount": null,
         "payment_base": null,
@@ -83,7 +82,8 @@
         "email": "jpic@yourlabs.org",
         "first_name": "jamesy",
         "last_name": "wuzere",
-        "nir": 1234567890123
+        "nir": 1234567890123,
+        "shifted": null
     },
     "model": "person.person",
     "pk": 1

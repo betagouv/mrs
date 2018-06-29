@@ -275,6 +275,15 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
     @transaction.atomic
     def import_obj(self, i, row, obj):
+        self.update_mrsrequest(i, obj, row)
+        self.update_insured(i, obj, row)
+        if self.update_institution(i, obj, row) is False:
+            return
+
+        self.save_obj(i, row, obj)
+        return obj
+
+    def update_mrsrequest(self, i, obj, row):
         if row['mandatement']:
             obj.mandate_date = datetime.strptime(
                 row['mandatement'],
@@ -287,19 +296,21 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         if row['montant']:
             obj.payment_amount = row['montant'].replace(',', '.')
 
-        if row['bascule'] != '':
-            obj.insured_shift = bool(row['bascule'])
-
         if row['adeli'] != '':
             obj.adeli = row['adeli']
 
+    def update_insured(self, i, obj, row):
+        if row['bascule'] != '':
+            shifted = bool(row['bascule'])
+            if obj.insured.shifted != shifted:
+                obj.insured.shifted = shifted
+                obj.insured.save()
+
+    def update_institution(self, i, obj, row):
         if row['finess']:
             obj.institution = self.institution_get_or_create(i, row)
             if not obj.institution:
-                return
-
-        self.save_obj(i, row, obj)
-        return obj
+                return False
 
     def save_obj(self, i, row, obj):
         try:

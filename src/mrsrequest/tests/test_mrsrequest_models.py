@@ -55,12 +55,19 @@ def test_mrsrequest_update_taxi_cost():
         date_depart='2000-12-10',
         date_return='2000-12-10',
     )
+    obj.insured = Person.objects.create(
+        first_name='aoeu',
+        last_name='aoeu',
+        birth_date=datetime.date.today(),
+        email='aoeu@aoeu.com',
+        nir=99999999999,
+    )
     obj.save()
 
     assert obj.taxi_cost == Decimal('154.34')
     assert obj.saving == 0
 
-    obj.insured_shift = True
+    obj.insured.shifted = True
     obj.save()
     assert obj.saving == Decimal('34.34')
 

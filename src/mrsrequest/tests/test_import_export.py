@@ -88,7 +88,7 @@ aaaaaaa;201806080000;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;5,32
         success = view.success[2]['object']
         assert success.payment_amount == 19
         assert success.payment_base == Decimal('18.32')
-        assert success.insured_shift is True
+        assert success.insured.shifted is True
         assert success.institution.finess == '310123123'
         assert success.adeli == 12
         assert str(success.mandate_date) == '2018-06-10'

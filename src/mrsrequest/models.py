@@ -216,12 +216,6 @@ class MRSRequest(models.Model):
         decimal_places=2,
         verbose_name='Montant remboursé',
     )
-    insured_shift = models.NullBooleanField(
-        default=None,
-        null=True,
-        blank=True,
-        verbose_name='Assuré qui bascule',
-    )
     adeli = models.IntegerField(null=True, blank=True)
 
     objects = MRSRequestManager()
@@ -272,7 +266,7 @@ class MRSRequest(models.Model):
         null=True,
     )
     def saving(self):
-        if not self.insured_shift:
+        if not self.insured or not self.insured.shifted:
             return 0
         if not self.payment_base:
             return
