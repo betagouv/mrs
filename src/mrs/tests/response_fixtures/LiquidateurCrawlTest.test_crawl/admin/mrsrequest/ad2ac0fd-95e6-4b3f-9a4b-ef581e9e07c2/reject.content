@@ -8,12 +8,12 @@
         <div class="modal-content">
         
           
-          <h4 class="text-default " id="modal-title-ajax">Demande "201806080001": rejeter</h4>
+          <h4 class="text-default " id="modal-title-ajax">Demande "201805090001": rejeter</h4>
           
         
           
 <script id="emailtemplates" type="text/json">
-{"1": {"subject": "PMT manquante sur 201806080001", "body": "PMT manquante sur 201806080001: Contenu de mail"}}
+{"1": {"subject": "PMT manquante sur 201805090001", "body": "PMT manquante sur 201805090001: Contenu de mail"}}
 </script>
 
   

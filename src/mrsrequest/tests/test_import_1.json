@@ -92,14 +92,14 @@
 {
     "fields": {
         "caisse": null,
-        "date": "2018-06-08",
+        "date": "2018-05-09",
         "institution": null,
         "insured_shifts": 1,
         "mrsrequest_count_new": 2,
         "mrsrequest_count_rejected": 0,
-        "mrsrequest_count_validated": 1,
-        "savings": "5.51",
-        "validation_average_delay": "1.36"
+        "mrsrequest_count_validated": 0,
+        "savings": null,
+        "validation_average_delay": null
     },
     "model": "mrsstat.stat",
     "pk": 7
@@ -107,7 +107,7 @@
 {
     "fields": {
         "caisse": 2,
-        "date": "2018-06-08",
+        "date": "2018-05-09",
         "institution": null,
         "insured_shifts": 0,
         "mrsrequest_count_new": 0,
@@ -122,7 +122,7 @@
 {
     "fields": {
         "caisse": 2,
-        "date": "2018-06-08",
+        "date": "2018-05-09",
         "institution": 310123123,
         "insured_shifts": 0,
         "mrsrequest_count_new": 0,
@@ -137,14 +137,14 @@
 {
     "fields": {
         "caisse": 1,
-        "date": "2018-06-08",
+        "date": "2018-05-09",
         "institution": null,
         "insured_shifts": 1,
         "mrsrequest_count_new": 2,
         "mrsrequest_count_rejected": 0,
-        "mrsrequest_count_validated": 1,
-        "savings": "5.51",
-        "validation_average_delay": "1.36"
+        "mrsrequest_count_validated": 0,
+        "savings": null,
+        "validation_average_delay": null
     },
     "model": "mrsstat.stat",
     "pk": 10
@@ -152,14 +152,14 @@
 {
     "fields": {
         "caisse": 1,
-        "date": "2018-06-08",
+        "date": "2018-05-09",
         "institution": 310123123,
         "insured_shifts": 1,
         "mrsrequest_count_new": 1,
         "mrsrequest_count_rejected": 0,
-        "mrsrequest_count_validated": 1,
-        "savings": "5.51",
-        "validation_average_delay": "1.36"
+        "mrsrequest_count_validated": 0,
+        "savings": null,
+        "validation_average_delay": null
     },
     "model": "mrsstat.stat",
     "pk": 11
@@ -167,14 +167,14 @@
 {
     "fields": {
         "caisse": null,
-        "date": "2018-06-08",
+        "date": "2018-05-09",
         "institution": 310123123,
         "insured_shifts": 1,
         "mrsrequest_count_new": 1,
         "mrsrequest_count_rejected": 0,
-        "mrsrequest_count_validated": 1,
-        "savings": "5.51",
-        "validation_average_delay": "1.36"
+        "mrsrequest_count_validated": 0,
+        "savings": null,
+        "validation_average_delay": null
     },
     "model": "mrsstat.stat",
     "pk": 12
@@ -227,7 +227,7 @@
 {
     "fields": {
         "caisse": 2,
-        "date": "2018-06-08",
+        "date": "2018-05-09",
         "institution": 310123122,
         "insured_shifts": 0,
         "mrsrequest_count_new": 0,
@@ -242,7 +242,7 @@
 {
     "fields": {
         "caisse": 1,
-        "date": "2018-06-08",
+        "date": "2018-05-09",
         "institution": 310123122,
         "insured_shifts": 0,
         "mrsrequest_count_new": 0,
@@ -257,7 +257,7 @@
 {
     "fields": {
         "caisse": null,
-        "date": "2018-06-08",
+        "date": "2018-05-09",
         "institution": 310123122,
         "insured_shifts": 0,
         "mrsrequest_count_new": 0,

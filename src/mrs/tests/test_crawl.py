@@ -21,7 +21,7 @@ class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):
     fixtures = ['src/mrs/tests/data.json']
     username = 'a'
 
-    @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
+    @freeze_time('2018-05-30 13:37:42')  # forward compat and bichon <3
     def test_crawl(self):
         client = test.Client()
         client.force_login(User.objects.get(username=self.username))
