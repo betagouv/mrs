@@ -21,6 +21,12 @@ class Person(models.Model):
     nir = models.BigIntegerField(
         verbose_name='Numéro de sécurité sociale',
     )
+    shifted = models.NullBooleanField(
+        default=None,
+        null=True,
+        blank=True,
+        verbose_name='Assuré a basculé',
+    )
 
     class Meta:
         ordering = ('last_name', 'first_name',)

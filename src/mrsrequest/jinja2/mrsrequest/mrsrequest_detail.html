@@ -75,7 +75,7 @@
                 <span class="card-title grey-text text-darken-4">{{ naturalsize(object.total_size) }} <span style="font-size: 50% !important">{{ object.creation_ip }}</span><i class="material-icons right">close</i></span>
                 <div class="section">
                     {{ object.caisse }}
-                    {% if object.insured_shift %}
+                    {% if object.insured.shifted %}
                     <br />
                     Basculé
                     {% endif %}
