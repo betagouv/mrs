@@ -299,6 +299,11 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         if row['adeli'] != '':
             obj.adeli = row['adeli']
 
+        if row['bascule'] != '':
+            shift = bool(row['bascule'])
+            if obj.insured_shift != shift:
+                obj.insured_shift = shift
+
     def update_insured(self, i, obj, row):
         if row['bascule'] != '':
             shifted = bool(row['bascule'])

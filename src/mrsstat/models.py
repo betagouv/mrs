@@ -144,6 +144,15 @@ class Stat(models.Model):
 
     @denormalized(
         models.IntegerField,
+        default=0,
+        verbose_name='Nombre de bascules',
+    )
+    def insured_shifts(self):
+        return self.mrsrequest_set.created(self.date).filter(
+            insured_shift=True).count()
+
+    @denormalized(
+        models.IntegerField,
         verbose_name='Nombre de demandes soumises',
     )
     def mrsrequest_count_new(self):

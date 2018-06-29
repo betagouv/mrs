@@ -31,6 +31,7 @@
         "expense": 10,
         "institution": null,
         "insured": 1,
+        "insured_shift": null,
         "mandate_date": null,
         "payment_amount": null,
         "payment_base": null,

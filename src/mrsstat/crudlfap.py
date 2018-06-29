@@ -19,6 +19,7 @@ class StatListView(crudlfap.ListView):
         'mrsrequest_count_new',
         'mrsrequest_count_validated',
         'mrsrequest_count_rejected',
+        'insured_shifts',
     ]
 
     filter_fields = [
@@ -75,6 +76,11 @@ class StatListView(crudlfap.ListView):
     def get_savings(self):
         return self.object_list.aggregate(
             result=models.Sum('savings')
+        )['result']
+
+    def get_insured_shifts(self):
+        return self.object_list.aggregate(
+            result=models.Sum('insured_shifts')
         )['result']
 
     def get_filterset_data_default(self):

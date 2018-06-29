@@ -151,6 +151,12 @@ class MRSRequest(models.Model):
         on_delete=models.SET_NULL,
         null=True,
     )
+    insured_shift = models.NullBooleanField(
+        default=None,
+        null=True,
+        blank=True,
+        verbose_name='Assuré a basculé sur cette demande',
+    )
     distance = models.PositiveIntegerField(
         verbose_name='Distance (km)',
         help_text='Total des kilomètres parcourus',
