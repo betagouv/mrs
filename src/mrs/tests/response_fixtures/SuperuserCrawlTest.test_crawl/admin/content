@@ -88,24 +88,6 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/mrsrequest/export"
-                      title="Demandes: export"
-                      data-turbolinks="false"
-                    ><i class="material-icons">cloud_download</i>Export</a>
-                  </li>
-                
-                  <li>
-                    <a
-                      class="waves-effect"
-                      href="/admin/mrsrequest/import"
-                      title="Demande: import"
-                      data-turbolinks="false"
-                    ><i class="material-icons">cloud_upload</i>Import</a>
-                  </li>
-                
-                  <li>
-                    <a
-                      class="waves-effect"
                       href="/admin/mrsrequest"
                       title="Demandes: list"
                     ><i class="material-icons">list</i>List</a>
