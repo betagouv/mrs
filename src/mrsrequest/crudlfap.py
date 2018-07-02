@@ -108,6 +108,7 @@ class MRSRequestListView(crudlfap.ListView):
 class MRSRequestExport(crudlfap.ObjectsView):
     material_icon = 'cloud_download'
     turbolinks = False
+    menus = []
 
     def get_objects(self):
         self.objects = self.queryset.filter(
@@ -173,6 +174,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
     form_invalid_message = 'Erreurs durant l\'import'
     form_valid_message = 'Importé avec succès'
     body_class = 'full-width'
+    menus = []
 
     class form_class(forms.Form):
         csv = forms.FileField()
