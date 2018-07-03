@@ -207,6 +207,11 @@ class MRSRequest(models.Model):
         null=True,
         blank=True,
         verbose_name='Date de mandatement',
+        validators=[
+            validators.MinValueValidator(
+                datetime.date(year=2000, month=1, day=1)
+            )
+        ],
     )
     payment_base = models.DecimalField(
         null=True,
@@ -483,13 +488,23 @@ class Transport(models.Model):
         verbose_name='Aller',
         help_text='Date du trajet aller',
         null=True,
-        validators=[transport_date_validate],
+        validators=[
+            validators.MinValueValidator(
+                datetime.date(year=2000, month=1, day=1)
+            ),
+            transport_date_validate,
+        ],
     )
     date_return = models.DateField(
         verbose_name='Retour',
         help_text='Date du trajet retour',
         null=True,
-        validators=[transport_date_validate],
+        validators=[
+            validators.MinValueValidator(
+                datetime.date(year=2000, month=1, day=1)
+            ),
+            transport_date_validate,
+        ],
     )
 
     class Meta:

@@ -1,3 +1,6 @@
+import datetime
+
+from django.core import validators
 from django.db import models
 
 
@@ -13,6 +16,11 @@ class Person(models.Model):
     birth_date = models.DateField(
         null=True,
         verbose_name='Date de naissance',
+        validators=[
+            validators.MinValueValidator(
+                datetime.date(year=1900, month=1, day=1)
+            )
+        ],
     )
     email = models.EmailField(
         null=True,
