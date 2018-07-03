@@ -16,7 +16,7 @@
                             Soumise
                         </span>
                         <span class="right">
-                            01/05/18 19:10
+                            01/05/2018 19:10
                         </span>
                     </p>
                     </div>
@@ -39,7 +39,7 @@
                 <div class="card-title red-text">
                     PMT: manquante
                 </div>
-                01/05/18 19:13
+                01/05/2018 19:13
                 <span class="right">
                     a
                 </span>
@@ -47,7 +47,7 @@
                 <div class=" yellow-text text-darken-3">
                     En cours de liquidation
                 </div>
-                01/05/18 19:13
+                01/05/2018 19:13
                 <span class="right">
                     a
                 </span>
@@ -89,7 +89,7 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right">30/04/18</span>
+                    <span class="right">30/04/2018</span>
                 </p>
             </div>
         </div>
@@ -176,14 +176,14 @@
                         
                         <tr>
                             <td>1</td>
-                            <td>29/04/18</td>
-                            <td>29/04/18</td>
+                            <td>29/04/2018</td>
+                            <td>29/04/2018</td>
                         </tr>
                         
                         <tr>
                             <td>2</td>
-                            <td>30/04/18</td>
-                            <td>30/04/18</td>
+                            <td>30/04/2018</td>
+                            <td>30/04/2018</td>
                         </tr>
                         
                     </tbody>

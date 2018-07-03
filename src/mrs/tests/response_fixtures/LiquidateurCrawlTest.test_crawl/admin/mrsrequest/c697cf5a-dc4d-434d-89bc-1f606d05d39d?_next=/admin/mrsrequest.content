@@ -16,7 +16,7 @@
                             Soumise
                         </span>
                         <span class="right">
-                            09/05/18 17:16
+                            09/05/2018 17:16
                         </span>
                     </p>
                     </div>
@@ -39,7 +39,7 @@
                 <div class="card-title green-text">
                     Validée
                 </div>
-                12/05/18 17:16
+                12/05/2018 17:16
                 <span class="right">
                     test
                 </span>
@@ -47,7 +47,7 @@
                 <div class=" yellow-text text-darken-3">
                     En cours de liquidation
                 </div>
-                11/05/18 17:16
+                11/05/2018 17:16
                 <span class="right">
                     test
                 </span>
@@ -89,7 +89,7 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right">06/05/18</span>
+                    <span class="right">06/05/2018</span>
                 </p>
             </div>
         </div>
@@ -176,8 +176,8 @@
                         
                         <tr>
                             <td>1</td>
-                            <td>26/03/18</td>
-                            <td>26/03/18</td>
+                            <td>26/03/2018</td>
+                            <td>26/03/2018</td>
                         </tr>
                         
                     </tbody>

@@ -46,7 +46,7 @@
                             Soumise
                         </span>
                         <span class="right">
-                            {{ localtime(object.creation_datetime).strftime('%d/%m/%y %H:%M') }}
+                            {{ localtime(object.creation_datetime).strftime('%d/%m/%Y %H:%M') }}
                         </span>
                     </p>
                     {% if object.mandate_date -%}
@@ -55,7 +55,7 @@
                             Date de mandatement
                         </span>
                         <span class="right">
-                            {{ localtime(object.mandate_date).strftime('%d/%m/%y') }}
+                            {{ localtime(object.mandate_date).strftime('%d/%m/%Y') }}
                         </span>
                     </p>
                     {% endif -%}
@@ -92,7 +92,7 @@
                 <div class="{% if loop.index == 1 %}card-title{% endif %} {% if entry.action_flag == 999 %}red-text{% endif %}{% if entry.action_flag == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action_flag == 2000 %}green-text{% endif %}">
                     {{ entry.change_message }}
                 </div>
-                {{ localtime(entry.action_time).strftime('%d/%m/%y %H:%M') }}
+                {{ localtime(entry.action_time).strftime('%d/%m/%Y %H:%M') }}
                 <span class="right">
                     {{ entry.user }}
                 </span>
@@ -144,7 +144,7 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right">{{ object.insured.birth_date.strftime('%d/%m/%y') }}</span>
+                    <span class="right">{{ object.insured.birth_date.strftime('%d/%m/%Y') }}</span>
                 </p>
             </div>
         </div>
@@ -262,8 +262,8 @@
                         {% for transport in object.transport_set.all() %}
                         <tr>
                             <td>{{ loop.index }}</td>
-                            <td>{{ transport.date_depart.strftime('%d/%m/%y') }}</td>
-                            <td>{{ transport.date_return.strftime('%d/%m/%y') }}</td>
+                            <td>{{ transport.date_depart.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ transport.date_return.strftime('%d/%m/%Y') }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
