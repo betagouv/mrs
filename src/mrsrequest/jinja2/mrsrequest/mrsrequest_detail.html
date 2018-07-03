@@ -75,10 +75,6 @@
                 <span class="card-title grey-text text-darken-4">{{ naturalsize(object.total_size) }} <span style="font-size: 50% !important">{{ object.creation_ip }}</span><i class="material-icons right">close</i></span>
                 <div class="section">
                     {{ object.caisse }}
-                    {% if object.insured.shifted %}
-                    <br />
-                    Basculé
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -240,6 +236,22 @@
                     </span>
                 </p>
                 {% endif -%}
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Assuré a basculé
+                    </span>
+                    <span class="right">
+                        {%- if object.insured.shifted %}
+                            {%- if object.insured_shift %}
+                            Oui, sur cette demande
+                            {%- else %}
+                            Oui, sur une demande précédente
+                            {%- endif %}
+                        {%- else %}
+                            Non
+                        {%- endif %}
+                    </span>
+                </p>
                 {% if object.saving -%}
                 <p>
                     <span class="grey-text text-darken-2">
