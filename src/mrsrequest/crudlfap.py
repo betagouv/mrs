@@ -28,6 +28,23 @@ from .models import MRSRequest
 logger = logging.getLogger(__name__)
 
 
+CSV_COLUMNS = (
+    'caisse',
+    'id',
+    'nir',
+    'naissance',
+    'nom',
+    'prenom',
+    'transport',
+    'mandatement',
+    'base',
+    'montant',
+    'bascule',
+    'finess',
+    'adeli',
+)
+
+
 class MRSRequestListView(crudlfap.ListView):
     def get_filter_fields(self):
         filter_fields = [
@@ -119,21 +136,7 @@ class MRSRequestExport(crudlfap.ObjectsView):
     def get(self, request, *args, **kwargs):
         f = io.TextIOWrapper(io.BytesIO(), encoding='utf8')
         w = csv.writer(f, delimiter=';')
-        w.writerow((
-            'caisse',
-            'id',
-            'nir',
-            'naissance',
-            'nom',
-            'prenom',
-            'transport',
-            'mandatement',
-            'base',
-            'montant',
-            'bascule',
-            'finess',
-            'adeli',
-        ))
+        w.writerow(CSV_COLUMNS)
         for obj in self.objects:
             date_depart = obj.transport_set.order_by(
                 'date_depart'
@@ -179,20 +182,39 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
     class form_class(forms.Form):
         csv = forms.FileField()
 
-    def form_valid(self):
+    def preflight(self):
+        self.first_line_found = None
+        self.missing_columns = dict()
+
         detector = UniversalDetector()
-        for line in self.request.FILES['csv'].readlines():
+        for i, line in enumerate(self.request.FILES['csv'].readlines()):
+            if self.first_line_found is None:
+                self.first_line_found = line.strip()
+            if len(line.strip().split(b';')) != len(CSV_COLUMNS):
+                self.missing_columns[i + 1] = line
             detector.feed(line)
             if detector.done:
                 break
         detector.close()
+        self.encoding = detector.result['encoding']
 
-        def decode_utf8(input_iterator):
-            for l in input_iterator:
-                yield l.decode(detector.result['encoding'])
+    def form_valid(self):
+        self.preflight()
 
         self.errors = dict()
         self.success = dict()
+
+        for number, line in self.missing_columns.items():
+            self.missing_columns[number] = line.decode(self.encoding)
+
+        self.first_line_found = self.first_line_found.decode(self.encoding)
+        self.first_line_expected = ';'.join(CSV_COLUMNS)
+        if self.first_line_found != self.first_line_expected:
+            return self.render_to_response()
+
+        def decode_utf8(input_iterator):
+            for l in input_iterator:
+                yield l.decode(self.encoding)
 
         f = csv.DictReader(
             decode_utf8(self.request.FILES['csv']),
@@ -201,6 +223,9 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
         objects = []
         for i, row in enumerate(f):
+            if i + 2 in self.missing_columns.keys():
+                continue
+
             obj = self.import_row(i, row)
             if obj:
                 objects.append(obj)
