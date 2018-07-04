@@ -26,6 +26,7 @@ class StatusFilter(filters.ChoiceFilter):
             return qs.filter(is_superuser=False, is_staff=True)
         elif value == 'admin':
             return qs.filter(is_superuser=True)
+        return qs
 
 
 class UserForm(forms.ModelForm):
