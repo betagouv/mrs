@@ -1,14 +1,42 @@
 {% extends 'crudlfap/form.html' %}
 
 {% block content %}
+  {% if view.first_line_found != view.first_line_expected %}
+  <h3>Erreur de header</h3>
+  <p>Nous avons trouvé cette première ligne dans le CSV:</p>
+  <pre>{{ view.first_line_found }}</pre>
+  <p>Voici ce qui est attendu a la place</p>
+  <pre>{{ view.first_line_expected }}</pre>
+  <p>En conséquence, nous n'avons pas procédé à l'import</p>
+  {% endif %}
+
+  {% if view.missing_columns %}
+  <h3>Lignes avec nombre inattendu de colonnes</h3>
+  <p>Nous n'importons pas les lignes suivantes car le nombre de colonnes ne correspond pas aux headers</p>
+  <table>
+    <tr>
+      <th>Numéro de ligne</th>
+      <th>Ligne trouvée</th>
+    </tr>
+    {% for number, line in view.missing_columns.items() %}
+    <tr>
+      <td>{{ number }}</td>
+      <td>{{ line }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
   {% if view.errors %}
   <h3>Erreurs</h3>
   <table>
-    <th>Ligne</th>
-    <th>Message</th>
-    {% for key in view.keys %}
-    <th>{{ key }}</th>
-    {% endfor %}
+    <tr>
+      <th>Ligne</th>
+      <th>Message</th>
+      {% for key in view.keys %}
+      <th>{{ key }}</th>
+      {% endfor %}
+    </tr>
     {% for linenumber, error in view.errors.items() %}
     <tr>
       <td>{{ linenumber + 1 }}</td>
