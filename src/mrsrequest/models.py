@@ -101,6 +101,14 @@ class MRSRequestQuerySet(models.QuerySet):
             creation_datetime__lte=datetime_max(date),
         )
 
+    def processed(self):
+        return self.filter(
+            status__in=(
+                MRSRequest.STATUS_VALIDATED,
+                MRSRequest.STATUS_REJECTED,
+            ),
+        )
+
 
 class MRSRequestManager(models.Manager):
     def get_queryset(self):

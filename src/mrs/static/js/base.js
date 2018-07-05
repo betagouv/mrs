@@ -10,7 +10,6 @@ import '../sass/faq.sass'
 import '../sass/caroussel.sass'
 import './mrsrequest'
 import './contact'
-import initStatistics from './statistics.js'
 import M from 'materialize-css'
 
 // Preact imports
@@ -35,10 +34,25 @@ import Carousel from './components/Caroussel.js'
     renderHeader(true)
   }
 
-  // use bodyclass to detect statistics
-  if(body.classList.contains('statistics')) {
-    initStatistics()
-  }
-
   M.AutoInit()
+
+  for (let form of body.querySelectorAll('form[data-autosubmit]')) {
+    form.addEventListener('change', () => {
+      form.submit()
+      body.innerHTML = `
+<div class="preloader-wrapper big active">
+  <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+</div>
+      `
+    })
+    form.style.display = 'block'
+  }
 })()

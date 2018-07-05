@@ -1,9 +1,13 @@
 from crudlfap import crudlfap
 
+from django import forms
 from django import http
 from django.contrib.staticfiles import finders
+from django.db import models
+from django.utils import timezone
 from django.views import generic
 
+from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
 
 
@@ -42,8 +46,48 @@ class FaqView(generic.TemplateView):
     template_name = 'faq.html'
 
 
-class StatisticsView(generic.TemplateView):
+class StatisticsView(crudlfap.Factory, generic.TemplateView):
     template_name = 'statistics.html'
+
+    class Form(forms.Form):
+        caisse = forms.ModelChoiceField(
+            Caisse.objects.filter(active=True),
+        )
+
+    def get_form(self):
+        if self.request.GET.get('caisse', None):
+            self.form = self.Form(self.request.GET)
+        else:
+            self.form = self.Form()
+
+    def qs_form_filter(self, qs):
+        if self.form.is_valid() and self.form.cleaned_data.get('caisse', None):
+            return qs.filter(caisse=self.form.cleaned_data['caisse'])
+        return qs
+
+    def get_mrsrequests(self):
+        return self.qs_form_filter(MRSRequest.objects.all())
+
+    def get_mrsrequests_processed(self):
+        return self.mrsrequests.processed().count() or 0
+
+    def get_average_payment_delay(self):
+        return '{:2f}'.format(
+            self.mrsrequests.aggregate(
+                result=models.Avg('delay')
+            )['result'] or 0
+        )
+
+    def get_insured_shifts(self):
+        return self.mrsrequests.filter(insured_shift=True).count()
+
+    def get_savings(self):
+        return self.mrsrequests.aggregate(
+            result=models.Sum('saving')
+        )['result'] or 0
+
+    def get_now(self):
+        return timezone.now().strftime('%d/%m/%Y %H:%M:%S')
 
 
 class StaticView(generic.View):

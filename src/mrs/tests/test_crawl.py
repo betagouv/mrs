@@ -8,6 +8,7 @@ from responsediff.test import ResponseDiffTestMixin
 
 
 class FrontCrawlTest(ResponseDiffTestMixin, test.TestCase):
+    @freeze_time('2018-05-30 13:37:42')  # forward compat and bichon <3
     def test_crawl(self):
         self.assertWebsiteSame(selector='#app--wrapper')
 

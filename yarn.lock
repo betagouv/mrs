@@ -4849,13 +4849,6 @@ jest@^23.1.0:
     import-local "^1.0.0"
     jest-cli "^23.1.0"
 
-jpic-iframe-autoheight@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/jpic-iframe-autoheight/-/jpic-iframe-autoheight-1.0.0.tgz#b0a63b6b5852699d56018be13cdc982239c0c34d"
-  dependencies:
-    babel-preset-env "^1.6.1"
-    babel-preset-stage-2 "^6.24.1"
-
 jquery-ui@^1.12.1:
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.12.1.tgz#bcb4045c8dd0539c134bc1488cdd3e768a7a9e51"
