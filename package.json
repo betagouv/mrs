@@ -49,7 +49,6 @@
     "expose-loader": "^0.7.5",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "jest": "^23.0.1",
-    "jpic-iframe-autoheight": "^1.0.0",
     "jquery": "^3.3.1",
     "jquery-ui": "^1.12.1",
     "js-cookie": "^2.2.0",

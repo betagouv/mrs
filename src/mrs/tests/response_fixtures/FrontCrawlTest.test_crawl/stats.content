@@ -18,15 +18,58 @@
         </div>
 
         
-    <div id="header"></div>
-    <div class="mrs-std-page--wrapper">
-        <div class="mrs-std-page no-padding">
-            <div class="iframe--wrapper">
-                <iframe allowfullscreen="true" frameborder="0" height="100%" id="autoheight" src="https://app.powerbi.com/view?r=eyJrIjoiNDkyMTJlNTgtYjUwMi00MjVkLWFiN2EtOGRkZDUwYWQ4ZDY1IiwidCI6IjZiOTQwZTMyLTNlZjMtNGNiYi04OTBiLWMzMzcxY2U5M2M5ZCIsImMiOjh9" width="100%"></iframe>
-                <div class="hideout"></div>
-            </div>
+  <div id="header"></div>
+  <div class="mrs-std-page--wrapper">
+    <div class="mrs-std-page container">
+      <div class="container">
+        <div class="row" style="text-align: center">
+          <form data-autosubmit="true" method="GET" style="display: none">
+            <label for="id_caisse">Caisse :</label><select id="id_caisse" name="caisse" required="">
+  <option selected="" value="">---------</option>
+
+</select>
+          </form>
         </div>
+
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card-panel">
+                <span class="card-title">Nombre de demandes traitées</span>
+                <pre>0</pre>
+            </div>
+          </div>
+
+          <div class="col s12 m6">
+            <div class="card-panel">
+                <span class="card-title">Durée moyenne</span>
+                <pre>0.000000</pre>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card-panel">
+                <span class="card-title">Nombre de bascules</span>
+                <pre>0</pre>
+            </div>
+          </div>
+
+          <div class="col s12 m6">
+            <div class="card-panel">
+                <span class="card-title">Economie générée</span>
+                <pre>0€</pre>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Données provenant de MRS, mise à jour : 30/05/2018 13:37:42
+        </p>
+      </div>
     </div>
+  </div>
 
 
         <div id="footer">
