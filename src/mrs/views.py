@@ -72,11 +72,11 @@ class StatisticsView(crudlfap.Factory, generic.TemplateView):
         return self.mrsrequests.processed().count() or 0
 
     def get_average_payment_delay(self):
-        return '{:2f}'.format(
+        return '{:0.2f}'.format(
             self.mrsrequests.aggregate(
                 result=models.Avg('delay')
             )['result'] or 0
-        )
+        ).replace('.', ',')
 
     def get_insured_shifts(self):
         return self.mrsrequests.filter(insured_shift=True).count()
