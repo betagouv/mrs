@@ -15,7 +15,7 @@
         <div class="card-panel teal lighten-4">
             Merci pour votre demande ! Nous reviendrons vers vous dès que possible.
             <br />
-            <a data-load-in-form="{{ path_info }}">Cliquez ici pour faire une nouvelle demande.</a>
+            <a data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}">Cliquez ici pour faire une nouvelle demande.</a>
         </div>
         {% elif view.success_caisse %}
         <div class="card-panel teal lighten-4">

@@ -39,7 +39,10 @@ class MRSRequestCreateView(generic.TemplateView):
         self.caisse_form = CaisseVoteForm(prefix='other')
 
         self.forms = collections.OrderedDict([
-            ('mrsrequest', MRSRequestCreateForm(instance=self.object)),
+            ('mrsrequest', MRSRequestCreateForm(
+                instance=self.object,
+                initial=dict(caisse=request.GET.get('caisse', None)),
+            )),
             ('person', PersonForm(
                 initial={k: v for k, v in request.GET.items()})),
             ('transport', TransportIterativeForm()),
