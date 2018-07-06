@@ -5,6 +5,8 @@ export default class extends Controller {
   change() {
     const template = this.emailtemplates[this.element.value]
 
+    if (template === undefined) return
+
     document.getElementById('id_subject').value = template.subject
     document.querySelector('label[for=id_subject]').className += ' active'
 
