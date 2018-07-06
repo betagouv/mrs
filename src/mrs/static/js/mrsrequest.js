@@ -154,6 +154,7 @@ var formInit = function (form) {
     $ret.val($(this).val())
   })
 
+  M.AutoInit(form)
   $(form).is(':visible') || $(form).fadeIn()
 }
 
@@ -199,7 +200,6 @@ var formSubmit = function(form) {
         var dom = $(data)
         var newform = dom.find('form#mrsrequest-wizard')
         $form.html(newform.html())
-        // var wizard = document.querySelector('form#mrsrequest-wizard')
         formInit(form)
 
         var $error = $('.has-error')
@@ -261,7 +261,6 @@ $('body').on('click', '[data-load-in-form]', function() {
       var newform = dom.find('form#mrsrequest-wizard')
       var form = document.querySelector('form#mrsrequest-wizard')
       $(form).html(newform.html())
-      M.AutoInit(form)
       formInit(form)
     },
   })
