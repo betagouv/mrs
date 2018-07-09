@@ -13,15 +13,16 @@ Glossaire
       de l'intégration de l'iframe.
 
    PMT
-      Acronyme de "Prescription Médicale de Transport", un document requis pour
-      quelque remboursement que ce soit.
+      Allez voir la definition sur le Wiki_
 
    FINESS
-      Numéro identifiant de l'établissement de santé.
+      Allez voir la definition sur le Wiki_
 
    UUID
       Chaine de caractères servant d'identifiant unique à chaque demande en
       interne.
 
    NIR
-      Numéro de sécurité sociale.
+      Allez voir la definition sur le Wiki_
+
+.. _Wiki: https://github.com/betagouv/mrs/wiki/Vocabulaire
