@@ -9,6 +9,7 @@ from django.views import generic
 
 from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
+from person.models import Person
 
 
 class Dashboard(crudlfap.TemplateView):
@@ -80,6 +81,11 @@ class StatisticsView(crudlfap.Factory, generic.TemplateView):
 
     def get_insured_shifts(self):
         return self.mrsrequests.filter(insured_shift=True).count()
+
+    def get_insured_count(self):
+        return Person.objects.filter(
+            mrsrequest__in=self.mrsrequests
+        ).distinct().count()
 
     def get_savings(self):
         return self.mrsrequests.aggregate(

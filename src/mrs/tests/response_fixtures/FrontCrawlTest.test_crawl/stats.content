@@ -65,6 +65,15 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card-panel center-align">
+                <span class="card-title">Nombre d'assurés</span>
+                <pre>0</pre>
+            </div>
+          </div>
+        </div>
+
         <p>
           Données provenant de MRS, mise à jour : 30/05/2018 13:37:42
         </p>
