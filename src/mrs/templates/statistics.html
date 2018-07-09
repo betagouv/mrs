@@ -5,11 +5,12 @@
 
 {% block body_class %}statistics{% endblock %}
 {% block content %}
+  <style type="text/css">.card-panel { min-height: 150px; }</style>
   <div id="header"></div>
   <div class="mrs-std-page--wrapper">
-    <div class="mrs-std-page container">
+    <div class="mrs-std-page">
       <div class="container">
-        <div class="row" style="text-align: center">
+        <div class="row center-align">
           <form method="GET" data-autosubmit="true" style="display: none">
             {{ view.form }}
           </form>
@@ -17,14 +18,14 @@
 
         <div class="row">
           <div class="col s12 m6">
-            <div class="card-panel">
-                <span class="card-title">Nombre de demandes trait&eacute;es</span>
+            <div class="card-panel center-align">
+                <span class="card-title">Nombre de demandes trait&eacute;es (Validées/Rejetées)</span>
                 <pre>{{ view.mrsrequests_processed }}</pre>
             </div>
           </div>
 
           <div class="col s12 m6">
-            <div class="card-panel">
+            <div class="card-panel center-align">
                 <span class="card-title">Dur&eacute;e moyenne</span>
                 <pre>{{ view.average_payment_delay }}</pre>
             </div>
@@ -34,14 +35,14 @@
 
         <div class="row">
           <div class="col s12 m6">
-            <div class="card-panel">
+            <div class="card-panel center-align">
                 <span class="card-title">Nombre de bascules</span>
                 <pre>{{ view.insured_shifts }}</pre>
             </div>
           </div>
 
           <div class="col s12 m6">
-            <div class="card-panel">
+            <div class="card-panel center-align">
                 <span class="card-title">Economie g&eacute;n&eacute;r&eacute;e</span>
                 <pre>{{ view.savings }}€</pre>
             </div>
