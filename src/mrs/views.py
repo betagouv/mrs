@@ -80,7 +80,7 @@ class StatisticsView(crudlfap.Factory, generic.TemplateView):
         ).replace('.', ',')
 
     def get_insured_shifts(self):
-        return self.mrsrequests.filter(insured_shift=True).count()
+        return self.mrsrequests.filter(insured__shifted=True).count()
 
     def get_insured_count(self):
         return Person.objects.filter(
