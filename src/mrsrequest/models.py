@@ -390,8 +390,10 @@ class MRSRequest(models.Model):
 
     @property
     def total_size(self):
-        return len(self.pmt.binary) + sum(
-            [len(b.binary) for b in self.bill_set.all()])
+        if self.pmt:
+            return len(self.pmt.binary) + sum(
+                [len(b.binary) for b in self.bill_set.all()])
+        return 0
 
     def get_admin_url(self):
         return reverse('admin:mrsrequest_mrsrequest_change', args=[self.pk])
