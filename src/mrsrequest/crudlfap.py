@@ -2,6 +2,7 @@ from chardet.universaldetector import UniversalDetector
 import csv
 from datetime import datetime
 import io
+import json
 import logging
 
 from crudlfap import crudlfap
@@ -11,7 +12,6 @@ from django import http
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.db.models import Q
 
 import django_tables2 as tables
 
@@ -237,41 +237,16 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
     def update_stats(self, objects):
         from mrsstat.models import Stat
-
-        dates = []
-        caisses = []
-        institutions = []
-
-        for obj in objects:
-            if obj.creation_datetime.date() not in dates:
-                dates.append(obj.creation_datetime.date())
-            if obj.caisse not in caisses:
-                caisses.append(obj.caisse)
-            if obj.institution not in institutions:
-                institutions.append(obj.institution)
-
-        stats = Stat.objects.filter(
-            date__in=dates,
-        ).filter(
-            Q(
-                caisse__in=caisses,
-            ) | Q(
-                institution__in=institutions,
-            )
-        ).distinct()
-
-        # update existing stats
-        for stat in stats:
-            logger.info('Refresh stat: {}'.format(stat))
-            stat.save()
-
-        for date in dates:
-            # create missing
-            Stat.objects.create_missing_for_date(
-                date,
-                caisses,
-                institutions
-            )
+        try:
+            import uwsgi
+        except ImportError:
+            Stat.objects.update_stats(objects)
+        else:
+            body = json.dumps([str(o.pk) for o in objects])
+            uwsgi.spool({
+                b'task': b'update_stats',
+                b'body': body.encode('ascii'),
+            })
 
     def import_row(self, i, row):
         try:

@@ -19,6 +19,7 @@ EXPOSE 6789
 
 ENV STATIC_ROOT /code/static
 RUN mkdir -p ${STATIC_ROOT}
+RUN mkdir -p /tmp/spool && chown uwsgi /tmp/spool
 
 COPY yarn.lock .babelrc package.json /code/
 RUN yarn install --frozen-lockfile
@@ -41,6 +42,8 @@ ARG GIT_COMMIT
 ENV GIT_COMMIT ${GIT_COMMIT}
 
 CMD /usr/bin/dumb-init uwsgi \
+  --spooler=/tmp/spool \
+  --spooler-processes 8 \
   --socket=0.0.0.0:6789 \
   --chdir=/code \
   --plugin=python3,http \

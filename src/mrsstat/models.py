@@ -15,6 +15,42 @@ logger = logging.getLogger(__name__)
 
 
 class StatManager(models.Manager):
+    def update_stats(self, objects):
+        dates = []
+        caisses = []
+        institutions = []
+
+        for obj in objects:
+            if obj.creation_datetime.date() not in dates:
+                dates.append(obj.creation_datetime.date())
+            if obj.caisse not in caisses:
+                caisses.append(obj.caisse)
+            if obj.institution not in institutions:
+                institutions.append(obj.institution)
+
+        stats = Stat.objects.filter(
+            date__in=dates,
+        ).filter(
+            models.Q(
+                caisse__in=caisses,
+            ) | models.Q(
+                institution__in=institutions,
+            )
+        ).distinct()
+
+        # update existing stats
+        for stat in stats:
+            logger.info('Refresh stat: {}'.format(stat))
+            stat.save()
+
+        for date in dates:
+            # create missing
+            Stat.objects.create_missing_for_date(
+                date,
+                caisses,
+                institutions
+            )
+
     def create_missing(self):
         first = MRSRequest.objects.order_by('creation_datetime').first()
         if not first:
