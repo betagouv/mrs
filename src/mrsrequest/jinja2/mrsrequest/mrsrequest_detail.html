@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">{{ naturalsize(object.total_size) }} <span style="font-size: 50% !important">{{ object.creation_ip }}</span><i class="material-icons right">close</i></span>
+                <span class="card-title grey-text text-darken-4">{% if object.total_size %}{{ naturalsize(object.total_size) }}{% endif %} <span style="font-size: 50% !important">{{ object.creation_ip }}</span><i class="material-icons right">close</i></span>
                 <div class="section">
                     {{ object.caisse }}
                 </div>
@@ -106,6 +106,7 @@
                 <div class="card-title">
                     Personne transportée
                 </div>
+                {%- if object.pmt %}
                 <p>
                     <span class="grey-text text-darken-2">
                         PMT
@@ -124,6 +125,7 @@
                         >{{ object.pmt.filename }} ({{ naturalsize(object.pmt.binary|length) }})</a>
                     </span>
                 </p>
+                {%- endif %}
                 <p>
                     <span class="grey-text text-darken-2">
                         Prénom
@@ -136,12 +138,14 @@
                     </span>
                     <span class="right">{{ object.insured.last_name }}</span>
                 </p>
+                {%- if object.insured.birth_date %}
                 <p>
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
                     <span class="right">{{ object.insured.birth_date.strftime('%d/%m/%Y') }}</span>
                 </p>
+                {%- endif %}
             </div>
         </div>
     </div>
@@ -274,8 +278,8 @@
                         {% for transport in object.transport_set.all() %}
                         <tr>
                             <td>{{ loop.index }}</td>
-                            <td>{{ transport.date_depart.strftime('%d/%m/%Y') }}</td>
-                            <td>{{ transport.date_return.strftime('%d/%m/%Y') }}</td>
+                            <td>{% if transport.date_depart %}{{ transport.date_depart.strftime('%d/%m/%Y') }}{% endif %}</td>
+                            <td>{% if transport.date_return %}{{ transport.date_return.strftime('%d/%m/%Y') }}{% endif %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
