@@ -63,7 +63,7 @@
     </div>
 
     {% if settings.SENTRY_DSN %}
-    <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.ravenjs.com/3.26.2/raven.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
     Raven.config('{{ settings.SENTRY_DSN }}', {environment: '{{ sentry.INSTANCE }}'}).install()
     </script>
