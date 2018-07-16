@@ -36,7 +36,7 @@ class StatListView(crudlfap.ListView):
 
     filterset_extra_class_attributes = dict(
         date__gt=django_filters.DateFilter(
-            name='date',
+            field_name='date',
             lookup_expr='gte',
             input_formats=['%d/%m/%Y'],
             widget=forms.TextInput(
@@ -48,7 +48,7 @@ class StatListView(crudlfap.ListView):
             )
         ),
         date__lt=django_filters.DateFilter(
-            name='date',
+            field_name='date',
             lookup_expr='lte',
             input_formats=['%d/%m/%Y'],
             widget=forms.TextInput(
