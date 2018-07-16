@@ -6,6 +6,7 @@ from crudlfap import crudlfap
 from django import http
 from django import template
 from django.conf import settings
+from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.db import transaction
@@ -237,6 +238,7 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
 
     def mail_liquidation(self, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
+
         email = EmailMessage(
             self.mail_render('liquidation', 'title', mrsrequest),
             self.mail_render('liquidation', 'body', mrsrequest),
@@ -247,7 +249,24 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
                 bill.tuple() for bill in mrsrequest.bill_set.all()
             ]
         )
-        email.send()
+
+        if mrsrequest.total_size < 10000000:
+            try:
+                email.send()
+            except Exception as e:
+                messages.error(
+                    self.request,
+                    f'Demande {mrsrequest.display_id}, echec d\'envoie de mail'
+                    f' {e}'
+                )
+            else:
+                return True
+        else:
+            messages.info(
+                self.request,
+                f'Demande {mrsrequest.display_id}: taille PJs superieure a 10 '
+                'Mega Octets, pas de mail sur la boite de liquidation'
+            )
 
 
 class MRSRequestValidateView(MRSRequestValidateMixin, crudlfap.ObjectFormView):
