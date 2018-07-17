@@ -39,6 +39,7 @@ class StatListView(crudlfap.ListView):
             field_name='date',
             lookup_expr='gte',
             input_formats=['%d/%m/%Y'],
+            label='Date minimale',
             widget=forms.TextInput(
                 attrs={
                     'class': 'crudlfap-datepicker',
@@ -51,6 +52,7 @@ class StatListView(crudlfap.ListView):
             field_name='date',
             lookup_expr='lte',
             input_formats=['%d/%m/%Y'],
+            label='Date maximale',
             widget=forms.TextInput(
                 attrs={
                     'class': 'crudlfap-datepicker',
