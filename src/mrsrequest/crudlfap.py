@@ -142,6 +142,9 @@ class MRSRequestExport(crudlfap.ObjectsView):
                 'date_depart'
             ).first().date_depart
 
+            if date_depart is None:
+                continue  # manually imported from old database
+
             w.writerow((
                 str(obj.caisse),
                 obj.display_id,
