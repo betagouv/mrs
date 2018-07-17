@@ -13,3 +13,4 @@ holidays
 chardet
 django-denorm
 django-filter<2.0
+django-tables2==2.0.0a3
