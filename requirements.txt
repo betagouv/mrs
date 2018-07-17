@@ -12,3 +12,4 @@ sqlparse
 holidays
 chardet
 django-denorm
+django-filter<2.0
