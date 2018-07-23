@@ -7,10 +7,8 @@ django-jpic-jfu
 raven
 django-humanize==0.1.2
 django-ipware==2.0.1
-crudlfap==0.4.7
+crudlfap==0.4.9
 sqlparse
 holidays
 chardet
 django-denorm
-django-filter<2.0
-django-tables2==2.0.0a3
