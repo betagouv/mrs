@@ -9,5 +9,5 @@ application.load(definitionsFromContext(context))
 
 application.handleError = (error, message, detail) => {
   if (console.warn !== undefined) console.warn(message, detail) // eslint-disable-line no-console
-  if (Raven !== undefined) Raven.captureException(error)
+  if (window.Raven !== undefined) Raven.captureException(error)
 }
