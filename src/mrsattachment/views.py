@@ -32,9 +32,10 @@ class MRSFileDownloadView(MRSFileDetailViewMikin, generic.DetailView):
         f = io.BytesIO(self.object.binary)
         content_type = self.object.mimetype or 'application/octet-stream'
         response = http.FileResponse(f, content_type=content_type)
-        response['Content-Length'] = len(self.object.binary)
         if self.object.encoding:
             response['Content-Encoding'] = self.object.encoding
+        response['Content-Length'] = len(self.object.binary)
+        response['Cache-Control'] = 'public, max-age=31536000'
         return response
 
 
