@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="turbolinks-cache-control" content="no-cache">
     <link rel="canonical" href="/admin/" />
     <link rel="icon" href="/static/favicon.ico">
 
@@ -14,6 +13,8 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fengyuanchen.github.io/viewerjs/css/viewer.css" />
+
+    <meta name="turbolinks-root" content="/admin/">
 
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
     
@@ -29,6 +30,21 @@ textarea {
   </head>
 
   <body class="">
+    <div id="main-loader" class="turbolinks-progress-bar">
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
     <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper teal darken-3">
