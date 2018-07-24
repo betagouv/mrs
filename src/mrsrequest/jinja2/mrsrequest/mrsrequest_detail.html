@@ -122,6 +122,7 @@
                             data-action="click->viewerjs#click"
                             data-viewerjs="uploads"
                             {% endif %}
+                            data-noprefetch="true"
                         >{{ object.pmt.filename }} ({{ naturalsize(object.pmt.binary|length) }})</a>
                     </span>
                 </p>
@@ -306,6 +307,7 @@
                             data-action="click->viewerjs#click"
                             data-viewerjs="uploads"
                             {% endif %}
+                            data-noprefetch="true"
                         >{{ bill.filename }} ({{ naturalsize(bill.binary|length) }})</a>
                     </li>
                 {% endfor %}

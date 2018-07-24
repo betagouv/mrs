@@ -61,7 +61,7 @@
                         PMT
                     </span>
                     <span class="right">
-                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-viewerjs="uploads" href="/mrsrequest/pmt/6/download/" title="FF4D00-0.8.png">FF4D00-0.8.png (95 Bytes)</a>
+                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/pmt/6/download/" title="FF4D00-0.8.png">FF4D00-0.8.png (95 Bytes)</a>
                     </span>
                 </p>
                 <p>
