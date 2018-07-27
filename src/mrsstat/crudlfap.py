@@ -153,11 +153,17 @@ class StatImportExport(crudlfap.ModelView):
     material_icon = 'compare_arrows'
 
 
-crudlfap.Router(
-    Stat,
-    material_icon='multiline_chart',
-    views=[
+class StatRouter(crudlfap.Router):
+    model = Stat
+    material_icon = 'multiline_chart'
+    views = [
         StatImportExport,
         StatListView,
     ]
-).register()
+
+    def allowed(self, view):
+        profile = getattr(view.request.user, 'profile', None)
+        if profile in ('admin', 'stat'):
+            return True
+
+StatRouter().register()

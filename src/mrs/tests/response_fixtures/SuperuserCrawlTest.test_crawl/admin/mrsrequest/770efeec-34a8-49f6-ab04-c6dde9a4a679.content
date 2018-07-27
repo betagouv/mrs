@@ -1,0 +1,204 @@
+<div class="container" id="modal-body-ajax">
+      
+        <div class="modal-content">
+        
+          
+        
+          
+<div class="row">
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title tooltipped activator -text" data-position="bottom" data-tooltip="Traité">201805010001<i class="material-icons right">more_vert</i></span>
+                <div class="section">
+                    <p>
+                        <span class="grey-text text-darken-2">
+                            Soumise
+                        </span>
+                        <span class="right">
+                            01/05/2018 19:10
+                        </span>
+                    </p>
+                    </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">95 Bytes <span style="font-size: 50% !important">127.0.0.1</span><i class="material-icons right">close</i></span>
+                <div class="section">
+                    bbbb
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                
+                <div class="card-title green-text">
+                    Validée
+                </div>
+                30/07/2018 20:06
+                <span class="right">
+                    b
+                </span>
+                
+                <div class=" yellow-text text-darken-3">
+                    En cours de liquidation
+                </div>
+                30/07/2018 20:05
+                <span class="right">
+                    b
+                </span>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+<div class="row">
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Personne transportée
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        PMT
+                    </span>
+                    <span class="right">
+                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/pmt/4/download/" title="1x1.png">1x1.png (95 Bytes)</a>
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Prénom
+                    </span>
+                    <span class="right">uea</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Nom
+                    </span>
+                    <span class="right">ue</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Date de naissance
+                    </span>
+                    <span class="right">30/04/2018</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Assuré-e
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        NIR
+                    </span>
+                    <span class="right">2333333333333</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Email
+                    </span>
+                    <span class="right">aoeaoeuu@example.com</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Transport(s)
+                </div>
+                <p>
+                    <span class="red-text" style="font-weight: bold">
+                        Montant total (Base de remboursement)
+                    </span>
+                    <span class="right red-text" style="font-weight: bold">
+                        3.60€ TTC
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Distance (km parcourus)
+                    </span>
+                    <span class="right">
+                        12
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant des km parcourus
+                    </span>
+                    <span class="right">
+                        3.60€ TTC
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant total des frais
+                    </span>
+                    <span class="right">
+                        0.00€ TTC
+                    </span>
+                </p>
+                
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Coût théorique du trajet en taxi
+                    </span>
+                    <span class="right">
+                        21.15€
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Assuré a basculé
+                    </span>
+                    <span class="right">
+                            Non
+                    </span>
+                </p>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td>1</td>
+                            <td>29/04/2018</td>
+                            <td>29/04/2018</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
+
+    </div>

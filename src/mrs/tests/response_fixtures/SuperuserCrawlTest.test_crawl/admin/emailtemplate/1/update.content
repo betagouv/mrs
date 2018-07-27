@@ -1,0 +1,66 @@
+<div class="container" id="modal-body-ajax">
+      
+
+<div class="card-panel">
+
+<form action="/admin/emailtemplate/1/update" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="form-object-emailtemplate" method="post">
+
+        <div class="modal-content">
+        
+          
+        
+          
+  
+
+  
+
+  
+<div class="row">
+    <div class="input-field col s12 required" id="id_name_container">
+        <input id="id_name" maxlength="50" name="name" type="text" value="PMT: manquante"/>
+        <label class="active" for="id_name">Nom</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_subject_container">
+        <input id="id_subject" maxlength="255" name="subject" type="text" value="PMT manquante sur {{ display_id }}"/>
+        <label class="active" for="id_subject">Sujet du mail</label>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="input-field col s12 required" id="id_body_container">
+        <textarea class="materialize-textarea" cols="40" id="id_body" name="body" rows="10">PMT manquante sur {{ display_id }}: Contenu de mail</textarea>
+        <label class="active" for="id_body">Contenu du mail</label>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="checkbox-field col s12" id="id_active_container">
+        <label>
+        <input checked="" class="filled-in " id="id_active" name="active" type="checkbox"/><span for="id_active">Activé</span></label>
+        
+    </div>
+</div>
+
+
+        </div>
+        <div class="modal-footer">
+          
+    
+    <button class="btn btn-primary" type="submit">Update</button>
+
+        </div>
+      
+  </form>
+
+</div>
+
+
+
+    </div>

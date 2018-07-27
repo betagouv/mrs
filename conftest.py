@@ -25,7 +25,7 @@ id = mrsrequest_uuid = pytest.fixture(
 def su():
     return User.objects.update_or_create(
         username='su',
-        defaults=dict(is_superuser=True)
+        defaults=dict(profile='admin')
     )[0]
 
 
@@ -57,8 +57,7 @@ def admin():
     return RequestFactory(User.objects.update_or_create(
         username='test',
         defaults=dict(
-            is_staff=True,
-            is_superuser=True,
+            profile='superuser',
         ),
     )[0])
 

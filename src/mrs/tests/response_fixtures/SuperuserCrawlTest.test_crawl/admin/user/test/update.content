@@ -16,24 +16,6 @@
 
   
 <div class="row">
-    <div class="input-field col s12 required" id="id_username_container">
-        <input id="id_username" maxlength="150" name="username" type="text" value="test"/>
-        <label class="active" for="id_username">Nom d'utilisateur</label>
-        <div class="help-block">Requis. 150 caractères maximum. Uniquement des lettres, nombres et les caractères « @ », « . », « + », « - » et « _ ».</div>
-    </div>
-</div>
- 
-
-<div class="row">
-    <div class="input-field col s12" id="id_email_container">
-        <input id="id_email" maxlength="254" name="email" type="email" value="t@tt.tt"/>
-        <label class="active" for="id_email">Adresse électronique</label>
-        
-    </div>
-</div>
- 
-
-<div class="row">
     <div class="input-field col s12" id="id_first_name_container">
         <input id="id_first_name" maxlength="30" name="first_name" type="text" value=""/>
         <label for="id_first_name">Prénom</label>
@@ -51,39 +33,29 @@
 </div>
  
 
+<div class="row">
+    <div class="input-field col s12 required" id="id_username_container">
+        <input id="id_username" maxlength="150" name="username" type="text" value="test"/>
+        <label class="active" for="id_username">Nom d'utilisateur</label>
+        <div class="help-block">Requis. 150 caractères maximum. Uniquement des lettres, nombres et les caractères « @ », « . », « + », « - » et « _ ».</div>
+    </div>
+</div>
+ 
 
 <div class="row">
-    <div class="select-field col s12 multiselect" id="id_groups_container">
-        <label for="id_groups">Groupes</label>
-        <select id="id_groups" multiple="True" name="groups">
-            <option disabled="" value="">Choisissez votre option</option>
-        </select>
-        <div class="help-block">Les groupes dont fait partie cet utilisateur. Celui-ci obtient tous les droits de tous les groupes auxquels il appartient.</div>
+    <div class="input-field col s12 required" id="id_password_container">
+        <input id="id_password" maxlength="128" name="password" type="text" value="pbkdf2_sha256$100000$UFg967PHT26y$FbgutuXw8aKNbKdcNFBmGkw8v6UFaU/RlxVA3BjaPmo="/>
+        <label class="active" for="id_password">Mot de passe</label>
+        
     </div>
 </div>
+ 
 
- 
 <div class="row">
-    <div class="checkbox-field col s12" id="id_is_superuser_container">
-        <label>
-        <input checked="" class="filled-in " id="id_is_superuser" name="is_superuser" type="checkbox"/><span for="id_is_superuser">Statut super-utilisateur</span></label>
-        <div class="help-block">Précise que l'utilisateur possède toutes les permissions sans les assigner explicitement.</div>
-    </div>
-</div>
- 
-<div class="row">
-    <div class="checkbox-field col s12" id="id_is_staff_container">
-        <label>
-        <input checked="" class="filled-in " id="id_is_staff" name="is_staff" type="checkbox"/><span for="id_is_staff">Statut équipe</span></label>
-        <div class="help-block">Précise si l'utilisateur peut se connecter à ce site d'administration.</div>
-    </div>
-</div>
- 
-<div class="row">
-    <div class="checkbox-field col s12" id="id_is_active_container">
-        <label>
-        <input checked="" class="filled-in " id="id_is_active" name="is_active" type="checkbox"/><span for="id_is_active">Actif</span></label>
-        <div class="help-block">Précise si l'utilisateur doit être considéré comme actif. Décochez ceci plutôt que de supprimer le compte.</div>
+    <div class="input-field col s12" id="id_email_container">
+        <input id="id_email" maxlength="254" name="email" type="email" value="t@tt.tt"/>
+        <label class="active" for="id_email">Adresse électronique</label>
+        
     </div>
 </div>
  
@@ -97,6 +69,21 @@
             <option value="1">aaaaaaa</option>
             <option value="2">bbbb</option>
             <option value="3">inactive</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+<div class="row">
+    <div class="select-field col s12 required" id="id_profile_container">
+        <label for="id_profile">Profil</label>
+        <select id="id_profile" name="profile">
+            <option value="">---------</option>
+            <option selected="selected" value="admin">Admin</option>
+            <option value="upn">UPN</option>
+            <option value="stat">Stat</option>
+            <option value="support">Relation client</option>
         </select>
         
     </div>

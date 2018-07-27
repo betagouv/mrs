@@ -8,16 +8,23 @@ from jfu.http import UploadResponse
 from mrsrequest.models import MRSRequest
 
 
-class MRSFileDetailViewMikin(object):
+class MRSFileDetailViewMixin(object):
     def get_object(self):
         '''
-        Use model.objects.allowed_objects(requset).
+        Use model.objects.allowed_objects(request).
 
         This sets the base queryset which get_object() will use.
         '''
         user = getattr(self.request, 'user', None)
-        if user and user.is_staff:
-            return self.model.objects.get(pk=self.kwargs['pk'])
+        profile = getattr(user, 'profile', None)
+
+        if profile in ('admin', 'upn', 'support'):
+            obj = self.model.objects.get(pk=self.kwargs['pk'])
+            if (
+                profile == 'admin' or
+                obj.mrsrequest.caisse in user.caisses.all()
+            ):
+                return obj
 
         try:
             return self.model.objects.allowed_objects(self.request).get(
@@ -26,7 +33,7 @@ class MRSFileDetailViewMikin(object):
             raise http.Http404()
 
 
-class MRSFileDownloadView(MRSFileDetailViewMikin, generic.DetailView):
+class MRSFileDownloadView(MRSFileDetailViewMixin, generic.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         f = io.BytesIO(self.object.binary)
@@ -39,7 +46,7 @@ class MRSFileDownloadView(MRSFileDetailViewMikin, generic.DetailView):
         return response
 
 
-class MRSFileDeleteView(MRSFileDetailViewMikin, generic.DeleteView):
+class MRSFileDeleteView(MRSFileDetailViewMixin, generic.DeleteView):
     '''
     AJAX File delete receiver view.
 

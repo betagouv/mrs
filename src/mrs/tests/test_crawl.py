@@ -1,3 +1,5 @@
+from crudlfap import crudlfap
+
 from django import test
 
 from freezegun import freeze_time
@@ -21,6 +23,7 @@ class FrontCrawlTest(ResponseDiffTestMixin, test.TestCase):
 class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):
     fixtures = ['src/mrs/tests/data.json']
     username = 'a'
+    strip_parameters = ['_next']
 
     @freeze_time('2018-05-30 13:37:42')  # forward compat and bichon <3
     def test_crawl(self):
@@ -46,7 +49,23 @@ class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):
 class SuperuserCrawlTest(LiquidateurCrawlTest):
     username = 'test'
 
+    def setUp(self):
+        self.covered = []
+        for u in User.objects.all()[1:]:
+            self.covered += [
+                crudlfap.site[User][view].clone(object=u).url
+                for view in ('update', 'detail', 'password')
+            ]
+
     def skip_url(self, url):
         if super().skip_url(url):
             return True
         return url == '/admin/urls' or url.endswith('/su')
+
+
+class StatCrawlTest(LiquidateurCrawlTest):
+    username = 'stata'
+
+
+class SupportCrawlTest(LiquidateurCrawlTest):
+    username = 'supporta'
