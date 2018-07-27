@@ -124,6 +124,10 @@ def test_mrsfiledownloadview_security(srf, attachment):
     with pytest.raises(http.Http404):
         view(request, pk=attachment.id)
 
+    request.user.profile = 'stat'
+    with pytest.raises(http.Http404):
+        view(request, pk=attachment.id)
+
     def _():
         response = view(request, pk=attachment.id)
         assert response.status_code == 200
@@ -131,9 +135,9 @@ def test_mrsfiledownloadview_security(srf, attachment):
         assert response['Content-Length'] == '4'
         assert isinstance(response, http.FileResponse)
 
-    request.user.is_staff = True
+    request.user.profile = 'admin'
     _()
 
-    request.user.is_staff = False
+    request.user.profile = None
     MRSRequest(attachment.mrsrequest_uuid).allow(request)
     _()

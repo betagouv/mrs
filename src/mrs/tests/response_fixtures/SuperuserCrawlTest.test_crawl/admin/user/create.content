@@ -74,6 +74,21 @@
     </div>
 </div>
 
+ 
+<div class="row">
+    <div class="select-field col s12 required" id="id_profile_container">
+        <label for="id_profile">Profil</label>
+        <select id="id_profile" name="profile">
+            <option value="">---------</option>
+            <option value="admin">Admin</option>
+            <option value="upn">UPN</option>
+            <option value="stat">Stat</option>
+            <option value="support">Relation client</option>
+        </select>
+        
+    </div>
+</div>
+
 
         </div>
         <div class="modal-footer">

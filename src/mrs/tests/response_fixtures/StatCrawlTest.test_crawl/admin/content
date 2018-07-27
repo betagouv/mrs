@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="canonical" href="/admin/" />
+    <link rel="icon" href="/static/favicon.ico">
+
+    <title>Dashboard - MRS Admin</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fengyuanchen.github.io/viewerjs/css/viewer.css" />
+
+    <meta name="turbolinks-root" content="/admin/">
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    
+
+<style type="text/css">
+textarea {
+    min-height: 300px;
+}
+</style>
+
+
+    
+  </head>
+
+  <body class="">
+    <div id="main-loader" class="turbolinks-progress-bar">
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper teal darken-3">
+      <span href="#" data-action="click->sidenav#click" data-controller="sidenav" data-target="slide-out" class="sidenav-trigger"><i class="waves-effect material-icons">menu</i></span>
+      <a class="brand-logo" href="/admin/" class="waves-effect brand-logo">MRS Admin</a>
+      <ul class="right">
+        
+  <li class="">
+    <a class="waves-effect" href="/admin/logout">Déconnexion (stata)</a>
+  </li>
+  
+
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<ul id="slide-out" class="sidenav">
+
+  <li class="no-padding active"><a href="/admin/">Home</a></li>
+  <li class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      
+        
+          <li class="">
+            <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">multiline_chart</i> Stats</a>
+            <div class="collapsible-body">
+              <ul>
+                
+                  <li>
+                    <a
+                      class="waves-effect"
+                      href="/admin/stat/importexport"
+                      title="Stat: import export"
+                    ><i class="material-icons">compare_arrows</i>Import export</a>
+                  </li>
+                
+                  <li>
+                    <a
+                      class="waves-effect"
+                      href="/admin/stat"
+                      title="Stats: list"
+                    ><i class="material-icons">list</i>List</a>
+                  </li>
+                
+              </ul>
+            </div>
+          </li>
+        
+      
+    </ul>
+  </li>
+
+  
+
+  
+  
+  <li class="no-padding">
+    <a class="waves-effect" href="/admin/logout">Déconnexion (stata)</a>
+  </li>
+  
+
+  
+</ul>
+    
+    <ul style="display: none" data-controller="messages">
+  
+</ul>
+    
+    <div style="padding: 0 24px" id="modal-body-ajax">
+      
+        <div class="modal-content">
+        
+          
+        
+          
+<div class="row">
+    <div class="col m3 s12">
+        <div class="card-panel">
+            <h5>Demandes</h5>
+            <p>
+                Soumises
+                <span class="right">
+                    <a href="/admin/mrsrequest?status=1&sort=creation_datetime">
+                        0
+                    </a>
+                </span>
+            </p>
+            <p>
+                En cours de liquidation
+                <span class="right">
+                    <a href="/admin/mrsrequest?status=1000">
+                        1
+                    </a>
+                </span>
+            </p>
+            <p>
+                Validées
+                <span class="right">
+                    <a href="/admin/mrsrequest?status=2000">
+                        1
+                    </a>
+                </span>
+            </p>
+            <p>
+                Rejetées
+                <span class="right">
+                    <a href="/admin/mrsrequest?status=999">
+                        1
+                    </a>
+                </span>
+            </p>
+            <p>
+                Total
+                <span class="right">
+                    <a href="/admin/mrsrequest">
+                        3
+                    </a>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="col m9 s12">
+        <div class="card-panel">
+            <h5>Mes demandes en cours de liquidation</h5>
+            
+
+
+<div class="table-container">
+
+<table >
+    
+    
+    <thead>
+        <tr>
+        
+            
+            <th class="orderable"><a href="?sort=creation_datetime">Date et heure de la demande</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=display_id">Numéro de demande</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=first_name">Prénom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=last_name">Nom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=nir">NIR</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=status">Statut</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=institution">Établissement</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=caisse">Caisse</a></th>
+            
+        
+            
+            <th >Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+</div>
+
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
+
+    </div>
+
+    <div id="modal" class="modal modal-fixed-footer"></div>
+
+    
+
+    <div class="fixed-actions">
+      
+    </div>
+    
+<div style="display: none" class="bottom center-align" id="listaction">
+  
+</div>
+
+  </body>
+</html>

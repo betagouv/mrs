@@ -351,8 +351,6 @@ class MRSRequest(models.Model):
         return ''
 
     def is_allowed(self, request):
-        if request.user.is_staff:
-            return True
         return str(self.id) in request.session.get(self.SESSION_KEY, {})
 
     def allow(self, request):

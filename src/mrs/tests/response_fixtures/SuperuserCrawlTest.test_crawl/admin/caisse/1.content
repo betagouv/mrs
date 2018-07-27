@@ -10,75 +10,91 @@
     <thead class="thead-inverse">
       
       <tr>
-          <th>
-              Id
-          </th>
-          <td>
+        <th>
+          Id
+        </th>
+        <td>
+          
               1
-          </td>
+          
+        </td>
       </tr>
       
       <tr>
-          <th>
-              Code
-          </th>
-          <td>
+        <th>
+          Code
+        </th>
+        <td>
+          
               111111111
-          </td>
+          
+        </td>
       </tr>
       
       <tr>
-          <th>
-              Nom
-          </th>
-          <td>
+        <th>
+          Nom
+        </th>
+        <td>
+          
               aaaaaaa
-          </td>
+          
+        </td>
       </tr>
       
       <tr>
-          <th>
-              Numéro
-          </th>
-          <td>
+        <th>
+          Numéro
+        </th>
+        <td>
+          
               111
-          </td>
+          
+        </td>
       </tr>
       
       <tr>
-          <th>
-              Email du service de liquidation
-          </th>
-          <td>
+        <th>
+          Email du service de liquidation
+        </th>
+        <td>
+          
               aaa@example.com
-          </td>
+          
+        </td>
       </tr>
       
       <tr>
-          <th>
-              Activé
-          </th>
-          <td>
+        <th>
+          Activé
+        </th>
+        <td>
+          
               True
-          </td>
+          
+        </td>
       </tr>
       
       <tr>
-          <th>
-              Active la saisie de frais de parking
-          </th>
-          <td>
+        <th>
+          Active la saisie de frais de parking
+        </th>
+        <td>
+          
               True
-          </td>
+          
+        </td>
       </tr>
       
       <tr>
-          <th>
-              Score
-          </th>
-          <td>
+        <th>
+          Score
+        </th>
+        <td>
+          
               0
-          </td>
+          
+        </td>
       </tr>
       
     

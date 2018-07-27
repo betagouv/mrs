@@ -50,6 +50,18 @@
         
     </div>
 </div>
+ 
+<div class="row">
+    <div class="select-field col s12" id="id_caisse_container">
+        <label for="id_caisse">Caisse</label>
+        <select id="id_caisse" name="caisse">
+            <option value="">---------</option>
+            <option value="1">aaaaaaa</option>
+            <option value="2">bbbb</option>
+        </select>
+        
+    </div>
+</div>
 
         
       </form>
@@ -162,6 +174,15 @@
       </a>
 
       <ul class="dropdown-content" id="row-actions-ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2/delete?_next=/admin/mrsrequest" title='Demande "201805090001": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
         
         <li>
             <a class="" href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2?_next=/admin/mrsrequest" title="201805090001">

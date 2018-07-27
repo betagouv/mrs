@@ -39,8 +39,9 @@ def ur(request_factory):
             kwargs.setdefault('username', str(kwargs))
             user = User.objects.get_or_create(**kwargs)[0]
             if caisse:
-                user.is_staff = True
                 user.caisses.add(caisse)
+                if 'profile' not in kwargs:
+                    user.profile = 'upn'
         return getattr(request_factory(user), method or 'get')('/path')
     return user_request
 
@@ -87,9 +88,10 @@ def test_validate_redirects_anonymous(v, ur, mrsrequest):
 
 @pytest.mark.django_db
 @pytest.mark.parametrize('v', VIEWS)
-def test_get_404_for_non_caisse_staff(v, ur, mrsrequest):
-    with pytest.raises(http.Http404):
-        view(v)(ur(is_staff=True), pk=mrsrequest.pk)
+def test_redirects_for_non_caisse_staff(v, ur, mrsrequest):
+    response = view(v)(ur(), pk=mrsrequest.pk)
+    assert response.status_code == 302
+    assert 'login' in response['Location']
 
 
 @pytest.mark.django_db
@@ -108,7 +110,7 @@ def test_validate_get_fail_if_not_inprogress(ur, mrsrequest):
 @pytest.mark.django_db
 def test_progress_post_fails_for_non_caisse_staff(ur, mrsrequest):
     with pytest.raises(http.Http404):
-        view('progress')(ur('post', is_staff=True), pk=mrsrequest.pk)
+        view('progress')(ur('post', profile='upn'), pk=mrsrequest.pk)
 
 
 @freeze_time('3000-12-31 13:37:42')

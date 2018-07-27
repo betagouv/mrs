@@ -14,16 +14,6 @@ urlpatterns = [
             url=reverse_lazy('demande'), permanent=True),
         name='wizard'
     ),
-    path(
-        '<pk>/reject/',
-        views.MRSRequestRejectView.as_view(),
-        name='reject'
-    ),
-    path(
-        '<pk>/validate/',
-        views.MRSRequestValidateView.as_view(),
-        name='validate'
-    ),
 ]
 
 urlpatterns += factory(PMT)

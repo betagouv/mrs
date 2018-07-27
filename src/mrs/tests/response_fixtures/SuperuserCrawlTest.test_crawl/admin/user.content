@@ -28,13 +28,14 @@
         
         
 <div class="row">
-    <div class="select-field col s12" id="id_status_container">
-        <label for="id_status">Statut</label>
-        <select id="id_status" name="status">
+    <div class="select-field col s12" id="id_profile_container">
+        <label for="id_profile">Profil</label>
+        <select id="id_profile" name="profile">
             <option value="">---------</option>
-            <option value="disabled">Désactivé</option>
-            <option value="upn">UPN</option>
             <option value="admin">Admin</option>
+            <option value="upn">UPN</option>
+            <option value="stat">Stat</option>
+            <option value="support">Relation client</option>
         </select>
         
     </div>
@@ -106,7 +107,7 @@
             
         
             
-            <th class="orderable"><a href="?sort=status">statut</a></th>
+            <th class="orderable"><a href="?sort=profile">Profil</a></th>
             
         
             
@@ -172,7 +173,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/test/su?_next=/admin/user" title='Utilisateur "test": become user'>
+            <a class="" data-noprefetch="true" href="/admin/user/test/su?_next=/admin/user" title='Utilisateur "test": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Become
@@ -249,7 +250,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/a/su?_next=/admin/user" title='Utilisateur "a": become user'>
+            <a class="" data-noprefetch="true" href="/admin/user/a/su?_next=/admin/user" title='Utilisateur "a": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Become
@@ -326,7 +327,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/b/su?_next=/admin/user" title='Utilisateur "b": become user'>
+            <a class="" data-noprefetch="true" href="/admin/user/b/su?_next=/admin/user" title='Utilisateur "b": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Become
@@ -336,6 +337,314 @@
         
         <li>
             <a class="" href="/admin/user/b?_next=/admin/user" title="b">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="4" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+            
+                <td>aaaaaaa</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/supporta">supporta@example.com</a></td>
+            
+                <td>SupportA Prenom</td>
+            
+                <td>Suport A Nom</td>
+            
+                <td>Relation client</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-4" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-4">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supporta/update?_next=/admin/user" title='Utilisateur "supporta": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supporta/password?_next=/admin/user" title='Utilisateur "supporta": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/supporta/su?_next=/admin/user" title='Utilisateur "supporta": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Become
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/supporta?_next=/admin/user" title="supporta">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="5" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+            
+                <td>aaaaaaa</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/stata">stata@example.com</a></td>
+            
+                <td>Stat prenom</td>
+            
+                <td>Stat nom</td>
+            
+                <td>Stat</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-5" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-5">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/stata/update?_next=/admin/user" title='Utilisateur "stata": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/stata/password?_next=/admin/user" title='Utilisateur "stata": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/stata/su?_next=/admin/user" title='Utilisateur "stata": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Become
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/stata?_next=/admin/user" title="stata">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="6" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+            
+                <td>bbbb</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/statb">statb@examplec.mo</a></td>
+            
+                <td>Statbprenom</td>
+            
+                <td>Statbnom</td>
+            
+                <td>Stat</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-6" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-6">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/statb/update?_next=/admin/user" title='Utilisateur "statb": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/statb/password?_next=/admin/user" title='Utilisateur "statb": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/statb/su?_next=/admin/user" title='Utilisateur "statb": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Become
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/statb?_next=/admin/user" title="statb">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="7" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+            
+                <td>bbbb</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/supportb">supportb@example.com</a></td>
+            
+                <td>Support B Prenom</td>
+            
+                <td>Support B Nom</td>
+            
+                <td>Relation client</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-7" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-7">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supportb/update?_next=/admin/user" title='Utilisateur "supportb": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supportb/password?_next=/admin/user" title='Utilisateur "supportb": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/supportb/su?_next=/admin/user" title='Utilisateur "supportb": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Become
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/supportb?_next=/admin/user" title="supportb">
     <i class="blue-text material-icons">search</i>
     
     Detail
