@@ -5,10 +5,16 @@ from django.contrib.auth.models import Group
 
 from django_filters import filters
 
+from caisse.models import Caisse
+
 from .models import User
 
 
 class UserForm(forms.ModelForm):
+    caisses = forms.ModelMultipleChoiceField(
+        Caisse.objects.all()
+    )
+
     class Meta:
         model = User
         fields = [
