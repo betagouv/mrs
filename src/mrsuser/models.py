@@ -30,7 +30,6 @@ class User(AbstractUser):
     caisses = models.ManyToManyField(
         'caisse.caisse',
         null=True,
-        blank=True,
     )
 
     objects = UserManager()
