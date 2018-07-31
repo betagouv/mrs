@@ -156,6 +156,17 @@ var formInit = function (form) {
 
   M.AutoInit(form)
   $(form).is(':visible') || $(form).fadeIn()
+  // compensate for https://github.com/Dogfalo/materialize/issues/6049
+  for (let select of document.querySelectorAll('select.invalid')) {
+    try {
+      var input = select.previousSibling.previousSibling.previousSibling
+    } catch (error) {
+      continue
+    }
+    if (input.classList) {
+      input.classList.add('invalid')
+    }
+  }
 }
 
 var formSubmit = function(form) {
