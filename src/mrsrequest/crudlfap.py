@@ -16,6 +16,8 @@ from django.core.exceptions import ValidationError
 from django.core.mail import EmailMessage
 from django.db import transaction
 
+import django_filters
+
 import django_tables2 as tables
 
 from institution.models import Institution
@@ -237,10 +239,41 @@ class MRSRequestListView(crudlfap.ListView):
         filter_fields = [
             'status',
             'institution',
+            'creation_date__gte',
+            'creation_date__lte',
         ]
         if self.request.user.profile == 'admin':
             filter_fields.append('caisse')
         return filter_fields
+
+    filterset_extra_class_attributes = dict(
+        creation_date__gte=django_filters.DateFilter(
+            field_name='creation_datetime',
+            lookup_expr='gte',
+            input_formats=['%d/%m/%Y'],
+            label='Date minimale',
+            widget=forms.TextInput(
+                attrs={
+                    'class': 'crudlfap-datepicker',
+                    'data-clearable': 'true',
+                    'data-format': 'dd/mm/yyyy',
+                },
+            )
+        ),
+        creation_date__lte=django_filters.DateFilter(
+            field_name='creation_datetime',
+            lookup_expr='lte',
+            input_formats=['%d/%m/%Y'],
+            label='Date maximale',
+            widget=forms.TextInput(
+                attrs={
+                    'class': 'crudlfap-datepicker',
+                    'data-clearable': 'true',
+                    'data-format': 'dd/mm/yyyy',
+                },
+            ),
+        ),
+    )
 
     DISPLAY_ID_TEMPLATE = '''
     <a

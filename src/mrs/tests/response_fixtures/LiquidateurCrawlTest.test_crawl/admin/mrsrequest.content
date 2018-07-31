@@ -50,6 +50,24 @@
         
     </div>
 </div>
+ 
+
+<div class="row">
+    <div class="input-field col s12" id="id_creation_date__gte_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_creation_date__gte" name="creation_date__gte" type="text"/>
+        <label for="id_creation_date__gte">Date minimale</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12" id="id_creation_date__lte_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_creation_date__lte" name="creation_date__lte" type="text"/>
+        <label for="id_creation_date__lte">Date maximale</label>
+        
+    </div>
+</div>
 
         
       </form>
