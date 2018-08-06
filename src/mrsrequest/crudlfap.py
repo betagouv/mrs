@@ -373,7 +373,7 @@ class MRSRequestExport(crudlfap.ObjectsView):
                 obj.insured.birth_date.strftime('%d/%m/%Y'),
                 obj.insured.last_name,
                 obj.insured.first_name,
-                date_depart.strftime('%d/%m/%Y'),
+                date_depart.strftime('%d/%m/%Y') if date_depart else '',
                 '',
                 '',
                 '',
