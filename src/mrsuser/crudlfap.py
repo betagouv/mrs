@@ -28,7 +28,8 @@ class UserForm(forms.ModelForm):
         ]
 
     def save(self, commit=True):
-        self.instance.set_password(self.cleaned_data['password'])
+        if self.cleaned_data.get('password', ''):
+            self.instance.set_password(self.cleaned_data['password'])
         return super().save(commit=commit)
 
 
