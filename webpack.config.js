@@ -39,7 +39,7 @@ var cfg = {
   },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
-    filename: '[name]-[hash].js'
+    filename: '[name].[hash].js'
   },
 
   plugins: [
