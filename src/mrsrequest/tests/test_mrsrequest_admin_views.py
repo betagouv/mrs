@@ -46,26 +46,26 @@ def ur(request_factory):
     return user_request
 
 
-@freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
 @pytest.mark.dbdiff(models=[LogEntry, Caisse, Person])
 @pytest.fixture
 def mrsrequest():
     uuid = '4255e33f-88c0-4dbf-b8ee-69cb283a7cea'
-    mrsrequest = MRSRequest.objects.create(
-        pk=uuid,
-        caisse=Caisse.objects.create(name='adminviews', number=9),
-        insured=Person.objects.create(
-            email='t@tt.tt',
-            nir=111111111111,
-        ),
-        pmt=PMT.objects.create(
-            mrsrequest_uuid=uuid,
-            filename='test_mrsrequest_admin_views.jpg',
-            binary=b'test_mrsrequest_admin_views',
+    with freeze_time('3000-12-31 13:37:42'):
+        mrsrequest = MRSRequest.objects.create(
+            pk=uuid,
+            caisse=Caisse.objects.create(name='adminviews', number=9),
+            insured=Person.objects.create(
+                email='t@tt.tt',
+                nir=111111111111,
+            ),
+            pmt=PMT.objects.create(
+                mrsrequest_uuid=uuid,
+                filename='test_mrsrequest_admin_views.jpg',
+                binary=b'test_mrsrequest_admin_views',
+            )
         )
-    )
-    mrsrequest.pmt.mrsrequest = mrsrequest
-    mrsrequest.pmt.save()
+        mrsrequest.pmt.mrsrequest = mrsrequest
+        mrsrequest.pmt.save()
     return mrsrequest
 
 
