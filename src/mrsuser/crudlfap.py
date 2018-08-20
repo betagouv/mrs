@@ -12,7 +12,7 @@ from .models import User
 
 class UserForm(forms.ModelForm):
     caisses = forms.ModelMultipleChoiceField(
-        Caisse.objects.all()
+        Caisse.objects.filter(active=True)
     )
 
     class Meta:
