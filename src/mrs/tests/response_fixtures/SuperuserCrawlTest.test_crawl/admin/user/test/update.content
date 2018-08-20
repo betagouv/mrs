@@ -68,7 +68,6 @@
             <option disabled="" value="">Choisissez votre option</option>
             <option value="1">aaaaaaa</option>
             <option value="2">bbbb</option>
-            <option value="3">inactive</option>
         </select>
         
     </div>
