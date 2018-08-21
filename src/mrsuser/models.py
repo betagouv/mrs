@@ -3,6 +3,9 @@ from django.db import models
 
 
 class UserManager(UserManager):
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related('caisses')
+
     def _create_user(self, *args, **kwargs):
         if kwargs.pop('is_superuser', False):
             kwargs['profile'] = 'admin'
