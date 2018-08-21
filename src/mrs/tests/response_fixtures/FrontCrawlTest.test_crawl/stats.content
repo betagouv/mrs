@@ -55,9 +55,9 @@
 
           <div class="col s12 m6">
             <div class="card-panel">
-              <span class="card-title">Nombre d'assurés ayant basculé vers le véhicule personnel<sup>*</sup>/span&gt;
+              <span class="card-title">Nombre d'assurés ayant basculé vers le véhicule personnel<sup>*</sup></span>
               <pre>0</pre>
-            </span></div>
+            </div>
           </div>
         </div>
 
