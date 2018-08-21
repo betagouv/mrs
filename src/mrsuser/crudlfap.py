@@ -33,7 +33,7 @@ class UserForm(forms.ModelForm):
 
     def clean_new_password(self):
         new_password = self.cleaned_data.get('new_password', '')
-        if not self.instance.password:
+        if not (self.instance.password or new_password):
             raise forms.ValidationError('Ce champ est obligatoire.')
         return new_password
 
