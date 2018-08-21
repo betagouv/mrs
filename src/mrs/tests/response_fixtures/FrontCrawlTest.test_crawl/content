@@ -189,6 +189,12 @@
             </div>
         </div>
 
+        <div id="control--wrapper">
+            <div id="control">
+                <sup>*</sup>Oui, vous devez conserver vos pièces justificatives (prescription médicale de transport, tickets de métro...) pendant 2 ans et un trimestre. En effet, les originaux de ces documents pourraient vous être demandés en cas de contrôle par l'Assurance Maladie.
+            </div>
+        </div>
+
         <div id="caroussel">
             <h2>Ils ont déjà utilisé notre service</h2>
             <img src="/static/img/icones/open-quotes.png" alt="icone" />
