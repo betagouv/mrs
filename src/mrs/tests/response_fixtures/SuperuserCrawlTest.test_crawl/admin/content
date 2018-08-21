@@ -29,7 +29,7 @@
                 Validées
                 <span class="right">
                     <a href="/admin/mrsrequest?status=2000">
-                        2
+                        3
                     </a>
                 </span>
             </p>
@@ -45,7 +45,7 @@
                 Total
                 <span class="right">
                     <a href="/admin/mrsrequest">
-                        4
+                        5
                     </a>
                 </span>
             </p>
