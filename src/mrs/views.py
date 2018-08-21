@@ -82,6 +82,12 @@ class StatisticsView(crudlfap.Factory, generic.TemplateView):
     def get_insured_shifts(self):
         return self.mrsrequests.filter(insured__shifted=True).count()
 
+    def get_shifted_insured_count(self):
+        return Person.objects.filter(
+            shifted=True,
+            mrsrequest__in=self.mrsrequests,
+        ).distinct().count()
+
     def get_insured_count(self):
         return Person.objects.filter(
             mrsrequest__in=self.mrsrequests

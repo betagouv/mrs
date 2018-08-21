@@ -145,7 +145,7 @@ textarea {
                 Validées
                 <span class="right">
                     <a href="/admin/mrsrequest?status=2000">
-                        1
+                        2
                     </a>
                 </span>
             </p>
@@ -161,7 +161,7 @@ textarea {
                 Total
                 <span class="right">
                     <a href="/admin/mrsrequest">
-                        3
+                        4
                     </a>
                 </span>
             </p>
