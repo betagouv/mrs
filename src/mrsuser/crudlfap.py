@@ -14,6 +14,11 @@ class UserForm(forms.ModelForm):
     caisses = forms.ModelMultipleChoiceField(
         Caisse.objects.filter(active=True)
     )
+    new_password = forms.CharField(
+        label='Mot de passe',
+        required=False,
+        help_text='Laisser ce champs vide pour ne pas changer le mot de passe'
+    )
 
     class Meta:
         model = User
@@ -21,15 +26,20 @@ class UserForm(forms.ModelForm):
             'first_name',
             'last_name',
             'username',
-            'password',
             'email',
             'caisses',
             'profile',
         ]
 
+    def clean_new_password(self):
+        new_password = self.cleaned_data.get('new_password', '')
+        if not self.instance.password:
+            raise forms.ValidationError('Ce champ est obligatoire.')
+        return new_password
+
     def save(self, commit=True):
-        if self.cleaned_data.get('password', ''):
-            self.instance.set_password(self.cleaned_data['password'])
+        if self.cleaned_data.get('new_password', ''):
+            self.instance.set_password(self.cleaned_data['new_password'])
         return super().save(commit=commit)
 
 
