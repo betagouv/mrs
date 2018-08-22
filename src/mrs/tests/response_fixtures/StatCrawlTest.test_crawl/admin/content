@@ -53,7 +53,7 @@ textarea {
       <ul class="right">
         
   <li class="">
-    <a class="waves-effect" href="/admin/logout">Déconnexion (stata)</a>
+    <a data-noprefetch="true" class="waves-effect" href="/admin/logout">Déconnexion (stata)</a>
   </li>
   
 
@@ -103,7 +103,7 @@ textarea {
   
   
   <li class="no-padding">
-    <a class="waves-effect" href="/admin/logout">Déconnexion (stata)</a>
+    <a data-noprefetch="true" class="waves-effect" href="/admin/logout">Déconnexion (stata)</a>
   </li>
   
 
