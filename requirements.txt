@@ -7,7 +7,7 @@ django-jpic-jfu
 raven
 django-humanize==0.1.2
 django-ipware==2.0.1
-crudlfap==0.4.12
+crudlfap==0.4.13
 sqlparse
 holidays
 chardet
