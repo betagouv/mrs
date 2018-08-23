@@ -23,6 +23,7 @@ import django_tables2 as tables
 from institution.models import Institution
 
 from mrsemail.models import EmailTemplate
+from mrs.spooler import email_send
 
 from .forms import (
     MRSRequestForm,
@@ -97,7 +98,7 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
             settings.DEFAULT_FROM_EMAIL,
             [(mrsrequest or self.object).insured.email],
         )
-        email.send()
+        email_send(email)
 
     def mail_liquidation(self, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
@@ -114,16 +115,8 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
         )
 
         if mrsrequest.total_size < 10000000:
-            try:
-                email.send()
-            except Exception as e:
-                messages.error(
-                    self.request,
-                    f'Demande {mrsrequest.display_id}, echec d\'envoie de mail'
-                    f' {e}'
-                )
-            else:
-                return True
+            email_send(email)
+            return True
         else:
             messages.info(
                 self.request,
@@ -205,7 +198,7 @@ class MRSRequestRejectView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
             [self.object.insured.email],
             reply_to=[settings.TEAM_EMAIL],
         )
-        email.send()
+        email_send(email)
 
         return resp
 
@@ -470,6 +463,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
             uwsgi.spool({
                 b'task': b'update_stats',
                 b'body': body.encode('ascii'),
+                b'spooler': b'/spooler/stat'
             })
 
     def import_row(self, i, row):
