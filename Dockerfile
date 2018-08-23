@@ -17,6 +17,7 @@ ENV VIRTUAL_PROTO uwsgi
 ENV NODE_ENV=production
 EXPOSE 6789
 
+ENV STATIC_URL /static
 ENV STATIC_ROOT /code/static
 RUN mkdir -p ${STATIC_ROOT}
 RUN mkdir -p /tmp/spool && chown uwsgi /tmp/spool
@@ -66,4 +67,5 @@ CMD /usr/bin/dumb-init uwsgi \
   --ignore-sigpipe \
   --ignore-write-errors \
   --disable-write-exception \
-  --wsgi-disable-file-wrapper
+  --wsgi-disable-file-wrapper \
+  --static-map $STATIC_ROOT=$STATIC_URL
