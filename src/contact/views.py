@@ -3,6 +3,8 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.views import generic
 
+from mrs.spooler import email_send
+
 from .forms import ContactForm
 
 
@@ -24,6 +26,6 @@ class ContactView(generic.FormView):
             [settings.TEAM_EMAIL],
             reply_to=[form.cleaned_data['email']],
         )
-        email.send()
+        email_send(email)
 
         return generic.TemplateView.get(self, self.request)

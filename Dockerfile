@@ -42,8 +42,9 @@ ARG GIT_COMMIT
 ENV GIT_COMMIT ${GIT_COMMIT}
 
 CMD /usr/bin/dumb-init uwsgi \
-  --spooler=/tmp/spool \
-  --spooler-processes 8 \
+  --spooler=/spooler/mail \
+  --spooler=/spooler/stat \
+  --spooler-processes 1 \
   --socket=0.0.0.0:6789 \
   --chdir=/code \
   --plugin=python3,http \

@@ -1,5 +1,21 @@
 import json
-import uwsgi
+import pickle
+
+try:
+    import uwsgi
+except ImportError:
+    uwsgi = None
+
+
+def email_send(email):
+    if uwsgi:
+        uwsgi.spool({
+            b'task': b'email_send',
+            b'body': pickle.dumps(email),
+            b'spooler': b'/spooler/mail',
+        })
+    else:
+        email.send()
 
 
 def spooler(env):
@@ -11,4 +27,7 @@ def spooler(env):
                 pk__in=json.loads(env['body'].decode('ascii')),
             )
         )
+    elif env.get(b'task') == b'email_send':
+        email = pickle.loads(env['body'])
+        email.send()
     return uwsgi.SPOOL_OK

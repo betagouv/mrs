@@ -13,6 +13,7 @@ from ipware import get_client_ip
 from caisse.models import Caisse, Email
 from caisse.forms import CaisseVoteForm
 from person.forms import PersonForm
+from mrs.spooler import email_send
 
 from .forms import (
     CertifyForm,
@@ -173,7 +174,7 @@ class MRSRequestCreateView(generic.TemplateView):
             [self.object.insured.email],
             reply_to=[settings.TEAM_EMAIL],
         )
-        email.send()
+        email_send(email)
 
         return True
 
