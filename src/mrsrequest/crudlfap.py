@@ -23,7 +23,7 @@ import django_tables2 as tables
 from institution.models import Institution
 
 from mrsemail.models import EmailTemplate
-from mrs.spooler import email_send
+from mrs.spooler import email_send, liquidation_email_send
 
 from .forms import (
     MRSRequestForm,
@@ -103,19 +103,12 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
     def mail_liquidation(self, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
 
-        email = EmailMessage(
-            self.mail_render('liquidation', 'title', mrsrequest),
-            self.mail_render('liquidation', 'body', mrsrequest),
-            settings.DEFAULT_FROM_EMAIL,
-            [mrsrequest.caisse.liquidation_email],
-            reply_to=[settings.TEAM_EMAIL],
-            attachments=[mrsrequest.pmt.tuple()] + [
-                bill.tuple() for bill in mrsrequest.bill_set.all()
-            ]
-        )
-
         if mrsrequest.total_size < 10000000:
-            email_send(email)
+            liquidation_email_send(
+                self.mail_render('liquidation', 'title', mrsrequest),
+                self.mail_render('liquidation', 'body', mrsrequest),
+                mrsrequest
+            )
             return True
         else:
             messages.info(
