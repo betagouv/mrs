@@ -120,15 +120,15 @@ jobs:
         - test-dependencies-{{ checksum "tox.ini" }}
     - run:
         name: Tox environment setup
-        command: pip install --user tox && ~/.local/bin/tox -r -e py36-dj20-pg --notest
+        command: pip install --user tox && ~/.local/bin/tox -r -e py36-dj21-pg --notest
     - save_cache:
         paths: [~/.local, ~/.cache/pip]
         key: test-dependencies-{{ checksum "tox.ini" }}
     - run:
-        name: TEST tox -e py36-dj20-pg
+        name: TEST tox -e py36-dj21-pg
         command: |
-          ~/.local/bin/tox -e py36-dj20
-          PATH=.tox/py36-dj20/bin:$PATH codecov --token $CODECOV_TOKEN -e $TOXENV
+          ~/.local/bin/tox -e py36-dj21
+          PATH=.tox/py36-dj21/bin:$PATH codecov --token $CODECOV_TOKEN -e $TOXENV
 
   docs-qa:
     docker:
