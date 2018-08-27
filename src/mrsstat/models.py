@@ -5,6 +5,7 @@ from denorm import denormalized
 
 from django.db import models
 from django.db import transaction
+from djcall.models import Caller
 
 from caisse.models import Caisse
 from institution.models import Institution
@@ -12,6 +13,28 @@ from mrsrequest.models import MRSRequest
 
 
 logger = logging.getLogger(__name__)
+
+
+def update_stats(**kwargs):
+    objects = MRSRequest.objects.filter(pk__in=kwargs['pks'])
+    Stat.objects.update_stats(objects)
+
+
+def update_stat(**kwargs):
+    stat = Stat.objects.get(pk=kwargs['pk'])
+    logger.info('Refresh stat: {}'.format(stat))
+    stat.save()
+
+
+def create_missing_for_date(**kwargs):
+    logger.info('Create stat: {}'.format(kwargs['date']))
+    stats = Stat.objects.create_missing_for_date(
+        kwargs['date'],
+        Caisse.objects.filter(pk__in=kwargs['caisses']),
+        Institution.objects.filter(pk__in=kwargs['institutions']),
+    )
+    for s in stats:
+        s.save()
 
 
 class StatManager(models.Manager):
@@ -36,20 +59,25 @@ class StatManager(models.Manager):
             ) | models.Q(
                 institution__in=institutions,
             )
-        ).distinct()
+        ).values_list('pk', flat=True).distinct()
 
         # update existing stats
-        for stat in stats:
-            logger.info('Refresh stat: {}'.format(stat))
-            stat.save()
+        for stat_pk in stats:
+            Caller(
+                callback='mrsstat.models.update_stat',
+                kwargs=dict(pk=stat_pk),
+            ).spool('stat')
 
+        # create missing
         for date in dates:
-            # create missing
-            Stat.objects.create_missing_for_date(
-                date,
-                caisses,
-                institutions
-            )
+            Caller(
+                callback='mrsstat.models.create_missing_for_date',
+                kwargs=dict(
+                    date=date,
+                    caisses=[c.pk for c in caisses if c],
+                    institutions=[i.pk for i in institutions if i],
+                )
+            ).spool('stat')
 
     def create_missing(self):
         first = MRSRequest.objects.order_by('creation_datetime').first()
@@ -116,6 +144,10 @@ class StatManager(models.Manager):
                     caisse=None,
                 )[0]
             )
+
+        for obj in objects:
+            obj.save()
+
         return objects
 
 

@@ -20,10 +20,10 @@ import django_filters
 
 import django_tables2 as tables
 
+from djcall.models import Caller
 from institution.models import Institution
 
 from mrsemail.models import EmailTemplate
-from mrs.spooler import email_send, liquidation_email_send
 
 from .forms import (
     MRSRequestForm,
@@ -74,6 +74,20 @@ class MRSRequestStatusMixin:
             return self.request.user.profile in ('upn', 'admin')
 
 
+def mail_liquidation(subject, body, mrsrequest_pk):
+    mrsrequest = MRSRequest.objects.get(pk=mrsrequest_pk)
+    EmailMessage(
+        subject,
+        body,
+        settings.DEFAULT_FROM_EMAIL,
+        [mrsrequest.caisse.liquidation_email],
+        reply_to=[settings.TEAM_EMAIL],
+        attachments=[mrsrequest.pmt.tuple()] + [
+            bill.tuple() for bill in mrsrequest.bill_set.all()
+        ]
+    ).send()
+
+
 class MRSRequestValidateMixin(MRSRequestStatusMixin):
     form_class = MRSRequestForm
     view_label = 'Valider'
@@ -92,30 +106,36 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
 
     def mail_insured(self, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
-        email = EmailMessage(
-            self.mail_render('insured', 'title', mrsrequest),
-            self.mail_render('insured', 'body', mrsrequest),
-            settings.DEFAULT_FROM_EMAIL,
-            [(mrsrequest or self.object).insured.email],
-        )
-        email_send(email)
+        Caller(
+            callback='djcall.django.email_send',
+            kwargs=dict(
+                subject=self.mail_render('insured', 'title', mrsrequest),
+                body=self.mail_render('insured', 'body', mrsrequest),
+                to=[(mrsrequest or self.object).insured.email],
+            )
+        ).spool('mail')
 
     def mail_liquidation(self, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
 
-        if mrsrequest.total_size < 10000000:
-            liquidation_email_send(
-                self.mail_render('liquidation', 'title', mrsrequest),
-                self.mail_render('liquidation', 'body', mrsrequest),
-                mrsrequest
-            )
-            return True
-        else:
+        if mrsrequest.total_size >= 10000000:
             messages.info(
                 self.request,
                 f'Demande {mrsrequest.display_id}: taille PJs superieure a 10 '
                 'Mega Octets, pas de mail sur la boite de liquidation'
             )
+            return
+
+        Caller(
+            callback='mrsrequest.crudlfap.mail_liquidation',
+            kwargs=dict(
+                subject=self.mail_render('liquidation', 'title', mrsrequest),
+                body=self.mail_render('liquidation', 'body', mrsrequest),
+                mrsrequest_pk=mrsrequest.pk,
+            )
+        ).spool('mail')
+
+        return True
 
 
 class MRSRequestValidateView(MRSRequestValidateMixin, crudlfap.ObjectFormView):
@@ -184,14 +204,15 @@ class MRSRequestRejectView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
         resp = super().form_valid()
         self.object.save()
 
-        email = EmailMessage(
-            self.form.cleaned_data['subject'],
-            self.form.cleaned_data['body'],
-            settings.DEFAULT_FROM_EMAIL,
-            [self.object.insured.email],
-            reply_to=[settings.TEAM_EMAIL],
-        )
-        email_send(email)
+        Caller(
+            callback='djcall.django.email_send',
+            kwargs=dict(
+                subject=self.form.cleaned_data['subject'],
+                body=self.form.cleaned_data['body'],
+                to=[self.object.insured.email],
+                reply_to=[settings.TEAM_EMAIL],
+            )
+        ).spool('mail')
 
         return resp
 
@@ -440,24 +461,8 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
             if obj:
                 objects.append(obj)
 
-        self.update_stats(objects)
-
         self.keys = row.keys()
         return self.render_to_response()
-
-    def update_stats(self, objects):
-        from mrsstat.models import Stat
-        try:
-            import uwsgi
-        except ImportError:
-            Stat.objects.update_stats(objects)
-        else:
-            body = json.dumps([str(o.pk) for o in objects])
-            uwsgi.spool({
-                b'task': b'update_stats',
-                b'body': body.encode('ascii'),
-                b'spooler': b'/spooler/stat'
-            })
 
     def import_row(self, i, row):
         try:

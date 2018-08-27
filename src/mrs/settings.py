@@ -57,7 +57,7 @@ INSTALLED_APPS = [
 
     os.getenv('WEBPACK_LOADER', 'webpack_loader'),
     'django_humanize',
-] + CRUDLFAP_APPS + DJANGO_APPS
+] + CRUDLFAP_APPS + DJANGO_APPS + ['djcall']
 
 AUTH_USER_MODEL = 'mrsuser.User'
 
