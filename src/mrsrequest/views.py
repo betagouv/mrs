@@ -4,16 +4,15 @@ import json
 from django import http
 from django import template
 from django.conf import settings
-from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.views import generic
+from djcall.models import Caller
 from ipware import get_client_ip
 
 from caisse.models import Caisse, Email
 from caisse.forms import CaisseVoteForm
 from person.forms import PersonForm
-from mrs.spooler import email_send
 
 from .forms import (
     CertifyForm,
@@ -163,18 +162,19 @@ class MRSRequestCreateView(generic.TemplateView):
                 continue
             form.save()
 
-        email = EmailMessage(
-            template.loader.get_template(
-                'mrsrequest/success_mail_title.txt'
-            ).render(dict(view=self)).strip(),
-            template.loader.get_template(
-                'mrsrequest/success_mail_body.txt'
-            ).render(dict(view=self)).strip(),
-            settings.DEFAULT_FROM_EMAIL,
-            [self.object.insured.email],
-            reply_to=[settings.TEAM_EMAIL],
-        )
-        email_send(email)
+        Caller(
+            callback='djcall.django.email_send',
+            kwargs=dict(
+                subject=template.loader.get_template(
+                    'mrsrequest/success_mail_title.txt'
+                ).render(dict(view=self)).strip(),
+                body=template.loader.get_template(
+                    'mrsrequest/success_mail_body.txt'
+                ).render(dict(view=self)).strip(),
+                to=[self.object.insured.email],
+                reply_to=[settings.TEAM_EMAIL],
+            )
+        ).spool('mail')
 
         return True
 

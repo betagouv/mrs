@@ -5,16 +5,10 @@ from datetime import date
 from django import template
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.mail import EmailMessage
 from django.db import models
+from djcall.models import Caller
 
 import holidays
-
-
-try:
-    import uwsgi
-except ImportError:
-    uwsgi = None
 
 
 def validate_caisse_number(value):
@@ -87,24 +81,20 @@ def daily_mail(force=False):
             ADMIN_ROOT=crudlfap.site.views['home'].url,
         )
 
-        email = EmailMessage(
-            template.loader.get_template(
-                'caisse/liquidation_daily_mail_title.txt',
-            ).render(context).strip(),
-            template.loader.get_template(
-                'caisse/liquidation_daily_mail_body.html',
-            ).render(context).strip(),
-            settings.DEFAULT_FROM_EMAIL,
-            [caisse.liquidation_email],
-            reply_to=[settings.DEFAULT_FROM_EMAIL],
-        )
-        email.content_subtype = 'html'
-        email.send()
-
-if uwsgi:
-    uwsgi.register_signal(99, "", daily_mail)
-    for i in range(1, 5):
-        uwsgi.add_cron(99, 0, 8, -1, -1, i)
+        Caller(
+            callback='djcall.django.email_send',
+            kwargs=dict(
+                subject=template.loader.get_template(
+                    'caisse/liquidation_daily_mail_title.txt',
+                ).render(context).strip(),
+                body=template.loader.get_template(
+                    'caisse/liquidation_daily_mail_body.html',
+                ).render(context).strip(),
+                to=[caisse.liquidation_email],
+                reply_to=[settings.DEFAULT_FROM_EMAIL],
+                content_subtype='html'
+            )
+        ).spool('mail')
 
 
 class Email(models.Model):
