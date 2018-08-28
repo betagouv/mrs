@@ -25,6 +25,9 @@
         Nombre de demandes soumises: {{ view.get_mrsrequest_count('new') or 0 }}
       </p>
       <p>
+        Nombre de demandes en cours: {{ view.get_mrsrequest_count('inprogress') or 0 }}
+      </p>
+      <p>
         Nombre de demandes validées: {{ view.get_mrsrequest_count('validated') or 0 }}
       </p>
       <p>

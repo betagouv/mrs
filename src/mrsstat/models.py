@@ -123,6 +123,16 @@ class Stat(models.Model):
 
     @denormalized(
         models.IntegerField,
+        verbose_name='Nombre de demandes en cours',
+    )
+    def mrsrequest_count_inprogress(self):
+        return self.mrsrequest_set.status_changed(
+            'inprogress',
+            self.date
+        ).count()
+
+    @denormalized(
+        models.IntegerField,
         verbose_name='Nombre de demandes validées',
     )
     def mrsrequest_count_validated(self):

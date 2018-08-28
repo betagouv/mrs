@@ -17,6 +17,7 @@ class StatListView(crudlfap.ListView):
     keys = [
         'date',
         'mrsrequest_count_new',
+        'mrsrequest_count_inprogress',
         'mrsrequest_count_validated',
         'mrsrequest_count_rejected',
         'insured_shifts',
