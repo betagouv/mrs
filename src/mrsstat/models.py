@@ -1,10 +1,12 @@
 import datetime
+import itertools
 import logging
 
 from denorm import denormalized
 
 from django.db import models
 from django.db import transaction
+from django.db.models import signals
 from djcall.models import Caller
 
 from caisse.models import Caisse
@@ -15,140 +17,33 @@ from mrsrequest.models import MRSRequest
 logger = logging.getLogger(__name__)
 
 
-def update_stats(**kwargs):
-    objects = MRSRequest.objects.filter(pk__in=kwargs['pks'])
-    Stat.objects.update_stats(objects)
-
-
-def update_stat(**kwargs):
-    stat = Stat.objects.get(pk=kwargs['pk'])
-    logger.info('Refresh stat: {}'.format(stat))
-    stat.save()
-
-
-def create_missing_for_date(**kwargs):
-    logger.info('Create stat: {}'.format(kwargs['date']))
-    stats = Stat.objects.create_missing_for_date(
-        kwargs['date'],
-        Caisse.objects.filter(pk__in=kwargs['caisses']),
-        Institution.objects.filter(pk__in=kwargs['institutions']),
-    )
-    for s in stats:
-        s.save()
-
-
 class StatManager(models.Manager):
-    def update_stats(self, objects):
-        dates = []
-        caisses = []
-        institutions = []
-
-        for obj in objects:
-            if obj.creation_datetime.date() not in dates:
-                dates.append(obj.creation_datetime.date())
-            if obj.caisse not in caisses:
-                caisses.append(obj.caisse)
-            if obj.institution not in institutions:
-                institutions.append(obj.institution)
-
-        stats = Stat.objects.filter(
-            date__in=dates,
-        ).filter(
-            models.Q(
-                caisse__in=caisses,
-            ) | models.Q(
-                institution__in=institutions,
-            )
-        ).values_list('pk', flat=True).distinct()
-
-        # update existing stats
-        for stat_pk in stats:
-            Caller(
-                callback='mrsstat.models.update_stat',
-                kwargs=dict(pk=stat_pk),
-            ).spool('stat')
-
-        # create missing
-        for date in dates:
-            Caller(
-                callback='mrsstat.models.create_missing_for_date',
-                kwargs=dict(
-                    date=date,
-                    caisses=[c.pk for c in caisses if c],
-                    institutions=[i.pk for i in institutions if i],
-                )
-            ).spool('stat')
-
     def create_missing(self):
         first = MRSRequest.objects.order_by('creation_datetime').first()
         if not first:
             return
-        caisses = Caisse.objects.filter(active=True)
-        institutions = Institution.objects.all()
+
         current_date = datetime.date.today()
-
-        today = True
         while current_date > first.creation_datetime.date():
-            objects = self.create_missing_for_date(
-                current_date,
-                caisses,
-                institutions
-            )
-
-            if today:
-                for obj in objects:
-                    obj.save()  # trigger refresh
-                today = False
-
+            self.update_date(current_date)
             current_date -= datetime.timedelta(days=1)
 
     @transaction.atomic
-    def create_missing_for_date(self, current_date, caisses=None,
-                                institutions=None):
+    def update_date(self, date):
 
-        caisses = caisses or []
-        institutions = institutions or []
+        caisses = list(Caisse.objects.filter(active=True)) + [None]
+        institutions = list(Institution.objects.all()) + [None]
 
-        objects = []
-        objects.append(
-            self.model.objects.get_or_create(
-                date=current_date,
-                caisse=None,
-                institution=None,
-            )[0]
-        )
-
-        for caisse in caisses:
-            objects.append(
-                self.model.objects.get_or_create(
-                    date=current_date,
-                    caisse=caisse,
-                    institution=None,
-                )[0]
-            )
-
-            for institution in institutions:
-                objects.append(
-                    self.model.objects.get_or_create(
-                        date=current_date,
-                        institution=institution,
-                        caisse=caisse,
-                    )[0]
+        for caisse, institution in itertools.product(caisses, institutions):
+            existing = self.filter(
+                date=date, caisse=caisse, institution=institution
+            ).first()
+            if existing:
+                existing.save()
+            else:
+                self.create(
+                    date=date, caisse=caisse, institution=institution
                 )
-
-        for institution in institutions:
-            objects.append(
-                self.model.objects.get_or_create(
-                    date=current_date,
-                    institution=institution,
-                    caisse=None,
-                )[0]
-            )
-
-        for obj in objects:
-            obj.save()
-
-        return objects
 
 
 class Stat(models.Model):
@@ -255,3 +150,33 @@ class Stat(models.Model):
             ('date', 'caisse', 'institution'),
         )
         ordering = ('date', 'caisse', 'institution',)
+
+
+def update_stat_for_mrsrequest(**kwargs):
+    m = MRSRequest.objects.get(pk=kwargs['pk'])
+    date_stats = Stat.objects.filter(
+        date=m.creation_datetime.date(),
+    )
+
+    def get_or_create_stat(**kwargs):  # force a stat save
+        for i in ('caisse', 'institution'):
+            kwargs.setdefault(i, None)
+
+        stat = date_stats.filter(**kwargs).first()
+        if not stat:
+            stat = Stat(date=m.creation_datetime.date(), **kwargs)
+        stat.save()
+
+    get_or_create_stat()
+    get_or_create_stat(caisse=m.caisse)
+    if m.institution:
+        get_or_create_stat(institution=m.institution)
+        get_or_create_stat(institution=m.institution, caisse=m.caisse)
+
+
+def stat_update(sender, instance, **kwargs):
+    Caller(
+        callback='mrsstat.models.update_stat_for_mrsrequest',
+        kwargs=dict(pk=instance.pk),
+    ).spool('stat')
+signals.post_save.connect(stat_update, sender=MRSRequest)

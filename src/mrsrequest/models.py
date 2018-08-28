@@ -14,8 +14,6 @@ from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
 
-from djcall.models import Caller
-
 from mrsattachment.models import MRSAttachment
 
 
@@ -456,14 +454,6 @@ def creation_datetime_and_display_id(sender, instance, **kwargs):
 
     instance.display_id = '{}{:04d}'.format(prefix, number)
 signals.pre_save.connect(creation_datetime_and_display_id, sender=MRSRequest)
-
-
-def stat_update(sender, instance, **kwargs):
-    Caller(
-        callback='mrsstat.models.update_stats',
-        kwargs=dict(pks=[instance.pk]),
-    ).spool('stat')
-signals.post_save.connect(stat_update, sender=MRSRequest)
 
 
 class PMT(MRSAttachment):
