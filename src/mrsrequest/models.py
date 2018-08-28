@@ -350,6 +350,10 @@ class MRSRequest(models.Model):
 
         return ''
 
+    @property
+    def estimate(self):
+        return '%.2f' % self.distance * 0.3 + self.expense
+
     def is_allowed(self, request):
         return str(self.id) in request.session.get(self.SESSION_KEY, {})
 
