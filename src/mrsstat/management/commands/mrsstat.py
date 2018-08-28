@@ -33,9 +33,8 @@ class Command(BaseCommand):
         if options['date']:
             date = datetime.strptime(options['date'], '%d/%m/%Y').date()
             for stat in Stat.objects.filter(date=date):
-                print(stat)
                 stat.save()
             else:
-                Stat.objects.create_missing_for_date(date)
+                Stat.objects.update_date(date)
         else:
             Stat.objects.create_missing()

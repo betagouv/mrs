@@ -60,6 +60,8 @@ class SuperuserCrawlTest(LiquidateurCrawlTest):
     def skip_url(self, url):
         if super().skip_url(url):
             return True
+        if 'call' in url or 'cron' in url:
+            return True
         return url == '/admin/urls' or url.endswith('/su')
 
 

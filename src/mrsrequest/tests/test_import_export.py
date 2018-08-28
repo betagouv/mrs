@@ -51,7 +51,6 @@ bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;18,32;1
 aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;123123123;
 aaaaaaa;999905010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;;;;;;
 aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;30/04/2018;a;3;0;;
-aaaaaaa;201805090000;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;5,32;6;1;310123123;12
     '''.strip()  # noqa
 
     upload1 = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
@@ -77,10 +76,14 @@ aaaaaaa;201805090000;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;5,32
 
     @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
     def test_import(self):
+        Stat.objects.all().delete()
+        from dbdiff.sequence import sequence_reset
+        sequence_reset(Stat)
+
         request, view = self.upload(self.upload0)
 
         assert view.form.is_valid()
-        assert list(view.success.keys()) == [1, 2, 6]
+        assert list(view.success.keys()) == [1, 2]
         assert view.errors[3]['message'] == 'FINESS invalide 123123123'  # noqa
         assert view.errors[4]['message'] == 'Demande introuvable en base de données'  # noqa
         assert view.errors[5]['message'] == 'payment_base: La valeur « a » doit être un nombre décimal.'  # noqa
@@ -96,5 +99,7 @@ aaaaaaa;201805090000;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;5,32
         Fixture('mrsrequest/tests/test_import_0.json',
                 models=[Stat]).assertNoDiff()
         request, view = self.upload(self.upload1)
+        assert list(view.success.keys()) == [1, 2, 3]
         Fixture('mrsrequest/tests/test_import_1.json',
+
                 models=[Stat]).assertNoDiff()
