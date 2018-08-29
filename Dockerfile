@@ -67,5 +67,4 @@ CMD /usr/bin/dumb-init uwsgi \
   --ignore-sigpipe \
   --ignore-write-errors \
   --disable-write-exception \
-  --wsgi-disable-file-wrapper \
   --static-map $STATIC_ROOT=$STATIC_URL

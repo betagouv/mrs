@@ -35,6 +35,9 @@ class MRSFileDetailViewMixin(object):
 
 class MRSFileDownloadView(MRSFileDetailViewMixin, generic.DetailView):
     def get(self, request, *args, **kwargs):
+        if 'wsgi.file_wrapper' in request.environ:
+            del request.environ['wsgi.file_wrapper']
+
         self.object = self.get_object()
         f = io.BytesIO(self.object.binary)
         content_type = self.object.mimetype or 'application/octet-stream'
