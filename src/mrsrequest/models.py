@@ -20,30 +20,35 @@ from mrsattachment.models import MRSAttachment
 TWOPLACES = Decimal(10) ** -2
 
 
-def datetime_min(date):
-    return datetime.datetime(
-        date.year,
-        date.month,
-        date.day,
-        0,
-        0,
-        0,
-        0,
-        tzinfo=pytz.timezone(settings.TIME_ZONE),
+def to_date_datetime(date_or_datetime, hour, minute, second, microsecond):
+    mytz = pytz.timezone(settings.TIME_ZONE)
+    if isinstance(date_or_datetime, datetime.datetime):
+        if timezone.is_aware(date_or_datetime):
+            date = date_or_datetime.astimezone(mytz)
+        else:
+            date = mytz.localize(date_or_datetime)
+    elif isinstance(date_or_datetime, datetime.date):
+        date = date_or_datetime
+
+    return mytz.localize(
+        datetime.datetime(
+            date.year,
+            date.month,
+            date.day,
+            hour,
+            minute,
+            second,
+            microsecond,
+        )
     )
+
+
+def datetime_min(date):
+    return to_date_datetime(date, 0, 0, 0, 0)
 
 
 def datetime_max(date):
-    return datetime.datetime(
-        date.year,
-        date.month,
-        date.day,
-        23,
-        59,
-        59,
-        999999,
-        tzinfo=pytz.timezone(settings.TIME_ZONE),
-    )
+    return to_date_datetime(date, 23, 59, 59, 999999)
 
 
 class Bill(MRSAttachment):
@@ -77,20 +82,90 @@ class MRSRequestQuerySet(models.QuerySet):
     def status(self, name):
         return self.filter(status=MRSRequest.get_status_id(name))
 
-    def status_by(self, name, user):
-        ids = self.logentries.filter(
-            action_flag=MRSRequest.get_status_id(name),
-            user=user,
-        ).values_list('object_id', flat=True)
-        return self.filter(id__in=list(ids))
+    def status_by(self, status, user):
+        return self.status_filter(status, user=user)
 
     def status_changed(self, status, date):
-        ids = self.logentries.filter(
-            action_flag=MRSRequest.get_status_id(status),
-            action_time__gte=datetime_min(date),
-            action_time__lte=datetime_max(date),
-        ).values_list('object_id', flat=True)
-        return self.filter(id__in=list(ids))
+        return self.status_filter(status, date=date)
+
+    def status_filter(self,
+                      *statuses,
+                      date__gte=None,
+                      date__lte=None,
+                      date=None,
+                      datetime__gte=None,
+                      datetime__lte=None,
+                      user=None):
+
+        """Filter on the status logentries.
+
+        BIGFATWARNING this casts the LogEntry object_id
+        values as a python list, because apparently
+        comparing object_id's varchar with mrsrequest's
+        UUID doesn't work in sql.
+
+        .. py:parameter:: date
+
+            Date or datetime object that will be casted into the datetimes of
+            the *first* and *last* datetimes of the same day of
+            settings.TIME_ZONE.
+
+        .. py:parameter:: date__gte
+
+            Date or datetime object that will be casted into the datetime of
+            the *first* minute of the day of settings.TIME_ZONE, it will be
+            used in a *greater than or equal* filter on LogEntry.action_time.
+
+        .. py:parameter:: date__lte
+
+            Date or datetime object that will be casted into the datetime of
+            the *last* minute of the day of settings.TIME_ZONE, it will be used
+            in a *lesser than or equal* filter on LogEntry.action_time.
+
+        .. py:parameter:: datetime__gte
+
+            Datetime object to pass as-is to LogEntry.action_time greater than
+            or equal filter.
+
+        .. py:parameter:: datetime__lte
+
+            Datetime object to pass as-is to LogEntry.action_time lesser than
+            or equal filter.
+
+        """
+        logentries = self.logentries.filter(
+            action_flag__in=[
+                MRSRequest.get_status_id(status)
+                for status in statuses
+            ],
+        )
+
+        if user:
+            logentries = logentries.filter(user=user)
+
+        if date:
+            datetime__gte = datetime_min(date)
+            datetime__lte = datetime_max(date)
+        else:
+            if date__gte:
+                datetime__gte = datetime_min(date__gte)
+
+            if date__lte:
+                datetime__lte = datetime_min(date__lte)
+
+        if datetime__gte:
+            logentries = logentries.filter(
+                action_time__gte=datetime__gte,
+            )
+
+        if datetime__lte:
+            logentries = logentries.filter(
+                action_time__lte=datetime__lte,
+            )
+
+        return self.filter(
+            id__in=list(logentries.values_list('object_id', flat=True))
+        ).distinct()
 
     def in_status_by(self, name, user):
         return self.status(name).status_by(name, user)
@@ -246,11 +321,22 @@ class MRSRequest(models.Model):
     def __str__(self):
         return str(self.display_id)
 
-    def update_status(self, user, status, log_datetime=None):
+    def update_status(self, user, status, log_datetime=None,
+                      create_logentry=False):
+
         self.status = MRSRequest.get_status_id(status)
         self.status_datetime = log_datetime or timezone.now()
         self.status_user = user
         self.save()
+
+        if create_logentry:
+            LogEntry.objects.create(
+                action_flag=self.status,
+                action_time=self.status_datetime,
+                content_type=ContentType.objects.get_for_model(type(self)),
+                user=self.status_user,
+                object_id=self.pk,
+            )
 
     def logentry_set(self):
         return LogEntry.objects.filter(
@@ -319,6 +405,18 @@ class MRSRequest(models.Model):
     @property
     def days(self):
         return (timezone.now() - self.creation_datetime_normalized).days
+
+    @property
+    def creation_day_time(self):
+        # french calendar date and tz time for creation_datetime
+        return self.creation_datetime.astimezone(
+            pytz.timezone(settings.TIME_ZONE)
+        )
+
+    @property
+    def creation_day(self):
+        # french calendar date for creation_datetime
+        return self.creation_day_time.date()
 
     @property
     def waiting(self):
@@ -425,11 +523,16 @@ class MRSRequest(models.Model):
 
     @property
     def order_number(self):
-        number = type(self).objects.filter(
+        previous = type(self).objects.filter(
             insured=self.insured,
-            creation_datetime__lt=self.creation_datetime,
-            creation_datetime__day=self.creation_datetime.day,
-        ).count() + 1
+            creation_datetime__gte=datetime_min(self.creation_datetime),
+            creation_datetime__lte=self.creation_datetime,
+        )
+
+        if self.pk:
+            previous = previous.exclude(pk=self.pk)
+
+        number = previous.count() + 1
 
         if number > 99:
             return '99'

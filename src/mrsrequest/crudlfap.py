@@ -629,7 +629,8 @@ class MRSRequestRouter(crudlfap.Router):
                 view.object.caisse in view.request.user.caisses.all()
             )
 
-    def get_objects_for_user(self, user, perms):
+    def get_objects_for_user(self, user, perms=None):
+        perms = perms or []
         profile = getattr(user, 'profile', None)
 
         if profile == 'admin':

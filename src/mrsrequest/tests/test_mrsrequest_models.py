@@ -1,3 +1,4 @@
+from bunch import Bunch
 import datetime
 from decimal import Decimal
 import pytest
@@ -18,27 +19,27 @@ from mrsrequest.models import MRSRequest
 paris = pytest.fixture(lambda: pytz.timezone('Europe/Paris'))
 
 
-@pytest.fixture
-def paris_yesterday():
-    return datetime.datetime(1999, 12, 31, 0, 5, tzinfo=paris())
+days = dict(
+    yesterday=(1999, 12, 31),
+    today=(2000, 1, 1),
+    tomorrow=(2000, 1, 2),
+)
 
+hours = {'min': (0, 1), 'max': (23, 59)}
 
-@pytest.fixture
-def utc_today():
-    # this is 2000-01-01 in Europe/Paris
-    return datetime.datetime(1999, 12, 31, 23, 5, tzinfo=pytz.utc)
+tz = dict(
+    paris=paris(),
+    utc=pytz.utc,
+)
 
-
-@pytest.fixture
-def paris_today():
-    # objects created with paris_today should be affected by those
-    # created with utc_today
-    return datetime.datetime(2000, 1, 1, 0, 5, tzinfo=paris())
-
-
-@pytest.fixture
-def paris_tomorrow():
-    return datetime.datetime(2000, 1, 2, 23, 59, tzinfo=paris())
+dts = Bunch()
+for day_name, day_args in days.items():
+    for hour_name, hour_args in hours.items():
+        for tz_name, tz_arg in tz.items():
+            var = f'{day_name}_{hour_name}_{tz_name}'
+            dts[var] = tz_arg.localize(datetime.datetime(
+                *(day_args + hour_args),
+            ))
 
 
 @pytest.mark.django_db
@@ -84,19 +85,19 @@ def test_payment_delay():
 
 
 @pytest.mark.django_db
-def test_update_status_reflection_status_changed(
-        su, paris_today, paris_yesterday):
-    obj = MRSRequest.objects.create(creation_datetime=paris_yesterday)
-    LogEntry.objects.create(
-        action_flag=MRSRequest.STATUS_VALIDATED,
-        action_time=paris_today,
-        content_type=ContentType.objects.get_for_model(MRSRequest),
-        user=su,
-        object_id=obj.pk,
+def test_update_status_reflection_status_changed(su):
+
+    obj = MRSRequest.objects.create(
+        creation_datetime=dts.yesterday_max_paris
     )
-    obj.update_status(su, 'validated', paris_today)
+    obj.update_status(
+        su,
+        'validated',
+        dts.today_max_paris,
+        create_logentry=True
+    )
     qs = MRSRequest.objects.all()
-    result = qs.status_changed('validated', paris_today)
+    result = qs.status_changed('validated', dts.today_min_paris)
     assert obj in result
 
 
@@ -135,6 +136,42 @@ def test_mrsrequestmanager_allowed_objects(srf):
     assert mrsrequest in MRSRequest.objects.allowed_objects(request)
 
 
+@freeze_time('3000-12-31 13:37:42')
+@pytest.mark.django_db
+@pytest.mark.parametrize('dt,expected', [
+    ('yesterday_min_paris', False),
+    ('yesterday_min_utc', False),
+    ('yesterday_max_paris', False),
+    ('today_min_paris', True),
+    ('yesterday_max_utc', True),
+    ('today_min_utc', True),
+    ('today_max_paris', True),
+    ('today_max_utc', False),
+    ('tomorrow_min_paris', False),
+    ('tomorrow_min_utc', False),
+    ('tomorrow_max_paris', False),
+    ('tomorrow_max_utc', False),
+])
+def test_mrsrequestmanager_status_mrsrequests_status_sideeffect(su, dt,
+                                                                expected):
+
+    obj = MRSRequest.objects.create(
+        creation_datetime=dts.yesterday_max_utc
+    )
+    obj.update_status(
+        su,
+        'validated',
+        dts.today_min_paris,
+        create_logentry=True
+    )
+    qs = MRSRequest.objects.all()
+
+    if expected:
+        assert obj in list(qs.status_filter('validated', date=dts[dt]))
+    else:
+        assert obj not in list(qs.status_filter('validated', date=dts[dt]))
+
+
 @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
 @pytest.mark.django_db
 def test_display_id():
@@ -153,70 +190,97 @@ def test_mrsrequest_str():
 
 
 @pytest.mark.django_db
-def test_mrsrequest_increments_at_minute_zero(
-        paris, paris_yesterday, paris_today, utc_today):
-
+@pytest.mark.parametrize('dt,expected', [
+    ('yesterday_min_paris', '199912310000'),
+    ('yesterday_min_utc', '199912310000'),
+    ('yesterday_max_paris', '199912310000'),
+    ('yesterday_max_utc', '200001010000'),
+    ('today_min_paris', '200001010000'),
+    ('today_min_utc', '200001010000'),
+    ('today_max_paris', '200001010000'),
+    ('today_max_utc', '200001020000'),
+    ('tomorrow_min_paris', '200001020000'),
+    ('tomorrow_min_utc', '200001020000'),
+    ('tomorrow_max_paris', '200001020000'),
+    ('tomorrow_max_utc', '200001030000'),
+])
+def test_mrsrequest_increments_at_minute_zero(dt, expected):
     assert MRSRequest.objects.create(
-        creation_datetime=paris_yesterday
-    ).display_id == '199912310000'
-
-    # do not count the abouve as first
-    assert MRSRequest.objects.create(
-        creation_datetime=utc_today
-    ).display_id == '200001010000'
-
-    # do not count the abouve as first
-    assert MRSRequest.objects.create(
-        creation_datetime=paris_today
-    ).display_id == '200001010001'
+        creation_datetime=dts[dt]
+    ).display_id == expected
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize('dt,expected', [
-    (paris_yesterday, '365'),
-    (paris_today, '001'),
-    (utc_today, '001'),
+    ('yesterday_min_paris', '365'),
+    ('yesterday_min_utc', '365'),
+    ('yesterday_max_paris', '365'),
+    ('yesterday_max_utc', '001'),
+    ('today_min_paris', '001'),
+    ('today_min_utc', '001'),
+    ('today_max_paris', '001'),
+    ('today_max_utc', '002'),
+    ('tomorrow_min_paris', '002'),
+    ('tomorrow_min_utc', '002'),
+    ('tomorrow_max_paris', '002'),
+    ('tomorrow_max_utc', '003'),
 ])
 def test_mrsrequest_inprogress_day_number_three_digits(dt, expected):
     mrsrequest = MRSRequest.objects.create()
     LogEntry.objects.create(
         action_flag=MRSRequest.STATUS_INPROGRESS,
-        action_time=dt(),
+        action_time=dts[dt],
         content_type=ContentType.objects.get_for_model(MRSRequest),
         user=User.objects.get_or_create(username='test')[0],
         object_id=mrsrequest.pk,
     )
+    print(dt, expected, mrsrequest.inprogress_day_number)
     assert mrsrequest.inprogress_day_number == expected
 
 
 @pytest.mark.django_db
-def test_mrsrequest_order_number(paris_yesterday, paris_today, utc_today):
+def test_mrsrequest_order_number():
     person = Person.objects.create(
         first_name='test', last_name='test', nir=1234567890123)
 
-    obj = MRSRequest.objects.create(
-        creation_datetime=utc_today, insured=person)
-    assert obj.order_number == '01'
+    tests = (
+        ('yesterday_min_paris', '01'),
+        ('yesterday_min_utc', '02'),
+        ('yesterday_max_paris', '03'),
+        ('today_min_paris', '01'),
+        ('yesterday_max_utc', '02'),
+        ('today_min_utc', '03'),
+        ('today_max_paris', '04'),
+        ('tomorrow_min_paris', '01'),
+        ('today_max_utc', '02'),
+        ('tomorrow_min_utc', '03'),
+        ('tomorrow_max_paris', '04'),
+        ('tomorrow_max_utc', '01'),
+    )
 
-    obj = MRSRequest.objects.create(
-        creation_datetime=paris_yesterday, insured=person)
-    assert obj.order_number == '01'
+    for dt, expected in tests:
+        obj = MRSRequest.objects.create(
+            creation_datetime=dts[dt], insured=person)
+        assert obj.order_number == expected, f'{dt} {dts[dt]}'
 
-    # utc_today had impact on number, but not paris_yesterday
-    obj = MRSRequest.objects.create(
-        creation_datetime=paris_today, insured=person)
-    assert obj.order_number == '02'
 
-    for i in range(1, 100):
+@pytest.mark.django_db
+def test_mrsrequest_order_number_sticks_at_99():
+    person = Person.objects.create(
+        first_name='test', last_name='test', nir=1234567890123)
+
+    for i in range(1, 102):
         # start on 1 to have a different datetime from above
         # not using bulk_create because of the signal
         obj = MRSRequest.objects.create(
-            creation_datetime=paris_today + datetime.timedelta(seconds=i),
+            creation_datetime=(
+                dts.tomorrow_max_utc + datetime.timedelta(seconds=i)
+            ),
             insured=person,
         )
-        if i >= 98:
+        if i >= 100:
             assert obj.order_number == '99'
         else:
-            assert obj.order_number == '{:02d}'.format(i + 2), 'object #' + i
+            assert obj.order_number == '{:02d}'.format(i), 'object #' + i
 
     assert obj.order_number == '99'

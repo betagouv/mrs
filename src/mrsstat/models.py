@@ -174,7 +174,7 @@ def update_stat_for_mrsrequest(**kwargs):
 
         stat = date_stats.filter(**kwargs).first()
         if not stat:
-            stat = Stat(date=m.creation_datetime.date(), **kwargs)
+            stat = Stat(date=m.creation_day, **kwargs)
         stat.save()
 
     get_or_create_stat()
