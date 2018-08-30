@@ -217,7 +217,7 @@ if os.getenv('LOG') and not DEBUG:
         'disable_existing_loggers': False,
         'handlers': {
             'console': {
-                'level': 'INFO',
+                'level': 'DEBUG',
                 'class': 'logging.StreamHandler',
                 'formatter': 'simple'
             },
@@ -255,11 +255,9 @@ if os.getenv('LOG') and not DEBUG:
             },
         },
         'loggers': {
-            'django': {
+            'django.sql': {
                 'handlers': [
                     'file.error',
-                    'file.info',
-                    'file.debug',
                     'console'
                 ],
                 'level': 'DEBUG' if DEBUG else 'INFO',
@@ -273,7 +271,7 @@ else:
         'disable_existing_loggers': False,
         'handlers': {
             'console': {
-                'level': 'INFO',
+                'level': 'DEBUG',
                 'class': 'logging.StreamHandler',
                 'formatter': 'simple'
             },
@@ -286,7 +284,7 @@ else:
         'loggers': {
             '*': {
                 'handlers': ['console'],
-                'level': 'INFO',
+                'level': 'DEBUG',
                 'propagate': True,
             },
         },

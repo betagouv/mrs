@@ -33,18 +33,18 @@
 </div><div class="col s12 m3">
 
 <div class="row">
-    <div class="input-field col s12" id="id_date__gt_container">
-        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__gt" name="date__gt" type="text" value="01/05/2018"/>
-        <label class="active" for="id_date__gt">Date minimale</label>
+    <div class="input-field col s12" id="id_date__gte_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__gte" name="date__gte" type="text" value="01/05/2018"/>
+        <label class="active" for="id_date__gte">Date minimale</label>
         
     </div>
 </div>
 </div><div class="col s12 m3">
 
 <div class="row">
-    <div class="input-field col s12" id="id_date__lt_container">
-        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__lt" name="date__lt" type="text" value="31/05/2018"/>
-        <label class="active" for="id_date__lt">Date maximale</label>
+    <div class="input-field col s12" id="id_date__lte_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__lte" name="date__lte" type="text" value="31/05/2018"/>
+        <label class="active" for="id_date__lte">Date maximale</label>
         
     </div>
 </div>
@@ -82,6 +82,9 @@
       </p>
       <p>
         Bascules: 1
+      </p>
+      <p>
+        Assurres: 3
       </p>
     </div>
   </div>
