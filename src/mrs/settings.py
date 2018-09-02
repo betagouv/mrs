@@ -211,7 +211,7 @@ if 'LETSENCRYPT_HOST' in os.environ:
     SITE_DOMAIN = os.environ.get('LETSENCRYPT_HOST').split(',')[0]
     BASE_URL = 'https://{}'.format(SITE_DOMAIN)
 
-if os.getenv('LOG') and not DEBUG:
+if os.getenv('LOG'):
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
@@ -248,19 +248,43 @@ if os.getenv('LOG') and not DEBUG:
                 ),
                 'formatter': 'simple'
             },
+            'file.djcall': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': os.path.join(
+                    os.getenv('LOG'),
+                    'djcall.log',
+                ),
+            },
+            'file.sql': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': os.path.join(
+                    os.getenv('LOG'),
+                    'django.sql.log',
+                ),
+                'formatter': 'simple'
+            },
         },
         'formatters': {
             'simple': {
-                'format': '%(levelname)s %(name)s %(message)s'
+                'format': '%(levelname)s [%(name)s] %(message)s'
             },
         },
         'loggers': {
             'django.sql': {
                 'handlers': [
-                    'file.error',
+                    'file.sql',
+                ],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+            'djcall': {
+                'handlers': [
+                    'file.djcall',
                     'console'
                 ],
-                'level': 'DEBUG' if DEBUG else 'INFO',
+                'level': 'DEBUG',
                 'propagate': True,
             },
         },
@@ -282,6 +306,11 @@ else:
             },
         },
         'loggers': {
+            'djcall': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
             '*': {
                 'handlers': ['console'],
                 'level': 'DEBUG',
