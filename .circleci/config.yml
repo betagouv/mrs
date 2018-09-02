@@ -17,6 +17,14 @@ version: 2
       key: ansible
       paths: [~/.local, ~/.cache/pip]
 
+.sentry_release_template: &sentry_release_template
+  docker:
+  - image: betagouv/mrs:$CIRCLE_SHA1
+  steps:
+  - run:
+      name: Build & artifact upload
+      command: cd /code && SENTRY_PROJECT=mrs-${CIRCLE_STAGE:15} yarn prepare
+
 .master_template: &master_template
   filters:
     branches:
@@ -32,22 +40,34 @@ workflows:
       - js-qa
       - js-test
       - docs-qa
+      - sentry-release-dev:
+          requires: [docker-build]
+          filters:
+            branches:
+              ignore: [master]
+      - sentry-release-staging:
+          <<: *master_template
+          requires: [docker-build]
+      - sentry-release-production:
+          <<: *master_template
+          requires: [docker-build, validate-staging]
       - smoketest:
           requires:
           - docker-build
       - jpic:
-          requires: [docker-build]
+          requires: [docker-build, sentry-release-dev]
           filters:
             branches:
               only: [jpic]
       - tbinetruy:
-          requires: [docker-build]
+          requires: [docker-build, sentry-release-dev]
           filters:
             branches:
               only: [tbinetruy]
       - staging:
           <<: *master_template
           requires:
+          - sentry-release-staging
           - python-qa
           - python-test
           - docker-build
@@ -63,7 +83,7 @@ workflows:
           requires: [staging]
       - production:
           <<: *master_template
-          requires: [validate-staging]
+          requires: [validate-staging, sentry-release-production]
 
 jobs:
   smoketest:
@@ -204,10 +224,10 @@ jobs:
           docker tag betagouv/mrs:$CIRCLE_SHA1 betagouv/mrs:$CIRCLE_BRANCH
           docker push betagouv/mrs:$CIRCLE_BRANCH
 
-  staging:
+  ecole:
     <<: *deploy_template
 
-  ecole:
+  staging:
     <<: *deploy_template
 
   production:
@@ -218,3 +238,12 @@ jobs:
 
   tbinetruy:
     <<: *deploy_template
+
+  sentry-release-dev:
+    <<: *sentry_release_template
+
+  sentry-release-staging:
+    <<: *sentry_release_template
+
+  sentry-release-production:
+    <<: *sentry_release_template
