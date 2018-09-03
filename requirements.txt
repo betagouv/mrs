@@ -12,4 +12,4 @@ sqlparse
 holidays
 chardet
 django-denorm
-django-call>=0.1.2,<0.2
+django-call>=0.1.4,<0.2
