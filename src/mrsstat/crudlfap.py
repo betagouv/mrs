@@ -82,6 +82,9 @@ class StatListView(crudlfap.ListView):
             result=models.Sum('mrsrequest_count_' + arg)
         )['result']
 
+    def get_mrsrequests_by_shifted_insured_count(self):
+        return self.mrsrequests.filter(insured__shifted=True).count()
+
     def get_savings(self):
         return self.object_list.aggregate(
             result=models.Sum('savings')

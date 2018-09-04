@@ -81,10 +81,13 @@
         Econnomies réalisées: 0.00€
       </p>
       <p>
-        Bascules: 1
+        Nombre d'assurrés ayant basculé pendant la période: 1
       </p>
       <p>
-        Assurres: 3
+        Nombre d'assurrés avec un dossier traité durant la période: 3
+      </p>
+      <p>
+        Nombre de dossier traités durant la période d'assurés ayant basculé même en dehors de la période: 3
       </p>
     </div>
   </div>
