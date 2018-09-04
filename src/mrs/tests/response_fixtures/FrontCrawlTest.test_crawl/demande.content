@@ -162,6 +162,22 @@
     <div class="col s12">
         <h5>Informations sur le transport</h5>
         
+<div class="row radio-field">
+    <div class="col s12">
+        <label class="" for="id_trip_kind_0"></label>
+    </div>
+    <div class="col s12 required" id="id_trip_kind_container">
+        <div class="radio" id="id_trip_kind"><label>
+            <input checked="" class="with-gap" id="id_trip_kind_0" name="trip_kind" type="radio" value="return"/>
+            <span class="item-label" for="id_trip_kind_0">Aller retour</span>
+        </label></div>
+        <div class="radio" id="id_trip_kind"><label>
+            <input class="with-gap" id="id_trip_kind_1" name="trip_kind" type="radio" value="simple"/>
+            <span class="item-label" for="id_trip_kind_1">Aller simple</span>
+        </label></div>
+    </div>
+</div>
+
 <div class="layout-row row"><div class="col s12 m6">
 
 
@@ -176,7 +192,7 @@
 
 
 <div class="row">
-    <div class="input-field col s12 required" id="id_date_return_container">
+    <div class="input-field col s12" id="id_date_return_container">
         <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_date_return" name="date_return" placeholder="jj/mm/aaaa" type="date"/>
         <label for="id_date_return">Date de retour</label>
         

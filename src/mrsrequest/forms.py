@@ -247,14 +247,7 @@ class MRSRequestCreateForm(MRSRequestForm):
 
 class TransportForm(forms.ModelForm):
     date_depart = DateField(label='Date de l\'aller')
-    date_return = DateField(label='Date de retour')
-
-    layout = material.Layout(
-        material.Row(
-            'date_depart',
-            'date_return',
-        ),
-    )
+    date_return = DateField(label='Date de retour', required=False)
 
     class Meta:
         model = Transport
@@ -290,10 +283,19 @@ class TransportIterativeForm(TransportForm):
         initial=1,
         required=False,
     )
+    trip_kind = forms.ChoiceField(
+        label='',
+        choices=(
+            ('return', 'Aller retour'),
+            ('simple', 'Aller simple'),
+        ),
+        widget=forms.RadioSelect,
+    )
 
     layout = material.Layout(
         material.Fieldset(
             'Informations sur le transport',
+            'trip_kind',
             material.Row(
                 'date_depart',
                 'date_return',
@@ -302,6 +304,11 @@ class TransportIterativeForm(TransportForm):
             'iterative_number',
         ),
     )
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('initial', {})
+        kwargs['initial'].setdefault('trip_kind', 'return')
+        super().__init__(*args, **kwargs)
 
 
 class CertifyForm(forms.Form):

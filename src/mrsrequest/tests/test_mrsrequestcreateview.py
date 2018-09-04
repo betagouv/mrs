@@ -91,6 +91,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     data['caisse'] = caisse.pk
     data['date_depart'] = '2017-02-02'
     data['date_return'] = '2017-02-02'
+    data['trip_kind'] = 'return'
     data['distance'] = '100'
     data['expense'] = '0'
     p.mrsrequest.pmt = PMT.objects.create(
@@ -141,6 +142,7 @@ def test_mrsrequestcreateview_hydrate_person(p):
 def test_mrsrequestcreateview_post_save_integration(p, caisse):
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
     data['caisse'] = caisse.pk
+    data['trip_kind'] = 'return'
     data['date_depart'] = '2017-02-02'
     data['date_return'] = '2017-02-02'
     data['1-date_depart'] = '2017-01-02'

@@ -133,7 +133,7 @@ class MRSRequestCreateView(generic.TemplateView):
             instance=Transport(mrsrequest_id=self.mrsrequest_uuid),
         )
         for key, value in self.request.POST.items():
-            if '-date_return' not in key:
+            if '-date_depart' not in key:
                 continue
 
             number = key.split('-')[0]
