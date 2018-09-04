@@ -206,7 +206,11 @@ class StatListView(crudlfap.ListView):
                     tick=dict(
                         format='%d/%m/%Y',
                     )
-                )
+                ),
+                y=dict(
+                    min=0,
+                    padding=dict(bottom=0),
+                ),
             ),
             point=dict(
                 show=len(rows) == 1,
