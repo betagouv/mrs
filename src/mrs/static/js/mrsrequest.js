@@ -149,10 +149,25 @@ var formInit = function (form) {
 
   // Return date
   $(form).on('input', '[name*=depart]', function() {
+    if ($('[name=no_return]').prop('checked')) return
+
     var retName = $(this).attr('name').replace('depart', 'return')
     var $ret = $(form).find('[name="' + retName + '"]')
     $ret.val($(this).val())
   })
+
+  // Simple trips
+  $(form).on('change', '[name=trip_kind]', function() {
+    if ($('[name=trip_kind]:checked').val() == 'simple') {
+      $('[name*=date_return]').val('')
+      $('[name*=date_return]').prop('disabled', true)
+      $('[name*=date_return]').parent().parent().hide()
+    } else {
+      $('[name*=date_return]').prop('disabled', false)
+      $('[name*=date_return]').parent().parent().show()
+    }
+  })
+  $('[name=trip_kind]').trigger('change')
 
   M.AutoInit(form)
   $(form).is(':visible') || $(form).fadeIn()

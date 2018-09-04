@@ -68,6 +68,7 @@ def test_mrsrequestcreateview_post_save_integration(
 
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
     data['caisse'] = caisse.pk
+    data['trip_kind'] = 'return'
     data['date_depart'] = '2017-02-02'
     data['date_return'] = '2017-02-02'
     data['1-date_depart'] = '2017-01-02'
