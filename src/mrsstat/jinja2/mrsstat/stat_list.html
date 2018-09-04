@@ -42,7 +42,10 @@
         Nombre d'assurrés ayant basculé pendant la période: {{ view.insured_shifts or 0 }}
       </p>
       <p>
-        Assurres: {{ view.insured_count_replied or 0 }}
+        Nombre d'assurrés avec un dossier traité durant la période: {{ view.insured_count_replied or 0 }}
+      </p>
+      <p>
+        Nombre de dossier traités durant la période d'assurés ayant basculé même en dehors de la période: {{ view.insured_count_replied or 0 }}
       </p>
     </div>
   </div>
