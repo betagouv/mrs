@@ -108,12 +108,24 @@ class StatListView(crudlfap.ListView):
         # because we are bichons <3
         controller = crudlfap.site['mrsrequest.MRSRequest']
         self.mrsrequests = controller.get_objects_for_user(self.request.user)
+        for i in ('caisse', 'institution'):
+            if self.filterset_form_cleaned_data.get(i, None):
+                self.mrsrequests = self.mrsrequests.filter(**{
+                    i: self.filterset_form_cleaned_data[i]
+                })
         return self.mrsrequests
 
     def get_object_list(self):
         qs = super().get_object_list()
         self.object_list = self.filter_caisse_institution(qs)
         return self.object_list
+
+    def get_filterset_form_cleaned_data(self):
+        form = self.filterset.form
+        if form.is_valid():
+            self.filterset_form_cleaned_data = form.cleaned_data
+        else:
+            self.filterset_form_cleaned_data = self.filterset_data_default
 
     def get_filterset_data_default(self):
         today = datetime.date.today()
