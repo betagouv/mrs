@@ -2,7 +2,6 @@ from datetime import datetime
 
 from django.core.management.base import BaseCommand
 
-from mrsrequest.models import MRSRequest
 from mrsstat.models import Stat
 
 
@@ -24,11 +23,16 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options['force']:
-            for m in MRSRequest.objects.filter(insured__shifted=True):
-                m.save()
-
-            for stat in Stat.objects.all():
+            stats = Stat.objects.all()
+            total = stats.count()
+            per_percent = total / 100
+            percent = 0
+            for i, stat in enumerate(stats):
                 stat.save()
+                percentile = int(i / per_percent)
+                if percentile != percent:
+                    print(f'{percentile}% done refreshing existing')
+                    percent = percentile
 
         if options['date']:
             date = datetime.strptime(options['date'], '%d/%m/%Y').date()
@@ -37,4 +41,5 @@ class Command(BaseCommand):
             else:
                 Stat.objects.update_date(date)
         else:
+            print(f'Creating missing stats now ...')
             Stat.objects.create_missing()
