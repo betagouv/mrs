@@ -170,11 +170,29 @@ class MRSRequestQuerySet(models.QuerySet):
     def in_status_by(self, name, user):
         return self.status(name).status_by(name, user)
 
-    def created(self, date):
-        return self.filter(
-            creation_datetime__gte=datetime_min(date),
-            creation_datetime__lte=datetime_max(date),
-        )
+    def created(self,
+                date=None,
+                date__gte=None,
+                date__lte=None,
+                datetime__gte=None,
+                datetime__lte=None):
+
+        if date:
+            date__gte = date
+            date__lte = date
+
+        if date__gte:
+            datetime__gte = datetime_min(date__gte)
+        if date__lte:
+            datetime__lte = datetime_max(date__lte)
+
+        qs = self
+        if datetime__gte:
+            qs = qs.filter(creation_datetime__gte=datetime__gte)
+        if datetime__lte:
+            qs = qs.filter(creation_datetime__lte=datetime__lte)
+
+        return qs
 
     def processed(self):
         return self.filter(

@@ -11,7 +11,7 @@ from djcall.models import Caller
 
 from caisse.models import Caisse
 from institution.models import Institution
-from mrsrequest.models import MRSRequest
+from mrsrequest.models import datetime_max, MRSRequest
 
 
 logger = logging.getLogger(__name__)
@@ -30,7 +30,6 @@ class StatManager(models.Manager):
 
     @transaction.atomic
     def update_date(self, date):
-
         caisses = list(Caisse.objects.filter(active=True)) + [None]
         institutions = list(Institution.objects.all()) + [None]
 
@@ -149,6 +148,57 @@ class Stat(models.Model):
         return self.mrsrequest_set.status_changed(
             'rejected',
             self.date,
+        ).count()
+
+    @denormalized(
+        models.IntegerField,
+        verbose_name='Nombre cumulé de demandes soumises',
+    )
+    def mrsrequest_total_new(self):
+        return self.mrsrequest_set.created(
+            datetime__lte=datetime_max(self.date)
+        ).count()
+
+    @denormalized(
+        models.IntegerField,
+        verbose_name='Nombre cumulé de demandes en cours',
+    )
+    def mrsrequest_total_inprogress(self):
+        return self.mrsrequest_set.status_filter(
+            'inprogress',
+            datetime__lte=datetime_max(self.date),
+        ).count()
+
+    @denormalized(
+        models.IntegerField,
+        verbose_name='Nombre cumulé de demandes validées',
+    )
+    def mrsrequest_total_validated(self):
+        return self.mrsrequest_set.status_filter(
+            'validated',
+            datetime__lte=datetime_max(self.date),
+        ).count()
+
+    @denormalized(
+        models.IntegerField,
+        verbose_name='Nombre cumulé de demandes rejettées',
+    )
+    def mrsrequest_total_rejected(self):
+        return self.mrsrequest_set.status_filter(
+            'rejected',
+            datetime__lte=datetime_max(self.date),
+        ).count()
+
+    @denormalized(
+        models.IntegerField,
+        default=0,
+        verbose_name='Nombre cumulé de bascules',
+    )
+    def insured_shifts_total(self):
+        return self.mrsrequest_set.created(
+            datetime__lte=datetime_max(self.date),
+        ).filter(
+            insured_shift=True
         ).count()
 
     def __str__(self):

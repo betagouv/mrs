@@ -78,7 +78,7 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/stat/importexport"
-                      title="Stat: import export"
+                      title="Importer et exporter des fichiers CSV"
                     ><i class="material-icons">compare_arrows</i>Import export</a>
                   </li>
                 
@@ -86,8 +86,16 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/stat"
-                      title="Stats: list"
-                    ><i class="material-icons">list</i>List</a>
+                      title="Graphique de statistiques quotidiennes"
+                    ><i class="material-icons">insert_chart</i>Quotidiennes</a>
+                  </li>
+                
+                  <li>
+                    <a
+                      class="waves-effect"
+                      href="/admin/stat/total"
+                      title="Graphique de statistiques cumulatives"
+                    ><i class="material-icons">show_chart</i>Cumulatives</a>
                   </li>
                 
               </ul>

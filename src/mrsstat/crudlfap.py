@@ -16,6 +16,10 @@ from .models import Stat
 
 
 class StatListView(crudlfap.ListView):
+    material_icon = 'insert_chart'
+    title_menu = 'quotidiennes'
+    title_link = 'Graphique de statistiques quotidiennes'
+
     keys = [
         'date',
         'mrsrequest_count_new',
@@ -218,8 +222,27 @@ class StatListView(crudlfap.ListView):
         ))
 
 
+class StatListTotalsView(StatListView):
+    urlname = 'total'
+    urlpath = 'total'
+    template_name = 'mrsstat/stat_list.html'
+    material_icon = 'show_chart'
+    title_menu = 'cumulatives'
+    title_link = 'Graphique de statistiques cumulatives'
+
+    keys = [
+        'date',
+        'mrsrequest_total_new',
+        'mrsrequest_total_inprogress',
+        'mrsrequest_total_validated',
+        'mrsrequest_total_rejected',
+        'insured_shifts_total',
+    ]
+
+
 class StatImportExport(crudlfap.ModelView):
     material_icon = 'compare_arrows'
+    title_link = 'Importer et exporter des fichiers CSV'
 
 
 class StatRouter(crudlfap.Router):
@@ -228,6 +251,7 @@ class StatRouter(crudlfap.Router):
     views = [
         StatImportExport,
         StatListView,
+        StatListTotalsView,
     ]
 
     def allowed(self, view):
