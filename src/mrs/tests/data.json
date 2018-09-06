@@ -1,7 +1,7 @@
 [
 {
     "fields": {
-        "birth_date": "2018-04-30",
+        "birth_date": "2000-04-30",
         "email": "aoeu@example.com",
         "first_name": "aoeu",
         "last_name": "aoeu",
@@ -13,7 +13,7 @@
 },
 {
     "fields": {
-        "birth_date": "2018-04-30",
+        "birth_date": "2000-04-30",
         "email": "aoeaoeuu@example.com",
         "first_name": "uea",
         "last_name": "ue",
@@ -25,7 +25,7 @@
 },
 {
     "fields": {
-        "birth_date": "2018-05-06",
+        "birth_date": "2000-05-06",
         "email": "jpic@example.com",
         "first_name": "\u00e0\u00f4\u00e9\u00fb",
         "last_name": "\u00e0\u00f4\u00e9\u00fboaeu",
@@ -37,7 +37,7 @@
 },
 {
     "fields": {
-        "birth_date": "2018-05-29",
+        "birth_date": "2000-05-29",
         "email": "test@test.com",
         "first_name": "oaeu",
         "last_name": "oaeuoaeuao",
@@ -184,7 +184,7 @@
 {
     "fields": {
         "binary": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=",
-        "creation_datetime": "2018-05-09T15:15:42Z",
+        "creation_datetime": "2018-05-02T15:15:42Z",
         "filename": "FF4D00-0.8.png",
         "mrsrequest_uuid": "c697cf5a-dc4d-434d-89bc-1f606d05d39d"
     },
@@ -194,7 +194,7 @@
 {
     "fields": {
         "binary": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=",
-        "creation_datetime": "2018-05-09T15:16:48Z",
+        "creation_datetime": "2018-05-02T15:16:48Z",
         "filename": "FF4D00-0.8.png",
         "mrsrequest_uuid": "ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2"
     },
@@ -204,7 +204,7 @@
 {
     "fields": {
         "binary": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=",
-        "creation_datetime": "2018-05-09T15:16:48Z",
+        "creation_datetime": "2018-05-02T15:16:48Z",
         "filename": "FF4D00-0.9.png",
         "mrsrequest_uuid": "f5ac697c-d4cd-34d4-89bc-39d1f606dd05"
     },
@@ -401,344 +401,123 @@
 },
 {
     "fields": {
-        "action_flag": 1,
-        "action_time": "2018-05-01T17:06:31Z",
-        "change_message": "Ajouter",
-        "content_type": [
-            "caisse",
-            "caisse"
-        ],
-        "object_id": "1",
-        "object_repr": "aaaaaaa",
-        "user": [
-            "test"
-        ]
-    },
-    "model": "admin.logentry",
-    "pk": 1
-},
-{
-    "fields": {
-        "action_flag": 1,
-        "action_time": "2018-05-01T17:06:55Z",
-        "change_message": "Ajouter",
-        "content_type": [
-            "caisse",
-            "caisse"
-        ],
-        "object_id": "2",
-        "object_repr": "bbbb",
-        "user": [
-            "test"
-        ]
-    },
-    "model": "admin.logentry",
-    "pk": 2
-},
-{
-    "fields": {
-        "action_flag": 1,
-        "action_time": "2018-05-01T17:07:19Z",
-        "change_message": "Ajouter",
-        "content_type": [
-            "caisse",
-            "caisse"
-        ],
-        "object_id": "3",
-        "object_repr": "inactive",
-        "user": [
-            "test"
-        ]
-    },
-    "model": "admin.logentry",
-    "pk": 3
-},
-{
-    "fields": {
-        "action_flag": 1,
-        "action_time": "2018-05-01T17:07:45Z",
-        "change_message": "Ajouter",
-        "content_type": [
-            "mrsemail",
-            "emailtemplate"
-        ],
-        "object_id": "1",
-        "object_repr": "PMT: manquante",
-        "user": [
-            "test"
-        ]
-    },
-    "model": "admin.logentry",
-    "pk": 4
-},
-{
-    "fields": {
-        "action_flag": 1,
-        "action_time": "2018-05-01T17:11:24Z",
-        "change_message": "Ajouter",
-        "content_type": [
-            "mrsuser",
-            "user"
-        ],
-        "object_id": "2",
-        "object_repr": "a",
-        "user": [
-            "test"
-        ]
-    },
-    "model": "admin.logentry",
-    "pk": 5
-},
-{
-    "fields": {
-        "action_flag": 1,
-        "action_time": "2018-05-01T17:11:40Z",
-        "change_message": "Ajouter",
-        "content_type": [
-            "mrsuser",
-            "user"
-        ],
-        "object_id": "3",
-        "object_repr": "b",
-        "user": [
-            "test"
-        ]
-    },
-    "model": "admin.logentry",
-    "pk": 6
-},
-{
-    "fields": {
-        "action_flag": 2,
-        "action_time": "2018-05-01T17:11:50Z",
-        "change_message": "Modifier",
-        "content_type": [
-            "mrsuser",
-            "user"
-        ],
-        "object_id": "2",
-        "object_repr": "a",
-        "user": [
-            "test"
-        ]
-    },
-    "model": "admin.logentry",
-    "pk": 7
-},
-{
-    "fields": {
-        "action_flag": 2,
-        "action_time": "2018-05-01T17:11:59Z",
-        "change_message": "Modifier",
-        "content_type": [
-            "mrsuser",
-            "user"
-        ],
-        "object_id": "3",
-        "object_repr": "b",
-        "user": [
-            "test"
-        ]
-    },
-    "model": "admin.logentry",
-    "pk": 8
-},
-{
-    "fields": {
-        "action_flag": 2,
-        "action_time": "2018-05-01T17:12:43Z",
-        "change_message": "Modifier",
-        "content_type": [
-            "mrsuser",
-            "user"
-        ],
-        "object_id": "3",
-        "object_repr": "b",
+        "action": 1000,
+        "datetime": "2018-05-01T15:13:15Z",
+        "comment": "En cours de liquidation",
+        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae",
         "user": [
             "a"
         ]
     },
-    "model": "admin.logentry",
-    "pk": 9
-},
-{
-    "fields": {
-        "action_flag": 2,
-        "action_time": "2018-05-01T17:12:56Z",
-        "change_message": "Modifier",
-        "content_type": [
-            "mrsuser",
-            "user"
-        ],
-        "object_id": "2",
-        "object_repr": "a",
-        "user": [
-            "a"
-        ]
-    },
-    "model": "admin.logentry",
-    "pk": 10
-},
-{
-    "fields": {
-        "action_flag": 1000,
-        "action_time": "2018-05-01T17:13:15Z",
-        "change_message": "En cours de liquidation",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "13751dc2-18bb-4925-a8b4-84383a042bae",
-        "object_repr": "201805010000",
-        "user": [
-            "a"
-        ]
-    },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 11
 },
 {
     "fields": {
-        "action_flag": 999,
-        "action_time": "2018-05-01T17:13:27Z",
-        "change_message": "PMT: manquante",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "13751dc2-18bb-4925-a8b4-84383a042bae",
-        "object_repr": "201805010000",
+        "action": 999,
+        "datetime": "2018-05-01T17:13:27Z",
+        "comment": "Rejet pour autre motif",
+        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae",
+        "data": {
+            "body": "corps\nblabla",
+            "subject": "Rejet pour autre motif"
+        },
         "user": [
             "a"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 12
 },
 {
     "fields": {
-        "action_flag": 1000,
-        "action_time": "2018-05-11T15:16:31Z",
-        "change_message": "En cours de liquidation",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "c697cf5a-dc4d-434d-89bc-1f606d05d39d",
-        "object_repr": "201805090000",
+        "action": 1000,
+        "datetime": "2018-05-03T15:16:31Z",
+        "comment": "En cours de liquidation",
+        "mrsrequest": "c697cf5a-dc4d-434d-89bc-1f606d05d39d",
         "user": [
             "test"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 13
 },
 {
     "fields": {
-        "action_flag": 2000,
-        "action_time": "2018-05-12T15:16:35Z",
-        "change_message": "Valid\u00e9e",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "c697cf5a-dc4d-434d-89bc-1f606d05d39d",
-        "object_repr": "201805090000",
+        "action": 2000,
+        "datetime": "2018-05-04T15:16:35Z",
+        "comment": "Valid\u00e9e",
+        "mrsrequest": "c697cf5a-dc4d-434d-89bc-1f606d05d39d",
         "user": [
             "test"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 14
 },
 {
     "fields": {
-        "action_flag": 1000,
-        "action_time": "2018-05-13T15:17:19Z",
-        "change_message": "En cours de liquidation",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2",
-        "object_repr": "201805090001",
+        "action": 1000,
+        "datetime": "2018-05-05T15:17:19Z",
+        "comment": "En cours de liquidation",
+        "mrsrequest": "ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2",
         "user": [
             "test"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 15
 },
 {
     "fields": {
-        "action_flag": 1000,
-        "action_time": "2018-07-30T18:05:57Z",
-        "change_message": "En cours de liquidation",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "770efeec-34a8-49f6-ab04-c6dde9a4a679",
-        "object_repr": "201805010001",
+        "action": 1000,
+        "datetime": "2018-05-02T18:05:57Z",
+        "comment": "En cours de liquidation",
+        "mrsrequest": "770efeec-34a8-49f6-ab04-c6dde9a4a679",
         "user": [
             "b"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 16
 },
 {
     "fields": {
-        "action_flag": 2000,
-        "action_time": "2018-07-30T18:06:03Z",
-        "change_message": "Valid\u00e9e",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "770efeec-34a8-49f6-ab04-c6dde9a4a679",
-        "object_repr": "201805010001",
+        "action": 2000,
+        "datetime": "2018-05-03T18:06:03Z",
+        "comment": "Valid\u00e9e",
+        "mrsrequest": "770efeec-34a8-49f6-ab04-c6dde9a4a679",
         "user": [
             "b"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 17
 },
 {
     "fields": {
-        "action_flag": 1000,
-        "action_time": "2018-05-10T18:05:57Z",
-        "change_message": "En cours de liquidation",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "f5ac697c-d4cd-34d4-89bc-39d1f606dd05",
-        "object_repr": "201805010002",
+        "action": 1000,
+        "datetime": "2018-05-03T18:05:57Z",
+        "comment": "En cours de liquidation",
+        "mrsrequest": "f5ac697c-d4cd-34d4-89bc-39d1f606dd05",
         "user": [
             "b"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 16
 },
 {
     "fields": {
-        "action_flag": 2000,
-        "action_time": "2018-05-12T18:06:03Z",
-        "change_message": "Valid\u00e9e",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "f5ac697c-d4cd-34d4-89bc-39d1f606dd05",
-        "object_repr": "201805010002",
+        "action": 2000,
+        "datetime": "2018-05-04T18:06:03Z",
+        "comment": "Valid\u00e9e",
+        "mrsrequest": "f5ac697c-d4cd-34d4-89bc-39d1f606dd05",
         "user": [
             "b"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 17
 },
 {
@@ -801,38 +580,10 @@
     "fields": {
         "adeli": null,
         "caisse": 1,
-        "creation_datetime": "2018-05-09T15:17:03Z",
+        "creation_datetime": "2018-05-02T15:16:12Z",
         "creation_ip": "127.0.0.1",
         "delay": null,
-        "display_id": 201805090001,
-        "distance": 3,
-        "expense": 0,
-        "institution": null,
-        "insured": 4,
-        "insured_shift": null,
-        "mandate_date": null,
-        "payment_amount": null,
-        "payment_base": null,
-        "reject_template": null,
-        "saving": null,
-        "status": 1000,
-        "status_datetime": "2018-05-13T15:17:19Z",
-        "status_user": [
-            "test"
-        ],
-        "taxi_cost": null
-    },
-    "model": "mrsrequest.mrsrequest",
-    "pk": "ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2"
-},
-{
-    "fields": {
-        "adeli": null,
-        "caisse": 1,
-        "creation_datetime": "2018-05-09T15:16:12Z",
-        "creation_ip": "127.0.0.1",
-        "delay": null,
-        "display_id": 201805090000,
+        "display_id": 201805020000,
         "distance": 5,
         "expense": 0,
         "institution": null,
@@ -844,7 +595,7 @@
         "reject_template": null,
         "saving": null,
         "status": 2000,
-        "status_datetime": "2018-05-12T15:16:35Z",
+        "status_datetime": "2018-05-04T15:16:35Z",
         "status_user": [
             "test"
         ],
@@ -857,10 +608,38 @@
     "fields": {
         "adeli": null,
         "caisse": 1,
-        "creation_datetime": "2018-05-09T14:16:12Z",
+        "creation_datetime": "2018-05-02T15:17:03Z",
+        "creation_ip": "127.0.0.1",
+        "delay": null,
+        "display_id": 201805020001,
+        "distance": 3,
+        "expense": 0,
+        "institution": null,
+        "insured": 4,
+        "insured_shift": null,
+        "mandate_date": null,
+        "payment_amount": null,
+        "payment_base": null,
+        "reject_template": null,
+        "saving": null,
+        "status": 1000,
+        "status_datetime": "2018-05-05T15:17:19Z",
+        "status_user": [
+            "test"
+        ],
+        "taxi_cost": null
+    },
+    "model": "mrsrequest.mrsrequest",
+    "pk": "ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2"
+},
+{
+    "fields": {
+        "adeli": null,
+        "caisse": 1,
+        "creation_datetime": "2018-05-02T15:18:12Z",
         "creation_ip": "127.0.0.1",
         "delay": "84.36",
-        "display_id": 201805090002,
+        "display_id": 201805020002,
         "distance": 5,
         "expense": 0,
         "institution": null,
@@ -872,8 +651,10 @@
         "reject_template": null,
         "saving": "5.37",
         "status": 2000,
-        "status_datetime": "2018-05-12T15:16:35Z",
-        "status_user": 1,
+        "status_datetime": "2018-05-04T15:16:35Z",
+        "status_user": [
+            "test"
+        ],
         "taxi_cost": "7.37"
     },
     "model": "mrsrequest.mrsrequest",

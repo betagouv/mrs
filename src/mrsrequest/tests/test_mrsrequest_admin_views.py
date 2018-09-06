@@ -5,14 +5,13 @@ from crudlfap_auth.crudlfap import User
 
 from dbdiff.fixture import Fixture
 
-from django.contrib.admin.models import LogEntry
 from django import http
 
 from freezegun import freeze_time
 
 from caisse.models import Caisse
 from mrsemail.models import EmailTemplate
-from mrsrequest.models import MRSRequest, PMT
+from mrsrequest.models import MRSRequest, MRSRequestLogEntry, PMT
 from person.models import Person
 
 
@@ -46,7 +45,7 @@ def ur(request_factory):
     return user_request
 
 
-@pytest.mark.dbdiff(models=[LogEntry, Caisse, Person])
+@pytest.mark.dbdiff(models=[MRSRequestLogEntry, Caisse, Person])
 @pytest.fixture
 def mrsrequest():
     uuid = '4255e33f-88c0-4dbf-b8ee-69cb283a7cea'
@@ -114,7 +113,7 @@ def test_progress_post_fails_for_non_caisse_staff(ur, mrsrequest):
 
 
 @freeze_time('3000-12-31 13:37:42')
-@pytest.mark.dbdiff(models=[LogEntry, Caisse, Person])
+@pytest.mark.dbdiff(models=[MRSRequestLogEntry, Caisse, Person])
 def test_progress_validate_success(ur, mrsrequest):
     request = ur('post', caisse=mrsrequest.caisse)
     view('progress')(request, pk=mrsrequest.pk)
@@ -132,7 +131,7 @@ def test_progress_validate_success(ur, mrsrequest):
 
     Fixture(
         './src/mrsrequest/tests/test_mrsrequest_admin_progress_validate.json',  # noqa
-        models=[MRSRequest, LogEntry]
+        models=[MRSRequest, MRSRequestLogEntry]
     ).assertNoDiff()
 
     for v in ('progress', 'reject', 'validate'):
@@ -141,7 +140,7 @@ def test_progress_validate_success(ur, mrsrequest):
 
 
 @freeze_time('3000-12-31 13:37:42')
-@pytest.mark.dbdiff(models=[LogEntry, Caisse, Person, EmailTemplate])
+@pytest.mark.dbdiff(models=[MRSRequestLogEntry, Caisse, Person, EmailTemplate])
 def test_progress_reject_success(ur, mrsrequest, emailtemplate):
     request = ur('post', caisse=mrsrequest.caisse)
     view('progress')(request, pk=mrsrequest.pk)
@@ -158,7 +157,7 @@ def test_progress_reject_success(ur, mrsrequest, emailtemplate):
 
     Fixture(
         './src/mrsrequest/tests/test_mrsrequest_admin_progress_reject.json',  # noqa
-        models=[MRSRequest, LogEntry]
+        models=[MRSRequest, MRSRequestLogEntry]
     ).assertNoDiff()
 
     for v in ('progress', 'reject', 'validate'):

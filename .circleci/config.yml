@@ -30,6 +30,24 @@ version: 2
     branches:
       only: [master]
 
+.postgresql_wait: &postgresql_wait
+  name: Waiting for Postgres to be ready
+  command: |
+    for i in `seq 1 10`;
+    do
+      nc -z localhost 5432 && echo Success && exit 0
+      echo -n .
+      sleep 1
+    done
+    echo Failed waiting for Postgres && exit 1
+
+.postgresql_environment: &postgresql_environment
+  DB_ENGINE: django.db.backends.postgresql
+  DB_NAME: postgres
+  DB_HOST: localhost
+  DB_PORT: 5432
+  DB_USER: postgres
+
 workflows:
   version: 2
   pipeline:
@@ -89,7 +107,12 @@ jobs:
   smoketest:
     docker:
     - image: betagouv/mrs:$CIRCLE_SHA1
+      environment:
+        <<: *postgresql_environment
+    - image: circleci/postgres:10-alpine
     steps:
+    - run:
+        <<: *postgresql_wait
     - run:
         name: MRS Runserver
         command: |
@@ -131,6 +154,8 @@ jobs:
   python-test:
     docker:
     - image: circleci/python:3.6.1
+      environment:
+        <<: *postgresql_environment
     - image: circleci/postgres:10-alpine
     working_directory: ~/repo
     steps:
@@ -140,12 +165,14 @@ jobs:
         - test-dependencies-{{ checksum "tox.ini" }}
     - run:
         name: Tox environment setup
-        command: pip install --user tox && ~/.local/bin/tox -r -e py36-dj21-pg --notest
+        command: pip install --user tox && ~/.local/bin/tox -r -e py36-dj21 --notest
     - save_cache:
         paths: [~/.local, ~/.cache/pip]
         key: test-dependencies-{{ checksum "tox.ini" }}
     - run:
-        name: TEST tox -e py36-dj21-pg
+        <<: *postgresql_wait
+    - run:
+        name: TEST tox -e py36-dj21
         command: |
           ~/.local/bin/tox -e py36-dj21
           PATH=.tox/py36-dj21/bin:$PATH codecov --token $CODECOV_TOKEN -e $TOXENV

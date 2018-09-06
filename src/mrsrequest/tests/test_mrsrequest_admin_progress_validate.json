@@ -29,38 +29,30 @@
 },
 {
     "fields": {
-        "action_flag": 1000,
-        "action_time": "3000-12-31T13:37:42Z",
-        "change_message": "En cours de liquidation",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
-        "object_repr": "300012310000",
+        "action": 1000,
+        "comment": "En cours de liquidation",
+        "data": {},
+        "datetime": "3000-12-31T13:37:42Z",
+        "mrsrequest": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
         "user": [
             "{}"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 1
 },
 {
     "fields": {
-        "action_flag": 2000,
-        "action_time": "3000-12-31T13:37:42Z",
-        "change_message": "Valid\u00e9e",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
-        "object_repr": "300012310000",
+        "action": 2000,
+        "comment": "Valid\u00e9e",
+        "data": {},
+        "datetime": "3000-12-31T13:37:42Z",
+        "mrsrequest": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
         "user": [
             "{}"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 2
 }
 ]

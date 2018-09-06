@@ -79,16 +79,16 @@
             </div>
         </div>
     </div>
-    {% with entries = list(object.logentry_set()) %}
+    {% with entries = list(object.logentries.order_by('-datetime')) %}
     {% if entries %}
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 {% for entry in entries %}
-                <div class="{% if loop.index == 1 %}card-title{% endif %} {% if entry.action_flag == 999 %}red-text{% endif %}{% if entry.action_flag == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action_flag == 2000 %}green-text{% endif %}">
-                    {{ entry.change_message }}
+                <div class="{% if loop.index == 1 %}card-title{% endif %} {% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}">
+                    {{ entry.comment }}
                 </div>
-                {{ localtime(entry.action_time).strftime('%d/%m/%Y %H:%M') }}
+                {{ localtime(entry.datetime).strftime('%d/%m/%Y %H:%M') }}
                 <span class="right">
                     {{ entry.user }}
                 </span>
