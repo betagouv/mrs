@@ -6,8 +6,6 @@ import pytz
 import uuid
 
 from django.conf import settings
-from django.contrib.admin.models import LogEntry
-from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from freezegun import freeze_time
 
@@ -227,14 +225,11 @@ def test_mrsrequest_increments_at_minute_zero(dt, expected):
 ])
 def test_mrsrequest_inprogress_day_number_three_digits(dt, expected):
     mrsrequest = MRSRequest.objects.create()
-    LogEntry.objects.create(
-        action_flag=MRSRequest.STATUS_INPROGRESS,
-        action_time=dts[dt],
-        content_type=ContentType.objects.get_for_model(MRSRequest),
+    mrsrequest.logentries.create(
+        action=MRSRequest.STATUS_INPROGRESS,
+        datetime=dts[dt],
         user=User.objects.get_or_create(username='test')[0],
-        object_id=mrsrequest.pk,
     )
-    print(dt, expected, mrsrequest.inprogress_day_number)
     assert mrsrequest.inprogress_day_number == expected
 
 

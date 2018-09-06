@@ -36,7 +36,7 @@
             <div class="card-content">
                 
                 <div class="card-title red-text">
-                    PMT: manquante
+                    Rejet pour autre motif
                 </div>
                 01/05/2018 19:13
                 <span class="right">
@@ -46,7 +46,7 @@
                 <div class=" yellow-text text-darken-3">
                     En cours de liquidation
                 </div>
-                01/05/2018 19:13
+                01/05/2018 17:13
                 <span class="right">
                     a
                 </span>
@@ -88,7 +88,7 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right">30/04/2018</span>
+                    <span class="right">30/04/2000</span>
                 </p>
             </div>
         </div>

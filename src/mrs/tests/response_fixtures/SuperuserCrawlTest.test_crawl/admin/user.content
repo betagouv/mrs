@@ -126,84 +126,7 @@
             
                 <td>
             <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="1" type="checkbox"/>
-                <span></span>
-            </label>
-        </td>
-            
-                <td>-</td>
-            
-                <td><span class="true">✔</span></td>
-            
-                <td><a href="/admin/user/test">t@tt.tt</a></td>
-            
-                <td>—</td>
-            
-                <td>—</td>
-            
-                <td>Admin</td>
-            
-                <td>
-                
-                
-    
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-1" title="Actions">
-        <i class="material-icons">menu</i>
-        
-      </a>
-
-      <ul class="dropdown-content" id="row-actions-1">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update?_next=/admin/user" title='Utilisateur "test": update'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Update
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password?_next=/admin/user" title='Utilisateur "test": mot de passe'>
-    <i class="purple-text darken-4-text material-icons">vpn_key</i>
-    
-    Mot de passe
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-noprefetch="true" href="/admin/user/test/su?_next=/admin/user" title='Utilisateur "test": become user'>
-    <i class="pink-text darken-4-text material-icons">attach_money</i>
-    
-    Become
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" href="/admin/user/test?_next=/admin/user" title="test">
-    <i class="blue-text material-icons">search</i>
-    
-    Detail
-    
-  </a>
-        </li>
-        
-      </ul>
-    
-  
-                </td>
-            
-        </tr>
-        
-    
-        
-        <tr class="odd">
-            
-                <td>
-            <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="2" type="checkbox"/>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="9" type="checkbox"/>
                 <span></span>
             </label>
         </td>
@@ -224,12 +147,12 @@
                 
                 
     
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-2" title="Actions">
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-9" title="Actions">
         <i class="material-icons">menu</i>
         
       </a>
 
-      <ul class="dropdown-content" id="row-actions-2">
+      <ul class="dropdown-content" id="row-actions-9">
         
         <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/update?_next=/admin/user" title='Utilisateur "a": update'>
@@ -276,11 +199,11 @@
         
     
         
-        <tr class="even">
+        <tr class="odd">
             
                 <td>
             <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="3" type="checkbox"/>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="10" type="checkbox"/>
                 <span></span>
             </label>
         </td>
@@ -301,12 +224,12 @@
                 
                 
     
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-3" title="Actions">
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-10" title="Actions">
         <i class="material-icons">menu</i>
         
       </a>
 
-      <ul class="dropdown-content" id="row-actions-3">
+      <ul class="dropdown-content" id="row-actions-10">
         
         <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/update?_next=/admin/user" title='Utilisateur "b": update'>
@@ -353,11 +276,11 @@
         
     
         
-        <tr class="odd">
+        <tr class="even">
             
                 <td>
             <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="4" type="checkbox"/>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="11" type="checkbox"/>
                 <span></span>
             </label>
         </td>
@@ -378,12 +301,12 @@
                 
                 
     
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-4" title="Actions">
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-11" title="Actions">
         <i class="material-icons">menu</i>
         
       </a>
 
-      <ul class="dropdown-content" id="row-actions-4">
+      <ul class="dropdown-content" id="row-actions-11">
         
         <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supporta/update?_next=/admin/user" title='Utilisateur "supporta": update'>
@@ -430,11 +353,11 @@
         
     
         
-        <tr class="even">
+        <tr class="odd">
             
                 <td>
             <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="5" type="checkbox"/>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="12" type="checkbox"/>
                 <span></span>
             </label>
         </td>
@@ -455,12 +378,12 @@
                 
                 
     
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-5" title="Actions">
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-12" title="Actions">
         <i class="material-icons">menu</i>
         
       </a>
 
-      <ul class="dropdown-content" id="row-actions-5">
+      <ul class="dropdown-content" id="row-actions-12">
         
         <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/stata/update?_next=/admin/user" title='Utilisateur "stata": update'>
@@ -507,11 +430,11 @@
         
     
         
-        <tr class="odd">
+        <tr class="even">
             
                 <td>
             <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="6" type="checkbox"/>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="13" type="checkbox"/>
                 <span></span>
             </label>
         </td>
@@ -532,12 +455,12 @@
                 
                 
     
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-6" title="Actions">
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-13" title="Actions">
         <i class="material-icons">menu</i>
         
       </a>
 
-      <ul class="dropdown-content" id="row-actions-6">
+      <ul class="dropdown-content" id="row-actions-13">
         
         <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/statb/update?_next=/admin/user" title='Utilisateur "statb": update'>
@@ -584,11 +507,11 @@
         
     
         
-        <tr class="even">
+        <tr class="odd">
             
                 <td>
             <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="7" type="checkbox"/>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="14" type="checkbox"/>
                 <span></span>
             </label>
         </td>
@@ -609,12 +532,12 @@
                 
                 
     
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-7" title="Actions">
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-14" title="Actions">
         <i class="material-icons">menu</i>
         
       </a>
 
-      <ul class="dropdown-content" id="row-actions-7">
+      <ul class="dropdown-content" id="row-actions-14">
         
         <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supportb/update?_next=/admin/user" title='Utilisateur "supportb": update'>
@@ -645,6 +568,83 @@
         
         <li>
             <a class="" href="/admin/user/supportb?_next=/admin/user" title="supportb">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="8" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+            
+                <td>-</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/test">t@tt.tt</a></td>
+            
+                <td>—</td>
+            
+                <td>—</td>
+            
+                <td>Admin</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-8" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-8">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update?_next=/admin/user" title='Utilisateur "test": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password?_next=/admin/user" title='Utilisateur "test": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/test/su?_next=/admin/user" title='Utilisateur "test": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Become
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/test?_next=/admin/user" title="test">
     <i class="blue-text material-icons">search</i>
     
     Detail
