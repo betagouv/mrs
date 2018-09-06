@@ -100,7 +100,11 @@ class StatListView(crudlfap.ListView):
         )['result']
 
     def get_insured_count_replied(self):
-        kwargs = {i: self.date_values[i] for i in self.date_args}
+        kwargs = {
+            i: self.date_values[i]
+            for i in self.date_args
+            if i in self.request.GET
+        }
         mrsrequests = self.mrsrequests.status_filter(
             'validated',
             'rejected',
