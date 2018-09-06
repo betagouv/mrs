@@ -5,13 +5,11 @@ import os
 
 from crudlfap import crudlfap
 
-from dbdiff.fixture import Fixture
 from django import test
 from django.urls import reverse
 
 from freezegun import freeze_time
 
-from mrsstat.models import Stat
 from mrsuser.models import User
 
 from responsediff.test import ResponseDiffTestMixin
@@ -46,17 +44,17 @@ class ImportTest(ResponseDiffTestMixin, test.TransactionTestCase):
     reset_sequences = True
 
     upload0 = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
-bbbb;201805010001;2333333333333;30/04/2018;uea;ue;29/04/2018;;;;;;
-bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;18,32;19;1;310123123;12
-aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;123123123;
-aaaaaaa;999905010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;;;;;;
-aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;30/04/2018;a;3;0;;
+bbbb;201805010001;2333333333333;30/04/2000;uea;ue;29/04/2018;;;;;;
+bbbb;201805010001;2333333333333;30/04/2000;uea;ée;29/04/2018;10/06/2018;18,32;19;1;310123123;12
+aaaaaaa;201805010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;123123123;
+aaaaaaa;999905010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;;;;;;
+aaaaaaa;201805010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;30/04/2018;a;3;0;;
     '''.strip()  # noqa
 
     upload1 = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
-bbbb;201805010001;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;18,32;22;1;310123123;12
-aaaaaaa;201805010000;1111111111111;30/04/2018;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;310123122;
-aaaaaaa;201805090000;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;5,32;6;1;310123123;12
+bbbb;201805010001;2333333333333;30/04/2000;uea;ée;29/04/2018;10/06/2018;18,32;22;1;310123123;12
+aaaaaaa;201805010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;310123122;
+aaaaaaa;201805020000;2333333333333;30/04/2000;uea;ée;29/04/2018;10/06/2018;5,32;6;1;310123123;12
     '''.strip()  # noqa
 
     def upload(self, data):
@@ -76,10 +74,6 @@ aaaaaaa;201805090000;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;5,32
 
     @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
     def test_import(self):
-        Stat.objects.all().delete()
-        from dbdiff.sequence import sequence_reset
-        sequence_reset(Stat)
-
         request, view = self.upload(self.upload0)
 
         assert view.form.is_valid()
@@ -96,10 +90,5 @@ aaaaaaa;201805090000;2333333333333;30/04/2018;uea;ée;29/04/2018;10/06/2018;5,32
         assert success.adeli == 12
         assert str(success.mandate_date) == '2018-06-10'
 
-        Fixture('mrsrequest/tests/test_import_0.json',
-                models=[Stat]).assertNoDiff()
         request, view = self.upload(self.upload1)
         assert list(view.success.keys()) == [1, 2, 3]
-        Fixture('mrsrequest/tests/test_import_1.json',
-
-                models=[Stat]).assertNoDiff()

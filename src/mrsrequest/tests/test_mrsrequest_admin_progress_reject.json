@@ -15,7 +15,7 @@
         "mandate_date": null,
         "payment_amount": null,
         "payment_base": null,
-        "reject_template": 1,
+        "reject_template": null,
         "saving": 0,
         "status": 999,
         "status_datetime": "3000-12-31T13:37:42Z",
@@ -29,38 +29,33 @@
 },
 {
     "fields": {
-        "action_flag": 1000,
-        "action_time": "3000-12-31T13:37:42Z",
-        "change_message": "En cours de liquidation",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
-        "object_repr": "300012310000",
+        "action": 1000,
+        "comment": "En cours de liquidation",
+        "data": {},
+        "datetime": "3000-12-31T13:37:42Z",
+        "mrsrequest": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
         "user": [
             "{}"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 1
 },
 {
     "fields": {
-        "action_flag": 999,
-        "action_time": "3000-12-31T13:37:42Z",
-        "change_message": "reject",
-        "content_type": [
-            "mrsrequest",
-            "mrsrequest"
-        ],
-        "object_id": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
-        "object_repr": "300012310000",
+        "action": 999,
+        "comment": "reject 4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
+        "data": {
+            "body": "reject body 4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
+            "subject": "reject 4255e33f-88c0-4dbf-b8ee-69cb283a7cea"
+        },
+        "datetime": "3000-12-31T13:37:42Z",
+        "mrsrequest": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
         "user": [
             "{}"
         ]
     },
-    "model": "admin.logentry",
+    "model": "mrsrequest.mrsrequestlogentry",
     "pk": 2
 }
 ]

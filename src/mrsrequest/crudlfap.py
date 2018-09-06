@@ -56,7 +56,7 @@ class MRSRequestStatusMixin:
     action = 'click->modal#open'
 
     def form_valid(self):
-        args = (self.request.user, self.log_action_flag)
+        args = (self.request.user, self.new_status)
         if hasattr(self, 'object'):
             self.object.update_status(*args)
         else:
@@ -65,13 +65,28 @@ class MRSRequestStatusMixin:
         return super().form_valid()
 
     def get_log_message(self):
-        for flag, label in self.model.STATUS_CHOICES:
-            if flag == self.log_action_flag:
-                return label
+        return self.model.get_status_label(self.new_status)
 
     def get_allowed(self):
         if super().get_allowed():
             return self.request.user.profile in ('upn', 'admin')
+
+    def get_log_data(self):
+        return {}
+
+    def log_insert(self):
+        if hasattr(self, 'object_list'):
+            objects = self.object_list
+        else:
+            objects = [self.object]
+
+        for obj in objects:
+            obj.logentries.create(
+                user=self.request.user,
+                comment=self.log_message,
+                data=self.log_data,
+                action=self.new_status,
+            )
 
 
 def mail_liquidation(subject, body, mrsrequest_pk):
@@ -93,7 +108,7 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
     view_label = 'Valider'
     material_icon = 'check_circle'
     color = 'green'
-    log_action_flag = MRSRequest.STATUS_VALIDATED
+    new_status = MRSRequest.STATUS_VALIDATED
     short_permission_code = 'validate'
 
     def mail_render(self, destination, part, mrsrequest=None):
@@ -177,9 +192,18 @@ class MRSRequestRejectView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
     view_label = 'Rejeter'
     material_icon = 'do_not_disturb_on'
     color = 'red'
-    log_action_flag = MRSRequest.STATUS_REJECTED
+    new_status = MRSRequest.STATUS_REJECTED
     body_class = 'modal-fixed-footer'
     menus = ['object_detail']
+
+    def get_log_data(self):
+        return dict(
+            body=self.form.cleaned_data['body'],
+            subject=self.form.cleaned_data['subject'],
+        )
+
+    def get_log_message(self):
+        return self.form.cleaned_data['subject']
 
     def get_allowed(self):
         if super().get_allowed():
@@ -198,9 +222,6 @@ class MRSRequestRejectView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
         return json.dumps(templates)
 
     def form_valid(self):
-        # set before calling super()
-        self.log_message = str(self.form.cleaned_data['template'])
-        self.object.reject_template = self.form.cleaned_data['template']
         resp = super().form_valid()
         self.object.save()
 
@@ -227,7 +248,7 @@ class MRSRequestProgressView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
     title_submit = 'Oui'
     material_icon = 'playlist_add_check'
     color = 'green'
-    log_action_flag = MRSRequest.STATUS_INPROGRESS
+    new_status = MRSRequest.STATUS_INPROGRESS
     short_permission_code = 'inprogress'
     menus = ['object_detail']
 

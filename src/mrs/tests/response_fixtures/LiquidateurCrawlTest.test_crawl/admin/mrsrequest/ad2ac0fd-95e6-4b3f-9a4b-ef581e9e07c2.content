@@ -9,14 +9,14 @@
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
-                <span class="card-title tooltipped activator red-text" data-position="bottom" data-tooltip="En attente de traitement depuis 20 jours">201805090001<i class="material-icons right">more_vert</i></span>
+                <span class="card-title tooltipped activator red-text" data-position="bottom" data-tooltip="En attente de traitement depuis 27 jours">201805020001<i class="material-icons right">more_vert</i></span>
                 <div class="section">
                     <p>
                         <span class="grey-text text-darken-2">
                             Soumise
                         </span>
                         <span class="right">
-                            09/05/2018 17:17
+                            02/05/2018 17:17
                         </span>
                     </p>
                     </div>
@@ -38,7 +38,7 @@
                 <div class="card-title yellow-text text-darken-3">
                     En cours de liquidation
                 </div>
-                13/05/2018 17:17
+                05/05/2018 17:17
                 <span class="right">
                     test
                 </span>
@@ -80,7 +80,7 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right">29/05/2018</span>
+                    <span class="right">29/05/2000</span>
                 </p>
             </div>
         </div>

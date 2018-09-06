@@ -5,8 +5,7 @@ import pytz
 import uuid
 
 from django.conf import settings
-from django.contrib.admin.models import LogEntry
-from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.fields import JSONField
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -15,7 +14,6 @@ from django.urls import reverse
 from django.utils import timezone
 
 from mrsattachment.models import MRSAttachment
-
 
 TWOPLACES = Decimal(10) ** -2
 
@@ -73,12 +71,6 @@ class Bill(MRSAttachment):
 
 
 class MRSRequestQuerySet(models.QuerySet):
-    @property
-    def logentries(self):
-        return LogEntry.objects.filter(
-            content_type=ContentType.objects.get_for_model(self.model),
-        )
-
     def status(self, name):
         return self.filter(status=MRSRequest.get_status_id(name))
 
@@ -99,11 +91,6 @@ class MRSRequestQuerySet(models.QuerySet):
 
         """Filter on the status logentries.
 
-        BIGFATWARNING this casts the LogEntry object_id
-        values as a python list, because apparently
-        comparing object_id's varchar with mrsrequest's
-        UUID doesn't work in sql.
-
         .. py:parameter:: date
 
             Date or datetime object that will be casted into the datetimes of
@@ -114,27 +101,27 @@ class MRSRequestQuerySet(models.QuerySet):
 
             Date or datetime object that will be casted into the datetime of
             the *first* minute of the day of settings.TIME_ZONE, it will be
-            used in a *greater than or equal* filter on LogEntry.action_time.
+            used in a *greater than or equal* filter on LogEntry.datetime.
 
         .. py:parameter:: date__lte
 
             Date or datetime object that will be casted into the datetime of
             the *last* minute of the day of settings.TIME_ZONE, it will be used
-            in a *lesser than or equal* filter on LogEntry.action_time.
+            in a *lesser than or equal* filter on LogEntry.datetime.
 
         .. py:parameter:: datetime__gte
 
-            Datetime object to pass as-is to LogEntry.action_time greater than
+            Datetime object to pass as-is to LogEntry.datetime greater than
             or equal filter.
 
         .. py:parameter:: datetime__lte
 
-            Datetime object to pass as-is to LogEntry.action_time lesser than
-            or equal filter.
+            Datetime object to pass as-is to MRSRequestLogEntry.datetime lesser
+            than or equal filter.
 
         """
-        logentries = self.logentries.filter(
-            action_flag__in=[
+        logentries = MRSRequestLogEntry.objects.filter(
+            status__in=[
                 MRSRequest.get_status_id(status)
                 for status in statuses
             ],
@@ -155,17 +142,15 @@ class MRSRequestQuerySet(models.QuerySet):
 
         if datetime__gte:
             logentries = logentries.filter(
-                action_time__gte=datetime__gte,
+                datetime__gte=datetime__gte,
             )
 
         if datetime__lte:
             logentries = logentries.filter(
-                action_time__lte=datetime__lte,
+                datetime__lte=datetime__lte,
             )
 
-        return self.filter(
-            id__in=list(logentries.values_list('object_id', flat=True))
-        ).distinct()
+        return self.filter(logentries__in=logentries).distinct()
 
     def in_status_by(self, name, user):
         return self.status(name).status_by(name, user)
@@ -347,20 +332,21 @@ class MRSRequest(models.Model):
         self.status_user = user
         self.save()
 
-        if create_logentry:
-            LogEntry.objects.create(
-                action_flag=self.status,
-                action_time=self.status_datetime,
-                content_type=ContentType.objects.get_for_model(type(self)),
-                user=self.status_user,
-                object_id=self.pk,
-            )
+        if not create_logentry:
+            return
 
-    def logentry_set(self):
-        return LogEntry.objects.filter(
-            content_type=ContentType.objects.get_for_model(type(self)),
-            object_id=self.pk,
-        ).order_by('-action_time')
+        self.logentries.create(
+            datetime=self.status_datetime,
+            user=self.status_user,
+            comment=self.get_status_display(),
+            action=self.status
+        )
+
+    @classmethod
+    def get_status_label(self, number):
+        for flag, label in self.STATUS_CHOICES:
+            if flag == number:
+                return label
 
     @classmethod
     def get_status_id(self, name):
@@ -531,14 +517,12 @@ class MRSRequest(models.Model):
 
     @property
     def inprogress_day_number(self):
-        event = self.logentry_set().filter(
-            action_flag=self.get_status_id('inprogress')
-        ).first()
+        event = self.logentries.filter(status=self.STATUS_INPROGRESS).first()
 
         if not event:
             return 0
 
-        dt = pytz.timezone(settings.TIME_ZONE).normalize(event.action_time)
+        dt = pytz.timezone(settings.TIME_ZONE).normalize(event.datetime)
         return '{:03d}'.format(dt.timetuple().tm_yday)
 
     @property
@@ -558,6 +542,73 @@ class MRSRequest(models.Model):
             return '99'
 
         return '{:02d}'.format(number)
+
+
+class MRSRequestLogEntryQuerySet(models.QuerySet):
+    def filter(self, **kwargs):
+        """Patches any status that's been given as a string."""
+        status = kwargs.pop('status', None)
+        status__in = kwargs.pop('status__in', [status] if status else None)
+
+        if status__in:
+            kwargs['action__in'] = [
+                self.model.get_action_id(i) if isinstance(i, str) else i
+                for i in status__in
+            ]
+
+        return super().filter(**kwargs)
+
+
+class MRSRequestLogEntryManager(models.Manager):
+    def get_queryset(self):
+        return MRSRequestLogEntryQuerySet(self.model, using=self._db)
+
+
+class MRSRequestLogEntry(models.Model):
+    ACTION_CHOICES = (
+        (MRSRequest.STATUS_NEW, 'Soumise'),
+        (2, 'Modifiée'),  # same ids as for django.contrib.admin.LogEntry
+        (3, 'Effacée'),
+        (MRSRequest.STATUS_REJECTED, 'Rejetée'),
+        (MRSRequest.STATUS_INPROGRESS, 'En cours de liquidation'),
+        (MRSRequest.STATUS_VALIDATED, 'Validée'),
+    )
+
+    datetime = models.DateTimeField(
+        verbose_name='Date et heure',
+        default=timezone.now,
+        editable=False,
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        models.CASCADE,
+        verbose_name='Utilisateur',
+    )
+    mrsrequest = models.ForeignKey(
+        'MRSRequest',
+        on_delete=models.CASCADE,
+        related_name='logentries',
+    )
+    comment = models.TextField('Commentaire', blank=True)
+    data = JSONField(blank=True, null=True)
+    action = models.SmallIntegerField(choices=ACTION_CHOICES)
+
+    objects = MRSRequestLogEntryManager()
+
+    class Meta:
+        ordering = ('-datetime',)
+
+    def __str__(self):
+        return f'{self.mrsrequest}: {self.comment}'
+
+    @classmethod
+    def get_action_id(self, name):
+        if isinstance(name, int):
+            return name
+
+        for value, name in self.ACTION_CHOICES:
+            if name == name:
+                return value
 
 
 def creation_datetime_and_display_id(sender, instance, **kwargs):

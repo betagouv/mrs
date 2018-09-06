@@ -31,7 +31,7 @@ def test_personform_get_or_create(d):
     result1 = form.get_or_create()
     assert result0 == result1
     Fixture(
-        './src/person/tests/test_personform.json',
+        'person/tests/test_personform.json',
         models=[Person]
     ).assertNoDiff()
 
