@@ -22,6 +22,7 @@ echo $VAULT_PASSWORD > .vault
 set -x
 
 export ANSIBLE_VAULT_PASSWORD_FILE=.vault
+export ANSIBLE_STDOUT_CALLBACK=debug
 ~/.local/bin/ansible-playbook \
     --tags update \
     --user deploy \
@@ -29,4 +30,4 @@ export ANSIBLE_VAULT_PASSWORD_FILE=.vault
     -e image=betagouv/mrs:$CIRCLE_SHA1 \
     -e prefix=mrs \
     -e instance=$CIRCLE_STAGE \
-    playbooks/django.yml
+    -v playbooks/django.yml
