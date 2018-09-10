@@ -86,8 +86,30 @@
         <div class="card">
             <div class="card-content">
                 {% for entry in entries %}
-                <div class="{% if loop.index == 1 %}card-title{% endif %} {% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}">
-                    {{ entry.comment }}
+                <div
+                    {% if entry.data %}
+                    data-controller="modal"
+                    data-action="click->modal#childmodal"
+                    {% endif %}
+                >
+                    {% if entry.data %}
+                    <div class="childmodal" style="display: none">
+                        <div class="modal-content">
+                            <h4 class="modal-title">{{ entry.data.subject }}</h4>
+                            <pre>{{ entry.data.body }}</pre>
+                        </div>
+                        <div class="modal-footer">
+                            <a
+                                class="modal-close waves-effect waves-green btn-flat"
+                            >Merci</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div
+                        class="{% if loop.index == 1 %}card-title{% endif %} {% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}"
+                    >
+                        {{ entry.comment }}
+                    </div>
                 </div>
                 {{ localtime(entry.datetime).strftime('%d/%m/%Y %H:%M') }}
                 <span class="right">
