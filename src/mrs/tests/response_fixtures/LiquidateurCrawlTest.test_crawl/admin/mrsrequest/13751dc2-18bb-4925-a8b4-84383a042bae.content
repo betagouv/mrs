@@ -6,7 +6,7 @@
         
           
 <style type="text/css">.card-content p { clear: both; }</style>
-<div class="row">
+<div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
@@ -36,16 +36,33 @@
         <div class="card">
             <div class="card-content">
                 
-                <div class="card-title red-text">
-                    Rejet pour autre motif
+                <div data-action="click-&gt;modal#childmodal" data-controller="modal">
+                    
+                    <div class="childmodal" style="display: none">
+                        <div class="modal-content">
+                            <h4 class="modal-title">Rejet pour autre motif</h4>
+                            <pre>corps
+blabla</pre>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
+                        </div>
+                    </div>
+                    
+                    <div class="card-title red-text">
+                        Rejet pour autre motif
+                    </div>
                 </div>
                 01/05/2018 19:13
                 <span class="right">
                     a
                 </span>
                 
-                <div class=" yellow-text text-darken-3">
-                    En cours de liquidation
+                <div>
+                    
+                    <div class=" yellow-text text-darken-3">
+                        En cours de liquidation
+                    </div>
                 </div>
                 01/05/2018 17:13
                 <span class="right">

@@ -6,7 +6,7 @@
         
           
 <style type="text/css">.card-content p { clear: both; }</style>
-<div class="row">
+<div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
@@ -36,8 +36,11 @@
         <div class="card">
             <div class="card-content">
                 
-                <div class="card-title yellow-text text-darken-3">
-                    En cours de liquidation
+                <div>
+                    
+                    <div class="card-title yellow-text text-darken-3">
+                        En cours de liquidation
+                    </div>
                 </div>
                 05/05/2018 17:17
                 <span class="right">
