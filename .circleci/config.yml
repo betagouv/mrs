@@ -33,7 +33,7 @@ version: 2
 .postgresql_wait: &postgresql_wait
   name: Waiting for Postgres to be ready
   command: |
-    for i in `seq 1 10`;
+    for i in `seq 1 20`;
     do
       nc -z localhost 5432 && echo Success && exit 0
       echo -n .
