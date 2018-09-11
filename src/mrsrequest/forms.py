@@ -278,7 +278,9 @@ class TransportIterativeForm(TransportForm):
         label='Avez-vous des transports itératifs à déclarer ?',
         widget=forms.CheckboxInput,
         required=False,
-        help_text='Voir FAQ pour la définition des transports itératifs',
+        help_text='En cas de transports aller retour, ou de transports'
+        / 'itératifs, indiqué le nombre de km total'
+        / 'parcours cumulé. (ex.pour 2 trajets de 40 km, indiquer 80 km)',
     )
     iterative_number = forms.IntegerField(
         label='Combien de trajets itératifs ?',
