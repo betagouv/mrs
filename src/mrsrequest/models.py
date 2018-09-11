@@ -361,10 +361,12 @@ class MRSRequest(models.Model):
         null=True,
     )
     def taxi_cost(self):
+        transport = self.transport_set.first()
+        num = 1 if transport and not transport.date_return else 2
         return Decimal(
             (
                 ((self.distance or 0) * 1.62) +
-                (1.9 * 2 * self.transport_set.count())
+                (1.9 * num * self.transport_set.count())
             ) * 0.91
         ).quantize(TWOPLACES)
 

@@ -42,3 +42,36 @@ class Person(models.Model):
 
     def __str__(self):
         return '%s %s %s' % (self.first_name, self.last_name, self.birth_date)
+
+    def get_dates(self):
+        dates = {'depart': dict(), 'return': dict()}
+
+        valids = self.mrsrequest_set.filter(
+            status=self.mrsrequest_set.model.STATUS_VALIDATED
+        ).prefetch_related('transport_set')
+        for mrsrequest in valids:
+            transports = mrsrequest.transport_set.exclude(date_depart=None)
+            for transport in transports:
+                for i in ('depart', 'return'):
+                    value = getattr(transport, f'date_{i}')
+
+                    if i == 'return' and not value:
+                        continue
+
+                    if value not in dates[i].keys():
+                        dates[i][value] = []
+                    dates[i][value].append(mrsrequest)
+
+        return dates
+
+    def get_duplicate_dates(self):
+        dupes = {'depart': dict(), 'return': dict()}
+
+        for i, dates in self.get_dates().items():
+            for date, mrsrequests in dates.items():
+                if len(mrsrequests) == 1:
+                    continue
+
+                dupes[i][date] = mrsrequests
+
+        return {k: v for k, v in dupes.items() if v}
