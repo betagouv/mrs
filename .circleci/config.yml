@@ -41,12 +41,16 @@ version: 2
     done
     echo Failed waiting for Postgres && exit 1
 
-.postgresql_environment: &postgresql_environment
+.django_environment: &django_environment
   DB_ENGINE: django.db.backends.postgresql
   DB_NAME: postgres
   DB_HOST: localhost
   DB_PORT: 5432
   DB_USER: postgres
+
+.postgresql_environment: &postgresql_environment
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
 
 workflows:
   version: 2
@@ -108,8 +112,11 @@ jobs:
     docker:
     - image: betagouv/mrs:$CIRCLE_SHA1
       environment:
-        <<: *postgresql_environment
+        <<: *django_environment
     - image: circleci/postgres:10-alpine
+      environment:
+        <<: *postgresql_environment
+
     steps:
     - run:
         <<: *postgresql_wait
@@ -155,8 +162,10 @@ jobs:
     docker:
     - image: circleci/python:3.6.1
       environment:
-        <<: *postgresql_environment
+        <<: *django_environment
     - image: circleci/postgres:10-alpine
+      environment:
+        <<: *postgresql_environment
     working_directory: ~/repo
     steps:
     - checkout
