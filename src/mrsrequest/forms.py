@@ -41,7 +41,9 @@ class MRSRequestForm(forms.ModelForm):
             ' / stationnement'
             ' </span>'
             ' / transport en commun'
-            ' - voir FAQ pour la liste des justificatifs acceptés'
+            ' - Les transports itératifs sont des transports'
+            ' / réguliers de distance identique (même lieu de'
+            ' / départ, même lieu d'arrivée).
         )
     )
 
