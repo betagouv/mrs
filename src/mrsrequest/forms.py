@@ -15,7 +15,13 @@ from mrsemail.models import EmailTemplate
 from .models import Bill, MRSRequest, PMT, Transport
 
 
-class MRSRequestForm(forms.ModelForm):
+class MRSRequestCreateForm(forms.ModelForm):
+    # do not trust this field, it's used for javascript and checked
+    # by the view for permission against the request session, but is
+    # NOT to be trusted as input: don't use data['mrsrequest_uuid'] nor
+    # cleaned_data['mrsrequest_uuid'], you've been warned.
+    mrsrequest_uuid = forms.CharField(widget=forms.HiddenInput, required=False)
+
     pmt = MRSAttachmentField(
         PMT,
         'mrsrequest:pmt_upload',
@@ -51,16 +57,53 @@ class MRSRequestForm(forms.ModelForm):
         label='Votre caisse de rattachement',
     )
 
-    # do not trust this field, it's used for javascript and checked
-    # by the view for permission against the request session, but is
-    # NOT to be trusted, don't use data['mrsrequest_uuid'] nor
-    # cleaned_data['mrsrequest_uuid'], you've been warned.
-    # Except for staff, in the admin version of the form.
-    mrsrequest_uuid = forms.CharField(widget=forms.HiddenInput)
+    parking_expense = forms.DecimalField(
+        decimal_places=2,
+        max_digits=6,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        label='Frais de parking',
+        help_text='Somme totale des frais de parking (en € TTC)',
+        required=False,
+    )
+
+    layouts = dict(
+        above=material.Layout(
+            material.Fieldset(
+                'Votre caisse d\'assurance maladie',
+                'caisse',
+            ),
+        ),
+        top=material.Layout(
+            material.Fieldset(
+                'Votre prescription médicale',
+                'pmt',
+            ),
+        ),
+        bottom=material.Layout(
+            material.Row(
+                'distance',
+            ),
+            material.Row(
+                'expense',
+                'parking_expense',
+            ),
+            'bills',
+        )
+    )
+
+    class Meta:
+        model = MRSRequest
+        fields = [
+            'caisse',
+            'expense',
+            'distance',
+        ]
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('initial', {})
         initial = kwargs['initial']
+
+        kwargs['initial'].setdefault('parking_expense', 0)
 
         if 'mrsrequest_uuid' in kwargs:
             mrsrequest_uuid = kwargs.pop('mrsrequest_uuid')
@@ -83,6 +126,20 @@ class MRSRequestForm(forms.ModelForm):
         kwargs['data'] = data
         kwargs['files'] = files
         super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        expense = cleaned_data.get('expense')
+        parking_expense = cleaned_data.get('parking_expense')
+        bills = cleaned_data.get('bills')
+        if (expense or parking_expense) and not bills:
+            self.add_error(
+                'bills',
+                'Merci de soumettre vos justificatifs de transport'
+            )
+
+        return cleaned_data
 
     def data_attachments(self, data, files, mrsrequest_uuid):
         pmt = PMT.objects.recorded_uploads(mrsrequest_uuid).last()
@@ -124,6 +181,9 @@ class MRSRequestForm(forms.ModelForm):
         return data, files, args, kwargs
 
     def save(self, commit=True):
+        if self.cleaned_data.get('parking_expense', None):
+            self.instance.expense += self.cleaned_data.get('parking_expense')
+
         obj = super().save(commit=commit)
         save_m2m = getattr(self, 'save_m2m', None)
         if save_m2m:
@@ -134,109 +194,6 @@ class MRSRequestForm(forms.ModelForm):
         else:
             obj.save_attachments()
         return obj
-
-    class Meta:
-        model = MRSRequest
-        fields = [
-            'caisse',
-            'expense',
-            'distance',
-        ]
-
-
-class MRSRequestAdminForm(MRSRequestForm):
-    '''This form is not secure: it uses any uuid that is posted.'''
-
-    def __init__(self, *args, **kwargs):
-        data, files, args, kwargs = self.args_extract(args, kwargs)
-        kwargs.setdefault('initial', {})
-
-        instance = kwargs.get('instance')
-        if instance:
-            try:
-                instance.pmt
-            except PMT.DoesNotExist:
-                pass
-            else:
-                kwargs['initial']['pmt'] = [instance.pmt]
-            kwargs['initial']['bills'] = instance.bill_set.all()
-            kwargs['initial']['mrsrequest_uuid'] = str(instance.id)
-        else:
-            if data and 'mrsrequest_uuid' in data:
-                kwargs['mrsrequest_uuid'] = data.get('mrsrequest_uuid')
-            else:
-                kwargs['mrsrequest_uuid'] = str(uuid.uuid4())
-
-        super().__init__(data, files, *args, **kwargs)
-
-    class Meta:
-        model = MRSRequest
-        fields = [
-            'mrsrequest_uuid',
-            'expense',
-            'distance',
-            'insured',
-        ]
-
-
-class MRSRequestCreateForm(MRSRequestForm):
-    layouts = dict(
-        above=material.Layout(
-            material.Fieldset(
-                'Votre caisse d\'assurance maladie',
-                'caisse',
-            ),
-        ),
-        top=material.Layout(
-            material.Fieldset(
-                'Votre prescription médicale',
-                'pmt',
-            ),
-        ),
-        bottom=material.Layout(
-            material.Row(
-                'distance',
-            ),
-            material.Row(
-                'expense',
-                'parking_expense',
-            ),
-            'bills',
-        )
-    )
-
-    parking_expense = forms.DecimalField(
-        decimal_places=2,
-        max_digits=6,
-        validators=[validators.MinValueValidator(Decimal('0.00'))],
-        label='Frais de parking',
-        help_text='Somme totale des frais de parking (en € TTC)',
-        required=False,
-    )
-
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault('initial', {})
-        kwargs['initial'].setdefault('parking_expense', 0)
-        super().__init__(*args, **kwargs)
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        expense = cleaned_data.get('expense')
-        parking_expense = cleaned_data.get('parking_expense')
-        bills = cleaned_data.get('bills')
-        if (expense or parking_expense) and not bills:
-            self.add_error(
-                'bills',
-                'Merci de soumettre vos justificatifs de transport'
-            )
-
-        return cleaned_data
-
-    def save(self, commit=True):
-        if self.cleaned_data.get('parking_expense', None):
-            self.instance.expense += self.cleaned_data.get('parking_expense')
-        return super().save(commit=commit)
 
     class Meta:
         model = MRSRequest

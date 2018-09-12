@@ -22,7 +22,7 @@
 {
     "fields": {
         "adeli": null,
-        "caisse": null,
+        "caisse": 9,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "creation_ip": null,
         "delay": null,
@@ -30,7 +30,7 @@
         "distance": 100,
         "expense": 10,
         "institution": null,
-        "insured": 1,
+        "insured": null,
         "insured_shift": null,
         "mandate_date": null,
         "payment_amount": null,
