@@ -92,7 +92,7 @@
                     data-action="click->modal#childmodal"
                     {% endif %}
                 >
-                    {% if entry.data %}
+                    {%- if entry.data and 'subject' in entry.data %}
                     <div class="childmodal" style="display: none">
                         <div class="modal-content">
                             <h4 class="modal-title">{{ entry.data.subject }}</h4>
@@ -104,7 +104,43 @@
                             >Merci</a>
                         </div>
                     </div>
-                    {% endif %}
+                    {% endif -%}
+                    {%- if entry.action == entry.ACTION_UPDATE %}
+                    <div class="childmodal" style="display: none">
+                        <div class="modal-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Champs</th>
+                                        <td>Original</td>
+                                        <td>Modification</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, values in entry.data.changed.items() %}
+                                    {% if key in view.labels %}
+                                        {% if key != 'pk' or request.user.is_superuser %}
+                                        <tr>
+                                            <th>{{ view.labels[key] }}</th>
+                                            <td>
+                                                {{ view.object.data.get(key, values[0]) }}
+                                            </td>
+                                            <td>{{ values[1] }}</td>
+                                        </tr>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <a
+                                class="modal-close waves-effect waves-green btn-flat"
+                            >Merci</a>
+                        </div>
+                    </div>
+                    {% endif -%}
+
                     <div
                         class="{% if loop.index == 1 %}card-title{% endif %} {% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}"
                     >

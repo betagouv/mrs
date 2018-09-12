@@ -169,14 +169,32 @@
                 
                 
     
-      
-        <a class="btn-floating red blue" href="/admin/mrsrequest/f5ac697c-d4cd-34d4-89bc-39d1f606dd05?_next=/admin/mrsrequest" title="201805020002">
-    <i class=" material-icons">search</i>
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-f5ac697c-d4cd-34d4-89bc-39d1f606dd05" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-f5ac697c-d4cd-34d4-89bc-39d1f606dd05">
+        
+        <li>
+            <a class="" href="/admin/mrsrequest/f5ac697c-d4cd-34d4-89bc-39d1f606dd05?_next=/admin/mrsrequest" title="201805020002">
+    <i class="blue-text material-icons">search</i>
     
     Detail
     
   </a>
-      
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/f5ac697c-d4cd-34d4-89bc-39d1f606dd05/update?_next=/admin/mrsrequest" title='Demande "201805020002": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+      </ul>
     
   
                 </td>
@@ -211,14 +229,32 @@
                 
                 
     
-      
-        <a class="btn-floating red blue" href="/admin/mrsrequest/c697cf5a-dc4d-434d-89bc-1f606d05d39d?_next=/admin/mrsrequest" title="201805020000">
-    <i class=" material-icons">search</i>
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-c697cf5a-dc4d-434d-89bc-1f606d05d39d" title="Actions">
+        <i class="material-icons">menu</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-c697cf5a-dc4d-434d-89bc-1f606d05d39d">
+        
+        <li>
+            <a class="" href="/admin/mrsrequest/c697cf5a-dc4d-434d-89bc-1f606d05d39d?_next=/admin/mrsrequest" title="201805020000">
+    <i class="blue-text material-icons">search</i>
     
     Detail
     
   </a>
-      
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/c697cf5a-dc4d-434d-89bc-1f606d05d39d/update?_next=/admin/mrsrequest" title='Demande "201805020000": update'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Update
+    
+  </a>
+        </li>
+        
+      </ul>
     
   
                 </td>

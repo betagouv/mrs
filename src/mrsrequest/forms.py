@@ -1,5 +1,4 @@
 from decimal import Decimal
-import uuid
 
 from django import forms
 from django.core import validators
@@ -194,14 +193,6 @@ class MRSRequestCreateForm(forms.ModelForm):
         else:
             obj.save_attachments()
         return obj
-
-    class Meta:
-        model = MRSRequest
-        fields = [
-            'caisse',
-            'distance',
-            'expense',
-        ]
 
 
 class TransportForm(forms.ModelForm):

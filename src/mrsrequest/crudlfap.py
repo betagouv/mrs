@@ -1,4 +1,5 @@
 from chardet.universaldetector import UniversalDetector
+import copy
 import csv
 from datetime import datetime
 import io
@@ -24,6 +25,8 @@ from djcall.models import Caller
 from institution.models import Institution
 
 from mrsemail.models import EmailTemplate
+from person.forms import PersonForm
+from person.models import Person
 
 from .forms import (
     MRSRequestForm,
@@ -602,6 +605,83 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         )[0]
 
 
+class MRSRequestUpdateView(crudlfap.UpdateView):
+    form_class = forms.modelform_factory(
+        Person,
+        form=PersonForm,
+        fields=['nir', 'birth_date']
+    )
+    form_class.layout = None  # cancel out material layout
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = copy.deepcopy(self.object.insured)
+        kwargs['instance'].pk = None
+        return kwargs
+
+    def form_valid(self):
+        def d():
+            return {
+                'insured' if i == 'pk' else i: getattr(self.object.insured, i)
+                for i in (
+                    'nir',
+                    'birth_date',
+                    'pk'
+                )
+            }
+
+        self.before = d()
+        self.object.insured = self.form.get_or_create()
+        self.after = d()
+
+        if self.before != self.after:
+            self.object.save()
+            self.log_insert()
+        return http.HttpResponseRedirect(self.success_url)
+
+    def get_changed(self):
+        self.changed = dict()
+        for key, old in self.before.items():
+            if old != self.after[key]:
+                self.changed[key] = (old, self.after[key])
+
+    def get_log_data(self):
+        return dict(changed=self.changed)
+
+    def get_log_message(self):
+        changed = []
+        if 'nir' in self.changed:
+            changed.append('NIR')
+        if 'birth_date' in self.changed:
+            changed.append('Date de naissance')
+        if len(changed) > 1:
+            msg = 'Modification de %s' % ', '.join(changed[:-1])
+            msg += f' et {changed[-1]}'
+        else:
+            msg = 'Modification de %s' % changed[0]
+        return msg
+
+    def log_insert(self):
+        self.object.logentries.create(
+            user=self.request.user,
+            comment=self.log_message,
+            data=self.log_data,
+            action=self.object.logentries.model.ACTION_UPDATE,
+        )
+
+
+class MRSRequestDetailView(crudlfap.DetailView):
+    locks = True
+    title_heading = None
+
+    def get_labels(self):
+        self.labels = dict()
+        f = PersonForm()
+        for name, field in f.fields.items():
+            self.labels[name] = field.label
+        self.labels['insured'] = 'Assurré'
+
+
 class MRSRequestRouter(crudlfap.Router):
     model = MRSRequest
     material_icon = 'insert_drive_file'
@@ -610,10 +690,11 @@ class MRSRequestRouter(crudlfap.Router):
         MRSRequestImport,
         MRSRequestValidateObjectsView,
         crudlfap.DeleteView,
-        crudlfap.DetailView.clone(locks=True, title_heading=None),
+        MRSRequestDetailView,
         MRSRequestValidateView,
         MRSRequestRejectView,
         MRSRequestProgressView,
+        MRSRequestUpdateView,
         MRSRequestListView,
     ]
 
@@ -637,6 +718,9 @@ class MRSRequestRouter(crudlfap.Router):
 
         elif view.urlname == 'delete':
             return profile == 'admin'
+
+        elif view.urlname == 'update':
+            return profile in ('admin', 'upn')
 
         elif view.urlname == 'detail':
             return (
