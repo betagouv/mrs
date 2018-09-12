@@ -25,6 +25,13 @@
         "caisse": 9,
         "creation_datetime": "2017-12-19T13:33:37Z",
         "creation_ip": "127.0.0.1",
+        "data": {
+            "birth_date": "2007-02-07",
+            "email": "jpic@yourlabs.org",
+            "first_name": "jamesy",
+            "last_name": "wuzere",
+            "nir": 1234567890123
+        },
         "delay": null,
         "display_id": 201712190000,
         "distance": 100,

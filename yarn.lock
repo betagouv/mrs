@@ -2246,9 +2246,9 @@ cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-crudlfap@0.4.21:
-  version "0.4.21"
-  resolved "https://registry.yarnpkg.com/crudlfap/-/crudlfap-0.4.21.tgz#14321b059c604f53a45625cf63911d7f40f04fe8"
+crudlfap@0.4.22:
+  version "0.4.22"
+  resolved "https://registry.yarnpkg.com/crudlfap/-/crudlfap-0.4.22.tgz#eb98408d92d3b53e294934ce3f8760abe7cd4ca0"
   dependencies:
     babel-core "^6.26.0"
     babel-jest "^22.4.1"

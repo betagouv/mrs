@@ -5,6 +5,13 @@
         "caisse": 1,
         "creation_datetime": "3000-12-31T13:37:42Z",
         "creation_ip": null,
+        "data": {
+            "birth_date": null,
+            "email": "t@tt.tt",
+            "first_name": "",
+            "last_name": "",
+            "nir": 111111111111
+        },
         "delay": null,
         "display_id": 300012310000,
         "distance": null,

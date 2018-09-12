@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core import validators
 from django.core.exceptions import ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.db.models import signals
 from django.urls import reverse
@@ -314,6 +315,12 @@ class MRSRequest(models.Model):
         verbose_name='Montant remboursé',
     )
     adeli = models.IntegerField(null=True, blank=True)
+    data = JSONField(
+        blank=True,
+        encoder=DjangoJSONEncoder,
+        null=True,
+        verbose_name='Formulaire tel que soumit par l\'usager',
+    )
 
     objects = MRSRequestManager()
 
@@ -561,15 +568,33 @@ class MRSRequestLogEntryQuerySet(models.QuerySet):
         return super().filter(**kwargs)
 
 
+def initial_data(sender, instance, **kwargs):
+    if instance.data or not instance.insured:
+        return
+
+    instance.data = {
+        i: getattr(instance.insured, i) for i in (
+            'first_name',
+            'last_name',
+            'nir',
+            'email',
+            'birth_date',
+        )
+    }
+signals.pre_save.connect(initial_data, sender=MRSRequest)
+
+
 class MRSRequestLogEntryManager(models.Manager):
     def get_queryset(self):
         return MRSRequestLogEntryQuerySet(self.model, using=self._db)
 
 
 class MRSRequestLogEntry(models.Model):
+    ACTION_UPDATE = 2  # same ids as for django.contrib.admin.LogEntry
+
     ACTION_CHOICES = (
         (MRSRequest.STATUS_NEW, 'Soumise'),
-        (2, 'Modifiée'),  # same ids as for django.contrib.admin.LogEntry
+        (ACTION_UPDATE, 'Modifiée'),
         (3, 'Effacée'),
         (MRSRequest.STATUS_REJECTED, 'Rejetée'),
         (MRSRequest.STATUS_INPROGRESS, 'En cours de liquidation'),
@@ -592,7 +617,11 @@ class MRSRequestLogEntry(models.Model):
         related_name='logentries',
     )
     comment = models.TextField('Commentaire', blank=True)
-    data = JSONField(blank=True, null=True)
+    data = JSONField(
+        blank=True,
+        null=True,
+        encoder=DjangoJSONEncoder,
+    )
     action = models.SmallIntegerField(choices=ACTION_CHOICES)
 
     objects = MRSRequestLogEntryManager()
