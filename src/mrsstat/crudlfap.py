@@ -221,7 +221,7 @@ class StatListView(crudlfap.ListView):
                 ),
             ),
             point=dict(
-                show=len(rows) == 1,
+                show=len(rows) < 32,
             )
         ))
 

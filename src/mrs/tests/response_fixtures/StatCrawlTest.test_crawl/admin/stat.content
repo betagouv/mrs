@@ -54,7 +54,7 @@
 
 
 <div id="render-chart">
-  <script data-controller="mrsstat" data-stats="#chart" type="text/json">{"bindto": "#chart", "data": {"x": "x", "columns": [["x", "2018-05-01", "2018-05-02"], ["Nombre de demandes soumises", 2, 3], ["Nombre de demandes en cours", 1, 0], ["Nombre de demandes valid\u00e9es", 0, 0], ["Nombre de demandes rejett\u00e9es", 1, 0], ["Nombre de bascules", 0, 1]]}, "axis": {"x": {"type": "timeseries", "tick": {"format": "%d/%m/%Y"}}, "y": {"min": 0, "padding": {"bottom": 0}}}, "point": {"show": false}}</script>
+  <script data-controller="mrsstat" data-stats="#chart" type="text/json">{"bindto": "#chart", "data": {"x": "x", "columns": [["x", "2018-05-01", "2018-05-02"], ["Nombre de demandes soumises", 2, 3], ["Nombre de demandes en cours", 1, 0], ["Nombre de demandes valid\u00e9es", 0, 0], ["Nombre de demandes rejett\u00e9es", 1, 0], ["Nombre de bascules", 0, 1]]}, "axis": {"x": {"type": "timeseries", "tick": {"format": "%d/%m/%Y"}}, "y": {"min": 0, "padding": {"bottom": 0}}}, "point": {"show": true}}</script>
 
   <div class="row">
     <div class="col s4">
