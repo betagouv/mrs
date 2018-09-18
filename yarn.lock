@@ -5440,9 +5440,9 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mrsmaterialize@1.0.0-rc.2:
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/mrsmaterialize/-/mrsmaterialize-1.0.0-rc.2.tgz#484fdc5c94a30cd57388872131859a5a7135276d"
+mrsmaterialize@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mrsmaterialize/-/mrsmaterialize-1.0.0.tgz#78194f62725b7adfd9a0bbf30b5abf0b547ef29d"
 
 ms@2.0.0:
   version "2.0.0"
