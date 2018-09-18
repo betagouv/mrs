@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 
 from mrs.views import StaticView
@@ -13,7 +14,9 @@ urlpatterns = [
     ),
     path(
         '<finess>/mrsrequest/iframe/example/',
-        views.InstitutionMRSRequestIframeExampleView.as_view(),
+        login_required(
+            views.InstitutionMRSRequestIframeExampleView.as_view()
+        ),
         name='mrsrequest_iframe_example'
     ),
     path(
