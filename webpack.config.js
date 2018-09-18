@@ -35,7 +35,7 @@ var cfg = {
       'whatwg-fetch',
       './src/mrs/static/js/crudlfap',
       './node_modules/c3/c3.css',
-      './node_modules/materialize-css/sass/materialize.scss',
+      './node_modules/mrsmaterialize/sass/materialize.scss',
     ],
   },
   output: {
