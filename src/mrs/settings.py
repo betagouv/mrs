@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+import copy
 import os
 
 from crudlfap.settings import (
@@ -17,6 +18,8 @@ from crudlfap.settings import (
     CRUDLFAP_TEMPLATE_BACKEND,
     DJANGO_APPS,
 )
+
+from mrs.context_processors import strip_password
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -189,22 +192,26 @@ except ImportError:
 else:
     INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
-RAVEN_CONFIG = dict(dsn='', environment='')
-if os.getenv('SENTRY_DSN'):
-    RAVEN_CONFIG['dsn'] = os.getenv('SENTRY_DSN')
-    from mrs.context_processors import strip_password
-    CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
-        SENTRY_DSN=strip_password(RAVEN_CONFIG['dsn']),
-        INSTANCE=RAVEN_CONFIG['environment']
-    ))
-if os.getenv('INSTANCE'):
-    RAVEN_CONFIG['environment'] = os.getenv('INSTANCE')
-if os.getenv('GIT_COMMIT'):
-    RAVEN_CONFIG['release'] = os.getenv('GIT_COMMIT')
-elif raven:
+INSTANCE = os.getenv('INSTANCE', 'mrs-dev')
+RELEASE = os.getenv('GIT_COMMIT', '')
+if not RELEASE:
     repo = os.path.join(os.path.dirname(__file__), '..', '..')
     if os.path.exists(os.path.join(repo, '.git')):
-        RAVEN_CONFIG['release'] = raven.fetch_git_sha(repo)
+        RELEASE = raven.fetch_git_sha(repo)
+
+RAVEN_CONFIG = dict(
+    dsn=os.getenv('SENTRY_DSN', ''),
+    environment=INSTANCE,
+    release=RELEASE,
+)
+
+RAVEN_PUBLIC_CONFIG = copy.deepcopy(RAVEN_CONFIG)
+SENTRY_PUBLIC_DSN = strip_password(RAVEN_PUBLIC_CONFIG.pop('dsn'))
+
+CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
+    SENTRY_DSN=SENTRY_PUBLIC_DSN,
+    SENTRY_CONFIG=RAVEN_PUBLIC_CONFIG,
+))
 
 BASE_URL = 'http://localhost:8000'
 if 'LETSENCRYPT_HOST' in os.environ:

@@ -1,5 +1,4 @@
 import json
-import os
 from urllib.parse import urlparse
 
 from django.conf import settings as s
@@ -7,6 +6,9 @@ from django.urls import reverse
 
 
 def strip_password(url):
+    if not url:
+        return url
+
     parsed = urlparse(url)
     replaced = parsed._replace(
         netloc="{}@{}".format(parsed.username, parsed.hostname))
@@ -14,16 +16,11 @@ def strip_password(url):
 
 
 def settings(request):
-    if s.RAVEN_CONFIG.get('dsn'):
-        raven_dsn = strip_password(s.RAVEN_CONFIG['dsn'])
-    else:
-        raven_dsn = ''
-
     return dict(
-        settings=dict(
-            INSTANCE=os.getenv('INSTANCE'),
-            SENTRY_DSN=raven_dsn,
-        )
+        INSTANCE=s.INSTANCE,
+        RELEASE=s.RELEASE,
+        SENTRY_DSN=s.SENTRY_PUBLIC_DSN,
+        SENTRY_CONFIG=s.RAVEN_PUBLIC_CONFIG,
     )
 
 
