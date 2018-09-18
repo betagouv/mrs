@@ -306,11 +306,6 @@ else:
             },
         },
         'loggers': {
-            'djcall': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
-                'propagate': True,
-            },
             '*': {
                 'handlers': ['console'],
                 'level': 'DEBUG',
@@ -318,6 +313,12 @@ else:
             },
         },
     }
+    if not os.getenv('CI'):
+        LOGGING['loggers']['djcall'] = {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        }
 
 if DEBUG:
     try:
