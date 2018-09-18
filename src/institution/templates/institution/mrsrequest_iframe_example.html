@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Exemple d'integration iframe</title>
+    <meta name="robots" content="noindex">
 
     <script src="{% static 'material/js/jquery.js' %}"></script>
     <script type="text/javascript">
+        alert('ATTENTION: ceci est une page de test, pour faire des demandes légitimes, passer par https://www.mrs.beta.gouv.fr/demande')
 
         function receiveMessage(event) {
           console.log('mrsrequest_uuid:', event.data.mrsrequest_uuid)
