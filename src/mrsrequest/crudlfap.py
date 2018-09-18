@@ -417,9 +417,7 @@ class MRSRequestExport(crudlfap.ObjectsView):
             f.seek(0)
             response = http.HttpResponse(f.read(), content_type='text/csv')
             response['Content-Disposition'] = (
-                'attachment; filename="mrs-export-{}.csv"'.format(
-                    getattr(settings, 'INSTANCE', 'unknown'),
-                )
+                f'attachment; filename="mrs-export-{settings.INSTANCE}.csv"'
             )
         else:
             response = self.render_to_response()

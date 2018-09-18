@@ -1,10 +1,13 @@
 {% extends 'crudlfap/base.html' %}
 
 {% block bundles %}
-{%- if SENTRY_DSN is defined %}
+{%- if SENTRY_DSN %}
 <script src="https://cdn.ravenjs.com/3.26.2/raven.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
-Raven.config('{{ SENTRY_DSN }}', {environment: '{{ INSTANCE|default('') }}'}).install()
+Raven.config(
+  '{{ SENTRY_DSN }}',
+  '{{ SENTRY_CONFIG|tojson|safe }}',
+).install()
 </script>
 {%- endif %}
 {{ render_bundle('crudlfap', attrs='data-turbolinks-track="reload"') }}
