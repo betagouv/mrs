@@ -1,29 +1,18 @@
-FROM ubuntu:artful
+FROM node:10-alpine
 
 # utf8
 ENV PYTHONIOENCODING UTF-8
 
-RUN apt-get update -y && apt-get upgrade -y && apt-get install -y python3-pip python3-psycopg2 unzip uwsgi-plugin-python3 uwsgi wget curl dumb-init locales gettext netcat
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get install -y nodejs
-RUN npm install -g yarn
-
-RUN useradd -md /code uwsgi
-WORKDIR /code
-
-ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE mrs.settings
-ENV VIRTUAL_PROTO uwsgi
 ENV NODE_ENV production
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en
-ENV LC_ALL en_US.UTF8
-EXPOSE 6789
+
+RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git
 
 ENV STATIC_URL /static
 ENV STATIC_ROOT /code/static
 RUN mkdir -p ${STATIC_ROOT}
-RUN mkdir -p /tmp/spool && chown uwsgi /tmp/spool
+
+RUN deluser node && usermod -U -d /code -u 1000 uwsgi && groupmod -g 1000 uwsgi
+WORKDIR /code
 
 COPY yarn.lock .babelrc package.json /code/
 RUN yarn install --frozen-lockfile
@@ -35,15 +24,23 @@ RUN pip3 install --upgrade pip
 ADD requirements.txt /code/requirements.txt
 RUN pip3 install --upgrade -r /code/requirements.txt
 
-ADD setup.py /code/setup.py
+ADD setup.py /code/
 ADD src /code/src
 RUN pip3 install --editable /code
 
-# Use DEBUG here to inhibate security checks in settings for this command
-RUN DEBUG=1 django-admin collectstatic --noinput --clear
+ADD .git /code/.git
 
+# Use DEBUG here to inhibate security checks in settings for this command
+RUN DEBUG=1 mrs collectstatic --noinput --clear
+
+ENV PYTHONUNBUFFERED 1
+ENV DJANGO_SETTINGS_MODULE mrs.settings
+ENV VIRTUAL_PROTO uwsgi
+ENV NODE_ENV production
 ARG GIT_COMMIT
 ENV GIT_COMMIT ${GIT_COMMIT}
+
+EXPOSE 6789
 
 CMD /usr/bin/dumb-init uwsgi \
   --spooler=/spooler/mail \
