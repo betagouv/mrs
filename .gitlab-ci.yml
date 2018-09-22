@@ -69,7 +69,7 @@ smoke:
   - export HOST=localhost:8000
   - DEBUG=1 mrs migrate
   - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://$HOST")' | DEBUG=1 mrs shell
-  - DEBUG=1 mrs runserver $HOST &
+  - cd /code && DEBUG=1 mrs runserver $HOST &
   - until curl $HOST; do sleep 1; done
   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
