@@ -54,8 +54,9 @@ js-test:
 docker-build:
   stage: test
   image: docker:dind
+  before_script:
+  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
   script:
-  - bash -c 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
   - docker build -t betagouv/mrs:$CI_COMMIT_SHA .
   - docker push betagouv/mrs:$CI_COMMIT_SHA
 
