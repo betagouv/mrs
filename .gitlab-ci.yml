@@ -9,7 +9,6 @@ stages:
   image: jpic/tox
   before_script:
   - tar -xzf .gitlab-cache.tar.gz -C / || true
-  - pip install --upgrade --user tox && ln -sfn ~/.local/bin/tox /bin/tox
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
 
@@ -28,9 +27,8 @@ py-test:
   services:
   - postgres:10
   script:
-  - apk add py3-psycopg2
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
-    tox -e py36-dj21
+    tox --sitepackages -x -e py36-dj21
 
 docs-qa:
   <<: *tox
