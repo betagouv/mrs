@@ -4,21 +4,22 @@ stages:
 - smoke
 - deploy
 
-py-qa:
+.tox:
   stage: test
   image: python:3-alpine
   before_script:
   - tar -xzf .gitlab-cache.tar.gz -C / || true
+  - pip install --upgrade --user tox
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip || true
   cache:
-    key: ${CI_COMMIT_REF_SLUG}-qa
     paths: [.gitlab-cache.tar.gz]
-  script:
-  - pip install --upgrade --user tox
-  - find ~/.cache
-  - ~/.local/bin/tox -e qa
-  - find ~/.cache
+
+py-qa:
+  extends: .tox
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-qa
+  script: ~/.local/bin/tox -e qa
 
 py-test:
   stage: test
