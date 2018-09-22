@@ -81,5 +81,3 @@ deploy_staging:
   environment:
     name: staging
     url: https://staging.mrs.beta.gouv.fr
-  only:
-  - master
