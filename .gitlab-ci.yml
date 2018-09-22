@@ -9,8 +9,9 @@ py-qa:
   image: python:3-alpine
   cache:
     key: ${CI_COMMIT_REF_SLUG}-qa
-    paths: [~/.cache/pip/*, ~/.local/*]
+    paths: [.cache]
   script:
+  - mkdir .cache && ln -sfn .cache ~/.cache
   - find ~/.cache || echo nocach
   - pip install -U tox
   - find ~/.cache
