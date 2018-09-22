@@ -28,7 +28,8 @@ py-test:
   - postgres:10
   script:
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
-    tox --sitepackages -x -e py36-dj21
+    DB_USER=postgres
+    tox --sitepackages -e py36-dj21 -- -x
 
 docs-qa:
   <<: *tox
