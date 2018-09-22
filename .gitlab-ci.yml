@@ -7,9 +7,13 @@ stages:
 py-qa:
   stage: test
   image: python:3-alpine
+  before_script:
+  - tar -xzf .gitlab-cache.tar.gz -C / || true
+  after_script:
+  - tar -czf .gitlab-cache.tar.gz /root/.cache/pip || true
   cache:
     key: ${CI_COMMIT_REF_SLUG}-qa
-    paths: [.cache]
+    paths: [.gitlab-cache.tar.gz]
   script:
   - mkdir .cache && ln -sfn .cache ~/.cache
   - find ~/.cache || echo nocach
