@@ -85,3 +85,14 @@ smoke:
   script:
   - until curl mrs:8000 &> /dev/null; do sleep 1; done
   - node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+
+deploy_staging:
+  stage: deploy
+  script:
+  - echo $SSH_PRIVKEY > ~/.ssh/id_rsa
+  - git clone --recursive git@git.yourlabs.org:betagouv/mrs/playbooks.git
+  environment:
+    name: staging
+    url: https://staging.example.com
+  only:
+  - master
