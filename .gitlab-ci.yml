@@ -15,8 +15,6 @@ py-qa:
     key: ${CI_COMMIT_REF_SLUG}-qa
     paths: [.gitlab-cache.tar.gz]
   script:
-  - mkdir .cache && ln -sfn .cache ~/.cache
-  - find ~/.cache || echo nocach
   - pip install --upgrade --user tox
   - find ~/.cache
   - ~/.local/bin/tox -e qa
