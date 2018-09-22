@@ -7,6 +7,9 @@ stages:
 py-qa:
   stage: test
   image: python:3.7
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-qa
+    paths: [.tox]
   script:
   - pip install tox
   - tox -e qa
@@ -14,6 +17,9 @@ py-qa:
 py-test:
   stage: test
   image: python:3.7
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-django
+    paths: [.tox]
   script:
   - pip install tox
   - tox -e py37-dj21
@@ -21,6 +27,9 @@ py-test:
 docs-qa:
   stage: test
   image: python:3.7
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-docs
+    paths: [.tox]
   script:
   - pip install tox
   - tox -e docs
