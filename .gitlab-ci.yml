@@ -1,6 +1,7 @@
 stages:
 - test
 - deploy
+
 #- smoke
 
 .tox: &tox
@@ -76,7 +77,6 @@ smoke:
 deploy_staging:
   stage: deploy
   script:
-  - echo $SSH_PRIVKEY > ~/.ssh/id_rsa
   - ./.circleci/deploy.sh
   environment:
     name: staging
