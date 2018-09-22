@@ -1,0 +1,6 @@
+py-qa:
+  image: python:3.7
+  script:
+  - set -eux
+    pip install tox
+    tox -e qa
