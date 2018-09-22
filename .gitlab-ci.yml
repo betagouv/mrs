@@ -26,6 +26,7 @@ py-test:
   services:
   - postgres:10
   script:
+  - apk add py3-psycopg2
   - pip install tox
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
     tox -e py37-dj21
