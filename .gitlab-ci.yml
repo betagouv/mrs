@@ -13,47 +13,47 @@ py-qa:
   script:
   - pip install tox
   - tox -e qa
-  - find / -type d
-
-py-test:
-  stage: test
-  image: python:3.7
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-django
-    paths: [~/.cache/pip, ~/.local]
-  services:
-  - postgres:10
-  script:
-  - pip install tox
-  - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
-    tox -e py37-dj21
-
-docs-qa:
-  stage: test
-  image: python:3.7
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-docs
-    paths: [~/.cache/pip, ~/.local]
-  script:
-  - pip install tox
-  - tox -e docs
-
-js-qa:
-  stage: test
-  image: node:10
-  script:
-  - yarn install
-  - yarn run lint
-
-js-test:
-  stage: test
-  image: node:10
-  script:
-  - yarn install
-  - yarn run test
-
-docker-build:
-  stage: build
-  image: docker:dind
-  script:
-  - docker build -t mrs-test .
+  - find / -type d | grep cache
+#
+# py-test:
+#   stage: test
+#   image: python:3.7
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}-django
+#     paths: [~/.cache/pip, ~/.local]
+#   services:
+#   - postgres:10
+#   script:
+#   - pip install tox
+#   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
+#     tox -e py37-dj21
+#
+# docs-qa:
+#   stage: test
+#   image: python:3.7
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}-docs
+#     paths: [~/.cache/pip, ~/.local]
+#   script:
+#   - pip install tox
+#   - tox -e docs
+#
+# js-qa:
+#   stage: test
+#   image: node:10
+#   script:
+#   - yarn install
+#   - yarn run lint
+#
+# js-test:
+#   stage: test
+#   image: node:10
+#   script:
+#   - yarn install
+#   - yarn run test
+#
+# docker-build:
+#   stage: build
+#   image: docker:dind
+#   script:
+#   - docker build -t mrs-test .
