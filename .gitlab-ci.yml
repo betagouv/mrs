@@ -10,46 +10,46 @@ stages:
   - tar -xzf .gitlab-cache.tar.gz -C / || true
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
-
-py-qa:
-  <<: *tox
-  cache:
-    paths: [.gitlab-cache.tar.gz]
-    key: ${CI_COMMIT_REF_SLUG}-qa
-  script: tox -e qa
-
-py-test:
-  <<: *tox
-  cache:
-    paths: [.gitlab-cache.tar.gz]
-    key: ${CI_COMMIT_REF_SLUG}-django
-  services:
-  - postgres:10
-  script:
-  - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
-    DB_USER=postgres
-    tox --sitepackages -e py36-dj21 -- -x
-
-docs-qa:
-  <<: *tox
-  cache:
-    paths: [.gitlab-cache.tar.gz]
-    key: ${CI_COMMIT_REF_SLUG}-docs
-  script: tox -e docs
-
-js-qa:
-  stage: test
-  image: node:10
-  script:
-  - yarn install
-  - yarn run lint
-
-js-test:
-  stage: test
-  image: node:10
-  script:
-  - yarn install
-  - yarn run test
+#
+# py-qa:
+#   <<: *tox
+#   cache:
+#     paths: [.gitlab-cache.tar.gz]
+#     key: ${CI_COMMIT_REF_SLUG}-qa
+#   script: tox -e qa
+#
+# py-test:
+#   <<: *tox
+#   cache:
+#     paths: [.gitlab-cache.tar.gz]
+#     key: ${CI_COMMIT_REF_SLUG}-django
+#   services:
+#   - postgres:10
+#   script:
+#   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
+#     DB_USER=postgres
+#     tox --sitepackages -e py36-dj21 -- -x
+#
+# docs-qa:
+#   <<: *tox
+#   cache:
+#     paths: [.gitlab-cache.tar.gz]
+#     key: ${CI_COMMIT_REF_SLUG}-docs
+#   script: tox -e docs
+#
+# js-qa:
+#   stage: test
+#   image: node:10
+#   script:
+#   - yarn install
+#   - yarn run lint
+#
+# js-test:
+#   stage: test
+#   image: node:10
+#   script:
+#   - yarn install
+#   - yarn run test
 
 docker-build:
   stage: test
