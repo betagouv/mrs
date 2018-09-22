@@ -13,9 +13,9 @@ py-qa:
   script:
   - mkdir .cache && ln -sfn .cache ~/.cache
   - find ~/.cache || echo nocach
-  - pip install -U tox
+  - pip install --upgrade --user tox
   - find ~/.cache
-  - tox -e qa
+  - ~/.local/bin/tox -e qa
   - find ~/.cache
 
 py-test:
@@ -28,9 +28,9 @@ py-test:
   - postgres:10
   script:
   - apk add py3-psycopg2
-  - pip install tox
+  - pip install --user tox
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
-    tox -e py37-dj21
+    ~/.local/bin/tox -e py37-dj21
 
 docs-qa:
   stage: test
