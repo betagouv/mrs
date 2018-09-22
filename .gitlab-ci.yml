@@ -8,25 +8,20 @@ py-qa:
   stage: test
   image: python:3.7
   script:
-  - set -eux
-    pip install tox
-    tox -e qa
+  - pip install tox
+  - tox -e qa
 
 py-test:
   stage: test
   image: python:3.7
   script:
-  - set -eux
-    pip install tox
-    tox -e py37-dj21
+  - tox -e py37-dj21
 
 docs-qa:
   stage: test
   image: python:3.7
   script:
-  - set -eux
-    pip install tox
-    tox -e docs
+  - tox -e docs
 
 js-qa:
   stage: test
