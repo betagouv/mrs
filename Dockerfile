@@ -8,7 +8,7 @@ ENV NODE_ENV production
 RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git
 
 ENV STATIC_URL /static
-ENV STATIC_ROOT /code/static
+ENV STATIC_ROOT /code/{static,log}
 RUN mkdir -p ${STATIC_ROOT}
 RUN mkdir -p /spooler/{mail,stat}
 
