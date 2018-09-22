@@ -79,9 +79,6 @@ deploy_jpic:
   script:
   - echo $SSH_PRIVKEY > ~/.ssh/id_rsa
   - ./.circleci/deploy.sh
-  environment:
-    name: jpic
-    url: https://jpic.mrs.yourlabs.org
 
 deploy_staging:
   stage: deploy
