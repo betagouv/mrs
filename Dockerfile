@@ -5,7 +5,7 @@ ENV PYTHONIOENCODING UTF-8
 
 ENV NODE_ENV production
 
-RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git
+RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl
 
 ENV STATIC_URL /static
 ENV STATIC_ROOT /code/static
