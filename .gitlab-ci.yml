@@ -59,6 +59,8 @@ docker-build:
   script:
   - docker build -t betagouv/mrs:$CI_COMMIT_SHA .
   - docker push betagouv/mrs:$CI_COMMIT_SHA
+  - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
+  - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
 
 smoke:
   stage: smoke
