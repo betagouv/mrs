@@ -12,32 +12,30 @@ py-qa:
     paths: [~/.cache/pip, ~/.local]
   script:
   - pip install tox
-  - find ~/.cache
   - tox -e qa
-  - find / -name '*.whl'
-#
-# py-test:
-#   stage: test
-#   image: python:3.7
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}-django
-#     paths: [~/.cache/pip, ~/.local]
-#   services:
-#   - postgres:10
-#   script:
-#   - pip install tox
-#   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
-#     tox -e py37-dj21
-#
-# docs-qa:
-#   stage: test
-#   image: python:3.7
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}-docs
-#     paths: [~/.cache/pip, ~/.local]
-#   script:
-#   - pip install tox
-#   - tox -e docs
+
+py-test:
+  stage: test
+  image: python:3-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-django
+    paths: [~/.cache/pip, ~/.local]
+  services:
+  - postgres:10
+  script:
+  - pip install tox
+  - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
+    tox -e py37-dj21
+
+docs-qa:
+  stage: test
+  image: python:3-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-docs
+    paths: [~/.cache/pip, ~/.local]
+  script:
+  - pip install tox
+  - tox -e docs
 #
 # js-qa:
 #   stage: test
