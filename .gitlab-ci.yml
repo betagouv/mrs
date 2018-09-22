@@ -79,8 +79,8 @@ smoke:
     - --spooler=/spooler/stat
     - --spooler=/spooler/mail
     - --spooler-processes=1
-    - --http=:8000
-    - --plugin=python
+    - --http-socket=:8000
+    - --plugin=python3
     - --module=mrs.wsgi:application
   script:
   - until curl mrs:8000 &> /dev/null; do sleep 1; done
