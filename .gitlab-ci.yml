@@ -13,6 +13,7 @@ py-qa:
   script:
   - pip install tox
   - tox -e qa
+  - find / -type d
 
 py-test:
   stage: test
