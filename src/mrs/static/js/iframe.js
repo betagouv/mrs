@@ -1,4 +1,4 @@
-/* global $ */
+/* global $
 import '../sass/form.sass'
 import Cookie from 'js-cookie'
 import './mrsrequest'
@@ -56,3 +56,4 @@ document.querySelector('html').addEventListener('mrsrequest-save', function(e) {
 })
 
 M.AutoInit()
+*/

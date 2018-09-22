@@ -2,16 +2,20 @@ FROM node:10-alpine
 
 # utf8
 ENV PYTHONIOENCODING UTF-8
-
 ENV NODE_ENV production
-
-RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl
-
 ENV STATIC_URL /static
 ENV STATIC_ROOT /code/static
+ENV PYTHONUNBUFFERED 1
+ENV DJANGO_SETTINGS_MODULE mrs.settings
+ENV VIRTUAL_PROTO uwsgi
+ENV NODE_ENV production
+ARG GIT_COMMIT
+ENV GIT_COMMIT ${GIT_COMMIT}
 RUN mkdir -p ${STATIC_ROOT}
 RUN mkdir -p /spooler/{mail,stat}
 RUN mkdir -p /code/log
+
+RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl
 
 RUN deluser node && usermod -U -d /code -u 1000 uwsgi && groupmod -g 1000 uwsgi
 WORKDIR /code
@@ -34,13 +38,6 @@ ADD .git /code/.git
 
 # Use DEBUG here to inhibate security checks in settings for this command
 RUN DEBUG=1 mrs collectstatic --noinput --clear
-
-ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE mrs.settings
-ENV VIRTUAL_PROTO uwsgi
-ENV NODE_ENV production
-ARG GIT_COMMIT
-ENV GIT_COMMIT ${GIT_COMMIT}
 
 EXPOSE 6789
 
