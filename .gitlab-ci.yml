@@ -72,3 +72,9 @@ smoke:
   - cd /code && DEBUG=1 mrs runserver $HOST &
   - until curl $HOST; do sleep 1; done
   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+
+deploy:
+  stage: deploy
+  image: jpic/ansible
+  script:
+  - .circleci/deploy.sh
