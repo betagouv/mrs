@@ -73,13 +73,6 @@ smoke:
   - until curl $HOST; do sleep 1; done
   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
-deploy_jpic:
-  stage: deploy
-  image: jpic/ansible
-  script:
-  - echo $SSH_PRIVKEY > ~/.ssh/id_rsa
-  - ./.circleci/deploy.sh
-
 deploy_staging:
   stage: deploy
   script:
