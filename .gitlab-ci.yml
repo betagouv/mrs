@@ -83,6 +83,9 @@ smoke:
     - --http-socket=:8000
     - --plugin=python3
     - --module=mrs.wsgi:application
+  variables:
+    ALLOWED_HOSTS=localhost
+    SECRET_KEY=itsnotsecret
   script:
   - mrs migrate
   - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://localhost:8000")' | mrs shell
