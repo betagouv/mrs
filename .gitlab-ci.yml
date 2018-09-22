@@ -72,7 +72,8 @@ smoke:
     entrypoint: [uwsgi]
     command:
     - --env=DJANGO_SETTINGS_MODULE=mrs.settings
-    - --env=DEBUG=1
+    - --env=ALLOWED_HOSTS=localhost
+    - --env=SECRET_KEY=itsnotsecret
     - --env=LOG=log
     - --env=DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
     - --env=DB_USER=postgres
@@ -83,6 +84,8 @@ smoke:
     - --plugin=python3
     - --module=mrs.wsgi:application
   script:
+  - mrs migrate
+  - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://localhost:8000")' | mrs shell
   - until curl mrs:8000 &> /dev/null; do sleep 1; done
   - node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
