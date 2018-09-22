@@ -11,6 +11,7 @@ stages:
   - tar -xzf .gitlab-cache.tar.gz -C / || true
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
+
 #
 # py-qa:
 #   <<: *tox
@@ -74,7 +75,7 @@ smoke:
   - until curl $HOST; do sleep 1; done
   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
-deploy_staging:
+deploystaging:
   stage: deploy
   script:
   - ./.circleci/deploy.sh
