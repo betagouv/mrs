@@ -1,6 +1,5 @@
 stages:
 - test
-- build
 - smoke
 - deploy
 
@@ -53,7 +52,32 @@ js-test:
   - yarn run test
 
 docker-build:
-  stage: build
+  stage: test
   image: docker:dind
   script:
   - docker build -t mrs-test .
+
+smoke:
+  stage: smoke
+  image: mrs-test
+  variables:
+    DB_HOST: $POSTGRES_PORT_5432_TCP_ADDR
+    DB_USER: postgres
+  services:
+  - postgres:10
+  - name: mrs-test
+    alias: mrs
+    entrypoint: [uwsgi]
+    command:
+    - --env=DJANGO_SETTINGS_MODULE=mrs.settings
+    - --env=DEBUG=1
+    - --env=LOG=log
+    - --spooler=/spooler/stat
+    - --spooler=/spooler/mail
+    - --spooler-processes 1
+    - --http=:8000
+    - --plugin=python
+    - --module=mrs.wsgi:application
+  script:
+  - until curl mrs:8000 &> /dev/null; do sleep 1; done
+  - node_modules/.bin/jest src/mrs/static/js/smoke.test.js
