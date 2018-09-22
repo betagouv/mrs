@@ -75,6 +75,7 @@ smoke:
 
 deploy_jpic:
   stage: deploy
+  image: jpic/ansible
   script:
   - echo $SSH_PRIVKEY > ~/.ssh/id_rsa
   - ./.circleci/deploy.sh

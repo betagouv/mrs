@@ -1,16 +1,15 @@
 #!/bin/bash -eux
-pip install --user ansible
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
 for host in $KEYSCAN_HOSTS; do
     ssh-keyscan $host  >> ~/.ssh/known_hosts
 done
 chmod 600 ~/.ssh/known_hosts
 
-if [ ! -d ~/.local/infra ]; then
-    git clone --recursive $INFRA_REPOSITORY ~/.local/infra
-    cd ~/.local/infra
+if [ ! -d .infra ]; then
+    git clone --recursive $INFRA_REPOSITORY ~/.infra
+    cd ~/.infra
 else
-    cd ~/.local/infra
+    cd ~/.infra
     git fetch
     git reset --hard origin/master
     git submodule update --init
@@ -23,7 +22,7 @@ set -x
 
 export ANSIBLE_VAULT_PASSWORD_FILE=.vault
 export ANSIBLE_STDOUT_CALLBACK=debug
-~/.local/bin/ansible-playbook \
+ansible-playbook \
     --tags update \
     --user deploy \
     --inventory inventory.yml \
