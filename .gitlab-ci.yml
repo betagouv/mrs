@@ -15,29 +15,29 @@ py-test:
   stage: test
   image: python:3.7
   script:
+  - pip install tox
   - tox -e py37-dj21
 
 docs-qa:
   stage: test
   image: python:3.7
   script:
+  - pip install tox
   - tox -e docs
 
 js-qa:
   stage: test
   image: node:10
   script:
-  - set -eux
-    yarn install
-    yarn run lint
+  - yarn install
+  - yarn run lint
 
 js-test:
   stage: test
   image: node:10
   script:
-  - set -eux
-    yarn install
-    yarn test
+  - yarn install
+  - yarn run test
 
 docker-build:
   stage: build
