@@ -55,7 +55,9 @@ docker-build:
   stage: test
   image: docker:dind
   script:
-  - docker build -t mrs-test .
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+  - docker build -t betagouv/mrs:$CI_COMMIT_SHA .
+  - docker push betagouv/mrs:$CI_COMMIT_SHA
 
 smoke:
   stage: smoke
