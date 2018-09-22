@@ -62,10 +62,7 @@ docker-build:
 
 smoke:
   stage: smoke
-  image: mrs-test
-  variables:
-    DB_HOST: $POSTGRES_PORT_5432_TCP_ADDR
-    DB_USER: postgres
+  image: betagouv/mrs:$CI_COMMIT_SHA
   services:
   - postgres:10
   - name: mrs-test
@@ -75,6 +72,8 @@ smoke:
     - --env=DJANGO_SETTINGS_MODULE=mrs.settings
     - --env=DEBUG=1
     - --env=LOG=log
+    - --env=DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
+    - --env=DB_USER=postgres
     - --spooler=/spooler/stat
     - --spooler=/spooler/mail
     - --spooler-processes 1
