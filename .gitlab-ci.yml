@@ -1,6 +1,51 @@
+stages:
+- test
+- build
+- smoke
+- deploy
+
 py-qa:
+  stage: test
   image: python:3.7
   script:
   - set -eux
     pip install tox
     tox -e qa
+
+py-test:
+  stage: test
+  image: python:3.7
+  script:
+  - set -eux
+    pip install tox
+    tox -e py37-dj21
+
+docs-qa:
+  stage: test
+  image: python:3.7
+  script:
+  - set -eux
+    pip install tox
+    tox -e docs
+
+js-qa:
+  stage: test
+  image: node:10
+  script:
+  - set -eux
+    yarn install
+    yarn run lint
+
+js-test:
+  stage: test
+  image: node:10
+  script:
+  - set -eux
+    yarn install
+    yarn test
+
+docker-build:
+  stage: build
+  image: docker:dind
+  script:
+  - docker build -t mrs-test .
