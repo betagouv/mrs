@@ -11,6 +11,7 @@ py-qa:
     key: ${CI_COMMIT_REF_SLUG}-qa
     paths: [~/.cache/pip, ~/.local]
   script:
+  - find ~/.cache
   - pip install tox
   - tox -e qa
   - find / -name '*.whl'
