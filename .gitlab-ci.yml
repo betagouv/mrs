@@ -11,8 +11,11 @@ py-qa:
     key: ${CI_COMMIT_REF_SLUG}-qa
     paths: [~/.cache/pip, ~/.local]
   script:
+  - find ~/.cache
   - pip install tox
+  - find ~/.cache
   - tox -e qa
+  - find ~/.cache
 
 py-test:
   stage: test
