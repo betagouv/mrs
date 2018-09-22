@@ -62,16 +62,16 @@ docker-build:
   - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
   - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
 
-smoke:
-  stage: smoke
-  image: betagouv/mrs:$CI_COMMIT_SHA
-  script:
-  - export HOST=localhost:8000
-  - DEBUG=1 mrs migrate
-  - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://$HOST")' | DEBUG=1 mrs shell
-  - cd /code && DEBUG=1 mrs runserver $HOST &
-  - until curl $HOST; do sleep 1; done
-  - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+# smoke:
+#   stage: smoke
+#   image: betagouv/mrs:$CI_COMMIT_SHA
+#   script:
+#   - export HOST=localhost:8000
+#   - DEBUG=1 mrs migrate
+#   - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://$HOST")' | DEBUG=1 mrs shell
+#   - cd /code && DEBUG=1 mrs runserver $HOST &
+#   - until curl $HOST; do sleep 1; done
+#   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
 deploy:
   stage: deploy
