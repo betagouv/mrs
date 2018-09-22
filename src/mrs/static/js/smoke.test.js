@@ -6,9 +6,11 @@ const { JSDOM } = jsdom
 
 var display = (dom, selector) => dom.window.document.querySelector(selector).style.display
 
+var HOST = process.env.HOST || 'localhost'
+
 function fetch(url) {
   return JSDOM.fromURL(
-    'http://localhost:8000' + url,
+    'http://' + HOST + ':8000' + url,
     {
       resources: 'usable',
       runScripts:'dangerously'

@@ -70,7 +70,7 @@ smoke:
   - name: betagouv/mrs:$CI_COMMIT_SHA
     alias: mrs
     entrypoint: [mrs]
-    command: [runserver, ':8000']
+    command: [runserver, '0:6789']
 # if using uwsgi:
 #    - --env=DJANGO_SETTINGS_MODULE=mrs.settings
 #    - --env=ALLOWED_HOSTS=localhost
@@ -88,9 +88,11 @@ smoke:
     ALLOWED_HOSTS: localhost
     SECRET_KEY: itsnotsecret
   script:
+  - export HOST=$BETAGOUV_MRS_PORT_6789_TCP_ADDR
   - mrs migrate
   - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://localhost:8000")' | mrs shell
-  - until curl mrs:8000 &> /dev/null; do sleep 1; done
+  - sh -c 'env | grep MRS'
+  - until curl $HOST:8000 &> /dev/null; do sleep 1; done
   - node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
 deploy_staging:
