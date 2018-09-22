@@ -1,8 +1,7 @@
 stages:
 - test
+- smoke
 - deploy
-
-#- smoke
 
 .tox: &tox
   stage: test
@@ -74,8 +73,3 @@ smoke:
   - cd /code && DEBUG=1 mrs runserver $HOST &
   - until curl $HOST; do sleep 1; done
   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
-
-deploystaging:
-  stage: deploy
-  script:
-  - ./.circleci/deploy.sh
