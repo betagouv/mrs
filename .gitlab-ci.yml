@@ -20,9 +20,12 @@ py-test:
   cache:
     key: ${CI_COMMIT_REF_SLUG}-django
     paths: [.tox]
+  services:
+  - postgres:10
   script:
   - pip install tox
-  - tox -e py37-dj21
+  - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
+    tox -e py37-dj21
 
 docs-qa:
   stage: test
