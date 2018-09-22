@@ -119,11 +119,13 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
         'USER': os.getenv('DB_USER', None),
         'PASSWORD': os.getenv('DB_PASSWORD', None),
-        'HOST': os.getenv('DB_HOST', None),
+        'HOST': os.getenv(
+            'DB_HOST',
+            os.getenv('POSTGRES_PORT_5432_TCP_ADDR', None)
+        ),
         'PORT': os.getenv('DB_PORT', None),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

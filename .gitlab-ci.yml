@@ -1,0 +1,152 @@
+stages:
+- test
+- release
+- staging
+- ecole
+- production
+
+.tox: &tox
+  stage: test
+  image: jpic/tox
+  before_script:
+  - tar -xzf .gitlab-cache.tar.gz -C / || true
+  after_script:
+  - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
+
+.deploy: &deploy
+  stage: staging
+  image: jpic/ansible
+  script:
+  - bash -eux .circleci/deploy.sh
+
+docker:
+  stage: test
+  image: docker:dind
+  before_script:
+  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+  script:
+  - docker build -t betagouv/mrs:$CI_COMMIT_SHA --build-arg GIT_COMMIT=$CI_COMMIT_SHA .
+  - docker push betagouv/mrs:$CI_COMMIT_SHA
+  - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
+  - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
+
+py-qa:
+  <<: *tox
+  cache:
+    paths: [.gitlab-cache.tar.gz]
+    key: ${CI_COMMIT_REF_SLUG}-qa
+  script: tox -e qa
+
+py-test:
+  <<: *tox
+  cache:
+    paths: [.gitlab-cache.tar.gz]
+    key: ${CI_COMMIT_REF_SLUG}-django
+  services:
+  - postgres:10
+  script:
+  - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
+    DB_USER=postgres
+    tox --sitepackages -e py36-dj21 -- -x
+  - PATH=.tox/py36-dj21/bin:$PATH
+    codecov --token $CODECOV_TOKEN
+    -e $TOXENV
+
+js-qa:
+  stage: test
+  image: node:10
+  script:
+  - yarn install
+  - yarn run lint
+
+js-test:
+  stage: test
+  image: node:10
+  script:
+  - yarn install
+  - yarn run test
+  - npm install -g codecov
+  - codecov
+    --token $CODECOV_TOKEN
+    -e $TOXENV
+
+docs-qa:
+  <<: *tox
+  cache:
+    paths: [.gitlab-cache.tar.gz]
+    key: ${CI_COMMIT_REF_SLUG}-docs
+  script: tox -e docs
+
+smoke:
+  stage: release
+  image: betagouv/mrs:$CI_COMMIT_SHA
+  script:
+  - export HOST=localhost:8000
+  - DEBUG=1 mrs migrate
+  - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://$HOST")' | DEBUG=1 mrs shell
+  - cd /code && DEBUG=1 mrs runserver $HOST &
+  - until curl $HOST; do sleep 1; done
+  - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+
+sentry-release-dev:
+  stage: release
+  image: betagouv/mrs:$CI_COMMIT_SHA
+  except:
+    refs: [master]
+  variables:
+    SENTRY_PROJECT: mrs-dev
+  script:
+  - env
+  - /code/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
+  - /code/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
+  - cd /code && yarn prepare
+
+sentry-release-production:
+  stage: release
+  image: betagouv/mrs:$CI_COMMIT_SHA
+  only:
+    refs: [master]
+  script: cd /code && SENTRY_PROJECT=mrs-production yarn prepare
+
+jpic:
+  <<: *deploy
+  only:
+    refs: [jpic]
+  environment:
+    name: jpic
+    url: https://jpic.mrs.yourlabs.org
+
+tbinetruy:
+  <<: *deploy
+  only:
+    refs: [tbinetruy]
+  environment:
+    name: tbinetruy
+    url: https://tbinetruy.mrs.yourlabs.org
+
+staging:
+  <<: *deploy
+  only:
+    refs: [master]
+  environment:
+    name: staging
+    url: https://staging.mrs.beta.gouv.fr
+
+ecole:
+  <<: *deploy
+  stage: ecole
+  only:
+    refs: [master]
+  environment:
+    name: staging
+    url: https://ecole.mrs.beta.gouv.fr
+
+production:
+  <<: *deploy
+  stage: production
+  when: manual
+  only:
+    refs: [master]
+  environment:
+    name: staging
+    url: https://staging.mrs.beta.gouv.fr
