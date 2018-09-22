@@ -78,6 +78,3 @@ deploy_staging:
   stage: deploy
   script:
   - ./.circleci/deploy.sh
-  environment:
-    name: staging
-    url: https://staging.mrs.beta.gouv.fr
