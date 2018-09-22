@@ -70,7 +70,7 @@ smoke:
   - name: betagouv/mrs:$CI_COMMIT_SHA
     alias: mrs
     entrypoint: [mrs]
-    command: [runserver, :8000]
+    command: [runserver, ':8000']
 # if using uwsgi:
 #    - --env=DJANGO_SETTINGS_MODULE=mrs.settings
 #    - --env=ALLOWED_HOSTS=localhost
