@@ -1,4 +1,4 @@
-stages:
+tages:
 - test
 - build
 - smoke
