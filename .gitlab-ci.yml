@@ -1,6 +1,5 @@
 stages:
 - test
-- smoke
 - deploy
 
 .tox: &tox
