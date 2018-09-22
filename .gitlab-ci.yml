@@ -38,22 +38,22 @@ docs-qa:
     key: ${CI_COMMIT_REF_SLUG}-docs
   script: tox -e docs
 
- js-qa:
-   stage: test
-   image: node:10
-   script:
-   - yarn install
-   - yarn run lint
+js-qa:
+  stage: test
+  image: node:10
+  script:
+  - yarn install
+  - yarn run lint
 
- js-test:
-   stage: test
-   image: node:10
-   script:
-   - yarn install
-   - yarn run test
+js-test:
+  stage: test
+  image: node:10
+  script:
+  - yarn install
+  - yarn run test
 
- docker-build:
-   stage: build
-   image: docker:dind
-   script:
-   - docker build -t mrs-test .
+docker-build:
+  stage: build
+  image: docker:dind
+  script:
+  - docker build -t mrs-test .
