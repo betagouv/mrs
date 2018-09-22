@@ -67,7 +67,7 @@ smoke:
   image: betagouv/mrs:$CI_COMMIT_SHA
   services:
   - postgres:10
-  - name: mrs-test
+  - name: betagouv/mrs:$CI_COMMIT_SHA
     alias: mrs
     entrypoint: [uwsgi]
     command:
@@ -90,7 +90,7 @@ deploy_staging:
   stage: deploy
   script:
   - echo $SSH_PRIVKEY > ~/.ssh/id_rsa
-  - git clone --recursive git@git.yourlabs.org:betagouv/mrs/playbooks.git
+  - ./.circleci/deploy.sh
   environment:
     name: staging
     url: https://staging.example.com
