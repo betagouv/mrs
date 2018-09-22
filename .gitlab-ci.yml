@@ -9,7 +9,7 @@ stages:
   image: python:3-alpine
   before_script:
   - tar -xzf .gitlab-cache.tar.gz -C / || true
-  - pip install --upgrade --user tox
+  - pip install --upgrade tox
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip || true
 
@@ -18,31 +18,26 @@ py-qa:
   cache:
     paths: [.gitlab-cache.tar.gz]
     key: ${CI_COMMIT_REF_SLUG}-qa
-  script: ~/.local/bin/tox -e qa
+  script: tox -e qa
 
 py-test:
-  stage: test
-  image: python:3-alpine
+  <<: *tox
   cache:
+    paths: [.gitlab-cache.tar.gz]
     key: ${CI_COMMIT_REF_SLUG}-django
-    paths: [~/.cache/pip, ~/.local]
   services:
   - postgres:10
   script:
   - apk add py3-psycopg2
-  - pip install --user tox
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
-    ~/.local/bin/tox -e py37-dj21
+    tox -e py37-dj21
 
 docs-qa:
-  stage: test
-  image: python:3-alpine
+  <<: *tox
   cache:
+    paths: [.gitlab-cache.tar.gz]
     key: ${CI_COMMIT_REF_SLUG}-docs
-    paths: [~/.cache/pip, ~/.local]
-  script:
-  - pip install tox
-  - tox -e docs
+  script: tox -e docs
 #
 # js-qa:
 #   stage: test
