@@ -1,7 +1,7 @@
 stages:
 - test
-#- smoke
 - deploy
+#- smoke
 
 .tox: &tox
   stage: test
