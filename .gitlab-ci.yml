@@ -78,7 +78,7 @@ smoke:
     - --env=DB_USER=postgres
     - --spooler=/spooler/stat
     - --spooler=/spooler/mail
-    - --spooler-processes 1
+    - --spooler-processes=1
     - --http=:8000
     - --plugin=python
     - --module=mrs.wsgi:application
