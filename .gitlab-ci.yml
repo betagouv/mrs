@@ -30,6 +30,7 @@ py-test:
   script:
   - apk add py3-psycopg2
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
+    echo import psycopg |python;
     tox -e py37-dj21
 
 docs-qa:
