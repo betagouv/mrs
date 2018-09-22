@@ -65,40 +65,11 @@ docker-build:
 smoke:
   stage: smoke
   image: betagouv/mrs:$CI_COMMIT_SHA
-  services:
-  - postgres:10
-  - name: betagouv/mrs:$CI_COMMIT_SHA
-    alias: mrs
-#    entrypoint: [sh]
-#    command:
-#    - "-c"
-#    - "ALLOWED_HOSTS='*' SECRET_KEY=itsnotsecret mrs runserver 0:6789"
-    entrypoint: [uwsgi]
-# if using uwsgi:
-    command:
-    - --env=DJANGO_SETTINGS_MODULE=mrs.settings
-    - --env=ALLOWED_HOSTS=localhost
-    - --env=SECRET_KEY=itsnotsecret
-    - --env=LOG=log
-    - --env=DB_HOST=postgres
-    - --env=DB_NAME=postgres
-    - --env=DB_USER=postgres
-    - --env=DB_ENGINE=django.db.backends.postgresql
-    - --env=DEBUG=1
-    - --spooler=/spooler/stat
-    - --spooler=/spooler/mail
-    - --spooler-processes=1
-    - --http-socket=:6789
-    - --plugin=python3
-    - --module=mrs.wsgi:application
   script:
-  - export HOST=http://$BETAGOUV_MRS_PORT_6789_TCP_ADDR:6789
-  - export DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
-  - export DB_USER=postgres
-  - export DB_NAME=postgres
-  - export DB_ENGINE=django.db.backends.postgresql
+  - export HOST=localhost:8000
   - DEBUG=1 mrs migrate
-  - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="$HOST")' | DEBUG=1 mrs shell
+  - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://$HOST")' | DEBUG=1 mrs shell
+  - DEBUG=1 mrs runserver $HOST &
   - until curl $HOST; do sleep 1; done
   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 

@@ -27,7 +27,7 @@ export ANSIBLE_STDOUT_CALLBACK=debug
     --tags update \
     --user deploy \
     --inventory inventory.yml \
-    -e image=betagouv/mrs:$CIRCLE_SHA1 \
+    -e image=betagouv/mrs:$CI_COMMIT_SHA \
     -e prefix=mrs \
-    -e instance=$CIRCLE_STAGE \
+    -e instance=$CI_ENVIRONMENT_SLUG \
     -v playbooks/django.yml
