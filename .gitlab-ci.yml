@@ -13,7 +13,7 @@ py-qa:
   script:
   - pip install tox
   - tox -e qa
-  - find / -type d | grep cache
+  - find / -name '*.whl'
 #
 # py-test:
 #   stage: test
