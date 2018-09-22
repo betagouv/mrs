@@ -6,7 +6,7 @@ stages:
 
 .tox: &tox
   stage: test
-  image: python:3-alpine
+  image: python:3.6-alpine
   before_script:
   - tar -xzf .gitlab-cache.tar.gz -C / || true
   - pip install --upgrade --user tox && ln -sfn ~/.local/bin/tox /bin/tox
