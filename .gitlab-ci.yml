@@ -1,6 +1,6 @@
 stages:
 - test
-- smoke
+#- smoke
 - deploy
 
 .tox: &tox
@@ -73,6 +73,15 @@ smoke:
   - until curl $HOST; do sleep 1; done
   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
+deploy_jpic:
+  stage: deploy
+  script:
+  - echo $SSH_PRIVKEY > ~/.ssh/id_rsa
+  - ./.circleci/deploy.sh
+  environment:
+    name: jpic
+    url: https://jpic.mrs.yourlabs.org
+
 deploy_staging:
   stage: deploy
   script:
@@ -80,6 +89,6 @@ deploy_staging:
   - ./.circleci/deploy.sh
   environment:
     name: staging
-    url: https://staging.example.com
+    url: https://staging.mrs.beta.gouv.fr
   only:
   - master
