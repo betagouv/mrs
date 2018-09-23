@@ -19,46 +19,46 @@ stages:
   script:
   - bash -eux .circleci/deploy.sh
 
-#
-# py-qa:
-#   <<: *tox
-#   cache:
-#     paths: [.gitlab-cache.tar.gz]
-#     key: ${CI_COMMIT_REF_SLUG}-qa
-#   script: tox -e qa
-#
-# py-test:
-#   <<: *tox
-#   cache:
-#     paths: [.gitlab-cache.tar.gz]
-#     key: ${CI_COMMIT_REF_SLUG}-django
-#   services:
-#   - postgres:10
-#   script:
-#   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
-#     DB_USER=postgres
-#     tox --sitepackages -e py36-dj21 -- -x
-#
-# docs-qa:
-#   <<: *tox
-#   cache:
-#     paths: [.gitlab-cache.tar.gz]
-#     key: ${CI_COMMIT_REF_SLUG}-docs
-#   script: tox -e docs
-#
-# js-qa:
-#   stage: test
-#   image: node:10
-#   script:
-#   - yarn install
-#   - yarn run lint
-#
-# js-test:
-#   stage: test
-#   image: node:10
-#   script:
-#   - yarn install
-#   - yarn run test
+
+py-qa:
+  <<: *tox
+  cache:
+    paths: [.gitlab-cache.tar.gz]
+    key: ${CI_COMMIT_REF_SLUG}-qa
+  script: tox -e qa
+
+py-test:
+  <<: *tox
+  cache:
+    paths: [.gitlab-cache.tar.gz]
+    key: ${CI_COMMIT_REF_SLUG}-django
+  services:
+  - postgres:10
+  script:
+  - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
+    DB_USER=postgres
+    tox --sitepackages -e py36-dj21 -- -x
+
+docs-qa:
+  <<: *tox
+  cache:
+    paths: [.gitlab-cache.tar.gz]
+    key: ${CI_COMMIT_REF_SLUG}-docs
+  script: tox -e docs
+
+js-qa:
+  stage: test
+  image: node:10
+  script:
+  - yarn install
+  - yarn run lint
+
+js-test:
+  stage: test
+  image: node:10
+  script:
+  - yarn install
+  - yarn run test
 
 docker:
   stage: test
@@ -71,16 +71,16 @@ docker:
   - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
   - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
 
-# smoke:
-#   stage: smoke
-#   image: betagouv/mrs:$CI_COMMIT_SHA
-#   script:
-#   - export HOST=localhost:8000
-#   - DEBUG=1 mrs migrate
-#   - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://$HOST")' | DEBUG=1 mrs shell
-#   - cd /code && DEBUG=1 mrs runserver $HOST &
-#   - until curl $HOST; do sleep 1; done
-#   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+smoke:
+  stage: staging
+  image: betagouv/mrs:$CI_COMMIT_SHA
+  script:
+  - export HOST=localhost:8000
+  - DEBUG=1 mrs migrate
+  - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://$HOST")' | DEBUG=1 mrs shell
+  - cd /code && DEBUG=1 mrs runserver $HOST &
+  - until curl $HOST; do sleep 1; done
+  - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
 sentry-release-dev:
   stage: release
@@ -105,7 +105,7 @@ sentry-release-production:
 jpic:
   <<: *deploy
   only:
-    refs: [gitlab]
+    refs: [jpic]
   environment:
     name: jpic
     url: https://jpic.mrs.yourlabs.org
