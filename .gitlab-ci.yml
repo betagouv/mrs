@@ -1,5 +1,4 @@
 stages:
-- test
 - deploy
 
 .tox: &tox
@@ -51,16 +50,16 @@ stages:
 #   - yarn install
 #   - yarn run test
 
-docker-build:
-  stage: test
-  image: docker:dind
-  before_script:
-  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-  script:
-  - docker build -t betagouv/mrs:$CI_COMMIT_SHA .
-  - docker push betagouv/mrs:$CI_COMMIT_SHA
-  - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
-  - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
+#docker-build:
+#  stage: test
+#  image: docker:dind
+#  before_script:
+#  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+#  script:
+#  - docker build -t betagouv/mrs:$CI_COMMIT_SHA .
+#  - docker push betagouv/mrs:$CI_COMMIT_SHA
+#  - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
+#  - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
 
 # smoke:
 #   stage: smoke
