@@ -1,6 +1,5 @@
 #!/bin/bash -eux
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
-echo $SSH_PRIVKEY > ~/.ssh/id_rsa
 for host in $KEYSCAN_HOSTS; do
     ssh-keyscan $host  >> ~/.ssh/known_hosts
 done
@@ -18,6 +17,7 @@ fi
 git status
 
 set +x  # silence password from output
+echo $SSH_PRIVKEY > ~/.ssh/id_rsa
 echo $VAULT_PASSWORD > .vault
 set -x
 
@@ -27,7 +27,7 @@ ansible-playbook \
     --tags update \
     --user deploy \
     --inventory inventory.yml \
-    -e image=betagouv/mrs:$CI_COMMIT_SHA \
+    -e image=betagouv/mrs:gitlab \
     -e prefix=mrs \
     -e instance=$CI_ENVIRONMENT_SLUG \
     -v playbooks/django.yml
