@@ -80,6 +80,6 @@ jpic:
     name: jpic
     url: https://jpic.mrs.yourlabs.org
   script:
-  - bash -eux .circleci/deploy.sh &> /dev/null
+  - bash -eux .circleci/deploy.sh
   only:
     refs: [gitlab]
