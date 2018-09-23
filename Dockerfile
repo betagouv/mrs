@@ -15,7 +15,7 @@ RUN mkdir -p /code/log
 
 RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl
 
-RUN deluser node && usermod -U -d /code -u 1000 uwsgi && groupmod -g 1000 uwsgi
+RUN deluser node && usermod -U -s /bin/bash -d /code -u 1000 uwsgi && groupmod -g 1000 uwsgi
 WORKDIR /code
 
 COPY yarn.lock .babelrc package.json /code/
