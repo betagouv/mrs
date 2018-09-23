@@ -1,5 +1,4 @@
 #!/bin/bash -eux
-
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
 for host in $KEYSCAN_HOSTS; do
     ssh-keyscan $host  >> ~/.ssh/known_hosts
@@ -23,12 +22,11 @@ done
 
 export ANSIBLE_VAULT_PASSWORD_FILE=.vault
 export ANSIBLE_STDOUT_CALLBACK=debug
-ls -la
 ansible-playbook \
     --tags update \
     --user deploy \
     --inventory inventory/inventory.yml \
-    -e image=betagouv/mrs:gitlab \
+    -e image=betagouv/mrs:$CI_COMMIT_SHA \
     -e prefix=mrs \
     -e instance=$CI_ENVIRONMENT_SLUG \
     -v playbooks/django.yml
