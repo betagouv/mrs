@@ -92,6 +92,7 @@ sentry-release-dev:
   script:
   - /code/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
   - /code/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
+  - env
   - cd /code && yarn prepare
 
 sentry-release-production:
