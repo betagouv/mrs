@@ -9,8 +9,6 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE mrs.settings
 ENV VIRTUAL_PROTO uwsgi
 ENV NODE_ENV production
-ARG GIT_COMMIT
-ENV GIT_COMMIT ${GIT_COMMIT}
 RUN mkdir -p ${STATIC_ROOT}
 RUN mkdir -p /spooler/{mail,stat}
 RUN mkdir -p /code/log
@@ -34,12 +32,13 @@ ADD setup.py /code/
 ADD src /code/src
 RUN pip3 install --editable /code
 
-ADD .git /code/.git
-
 # Use DEBUG here to inhibate security checks in settings for this command
 RUN DEBUG=1 mrs collectstatic --noinput --clear
 
 EXPOSE 6789
+
+ARG GIT_COMMIT
+ENV GIT_COMMIT ${GIT_COMMIT}
 
 CMD /usr/bin/dumb-init uwsgi \
   --spooler=/spooler/mail \
