@@ -87,10 +87,12 @@ sentry-release-dev:
   image: betagouv/mrs:$CI_COMMIT_SHA
   except:
     refs: [master]
+  variables:
+    SENTRY_PROJECT: mrs-dev
   script:
   - /code/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
   - /code/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
-  - cd /code && SENTRY_PROJECT=mrs-dev yarn prepare
+  - cd /code && yarn prepare
 
 sentry-release-production:
   stage: release
