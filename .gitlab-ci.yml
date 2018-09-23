@@ -1,7 +1,9 @@
 stages:
 - test
 - release
-- deploy
+- staging
+- ecole
+- production
 
 .tox: &tox
   stage: test
@@ -12,7 +14,7 @@ stages:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
 
 .deploy: &deploy
-  stage: deploy
+  stage: staging
   image: jpic/ansible
   script:
   - bash -eux .circleci/deploy.sh
@@ -105,7 +107,7 @@ jpic:
 tbinetruy:
   <<: *deploy
   only:
-    refs: [gitlab]
+    refs: [tbinetruy]
   environment:
     name: tbinetruy
     url: https://tbinetruy.mrs.yourlabs.org
@@ -113,7 +115,26 @@ tbinetruy:
 staging:
   <<: *deploy
   only:
-    refs: [gitlab]
+    refs: [master]
+  environment:
+    name: staging
+    url: https://staging.mrs.beta.gouv.fr
+
+ecole:
+  <<: *deploy
+  stage: ecole
+  only:
+    refs: [master]
+  environment:
+    name: staging
+    url: https://ecole.mrs.beta.gouv.fr
+
+production:
+  <<: *deploy
+  stage: production
+  when: manual
+  only:
+    refs: [master]
   environment:
     name: staging
     url: https://staging.mrs.beta.gouv.fr
