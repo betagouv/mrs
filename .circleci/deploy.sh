@@ -14,7 +14,7 @@ chmod 600 ~/.ssh/*
 mkdir -p .infra && cd .infra
 for i in playbooks inventory; do
     if [ ! -d $i ]; then
-        git clone $INFRA_REPOSITORIES${i}.git &
+        git clone $INFRA_REPOSITORIES${i}.git
     else
         pushd $i
         git fetch
