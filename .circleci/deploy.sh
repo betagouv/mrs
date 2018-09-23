@@ -8,10 +8,7 @@ set +x  # silence password from output
 echo $VAULT_PASSWORD > .vault
 echo "$SSH_PRIVKEY" > ~/.ssh/id_rsa
 set -x
-
 chmod 600 ~/.ssh/*
-
-mkdir -p .infra && cd .infra
 for i in playbooks inventory; do
     if [ ! -d $i ]; then
         git clone $INFRA_REPOSITORIES${i}.git
