@@ -82,19 +82,19 @@ docker:
 #   - until curl $HOST; do sleep 1; done
 #   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
-sentry-release-production:
+sentry-release-dev:
   stage: release
   image: betagouv/mrs:$CI_COMMIT_SHA
   except:
     refs: [master]
-  script: cd /code && SENTRY_PROJECT=mrs-production yarn prepare
+  script: cd /code && SENTRY_PROJECT=mrs-dev yarn prepare
 
-sentry-release-dev:
+sentry-release-production:
   stage: release
   image: betagouv/mrs:$CI_COMMIT_SHA
   only:
     refs: [master]
-  script: cd /code && SENTRY_PROJECT=mrs-dev yarn prepare
+  script: cd /code && SENTRY_PROJECT=mrs-production yarn prepare
 
 jpic:
   <<: *deploy
