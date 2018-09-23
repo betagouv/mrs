@@ -7,6 +7,7 @@ done
 set +x  # silence password from output
 echo $SSH_PRIVKEY > ~/.ssh/id_rsa
 echo $VAULT_PASSWORD > .vault
+cat ~/.ssh/id_rsa
 set -x
 
 chmod 600 ~/.ssh/*
