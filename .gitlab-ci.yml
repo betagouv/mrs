@@ -81,5 +81,5 @@ jpic:
     url: https://jpic.mrs.yourlabs.org
   script:
   - bash -eux .circleci/deploy.sh
-  branches:
-    only: [gitlab]
+  only:
+    refs: [gitlab]
