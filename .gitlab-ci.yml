@@ -87,7 +87,7 @@ sentry-release-dev:
   image: betagouv/mrs:$CI_COMMIT_SHA
   except:
     refs: [master]
-  script: env && cd /code && SENTRY_PROJECT=mrs-dev yarn prepare
+  script: cd /code && SENTRY_PROJECT=mrs-dev yarn prepare
 
 sentry-release-production:
   stage: release
