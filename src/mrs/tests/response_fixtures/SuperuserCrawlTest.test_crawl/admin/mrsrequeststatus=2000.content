@@ -207,10 +207,10 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/f5ac697c-d4cd-34d4-89bc-39d1f606dd05/update?_next=/admin/mrsrequest" title='Demande "201805020002": update'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/f5ac697c-d4cd-34d4-89bc-39d1f606dd05/update?_next=/admin/mrsrequest" title='Demande "201805020002": modifier'>
     <i class="orange-text material-icons">edit</i>
     
-    Update
+    Modifier
     
   </a>
         </li>
@@ -276,10 +276,10 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/c697cf5a-dc4d-434d-89bc-1f606d05d39d/update?_next=/admin/mrsrequest" title='Demande "201805020000": update'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/c697cf5a-dc4d-434d-89bc-1f606d05d39d/update?_next=/admin/mrsrequest" title='Demande "201805020000": modifier'>
     <i class="orange-text material-icons">edit</i>
     
-    Update
+    Modifier
     
   </a>
         </li>
@@ -345,10 +345,10 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679/update?_next=/admin/mrsrequest" title='Demande "201805010001": update'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679/update?_next=/admin/mrsrequest" title='Demande "201805010001": modifier'>
     <i class="orange-text material-icons">edit</i>
     
-    Update
+    Modifier
     
   </a>
         </li>

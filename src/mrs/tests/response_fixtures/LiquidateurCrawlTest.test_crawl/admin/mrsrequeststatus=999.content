@@ -186,10 +186,10 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae/update?_next=/admin/mrsrequest" title='Demande "201805010000": update'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae/update?_next=/admin/mrsrequest" title='Demande "201805010000": modifier'>
     <i class="orange-text material-icons">edit</i>
     
-    Update
+    Modifier
     
   </a>
         </li>
