@@ -90,9 +90,9 @@ sentry-release-dev:
   variables:
     SENTRY_PROJECT: mrs-dev
   script:
+  - env
   - /code/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
   - /code/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
-  - env
   - cd /code && yarn prepare
 
 sentry-release-production:
