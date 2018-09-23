@@ -1,4 +1,5 @@
 stages:
+- test
 - deploy
 
 .tox: &tox
@@ -50,16 +51,16 @@ stages:
 #   - yarn install
 #   - yarn run test
 
-#docker-build:
-#  stage: test
-#  image: docker:dind
-#  before_script:
-#  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-#  script:
-#  - docker build -t betagouv/mrs:$CI_COMMIT_SHA .
-#  - docker push betagouv/mrs:$CI_COMMIT_SHA
-#  - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
-#  - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
+docker:
+  stage: test
+  image: docker:dind
+  before_script:
+  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+  script:
+  - docker build -t betagouv/mrs:$CI_COMMIT_SHA .
+  - docker push betagouv/mrs:$CI_COMMIT_SHA
+  - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
+  - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
 
 # smoke:
 #   stage: smoke
@@ -72,7 +73,7 @@ stages:
 #   - until curl $HOST; do sleep 1; done
 #   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
-deploy:
+jpic:
   stage: deploy
   image: jpic/ansible
   environment:
@@ -80,3 +81,5 @@ deploy:
     url: https://jpic.mrs.yourlabs.org
   script:
   - bash -eux .circleci/deploy.sh
+  branches:
+    only: [gitlab]
