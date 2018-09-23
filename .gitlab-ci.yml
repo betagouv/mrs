@@ -88,8 +88,8 @@ sentry-release-dev:
   except:
     refs: [master]
   script:
-  - /code/node_module/.bin/sentry-cli releases new $CI_COMMIT_SHA
-  - /code/node_module/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
+  - /code/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
+  - /code/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
   - cd /code && SENTRY_PROJECT=mrs-dev yarn prepare
 
 sentry-release-production:
