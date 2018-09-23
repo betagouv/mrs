@@ -10,6 +10,12 @@ stages:
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
 
+.deploy: &deploy
+  stage: deploy
+  image: jpic/ansible
+  script:
+  - bash -eux .circleci/deploy.sh
+
 #
 # py-qa:
 #   <<: *tox
@@ -74,12 +80,25 @@ docker:
 #   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
 jpic:
-  stage: deploy
-  image: jpic/ansible
+  <<: *deploy
+  only:
+    refs: [gitlab]
   environment:
     name: jpic
     url: https://jpic.mrs.yourlabs.org
-  script:
-  - bash -eux .circleci/deploy.sh
+
+tbinetruy:
+  <<: *deploy
   only:
     refs: [gitlab]
+  environment:
+    name: tbinetruy
+    url: https://tbinetruy.mrs.yourlabs.org
+
+staging:
+  <<: *deploy
+  only:
+    refs: [gitlab]
+  environment:
+    name: staging
+    url: https://staging.mrs.beta.gouv.fr
