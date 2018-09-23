@@ -96,14 +96,14 @@ smoke:
   - until curl $HOST; do sleep 1; done
   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
-sentry-release-dev:
+sentry-dev:
   <<: *sentry
   variables:
     SENTRY_PROJECT: mrs-dev
   except:
     refs: [master]
 
-sentry-release-production:
+sentry-production:
   <<: *sentry
   variables:
     SENTRY_PROJECT: mrs-production
