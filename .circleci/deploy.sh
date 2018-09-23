@@ -25,6 +25,7 @@ done
 
 export ANSIBLE_VAULT_PASSWORD_FILE=.vault
 export ANSIBLE_STDOUT_CALLBACK=debug
+ls -la
 ansible-playbook \
     --tags update \
     --user deploy \
