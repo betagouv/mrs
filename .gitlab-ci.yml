@@ -1,5 +1,6 @@
 stages:
 - test
+- release
 - deploy
 
 .tox: &tox
@@ -78,6 +79,20 @@ docker:
 #   - cd /code && DEBUG=1 mrs runserver $HOST &
 #   - until curl $HOST; do sleep 1; done
 #   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+
+sentry-release-production:
+  stage: release
+  image: betagouv/mrs:$CI_COMMIT_SHA
+  except:
+    refs: [master]
+  script: SENTRY_PROJECT=mrs-production yarn prepare
+
+sentry-release-dev:
+  stage: release
+  image: betagouv/mrs:$CI_COMMIT_SHA
+  only:
+    refs: [master]
+  script: SENTRY_PROJECT=mrs-dev yarn prepare
 
 jpic:
   <<: *deploy
