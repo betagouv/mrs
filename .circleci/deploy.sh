@@ -5,30 +5,29 @@ for host in $KEYSCAN_HOSTS; do
 done
 
 set +x  # silence password from output
-echo $SSH_PRIVKEY > ~/.ssh/id_rsa
 echo $VAULT_PASSWORD > .vault
-cat ~/.ssh/id_rsa
 set -x
 
 chmod 600 ~/.ssh/*
 
-if [ ! -d .infra ]; then
-    git clone --recursive $INFRA_REPOSITORY ~/.infra
-    cd ~/.infra
-else
-    cd ~/.infra
-    git fetch
-    git reset --hard origin/master
-    git submodule update --init
-fi
-git status
+mkdir -p .infra && cd .infra
+for i in playbooks inventory; do
+    if [ ! -d $i ]; then
+        git clone $INFRA_REPOSITORIES/${i}.git &
+    else
+        pushd $i
+        git fetch
+        git reset --hard origin/master
+        popd
+    fi
+done
 
 export ANSIBLE_VAULT_PASSWORD_FILE=.vault
 export ANSIBLE_STDOUT_CALLBACK=debug
 ansible-playbook \
     --tags update \
     --user deploy \
-    --inventory inventory.yml \
+    --inventory inventory/inventory.yml \
     -e image=betagouv/mrs:gitlab \
     -e prefix=mrs \
     -e instance=$CI_ENVIRONMENT_SLUG \
