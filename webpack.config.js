@@ -86,10 +86,12 @@ if (production) {
 
 if (process.env.SENTRY_PROJECT) {
   cfg.plugins.push(new SentryCliPlugin({
-    include: 'src/mrs/static',
+    include: 'src/mrs/static/js',
+    urlPrefix: '~/static/js',
     ignoreFile: '.sentrycliignore',
     ignore: ['node_modules', 'webpack.config.js'],
     configFile: 'sentry.properties',
+    release: process.env.GIT_COMMIT,
   }))
 }
 
