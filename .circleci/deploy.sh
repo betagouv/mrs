@@ -1,9 +1,10 @@
 #!/bin/bash -eux
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
+echo $SSH_PRIVKEY > ~/.ssh/id_rsa
 for host in $KEYSCAN_HOSTS; do
     ssh-keyscan $host  >> ~/.ssh/known_hosts
 done
-chmod 600 ~/.ssh/known_hosts
+chmod 600 ~/.ssh/*
 
 if [ ! -d .infra ]; then
     git clone --recursive $INFRA_REPOSITORY ~/.infra

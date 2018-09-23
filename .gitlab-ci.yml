@@ -76,5 +76,8 @@ docker-build:
 deploy:
   stage: deploy
   image: jpic/ansible
+  environment:
+    name: jpic
+    url: https://jpic.mrs.yourlabs.org
   script:
-  - .circleci/deploy.sh
+  - bash -eux .circleci/deploy.sh
