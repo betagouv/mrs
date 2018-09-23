@@ -140,7 +140,7 @@ ecole:
   only:
     refs: [master]
   environment:
-    name: staging
+    name: ecole
     url: https://ecole.mrs.beta.gouv.fr
 
 production:
@@ -150,5 +150,5 @@ production:
   only:
     refs: [master]
   environment:
-    name: staging
-    url: https://staging.mrs.beta.gouv.fr
+    name: production
+    url: https://mrs.beta.gouv.fr
