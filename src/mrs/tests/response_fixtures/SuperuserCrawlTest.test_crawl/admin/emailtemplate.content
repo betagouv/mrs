@@ -93,10 +93,10 @@
                 
     
       
-        <a class="btn-floating red orange" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/emailtemplate/1/update?_next=/admin/emailtemplate" title="Modèle d'email &quot;pmt: manquante&quot;: update">
+        <a class="btn-floating red orange" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/emailtemplate/1/update?_next=/admin/emailtemplate" title="Modèle d'email &quot;pmt: manquante&quot;: modifier">
     <i class=" material-icons">edit</i>
     
-    Update
+    Modifier
     
   </a>
       

@@ -125,10 +125,10 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/update?_next=/admin/caisse" title='Caisse "aaaaaaa": update'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/1/update?_next=/admin/caisse" title='Caisse "aaaaaaa": modifier'>
     <i class="orange-text material-icons">edit</i>
     
-    Update
+    Modifier
     
   </a>
         </li>
@@ -184,10 +184,10 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/update?_next=/admin/caisse" title='Caisse "bbbb": update'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/2/update?_next=/admin/caisse" title='Caisse "bbbb": modifier'>
     <i class="orange-text material-icons">edit</i>
     
-    Update
+    Modifier
     
   </a>
         </li>
@@ -243,10 +243,10 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update?_next=/admin/caisse" title='Caisse "inactive": update'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update?_next=/admin/caisse" title='Caisse "inactive": modifier'>
     <i class="orange-text material-icons">edit</i>
     
-    Update
+    Modifier
     
   </a>
         </li>
