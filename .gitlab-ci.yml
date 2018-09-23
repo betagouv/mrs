@@ -5,6 +5,12 @@ stages:
 - ecole
 - production
 
+.deploy: &deploy
+  stage: staging
+  image: jpic/ansible
+  script:
+  - bash -eux .circleci/deploy.sh
+
 .tox: &tox
   stage: test
   image: jpic/tox
@@ -13,11 +19,13 @@ stages:
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
 
-.deploy: &deploy
-  stage: staging
-  image: jpic/ansible
+.sentry: &sentry
+  stage: release
+  image: betagouv/mrs:$CI_COMMIT_SHA
   script:
-  - bash -eux .circleci/deploy.sh
+  - /code/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
+  - /code/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
+  - cd /code && yarn prepare
 
 docker:
   stage: test
@@ -89,24 +97,18 @@ smoke:
   - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
 sentry-release-dev:
-  stage: release
-  image: betagouv/mrs:$CI_COMMIT_SHA
-  except:
-    refs: [master]
+  <<: *sentry
   variables:
     SENTRY_PROJECT: mrs-dev
-  script:
-  - env
-  - /code/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
-  - /code/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
-  - cd /code && yarn prepare
+  except:
+    refs: [master]
 
 sentry-release-production:
-  stage: release
-  image: betagouv/mrs:$CI_COMMIT_SHA
+  <<: *sentry
+  variables:
+    SENTRY_PROJECT: mrs-production
   only:
     refs: [master]
-  script: cd /code && SENTRY_PROJECT=mrs-production yarn prepare
 
 jpic:
   <<: *deploy
