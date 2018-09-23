@@ -1,4 +1,5 @@
 #!/bin/bash -eux
+
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
 for host in $KEYSCAN_HOSTS; do
     ssh-keyscan $host  >> ~/.ssh/known_hosts
