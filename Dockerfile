@@ -9,8 +9,12 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE mrs.settings
 ENV VIRTUAL_PROTO uwsgi
 ENV NODE_ENV production
+ENV UWSGI_SPOOLER_NAMES mail,stat
+ENV UWSGI_SPOOLER_MOUNT /spooler
+ENV PLAYLABS_PLUGINS django,uwsgi,postgres,sentry
+
 RUN mkdir -p ${STATIC_ROOT}
-RUN mkdir -p /spooler/{mail,stat}
+RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/{$UWSGI_SPOOLER_NAMES}
 RUN mkdir -p /code/log
 
 RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl
