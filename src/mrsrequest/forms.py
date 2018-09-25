@@ -46,9 +46,6 @@ class MRSRequestCreateForm(forms.ModelForm):
             ' / stationnement'
             ' </span>'
             ' / transport en commun'
-            ' - Les transports itératifs sont des transports'
-            ' / réguliers de distance identique (même lieu de'
-            ' / départ, même lieu d\'arrivée)'
         )
     )
 
@@ -226,10 +223,9 @@ class TransportIterativeForm(TransportForm):
         label='Avez-vous des transports itératifs à déclarer ?',
         widget=forms.CheckboxInput,
         required=False,
-        help_text='En cas de transports aller retour, ou de transports'
-                  ' itératifs, indiqué le nombre de km total'
-                  ' parcours cumulé. (ex.pour 2 trajets de 40 km,'
-                  ' indiquer 80 km)',
+        help_text=' Les transports itératifs sont des transports'
+                  ' / réguliers de distances identiques (même lieu de'
+                  ' / départ, même lieu d\'arrivée)',
     )
     iterative_number = forms.IntegerField(
         label='Combien de trajets itératifs ?',
