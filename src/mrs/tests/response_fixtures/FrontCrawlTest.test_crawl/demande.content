@@ -204,7 +204,7 @@
     <div class="checkbox-field col s12" id="id_iterative_show_container">
         <label>
         <input class="filled-in " id="id_iterative_show" name="iterative_show" type="checkbox"/><span for="id_iterative_show">Avez-vous des transports itératifs à déclarer ?</span></label>
-        <div class="help-block">En cas de transports aller retour, ou de transports itératifs, indiqué le nombre de km total parcours cumulé. (ex.pour 2 trajets de 40 km, indiquer 80 km)</div>
+        <div class="help-block">Les transports itératifs sont des transports / réguliers de distance identique (même lieu de / départ, même lieu d'arrivée)</div>
     </div>
 </div>
 
@@ -235,7 +235,7 @@
     <div class="input-field col s12 required" id="id_distance_container">
         <input id="id_distance" min="0" name="distance" type="number"/>
         <label for="id_distance">Distance (km)</label>
-        <div class="help-block">Total des kilomètres parcourus</div>
+        <div class="help-block">Total des kilomètres parcourus: en cas de transports aller retour, ou de transports itératifs indiquer le nombre total de km parcours. (ex.pour 2 trajets de 40 km, indiquer 80 km)</div>
     </div>
 </div>
 </div></div>
@@ -275,7 +275,7 @@
         <div class="file-path-wrapper">
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/bill/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
         </div>
-        <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement </span> / transport en commun - Les transports itératifs sont des transports / réguliers de distance identique (même lieu de / départ, même lieu d'arrivée)</div>
+        <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement </span> / transport en commun</div>
 
         <ul class="files">
             
