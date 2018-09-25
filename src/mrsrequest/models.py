@@ -246,7 +246,11 @@ class MRSRequest(models.Model):
     )
     distance = models.PositiveIntegerField(
         verbose_name='Distance (km)',
-        help_text='Total des kilomètres parcourus',
+        help_text='Total des kilomètres parcourus:'
+            'en cas de transports aller retour, ou '
+            'de transports itératifs, indiquer'
+            'le nombre total de km parcours.'
+            '(ex.pour 2 trajets de 40 km, indiquer 80 km)',
         null=True,
     )
     expense = models.DecimalField(
