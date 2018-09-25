@@ -224,7 +224,7 @@ class TransportIterativeForm(TransportForm):
         widget=forms.CheckboxInput,
         required=False,
         help_text=' Les transports itératifs sont des transports'
-                  ' / réguliers de distances identiques (même lieu de'
+                  ' / réguliers de distance identique (même lieu de'
                   ' / départ, même lieu d\'arrivée)',
     )
     iterative_number = forms.IntegerField(
