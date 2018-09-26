@@ -11,7 +11,7 @@ ENV VIRTUAL_PROTO uwsgi
 ENV NODE_ENV production
 ENV UWSGI_SPOOLER_NAMES mail,stat
 ENV UWSGI_SPOOLER_MOUNT /spooler
-ENV PLAYLABS_PLUGINS django,uwsgi,postgres,sentry
+ENV PLAYLABS_PLUGINS postgres,uwsgi,django,sentry
 
 RUN mkdir -p ${STATIC_ROOT}
 RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/{$UWSGI_SPOOLER_NAMES}
