@@ -220,13 +220,14 @@ if 'LETSENCRYPT_HOST' in os.environ:
     SITE_DOMAIN = os.environ.get('LETSENCRYPT_HOST').split(',')[0]
     BASE_URL = 'https://{}'.format(SITE_DOMAIN)
 
+LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
 if os.getenv('LOG'):
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
         'handlers': {
             'console': {
-                'level': 'DEBUG',
+                'level': LOG_LEVEL,
                 'class': 'logging.StreamHandler',
                 'formatter': 'simple'
             },
@@ -249,7 +250,7 @@ if os.getenv('LOG'):
                 'formatter': 'simple'
             },
             'file.debug': {
-                'level': 'DEBUG',
+                'level': LOG_LEVEL,
                 'class': 'logging.FileHandler',
                 'filename': os.path.join(
                     os.getenv('LOG'),
@@ -258,7 +259,7 @@ if os.getenv('LOG'):
                 'formatter': 'simple'
             },
             'file.djcall': {
-                'level': 'DEBUG',
+                'level': LOG_LEVEL,
                 'class': 'logging.FileHandler',
                 'filename': os.path.join(
                     os.getenv('LOG'),
@@ -266,11 +267,20 @@ if os.getenv('LOG'):
                 ),
             },
             'file.sql': {
-                'level': 'DEBUG',
+                'level': LOG_LEVEL,
                 'class': 'logging.FileHandler',
                 'filename': os.path.join(
                     os.getenv('LOG'),
                     'django.sql.log',
+                ),
+                'formatter': 'simple'
+            },
+            'file.request': {
+                'level': LOG_LEVEL,
+                'class': 'logging.FileHandler',
+                'filename': os.path.join(
+                    os.getenv('LOG'),
+                    'django.request.log',
                 ),
                 'formatter': 'simple'
             },
@@ -281,11 +291,18 @@ if os.getenv('LOG'):
             },
         },
         'loggers': {
+            'django.request': {
+                'handlers': [
+                    'file.request',
+                ],
+                'level': LOG_LEVEL,
+                'propagate': True,
+            },
             'django.sql': {
                 'handlers': [
                     'file.sql',
                 ],
-                'level': 'DEBUG',
+                'level': LOG_LEVEL,
                 'propagate': True,
             },
             'djcall': {
@@ -293,7 +310,7 @@ if os.getenv('LOG'):
                     'file.djcall',
                     'console'
                 ],
-                'level': 'DEBUG',
+                'level': LOG_LEVEL,
                 'propagate': True,
             },
         },
@@ -304,7 +321,7 @@ else:
         'disable_existing_loggers': False,
         'handlers': {
             'console': {
-                'level': 'DEBUG',
+                'level': LOG_LEVEL,
                 'class': 'logging.StreamHandler',
                 'formatter': 'simple'
             },
@@ -317,7 +334,7 @@ else:
         'loggers': {
             '*': {
                 'handlers': ['console'],
-                'level': 'DEBUG',
+                'level': LOG_LEVEL,
                 'propagate': True,
             },
         },
@@ -325,7 +342,7 @@ else:
     if not os.getenv('CI'):
         LOGGING['loggers']['djcall'] = {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': LOG_LEVEL,
             'propagate': True,
         }
 
