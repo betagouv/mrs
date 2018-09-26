@@ -9,9 +9,13 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE mrs.settings
 ENV VIRTUAL_PROTO uwsgi
 ENV NODE_ENV production
+ENV PLAYLABS_PLUGINS postgres,uwsgi,django,sentry
+ENV DOCKER_RUN uwsgi uwsgi/base.ini uwsgi/dev.ini
+ENV DOCKER_RUN_SECURE uwsgi uwsgi/base.ini uwsgi/production.ini
+ENV USER uwsgi
+ENV UWSGI_STATIC_MAP $STATIC_ROOT=$STATIC_URL
 ENV UWSGI_SPOOLER_NAMES mail,stat
 ENV UWSGI_SPOOLER_MOUNT /spooler
-ENV PLAYLABS_PLUGINS postgres,uwsgi,django,sentry
 
 RUN mkdir -p ${STATIC_ROOT}
 RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/{$UWSGI_SPOOLER_NAMES}
@@ -44,29 +48,4 @@ EXPOSE 6789
 ARG GIT_COMMIT
 ENV GIT_COMMIT ${GIT_COMMIT}
 
-CMD /usr/bin/dumb-init uwsgi \
-  --spooler=/spooler/mail \
-  --spooler=/spooler/stat \
-  --spooler-processes 8 \
-  --socket=0.0.0.0:6789 \
-  --chdir=/code \
-  --plugin=python3,http \
-  --module=mrs.wsgi:application \
-  --http-keepalive \
-  --harakiri=120 \
-  --uid=$(id -u uwsgi) \
-  --gid=$(id -g uwsgi) \
-  --max-requests=100 \
-  --master \
-  --workers=24 \
-  --processes=12 \
-  --chmod=666 \
-  --log-5xx \
-  --vacuum \
-  --enable-threads \
-  --reload-os-env \
-  --post-buffering=8192 \
-  --ignore-sigpipe \
-  --ignore-write-errors \
-  --disable-write-exception \
-  --static-map $STATIC_ROOT=$STATIC_URL
+CMD /usr/bin/dumb-init su $USER -c $DOCKER_RUN
