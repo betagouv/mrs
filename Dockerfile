@@ -14,7 +14,7 @@ ENV UWSGI_SPOOLER_MOUNT /spooler
 ENV PLAYLABS_PLUGINS postgres,uwsgi,django,sentry
 
 RUN mkdir -p ${STATIC_ROOT}
-RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/{$UWSGI_SPOOLER_NAMES}
+RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}
 RUN mkdir -p /code/log
 
 RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl
