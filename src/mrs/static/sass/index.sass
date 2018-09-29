@@ -2,9 +2,25 @@
 @import './vars.sass'
 
 #control--wrapper
-  position: relative
-  height: 0
-  padding: 0 10%
+    border-left: 0
+
+    .thumb
+      background-color: rgba(0, 0, 0, 0)
+      border: 1px solid $secondary-blue
+      border-left: 0
+      padding-left: $desktop-page-margin-left
+      width: 80vw
+      align-items: center
+      transform: translateY(-7rem)
+      padding-right: 1rem
+
+      @media screen and (min-width: $desktop-min-width)
+        width: calc(#{$desktop-page-margin-left} + 50rem)
+        max-width: 100rem
+        height: 5rem
+
+      p
+        margin: 0
 
 #control
   transform: translateY(-100%)
@@ -379,7 +395,7 @@
 
     background-color: $primary-blue
     padding-top: 6rem
-    padding-bottom: 8rem
+    padding-bottom: 10rem
     padding-right: 2rem
     justify-content: center
 
