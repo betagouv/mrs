@@ -288,12 +288,14 @@
       font-size: 2rem
       margin-bottom: 0
       margin-top: 0
+      text-align: center
 
     h4
       +barlow-bold()
       font-size: 1rem
       color: $secondary-grey
       margin-top: 1rem
+      text-align: center
 
     h5
       display: none
@@ -301,6 +303,23 @@
     form
       +flex-column()
       justify-content: flex-start
+
+      button
+        margin-left: 0.75rem
+
+      .section.row
+        margin-bottom: 0
+        padding-bottom: 0
+
+        & > .col.s12 > .layout-row
+          margin-bottom: 0
+
+          & > div
+            margin-bottom: 0
+
+            & > div > div
+              margin-bottom: 0
+
 
     input, textarea, button
       +barlow-condensed-bold()
@@ -312,26 +331,31 @@
       height: $height
       box-sizing: border-box
       padding-left: 2rem
+      margin: 0
 
       &:focus
         background-color: $primary-black
         border: 2px solid #8799a3
 
     textarea
-      min-height: 6rem
+      min-height: 15rem
       border-radius: 1.5rem
 
+    #id_message_container
+      label
+        align-items: flex-start
+        padding-top: 1rem
+
     label
-      top: -15%
+      top: 0
       padding-left: 2.8rem
       left: 0
       right: 0
       font-size: 0.8rem
       height: 100%
-      top: -35%
       display: flex
       align-items: center
-
+      transform: inherit
 
       &.active
         transform: translateY(-20px) scale(0.8)translateX(5%)
@@ -340,7 +364,6 @@
 
     button
       background-color: $primary-green
-      margin-left: 0
       height: 2.4rem
       padding: 0
 
