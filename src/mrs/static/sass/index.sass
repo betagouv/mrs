@@ -100,6 +100,11 @@
       width: 85vw
       max-width: 50rem
 
+      @media screen and (min-width: $desktop-min-width)
+        width: calc(#{$desktop-page-margin-left} + 30rem)
+        max-width: 100rem
+
+
       h3
         +faustina-bold-italic()
         font-weight: bold
@@ -216,21 +221,20 @@
       color: $primary-blue
       line-height: 1.5rem
       width: 95vw
-      max-width: 60rem
       padding-right: 3rem
       font-size: $etapes-descr--wrapper-font-size
-      display: flex;
-      flex-direction: row;
-      align-items: center;
+      display: flex
+      flex-direction: row
+      align-items: center
 
       @media (min-width: $desktop-min-width)
         font-size: 1.25rem
         transform: translateY(75%)
         height: 2.5rem
+        width: calc(#{$desktop-page-margin-left} + 47rem)
 
       @media (min-width: $tablet-min-width)
         font-size: 1.5rem
-        max-width: 67rem
 
 
       strong
