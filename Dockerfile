@@ -1,61 +1,60 @@
+ARG GIT_COMMIT
+ARG GIT_TAG
+
 FROM node:10-alpine
 
-# utf8
-ENV PYTHONIOENCODING UTF-8
-ENV NODE_ENV production
-ENV STATIC_URL /static
-ENV STATIC_ROOT /code/static
-ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE mrs.settings
-ENV VIRTUAL_PROTO uwsgi
-ENV NODE_ENV production
-ENV UWSGI_SPOOLER_NAMES mail,stat
-ENV UWSGI_SPOOLER_MOUNT /spooler
-ENV PLAYLABS_PLUGINS postgres,uwsgi,django,sentry
+ENV DJANGO_SETTINGS_MODULE=mrs.settings
+ENV UWSGI_MODULE=mrs.wsgi:application
+ENV NODE_ENV=production
+ENV PATH="${PATH}:/app/.local/bin"
+ENV PLAYLABS_PLUGINS=postgres,uwsgi,django,sentry
+ENV PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1
+ENV STATIC_URL=/static/ STATIC_ROOT=/app/static
+ENV LOG=/app/log
+ENV UWSGI_SPOOLER_NAMES=mail,stat UWSGI_SPOOLER_MOUNT=/app/spooler
+ENV VIRTUAL_PROTO=uwsgi
+EXPOSE 6789
 
-RUN mkdir -p ${STATIC_ROOT}
-RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}
-RUN mkdir -p /code/log
+RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl && pip3 install --upgrade pip
 
-RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl
+RUN mkdir -p /app && usermod -d /app -l app node && groupmod -n app node && chown -R app:app /app
+WORKDIR /app
 
-RUN deluser node && usermod -U -s /bin/bash -d /code -u 1000 uwsgi && groupmod -g 1000 uwsgi
-WORKDIR /code
+USER app
+RUN mkdir -p ${STATIC_ROOT} ${UWSGI_SPOOLER_MOUNT} ${LOG}
 
-COPY yarn.lock .babelrc package.json /code/
-RUN yarn install --frozen-lockfile
-ADD src/mrs/static /code/src/mrs/static
-ADD webpack.config.js /code
-RUN yarn prepare
+COPY --chown=app:app yarn.lock .babelrc package.json /app/
+RUN cd /app && yarn install --frozen-lockfile
+RUN mkdir -p src/mrs
+COPY --chown=app:app src/mrs/static /app/src/mrs/static
+RUN ls -l | grep src
+COPY --chown=app:app webpack.config.js /app/
+RUN cd /app && yarn prepare
 
-RUN pip3 install --upgrade pip
-ADD requirements.txt /code/requirements.txt
-RUN pip3 install --upgrade -r /code/requirements.txt
+COPY --chown=app:app requirements.txt /app/requirements.txt
+RUN pip3 install --user --upgrade -r /app/requirements.txt
 
-ADD setup.py /code/
-ADD src /code/src
-RUN pip3 install --editable /code
+COPY --chown=app:app setup.py /app/
+COPY --chown=app:app src /app/src
+RUN pip3 install --user --editable /app
 
 # Use DEBUG here to inhibate security checks in settings for this command
-RUN DEBUG=1 mrs collectstatic --noinput --clear
+RUN DEBUG=1 ~/.local/bin/mrs collectstatic --noinput --clear
 
 EXPOSE 6789
 
-ARG GIT_COMMIT
-ENV GIT_COMMIT ${GIT_COMMIT}
+ENV GIT_COMMIT="${GIT_COMMIT}" GIT_TAG="${GIT_TAG}"
 
 CMD /usr/bin/dumb-init uwsgi \
-  --spooler=/spooler/mail \
-  --spooler=/spooler/stat \
+  --spooler=${UWSGI_SPOOLER_MOUNT}/mail \
+  --spooler=${UWSGI_SPOOLER_MOUNT}/stat \
   --spooler-processes 8 \
   --socket=0.0.0.0:6789 \
-  --chdir=/code \
+  --chdir=/app \
   --plugin=python3,http \
-  --module=mrs.wsgi:application \
+  --module=$UWSGI_MODULE \
   --http-keepalive \
   --harakiri=120 \
-  --uid=$(id -u uwsgi) \
-  --gid=$(id -g uwsgi) \
   --max-requests=100 \
   --master \
   --workers=24 \
