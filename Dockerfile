@@ -24,10 +24,9 @@ USER app
 RUN mkdir -p ${STATIC_ROOT} ${UWSGI_SPOOLER_MOUNT} ${LOG}
 
 COPY --chown=app:app yarn.lock .babelrc package.json /app/
-RUN cd /app && yarn install --frozen-lockfile
+RUN cd /app && yarn install --cache-folder /dev/shm/yarn --frozen-lockfile
 RUN mkdir -p src/mrs
 COPY --chown=app:app src/mrs/static /app/src/mrs/static
-RUN ls -l | grep src
 COPY --chown=app:app webpack.config.js /app/
 RUN cd /app && yarn prepare
 

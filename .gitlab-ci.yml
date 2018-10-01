@@ -34,7 +34,7 @@ docker:
   before_script:
   - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
   script:
-  - docker build -t betagouv/mrs:$CI_COMMIT_SHA --build-arg GIT_COMMIT=$CI_COMMIT_SHA .
+  - docker build --shm-size 256M -t betagouv/mrs:$CI_COMMIT_SHA --build-arg GIT_COMMIT=$CI_COMMIT_SHA .
   - docker push betagouv/mrs:$CI_COMMIT_SHA
   - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
   - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
