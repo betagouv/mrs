@@ -24,9 +24,9 @@ stages:
   stage: release
   image: betagouv/mrs:$CI_COMMIT_SHA
   script:
-  - /code/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
-  - /code/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
-  - cd /code && yarn prepare
+  - /app/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
+  - /app/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
+  - cd /app && yarn prepare
 
 docker:
   stage: test
@@ -93,9 +93,9 @@ smoke:
   - export HOST=localhost:8000
   - DEBUG=1 mrs migrate
   - echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin="http://$HOST")' | DEBUG=1 mrs shell
-  - cd /code && DEBUG=1 mrs runserver $HOST &
+  - cd /app && DEBUG=1 mrs runserver $HOST &
   - until curl $HOST; do sleep 1; done
-  - cd /code && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
+  - cd /app && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
 sentry-dev:
   <<: *sentry
