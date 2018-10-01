@@ -61,9 +61,9 @@
     "sass-loader": "^7.0.1",
     "scrollreveal": "^3.3.6",
     "uglifyjs-webpack-plugin": "^1.2.5",
-    "webpack": "^4.10.1",
+    "webpack": "^4.20",
     "webpack-bundle-tracker": "^0.3.0",
-    "webpack-cli": "^2.1.4",
+    "webpack-cli": "^3.1.1",
     "whatwg-fetch": "^2.0.4"
   }
 }
