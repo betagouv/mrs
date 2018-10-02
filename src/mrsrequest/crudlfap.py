@@ -516,7 +516,6 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
     @transaction.atomic
     def import_obj(self, i, row, obj):
         self.update_mrsrequest(i, obj, row)
-        self.update_insured(i, obj, row)
         if self.update_institution(i, obj, row) is False:
             return
 
@@ -539,16 +538,10 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         if row['adeli'] != '':
             obj.adeli = row['adeli']
 
-        if row['bascule'] != '':
-            shift = bool(row['bascule'])
-            if obj.insured_shift != shift:
-                obj.insured_shift = shift
-
-    def update_insured(self, i, obj, row):
-        if row['bascule'] != '':
-            shifted = bool(row['bascule'])
-            if obj.insured.shifted != shifted:
-                obj.insured.shifted = shifted
+        if str(row['bascule'].strip()) == '1':
+            obj.insured_shift = True
+            if not obj.insured.shifted:
+                obj.insured.shifted = True
                 obj.insured.save()
 
     def update_institution(self, i, obj, row):
