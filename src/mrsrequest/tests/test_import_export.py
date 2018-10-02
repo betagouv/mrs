@@ -46,15 +46,16 @@ class ImportTest(ResponseDiffTestMixin, test.TransactionTestCase):
     upload0 = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
 bbbb;201805010001;2333333333333;30/04/2000;uea;ue;29/04/2018;;;;;;
 bbbb;201805010001;2333333333333;30/04/2000;uea;ée;29/04/2018;10/06/2018;18,32;19;1;310123123;12
-aaaaaaa;201805010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;123123123;
+aaaaaaa;201805010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;aoeu;
 aaaaaaa;999905010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;;;;;;
 aaaaaaa;201805010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;30/04/2018;a;3;0;;
     '''.strip()  # noqa
 
     upload1 = '''caisse;id;nir;naissance;nom;prenom;transport;mandatement;base;montant;bascule;finess;adeli
-bbbb;201805010001;2333333333333;30/04/2000;uea;ée;29/04/2018;10/06/2018;18,32;22;1;310123123;12
+bbbb;201805010001;2333333333333;30/04/2000;uea;ée;29/04/2018;10/06/2018;18,32;22;;310123123;12
 aaaaaaa;201805010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;11/06/2018;2;3;0;310123122;
 aaaaaaa;201805020000;2333333333333;30/04/2000;uea;ée;29/04/2018;10/06/2018;5,32;6;1;310123123;12
+aaaaaaa;201805010000;1111111111111;30/04/2000;aoeu;aoeu;29/04/2018;11/06/2018;2;3; ;310123122;
     '''.strip()  # noqa
 
     def upload(self, data):
@@ -78,7 +79,7 @@ aaaaaaa;201805020000;2333333333333;30/04/2000;uea;ée;29/04/2018;10/06/2018;5,32
 
         assert view.form.is_valid()
         assert list(view.success.keys()) == [1, 2]
-        assert view.errors[3]['message'] == 'FINESS invalide 123123123'  # noqa
+        assert view.errors[3]['message'] == 'FINESS invalide aoeu'
         assert view.errors[4]['message'] == 'Demande introuvable en base de données'  # noqa
         assert view.errors[5]['message'] == 'payment_base: La valeur « a » doit être un nombre décimal.'  # noqa
 
@@ -91,4 +92,12 @@ aaaaaaa;201805020000;2333333333333;30/04/2000;uea;ée;29/04/2018;10/06/2018;5,32
         assert str(success.mandate_date) == '2018-06-10'
 
         request, view = self.upload(self.upload1)
-        assert list(view.success.keys()) == [1, 2, 3]
+        assert list(view.success.keys()) == [1, 2, 3, 4]
+        assert view.success[1]['object'].insured_shift
+        assert view.success[1]['object'].insured.shifted
+        assert not view.success[2]['object'].insured_shift
+        assert not view.success[2]['object'].insured.shifted
+        assert view.success[3]['object'].insured_shift
+        assert view.success[3]['object'].insured.shifted
+        assert not view.success[4]['object'].insured_shift
+        assert not view.success[4]['object'].insured.shifted
