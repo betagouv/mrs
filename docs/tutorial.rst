@@ -121,7 +121,7 @@ Hacker MRS: tout faire en local
 ===============================
 
 Autrement, il suffit d'une toolchain nodejs et python normale a jour sur son
-système.
+système, avec un utilisateur qui a les droits de création sur postgres.
 
 JavaScript
 ----------
@@ -150,6 +150,27 @@ ci-dessus fonctionne.
             En dev, c'est un fichier ``db.sqlite3`` dans le dossier ``src``.
             N'hésitez pas a l'effacer et a relancer la commande pour le recréer
             en cas de problème avec la DB.
+
+Postgres
+--------
+
+Les tests ont besoin d'une base de données Postgres (notamment pour les jsonfields).
+
+Pour que votre utilisateur shell ait les droits de création et de
+suppression de tables pendant les tests::
+
+    sudo -u postgres -s
+    createuser -drs <username>
+    # -d: l'utilisateur a le droit de créer des BDs
+    # -r: il peut créer des rôles
+    # -s: superutilisateur
+
+et tant qu'on y est::
+
+    createdb -O <username> -E utf8 mrs
+
+(et si besoin, voyez ``dropuser``).
+
 
 Tests
 -----
