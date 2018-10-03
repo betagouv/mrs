@@ -127,6 +127,14 @@ tbinetruy:
     name: tbinetruy
     url: https://tbinetruy.mrs.yourlabs.org
 
+vince:
+  <<: *deploy
+  only:
+    refs: [vindarel]
+  environment:
+    name: vince
+    url: https://vince.mrs.yourlabs.org
+
 staging:
   <<: *deploy
   only:
