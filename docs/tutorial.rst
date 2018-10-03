@@ -176,7 +176,14 @@ Tests
 -----
 
 Pour tester le Python, installer le paquetage Python ``tox`` avec ``pip install
---user tox``, puis exécuter a la racine du code source qui contient
+--user tox``.
+
+Créer la base de données de test postgres ``mrs_test``, puis lancez
+les migrations (``mrs migrate``) en spécifiant bien le nom de la BD et
+le type de la BD en variables d'environnements: ``DB_NAME=mrs_test
+DB_ENGINE=django.db.backends.postgresql`` (voir le fichier ``tox.ini``).
+
+Enfin, exécuter à la racine du code source qui contient
 ``tox.ini``:
 
 - ``PATH=~/.local/bin:$PATH tox -e qa`` pour lancer l'analyse statique
