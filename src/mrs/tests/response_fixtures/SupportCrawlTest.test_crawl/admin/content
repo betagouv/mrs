@@ -78,8 +78,8 @@ textarea {
                     <a
                       class="waves-effect"
                       href="/admin/mrsrequest"
-                      title="Demandes: list"
-                    ><i class="material-icons">list</i>List</a>
+                      title="Demandes: liste"
+                    ><i class="material-icons">list</i>Liste</a>
                   </li>
                 
               </ul>
