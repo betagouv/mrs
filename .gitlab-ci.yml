@@ -5,6 +5,9 @@ stages:
 - ecole
 - production
 
+variables:
+  ANSIBLE_FORCE_COLOR: 1
+
 .deploy: &deploy
   stage: staging
   image: yourlabs/playlabs:master
