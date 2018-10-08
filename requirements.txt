@@ -12,4 +12,4 @@ sqlparse
 holidays
 chardet
 django-denorm
-djcall==0.2.2
+djcall>=0.2,<0.5
