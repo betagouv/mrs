@@ -23,28 +23,41 @@ variables:
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
 
-.sentry: &sentry
-  stage: release
-  image: betagouv/mrs:$CI_COMMIT_SHA
-  script:
-  - cd /app
-  - node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
-  - node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
-  - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload src/mrs/static/js 'src/mrs/static/webpack_bundles/*.js'
-  - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload-sourcemaps 'src/mrs/static/webpack_bundles/*.js.map'
-  - node_modules/.bin/sentry-cli releases finalize $CI_COMMIT_SHA
+# .sentry: &sentry
+#   stage: release
+#   image: betagouv/mrs:$CI_COMMIT_SHA
+#   script:
+#   - cd /app
+#   - node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
+#   - node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
+#   - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload src/mrs/static/js
+#   - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload 'src/mrs/static/webpack_bundles/*.js'
+#   - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload-sourcemaps 'src/mrs/static/webpack_bundles/*.js.map'
+#   - node_modules/.bin/sentry-cli releases finalize $CI_COMMIT_SHA
 
-docker:
+.docker: &docker
   stage: test
   image: docker:dind
   before_script:
   - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
   script:
   - echo $CI_COMMIT_SHA
-  - docker build --shm-size 512M -t betagouv/mrs:$CI_COMMIT_SHA --build-arg GIT_COMMIT=$CI_COMMIT_SHA .
-  - docker push betagouv/mrs:$CI_COMMIT_SHA
-  - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
-  - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
+  - docker build
+        --shm-size 512M
+        -t betagouv/mrs:$CI_COMMIT_SHA
+        --build-arg GIT_COMMIT=$CI_COMMIT_SHA
+        --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+        --build-arg SENTRY_URL=$SENTRY_URL
+        --build-arg SENTRY_PROJECT=$SENTRY_PROJECT
+        --build-arg SENTRY_ORG=$SENTRY_ORG
+        .
+  - docker push
+        betagouv/mrs:$CI_COMMIT_SHA
+  - docker tag
+        betagouv/mrs:$CI_COMMIT_SHA
+        betagouv/mrs:$CI_COMMIT_REF_NAME
+  - docker push
+        betagouv/mrs:$CI_COMMIT_REF_NAME
 
 py-qa:
   <<: *tox
@@ -104,15 +117,15 @@ js-integration:
   - until curl $HOST; do sleep 1; done
   - cd /app && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
 
-sentry-dev:
-  <<: *sentry
+docker-dev:
+  <<: *docker
   variables:
     SENTRY_PROJECT: mrs-dev
   except:
     refs: [master]
 
-sentry-production:
-  <<: *sentry
+docker-production:
+  <<: *docker
   variables:
     SENTRY_PROJECT: mrs-production
   only:
