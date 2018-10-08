@@ -59,6 +59,7 @@ var cfg = {
           options: {
             presets: ['stage-2', 'babel-preset-env'],
             plugins: ['transform-es2015-arrow-functions'],
+            sourceMap: true
           }
         }
       },
