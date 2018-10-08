@@ -28,8 +28,9 @@ variables:
   image: betagouv/mrs:$CI_COMMIT_SHA
   script:
   - /app/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
-  - /app/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
   - cd /app && yarn prepare
+  - /app/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
+  - /app/node_modules/.bin/sentry-cli releases finalize $CI_COMMIT_SHA
 
 docker:
   stage: test
