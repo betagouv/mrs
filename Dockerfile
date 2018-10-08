@@ -5,40 +5,42 @@ FROM node:10-alpine
 
 ENV DJANGO_SETTINGS_MODULE=mrs.settings
 ENV UWSGI_MODULE=mrs.wsgi:application
+
 ENV NODE_ENV=production
-ENV PATH="${PATH}:/app/.local/bin"
 ENV PLAYLABS_PLUGINS=postgres,uwsgi,django,sentry
 ENV PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1
 ENV STATIC_URL=/static/ STATIC_ROOT=/app/static
-ENV LOG=/app/log
 ENV UWSGI_SPOOLER_NAMES=mail,stat UWSGI_SPOOLER_MOUNT=/app/spooler
+ENV VIRTUAL_PROTO=uwsgi
+ENV LOG=/app/log
 ENV VIRTUAL_PROTO=uwsgi
 EXPOSE 6789
 
-RUN apk update && apk --no-cache upgrade && apk --no-cache add shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl && pip3 install --upgrade pip
-
+RUN apk update && apk --no-cache upgrade && apk --no-cache add gettext shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl && pip3 install --upgrade pip
 RUN mkdir -p /app && usermod -d /app -l app node && groupmod -n app node && chown -R app:app /app
 WORKDIR /app
 
-USER app
-RUN mkdir -p ${STATIC_ROOT} ${UWSGI_SPOOLER_MOUNT} ${LOG}
-
-COPY --chown=app:app yarn.lock .babelrc package.json /app/
+COPY yarn.lock .babelrc package.json /app/
 RUN cd /app && yarn install --cache-folder /dev/shm/yarn --frozen-lockfile
 RUN mkdir -p src/mrs
-COPY --chown=app:app src/mrs/static /app/src/mrs/static
-COPY --chown=app:app webpack.config.js /app/
-RUN cd /app && yarn prepare
+COPY src/mrs/static /app/src/mrs/static
+COPY webpack.config.js /app/
+RUN yarn prepare
 
-COPY --chown=app:app requirements.txt /app/requirements.txt
-RUN pip3 install --user --upgrade -r /app/requirements.txt
+COPY requirements.txt /app/requirements.txt
+RUN pip3 install --upgrade -r /app/requirements.txt
 
-COPY --chown=app:app setup.py /app/
-COPY --chown=app:app src /app/src
-RUN pip3 install --user --editable /app
+COPY setup.py /app/
+COPY src /app/src
+RUN pip3 install --editable /app
 
+RUN mkdir -p ${LOG} && chown app. ${LOG}
+RUN mkdir -p ${STATIC_ROOT} && chown app. ${STATIC_ROOT}
 # Use DEBUG here to inhibate security checks in settings for this command
-RUN DEBUG=1 ~/.local/bin/mrs collectstatic --noinput --clear
+
+USER app
+RUN DEBUG=1 mrs collectstatic --noinput --clear
+RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}
 
 EXPOSE 6789
 

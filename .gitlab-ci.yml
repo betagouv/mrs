@@ -27,10 +27,12 @@ variables:
   stage: release
   image: betagouv/mrs:$CI_COMMIT_SHA
   script:
-  - /app/node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
-  - cd /app && yarn prepare
-  - /app/node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
-  - /app/node_modules/.bin/sentry-cli releases finalize $CI_COMMIT_SHA
+  - cd /app
+  - node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
+  - node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
+  - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload src/mrs/static/js 'src/mrs/static/webpack_bundles/*.js'
+  - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload-sourcemaps 'src/mrs/static/webpack_bundles/*.js.map'
+  - node_modules/.bin/sentry-cli releases finalize $CI_COMMIT_SHA
 
 docker:
   stage: test
@@ -39,7 +41,7 @@ docker:
   - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
   script:
   - echo $CI_COMMIT_SHA
-  - docker build --shm-size 256M -t betagouv/mrs:$CI_COMMIT_SHA --build-arg GIT_COMMIT=$CI_COMMIT_SHA .
+  - docker build --shm-size 512M -t betagouv/mrs:$CI_COMMIT_SHA --build-arg GIT_COMMIT=$CI_COMMIT_SHA .
   - docker push betagouv/mrs:$CI_COMMIT_SHA
   - docker tag betagouv/mrs:$CI_COMMIT_SHA betagouv/mrs:$CI_COMMIT_REF_NAME
   - docker push betagouv/mrs:$CI_COMMIT_REF_NAME
