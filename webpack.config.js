@@ -82,7 +82,9 @@ var cfg = {
 }
 
 if (production) {
-  cfg.plugins.push(new UglifyJSPlugin())
+  cfg.plugins.push(new UglifyJSPlugin({
+    sourceMap: true
+  }))
 }
 
 if (process.env.SENTRY_PROJECT) {
