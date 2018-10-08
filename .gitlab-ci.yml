@@ -9,7 +9,7 @@ stages:
   stage: staging
   image: yourlabs/playlabs:master
   script:
-  - playlabs scaffold inventory $INVENTORY_REPOSITORY
+  - playlabs git clone $INVENTORY_REPOSITORY
   - playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$CI_COMMIT_SHA --user=deploy --nosudo --tags=update
 
 .tox: &tox
