@@ -6,7 +6,7 @@ stages:
 - production
 
 variables:
-  ANSIBLE_FORCE_COLOR: 1
+  ANSIBLE_FORCE_COLOR: "1"
 
 .deploy: &deploy
   stage: staging
