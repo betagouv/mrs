@@ -143,8 +143,13 @@
 
                     <div
                         class="{% if loop.index == 1 %}card-title{% endif %} {% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}"
+                        style="{% if loop.index == 1 and entry.action == 2 %} cursor: pointer {% endif %}"
                     >
                         {{ entry.comment }}
+
+                      {%- if loop.index == 1 and entry.action == entry.ACTION_UPDATE %}
+                      <i class="material-icons right" style="cursor: pointer"> search </i>
+                      {% endif %}
                     </div>
                 </div>
                 {{ localtime(entry.datetime).strftime('%d/%m/%Y %H:%M') }}
