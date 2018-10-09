@@ -60,7 +60,7 @@ py-test:
   script:
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
     DB_USER=postgres
-    tox --sitepackages -e py36-dj21 -- -x
+    tox --sitepackages -e py36-dj21
   - PATH=.tox/py36-dj21/bin:$PATH
     codecov --token $CODECOV_TOKEN
     -e $TOXENV
