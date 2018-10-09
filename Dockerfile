@@ -40,12 +40,14 @@ COPY setup.py /app/
 COPY src /app/src
 RUN pip3 install --editable /app
 
-RUN mkdir -p ${LOG} && chown app. ${LOG}
-RUN mkdir -p ${STATIC_ROOT} && chown app. ${STATIC_ROOT}
+RUN mkdir -p ${LOG}
+RUN mkdir -p ${STATIC_ROOT}
 # Use DEBUG here to inhibate security checks in settings for this command
-
-USER app
 RUN DEBUG=1 mrs collectstatic --noinput --clear
+
+# Let user write to log
+RUN chown -R app. ${LOG}
+USER app
 RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}
 
 EXPOSE 6789
