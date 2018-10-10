@@ -173,7 +173,6 @@ STATIC_URL = os.getenv('STATIC_URL', '/static/')
 if not STATIC_URL.endswith('/'):
     STATIC_URL += '/'
 STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(BASE_DIR, 'collected'))
-STATICFILES_DIRS = [os.path.join(os.path.dirname(__file__), 'static')]
 
 DEFAULT_FILE_STORAGE = 'db_file_storage.storage.DatabaseFileStorage'
 
