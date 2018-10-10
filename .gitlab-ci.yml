@@ -13,7 +13,7 @@ variables:
   image: yourlabs/playlabs:master
   script:
   - playlabs git clone $INVENTORY_REPOSITORY
-  - playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$CI_COMMIT_SHA --user=deploy --nosudo --tags=update
+  - playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$CI_COMMIT_SHA --user=deploy --tags=update
 
 .tox: &tox
   stage: test
