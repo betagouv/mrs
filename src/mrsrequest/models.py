@@ -414,6 +414,16 @@ class MRSRequest(models.Model):
         delta = mandate_datetime - self.creation_datetime_normalized
         return delta.days + (delta.seconds / 60 / 60 / 24)
 
+    def field_changed(self, fieldname):
+        entries = self.logentries.order_by('-datetime')
+        for entry in entries:
+            if entry.data and \
+               'changed' in entry.data and \
+               fieldname in entry.data['changed']:
+                return True
+
+        return False
+
     @property
     def status_days(self):
         return (timezone.now() - self.creation_datetime_normalized).days
