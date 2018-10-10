@@ -52,8 +52,6 @@ RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}
 
 EXPOSE 6789
 
-ENV GIT_COMMIT="${GIT_COMMIT}" GIT_TAG="${GIT_TAG}"
-
 CMD /usr/bin/dumb-init uwsgi \
   --spooler=${UWSGI_SPOOLER_MOUNT}/mail \
   --spooler=${UWSGI_SPOOLER_MOUNT}/stat \
