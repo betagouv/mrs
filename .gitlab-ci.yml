@@ -90,7 +90,7 @@ docs-qa:
     key: ${CI_COMMIT_REF_SLUG}-docs
   script: tox -e docs
 
-smoke:
+js-integration:
   stage: release
   image: betagouv/mrs:$CI_COMMIT_SHA
   script:
