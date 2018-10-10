@@ -203,7 +203,12 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right">{{ object.insured.birth_date.strftime('%d/%m/%Y') }}</span>
+                    <span class="right"
+                        {%- if object.field_changed('birth_date') %}
+                        style="text-decoration: underline dotted red"
+                        title="Ce champ a été modifié."
+                        {% endif %}
+                    >{{ object.insured.birth_date.strftime('%d/%m/%Y') }}</span>
                 </p>
                 {%- endif %}
             </div>
@@ -219,7 +224,12 @@
                     <span class="grey-text text-darken-2">
                         NIR
                     </span>
-                    <span class="right">{{ object.insured.nir }}</span>
+                    <span class="right"
+                        {%- if object.field_changed('nir') %}
+                        style="text-decoration: underline dotted red"
+                        title="Ce champ a été modifié."
+                        {% endif %}
+                    >{{ object.insured.nir }}</span>
                 </p>
                 <p>
                     <span class="grey-text text-darken-2">
