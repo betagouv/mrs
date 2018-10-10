@@ -1,9 +1,3 @@
-# for sentry webpack plugin
-ARG SENTRY_AUTH_TOKEN
-ARG SENTRY_ORG
-ARG SENTRY_URL
-ARG SENTRY_PROJECT
-
 FROM node:10-alpine
 
 ENV DJANGO_SETTINGS_MODULE=mrs.settings
@@ -25,6 +19,12 @@ WORKDIR /app
 
 ARG GIT_COMMIT
 ENV GIT_COMMIT=$GIT_COMMIT
+
+# for sentry webpack plugin
+ARG SENTRY_AUTH_TOKEN
+ARG SENTRY_ORG
+ARG SENTRY_URL
+ARG SENTRY_PROJECT
 
 COPY yarn.lock .babelrc package.json /app/
 RUN cd /app && yarn install --cache-folder /dev/shm/yarn --frozen-lockfile
