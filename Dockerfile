@@ -1,6 +1,3 @@
-ARG GIT_COMMIT
-ARG GIT_TAG
-
 # for sentry webpack plugin
 ARG SENTRY_AUTH_TOKEN
 ARG SENTRY_ORG
@@ -25,6 +22,9 @@ EXPOSE 6789
 RUN apk update && apk --no-cache upgrade && apk --no-cache add gettext shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl && pip3 install --upgrade pip
 RUN mkdir -p /app && usermod -d /app -l app node && groupmod -n app node && chown -R app:app /app
 WORKDIR /app
+
+ARG GIT_COMMIT
+ENV GIT_COMMIT=$GIT_COMMIT
 
 COPY yarn.lock .babelrc package.json /app/
 RUN cd /app && yarn install --cache-folder /dev/shm/yarn --frozen-lockfile
