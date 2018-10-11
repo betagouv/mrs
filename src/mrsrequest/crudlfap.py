@@ -672,6 +672,12 @@ class MRSRequestDetailView(crudlfap.DetailView):
             self.labels[name] = field.label
         self.labels['insured'] = 'Assurré'
 
+    def field_changed(self, fieldname):
+        insured_field = self.object.insured.__getattribute__(fieldname)
+        if self.object.data and fieldname in self.object.data:
+            return self.object.data[fieldname] != insured_field
+        return False
+
 
 class MRSRequestRouter(crudlfap.Router):
     model = MRSRequest
