@@ -28,6 +28,10 @@ class Person(models.Model):
     )
     nir = models.BigIntegerField(
         verbose_name='Numéro de sécurité sociale',
+        validators=[
+            validators.MinValueValidator(1000000000000,
+                                         message="Le NIR doit contenir 13 caracteres."),
+        ]
     )
     shifted = models.NullBooleanField(
         default=None,
