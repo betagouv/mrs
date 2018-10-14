@@ -1,3 +1,4 @@
+clilabs>=1
 django>=2.1,<2.2
 dj-static
 django-webpack-loader
