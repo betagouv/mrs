@@ -159,15 +159,15 @@ Les tests ont besoin d'une base de données Postgres (notamment pour les jsonfie
 Pour que votre utilisateur shell ait les droits de création et de
 suppression de tables pendant les tests::
 
-    sudo -u postgres -s
-    createuser -drs <username>
+    sudo -u postgres -drs $USER
     # -d: l'utilisateur a le droit de créer des BDs
     # -r: il peut créer des rôles
     # -s: superutilisateur
+    # $USER doit etre votre username PAM
 
 et tant qu'on y est::
 
-    createdb -O <username> -E utf8 mrs
+    sudo -u postgres createdb --owner $USER -E utf8 mrs
 
 (et si besoin, voyez ``dropuser``).
 
