@@ -2,25 +2,44 @@
 @import './vars.sass'
 
 #control--wrapper
-    border-left: 0
+  border-left: 0
 
-    .thumb
-      background-color: rgba(0, 0, 0, 0)
-      border: 1px solid $secondary-blue
-      border-left: 0
+  .thumb
+    background-color: rgba(0, 0, 0, 0)
+    border: 1px solid $secondary-blue
+    border-left: 0
+    align-items: center
+    padding-right: 1rem
+    padding-left: 1rem
+    border-radius: 0
+    width: 100vw
+    height: auto
+    font-size: 0.8rem
+    padding: 1rem
+
+
+    @media screen and (min-width: 500px)
+      padding: 2rem
+
+    @media screen and (min-width: 800px)
+      transform: translateY(-120%)
+      $height: 5rem
+      height: $height
+      width: calc(#{$desktop-page-margin-left} + 50rem)
+      max-width: 100rem
       padding-left: $desktop-page-margin-left
       width: 80vw
-      align-items: center
-      transform: translateY(-7rem)
-      padding-right: 1rem
+      border-top-right-radius: $height
+      border-bottom-right-radius: $height
+      font-size: 0.7rem
 
-      @media screen and (min-width: $desktop-min-width)
-        width: calc(#{$desktop-page-margin-left} + 50rem)
-        max-width: 100rem
-        height: 5rem
+    @media screen and (min-width: $tablet-min-width)
+      padding-left: $desktop-page-margin-left
 
-      p
-        margin: 0
+
+
+    p
+      margin: 0
 
 #control
   transform: translateY(-100%)
@@ -398,6 +417,9 @@
     padding-bottom: 10rem
     padding-right: 2rem
     justify-content: center
+
+    @media (min-width: 10rem)
+      padding-bottom: 12rem
 
     @media (min-width: $desktop-min-width)
       flex-direction: row
