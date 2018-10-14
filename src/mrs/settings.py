@@ -199,7 +199,8 @@ except ImportError:
 else:
     INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
-INSTANCE = os.getenv('PLAYLABS_INSTANCE', 'mrs-dev')
+PREFIX = os.getenv('PLAYLABS_PREFIX', 'mrs')
+INSTANCE = os.getenv('PLAYLABS_INSTANCE', 'dev')
 RELEASE = os.getenv('GIT_COMMIT', '')
 if not RELEASE:
     repo = os.path.join(os.path.dirname(__file__), '..', '..')
