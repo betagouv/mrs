@@ -106,7 +106,7 @@ docs-qa:
     key: ${CI_COMMIT_REF_SLUG}-docs
   script: tox -e docs
 
-js-integration:
+js-acceptance:
   stage: release
   image: betagouv/mrs:$CI_COMMIT_SHA
   script:
@@ -131,7 +131,7 @@ docker-production:
   only:
     refs: [master]
 
-jpic:
+deploy-jpic:
   <<: *deploy
   only:
     refs: [jpic]
@@ -139,7 +139,7 @@ jpic:
     name: jpic
     url: https://jpic.mrs.yourlabs.org
 
-tbinetruy:
+deploy-tbinetruy:
   <<: *deploy
   only:
     refs: [tbinetruy]
@@ -147,7 +147,7 @@ tbinetruy:
     name: tbinetruy
     url: https://tbinetruy.mrs.yourlabs.org
 
-vince:
+deploy-vince:
   <<: *deploy
   only:
     refs: [vindarel]
@@ -155,7 +155,7 @@ vince:
     name: vince
     url: https://vince.mrs.yourlabs.org
 
-staging:
+deploy-staging:
   <<: *deploy
   only:
     refs: [master]
@@ -163,7 +163,7 @@ staging:
     name: staging
     url: https://staging.mrs.beta.gouv.fr
 
-ecole:
+deploy-ecole:
   <<: *deploy
   stage: ecole
   only:
@@ -172,7 +172,7 @@ ecole:
     name: ecole
     url: https://ecole.mrs.beta.gouv.fr
 
-production:
+deploy-production:
   <<: *deploy
   stage: production
   when: manual
