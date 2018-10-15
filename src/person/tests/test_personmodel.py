@@ -1,6 +1,8 @@
 import datetime
 import pytest
 
+from django.core.exceptions import ValidationError
+
 from mrsrequest.models import MRSRequest
 from person.models import Person
 
@@ -13,6 +15,20 @@ def test_person_str():
     )
 
     assert str(p) == 'a b 1969-01-01'
+
+
+@pytest.mark.django_db
+def test_person_validate_nir():
+    p = Person.objects.create(
+        first_name='a',
+        last_name='b',
+        birth_date='1969-01-01',
+        # nir=111111111111,
+        nir=11111111111,
+    )
+
+    with pytest.raises(ValidationError):
+        p.full_clean()
 
 
 @pytest.mark.django_db
