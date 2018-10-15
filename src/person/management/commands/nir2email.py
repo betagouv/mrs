@@ -8,6 +8,7 @@ def get_email(nir):
     p = Person.objects.get(nir=nir)
     return p.email
 
+
 class Command(BaseCommand):
     help = 'Find emails from a list of NIRs.'
 
@@ -26,7 +27,8 @@ class Command(BaseCommand):
             multiple_persons = []
             with open(options.get('file'), 'r') as f:
                 content = f.read()
-            nirs = [it.strip() for it in content.split(' ') if it.strip() != '']
+            nirs = [it.strip() for it in content.split(' ')
+                    if it.strip() != '']
 
             for nir in nirs:
                 if nir.strip():
@@ -37,7 +39,8 @@ class Command(BaseCommand):
                         nir_not_found.append(nir.strip())
                     except MultipleObjectsReturned:
                         p = Person.objects.filter(nir=nir.strip()).first()
-                        multiple_persons.append("{}: {}".format(nir.strip(), p.email))
+                        multiple_persons.append("{}: {}".format(
+                            nir.strip(), p.email))
 
                     if email:
                         emails.append(email)
@@ -48,7 +51,7 @@ class Command(BaseCommand):
             print("\n".join(emails))
 
             if no_emails:
-                print("### L'email des personnes suivantes n'a pas été trouvé:")
+                print("### L'email des personnes suivantes n'a pas été trouvé:")  # noqa
                 print("\n".join(no_emails))
 
             if nir_not_found:
