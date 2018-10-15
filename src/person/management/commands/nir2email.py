@@ -9,6 +9,33 @@ def get_email(nir):
     return p.email
 
 
+def parse_nirs(nirs):
+    emails = []
+    no_emails = []
+    nir_not_found = []
+    multiple_persons = []
+
+    for nir in nirs:
+        if nir:
+            email = None
+
+            try:
+                email = get_email(nir)
+                if email:
+                    emails.append(email)
+                else:
+                    no_emails.append(nir)
+
+            except ObjectDoesNotExist:
+                nir_not_found.append(nir)
+            except MultipleObjectsReturned:
+                p = Person.objects.filter(nir=nir).first()
+                multiple_persons.append("{}: {}".format(
+                    nir.strip(), p.email))
+
+    return emails, no_emails, nir_not_found, multiple_persons
+
+
 class Command(BaseCommand):
     help = 'Find emails from a list of NIRs.'
 
@@ -20,32 +47,17 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        if not options.get('file'):
+            print("usage: mrs nir2email -f file-with-nirs.txt")
+            print("The file should have a NIR per line.")
+            return
+
         if options.get('file'):
-            emails = []
-            no_emails = []
-            nir_not_found = []
-            multiple_persons = []
             with open(options.get('file'), 'r') as f:
                 nirs = f.readlines()
+
             nirs = [it.strip() for it in nirs]
-
-            for nir in nirs:
-                if nir:
-                    email = None
-
-                    try:
-                        email = get_email(nir)
-                        if email:
-                            emails.append(email)
-                        else:
-                            no_emails.append(nir)
-
-                    except ObjectDoesNotExist:
-                        nir_not_found.append(nir)
-                    except MultipleObjectsReturned:
-                        p = Person.objects.filter(nir=nir).first()
-                        multiple_persons.append("{}: {}".format(
-                            nir.strip(), p.email))
+            emails, no_emails, nir_not_found, multiple_persons = parse_nirs(nirs)  # noqa
 
             print("### emails")
             print("\n".join(emails))
@@ -61,7 +73,3 @@ class Command(BaseCommand):
             if multiple_persons:
                 print("### Multiples personnes:")
                 print("\n".join(multiple_persons))
-
-        else:
-            print("usage: mrs nir2email -f file-with-nirs.txt")
-            print("The file should have a NIR per line.")
