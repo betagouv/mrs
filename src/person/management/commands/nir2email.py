@@ -16,7 +16,7 @@ class Command(BaseCommand):
         parser.add_argument(
             '-f',
             dest='file',
-            help='file containing space-separated NIRs.',
+            help='file containing NIRs, one per line.',
         )
 
     def handle(self, *args, **options):
@@ -26,26 +26,26 @@ class Command(BaseCommand):
             nir_not_found = []
             multiple_persons = []
             with open(options.get('file'), 'r') as f:
-                content = f.read()
-            nirs = [it.strip() for it in content.split(' ')
-                    if it.strip() != '']
+                nirs = f.readlines()
+            nirs = [it.strip() for it in nirs]
 
             for nir in nirs:
-                if nir.strip():
+                if nir:
                     email = None
+
                     try:
-                        email = get_email(nir.strip())
+                        email = get_email(nir)
+                        if email:
+                            emails.append(email)
+                        else:
+                            no_emails.append(nir)
+
                     except ObjectDoesNotExist:
-                        nir_not_found.append(nir.strip())
+                        nir_not_found.append(nir)
                     except MultipleObjectsReturned:
-                        p = Person.objects.filter(nir=nir.strip()).first()
+                        p = Person.objects.filter(nir=nir).first()
                         multiple_persons.append("{}: {}".format(
                             nir.strip(), p.email))
-
-                    if email:
-                        emails.append(email)
-                    else:
-                        no_emails.append(nir.strip())
 
             print("### emails")
             print("\n".join(emails))
@@ -64,4 +64,4 @@ class Command(BaseCommand):
 
         else:
             print("usage: mrs nir2email -f file-with-nirs.txt")
-            print("The file should have space-separated NIRs.")
+            print("The file should have a NIR per line.")
