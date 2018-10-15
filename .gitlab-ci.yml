@@ -10,7 +10,6 @@ variables:
 
 .deploy: &deploy
   stage: staging
-  image: yourlabs/playlabs:master
   script:
   - playlabs git clone $INVENTORY_REPOSITORY
   - playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$CI_COMMIT_SHA deploy@ --tags=update
