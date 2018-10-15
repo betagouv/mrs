@@ -23,8 +23,8 @@ def test_person_validate_nir():
         Person.objects.create(
             first_name='a',
             last_name='b',
-            birth_date='1969-01-01',
             nir=123456789012,
+            birth_date='1969-01-01',
             email="foo@foo.fr",
         )
 
@@ -35,7 +35,8 @@ def test_person_get_dates():
         first_name='a',
         last_name='b',
         birth_date='1969-01-01',
-        nir=111111111111,
+        nir=1234567890123,
+        email="foo@foo.fr",
     )
 
     m0 = MRSRequest.objects.create(
@@ -72,7 +73,8 @@ def test_person_get_duplicate_dates():
         first_name='a',
         last_name='b',
         birth_date='1969-01-01',
-        nir=111111111111,
+        nir=1234567890123,
+        email="foo@foo.fr",
     )
 
     m0 = MRSRequest.objects.create(

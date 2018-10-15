@@ -59,7 +59,7 @@ def test_mrsrequest_update_taxi_cost():
         last_name='aoeu',
         birth_date=datetime.date.today(),
         email='aoeu@aoeu.com',
-        nir=99999999999,
+        nir=1234567890123,
     )
     obj.save()
 
@@ -236,7 +236,8 @@ def test_mrsrequest_inprogress_day_number_three_digits(dt, expected):
 @pytest.mark.django_db
 def test_mrsrequest_order_number():
     person = Person.objects.create(
-        first_name='test', last_name='test', nir=1234567890123)
+        first_name='test', last_name='test', nir=1234567890123,
+        email="rst@rst.rst", birth_date='1969-01-01',)
 
     tests = (
         ('yesterday_min_paris', '01'),
@@ -262,7 +263,8 @@ def test_mrsrequest_order_number():
 @pytest.mark.django_db
 def test_mrsrequest_order_number_sticks_at_99():
     person = Person.objects.create(
-        first_name='test', last_name='test', nir=1234567890123)
+        first_name='test', last_name='test', nir=1234567890123,
+        email="rst@rst.rst", birth_date='1969-01-01',)
 
     for i in range(1, 102):
         # start on 1 to have a different datetime from above
