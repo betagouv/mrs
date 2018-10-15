@@ -10,6 +10,9 @@ variables:
 
 .deploy: &deploy
   stage: staging
+  variables:
+    TIMEOUT: 600
+  image: yourlabs/playlabs:master
   script:
   - playlabs git clone $INVENTORY_REPOSITORY
   - playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$CI_COMMIT_SHA deploy@ --tags=update
@@ -21,18 +24,6 @@ variables:
   - tar -xzf .gitlab-cache.tar.gz -C / || true
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
-
-# .sentry: &sentry
-#   stage: release
-#   image: betagouv/mrs:$CI_COMMIT_SHA
-#   script:
-#   - cd /app
-#   - node_modules/.bin/sentry-cli releases new $CI_COMMIT_SHA
-#   - node_modules/.bin/sentry-cli releases set-commits $CI_COMMIT_SHA --commit "betagouv/mrs@$CI_COMMIT_SHA"
-#   - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload src/mrs/static/js
-#   - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload 'src/mrs/static/webpack_bundles/*.js'
-#   - node_modules/.bin/sentry-cli releases files $CI_COMMIT_SHA upload-sourcemaps 'src/mrs/static/webpack_bundles/*.js.map'
-#   - node_modules/.bin/sentry-cli releases finalize $CI_COMMIT_SHA
 
 .docker: &docker
   stage: test
