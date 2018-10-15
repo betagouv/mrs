@@ -1,0 +1,8 @@
+#!/bin/bash -eux
+mrs migrate --noinput
+
+# Enable the following if you want to iterate on a single deploy
+# Note that this should be disabled in production mode.
+export SENTRY_OVERWRITE=1
+
+REPO=betagouv/mrs clilabs +sentry:release src/mrs/static

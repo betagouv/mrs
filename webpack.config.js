@@ -1,6 +1,5 @@
 var path = require('path')
 var BundleTracker = require('webpack-bundle-tracker')
-const SentryCliPlugin = require('@sentry/webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
@@ -84,18 +83,6 @@ var cfg = {
 if (production) {
   cfg.plugins.push(new UglifyJSPlugin({
     sourceMap: true
-  }))
-}
-
-if (process.env.SENTRY_AUTH_TOKEN && process.env.GIT_COMMIT) {
-  console.log('Running sentry plugin')
-  cfg.plugins.push(new SentryCliPlugin({
-    include: 'src/mrs/static/js',
-    urlPrefix: '~/static/js',
-    ignoreFile: '.sentrycliignore',
-    ignore: ['node_modules', 'webpack.config.js'],
-    configFile: 'sentry.properties',
-    release: process.env.GIT_COMMIT,
   }))
 }
 
