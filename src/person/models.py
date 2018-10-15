@@ -47,6 +47,13 @@ class Person(models.Model):
     def __str__(self):
         return '%s %s %s' % (self.first_name, self.last_name, self.birth_date)
 
+    def save(self, *args, **kwargs):
+        """
+        Validate all fields, since validators are not run on save by default.
+        """
+        self.full_clean()
+        return super(Person, self).save(*args, **kwargs)
+
     def get_dates(self):
         dates = {'depart': dict(), 'return': dict()}
 

@@ -19,16 +19,14 @@ def test_person_str():
 
 @pytest.mark.django_db
 def test_person_validate_nir():
-    p = Person.objects.create(
-        first_name='a',
-        last_name='b',
-        birth_date='1969-01-01',
-        # nir=111111111111,
-        nir=11111111111,
-    )
-
     with pytest.raises(ValidationError):
-        p.full_clean()
+        Person.objects.create(
+            first_name='a',
+            last_name='b',
+            birth_date='1969-01-01',
+            nir=123456789012,
+            email="foo@foo.fr",
+        )
 
 
 @pytest.mark.django_db
