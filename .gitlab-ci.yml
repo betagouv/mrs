@@ -14,6 +14,7 @@ variables:
     TIMEOUT: 600
   image: yourlabs/playlabs:master
   script:
+  - VERSION=$CI_COMMIT_SHA sentry-release || echo Sentry release failed
   - playlabs git clone $INVENTORY_REPOSITORY
   - playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$CI_COMMIT_SHA deploy@ --tags=update
 
@@ -25,7 +26,7 @@ variables:
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
 
-.docker: &docker
+docker:
   stage: test
   image: docker:dind
   before_script:
@@ -35,10 +36,6 @@ variables:
         --shm-size 512M
         -t betagouv/mrs:$CI_COMMIT_SHA
         --build-arg GIT_COMMIT=$CI_COMMIT_SHA
-        --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
-        --build-arg SENTRY_URL=$SENTRY_URL
-        --build-arg SENTRY_PROJECT=$SENTRY_PROJECT
-        --build-arg SENTRY_ORG=$SENTRY_ORG
         .
   - docker push
         betagouv/mrs:$CI_COMMIT_SHA
@@ -105,20 +102,6 @@ js-acceptance:
   - cd /app && DEBUG=1 mrs runserver $HOST &
   - until curl $HOST; do sleep 1; done
   - cd /app && node_modules/.bin/jest src/mrs/static/js/smoke.test.js
-
-docker-dev:
-  <<: *docker
-  variables:
-    SENTRY_PROJECT: mrs-dev
-  except:
-    refs: [master]
-
-docker-production:
-  <<: *docker
-  variables:
-    SENTRY_PROJECT: mrs-production
-  only:
-    refs: [master]
 
 deploy-jpic:
   <<: *deploy

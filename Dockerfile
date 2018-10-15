@@ -15,16 +15,11 @@ EXPOSE 6789
 
 RUN apk update && apk --no-cache upgrade && apk --no-cache add ca-certificates gettext shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl && pip3 install --upgrade pip
 RUN mkdir -p /app && usermod -d /app -l app node && groupmod -n app node && chown -R app:app /app
+RUN curl -sL https://sentry.io/get-cli/ | bash
 WORKDIR /app
 
 ARG GIT_COMMIT
 ENV GIT_COMMIT=$GIT_COMMIT
-
-# for sentry webpack plugin
-ARG SENTRY_AUTH_TOKEN
-ARG SENTRY_ORG
-ARG SENTRY_URL
-ARG SENTRY_PROJECT
 
 COPY yarn.lock .babelrc package.json /app/
 RUN cd /app && yarn install --cache-folder /dev/shm/yarn --frozen-lockfile
@@ -48,6 +43,7 @@ RUN DEBUG=1 mrs collectstatic --noinput --clear
 # Let user write to log
 RUN chown -R app. ${LOG}
 USER app
+ADD predeploy /app/predeploy
 RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}
 
 EXPOSE 6789
