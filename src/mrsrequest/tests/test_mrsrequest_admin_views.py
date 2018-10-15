@@ -55,7 +55,10 @@ def mrsrequest():
             caisse=Caisse.objects.create(name='adminviews', number=9),
             insured=Person.objects.create(
                 email='t@tt.tt',
-                nir=111111111111,
+                nir=1111111111113,
+                first_name='test',
+                last_name='test',
+                birth_date='1969-01-01',
             ),
             pmt=PMT.objects.create(
                 mrsrequest_uuid=uuid,
