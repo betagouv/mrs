@@ -40,8 +40,8 @@
                     <div class="childmodal" style="display: none">
                         <div class="modal-content">
                             <h4 class="modal-title">Rejet pour autre motif</h4>
-                            <pre>corps
-blabla</pre>
+                            <p>corps
+blabla</p>
                         </div>
                         <div class="modal-footer">
                             <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
