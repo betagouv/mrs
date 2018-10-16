@@ -147,10 +147,6 @@ deploy-production:
   <<: *deploy
   stage: production
   when: manual
-  script:
-  - playlabs git clone $INVENTORY_REPOSITORY
-  - playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$CI_COMMIT_SHA deploy@ --tags=update
-  - curl $CI_ENVIRONMENT_URL | grep "mrs-$CI_ENVIRONMENT_SLUG"
   only:
     refs: [master]
   environment:
