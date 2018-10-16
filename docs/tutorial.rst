@@ -175,7 +175,7 @@ Jeu de data de tests
 --------------------
 
 Nous maintenons un jeu de data utilises par les tests d'acceptance dans
-src/mrs/tests/data.json. Il est cense contenir un minimum de data pour activer
+``src/mrs/tests/data.json``. Il est cense contenir un minimum de data pour activer
 un max de use-case.
 
 Pour charger en DB::
@@ -191,6 +191,9 @@ Pour sauvegarder la db dans le fichier de data, on veut grosso modo mettre a
 jour les memes modeles, rien de plus facile avec une incantation shell::
 
     mrs dumpdata --indent=4 $(grep model src/mrs/tests/data.json  | sort -u | sed 's/.*model": "\([^"]*\)",*/\1/') > src/mrs/tests/data.json
+
+Vérifier en testant que cela n'impacte pas d'autres jeux de données, tels que ``test_mrsstat.json``.
+
 
 Tests
 -----
