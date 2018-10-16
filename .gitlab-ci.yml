@@ -14,7 +14,6 @@ variables:
     TIMEOUT: 600
   image: yourlabs/playlabs:master
   script:
-  - VERSION=$CI_COMMIT_SHA sentry-release || echo Sentry release failed
   - playlabs git clone $INVENTORY_REPOSITORY
   - playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$CI_COMMIT_SHA deploy@ --tags=update
 
