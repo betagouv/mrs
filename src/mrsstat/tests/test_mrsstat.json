@@ -141,7 +141,7 @@
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 2,
         "savings": "5.37",
-        "validation_average_delay": "14.36"
+        "validation_average_delay": "84.36"
     },
     "model": "mrsstat.stat",
     "pk": 7
@@ -183,7 +183,7 @@
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 2,
         "savings": "5.37",
-        "validation_average_delay": "14.36"
+        "validation_average_delay": "84.36"
     },
     "model": "mrsstat.stat",
     "pk": 9
