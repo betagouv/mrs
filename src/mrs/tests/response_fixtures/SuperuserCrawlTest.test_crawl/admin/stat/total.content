@@ -14,8 +14,6 @@
         <label for="id_caisse">Caisse</label>
         <select id="id_caisse" name="caisse">
             <option value="">---------</option>
-            <option value="1">aaaaaaa</option>
-            <option value="2">bbbb</option>
         </select>
         
     </div>
@@ -54,7 +52,7 @@
 
 
 <div id="render-chart">
-  <script data-controller="mrsstat" data-stats="#chart" type="text/json">{"bindto": "#chart", "data": {"x": "x", "columns": [["x", "2018-05-01", "2018-05-02"], ["Nombre cumul\u00e9 de demandes soumises", 2, 5], ["Nombre cumul\u00e9 de demandes en cours", 1, 1], ["Nombre cumul\u00e9 de demandes valid\u00e9es", 0, 0], ["Nombre cumul\u00e9 de demandes rejett\u00e9es", 1, 1], ["Nombre cumul\u00e9 de bascules", 0, 1]]}, "axis": {"x": {"type": "timeseries", "tick": {"format": "%d/%m/%Y"}}, "y": {"min": 0, "padding": {"bottom": 0}}}, "point": {"show": true}}</script>
+  <script data-controller="mrsstat" data-stats="#chart" type="text/json">{"bindto": "#chart", "data": {"x": "x", "columns": [["x"], ["Nombre cumul\u00e9 de demandes soumises"], ["Nombre cumul\u00e9 de demandes en cours"], ["Nombre cumul\u00e9 de demandes valid\u00e9es"], ["Nombre cumul\u00e9 de demandes rejett\u00e9es"], ["Nombre cumul\u00e9 de bascules"]]}, "axis": {"x": {"type": "timeseries", "tick": {"format": "%d/%m/%Y"}}, "y": {"min": 0, "padding": {"bottom": 0}}}, "point": {"show": true}}</script>
 
   <div class="row">
     <div class="col s4">
@@ -64,16 +62,16 @@
     </div>
     <div class="col s4">
       <p>
-        Nombre de demandes soumises: 5
+        Nombre de demandes soumises: 0
       </p>
       <p>
-        Nombre de demandes en cours: 1
+        Nombre de demandes en cours: 0
       </p>
       <p>
         Nombre de demandes validées: 0
       </p>
       <p>
-        Nombre de demandes rejetées: 1
+        Nombre de demandes rejetées: 0
       </p>
     </div>
     <div class="col s4">
@@ -81,7 +79,7 @@
         Econnomies réalisées: 0.00€
       </p>
       <p>
-        Nombre d'assurés ayant basculés pendant la période: 1
+        Nombre d'assurés ayant basculés pendant la période: 0
       </p>
       <p>
         Nombre d'assurés avec un dossier traité durant la période: 3
