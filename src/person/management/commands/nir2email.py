@@ -6,34 +6,28 @@ from person.models import Person
 
 def get_email(nir):
     p = Person.objects.get(nir=nir)
-    return p.email
+    return p.email or ""
 
 
 def parse_nirs(nirs):
     emails = []
-    no_emails = []
-    nir_not_found = []
-    multiple_persons = []
 
     for nir in nirs:
         if nir:
-            email = None
+            email = ""
 
             try:
                 email = get_email(nir)
-                if email:
-                    emails.append(email)
-                else:
-                    no_emails.append(nir)
 
             except ObjectDoesNotExist:
-                nir_not_found.append(nir)
+                pass
             except MultipleObjectsReturned:
                 p = Person.objects.filter(nir=nir).first()
-                multiple_persons.append("{}: {}".format(
-                    nir.strip(), p.email))
+                email = p.email or ""
 
-    return emails, no_emails, nir_not_found, multiple_persons
+            emails.append("{}; {};".format(nir, email))
+
+    return emails
 
 
 class Command(BaseCommand):
@@ -55,21 +49,7 @@ class Command(BaseCommand):
         if options.get('file'):
             with open(options.get('file'), 'r') as f:
                 nirs = f.readlines()
-
             nirs = [it.strip() for it in nirs]
-            emails, no_emails, nir_not_found, multiple_persons = parse_nirs(nirs)  # noqa
+            emails = parse_nirs(nirs)
 
-            print("### emails")
-            print("\n".join(emails))
-
-            if no_emails:
-                print("### L'email des personnes suivantes n'a pas été trouvé:")  # noqa
-                print("\n".join(no_emails))
-
-            if nir_not_found:
-                print("### Ces personnes n'ont pas été trouvées:")
-                print("\n".join(nir_not_found))
-
-            if multiple_persons:
-                print("### Multiples personnes:")
-                print("\n".join(multiple_persons))
+        print("\n".join(emails))
