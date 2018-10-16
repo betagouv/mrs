@@ -521,8 +521,8 @@
             "birth_date": "2000-04-30",
             "first_name": "aoeu"
         },
-        "taxi_cost": "188.24",
-        "saving": "0.00",
+        "taxi_cost": null,
+        "saving": null,
         "delay": null
     }
 },
@@ -587,7 +587,7 @@
             "birth_date": "2000-05-29",
             "first_name": "oaeu"
         },
-        "taxi_cost": "7.88",
+        "taxi_cost": null,
         "saving": null,
         "delay": null
     }
@@ -620,8 +620,8 @@
             "birth_date": "2000-05-06",
             "first_name": "\u00e0\u00f4\u00e9\u00fb"
         },
-        "taxi_cost": "10.83",
-        "saving": "0.00",
+        "taxi_cost": null,
+        "saving": null,
         "delay": null
     }
 },
@@ -655,7 +655,7 @@
         },
         "taxi_cost": "7.37",
         "saving": "5.37",
-        "delay": "14.36"
+        "delay": "84.36"
     }
 }
 ]
