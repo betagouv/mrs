@@ -11,7 +11,7 @@ variables:
 .deploy: &deploy
   stage: staging
   variables:
-    TIMEOUT: 600
+    TIMEOUT: 1200
   image: yourlabs/playlabs:master
   script:
   - playlabs git clone $INVENTORY_REPOSITORY
