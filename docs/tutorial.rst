@@ -171,6 +171,26 @@ et tant qu'on y est::
 
 (et si besoin, voyez ``dropuser``).
 
+Jeu de data de tests
+--------------------
+
+Nous maintenons un jeu de data utilises par les tests d'acceptance dans
+src/mrs/tests/data.json. Il est cense contenir un minimum de data pour activer
+un max de use-case.
+
+Pour charger en DB::
+
+    export DB_ENGINE=django.db.backends.postgresql DB_NAME=mrs DEBUG=1 DJANGO_SETTINGS_MODULE=mrs.settings
+    sudo -u postgres dropdb mrs
+    sudo -u postgres createdb -E utf8 -O $USER mrs
+    mrs migrate
+    clilabs +django:delete contenttypes.ContentType
+    mrs loaddata src/mrs/tests/data.json
+
+Pour sauvegarder la db dans le fichier de data, on veut grosso modo mettre a
+jour les memes modeles, rien de plus facile avec une incantation shell::
+
+    mrs dumpdata --indent=4 $(grep model src/mrs/tests/data.json  | sort -u | sed 's/.*model": "\([^"]*\)",*/\1/') > src/mrs/tests/data.json
 
 Tests
 -----

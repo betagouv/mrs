@@ -1,6 +1,7 @@
 import datetime
 import itertools
 import logging
+import os
 
 from denorm import denormalized
 
@@ -239,4 +240,7 @@ def stat_update(sender, instance, **kwargs):
         callback='mrsstat.models.update_stat_for_mrsrequest',
         kwargs=dict(pk=instance.pk),
     ).spool('stat')
-signals.post_save.connect(stat_update, sender=MRSRequest)
+
+
+if not os.getenv('CI'):
+    signals.post_save.connect(stat_update, sender=MRSRequest)
