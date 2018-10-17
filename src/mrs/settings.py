@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import copy
 import os
 
 from crudlfap.settings import (
@@ -211,13 +210,14 @@ if not RELEASE:
 
 RAVEN_CONFIG = dict(
     dsn=os.getenv('SENTRY_DSN', ''),
-    environment=INSTANCE,
-    release=RELEASE,
     transport=RequestsHTTPTransport,
 )
-
-RAVEN_PUBLIC_CONFIG = copy.deepcopy(RAVEN_CONFIG)
-SENTRY_PUBLIC_DSN = strip_password(RAVEN_PUBLIC_CONFIG.pop('dsn'))
+RAVEN_PUBLIC_CONFIG = dict(
+    environment=INSTANCE,
+    release=RELEASE,
+)
+RAVEN_CONFIG.update(RAVEN_PUBLIC_CONFIG)
+SENTRY_PUBLIC_DSN = strip_password(RAVEN_CONFIG['dsn'])
 
 CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
     SENTRY_DSN=SENTRY_PUBLIC_DSN,
