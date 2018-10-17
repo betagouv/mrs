@@ -19,6 +19,8 @@ from crudlfap.settings import (
     DJANGO_APPS,
 )
 
+from raven.transport.requests import RequestsHTTPTransport
+
 from mrs.context_processors import strip_password
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -211,6 +213,7 @@ RAVEN_CONFIG = dict(
     dsn=os.getenv('SENTRY_DSN', ''),
     environment=INSTANCE,
     release=RELEASE,
+    transport=RequestsHTTPTransport,
 )
 
 RAVEN_PUBLIC_CONFIG = copy.deepcopy(RAVEN_CONFIG)
