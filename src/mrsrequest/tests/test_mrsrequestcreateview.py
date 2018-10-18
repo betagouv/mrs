@@ -92,7 +92,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     data['date_depart'] = '2017-02-02'
     data['date_return'] = '2017-02-02'
     data['trip_kind'] = 'return'
-    data['distance'] = '100'
+    data['distancevp'] = '100'
     data['expensevp'] = '0'
     p.mrsrequest.pmt = PMT.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
@@ -147,7 +147,7 @@ def test_mrsrequestcreateview_post_save_integration(p, caisse):
     data['date_return'] = '2017-02-02'
     data['1-date_depart'] = '2017-01-02'
     data['1-date_return'] = '2017-01-02'
-    data['distance'] = '100'
+    data['distancevp'] = '100'
     data['expensevp'] = '10'
     data['first_name'] = 'jamesy'
     data['last_name'] = 'wuzere'

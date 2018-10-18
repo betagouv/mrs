@@ -244,7 +244,7 @@ class MRSRequest(models.Model):
         blank=True,
         verbose_name='Assuré a basculé sur cette demande',
     )
-    distance = models.PositiveIntegerField(
+    distancevp = models.PositiveIntegerField(
         verbose_name='Distance (km)',
         help_text='Total des kilomètres parcourus:'
         ' en cas de transports aller retour, ou de transports itératifs'
@@ -375,7 +375,7 @@ class MRSRequest(models.Model):
         num = 1 if transport and not transport.date_return else 2
         return Decimal(
             (
-                ((self.distance or 0) * 1.62) +
+                ((self.distancevp or 0) * 1.62) +
                 (1.9 * num * self.transport_set.count())
             ) * 0.91
         ).quantize(TWOPLACES)
@@ -466,7 +466,7 @@ class MRSRequest(models.Model):
 
     @property
     def estimate(self):
-        dis = self.distance * 0.3
+        dis = self.distancevp * 0.3
         exp = float(self.expensevp or 0)
         return '%.2f' % (dis + exp)
 

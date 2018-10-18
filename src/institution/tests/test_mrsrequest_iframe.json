@@ -34,7 +34,7 @@
         },
         "delay": null,
         "display_id": 201712190000,
-        "distance": 100,
+        "distancevp": 100,
         "expensevp": 10,
         "institution": 310000000,
         "insured": 1,
