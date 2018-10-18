@@ -252,7 +252,7 @@ class MRSRequest(models.Model):
         ' (ex.pour 2 trajets de 40 km, indiquer 80 km)',
         null=True,
     )
-    expense = models.DecimalField(
+    expensevp = models.DecimalField(
         decimal_places=2, max_digits=6,
         default=0,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
@@ -467,7 +467,7 @@ class MRSRequest(models.Model):
     @property
     def estimate(self):
         dis = self.distance * 0.3
-        exp = float(self.expense or 0)
+        exp = float(self.expensevp or 0)
         return '%.2f' % (dis + exp)
 
     def is_allowed(self, request):

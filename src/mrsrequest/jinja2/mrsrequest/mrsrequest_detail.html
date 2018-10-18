@@ -258,7 +258,7 @@
                         Montant total (Base de remboursement)
                     </span>
                     <span class="right red-text" style="font-weight: bold">
-                        {{ '%.2f'|format((object.distance * 0.3) + float(object.expense)) }}€ TTC
+                        {{ '%.2f'|format((object.distance * 0.3) + float(object.expensevp)) }}€ TTC
                     </span>
                 </p>
                 <p>
@@ -282,7 +282,7 @@
                         Montant total des frais
                     </span>
                     <span class="right">
-                        {{ object.expense }}€ TTC
+                        {{ object.expensevp }}€ TTC
                     </span>
                 </p>
                 {% if object.payment_base -%}
@@ -362,7 +362,7 @@
             </div>
         </div>
     </div>
-    {% if object.expense %}
+    {% if object.expensevp %}
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">

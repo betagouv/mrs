@@ -42,7 +42,7 @@ var formInit = function (form) {
   var $caisse = $(form).find('#id_caisse')
   var $mrsrequestForm = $(form).find('#mrsrequest-form')
   var $caisseForm = $(form).find('#caisse-form')
-  var $parking = $(form).find('#id_parking_expense')
+  var $parking = $(form).find('#id_parking_expensevp')
   var $parkingEnable = $(form).find('[data-parking-enable]')
   var caisseChange = function() {
     if ($caisse.val() == 'other') {
@@ -126,23 +126,23 @@ var formInit = function (form) {
   iterativeNumberChange()
 
   // Expense bills field
-  var $expense = $(form).find('[name=expense]')
+  var $expensevp = $(form).find('[name=expensevp]')
   var $bills = $(form).find('#id_bills_container')
-  var expenseChange = function() {
+  var expensevpChange = function() {
     function active(field) {
       return field.length && parseFloat(field.val().replace(',', '.')) > 0
     }
-    if (active($expense) || active($parking)) {
+    if (active($expensevp) || active($parking)) {
       $bills.show()
     } else {
       $bills.hide()
     }
   }
-  $expense.on('input', expenseChange)
-  $expense.on('change', expenseChange)
-  $parking.on('input', expenseChange)
-  $parking.on('change', expenseChange)
-  expenseChange()
+  $expensevp.on('input', expensevpChange)
+  $expensevp.on('change', expensevpChange)
+  $parking.on('input', expensevpChange)
+  $parking.on('change', expensevpChange)
+  expensevpChange()
 
   // Activate label on date inputs because they have placeholders
   $(form).find('[data-form-control="date"]').siblings('label').addClass('active')
@@ -200,8 +200,8 @@ var formSubmit = function(form) {
     }
     return setTimeout($.proxy(formSubmit, this, form), 1000)
   }
-  var $expense = $(form).find('[name=expense]')
-  if ($expense.val() == '') $expense.val('0')
+  var $expensevp = $(form).find('[name=expensevp]')
+  if ($expensevp.val() == '') $expensevp.val('0')
   $form.find('.wait').remove()
 
   // For postMessage in success callback
