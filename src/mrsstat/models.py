@@ -12,6 +12,7 @@ from djcall.models import Caller
 
 from caisse.models import Caisse
 from institution.models import Institution
+from person.models import Person
 from mrsrequest.models import datetime_max, MRSRequest
 
 
@@ -242,5 +243,12 @@ def stat_update(sender, instance, **kwargs):
     ).spool('stat')
 
 
+def stat_update_person(sender, instance, **kwargs):
+    if instance.shifted:
+        for req in instance.mrsrequest_set.all():
+            stat_update(type(req), req)
+
+
 if not os.getenv('CI'):
     signals.post_save.connect(stat_update, sender=MRSRequest)
+    signals.post_save.connect(stat_update_person, sender=Person)
