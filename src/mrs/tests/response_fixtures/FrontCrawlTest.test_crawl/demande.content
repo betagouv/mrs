@@ -245,18 +245,18 @@
 <div class="layout-row row"><div class="col s12 m6">
 
 <div class="row">
-    <div class="input-field col s12 required" id="id_expense_container">
-        <input id="id_expense" name="expense" step="0.01" type="number" value="0"/>
-        <label class="active" for="id_expense">Frais de péage et/ou transports</label>
+    <div class="input-field col s12 required" id="id_expensevp_container">
+        <input id="id_expensevp" name="expensevp" step="0.01" type="number" value="0"/>
+        <label class="active" for="id_expensevp">Frais de péage et/ou transports</label>
         <div class="help-block">Somme totale des frais de péage et/ou de transport en commun (en € TTC)</div>
     </div>
 </div>
 </div><div class="col s12 m6">
 
 <div class="row">
-    <div class="input-field col s12" id="id_parking_expense_container">
-        <input id="id_parking_expense" name="parking_expense" step="0.01" type="number" value="0"/>
-        <label class="active" for="id_parking_expense">Frais de parking</label>
+    <div class="input-field col s12" id="id_parking_expensevp_container">
+        <input id="id_parking_expensevp" name="parking_expensevp" step="0.01" type="number" value="0"/>
+        <label class="active" for="id_parking_expensevp">Frais de parking</label>
         <div class="help-block">Somme totale des frais de parking (en € TTC)</div>
     </div>
 </div>

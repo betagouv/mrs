@@ -53,7 +53,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Votre caisse de rattachement',
     )
 
-    parking_expense = forms.DecimalField(
+    parking_expensevp = forms.DecimalField(
         decimal_places=2,
         max_digits=6,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
@@ -80,8 +80,8 @@ class MRSRequestCreateForm(forms.ModelForm):
                 'distance',
             ),
             material.Row(
-                'expense',
-                'parking_expense',
+                'expensevp',
+                'parking_expensevp',
             ),
             'bills',
         )
@@ -91,7 +91,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         model = MRSRequest
         fields = [
             'caisse',
-            'expense',
+            'expensevp',
             'distance',
         ]
 
@@ -99,7 +99,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         kwargs.setdefault('initial', {})
         initial = kwargs['initial']
 
-        kwargs['initial'].setdefault('parking_expense', 0)
+        kwargs['initial'].setdefault('parking_expensevp', 0)
 
         if 'mrsrequest_uuid' in kwargs:
             mrsrequest_uuid = kwargs.pop('mrsrequest_uuid')
@@ -126,10 +126,10 @@ class MRSRequestCreateForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        expense = cleaned_data.get('expense')
-        parking_expense = cleaned_data.get('parking_expense')
+        expensevp = cleaned_data.get('expensevp')
+        parking_expensevp = cleaned_data.get('parking_expensevp')
         bills = cleaned_data.get('bills')
-        if (expense or parking_expense) and not bills:
+        if (expensevp or parking_expensevp) and not bills:
             self.add_error(
                 'bills',
                 'Merci de soumettre vos justificatifs de transport'
@@ -177,8 +177,8 @@ class MRSRequestCreateForm(forms.ModelForm):
         return data, files, args, kwargs
 
     def save(self, commit=True):
-        if self.cleaned_data.get('parking_expense', None):
-            self.instance.expense += self.cleaned_data.get('parking_expense')
+        if self.cleaned_data.get('parking_expensevp', None):
+            self.instance.expensevp += self.cleaned_data.get('parking_expensevp')
 
         obj = super().save(commit=commit)
         save_m2m = getattr(self, 'save_m2m', None)

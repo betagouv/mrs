@@ -43,14 +43,14 @@ def test_form_save_m2m(monkeypatch, person, caisse):
         lambda upload: upload.read()
     )
 
-    # PMT is only missing attachement at 0 expense
-    form = _form(expense=0)
+    # PMT is only missing attachement at 0 expensevp
+    form = _form(expensevp=0)
     assert not form.non_field_errors()
     assert not form.is_valid()
     assert list(form.errors.keys()) == ['pmt']
 
-    # Bills become required with expense
-    form = _form(expense=10)
+    # Bills become required with expensevp
+    form = _form(expensevp=10)
     assert not form.non_field_errors()
     assert not form.is_valid()
     assert list(form.errors.keys()) == ['pmt', 'bills']
@@ -61,7 +61,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
         PMT.objects.record_upload(mrsrequest_uuid, f)
 
     # Only Bills is missing now
-    form = _form(expense=10)
+    form = _form(expensevp=10)
     assert not form.non_field_errors()
     assert not form.is_valid()
     assert list(form.errors.keys()) == ['bills']
@@ -73,7 +73,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
 
     # Is the form's save_m2m method going to relate the above uploads by
     # uuid ?
-    form = _form(expense=10)
+    form = _form(expensevp=10)
     assert not form.non_field_errors()
     assert not form.errors
     assert form.is_valid()

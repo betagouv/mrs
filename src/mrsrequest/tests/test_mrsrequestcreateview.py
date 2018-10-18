@@ -93,7 +93,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     data['date_return'] = '2017-02-02'
     data['trip_kind'] = 'return'
     data['distance'] = '100'
-    data['expense'] = '0'
+    data['expensevp'] = '0'
     p.mrsrequest.pmt = PMT.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
@@ -103,7 +103,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     assert not p.view.forms['mrsrequest'].errors
     assert p.view.forms['mrsrequest'].is_valid()
 
-    data['expense'] = '10'
+    data['expensevp'] = '10'
     p.post(**data)
     assert list(p.view.forms['mrsrequest'].errors) == ['bills']
     assert not p.view.forms['mrsrequest'].is_valid()
@@ -148,7 +148,7 @@ def test_mrsrequestcreateview_post_save_integration(p, caisse):
     data['1-date_depart'] = '2017-01-02'
     data['1-date_return'] = '2017-01-02'
     data['distance'] = '100'
-    data['expense'] = '10'
+    data['expensevp'] = '10'
     data['first_name'] = 'jamesy'
     data['last_name'] = 'wuzere'
     data['birth_date'] = '2007-02-07'

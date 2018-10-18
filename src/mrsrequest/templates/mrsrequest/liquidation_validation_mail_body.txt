@@ -12,7 +12,7 @@ Voici l'archive de la demande de remboursement via MRS n°{{ object.display_id }
 - Date du trajet aller {% if not transport.date_return %}simple {% endif %}{{ forloop.counter }}: {{ transport.date_depart }}{% if transport.date_return %}
 - Date de trajet retour {{ forloop.counter }}: {{ transport.date_return }}{% endif %}{% endfor %}
 - Kilométrage total parcouru en voiture : {{ object.distance }}
-- Montant total des frais : {{ object.expense }}{% if object.expense %}
+- Montant total des frais en VP : {{ object.expensevp }}{% if object.expensevp %}
 - Montant total (Base de remboursement) : {{ object.estimate }}€ TTC
 - Justificatifs :
 {% for bill in object.bill_set.all %}  - {{ bill.filename }}
