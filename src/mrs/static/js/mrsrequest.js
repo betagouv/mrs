@@ -109,7 +109,7 @@ var formInit = function (form) {
       if ($target.length)
         $target = $target.parents('div.layout-row.row')
       else
-        $target = $(form).find('#id_distance_container').parents('div.layout-row.row')
+        $target = $(form).find('#id_distancevp_container').parents('div.layout-row.row')
 
       var $newRow = $dateRow.clone(false)
       $newRow.find(':input').each(function() {

@@ -11,7 +11,7 @@ Voici l'archive de la demande de remboursement via MRS n°{{ object.display_id }
 - Adresse email : {{ object.insured.email }}{% for transport in object.transport_set.all %}
 - Date du trajet aller {% if not transport.date_return %}simple {% endif %}{{ forloop.counter }}: {{ transport.date_depart }}{% if transport.date_return %}
 - Date de trajet retour {{ forloop.counter }}: {{ transport.date_return }}{% endif %}{% endfor %}
-- Kilométrage total parcouru en voiture : {{ object.distance }}
+- Kilométrage total parcouru en voiture : {{ object.distancevp }}
 - Montant total des frais en VP : {{ object.expensevp }}{% if object.expensevp %}
 - Montant total (Base de remboursement) : {{ object.estimate }}€ TTC
 - Justificatifs :

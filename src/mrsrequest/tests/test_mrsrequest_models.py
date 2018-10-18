@@ -43,7 +43,7 @@ for day_name, day_args in days.items():
 @pytest.mark.django_db
 def test_mrsrequest_update_taxi_cost():
     obj = MRSRequest.objects.create(
-        distance=100,
+        distancevp=100,
         payment_base=120,
     )
     obj.transport_set.create(

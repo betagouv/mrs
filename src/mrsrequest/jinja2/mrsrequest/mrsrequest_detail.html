@@ -258,7 +258,7 @@
                         Montant total (Base de remboursement)
                     </span>
                     <span class="right red-text" style="font-weight: bold">
-                        {{ '%.2f'|format((object.distance * 0.3) + float(object.expensevp)) }}€ TTC
+                        {{ '%.2f'|format((object.distancevp * 0.3) + float(object.expensevp)) }}€ TTC
                     </span>
                 </p>
                 <p>
@@ -266,7 +266,7 @@
                         Distance (km parcourus)
                     </span>
                     <span class="right">
-                        {{ object.distance }}
+                        {{ object.distancevp }}
                     </span>
                 </p>
                 <p>
@@ -274,7 +274,7 @@
                         Montant des km parcourus
                     </span>
                     <span class="right">
-                        {{ '%.2f'|format(object.distance * 0.3) }}€ TTC
+                        {{ '%.2f'|format(object.distancevp * 0.3) }}€ TTC
                     </span>
                 </p>
                 <p>

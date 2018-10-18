@@ -77,7 +77,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         ),
         bottom=material.Layout(
             material.Row(
-                'distance',
+                'distancevp',
             ),
             material.Row(
                 'expensevp',
@@ -92,7 +92,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         fields = [
             'caisse',
             'expensevp',
-            'distance',
+            'distancevp',
         ]
 
     def __init__(self, *args, **kwargs):

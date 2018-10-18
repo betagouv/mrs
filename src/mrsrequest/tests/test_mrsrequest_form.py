@@ -27,7 +27,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     def _form(**extra):
         data = dict()
         data['caisse'] = [caisse.pk]
-        data['distance'] = ['100']
+        data['distancevp'] = ['100']
         for k, v in extra.items():
             data[k] = [str(v)]
 
