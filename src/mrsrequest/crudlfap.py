@@ -36,7 +36,7 @@ from .models import MRSRequest
 
 logger = logging.getLogger(__name__)
 
-DATETIME_FORMAT_DMY = '%d/%m/%Y'
+DATE_FORMAT = '%d/%m/%Y'
 
 CSV_COLUMNS = (
     'caisse',
@@ -282,7 +282,7 @@ class MRSRequestListView(crudlfap.ListView):
         creation_date__gte=django_filters.DateFilter(
             field_name='creation_datetime',
             lookup_expr='gte',
-            input_formats=[DATETIME_FORMAT_DMY],
+            input_formats=[DATE_FORMAT],
             label='Date minimale',
             widget=forms.TextInput(
                 attrs={
@@ -295,7 +295,7 @@ class MRSRequestListView(crudlfap.ListView):
         creation_date__lte=django_filters.DateFilter(
             field_name='creation_datetime',
             lookup_expr='lte',
-            input_formats=[DATETIME_FORMAT_DMY],
+            input_formats=[DATE_FORMAT],
             label='Date maximale',
             widget=forms.TextInput(
                 attrs={
@@ -402,10 +402,10 @@ class MRSRequestExport(crudlfap.ObjectsView):
                 str(obj.caisse),
                 obj.display_id,
                 obj.insured.nir,
-                obj.insured.birth_date.strftime(DATETIME_FORMAT_DMY),
+                obj.insured.birth_date.strftime(DATE_FORMAT),
                 obj.insured.last_name,
                 obj.insured.first_name,
-                date_depart.strftime(DATETIME_FORMAT_DMY),
+                date_depart.strftime(DATE_FORMAT),
                 '',
                 '',
                 '',
@@ -527,7 +527,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         if row['mandatement']:
             obj.mandate_date = datetime.strptime(
                 row['mandatement'],
-                DATETIME_FORMAT_DMY,
+                DATE_FORMAT,
             ).date()
 
         if row['base']:
