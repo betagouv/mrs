@@ -9,6 +9,6 @@ Ressources
 - `Documentation
   <https://mrs.readthedocs.io>`_
 - `Intégration Continue
-  <https://circleci.com/gh/betagouv/mrs>`_
+  <https://yourlabs.io/mrs/web>`_
 - `Code Coverage
   <https://codecov.io/gh/betagouv/mrs>`_
