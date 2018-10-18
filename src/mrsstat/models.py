@@ -235,12 +235,26 @@ def update_stat_for_mrsrequest(**kwargs):
         get_or_create_stat(institution=m.institution, caisse=m.caisse)
 
 
-def stat_update(sender, instance, **kwargs):
+def stat_update(sender, instance: MRSRequest, **kwargs):
+    """
+    Spool a mrsrequest stat update call.
+
+    .. py:data:: instance
+
+        The MRSRequest instance to update stat for !
+    """
     Caller(
         callback='mrsstat.models.update_stat_for_mrsrequest',
         kwargs=dict(pk=instance.pk),
     ).spool('stat')
 
 
+def stat_update_person(sender, instance, **kwargs):
+    if instance.shifted:
+        for m in instance.mrsrequest_set.all():
+            stat_update(type(m), m)
+
+
 if not os.getenv('CI'):
     signals.post_save.connect(stat_update, sender=MRSRequest)
+    signals.post_save.connect(stat_update_person, sender=Person)

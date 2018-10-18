@@ -1,9 +1,11 @@
+import pytest
 from dbdiff.fixture import Fixture
 from django import test
 from freezegun import freeze_time
 
 from mrsrequest.models import MRSRequest
-from mrsstat.models import update_stat_for_mrsrequest, Stat
+from mrsstat.models import stat_update_person, update_stat_for_mrsrequest, Stat
+from person.models import Person
 
 
 class StatTest(test.TransactionTestCase):
@@ -22,3 +24,15 @@ class StatTest(test.TransactionTestCase):
             'mrsstat/tests/test_mrsstat.json',
             models=[Stat]
         ).assertNoDiff()
+
+
+@pytest.mark.django_db
+def test_stat_update_person_shifted(mocker):
+    Fixture('mrs/tests/data.json').load()
+    stat_update = mocker.patch('mrsstat.models.stat_update')
+    p = Person.objects.exclude(shifted=True).first()
+    p.shifted = True
+    stat_update_person(Person, instance=p)
+
+    for m in p.mrsrequest_set.all():
+        stat_update.assert_called_once_with(type(m), m)
