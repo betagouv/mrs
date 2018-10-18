@@ -36,6 +36,7 @@ from .models import MRSRequest
 
 logger = logging.getLogger(__name__)
 
+DATETIME_FORMAT_DMY = '%d/%m/%Y'
 
 CSV_COLUMNS = (
     'caisse',
@@ -281,7 +282,7 @@ class MRSRequestListView(crudlfap.ListView):
         creation_date__gte=django_filters.DateFilter(
             field_name='creation_datetime',
             lookup_expr='gte',
-            input_formats=['%d/%m/%Y'],
+            input_formats=[DATETIME_FORMAT_DMY],
             label='Date minimale',
             widget=forms.TextInput(
                 attrs={
@@ -294,7 +295,7 @@ class MRSRequestListView(crudlfap.ListView):
         creation_date__lte=django_filters.DateFilter(
             field_name='creation_datetime',
             lookup_expr='lte',
-            input_formats=['%d/%m/%Y'],
+            input_formats=[DATETIME_FORMAT_DMY],
             label='Date maximale',
             widget=forms.TextInput(
                 attrs={
@@ -401,10 +402,10 @@ class MRSRequestExport(crudlfap.ObjectsView):
                 str(obj.caisse),
                 obj.display_id,
                 obj.insured.nir,
-                obj.insured.birth_date.strftime('%d/%m/%Y'),
+                obj.insured.birth_date.strftime(DATETIME_FORMAT_DMY),
                 obj.insured.last_name,
                 obj.insured.first_name,
-                date_depart.strftime('%d/%m/%Y'),
+                date_depart.strftime(DATETIME_FORMAT_DMY),
                 '',
                 '',
                 '',
@@ -526,7 +527,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         if row['mandatement']:
             obj.mandate_date = datetime.strptime(
                 row['mandatement'],
-                '%d/%m/%Y'
+                DATETIME_FORMAT_DMY,
             ).date()
 
         if row['base']:
@@ -673,9 +674,14 @@ class MRSRequestDetailView(crudlfap.DetailView):
         self.labels['insured'] = 'Assurré'
 
     def field_changed(self, fieldname):
+        FORMAT_YMD = '%Y-%m-%d'
         insured_field = self.object.insured.__getattribute__(fieldname)
         if self.object.data and fieldname in self.object.data:
-            return self.object.data[fieldname] != insured_field
+            val = self.object.data[fieldname]
+            if fieldname == 'birth_date':
+                val = datetime.strptime(val, FORMAT_YMD)
+                val = val.date()
+            return val != insured_field
         return False
 
 
