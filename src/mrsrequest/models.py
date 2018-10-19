@@ -14,7 +14,7 @@ from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
 
-from mrsattachment.models import MRSAttachment
+from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 
 TWOPLACES = Decimal(10) ** -2
 
@@ -50,11 +50,34 @@ def datetime_max(date):
     return to_date_datetime(date, 23, 59, 59, 999999)
 
 
+class BillManager(MRSAttachmentManager):
+    def __init__(self, *args, **kwargs):
+        self.mode = kwargs.pop('mode', None)
+        super().__init__(*args, **kwargs)
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.mode:
+            qs = qs.filter(mode=self.mode)
+        return qs
+
+
 class Bill(MRSAttachment):
+    MODE_VP = 'vp'
+    MODE_CHOICES = (
+        (MODE_VP, 'Vehicule Personnel'),
+    )
+
     mrsrequest = models.ForeignKey(
         'MRSRequest',
         null=True,
         on_delete=models.CASCADE,
+    )
+    mode = models.CharField(
+        choices=MODE_CHOICES,
+        default='vp',
+        db_index=True,
+        max_length=3,
     )
 
     class Meta:
@@ -64,11 +87,23 @@ class Bill(MRSAttachment):
     def unlink(self):
         self.transport = None
 
+    def get_download_url(self):
+        return reverse('mrsrequest:bill_download', args=[self.pk])
+
     def get_delete_url(self):
         return reverse('mrsrequest:bill_destroy', args=[self.pk])
 
-    def get_download_url(self):
-        return reverse('mrsrequest:bill_download', args=[self.pk])
+
+class BillVP(Bill):
+    MODE = 'vp'
+    objects = BillManager(mode=MODE)
+
+    def __init__(self, *args, **kwargs):
+        kwargs['mode'] = self.MODE
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        proxy = True
 
 
 class MRSRequestQuerySet(models.QuerySet):

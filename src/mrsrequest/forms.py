@@ -11,7 +11,7 @@ from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 from mrsemail.models import EmailTemplate
 
-from .models import Bill, MRSRequest, PMT, Transport
+from .models import BillVP, MRSRequest, PMT, Transport
 
 
 class MRSRequestCreateForm(forms.ModelForm):
@@ -33,9 +33,9 @@ class MRSRequestCreateForm(forms.ModelForm):
         )
     )
 
-    bills = MRSAttachmentField(
-        Bill,
-        'mrsrequest:bill_upload',
+    billvps = MRSAttachmentField(
+        BillVP,
+        'mrsrequest:billvp_upload',
         'mrsrequest:bill_download',
         20,
         label='Justificatifs',
@@ -83,7 +83,7 @@ class MRSRequestCreateForm(forms.ModelForm):
                 'expensevp',
                 'parking_expensevp',
             ),
-            'bills',
+            'billvps',
         )
     )
 
@@ -128,10 +128,10 @@ class MRSRequestCreateForm(forms.ModelForm):
 
         expensevp = cleaned_data.get('expensevp')
         parking_expensevp = cleaned_data.get('parking_expensevp')
-        bills = cleaned_data.get('bills')
-        if (expensevp or parking_expensevp) and not bills:
+        billvps = cleaned_data.get('billvps')
+        if (expensevp or parking_expensevp) and not billvps:
             self.add_error(
-                'bills',
+                'billvps',
                 'Merci de soumettre vos justificatifs de transport'
             )
 
@@ -144,7 +144,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         else:
             data['pmt'] = []
 
-        data['bills'] = Bill.objects.recorded_uploads(mrsrequest_uuid)
+        data['billvps'] = BillVP.objects.recorded_uploads(mrsrequest_uuid)
 
         if files:
             files.update(data)

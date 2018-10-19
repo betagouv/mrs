@@ -130,6 +130,7 @@
     "model": "mrsrequest.bill",
     "pk": 2,
     "fields": {
+        "mode": "vp",
         "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae"
     }
 },
@@ -137,6 +138,7 @@
     "model": "mrsrequest.bill",
     "pk": 3,
     "fields": {
+        "mode": "vp",
         "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae"
     }
 },

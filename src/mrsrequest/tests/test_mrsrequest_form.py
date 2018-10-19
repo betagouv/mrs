@@ -53,7 +53,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     form = _form(expensevp=10)
     assert not form.non_field_errors()
     assert not form.is_valid()
-    assert list(form.errors.keys()) == ['pmt', 'bills']
+    assert list(form.errors.keys()) == ['pmt', 'billvps']
 
     with io.BytesIO(b'test_mrsattachmentform0') as f:
         f.name = 'test_mrsattachmentform0.jpg'
@@ -64,7 +64,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     form = _form(expensevp=10)
     assert not form.non_field_errors()
     assert not form.is_valid()
-    assert list(form.errors.keys()) == ['bills']
+    assert list(form.errors.keys()) == ['billvps']
 
     with io.BytesIO(b'test_mrsattachmentform1') as f:
         f.name = 'test_mrsattachmentform1.jpg'

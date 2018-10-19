@@ -267,13 +267,13 @@
 
 
 <div class="row">
-    <div class="input-field file-field col s12" id="id_bills_container">
+    <div class="input-field file-field col s12" id="id_billvps_container">
         <div class="btn">
             <span>Fichier</span>
-            <input data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/bill/MRSREQUEST_UUID/upload/" multiple="multiple" name="bills" type="file"/>
+            <input data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/billvp/MRSREQUEST_UUID/upload/" multiple="multiple" name="billvps" type="file"/>
         </div>
         <div class="file-path-wrapper">
-            <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/bill/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
+            <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/billvp/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
         </div>
         <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement </span> / transport en commun</div>
 
