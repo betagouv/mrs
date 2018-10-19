@@ -246,6 +246,9 @@ def stat_update(sender, instance, **kwargs):
 def stat_update_person(sender, instance, **kwargs):
     if instance.shifted:
         for req in instance.mrsrequest_set.all():
+            # trigger denorm recalculate
+            req.saving = None
+            req.save()
             stat_update(type(req), req)
 
 

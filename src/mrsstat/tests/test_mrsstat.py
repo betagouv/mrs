@@ -27,12 +27,14 @@ class StatTest(test.TransactionTestCase):
 
 
 @pytest.mark.django_db
-def test_stat_update_person_shifted(mock):
+def test_stat_update_person_shifted():
     Fixture('mrs/tests/data.json').load()
-    stat_update_mock = mock.patch('mrsstat.models.stat_update')
-    pers = Person.objects.exclude(shifted=True).first()
-    pers.shifted = True
-    stat_update_person(Person, instance=pers)
+    req = MRSRequest.objects.exclude(saving=None).first()
+    assert req, 'MRSRequest with saving required for this test !'
+    MRSRequest.objects.filter(pk=req.pk).update(saving=None)
+    req.refresh_from_db()
+    assert req.saving is None
 
-    for req in pers.mrsrequest_set.all():
-        stat_update_mock.assert_called_once_with(type(req), req)
+    stat_update_person(Person, instance=req.insured)
+    req.refresh_from_db()
+    assert f'{req.saving}' == '5.37'
