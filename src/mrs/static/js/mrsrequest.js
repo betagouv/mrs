@@ -125,17 +125,17 @@ var formInit = function (form) {
   $iterativeNumber.on('change', iterativeNumberChange)
   iterativeNumberChange()
 
-  // Expense bills field
+  // Expense billvps field
   var $expensevp = $(form).find('[name=expensevp]')
-  var $bills = $(form).find('#id_bills_container')
+  var $billvps = $(form).find('#id_billvps_container')
   var expensevpChange = function() {
     function active(field) {
       return field.length && parseFloat(field.val().replace(',', '.')) > 0
     }
     if (active($expensevp) || active($parking)) {
-      $bills.show()
+      $billvps.show()
     } else {
-      $bills.hide()
+      $billvps.hide()
     }
   }
   $expensevp.on('input', expensevpChange)

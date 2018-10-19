@@ -55,6 +55,7 @@
 },
 {
     "fields": {
+        "mode": "vp",
         "mrsrequest": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
     },
     "model": "mrsrequest.bill",

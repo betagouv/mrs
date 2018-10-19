@@ -1,8 +1,9 @@
 from django.urls import path, reverse_lazy
 
+from mrsattachment.views import MRSFileUploadView
 from mrsattachment.urls import factory
 
-from .models import Bill, PMT
+from .models import Bill, BillVP, PMT
 from . import views
 
 
@@ -18,3 +19,13 @@ urlpatterns = [
 
 urlpatterns += factory(PMT)
 urlpatterns += factory(Bill)
+
+for model in [BillVP]:
+    name = model.__name__.lower()
+    urlpatterns.append(
+        path(
+            f'{name}/<pk>/upload/',
+            MRSFileUploadView.as_view(model=model),
+            name=f'{name}_upload'
+        )
+    )

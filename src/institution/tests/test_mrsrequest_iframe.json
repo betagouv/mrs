@@ -61,7 +61,8 @@
 },
 {
     "fields": {
-        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823",
+        "mode": "vp"
     },
     "model": "mrsrequest.bill",
     "pk": 2

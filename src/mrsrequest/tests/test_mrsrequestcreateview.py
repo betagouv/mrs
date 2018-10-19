@@ -105,7 +105,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
 
     data['expensevp'] = '10'
     p.post(**data)
-    assert list(p.view.forms['mrsrequest'].errors) == ['bills']
+    assert list(p.view.forms['mrsrequest'].errors) == ['billvps']
     assert not p.view.forms['mrsrequest'].is_valid()
 
     Bill.objects.create(
