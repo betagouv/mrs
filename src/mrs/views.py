@@ -18,6 +18,7 @@ class Dashboard(crudlfap.TemplateView):
     title_heading = ''
     template_name = 'crudlfap/home.html'
     model = MRSRequest
+    body_class = 'full-width'
 
     def get_listview(self):
         router = crudlfap.site['mrsrequest.MRSRequest']
