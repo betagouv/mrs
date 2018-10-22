@@ -14,7 +14,7 @@ class MRSAttachmentManager(models.Manager):
     def recorded_uploads(self, mrsrequest_uuid):
         return self.model.objects.filter(mrsrequest_uuid=mrsrequest_uuid)
 
-    def record_upload(self, mrsrequest_uuid, upload):
+    def record_upload(self, mrsrequest_uuid, upload, **kwargs):
         '''
         Create a Bill object from the upload on the request's transport.
 
@@ -25,6 +25,7 @@ class MRSAttachmentManager(models.Manager):
             mrsrequest_uuid=mrsrequest_uuid,
             filename=upload.name,
             binary=MRSAttachment.get_upload_body(upload),
+            **kwargs
         )
 
 

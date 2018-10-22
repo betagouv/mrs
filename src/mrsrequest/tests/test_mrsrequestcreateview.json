@@ -35,6 +35,7 @@
         "delay": null,
         "display_id": 201712190000,
         "distancevp": 100,
+        "expenseatp": 0,
         "expensevp": 10,
         "institution": null,
         "insured": 1,

@@ -5,7 +5,8 @@ import pytest
 
 from caisse.models import Caisse, Email
 from mrsattachment.models import MRSAttachment
-from mrsrequest.models import Bill, MRSRequest, PMT, Transport
+from mrsrequest.models import (
+    Bill, BillVP, MRSRequest, PMT, Transport)
 from mrsrequest.views import MRSRequestCreateView
 from person.models import Person
 
@@ -92,6 +93,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     data['date_depart'] = '2017-02-02'
     data['date_return'] = '2017-02-02'
     data['trip_kind'] = 'return'
+    data['vp_enable'] = 'vp_enable'
     data['distancevp'] = '100'
     data['expensevp'] = '0'
     p.mrsrequest.pmt = PMT.objects.create(
@@ -108,7 +110,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     assert list(p.view.forms['mrsrequest'].errors) == ['billvps']
     assert not p.view.forms['mrsrequest'].is_valid()
 
-    Bill.objects.create(
+    BillVP.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
@@ -149,6 +151,7 @@ def test_mrsrequestcreateview_post_save_integration(p, caisse):
     data['1-date_return'] = '2017-01-02'
     data['distancevp'] = '100'
     data['expensevp'] = '10'
+    data['vp_enable'] = 'vp_enable'
     data['first_name'] = 'jamesy'
     data['last_name'] = 'wuzere'
     data['birth_date'] = '2007-02-07'
@@ -163,7 +166,7 @@ def test_mrsrequestcreateview_post_save_integration(p, caisse):
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
     )
-    Bill.objects.create(
+    BillVP.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',

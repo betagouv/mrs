@@ -302,8 +302,10 @@ class MRSRequest(models.Model):
         ' indiquer le nombre total de km parcours.'
         ' (ex.pour 2 trajets de 40 km, indiquer 80 km)',
         null=True,
+        blank=True,
     )
     expensevp = models.DecimalField(
+        blank=True,
         decimal_places=2, max_digits=6,
         default=0,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
@@ -314,6 +316,7 @@ class MRSRequest(models.Model):
         )
     )
     expenseatp = models.DecimalField(
+        blank=True,
         decimal_places=2, max_digits=6,
         default=0,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
