@@ -178,6 +178,23 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="checkbox-field col s12" id="id_iterative_show_container">
+        <label>
+        <input class="filled-in " id="id_iterative_show" name="iterative_show" type="checkbox"/><span for="id_iterative_show">Avez-vous des transports itératifs à déclarer ?</span></label>
+        <div class="help-block">Les transports itératifs sont des transports / réguliers de distance identique (même lieu de / départ, même lieu d'arrivée)</div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="input-field col s12" id="id_iterative_number_container">
+        <input id="id_iterative_number" name="iterative_number" type="number" value="1"/>
+        <label class="active" for="id_iterative_number">Combien de trajets itératifs ?</label>
+        
+    </div>
+</div>
+
 <div class="layout-row row"><div class="col s12 m6">
 
 
@@ -199,23 +216,6 @@
     </div>
 </div>
 </div></div>
-
-<div class="row">
-    <div class="checkbox-field col s12" id="id_iterative_show_container">
-        <label>
-        <input class="filled-in " id="id_iterative_show" name="iterative_show" type="checkbox"/><span for="id_iterative_show">Avez-vous des transports itératifs à déclarer ?</span></label>
-        <div class="help-block">Les transports itératifs sont des transports / réguliers de distance identique (même lieu de / départ, même lieu d'arrivée)</div>
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="input-field col s12" id="id_iterative_number_container">
-        <input id="id_iterative_number" name="iterative_number" type="number" value="1"/>
-        <label class="active" for="id_iterative_number">Combien de trajets itératifs ?</label>
-        
-    </div>
-</div>
 
     </div>
 </div>

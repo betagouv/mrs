@@ -105,19 +105,18 @@ var formInit = function (form) {
         continue
       }
 
-      var $target = $(form).find('[name=' + (i + 1) + '-date_depart]')
-      if ($target.length)
-        $target = $target.parents('div.layout-row.row')
-      else
-        $target = $(form).find('#id_distancevp_container').parents('div.layout-row.row')
-
       var $newRow = $dateRow.clone(false)
       $newRow.find(':input').each(function() {
         $(this).attr('name', i + '-' + $(this).attr('name'))
         $(this).val('')
       })
       $newRow.find('label').append(' ' + i)
-      $newRow.insertBefore($target)
+
+      var $target = $(form).find('[name=' + (i + 1) + '-date_depart]')
+      if ($target.length)
+        $newRow.insertBefore($target.parents('div.layout-row.row'))
+      else
+        $dateRow.parent().append($newRow)
       i--
     }
   }
