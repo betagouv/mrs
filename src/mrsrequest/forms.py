@@ -245,12 +245,12 @@ class TransportIterativeForm(TransportForm):
         material.Fieldset(
             'Informations sur le transport',
             'trip_kind',
+            'iterative_show',
+            'iterative_number',
             material.Row(
                 'date_depart',
                 'date_return',
             ),
-            'iterative_show',
-            'iterative_number',
         ),
     )
 
