@@ -1,6 +1,7 @@
 import datetime
 from decimal import Decimal
 from denorm import denormalized
+import logging
 import pytz
 import uuid
 
@@ -17,6 +18,8 @@ from django.utils import timezone
 from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 
 TWOPLACES = Decimal(10) ** -2
+
+logger = logging.getLogger(__name__)
 
 
 def to_date_datetime(date_or_datetime, hour, minute, second, microsecond):
@@ -492,9 +495,13 @@ class MRSRequest(models.Model):
             return 0
         if not self.payment_base:
             return
-        return Decimal(
+        saving = Decimal(
             float(self.taxi_cost) - float(self.payment_base)
         ).quantize(TWOPLACES)
+        if saving < 0:
+            logger.info("info: the balance from {} is negative: {}".
+                        format(self.insured, saving))
+        return saving
 
     @denormalized(
         models.DecimalField,
