@@ -20,12 +20,13 @@ from .forms import (
     TransportForm,
     TransportIterativeForm,
 )
-from .models import MRSRequest, Transport
+from .models import Bill, MRSRequest, Transport
 
 
 class MRSRequestCreateView(generic.TemplateView):
     template_name = 'mrsrequest/form.html'
     base = 'base.html'
+    modes = [i[0] for i in Bill.MODE_CHOICES]
 
     def get(self, request, *args, **kwargs):
         self.object = MRSRequest()

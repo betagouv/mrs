@@ -58,8 +58,29 @@
                         {% endform %}
                     {% endif %}
                 {% endfor %}
-                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.bottom %}
-                {% endform %}
+
+                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.vp_enable %}{% endform %}
+                <div id="vp-form" style="display: none">
+                  {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.vp_form %}{% endform %}
+                </div>
+
+                {% comment %}
+                Please forgive the paste of the same 4 lines as above, below
+                this comment. This is what we could do to refactor it in Jinja2:
+
+                {% for i in ['vp', 'tc'] %}
+ '_enable'] %}{% endform %}
+                <div class="#{{ i }}-form">
+ '_form'] %}{% endform %}
+                </div>
+                {% endfor %}
+                {% endcomment %}
+
+                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.atp_enable %}{% endform %}
+                <div id="atp-form" style="display: none">
+                  {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.atp_form %}{% endform %}
+                </div>
+
                 {% form form=view.forms.certify %}
                 {% endform %}
             </div>

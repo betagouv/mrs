@@ -21,6 +21,16 @@ var listen = false
 
 var submitUi = new SubmitUi(document.querySelector('body'))
 
+function checkedEnables(form, mode) {
+  var $enabler = $(form).find(`#id_${mode}_enable`)
+  var $form = $(form).find(`#${mode}-form`)
+  var change = function() {
+    $enabler.is(':checked') ? $form.slideDown() : $form.slideUp()
+  }
+  $enabler.on('change', change)
+  change()
+}
+
 var formInit = function (form) {
   // Make form ajax
   if (listen == false) {
@@ -33,6 +43,12 @@ var formInit = function (form) {
     }, false)
     listen = true
   }
+
+  // Show/hide modes
+  for (var mode of ['vp', 'atp']) {
+    checkedEnables(form, mode)
+  }
+
 
   // Setup ajax attachment
   mrsattachment(form)
