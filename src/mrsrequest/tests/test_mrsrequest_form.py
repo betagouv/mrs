@@ -28,6 +28,11 @@ def test_form_save_m2m(monkeypatch, person, caisse):
         data = dict()
         data['caisse'] = [caisse.pk]
         data['distancevp'] = ['100']
+
+        for mode in ['atp', 'vp']:
+            if f'expense{mode}' in extra:
+                data[f'{mode}_enable'] = [f'{mode}_enable']
+
         for k, v in extra.items():
             data[k] = [str(v)]
 
@@ -66,14 +71,15 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     assert not form.is_valid()
     assert list(form.errors.keys()) == ['billvps']
 
-    with io.BytesIO(b'test_mrsattachmentform1') as f:
-        f.name = 'test_mrsattachmentform1.jpg'
-        f.content_type = 'image/jpg'
-        Bill.objects.record_upload(mrsrequest_uuid, f)
+    for mode in ['vp', 'atp']:
+        with io.BytesIO(b'test_mrsattachmentform1') as f:
+            f.name = f'test_mrsattachmentform1_{mode}.jpg'
+            f.content_type = 'image/jpg'
+            Bill.objects.record_upload(mrsrequest_uuid, f, mode=mode)
 
     # Is the form's save_m2m method going to relate the above uploads by
     # uuid ?
-    form = _form(expensevp=10)
+    form = _form(expensevp=10, expenseatp=10)
     assert not form.non_field_errors()
     assert not form.errors
     assert form.is_valid()

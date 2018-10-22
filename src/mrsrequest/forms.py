@@ -66,22 +66,14 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Votre caisse de rattachement',
     )
 
-    vp_enable = forms.ChoiceField(
-        choices=(
-            (True, 'VP'),
-        ),
-        label='Avez vous VP ?',
+    vp_enable = forms.BooleanField(
+        label='Avez vous voyagé en véhicule personnel ?',
         required=False,
-        widget=forms.CheckboxInput,
     )
 
-    atp_enable = forms.ChoiceField(
-        choices=(
-            (True, 'ATP'),
-        ),
-        label='Avez vous des transports en commun ?',
+    atp_enable = forms.BooleanField(
+        label='Avez vous voyagé en transports en commun ?',
         required=False,
-        widget=forms.CheckboxInput,
     )
 
     parking_expensevp = forms.DecimalField(
@@ -168,14 +160,50 @@ class MRSRequestCreateForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        expensevp = cleaned_data.get('expensevp')
-        parking_expensevp = cleaned_data.get('parking_expensevp')
-        billvps = cleaned_data.get('billvps')
-        if (expensevp or parking_expensevp) and not billvps:
+        vp = cleaned_data.get('vp_enable')
+        atp = cleaned_data.get('atp_enable')
+
+        if not vp and not atp:
             self.add_error(
-                'billvps',
-                'Merci de soumettre vos justificatifs de transport'
+                'atp_enable',
+                'Merci de choisir VP et / ou ATP',
             )
+            self.add_error(
+                'vp_enable',
+                'Merci de choisir VP et / ou ATP',
+            )
+
+        if vp:
+            distancevp = cleaned_data.get('distancevp')
+            if not distancevp:
+                self.add_error(
+                    'distancevp',
+                    'Merci de saisir la distance du trajet',
+                )
+
+            expensevp = cleaned_data.get('expensevp')
+            parking_expensevp = cleaned_data.get('parking_expensevp')
+            billvps = cleaned_data.get('billvps')
+            if (expensevp or parking_expensevp) and not billvps:
+                self.add_error(
+                    'billvps',
+                    'Merci de soumettre vos justificatifs de transport'
+                )
+
+        if atp:
+            billatps = cleaned_data.get('billatps')
+            if not billatps:
+                self.add_error(
+                    'billatps',
+                    'Merci de fournir les justificatifs de transport',
+                )
+
+            expenseatp = cleaned_data.get('expenseatp')
+            if not expenseatp:
+                self.add_error(
+                    'expenseatp',
+                    'Merci de saisir le total du coût de transports en commun',
+                )
 
         return cleaned_data
 

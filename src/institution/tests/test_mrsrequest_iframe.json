@@ -35,6 +35,7 @@
         "delay": null,
         "display_id": 201712190000,
         "distancevp": 100,
+        "expenseatp": 0,
         "expensevp": 10,
         "institution": 310000000,
         "insured": 1,
@@ -61,8 +62,8 @@
 },
 {
     "fields": {
-        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823",
-        "mode": "vp"
+        "mode": "vp",
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
     },
     "model": "mrsrequest.bill",
     "pk": 2

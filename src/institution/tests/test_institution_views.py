@@ -75,6 +75,7 @@ def test_mrsrequestcreateview_post_save_integration(
     data['1-date_return'] = '2017-01-02'
     data['distancevp'] = '100'
     data['expensevp'] = '10'
+    data['vp_enable'] = 'vp_enable'
     data['first_name'] = 'jamesy'
     data['last_name'] = 'wuzere'
     data['birth_date'] = '2007-02-07'
