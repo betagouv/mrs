@@ -29,7 +29,7 @@ textarea {
     
   </head>
 
-  <body class="">
+  <body class="full-width">
     <div id="main-loader" class="turbolinks-progress-bar">
   <div class="preloader-wrapper big active">
     <div class="spinner-layer spinner-blue-only">
@@ -45,26 +45,8 @@ textarea {
     </div>
   </div>
 </div>
-    <div class="navbar-fixed">
-  <nav>
-    <div class="nav-wrapper teal darken-3">
-      <span href="#" data-action="click->sidenav#click" data-controller="sidenav" data-target="slide-out" class="sidenav-trigger"><i class="waves-effect material-icons">menu</i></span>
-      <a class="brand-logo" href="/admin/" class="waves-effect brand-logo">MRS Admin</a>
-      <ul class="right">
-        
-  <li class="">
-    <a data-noprefetch="true" class="waves-effect" href="/admin/logout">Déconnexion (supporta)</a>
-  </li>
-  
-
-      </ul>
-    </div>
-  </nav>
-</div>
-
-<ul id="slide-out" class="sidenav">
-
-  <li class="no-padding active"><a href="/admin/">Home</a></li>
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+  <li class="no-padding active"><a href="/admin/">Accueil</a></li>
   <li class="no-padding">
     <ul class="collapsible collapsible-accordion">
       
@@ -101,145 +83,95 @@ textarea {
 
   
 </ul>
-    
-    <ul style="display: none" data-controller="messages">
+    <header>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper ">
+            <span href="#" data-action="click->sidenav#click" data-controller="sidenav" data-target="slide-out" class="sidenav-trigger"><i class="waves-effect material-icons">menu</i></span>
+            
+            <a class="brand-logo" href="/admin/" class="waves-effect brand-logo">MRS Admin</a>
+            
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <ul style="display: none" data-controller="messages">
   
 </ul>
-    
-    <div style="padding: 0 24px" id="modal-body-ajax">
       
-        <div class="modal-content">
+      <div class="" id="modal-body-ajax">
         
+          <div class="modal-content">
           
-        
+            
           
+            
 <div class="row">
-    <div class="col m3 s12">
-        <div class="card-panel">
-            <h5>Demandes</h5>
-            <p>
+    <div class="col s12 m3">
+        <h5 class="header">Demandes</h5>
+        <div class="collection">
+            <a
+                class="collection-item"
+                href="/admin/mrsrequest?status=1&sort=creation_datetime">
                 Soumises
-                <span class="right">
-                    <a href="/admin/mrsrequest?status=1&sort=creation_datetime">
-                        0
-                    </a>
+                <span class="secondary-content">
+                    0
                 </span>
-            </p>
-            <p>
+            </a>
+            <a
+                class="collection-item"
+                href="/admin/mrsrequest?status=1000">
                 En cours de liquidation
-                <span class="right">
-                    <a href="/admin/mrsrequest?status=1000">
-                        1
-                    </a>
+                <span class="secondary-content">
+                    1
                 </span>
-            </p>
-            <p>
+            </a>
+            <a
+                class="collection-item"
+                href="/admin/mrsrequest?status=2000">
                 Validées
                 <span class="right">
-                    <a href="/admin/mrsrequest?status=2000">
-                        2
-                    </a>
+                    2
                 </span>
-            </p>
-            <p>
+            </a>
+            <a
+                class="collection-item"
+                href="/admin/mrsrequest?status=999">
                 Rejetées
                 <span class="right">
-                    <a href="/admin/mrsrequest?status=999">
-                        1
-                    </a>
+                    1
                 </span>
-            </p>
-            <p>
+            </a>
+            <a
+                class="collection-item"
+                href="/admin/mrsrequest">
                 Total
                 <span class="right">
-                    <a href="/admin/mrsrequest">
-                        4
-                    </a>
+                    4
                 </span>
-            </p>
+            </a>
         </div>
     </div>
-    <div class="col m9 s12">
-        <div class="card-panel">
+    <div class="col s12 m9">
+        
             <h5>Mes demandes en cours de liquidation</h5>
             
-
-
-<div class="table-container">
-
-<table >
-    
-    
-    <thead>
-        <tr>
-        
-            
-            <th class="orderable"><a href="?sort=creation_datetime">Date et heure de la demande</a></th>
+            <p>Je n'ai pas de demandes en cours de liquidation</p>
             
         
-            
-            <th class="orderable"><a href="?sort=display_id">Numéro de demande</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?sort=first_name">Prénom</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?sort=last_name">Nom</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?sort=nir">NIR</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?sort=status">Statut</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?sort=institution">Établissement</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?sort=caisse">Caisse</a></th>
-            
-        
-            
-            <th >Actions</th>
-            
-        
-        </tr>
-    </thead>
-    
-    
-    
-    <tbody>
-    
-        
-    
-    </tbody>
-    
-    
-    
-    
-</table>
-
-
-
-</div>
-
-        </div>
     </div>
 </div>
 
-        </div>
-        <div class="modal-footer">
-          
-        </div>
-      
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
 
-    </div>
+      </div>
+    </main>
 
     <div id="modal" class="modal modal-fixed-footer"></div>
 

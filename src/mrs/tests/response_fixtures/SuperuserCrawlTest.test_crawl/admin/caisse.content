@@ -1,18 +1,18 @@
 <div class="" id="modal-body-ajax">
-      
-        <div class="modal-content">
         
+          <div class="modal-content">
           
-        
+            
           
+            
 <style type="text/css">
 #render-table .btn-floating { margin-left: 6px; }
 </style>
 
 <div class="row">
   
-  <div class="col s12 m3">
-    <div class="card-panel">
+  <div class="col s12 m3 l2">
+    <div>
       <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
         
         
@@ -45,8 +45,8 @@
   </div>
   
 
-  <div class="table-responsive col s12 m9" id="render-table">
-    <div class="card-panel">
+  <div class="table-responsive col s12 m9 l10" id="render-table">
+    <div>
       
       <div class="table-container">
         
@@ -109,7 +109,7 @@
                 
     
       <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-1" title="Actions">
-        <i class="material-icons">menu</i>
+        <i class="material-icons">more_vert</i>
         
       </a>
 
@@ -168,7 +168,7 @@
                 
     
       <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-2" title="Actions">
-        <i class="material-icons">menu</i>
+        <i class="material-icons">more_vert</i>
         
       </a>
 
@@ -227,7 +227,7 @@
                 
     
       <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-3" title="Actions">
-        <i class="material-icons">menu</i>
+        <i class="material-icons">more_vert</i>
         
       </a>
 
@@ -305,10 +305,10 @@
   </div>
 </div>
 
-        </div>
-        <div class="modal-footer">
-          
-        </div>
-      
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
 
-    </div>
+      </div>

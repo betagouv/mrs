@@ -1,59 +1,50 @@
-<div id="modal-body-ajax" style="padding: 0 24px">
-      
-        <div class="modal-content">
+<div class="" id="modal-body-ajax">
         
+          <div class="modal-content">
           
-        
+            
           
+            
 <div class="row">
-    <div class="col m3 s12">
-        <div class="card-panel">
-            <h5>Demandes</h5>
-            <p>
+    <div class="col s12 m3">
+        <h5 class="header">Demandes</h5>
+        <div class="collection">
+            <a class="collection-item" href="/admin/mrsrequest?status=1&amp;sort=creation_datetime">
                 Soumises
-                <span class="right">
-                    <a href="/admin/mrsrequest?status=1&amp;sort=creation_datetime">
-                        0
-                    </a>
+                <span class="secondary-content">
+                    0
                 </span>
-            </p>
-            <p>
+            </a>
+            <a class="collection-item" href="/admin/mrsrequest?status=1000">
                 En cours de liquidation
-                <span class="right">
-                    <a href="/admin/mrsrequest?status=1000">
-                        1
-                    </a>
+                <span class="secondary-content">
+                    1
                 </span>
-            </p>
-            <p>
+            </a>
+            <a class="collection-item" href="/admin/mrsrequest?status=2000">
                 Validées
                 <span class="right">
-                    <a href="/admin/mrsrequest?status=2000">
-                        3
-                    </a>
+                    3
                 </span>
-            </p>
-            <p>
+            </a>
+            <a class="collection-item" href="/admin/mrsrequest?status=999">
                 Rejetées
                 <span class="right">
-                    <a href="/admin/mrsrequest?status=999">
-                        1
-                    </a>
+                    1
                 </span>
-            </p>
-            <p>
+            </a>
+            <a class="collection-item" href="/admin/mrsrequest">
                 Total
                 <span class="right">
-                    <a href="/admin/mrsrequest">
-                        5
-                    </a>
+                    5
                 </span>
-            </p>
+            </a>
         </div>
     </div>
-    <div class="col m9 s12">
-        <div class="card-panel">
+    <div class="col s12 m9">
+        
             <h5>Mes demandes en cours de liquidation</h5>
+            
             
 
 
@@ -150,7 +141,7 @@
                 
     
       <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2" title="Actions">
-        <i class="material-icons">menu</i>
+        <i class="material-icons">more_vert</i>
         
       </a>
 
@@ -230,14 +221,15 @@
 
 </div>
 
-        </div>
+            
+        
     </div>
 </div>
 
-        </div>
-        <div class="modal-footer">
-          
-        </div>
-      
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
 
-    </div>
+      </div>

@@ -1,29 +1,29 @@
 <div class="container" id="modal-body-ajax">
-      
-        <div class="modal-content">
         
+          <div class="modal-content">
           
-        
+            
+            <h4 class="text-default " id="modal-title-ajax">Stat: import export</h4>
+            
           
-<div class="card-panel">
+            
   <h5>Exporter les demandes en CSV</h5>
   <p>
     Cliquez sur le bouton suivant pour télécharger votre export de Demandes qui n'ont pas de dates de mandatements :
-    <br/>
-    <a class="btn waves-effect waves-light" data-noprefetch="true" data-turbolinks="false" href="/admin/mrsrequest/export" title="Demandes: export">
-    <i class="left material-icons">cloud_download</i>
+    </p><div class="collection">
     
-    Export
+    <a class="collection-item" data-noprefetch="true" data-turbolinks="false" href="/admin/mrsrequest/export" title="Demandes: export">
+    <i class="secondary-content material-icons">cloud_download</i>
+    
+    Export des demandes de toutes mes caisses
     
   </a>
-  </p>
-</div>
+    </div>
+  <p></p>
 
-<div class="card-panel">
   <h5>Importer les demandes en CSV</h5>
   <p>
     Cliquez sur le bouton suivant pour uploader votre fichier de Demandes en CSV pour import :
-    <br/>
     <a class="btn waves-effect waves-light" data-turbolinks="false" href="/admin/mrsrequest/import" title="Demande: import">
     <i class="left material-icons">cloud_upload</i>
     
@@ -32,12 +32,11 @@
   </a>
   </p>
   <p>
-</p></div>
 
-        </div>
-        <div class="modal-footer">
-          
-        </div>
-      
+          </p></div>
+          <div class="modal-footer">
+            
+          </div>
+        
 
-    </div>
+      </div>

@@ -1,10 +1,10 @@
 <div class="container" id="modal-body-ajax">
-      
-        <div class="modal-content">
         
+          <div class="modal-content">
           
-        
+            
           
+            
 <style type="text/css">.card-content p { clear: both; }</style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
@@ -236,10 +236,10 @@ blabla</p>
 
 </div>
 
-        </div>
-        <div class="modal-footer">
-          
-        </div>
-      
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
 
-    </div>
+      </div>
