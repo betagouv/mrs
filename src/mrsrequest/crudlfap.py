@@ -380,6 +380,9 @@ class MRSRequestExport(crudlfap.ObjectsView):
     menus = []
     link_attributes = {'data-noprefetch': 'true'}
 
+    def get_title_menu(self):
+        return 'Export des demandes de toutes mes caisses'
+
     def get_objects(self):
         self.objects = self.queryset.filter(
             mandate_date=None,
@@ -418,11 +421,35 @@ class MRSRequestExport(crudlfap.ObjectsView):
             f.seek(0)
             response = http.HttpResponse(f.read(), content_type='text/csv')
             response['Content-Disposition'] = (
-                f'attachment; filename="mrs-export-{settings.INSTANCE}.csv"'
+                f'attachment; filename="{self.filename}.csv"'
             )
         else:
             response = self.render_to_response()
         return response
+
+    def get_filename(self):
+        return f'mrs-export-{settings.INSTANCE}'
+
+
+class MRSRequestExportCaisse(MRSRequestExport):
+    urlpath = 'export/<int:pk>'
+    menus = []
+
+    def get_object(self):
+        return self.request.user.caisses.get(pk=self.kwargs['pk'])
+
+    def get_title_menu(self):
+        return f'Export {self.object}'
+
+    def get_urlargs(self):
+        """Return list with object's urlfield attribute."""
+        return [self.object.pk]
+
+    def get_objects(self):
+        return super().get_objects().filter(caisse=self.object)
+
+    def get_filename(self):
+        return f'mrs-export-{settings.INSTANCE}-{self.object}'
 
 
 class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
@@ -690,6 +717,7 @@ class MRSRequestRouter(crudlfap.Router):
     material_icon = 'insert_drive_file'
     views = [
         MRSRequestExport,
+        MRSRequestExportCaisse,
         MRSRequestImport,
         MRSRequestValidateObjectsView,
         crudlfap.DeleteView,

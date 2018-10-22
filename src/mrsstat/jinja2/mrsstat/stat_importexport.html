@@ -2,22 +2,21 @@
 {% import 'crudlfap.html' as crudlfap %}
 
 {% block content %}
-<div class="card-panel">
   <h5>Exporter les demandes en CSV</h5>
   <p>
     Cliquez sur le bouton suivant pour télécharger votre export de Demandes qui n'ont pas de dates de mandatements :
-    <br />
-    {{ crudlfap.a(crudlfap_site['mrsrequest.mrsrequest']['export'], 'btn waves-effect waves-light', 'left') }}
+    <div class="collection">
+    {% for caisse in request.user.caisses.all() %}
+        {{ crudlfap.a(crudlfap_site['mrsrequest.mrsrequest']['exportcaisse'].clone(object=caisse), 'collection-item', 'secondary-content') }}
+    {% endfor %}
+    {{ crudlfap.a(crudlfap_site['mrsrequest.mrsrequest']['export'], 'collection-item', 'secondary-content') }}
+    </div>
   </p>
-</div>
 
-<div class="card-panel">
   <h5>Importer les demandes en CSV</h5>
   <p>
     Cliquez sur le bouton suivant pour uploader votre fichier de Demandes en CSV pour import :
-    <br />
     {{ crudlfap.a(crudlfap_site['mrsrequest.mrsrequest']['import'], 'btn waves-effect waves-light', 'left') }}
   </p>
   <p>
-</div>
 {% endblock %}
