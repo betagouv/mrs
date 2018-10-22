@@ -11,7 +11,7 @@ from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 from mrsemail.models import EmailTemplate
 
-from .models import BillVP, MRSRequest, PMT, Transport
+from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
 
 class MRSRequestCreateForm(forms.ModelForm):
@@ -49,8 +49,39 @@ class MRSRequestCreateForm(forms.ModelForm):
         )
     )
 
+    billatps = MRSAttachmentField(
+        BillATP,
+        'mrsrequest:billatp_upload',
+        'mrsrequest:bill_download',
+        20,
+        label='Justificatifs',
+        required=False,
+        help_text=(
+            'Joindre vos justificatifs de'
+            ' transport en commun'
+        )
+    )
+
     caisse = ActiveCaisseChoiceField(
         label='Votre caisse de rattachement',
+    )
+
+    vp_enable = forms.ChoiceField(
+        choices=(
+            (True, 'VP'),
+        ),
+        label='Avez vous VP ?',
+        required=False,
+        widget=forms.CheckboxInput,
+    )
+
+    atp_enable = forms.ChoiceField(
+        choices=(
+            (True, 'ATP'),
+        ),
+        label='Avez vous des transports en commun ?',
+        required=False,
+        widget=forms.CheckboxInput,
     )
 
     parking_expensevp = forms.DecimalField(
@@ -75,7 +106,10 @@ class MRSRequestCreateForm(forms.ModelForm):
                 'pmt',
             ),
         ),
-        bottom=material.Layout(
+        vp_enable=material.Layout(
+            'vp_enable',
+        ),
+        vp_form=material.Layout(
             material.Row(
                 'distancevp',
             ),
@@ -84,13 +118,21 @@ class MRSRequestCreateForm(forms.ModelForm):
                 'parking_expensevp',
             ),
             'billvps',
-        )
+        ),
+        atp_enable=material.Layout(
+            'atp_enable',
+        ),
+        atp_form=material.Layout(
+            'expenseatp',
+            'billatps',
+        ),
     )
 
     class Meta:
         model = MRSRequest
         fields = [
             'caisse',
+            'expenseatp',
             'expensevp',
             'distancevp',
         ]
@@ -145,6 +187,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             data['pmt'] = []
 
         data['billvps'] = BillVP.objects.recorded_uploads(mrsrequest_uuid)
+        data['billatps'] = BillATP.objects.recorded_uploads(mrsrequest_uuid)
 
         if files:
             files.update(data)

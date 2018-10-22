@@ -64,8 +64,10 @@ class BillManager(MRSAttachmentManager):
 
 class Bill(MRSAttachment):
     MODE_VP = 'vp'
+    MODE_ATP = 'atp'
     MODE_CHOICES = (
         (MODE_VP, 'Vehicule Personnel'),
+        (MODE_ATP, 'Transports en commun'),
     )
 
     mrsrequest = models.ForeignKey(
@@ -95,7 +97,7 @@ class Bill(MRSAttachment):
 
 
 class BillVP(Bill):
-    MODE = 'vp'
+    MODE = Bill.MODE_VP
     objects = BillManager(mode=MODE)
 
     def __init__(self, *args, **kwargs):
@@ -104,6 +106,20 @@ class BillVP(Bill):
 
     class Meta:
         proxy = True
+
+
+class BillATP(Bill):
+    MODE = Bill.MODE_ATP
+    objects = BillManager(mode=MODE)
+
+    def __init__(self, *args, **kwargs):
+        kwargs['mode'] = self.MODE
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        proxy = True
+# if you're up for some sports then override the models.Model metaclass with
+# your own and refactor the above
 
 
 class MRSRequestQuerySet(models.QuerySet):
@@ -295,6 +311,16 @@ class MRSRequest(models.Model):
         help_text=(
             'Somme totale des frais de péage'
             ' et/ou de transport en commun (en € TTC)'
+        )
+    )
+    expenseatp = models.DecimalField(
+        decimal_places=2, max_digits=6,
+        default=0,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        verbose_name='Frais de transports',
+        help_text=(
+            'Somme totale des frais de'
+            ' transport en commun (en € TTC)'
         )
     )
     status = models.IntegerField(

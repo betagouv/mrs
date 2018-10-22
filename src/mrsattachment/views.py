@@ -102,7 +102,6 @@ class MRSFileUploadView(generic.View):
 
     def post(self, request, *args, **kwargs):
         '''Verify uuid and call model.objects.record_upload().'''
-
         if 'mrsrequest_uuid' not in kwargs:
             return http.HttpResponseBadRequest('Nous avons perdu le UUID')
         mrsrequest_uuid = kwargs['mrsrequest_uuid']

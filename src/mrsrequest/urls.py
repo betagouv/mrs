@@ -3,7 +3,7 @@ from django.urls import path, reverse_lazy
 from mrsattachment.views import MRSFileUploadView
 from mrsattachment.urls import factory
 
-from .models import Bill, BillVP, PMT
+from .models import Bill, BillATP, BillVP, PMT
 from . import views
 
 
@@ -20,7 +20,7 @@ urlpatterns = [
 urlpatterns += factory(PMT)
 urlpatterns += factory(Bill)
 
-for model in [BillVP]:
+for model in [BillVP, BillATP]:
     name = model.__name__.lower()
     urlpatterns.append(
         path(
