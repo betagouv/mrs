@@ -24,7 +24,7 @@ for model in [BillVP]:
     name = model.__name__.lower()
     urlpatterns.append(
         path(
-            f'{name}/<pk>/upload/',
+            f'{name}/<mrsrequest_uuid>/upload/',
             MRSFileUploadView.as_view(model=model),
             name=f'{name}_upload'
         )
