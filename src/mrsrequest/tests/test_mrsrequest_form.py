@@ -31,7 +31,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
 
         for mode in ['atp', 'vp']:
             if f'expense{mode}' in extra:
-                data[f'{mode}_enable'] = [f'{mode}_enable']
+                data[f'mode{mode}'] = [f'mode{mode}']
 
         for k, v in extra.items():
             data[k] = [str(v)]

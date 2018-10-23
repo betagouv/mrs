@@ -295,6 +295,12 @@ class MRSRequest(models.Model):
         blank=True,
         verbose_name='Assuré a basculé sur cette demande',
     )
+    modevp = models.BooleanField(
+        default=True,
+        blank=True,
+        verbose_name='Avez vous voyagé en véhicule personnel ?',
+        help_text='(Voiture, moto)',
+    )
     distancevp = models.PositiveIntegerField(
         verbose_name='Distance (km)',
         help_text='Total des kilomètres parcourus:'
@@ -314,6 +320,12 @@ class MRSRequest(models.Model):
             'Somme totale des frais de péage'
             ' et/ou de transport en commun (en € TTC)'
         )
+    )
+    modeatp = models.BooleanField(
+        blank=True,
+        default=False,
+        verbose_name='Avez vous voyagé en transports en commun ?',
+        help_text='(Avion, bus, train, bateau)',
     )
     expenseatp = models.DecimalField(
         blank=True,

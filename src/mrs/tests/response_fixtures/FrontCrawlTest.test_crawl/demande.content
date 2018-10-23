@@ -231,9 +231,9 @@
                 
 
                     <div class="row">
-    <div class="checkbox-field col s12" id="id_vp_enable_container">
+    <div class="checkbox-field col s12" id="id_modevp_container">
         <label>
-        <input class="filled-in " id="id_vp_enable" name="vp_enable" type="checkbox"/><span for="id_vp_enable">Avez vous voyagé en véhicule personnel ?</span></label>
+        <input checked="" class="filled-in " id="id_modevp" name="modevp" type="checkbox"/><span for="id_modevp">Avez vous voyagé en véhicule personnel ?</span></label>
         <div class="help-block">(Voiture, moto)</div>
     </div>
 </div>
@@ -298,9 +298,9 @@
                 
 
                     <div class="row">
-    <div class="checkbox-field col s12" id="id_atp_enable_container">
+    <div class="checkbox-field col s12" id="id_modeatp_container">
         <label>
-        <input class="filled-in " id="id_atp_enable" name="atp_enable" type="checkbox"/><span for="id_atp_enable">Avez vous voyagé en transports en commun ?</span></label>
+        <input class="filled-in " id="id_modeatp" name="modeatp" type="checkbox"/><span for="id_modeatp">Avez vous voyagé en transports en commun ?</span></label>
         <div class="help-block">(Avion, bus, train, bateau)</div>
     </div>
 </div>

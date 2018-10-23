@@ -22,7 +22,7 @@ var listen = false
 var submitUi = new SubmitUi(document.querySelector('body'))
 
 function checkedEnables(form, mode) {
-  var $enabler = $(form).find(`#id_${mode}_enable`)
+  var $enabler = $(form).find(`#id_mode${mode}`)
   var $form = $(form).find(`#${mode}-form`)
   var change = function() {
     $enabler.is(':checked') ? $form.slideDown() : $form.slideUp()
