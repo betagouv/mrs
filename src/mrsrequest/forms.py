@@ -69,11 +69,13 @@ class MRSRequestCreateForm(forms.ModelForm):
     vp_enable = forms.BooleanField(
         label='Avez vous voyagé en véhicule personnel ?',
         required=False,
+        help_text='(Voiture, moto)',
     )
 
     atp_enable = forms.BooleanField(
         label='Avez vous voyagé en transports en commun ?',
         required=False,
+        help_text='(Avion, bus, train, bateau)',
     )
 
     parking_expensevp = forms.DecimalField(
@@ -166,11 +168,13 @@ class MRSRequestCreateForm(forms.ModelForm):
         if not vp and not atp:
             self.add_error(
                 'atp_enable',
-                'Merci de choisir VP et / ou ATP',
+                'Merci de choisir véhicule personnel et / ou transports en'
+                ' commun',
             )
             self.add_error(
                 'vp_enable',
-                'Merci de choisir VP et / ou ATP',
+                'Merci de choisir véhicule personnel et / ou transports en'
+                ' commun',
             )
 
         if vp:
