@@ -59,7 +59,7 @@
             
         
             
-            <th class="orderable"><a href="?sort=requests">Demandes</a></th>
+            <th class="orderable"><a href="?sort=counter">Counter</a></th>
             
         
             
@@ -94,6 +94,36 @@
     
       
         <a class="btn-floating red orange" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/emailtemplate/1/update?_next=/admin/emailtemplate" title="Modèle d'email &quot;pmt: manquante&quot;: modifier">
+    <i class=" material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+      
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>Possibilité de trajets itératifs</td>
+            
+                <td>Nous avons un super conseil pour vous !</td>
+            
+                <td>1</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td>
+                
+                
+    
+      
+        <a class="btn-floating red orange" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/emailtemplate/2/update?_next=/admin/emailtemplate" title="Modèle d'email &quot;possibilité de trajets itératifs&quot;: modifier">
     <i class=" material-icons">edit</i>
     
     Modifier

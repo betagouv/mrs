@@ -25,12 +25,11 @@
         "modevp": true,
         "payment_amount": null,
         "payment_base": null,
-        "reject_template": null,
         "saving": 0,
         "status": 999,
         "status_datetime": "3000-12-31T13:37:42Z",
         "status_user": [
-            "{}"
+            "{'caisse': <Caisse: adminviews>}"
         ],
         "taxi_cost": 0
     },
@@ -45,7 +44,7 @@
         "datetime": "3000-12-31T13:37:42Z",
         "mrsrequest": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
         "user": [
-            "{}"
+            "{'caisse': <Caisse: adminviews>}"
         ]
     },
     "model": "mrsrequest.mrsrequestlogentry",
@@ -54,7 +53,7 @@
 {
     "fields": {
         "action": 999,
-        "comment": "reject 4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
+        "comment": "reject name",
         "data": {
             "body": "reject body 4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
             "subject": "reject 4255e33f-88c0-4dbf-b8ee-69cb283a7cea"
@@ -62,7 +61,7 @@
         "datetime": "3000-12-31T13:37:42Z",
         "mrsrequest": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
         "user": [
-            "{}"
+            "{'caisse': <Caisse: adminviews>}"
         ]
     },
     "model": "mrsrequest.mrsrequestlogentry",

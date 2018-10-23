@@ -49,7 +49,6 @@
         "modevp": true,
         "payment_amount": null,
         "payment_base": null,
-        "reject_template": null,
         "saving": 0,
         "status": 1,
         "status_datetime": null,

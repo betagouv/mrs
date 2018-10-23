@@ -46,6 +46,26 @@
         
     </div>
 </div>
+ 
+<div class="row">
+    <div class="select-field col s12 required" id="id_menu_container">
+        <label for="id_menu">Menu</label>
+        <select id="id_menu" name="menu">
+            <option selected="selected" value="reject">Rejet</option>
+            <option value="contact">Contact</option>
+        </select>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_counter_container">
+        <input id="id_counter" name="counter" type="number" value="0"/>
+        <label class="active" for="id_counter">Counter</label>
+        
+    </div>
+</div>
 
 
           </div>
