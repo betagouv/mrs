@@ -410,7 +410,7 @@ class MRSRequestExport(crudlfap.ObjectsView):
 
             for mode in obj.modes:
                 w.writerow((
-                    str(obj.caisse),
+                    str(obj.caisse.number),
                     obj.display_id,
                     obj.insured.nir,
                     obj.insured.birth_date.strftime(DATE_FORMAT),
