@@ -1,11 +1,11 @@
 <div class="container" id="modal-body-ajax">
         
-<form action="/admin/emailtemplate/1/update" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-emailtemplate" method="post">
+<form action="/admin/emailtemplate/2/update" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-emailtemplate" method="post">
 
           <div class="modal-content">
           
             
-            <h4 class="text-default " id="modal-title-ajax">Modèle d'email "pmt: manquante": modifier</h4>
+            <h4 class="text-default " id="modal-title-ajax">Modèle d'email "possibilité de trajets itératifs": modifier</h4>
             
           
             
@@ -16,7 +16,7 @@
   
 <div class="row">
     <div class="input-field col s12 required" id="id_name_container">
-        <input id="id_name" maxlength="50" name="name" type="text" value="PMT: manquante"/>
+        <input id="id_name" maxlength="50" name="name" type="text" value="Possibilité de trajets itératifs"/>
         <label class="active" for="id_name">Nom</label>
         
     </div>
@@ -25,7 +25,7 @@
 
 <div class="row">
     <div class="input-field col s12 required" id="id_subject_container">
-        <input id="id_subject" maxlength="255" name="subject" type="text" value="PMT manquante sur {{ display_id }}"/>
+        <input id="id_subject" maxlength="255" name="subject" type="text" value="Nous avons un super conseil pour vous !"/>
         <label class="active" for="id_subject">Sujet du mail</label>
         
     </div>
@@ -33,7 +33,7 @@
  
 <div class="row">
     <div class="input-field col s12 required" id="id_body_container">
-        <textarea class="materialize-textarea" cols="40" id="id_body" name="body" rows="10">PMT manquante sur {{ display_id }}: Contenu de mail</textarea>
+        <textarea class="materialize-textarea" cols="40" id="id_body" name="body" rows="10">les trajets iteratifs c'est super chouetos !</textarea>
         <label class="active" for="id_body">Contenu du mail</label>
         
     </div>
@@ -51,8 +51,8 @@
     <div class="select-field col s12 required" id="id_menu_container">
         <label for="id_menu">Menu</label>
         <select id="id_menu" name="menu">
-            <option selected="selected" value="reject">Rejet</option>
-            <option value="contact">Contact</option>
+            <option value="reject">Rejet</option>
+            <option selected="selected" value="contact">Contact</option>
         </select>
         
     </div>

@@ -357,12 +357,6 @@ class MRSRequest(models.Model):
         on_delete=models.SET_NULL,
         verbose_name='Auteur du changement de statut',
     )
-    reject_template = models.ForeignKey(
-        'mrsemail.EmailTemplate',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-    )
     institution = models.ForeignKey(
         'institution.Institution',
         null=True,
@@ -700,14 +694,16 @@ class MRSRequestLogEntryManager(models.Manager):
 
 class MRSRequestLogEntry(models.Model):
     ACTION_UPDATE = 2  # same ids as for django.contrib.admin.LogEntry
+    ACTION_CONTACT = 800
 
     ACTION_CHOICES = (
         (MRSRequest.STATUS_NEW, 'Soumise'),
         (ACTION_UPDATE, 'Modifiée'),
-        (3, 'Effacée'),
+        (3, 'Effacée'),  # not used
         (MRSRequest.STATUS_REJECTED, 'Rejetée'),
         (MRSRequest.STATUS_INPROGRESS, 'En cours de liquidation'),
         (MRSRequest.STATUS_VALIDATED, 'Validée'),
+        (ACTION_CONTACT, 'Contacté'),
     )
 
     datetime = models.DateTimeField(

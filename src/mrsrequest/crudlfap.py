@@ -3,7 +3,6 @@ import copy
 import csv
 from datetime import datetime
 import io
-import json
 import logging
 
 from crudlfap import crudlfap
@@ -22,17 +21,17 @@ import django_filters
 import django_tables2 as tables
 
 from djcall.models import Caller
+
 from institution.models import Institution
 
-from mrsemail.models import EmailTemplate
+from mrsemail.crudlfap import EmailViewMixin
 from person.forms import PersonForm
 from person.models import Person
 
 from .forms import (
     MRSRequestForm,
-    MRSRequestRejectForm,
 )
-from .models import MRSRequest
+from .models import MRSRequest, MRSRequestLogEntry
 
 logger = logging.getLogger(__name__)
 
@@ -54,12 +53,27 @@ CSV_COLUMNS = (
 )
 
 
+class MRSRequestContactView(EmailViewMixin,
+                            crudlfap.ObjectFormView):
+
+    controller = 'modal'
+    action = 'click->modal#open'
+    template_name = 'mrsemail/form.html'
+    view_label = 'Contacter'
+    material_icon = 'email'
+    color = 'yellow'
+    menus = ['object_detail']
+    emailtemplates_menu = 'contact'
+    form_valid_message = 'Utilisateur contacté'
+    action_flag = MRSRequestLogEntry.ACTION_CONTACT
+
+
 class MRSRequestStatusMixin:
     controller = 'modal'
     action = 'click->modal#open'
 
     def form_valid(self):
-        args = (self.request.user, self.new_status)
+        args = (self.request.user, self.action_flag)
         if hasattr(self, 'object'):
             self.object.update_status(*args)
         else:
@@ -68,7 +82,7 @@ class MRSRequestStatusMixin:
         return super().form_valid()
 
     def get_log_message(self):
-        return self.model.get_status_label(self.new_status)
+        return self.model.get_status_label(self.action_flag)
 
     def get_allowed(self):
         if super().get_allowed():
@@ -88,7 +102,7 @@ class MRSRequestStatusMixin:
                 user=self.request.user,
                 comment=self.log_message,
                 data=self.log_data,
-                action=self.new_status,
+                action=self.action_flag,
             )
 
 
@@ -111,7 +125,7 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
     view_label = 'Valider'
     material_icon = 'check_circle'
     color = 'green'
-    new_status = MRSRequest.STATUS_VALIDATED
+    action_flag = MRSRequest.STATUS_VALIDATED
     short_permission_code = 'validate'
 
     def mail_render(self, destination, part, mrsrequest=None):
@@ -189,24 +203,16 @@ class MRSRequestValidateObjectsView(
         return resp
 
 
-class MRSRequestRejectView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
-    form_class = MRSRequestRejectForm
-    template_name = 'mrsrequest/mrsrequest_reject.html'
+class MRSRequestRejectView(EmailViewMixin,
+                           MRSRequestStatusMixin,
+                           crudlfap.ObjectFormView):
+
     view_label = 'Rejeter'
     material_icon = 'do_not_disturb_on'
     color = 'red'
-    new_status = MRSRequest.STATUS_REJECTED
-    body_class = 'modal-fixed-footer'
+    action_flag = MRSRequest.STATUS_REJECTED
     menus = ['object_detail']
-
-    def get_log_data(self):
-        return dict(
-            body=self.form.cleaned_data['body'],
-            subject=self.form.cleaned_data['subject'],
-        )
-
-    def get_log_message(self):
-        return self.form.cleaned_data['subject']
+    emailtemplates_menu = 'reject'
 
     def get_allowed(self):
         if super().get_allowed():
@@ -214,31 +220,9 @@ class MRSRequestRejectView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
                 self.model.STATUS_NEW, self.model.STATUS_INPROGRESS
             )
 
-    def reject_templates_json(self):
-        context = template.Context({'display_id': self.object.display_id})
-        templates = {
-            i.pk: dict(
-                subject=template.Template(i.subject).render(context),
-                body=template.Template(i.body).render(context),
-            ) for i in EmailTemplate.objects.all()
-        }
-        return json.dumps(templates)
-
     def form_valid(self):
-        resp = super().form_valid()
         self.object.save()
-
-        Caller(
-            callback='djcall.django.email_send',
-            kwargs=dict(
-                subject=self.form.cleaned_data['subject'],
-                body=self.form.cleaned_data['body'],
-                to=[self.object.insured.email],
-                reply_to=[settings.TEAM_EMAIL],
-            )
-        ).spool('mail')
-
-        return resp
+        return super().form_valid()
 
     def get_form_valid_message(self):
         return 'Demande n°{} rejetée'.format(self.object.display_id)
@@ -251,7 +235,7 @@ class MRSRequestProgressView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
     title_submit = 'Oui'
     material_icon = 'playlist_add_check'
     color = 'green'
-    new_status = MRSRequest.STATUS_INPROGRESS
+    action_flag = MRSRequest.STATUS_INPROGRESS
     short_permission_code = 'inprogress'
     menus = ['object_detail']
 
@@ -729,6 +713,7 @@ class MRSRequestRouter(crudlfap.Router):
         MRSRequestValidateObjectsView,
         crudlfap.DeleteView,
         MRSRequestDetailView,
+        MRSRequestContactView,
         MRSRequestValidateView,
         MRSRequestRejectView,
         MRSRequestProgressView,
@@ -751,7 +736,7 @@ class MRSRequestRouter(crudlfap.Router):
         elif view.urlname == 'list':
             return profile in ('upn', 'support')
 
-        elif view.urlname == 'validateobjects':
+        elif view.urlname in ('validateobjects', 'contact'):
             return profile == 'upn'  # rest is handled by get_objects_for_user
 
         elif view.urlname == 'delete':

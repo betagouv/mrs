@@ -33,9 +33,9 @@ def ur(request_factory):
         user = None
         if kwargs:
             caisse = None
+            kwargs.setdefault('username', str(kwargs))
             if 'caisse' in kwargs:
                 caisse = kwargs.pop('caisse')
-            kwargs.setdefault('username', str(kwargs))
             user = User.objects.get_or_create(**kwargs)[0]
             if caisse:
                 user.caisses.add(caisse)
@@ -74,7 +74,7 @@ def mrsrequest():
 @pytest.fixture
 def emailtemplate():
     return EmailTemplate.objects.get_or_create(
-        name='reject',
+        name='reject name',
         subject='reject {{ display_id }}',
         body='reject {{ display_id }}',
     )[0]
@@ -166,3 +166,24 @@ def test_progress_reject_success(ur, mrsrequest, emailtemplate):
     for v in ('progress', 'reject', 'validate'):
         with pytest.raises(http.Http404):
             view(v)(request, pk=mrsrequest.pk)
+
+
+@freeze_time('3000-12-31 13:37:42')
+@pytest.mark.dbdiff(models=[MRSRequestLogEntry, EmailTemplate])
+def test_contact(ur, mrsrequest):
+    emailtemplate = EmailTemplate.objects.get_or_create(
+        name='Conseil Iteratif',
+        subject='Demande {{ display_id }}: conseil',
+        body='Essayez iteratif {{ display_id }}',
+        menu='contact',
+    )[0]
+    contact = view('contact')
+    request = ur('post', caisse=mrsrequest.caisse)
+
+    request.POST = dict(
+        template=emailtemplate.pk,
+        subject=f'Demande {mrsrequest}: conseil',
+        body=f'Essayez iteratif {mrsrequest}',
+    )
+    response = contact(request, pk=mrsrequest.pk)
+    assert response['Location'] == mrsrequest.get_absolute_url()

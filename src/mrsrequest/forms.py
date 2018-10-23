@@ -9,7 +9,6 @@ import material
 from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
-from mrsemail.models import EmailTemplate
 
 from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
@@ -341,16 +340,3 @@ class MRSRequestForm(forms.ModelForm):
     class Meta:
         model = MRSRequest
         fields = []
-
-
-class MRSRequestRejectForm(MRSRequestForm):
-    template = forms.ModelChoiceField(
-        EmailTemplate.objects.active(),
-        label='Modèle d\'email',
-        widget=forms.Select(attrs={
-            'data-controller': 'emailtemplate',
-            'data-action': 'change->emailtemplate#change',
-        }),
-    )
-    subject = forms.CharField(label='Sujet')
-    body = forms.CharField(widget=forms.Textarea, label='Corps')
