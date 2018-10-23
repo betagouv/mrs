@@ -1,14 +1,15 @@
 <div class="container" id="modal-body-ajax">
-        
-<form action="/admin/institution/create" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-institution" method="post">
+      
 
-          <div class="modal-content">
+<div class="card-panel">
+
+<form action="/admin/institution/create" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="form-object-institution" method="post">
+
+        <div class="modal-content">
+        
           
-            
-            <h4 class="text-success " id="modal-title-ajax">Établissement: création</h4>
-            
+        
           
-            
   
 
   
@@ -40,15 +41,18 @@
 </div>
 
 
-          </div>
-          <div class="modal-footer">
-            
+        </div>
+        <div class="modal-footer">
+          
     
     <button class="btn btn-primary" type="submit">Création</button>
 
-          </div>
-        
+        </div>
+      
   </form>
 
+</div>
 
-      </div>
+
+
+    </div>
