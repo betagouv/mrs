@@ -258,7 +258,7 @@
                         Montant total (Base de remboursement)
                     </span>
                     <span class="right red-text" style="font-weight: bold">
-                        {{ '%.2f'|format((object.distancevp * 0.3) + float(object.expensevp)) }}€ TTC
+                        {{ object.estimate }}€ TTC
                     </span>
                 </p>
                 <p>
@@ -269,6 +269,7 @@
                         {{ object.distancevp }}
                     </span>
                 </p>
+                {% if object.distancevp %}
                 <p>
                     <span class="grey-text text-darken-2">
                         Montant des km parcourus
@@ -277,12 +278,21 @@
                         {{ '%.2f'|format(object.distancevp * 0.3) }}€ TTC
                     </span>
                 </p>
+                {% endif %}
                 <p>
                     <span class="grey-text text-darken-2">
-                        Montant total des frais
+                        Montant total des frais VP
                     </span>
                     <span class="right">
                         {{ object.expensevp }}€ TTC
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant total des frais ATP
+                    </span>
+                    <span class="right">
+                        {{ object.expenseatp }}€ TTC
                     </span>
                 </p>
                 {% if object.payment_base -%}
@@ -362,7 +372,7 @@
             </div>
         </div>
     </div>
-    {% if object.expensevp %}
+    {% if object.expensevp or object.expenseatp %}
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
@@ -372,6 +382,7 @@
                 <ul>
                 {% for bill in object.bill_set.all() %}
                     <li>
+                        {{ bill.mode }}:
                         <a
                             href="{{ bill.get_download_url() }}"
                             {% if bill.filename.lower().endswith('pdf') %}
