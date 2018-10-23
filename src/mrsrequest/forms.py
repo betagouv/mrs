@@ -66,18 +66,6 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Votre caisse de rattachement',
     )
 
-    vp_enable = forms.BooleanField(
-        label='Avez vous voyagé en véhicule personnel ?',
-        required=False,
-        help_text='(Voiture, moto)',
-    )
-
-    atp_enable = forms.BooleanField(
-        label='Avez vous voyagé en transports en commun ?',
-        required=False,
-        help_text='(Avion, bus, train, bateau)',
-    )
-
     parking_expensevp = forms.DecimalField(
         decimal_places=2,
         max_digits=6,
@@ -100,8 +88,8 @@ class MRSRequestCreateForm(forms.ModelForm):
                 'pmt',
             ),
         ),
-        vp_enable=material.Layout(
-            'vp_enable',
+        modevp=material.Layout(
+            'modevp',
         ),
         vp_form=material.Layout(
             material.Row(
@@ -113,8 +101,8 @@ class MRSRequestCreateForm(forms.ModelForm):
             ),
             'billvps',
         ),
-        atp_enable=material.Layout(
-            'atp_enable',
+        modeatp=material.Layout(
+            'modeatp',
         ),
         atp_form=material.Layout(
             'expenseatp',
@@ -129,6 +117,8 @@ class MRSRequestCreateForm(forms.ModelForm):
             'expenseatp',
             'expensevp',
             'distancevp',
+            'modevp',
+            'modeatp',
         ]
 
     def __init__(self, *args, **kwargs):
@@ -162,17 +152,17 @@ class MRSRequestCreateForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        vp = cleaned_data.get('vp_enable')
-        atp = cleaned_data.get('atp_enable')
+        vp = cleaned_data.get('modevp')
+        atp = cleaned_data.get('modeatp')
 
         if not vp and not atp:
             self.add_error(
-                'atp_enable',
+                'modeatp',
                 'Merci de choisir véhicule personnel et / ou transports en'
                 ' commun',
             )
             self.add_error(
-                'vp_enable',
+                'modevp',
                 'Merci de choisir véhicule personnel et / ou transports en'
                 ' commun',
             )

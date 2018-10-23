@@ -59,7 +59,7 @@
                     {% endif %}
                 {% endfor %}
 
-                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.vp_enable %}{% endform %}
+                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modevp %}{% endform %}
                 <div id="vp-form" style="display: none">
                   {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.vp_form %}{% endform %}
                 </div>
@@ -76,7 +76,7 @@
                 {% endfor %}
                 {% endcomment %}
 
-                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.atp_enable %}{% endform %}
+                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modeatp %}{% endform %}
                 <div id="atp-form" style="display: none">
                   {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.atp_form %}{% endform %}
                 </div>
