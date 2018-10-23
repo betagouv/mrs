@@ -152,6 +152,7 @@ blabla</p>
                         123
                     </span>
                 </p>
+                
                 <p>
                     <span class="grey-text text-darken-2">
                         Montant des km parcourus
@@ -160,12 +161,21 @@ blabla</p>
                         36.90€ TTC
                     </span>
                 </p>
+                
                 <p>
                     <span class="grey-text text-darken-2">
-                        Montant total des frais
+                        Montant total des frais VP
                     </span>
                     <span class="right">
                         1.00€ TTC
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant total des frais ATP
+                    </span>
+                    <span class="right">
+                        0.00€ TTC
                     </span>
                 </p>
                 
@@ -222,10 +232,12 @@ blabla</p>
                 <ul>
                 
                     <li>
+                        vp:
                         <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/2/download/">1x1.png (95 Bytes)</a>
                     </li>
                 
                     <li>
+                        vp:
                         <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/3/download/">1x1.png (95 Bytes)</a>
                     </li>
                 
