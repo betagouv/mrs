@@ -44,6 +44,7 @@ CSV_COLUMNS = (
     'nir',
     'naissance',
     'transport',
+    'mode',
     'mandatement',
     'base',
     'montant',
@@ -384,7 +385,14 @@ class MRSRequestExport(crudlfap.ObjectsView):
     def get_objects(self):
         self.objects = self.queryset.filter(
             mandate_date=None,
-        ).status('validated')
+        ).status(
+            'validated',
+        ).select_related(
+            'insured',
+            'caisse',
+        ).prefetch_related(
+            'transport_set',
+        )
         return self.objects
 
     def get(self, request, *args, **kwargs):
@@ -392,26 +400,29 @@ class MRSRequestExport(crudlfap.ObjectsView):
         w = csv.writer(f, delimiter=';')
         w.writerow(CSV_COLUMNS)
         for obj in self.objects:
-            date_depart = obj.transport_set.order_by(
-                'date_depart'
-            ).first().date_depart
+            date_depart = None
+            for transport in obj.transport_set.all():
+                if not date_depart or transport.date_depart < date_depart:
+                    date_depart = transport.date_depart
 
             if date_depart is None:
                 continue  # manually imported from old database
 
-            w.writerow((
-                str(obj.caisse),
-                obj.display_id,
-                obj.insured.nir,
-                obj.insured.birth_date.strftime(DATE_FORMAT),
-                date_depart.strftime(DATE_FORMAT),
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-            ))
+            for mode in obj.modes:
+                w.writerow((
+                    str(obj.caisse),
+                    obj.display_id,
+                    obj.insured.nir,
+                    obj.insured.birth_date.strftime(DATE_FORMAT),
+                    date_depart.strftime(DATE_FORMAT),
+                    mode,
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                ))
 
         if len(self.objects):
             f.seek(0)

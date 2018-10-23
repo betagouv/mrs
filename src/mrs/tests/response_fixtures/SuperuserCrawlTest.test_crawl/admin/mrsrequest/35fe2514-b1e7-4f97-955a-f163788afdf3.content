@@ -10,14 +10,14 @@
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
-                <span class="card-title tooltipped activator -text" data-position="bottom" data-tooltip="En attente de traitement depuis -146 jours">201810230001<i class="material-icons right">more_vert</i></span>
+                <span class="card-title tooltipped activator -text" data-position="bottom" data-tooltip="Traité">201805030001<i class="material-icons right">more_vert</i></span>
                 <div class="section">
                     <p>
                         <span class="grey-text text-darken-2">
                             Soumise
                         </span>
                         <span class="right">
-                            23/10/2018 10:32
+                            03/05/2018 10:32
                         </span>
                     </p>
                     </div>
@@ -31,6 +31,32 @@
         </div>
     </div>
     
+    
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                
+                <div><div class="card-title green-text" style="">
+                        Validée
+                    </div>
+                </div>
+                03/05/2018 16:21
+                <span class="right">
+                    test
+                </span>
+                
+                <div><div class=" yellow-text text-darken-3" style="">
+                        En cours de liquidation
+                    </div>
+                </div>
+                03/05/2018 16:20
+                <span class="right">
+                    test
+                </span>
+                
+            </div>
+        </div>
+    </div>
     
     
 </div>

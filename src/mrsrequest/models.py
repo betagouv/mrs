@@ -410,6 +410,14 @@ class MRSRequest(models.Model):
     def __str__(self):
         return str(self.display_id)
 
+    @property
+    def modes(self):
+        modes = []
+        for mode in ['atp', 'vp']:
+            if getattr(self, f'mode{mode}', None):
+                modes.append(mode)
+        return modes
+
     def update_status(self, user, status, log_datetime=None,
                       create_logentry=False):
 
