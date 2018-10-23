@@ -37,6 +37,7 @@ class Command(BaseCommand):
         if options['date']:
             date = datetime.strptime(options['date'], '%d/%m/%Y').date()
             for stat in Stat.objects.filter(date=date):
+                stat.denorm_reset()
                 stat.save()
             else:
                 Stat.objects.update_date(date)

@@ -40,6 +40,7 @@ class StatManager(models.Manager):
                 date=date, caisse=caisse, institution=institution
             ).first()
             if existing:
+                existing.denorm_reset()
                 existing.save()
             else:
                 self.create(
@@ -61,6 +62,20 @@ class Stat(models.Model):
     )
 
     objects = StatManager()
+
+    def denorm_reset(self):
+        self.savings = None
+        self.validation_average_delay = None
+        self.insured_shifts = None
+        self.mrsrequest_count_new = None
+        self.mrsrequest_count_inprogress = None
+        self.mrsrequest_count_validated = None
+        self.mrsrequest_count_rejected = None
+        self.mrsrequest_total_new = None
+        self.mrsrequest_total_inprogress = None
+        self.mrsrequest_total_validated = None
+        self.mrsrequest_total_rejected = None
+        self.insured_shifts_total = None
 
     @property
     def mrsrequest_set(self):
