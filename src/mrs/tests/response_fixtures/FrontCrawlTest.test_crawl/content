@@ -202,58 +202,6 @@
             <img src="/static/img/icones/open-quotes.png" alt="icone" />
         </div>
 
-        <div id="contact--wrapper">
-            <div class="wrapper2">
-                <h3>Nous Contacter</h3>
-                <h4>Une question sur ce nouveau service ?</h4>
-                
-<form method="POST" action="/contact" id="contact" class="contact" style="display: none">    
-
-    
-      
-<div class="section row">
-    <div class="col s12">
-        <h5> </h5>
-        
-<div class="layout-row row"><div class="col s12 m6">
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_nom_container">
-        <input id="id_nom" name="nom" type="text">
-        <label for="id_nom">Nom</label>
-        
-    </div>
-</div>
-</div><div class="col s12 m6">
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_email_container">
-        <input id="id_email" name="email" type="email">
-        <label for="id_email">Email</label>
-        
-    </div>
-</div>
-</div></div>
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_message_container">
-        <textarea class="materialize-textarea" cols="40" id="id_message" name="message" rows="10"></textarea>
-        <label for="id_message">Message</label>
-        
-    </div>
-</div>
-
-    </div>
-</div>
-
-    
-
-    <br />
-    <button type="submit" name="_submit" class="btn">Envoyer</button>
-</form>
-
-            </div>
-        </div>
 
         <div id="index-footer--wrapper">
             <a href="https://beta.gouv.fr/" target="_blank">
