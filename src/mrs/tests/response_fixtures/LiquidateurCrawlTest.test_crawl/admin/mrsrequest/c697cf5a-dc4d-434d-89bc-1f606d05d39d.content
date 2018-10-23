@@ -141,6 +141,7 @@
                         5
                     </span>
                 </p>
+                
                 <p>
                     <span class="grey-text text-darken-2">
                         Montant des km parcourus
@@ -149,9 +150,18 @@
                         1.50€ TTC
                     </span>
                 </p>
+                
                 <p>
                     <span class="grey-text text-darken-2">
-                        Montant total des frais
+                        Montant total des frais VP
+                    </span>
+                    <span class="right">
+                        0.00€ TTC
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant total des frais ATP
                     </span>
                     <span class="right">
                         0.00€ TTC
