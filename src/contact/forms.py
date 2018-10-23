@@ -10,7 +10,7 @@ class ContactForm(forms.Form):
 
     layout = material.Layout(
         material.Fieldset(
-            'N\'hésitez pas à nous contacter !',
+            ' ',
             material.Row(
                 'nom',
                 'email',
