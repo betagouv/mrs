@@ -159,10 +159,10 @@
             
                 <td></td>
             
-                <td>23 oct. 2018 10:32</td>
+                <td>3 mai 2018 10:32</td>
             
                 <td>
-    <a class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis -146 jours" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3">201810230001</a>
+    <a class="-text tooltipped" data-position="bottom" data-tooltip="Traité" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3">201805030001</a>
     </td>
             
                 <td>oaeu</td>
@@ -171,7 +171,7 @@
             
                 <td>1223123123123</td>
             
-                <td>Soumise</td>
+                <td>Validée</td>
             
                 <td>—</td>
             
@@ -189,7 +189,7 @@
       <ul class="dropdown-content" id="row-actions-35fe2514-b1e7-4f97-955a-f163788afdf3">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3/delete?_next=/admin/mrsrequest" title='Demande "201810230001": supprimer'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3/delete?_next=/admin/mrsrequest" title='Demande "201805030001": supprimer'>
     <i class="red-text material-icons">delete</i>
     
     Supprimer
@@ -198,7 +198,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3?_next=/admin/mrsrequest" title="201810230001">
+            <a class="" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3?_next=/admin/mrsrequest" title="201805030001">
     <i class="blue-text material-icons">search</i>
     
     Detail
@@ -207,7 +207,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3/update?_next=/admin/mrsrequest" title='Demande "201810230001": modifier'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3/update?_next=/admin/mrsrequest" title='Demande "201805030001": modifier'>
     <i class="orange-text material-icons">edit</i>
     
     Modifier
@@ -228,10 +228,10 @@
             
                 <td></td>
             
-                <td>23 oct. 2018 10:31</td>
+                <td>3 mai 2018 10:31</td>
             
                 <td>
-    <a class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis -146 jours" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb">201810230000</a>
+    <a class="-text tooltipped" data-position="bottom" data-tooltip="Traité" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb">201805030000</a>
     </td>
             
                 <td>oaeu</td>
@@ -240,7 +240,7 @@
             
                 <td>1223123123123</td>
             
-                <td>Soumise</td>
+                <td>Validée</td>
             
                 <td>—</td>
             
@@ -258,7 +258,7 @@
       <ul class="dropdown-content" id="row-actions-b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb/delete?_next=/admin/mrsrequest" title='Demande "201810230000": supprimer'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb/delete?_next=/admin/mrsrequest" title='Demande "201805030000": supprimer'>
     <i class="red-text material-icons">delete</i>
     
     Supprimer
@@ -267,7 +267,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb?_next=/admin/mrsrequest" title="201810230000">
+            <a class="" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb?_next=/admin/mrsrequest" title="201805030000">
     <i class="blue-text material-icons">search</i>
     
     Detail
@@ -276,7 +276,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb/update?_next=/admin/mrsrequest" title='Demande "201810230000": modifier'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb/update?_next=/admin/mrsrequest" title='Demande "201805030000": modifier'>
     <i class="orange-text material-icons">edit</i>
     
     Modifier

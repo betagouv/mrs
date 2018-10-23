@@ -12,7 +12,7 @@
             <a class="collection-item" href="/admin/mrsrequest?status=1&amp;sort=creation_datetime">
                 Soumises
                 <span class="secondary-content">
-                    2
+                    0
                 </span>
             </a>
             <a class="collection-item" href="/admin/mrsrequest?status=1000">
@@ -24,7 +24,7 @@
             <a class="collection-item" href="/admin/mrsrequest?status=2000">
                 Validées
                 <span class="right">
-                    3
+                    5
                 </span>
             </a>
             <a class="collection-item" href="/admin/mrsrequest?status=999">
