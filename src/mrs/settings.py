@@ -310,7 +310,7 @@ if os.getenv('LOG'):
                 'level': LOG_LEVEL,
                 'propagate': True,
             },
-            'django.sql': {
+            'django.db': {
                 'handlers': [
                     'file.sql',
                 ],
@@ -344,6 +344,11 @@ else:
             },
         },
         'loggers': {
+            'django.db': {
+                'handlers': ['console'],
+                'level': LOG_LEVEL,
+                'propagate': True,
+            },
             '*': {
                 'handlers': ['console'],
                 'level': LOG_LEVEL,
