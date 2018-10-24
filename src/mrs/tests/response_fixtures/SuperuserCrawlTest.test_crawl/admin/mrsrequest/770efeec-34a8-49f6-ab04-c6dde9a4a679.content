@@ -67,12 +67,6 @@
                     </span>
                     <span class="right">30/04/2000</span>
                 </p>
-            </div>
-        </div>
-    </div>
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
                 <div class="card-title">
                     Assuré-e
                 </div>
@@ -88,16 +82,52 @@
                     </span>
                     <span class="right">aoeaoeuu@example.com</span>
                 </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Assuré a basculé
+                    </span>
+                    <span class="right">
+                            Non
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Date(s) de Transport(s)
+                </div>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td>1</td>
+                            <td>29/04/2018</td>
+                            <td>29/04/2018</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 <div class="row">
+    
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Transport(s)
+                    VP
                 </div>
                 <p>
                     <span class="red-text" style="font-weight: bold">
@@ -133,14 +163,6 @@
                         0.00€ TTC
                     </span>
                 </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Montant total des frais ATP
-                    </span>
-                    <span class="right">
-                        0.00€ TTC
-                    </span>
-                </p>
                 
                 <p>
                     <span class="grey-text text-darken-2">
@@ -150,35 +172,13 @@
                         21.15€
                     </span>
                 </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Assuré a basculé
-                    </span>
-                    <span class="right">
-                            Non
-                    </span>
-                </p>
-                <table class="centered highlight">
-                    <thead>
-                        <tr>
-                            <th>Num.</th>
-                            <th>Aller</th>
-                            <th>Retour</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        <tr>
-                            <td>1</td>
-                            <td>29/04/2018</td>
-                            <td>29/04/2018</td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+                
+
+
             </div>
         </div>
     </div>
+    
     
 </div>
 

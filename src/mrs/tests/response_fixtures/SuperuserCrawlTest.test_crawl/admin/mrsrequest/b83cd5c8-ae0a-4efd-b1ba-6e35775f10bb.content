@@ -93,12 +93,6 @@
                     </span>
                     <span class="right">29/05/2000</span>
                 </p>
-            </div>
-        </div>
-    </div>
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
                 <div class="card-title">
                     Assuré-e
                 </div>
@@ -114,59 +108,6 @@
                     </span>
                     <span class="right">test@test.com</span>
                 </p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Transport(s)
-                </div>
-                <p>
-                    <span class="red-text" style="font-weight: bold">
-                        Montant total (Base de remboursement)
-                    </span>
-                    <span class="right red-text" style="font-weight: bold">
-                        4.00€ TTC
-                    </span>
-                </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Distance (km parcourus)
-                    </span>
-                    <span class="right">
-                        None
-                    </span>
-                </p>
-                
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Montant total des frais VP
-                    </span>
-                    <span class="right">
-                        0.00€ TTC
-                    </span>
-                </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Montant total des frais ATP
-                    </span>
-                    <span class="right">
-                        4.00€ TTC
-                    </span>
-                </p>
-                
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Coût théorique du trajet en taxi
-                    </span>
-                    <span class="right">
-                        3.46€
-                    </span>
-                </p>
                 <p>
                     <span class="grey-text text-darken-2">
                         Assuré a basculé
@@ -175,6 +116,15 @@
                             Oui, sur une demande précédente
                     </span>
                 </p>
+            </div>
+        </div>
+    </div>
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Date(s) de Transport(s)
+                </div>
                 <table class="centered highlight">
                     <thead>
                         <tr>
@@ -202,21 +152,38 @@
             </div>
         </div>
     </div>
+</div>
+<div class="row">
+    
     
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Justificatif attaché
+                    ATP
                 </div>
-                <ul>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant total des frais ATP
+                    </span>
+                    <span class="right">
+                        4.00€ TTC
+                    </span>
+                </p>
                 
-                    <li>
-                        atp:
-                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/9/download/">1x1.png (95 Bytes)</a>
-                    </li>
-                
-                </ul>
+
+<p>
+    Justificatif attaché:
+</p>
+<ul style="margin: 0">
+    
+    <li>
+        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/9/download/">1x1.png (95 Bytes)</a>
+    </li>
+
+</ul>
+
+
             </div>
         </div>
     </div>
