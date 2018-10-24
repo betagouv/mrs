@@ -595,6 +595,14 @@ class MRSRequest(models.Model):
             new_pmt.mrsrequest = self
             new_pmt.save()
 
+    def get_bills(self, mode=None):
+        bills = getattr(self, '_bills', None)
+        if not bills:
+            self._bills = bills = self.bill_set.all()
+        if not mode:
+            return bills
+        return [i for i in bills if i.mode == mode]
+
     @property
     def total_size(self):
         if self.pmt:

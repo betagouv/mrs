@@ -1,5 +1,30 @@
 {% extends 'crudlfap/detail.html' %}
 
+{% macro show_bills(mode) %}
+{% if object.get_bills(mode)|length %}
+<p>
+    Justificatif{% if object.get_bills(mode)|length > 1 %}s{% endif %} attaché{% if object.get_bills(mode)|length > 1 %}s{% endif %}:
+</p>
+<ul style="margin: 0">
+    {% for bill in object.get_bills(mode) %}
+    <li>
+        <a
+            href="{{ bill.get_download_url() }}"
+            {% if bill.filename.lower().endswith('pdf') %}
+            target="_blank"
+            {% else %}
+            data-controller="viewerjs"
+            data-action="click->viewerjs#click"
+            data-viewerjs="uploads"
+            {% endif %}
+            data-noprefetch="true"
+        >{{ bill.filename }} ({{ naturalsize(bill.binary|length) }})</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endmacro %}
+
 {% block breadcrumb %}
 <nav>
   <div class="nav-wrapper">
@@ -216,12 +241,6 @@
                     >{{ object.insured.birth_date.strftime('%d/%m/%Y') }}</span>
                 </p>
                 {%- endif %}
-            </div>
-        </div>
-    </div>
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
                 <div class="card-title">
                     Assuré-e
                 </div>
@@ -242,16 +261,60 @@
                     </span>
                     <span class="right">{{ object.insured.email }}</span>
                 </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Assuré a basculé
+                    </span>
+                    <span class="right">
+                        {%- if object.insured.shifted %}
+                            {%- if object.insured_shift %}
+                            Oui, sur cette demande
+                            {%- else %}
+                            Oui, sur une demande précédente
+                            {%- endif %}
+                        {%- else %}
+                            Non
+                        {%- endif %}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Date(s) de Transport(s)
+                </div>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transport in object.transport_set.all() %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{% if transport.date_depart %}{{ transport.date_depart.strftime('%d/%m/%Y') }}{% endif %}</td>
+                            <td>{% if transport.date_return %}{{ transport.date_return.strftime('%d/%m/%Y') }}{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 <div class="row">
+    {% if object.modevp %}
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Transport(s)
+                    VP
                 </div>
                 <p>
                     <span class="red-text" style="font-weight: bold">
@@ -287,14 +350,6 @@
                         {{ object.expensevp }}€ TTC
                     </span>
                 </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Montant total des frais ATP
-                    </span>
-                    <span class="right">
-                        {{ object.expenseatp }}€ TTC
-                    </span>
-                </p>
                 {% if object.payment_base -%}
                 <p>
                     <span class="grey-text text-darken-2">
@@ -325,22 +380,6 @@
                     </span>
                 </p>
                 {% endif -%}
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Assuré a basculé
-                    </span>
-                    <span class="right">
-                        {%- if object.insured.shifted %}
-                            {%- if object.insured_shift %}
-                            Oui, sur cette demande
-                            {%- else %}
-                            Oui, sur une demande précédente
-                            {%- endif %}
-                        {%- else %}
-                            Non
-                        {%- endif %}
-                    </span>
-                </p>
                 {% if object.saving -%}
                 <p>
                     <span class="grey-text text-darken-2">
@@ -351,52 +390,27 @@
                     </span>
                 </p>
                 {% endif -%}
-                <table class="centered highlight">
-                    <thead>
-                        <tr>
-                            <th>Num.</th>
-                            <th>Aller</th>
-                            <th>Retour</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for transport in object.transport_set.all() %}
-                        <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{% if transport.date_depart %}{{ transport.date_depart.strftime('%d/%m/%Y') }}{% endif %}</td>
-                            <td>{% if transport.date_return %}{{ transport.date_return.strftime('%d/%m/%Y') }}{% endif %}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                {{ show_bills('vp') }}
             </div>
         </div>
     </div>
-    {% if object.expensevp or object.expenseatp %}
+    {% endif %}
+    {% if object.modeatp %}
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Justificatif{% if object.bill_set.all()|length > 1 %}s{% endif %} attaché{% if object.bill_set.all()|length > 1 %}s{% endif %}
+                    ATP
                 </div>
-                <ul>
-                {% for bill in object.bill_set.all() %}
-                    <li>
-                        {{ bill.mode }}:
-                        <a
-                            href="{{ bill.get_download_url() }}"
-                            {% if bill.filename.lower().endswith('pdf') %}
-                            target="_blank"
-                            {% else %}
-                            data-controller="viewerjs"
-                            data-action="click->viewerjs#click"
-                            data-viewerjs="uploads"
-                            {% endif %}
-                            data-noprefetch="true"
-                        >{{ bill.filename }} ({{ naturalsize(bill.binary|length) }})</a>
-                    </li>
-                {% endfor %}
-                </ul>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant total des frais ATP
+                    </span>
+                    <span class="right">
+                        {{ object.expenseatp }}€ TTC
+                    </span>
+                </p>
+                {{ show_bills('atp') }}
             </div>
         </div>
     </div>
