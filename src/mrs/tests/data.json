@@ -173,7 +173,21 @@
         "name": "PMT: manquante",
         "subject": "PMT manquante sur {{ display_id }}",
         "body": "PMT manquante sur {{ display_id }}: Contenu de mail",
-        "active": true
+        "active": true,
+        "menu": "reject",
+        "counter": 0
+    }
+},
+{
+    "model": "mrsemail.emailtemplate",
+    "pk": 2,
+    "fields": {
+        "name": "Possibilit\u00e9 de trajets it\u00e9ratifs",
+        "subject": "Nous avons un super conseil pour vous !",
+        "body": "les trajets iteratifs c'est super chouetos !",
+        "active": true,
+        "menu": "contact",
+        "counter": 1
     }
 },
 {
@@ -342,7 +356,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$120000$1owAfHJwieuy$Lmit2vEdnEpLnnPtEoMP8bYgG/Lll91ACLPAcpHisCQ=",
-        "last_login": "2018-05-03T14:19:56.488Z",
+        "last_login": "2018-10-24T00:42:41.515Z",
         "username": "test",
         "first_name": "",
         "last_name": "",
@@ -656,6 +670,21 @@
         "comment": "Valid\u00e9e",
         "data": {},
         "action": 2000
+    }
+},
+{
+    "model": "mrsrequest.mrsrequestlogentry",
+    "pk": 22,
+    "fields": {
+        "datetime": "2018-10-24T00:43:52.019Z",
+        "user": 1,
+        "mrsrequest": "35fe2514-b1e7-4f97-955a-f163788afdf3",
+        "comment": "Possibilit\u00e9 de trajets it\u00e9ratifs",
+        "data": {
+            "body": "les trajets iteratifs c'est super chouetos !",
+            "subject": "Nous avons un super conseil pour vous !"
+        },
+        "action": 800
     }
 },
 {

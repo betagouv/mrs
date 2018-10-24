@@ -1,0 +1,62 @@
+<div class="container" id="modal-body-ajax">
+        
+<form action="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2/contact" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-mrsrequest" method="post">
+
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default " id="modal-title-ajax">Demande "201805020001": contacter</h4>
+            
+          
+            
+<script id="emailtemplates" type="text/json">
+{"2": {"subject": "Nous avons un super conseil pour vous !", "body": "les trajets iteratifs c'est super chouetos !"}}
+</script>
+
+  
+
+  
+
+  
+<div class="row">
+    <div class="select-field col s12 required" id="id_template_container">
+        <label for="id_template">Modèle d'email</label>
+        <select data-action="change-&gt;emailtemplate#change" data-controller="emailtemplate" id="id_template" name="template">
+            <option value="">---------</option>
+            <option value="2">Possibilité de trajets itératifs</option>
+        </select>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_subject_container">
+        <input id="id_subject" name="subject" type="text"/>
+        <label for="id_subject">Sujet</label>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="input-field col s12 required" id="id_body_container">
+        <textarea class="materialize-textarea" cols="40" id="id_body" name="body" rows="10"></textarea>
+        <label for="id_body">Corps</label>
+        
+    </div>
+</div>
+
+
+
+          </div>
+          <div class="modal-footer">
+            
+    
+    <button class="btn btn-primary" type="submit">Contacter</button>
+
+          </div>
+        
+  </form>
+
+
+      </div>
