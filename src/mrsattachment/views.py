@@ -21,8 +21,8 @@ class MRSFileDetailViewMixin(object):
         if profile in ('admin', 'upn', 'support'):
             obj = self.model.objects.get(pk=self.kwargs['pk'])
             if (
-                profile == 'admin' or
-                obj.mrsrequest.caisse in user.caisses.all()
+                profile == 'admin'
+                or obj.mrsrequest.caisse in user.caisses.all()
             ):
                 return obj
 

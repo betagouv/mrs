@@ -762,14 +762,14 @@ class MRSRequestRouter(crudlfap.Router):
 
         elif view.urlname == 'detail':
             return (
-                profile in ('upn', 'support', 'admin') and
-                view.object.caisse in view.request.user.caisses.all()
+                profile in ('upn', 'support', 'admin')
+                and view.object.caisse in view.request.user.caisses.all()
             )
 
         elif issubclass(view, MRSRequestStatusMixin):
             return (
-                profile in ('upn', 'admin') and
-                view.object.caisse in view.request.user.caisses.all()
+                profile in ('upn', 'admin')
+                and view.object.caisse in view.request.user.caisses.all()
             )
 
     def get_objects_for_user(self, user, perms=None):
