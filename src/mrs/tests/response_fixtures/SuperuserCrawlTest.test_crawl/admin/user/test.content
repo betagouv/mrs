@@ -1,13 +1,11 @@
 <div class="container" id="modal-body-ajax">
+      
+        <div class="modal-content">
         
-          <div class="modal-content">
           
-            
-            <h4 class="text-default " id="modal-title-ajax">test</h4>
-            
+        
           
-            
-<div class="">
+<div class="card-panel">
   <table class="table">
     <thead class="thead-inverse">
       
@@ -153,10 +151,10 @@
   </thead></table>
 </div>
 
-          </div>
-          <div class="modal-footer">
-            
-          </div>
-        
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      
 
-      </div>
+    </div>
