@@ -1,10 +1,10 @@
 <div class="" id="modal-body-ajax">
-      
-        <div class="modal-content">
         
+          <div class="modal-content">
           
-        
+            
           
+            
 <div class="row">
     <div class="col s12 m3">
         <h5 class="header">Demandes</h5>
@@ -141,7 +141,7 @@
                 
     
       <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2" title="Actions">
-        <i class="material-icons">menu</i>
+        <i class="material-icons">more_vert</i>
         
       </a>
 
@@ -226,10 +226,10 @@
     </div>
 </div>
 
-        </div>
-        <div class="modal-footer">
-          
-        </div>
-      
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
 
-    </div>
+      </div>

@@ -1,15 +1,14 @@
 <div class="container" id="modal-body-ajax">
-      
-
-<div class="card-panel">
-
-<form action="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2/reject" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="form-object-mrsrequest" method="post">
-
-        <div class="modal-content">
         
+<form action="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2/reject" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-mrsrequest" method="post">
+
+          <div class="modal-content">
           
-        
+            
+            <h4 class="text-default " id="modal-title-ajax">Demande "201805020001": rejeter</h4>
+            
           
+            
 <script id="emailtemplates" type="text/json">
 {"1": {"subject": "PMT manquante sur 201805020001", "body": "PMT manquante sur 201805020001: Contenu de mail"}}
 </script>
@@ -49,18 +48,15 @@
 
 
 
-        </div>
-        <div class="modal-footer">
-          
+          </div>
+          <div class="modal-footer">
+            
     
     <button class="btn btn-primary" type="submit">Rejeter</button>
 
-        </div>
-      
+          </div>
+        
   </form>
 
-</div>
 
-
-
-    </div>
+      </div>

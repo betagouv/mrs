@@ -1,10 +1,12 @@
 <div class="container" id="modal-body-ajax">
-      
-        <div class="modal-content">
         
+          <div class="modal-content">
           
-        
+            
+            <h4 class="text-default " id="modal-title-ajax">Stat: import export</h4>
+            
           
+            
   <h5>Exporter les demandes en CSV</h5>
   <p>
     Cliquez sur le bouton suivant pour télécharger votre export de Demandes qui n'ont pas de dates de mandatements :
@@ -31,10 +33,10 @@
   </p>
   <p>
 
-        </p></div>
-        <div class="modal-footer">
-          
-        </div>
-      
+          </p></div>
+          <div class="modal-footer">
+            
+          </div>
+        
 
-    </div>
+      </div>

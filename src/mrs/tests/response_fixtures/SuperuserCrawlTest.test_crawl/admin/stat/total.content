@@ -1,10 +1,10 @@
 <div class="" id="modal-body-ajax">
-      
-        <div class="modal-content">
         
+          <div class="modal-content">
           
-        
+            
           
+            
 
   <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-chart" method="get">
     
@@ -94,10 +94,10 @@
   </div>
 </div>
 
-        </div>
-        <div class="modal-footer">
-          
-        </div>
-      
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
 
-    </div>
+      </div>

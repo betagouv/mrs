@@ -1,15 +1,14 @@
 <div class="container" id="modal-body-ajax">
-      
-
-<div class="card-panel">
-
-<form action="/admin/emailtemplate/create" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="form-object-emailtemplate" method="post">
-
-        <div class="modal-content">
         
+<form action="/admin/emailtemplate/create" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-emailtemplate" method="post">
+
+          <div class="modal-content">
           
-        
+            
+            <h4 class="text-success " id="modal-title-ajax">Modèle d'email: création</h4>
+            
           
+            
   
 
   
@@ -49,18 +48,15 @@
 </div>
 
 
-        </div>
-        <div class="modal-footer">
-          
+          </div>
+          <div class="modal-footer">
+            
     
     <button class="btn btn-primary" type="submit">Création</button>
 
-        </div>
-      
+          </div>
+        
   </form>
 
-</div>
 
-
-
-    </div>
+      </div>

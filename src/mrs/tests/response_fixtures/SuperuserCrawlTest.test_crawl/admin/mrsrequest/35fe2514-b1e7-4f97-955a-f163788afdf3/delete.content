@@ -1,15 +1,14 @@
 <div class="container" id="modal-body-ajax">
-      
-
-<div class="card-panel">
-
-<form action="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3/delete" class="form-invalid" data-action="submit-&gt;form#submit" data-ajax="" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
-
-        <div class="modal-content">
         
+<form action="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3/delete" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+
+          <div class="modal-content">
           
-        
+            
+            <h4 class="text-danger " id="modal-title-ajax">Demande "201805030001": supprimer</h4>
+            
           
+            
   
 
   
@@ -18,18 +17,15 @@
 
 
 
-        </div>
-        <div class="modal-footer">
-          
+          </div>
+          <div class="modal-footer">
+            
     
     <button class="btn btn-primary" type="submit">Supprimer</button>
 
-        </div>
-      
+          </div>
+        
   </form>
 
-</div>
 
-
-
-    </div>
+      </div>

@@ -45,26 +45,8 @@ textarea {
     </div>
   </div>
 </div>
-    <div class="navbar-fixed">
-  <nav>
-    <div class="nav-wrapper teal darken-3">
-      <span href="#" data-action="click->sidenav#click" data-controller="sidenav" data-target="slide-out" class="sidenav-trigger"><i class="waves-effect material-icons">menu</i></span>
-      <a class="brand-logo" href="/admin/" class="waves-effect brand-logo">MRS Admin</a>
-      <ul class="right">
-        
-  <li class="">
-    <a data-noprefetch="true" class="waves-effect" href="/admin/logout">Déconnexion (stata)</a>
-  </li>
-  
-
-      </ul>
-    </div>
-  </nav>
-</div>
-
-<ul id="slide-out" class="sidenav">
-
-  <li class="no-padding active"><a href="/admin/">Home</a></li>
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+  <li class="no-padding active"><a href="/admin/">Accueil</a></li>
   <li class="no-padding">
     <ul class="collapsible collapsible-accordion">
       
@@ -117,18 +99,31 @@ textarea {
 
   
 </ul>
-    
-    <ul style="display: none" data-controller="messages">
+    <header>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper ">
+            <span href="#" data-action="click->sidenav#click" data-controller="sidenav" data-target="slide-out" class="sidenav-trigger"><i class="waves-effect material-icons">menu</i></span>
+            
+            <a class="brand-logo" href="/admin/" class="waves-effect brand-logo">MRS Admin</a>
+            
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <ul style="display: none" data-controller="messages">
   
 </ul>
-    
-    <div class="" id="modal-body-ajax">
       
-        <div class="modal-content">
+      <div class="" id="modal-body-ajax">
         
+          <div class="modal-content">
           
-        
+            
           
+            
 <div class="row">
     <div class="col s12 m3">
         <h5 class="header">Demandes</h5>
@@ -185,13 +180,14 @@ textarea {
     </div>
 </div>
 
-        </div>
-        <div class="modal-footer">
-          
-        </div>
-      
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
 
-    </div>
+      </div>
+    </main>
 
     <div id="modal" class="modal modal-fixed-footer"></div>
 
