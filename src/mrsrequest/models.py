@@ -459,8 +459,8 @@ class MRSRequest(models.Model):
         num = 1 if transport and not transport.date_return else 2
         return Decimal(
             (
-                ((self.distancevp or 0) * 1.62) +
-                (1.9 * num * self.transport_set.count())
+                ((self.distancevp or 0) * 1.62)
+                + (1.9 * num * self.transport_set.count())
             ) * 0.91
         ).quantize(TWOPLACES)
 
