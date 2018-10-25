@@ -19,7 +19,13 @@
 
         
 <div class="mrs-std-page--wrapper">
+
     <div class="mrs-std-page">
+      <h5> N'hésitez pas à nous contacter ! </h5>
+      <div> Nous ne pouvons traiter votre dossier de remboursement
+      sur cet espace contact. </div>
+      <div>Pour toutes autres questions, utilisez le formulaire de contact ci-dessous.</div>
+
         
 <form action="/contact" class="contact" id="contact" method="POST" style="display: none">    
 
@@ -27,7 +33,7 @@
       
 <div class="section row">
     <div class="col s12">
-        <h5>N'hésitez pas à nous contacter !</h5>
+        <h5> </h5>
         
 <div class="layout-row row"><div class="col s12 m6">
 
