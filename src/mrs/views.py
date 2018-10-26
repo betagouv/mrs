@@ -1,7 +1,10 @@
+import pytz
+
 from crudlfap import crudlfap
 
 from django import forms
 from django import http
+from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.db import models
 from django.utils import timezone
@@ -100,7 +103,9 @@ class StatisticsView(crudlfap.Factory, generic.TemplateView):
         )['result'] or 0
 
     def get_now(self):
-        return timezone.now().strftime('%d/%m/%Y %H:%M:%S')
+        return timezone.now().astimezone(
+            pytz.timezone(settings.TIME_ZONE)
+        ).strftime('%d/%m/%Y %H:%M:%S')
 
 
 class StaticView(generic.View):
