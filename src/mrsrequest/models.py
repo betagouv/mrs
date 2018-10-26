@@ -603,6 +603,15 @@ class MRSRequest(models.Model):
             return bills
         return [i for i in bills if i.mode == mode]
 
+    # shortcuts to the above, for stupid django templates
+    @property
+    def billatps(self):
+        return self.get_bills('atp')
+
+    @property
+    def billvps(self):
+        return self.get_bills('vp')
+
     @property
     def total_size(self):
         if self.pmt:
