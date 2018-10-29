@@ -352,6 +352,11 @@ if os.getenv('LOG'):
                 'level': LOG_LEVEL,
                 'propagate': True,
             },
+            'raven': {
+                'level': 'INFO',
+                'handlers': ['console'],
+                'propagate': False,
+            },
         },
     }
 else:
