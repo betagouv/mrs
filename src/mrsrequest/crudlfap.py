@@ -43,7 +43,6 @@ CSV_COLUMNS = (
     'nir',
     'naissance',
     'transport',
-    'mode',
     'mandatement',
     'base',
     'montant',
@@ -392,21 +391,19 @@ class MRSRequestExport(crudlfap.ObjectsView):
             if date_depart is None:
                 continue  # manually imported from old database
 
-            for mode in obj.modes:
-                w.writerow((
-                    str(obj.caisse.number),
-                    obj.display_id,
-                    obj.insured.nir,
-                    obj.insured.birth_date.strftime(DATE_FORMAT),
-                    date_depart.strftime(DATE_FORMAT),
-                    mode,
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                ))
+            w.writerow((
+                str(obj.caisse.number),
+                obj.display_id,
+                obj.insured.nir,
+                obj.insured.birth_date.strftime(DATE_FORMAT),
+                date_depart.strftime(DATE_FORMAT),
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+            ))
 
         if len(self.objects):
             f.seek(0)
