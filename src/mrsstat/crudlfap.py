@@ -1,7 +1,7 @@
 import datetime
 import json
 
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 
 from django import forms
 from django.db import models
@@ -250,6 +250,7 @@ class StatImportExport(crudlfap.ModelView):
 
 
 class StatRouter(crudlfap.Router):
+    allowed_groups = ['Admin', 'Stat']
     model = Stat
     material_icon = 'multiline_chart'
     views = [
@@ -257,10 +258,5 @@ class StatRouter(crudlfap.Router):
         StatListView,
         StatListTotalsView,
     ]
-
-    def allowed(self, view):
-        profile = getattr(view.request.user, 'profile', None)
-        if profile in ('admin', 'stat'):
-            return True
 
 StatRouter().register()

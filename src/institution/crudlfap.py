@@ -1,10 +1,11 @@
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 
 from .models import Institution
 
 
 crudlfap.Router(
     Institution,
+    allowed_groups=['Admin'],
     material_icon='local_hospital',
     namespace='institutionrouter',
     views=[

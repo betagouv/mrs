@@ -189,15 +189,6 @@
       <ul class="dropdown-content" id="row-actions-767b8123-2134-48cb-8177-0c411309a0b1">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1/delete?_next=/admin/mrsrequest" title='Demande "201810310000": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
-        
-        <li>
             <a class="" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1?_next=/admin/mrsrequest" title="201810310000">
     <i class="blue-text material-icons">search</i>
     
@@ -256,15 +247,6 @@
       </a>
 
       <ul class="dropdown-content" id="row-actions-35fe2514-b1e7-4f97-955a-f163788afdf3">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3/delete?_next=/admin/mrsrequest" title='Demande "201805030001": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
         
         <li>
             <a class="" href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3?_next=/admin/mrsrequest" title="201805030001">
@@ -327,15 +309,6 @@
       <ul class="dropdown-content" id="row-actions-b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb/delete?_next=/admin/mrsrequest" title='Demande "201805030000": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
-        
-        <li>
             <a class="" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb?_next=/admin/mrsrequest" title="201805030000">
     <i class="blue-text material-icons">search</i>
     
@@ -394,15 +367,6 @@
       </a>
 
       <ul class="dropdown-content" id="row-actions-f5ac697c-d4cd-34d4-89bc-39d1f606dd05">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/f5ac697c-d4cd-34d4-89bc-39d1f606dd05/delete?_next=/admin/mrsrequest" title='Demande "201805020002": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
         
         <li>
             <a class="" href="/admin/mrsrequest/f5ac697c-d4cd-34d4-89bc-39d1f606dd05?_next=/admin/mrsrequest" title="201805020002">
@@ -468,15 +432,6 @@
       </a>
 
       <ul class="dropdown-content" id="row-actions-ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2/delete?_next=/admin/mrsrequest" title='Demande "201805020001": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
         
         <li>
             <a class="" href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2?_next=/admin/mrsrequest" title="201805020001">
@@ -548,15 +503,6 @@
       <ul class="dropdown-content" id="row-actions-c697cf5a-dc4d-434d-89bc-1f606d05d39d">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/c697cf5a-dc4d-434d-89bc-1f606d05d39d/delete?_next=/admin/mrsrequest" title='Demande "201805020000": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
-        
-        <li>
             <a class="" href="/admin/mrsrequest/c697cf5a-dc4d-434d-89bc-1f606d05d39d?_next=/admin/mrsrequest" title="201805020000">
     <i class="blue-text material-icons">search</i>
     
@@ -617,15 +563,6 @@
       <ul class="dropdown-content" id="row-actions-770efeec-34a8-49f6-ab04-c6dde9a4a679">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679/delete?_next=/admin/mrsrequest" title='Demande "201805010001": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
-        
-        <li>
             <a class="" href="/admin/mrsrequest/770efeec-34a8-49f6-ab04-c6dde9a4a679?_next=/admin/mrsrequest" title="201805010001">
     <i class="blue-text material-icons">search</i>
     
@@ -684,15 +621,6 @@
       </a>
 
       <ul class="dropdown-content" id="row-actions-13751dc2-18bb-4925-a8b4-84383a042bae">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae/delete?_next=/admin/mrsrequest" title='Demande "201805010000": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
         
         <li>
             <a class="" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae?_next=/admin/mrsrequest" title="201805010000">

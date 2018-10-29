@@ -1,6 +1,6 @@
 import json
 
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 from django import template
 from django.conf import settings
 
@@ -84,6 +84,7 @@ class EmailTemplateListView(crudlfap.ListView):
 
 crudlfap.Router(
     EmailTemplate,
+    allowed_groups=['Admin'],
     material_icon='mail',
     views=[
         EmailTemplateListView,

@@ -189,15 +189,6 @@
       <ul class="dropdown-content" id="row-actions-767b8123-2134-48cb-8177-0c411309a0b1">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1/delete?_next=/admin/mrsrequest" title='Demande "201810310000": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
-        
-        <li>
             <a class="" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1?_next=/admin/mrsrequest" title="201810310000">
     <i class="blue-text material-icons">search</i>
     

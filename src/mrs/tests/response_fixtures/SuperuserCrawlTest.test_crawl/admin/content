@@ -148,15 +148,6 @@
       <ul class="dropdown-content" id="row-actions-ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2/delete?_next=/admin/" title='Demande "201805020001": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
-        
-        <li>
             <a class="" href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2?_next=/admin/" title="201805020001">
     <i class="blue-text material-icons">search</i>
     

@@ -35,6 +35,17 @@
       
       <tr>
         <th>
+          Statut super-utilisateur
+        </th>
+        <td>
+          
+              False
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
           Nom d'utilisateur
         </th>
         <td>
@@ -101,22 +112,13 @@
       
       <tr>
         <th>
-          Profil
-        </th>
-        <td>
-          
-              admin
-          
-        </td>
-      </tr>
-      
-      <tr>
-        <th>
           Groupes
         </th>
         <td>
           
             <ul class="collection">
+              
+                <li class="collection-item">Admin</li>
               
             </ul>
           
