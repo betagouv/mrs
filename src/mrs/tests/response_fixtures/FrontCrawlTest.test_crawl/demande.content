@@ -229,6 +229,8 @@
                 
                     
                 
+                    
+                
 
                     <div class="row">
     <div class="checkbox-field col s12" id="id_modevp_container">
@@ -349,6 +351,17 @@
         </label></div>
     </div>
 </div>
+
+
+                
+<div class="row">
+    <div class="checkbox-field col s12" id="id_use_email_container">
+        <label>
+        <input class="filled-in " id="id_use_email" name="use_email" type="checkbox"/><span for="id_use_email">En cochant cette case, vous acceptez que Mes Remboursements Simplifiés mémorise et utilise votre adresse email dans le but de vous envoyer occasionnellement des emails d'informations. Vous pouvez à tout moment vous désinscrire de ce service.</span></label>
+        
+    </div>
+</div>
+
 
             </div>
 
