@@ -336,6 +336,20 @@ class CertifyForm(forms.Form):
     )
 
 
+class UseEmailForm(forms.Form):
+    USE_EMAIL_LABEL = ("En cochant cette case, vous acceptez que "
+                       "Mes Remboursements Simplifiés mémorise et utilise "
+                       "votre adresse email dans le but de vous envoyer occasionnellement "
+                       "des emails d'informations. "
+                       "Vous pouvez à tout moment vous désinscrire de ce service.")
+
+    use_email = forms.BooleanField(
+        label=USE_EMAIL_LABEL,
+        widget=forms.CheckboxInput(),
+        required=False,
+    )
+
+
 class MRSRequestForm(forms.ModelForm):
     class Meta:
         model = MRSRequest
