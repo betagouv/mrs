@@ -442,6 +442,9 @@ class MRSRequest(models.Model):
             return name
         return getattr(self, 'STATUS_{}'.format(name.upper()))
 
+    def denorm_reset(self):
+        self.delay = self.cost = self.saving = None
+
     @denormalized(
         models.DecimalField,
         decimal_places=2,

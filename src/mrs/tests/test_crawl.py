@@ -1,4 +1,4 @@
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 
 from django import test
 
@@ -25,14 +25,16 @@ class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):
     username = 'a'
     strip_parameters = ['_next']
 
+    def setUp(self):
+        from mrsstat.models import update_stat_for_mrsrequest
+        for m in MRSRequest.objects.all():
+            update_stat_for_mrsrequest(pk=m.pk)
+        super().setUp()
+
     @freeze_time('2018-05-30 13:37:42')  # forward compat and bichon <3
     def test_crawl(self):
         client = test.Client()
         client.force_login(User.objects.get(username=self.username))
-
-        for request in MRSRequest.objects.all():
-            # trigger denorm
-            request.save()
 
         self.assertWebsiteSame(
             url='/admin/',
@@ -50,6 +52,7 @@ class SuperuserCrawlTest(LiquidateurCrawlTest):
     username = 'test'
 
     def setUp(self):
+        super().setUp()
         self.covered = []
         for u in User.objects.all()[1:]:
             self.covered += [
@@ -60,9 +63,9 @@ class SuperuserCrawlTest(LiquidateurCrawlTest):
     def skip_url(self, url):
         if super().skip_url(url):
             return True
-        if 'call' in url or 'cron' in url:
+        if 'group' in url or 'permission' in url:
             return True
-        return url == '/admin/urls' or url.endswith('/su')
+        return url.endswith('/su')
 
 
 class StatCrawlTest(LiquidateurCrawlTest):

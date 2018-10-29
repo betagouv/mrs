@@ -73,8 +73,6 @@ textarea {
   </li>
 
   
-
-  
   
   <li class="no-padding">
     <a data-noprefetch="true" class="waves-effect" href="/admin/logout">Déconnexion (a)</a>

@@ -64,19 +64,22 @@
 </div>
 
  
+
+
 <div class="row">
-    <div class="select-field col s12 required" id="id_profile_container">
-        <label for="id_profile">Profil</label>
-        <select id="id_profile" name="profile">
-            <option value="">---------</option>
-            <option selected="selected" value="admin">Admin</option>
-            <option value="upn">UPN</option>
-            <option value="stat">Stat</option>
-            <option value="support">Relation client</option>
+    <div class="select-field col s12 multiselect" id="id_groups_container">
+        <label for="id_groups">Groupes</label>
+        <select id="id_groups" multiple="True" name="groups">
+            <option disabled="" value="">Choisissez votre option</option>
+            <option selected="selected" value="1">Admin</option>
+            <option value="2">UPN</option>
+            <option value="3">Stat</option>
+            <option value="4">Support</option>
         </select>
-        
+        <div class="help-block">Les groupes dont fait partie cet utilisateur. Celui-ci obtient tous les droits de tous les groupes auxquels il appartient.</div>
     </div>
 </div>
+
  
 
 <div class="row">
