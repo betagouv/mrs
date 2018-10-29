@@ -19,7 +19,7 @@ from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 
 TWOPLACES = Decimal(10) ** -2
 
-logger = logging.getLogger(__name__)
+raven_logger = logging.getLogger('raven')
 
 
 def to_date_datetime(date_or_datetime, hour, minute, second, microsecond):
@@ -499,8 +499,8 @@ class MRSRequest(models.Model):
             float(self.taxi_cost) - float(self.payment_base)
         ).quantize(TWOPLACES)
         if saving < 0:
-            logger.info("info: the balance from {} is negative: {}".
-                        format(self.insured, saving))
+            raven_logger.info("The balance from {} is negative: {}".
+                              format(self.insured, saving))
         return saving
 
     @denormalized(
