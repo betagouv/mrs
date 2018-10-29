@@ -72,7 +72,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'mrsuser.User'
 
 if not os.getenv('CI'):
-    SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+    SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
