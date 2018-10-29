@@ -19,6 +19,7 @@ from .forms import (
     MRSRequestCreateForm,
     TransportForm,
     TransportIterativeForm,
+    UseEmailForm,
 )
 from .models import Bill, MRSRequest, Transport
 
@@ -43,6 +44,7 @@ class MRSRequestCreateView(generic.TemplateView):
                 initial={k: v for k, v in request.GET.items()})),
             ('transport', TransportIterativeForm()),
             ('certify', CertifyForm()),
+            ('use_email', UseEmailForm()),
         ])
 
         return super().get(request, *args, **kwargs)
@@ -128,6 +130,7 @@ class MRSRequestCreateView(generic.TemplateView):
             )),
             ('person', PersonForm(request.POST)),
             ('certify', CertifyForm(request.POST)),
+            ('use_email', UseEmailForm(request.POST)),
         ])
         self.forms['transport'] = TransportIterativeForm(
             request.POST,
@@ -158,6 +161,9 @@ class MRSRequestCreateView(generic.TemplateView):
             self.request)[0]
         self.object = self.forms['mrsrequest'].save()
         self.forms['transport'].save()
+        if self.forms['use_email'].cleaned_data['use_email']:
+            self.forms['mrsrequest'].instance.insured.use_email = True
+            self.forms['mrsrequest'].instance.insured.save()
         for name, form in self.forms.items():
             if 'transport-' not in name:
                 continue

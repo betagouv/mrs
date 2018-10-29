@@ -26,6 +26,14 @@ class Person(models.Model):
         null=True,
         verbose_name='Email',
     )
+
+    use_email = models.BooleanField(
+        default=None,
+        null=True,
+        blank=True,
+        verbose_name="L'assuré autorise à utiliser son email.",
+    )
+
     nir = models.BigIntegerField(
         verbose_name='Numéro de sécurité sociale',
         validators=[
