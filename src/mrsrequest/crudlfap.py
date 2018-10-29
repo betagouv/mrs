@@ -5,7 +5,7 @@ from datetime import datetime
 import io
 import logging
 
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 
 from django import forms
 from django import http
@@ -55,6 +55,7 @@ CSV_COLUMNS = (
 class MRSRequestContactView(EmailViewMixin,
                             crudlfap.ObjectFormView):
 
+    allowed_groups = ['Admin', 'UPN']
     controller = 'modal'
     action = 'click->modal#open'
     template_name = 'mrsemail/form.html'
@@ -68,6 +69,7 @@ class MRSRequestContactView(EmailViewMixin,
 
 
 class MRSRequestStatusMixin:
+    allowed_groups = ['Admin', 'UPN']
     controller = 'modal'
     action = 'click->modal#open'
 
@@ -82,10 +84,6 @@ class MRSRequestStatusMixin:
 
     def get_log_message(self):
         return self.model.get_status_label(self.action_flag)
-
-    def get_allowed(self):
-        if super().get_allowed():
-            return self.request.user.profile in ('upn', 'admin')
 
     def get_log_data(self):
         return {}
@@ -126,6 +124,9 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
     color = 'green'
     action_flag = MRSRequest.STATUS_VALIDATED
     short_permission_code = 'validate'
+
+    def get_queryset(self):
+        return super().get_queryset().status('inprogress')
 
     def mail_render(self, destination, part, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
@@ -181,8 +182,8 @@ class MRSRequestValidateView(MRSRequestValidateMixin, crudlfap.ObjectFormView):
     template_name = 'mrsrequest/mrsrequest_validate.html'
     body_class = 'modal-fixed-footer'
 
-    def get_allowed(self):
-        if super().get_allowed():
+    def has_perm(self):
+        if super().has_perm():
             return self.object.status == self.model.STATUS_INPROGRESS
 
     def get_form_valid_message(self):
@@ -220,8 +221,13 @@ class MRSRequestRejectView(EmailViewMixin,
     menus = ['object_detail']
     emailtemplates_menu = 'reject'
 
-    def get_allowed(self):
-        if super().get_allowed():
+    def get_queryset(self):
+        return super().get_queryset().filter(status__in=(
+            self.model.STATUS_NEW, self.model.STATUS_INPROGRESS
+        ))
+
+    def has_perm(self):
+        if super().has_perm():
             return self.object.status in (
                 self.model.STATUS_NEW, self.model.STATUS_INPROGRESS
             )
@@ -245,8 +251,8 @@ class MRSRequestProgressView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
     short_permission_code = 'inprogress'
     menus = ['object_detail']
 
-    def get_allowed(self):
-        if super().get_allowed():
+    def has_perm(self):
+        if super().has_perm():
             return self.object.status == self.model.STATUS_NEW
 
     def get_form_valid_message(self):
@@ -254,8 +260,13 @@ class MRSRequestProgressView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
             self.object.display_id
         )
 
+    def get_queryset(self):
+        return super().get_queryset().status('new')
+
 
 class MRSRequestListView(crudlfap.ListView):
+    allowed_groups = ['Admin', 'UPN', 'Support']
+
     def get_filter_fields(self):
         filter_fields = [
             'status',
@@ -364,6 +375,7 @@ class MRSRequestListView(crudlfap.ListView):
 
 
 class MRSRequestExport(crudlfap.ObjectsView):
+    allowed_groups = ['Admin', 'Stat']
     material_icon = 'cloud_download'
     turbolinks = False
     menus = []
@@ -427,6 +439,7 @@ class MRSRequestExport(crudlfap.ObjectsView):
 
 
 class MRSRequestExportCaisse(MRSRequestExport):
+    allowed_groups = ['Admin', 'Stat']
     urlpath = 'export/<int:pk>'
     menus = []
 
@@ -448,6 +461,7 @@ class MRSRequestExportCaisse(MRSRequestExport):
 
 
 class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
+    allowed_groups = ['Admin', 'Stat']
     material_icon = 'cloud_upload'
     turbolinks = False
     form_invalid_message = 'Erreurs durant l\'import'
@@ -620,6 +634,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
 
 class MRSRequestUpdateView(crudlfap.UpdateView):
+    allowed_groups = ['Admin', 'UPN']
     form_class = forms.modelform_factory(
         Person,
         form=PersonForm,
@@ -687,6 +702,7 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
 class MRSRequestDetailView(crudlfap.DetailView):
     locks = True
     title_heading = None
+    allowed_groups = ['Admin', 'UPN', 'Support']
 
     def get_labels(self):
         self.labels = dict()
@@ -714,65 +730,17 @@ class MRSRequestRouter(crudlfap.Router):
         MRSRequestListView,
     ]
 
-    def allowed(self, view):  # noqa: C901
-        profile = getattr(view.request.user, 'profile', None)
+    def get_queryset(self, view):
+        user = view.request.user
 
-        if not profile:
-            return False
-
-        if profile == 'admin':
-            return True
-
-        if view.urlname in ('exportcaisse', 'export', 'import'):
-            return profile == 'stat'
-
-        elif view.urlname == 'list':
-            return profile in ('upn', 'support')
-
-        elif view.urlname in ('validateobjects', 'contact'):
-            return profile == 'upn'  # rest is handled by get_objects_for_user
-
-        elif view.urlname == 'delete':
-            return profile == 'admin'
-
-        elif view.urlname == 'update':
-            return profile in ('admin', 'upn')
-
-        elif view.urlname == 'detail':
-            return (
-                profile in ('upn', 'support', 'admin')
-                and view.object.caisse in view.request.user.caisses.all()
+        if user.is_superuser or user.profile == 'admin':
+            return self.model.objects.all()
+        elif user.profile in ('stat', 'upn', 'support'):
+            return self.model.objects.filter(
+                caisse__in=view.request.user.caisses.all()
             )
 
-        elif issubclass(view, MRSRequestStatusMixin):
-            return (
-                profile in ('upn', 'admin')
-                and view.object.caisse in view.request.user.caisses.all()
-            )
-
-    def get_objects_for_user(self, user, perms=None):
-        perms = perms or []
-        profile = getattr(user, 'profile', None)
-
-        if profile == 'admin':
-            qs = self.model.objects.all()
-        elif profile in ('stat', 'upn', 'support'):
-            qs = self.model.objects.filter(
-                caisse__in=user.caisses.all()
-            )
-        else:
-            return self.model.objects.none()
-
-        if 'mrsrequest.inprogress_mrsrequest' in perms:
-            qs = qs.status('new')
-        elif 'mrsrequest.validate_mrsrequest' in perms:
-            qs = qs.status('inprogress')
-        elif 'mrsrequest.reject_mrsrequest' in perms:
-            qs = qs.filter(status__in=(
-                self.model.STATUS_NEW, self.model.STATUS_INPROGRESS
-            ))
-
-        return qs
+        return self.model.objects.none()
 
 
 MRSRequestRouter(namespace='mrsrequestrouter').register()

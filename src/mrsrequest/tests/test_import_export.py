@@ -3,7 +3,7 @@ import io
 import pytest
 import os
 
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 
 from django import test
 from django.urls import reverse

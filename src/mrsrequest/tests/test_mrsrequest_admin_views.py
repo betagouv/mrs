@@ -1,6 +1,6 @@
 import pytest
 
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 from crudlfap_auth.crudlfap import User
 
 from dbdiff.fixture import Fixture
@@ -34,13 +34,14 @@ def ur(request_factory):
         if kwargs:
             caisse = None
             kwargs.setdefault('username', str(kwargs))
+            kwargs.setdefault('group', 'UPN')
             if 'caisse' in kwargs:
                 caisse = kwargs.pop('caisse')
             user = User.objects.get_or_create(**kwargs)[0]
+            user.groups.add(
+                Group.objects.get_or_create(name=kwargs['group'])[0])
             if caisse:
                 user.caisses.add(caisse)
-                if 'profile' not in kwargs:
-                    user.profile = 'upn'
         return getattr(request_factory(user), method or 'get')('/path')
     return user_request
 

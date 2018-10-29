@@ -1,6 +1,6 @@
 import pytz
 
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 
 from django import forms
 from django import http
@@ -22,6 +22,7 @@ class Dashboard(crudlfap.TemplateView):
     template_name = 'crudlfap/home.html'
     model = MRSRequest
     body_class = 'full-width'
+    allowed_groups = ['Admin', 'UPN', 'Support', 'Stat']
 
     def get_listview(self):
         router = crudlfap.site['mrsrequest.MRSRequest']
@@ -39,8 +40,7 @@ class Dashboard(crudlfap.TemplateView):
         return self.listview.table
 
     def get_queryset(self):
-        return crudlfap.site[self.model].get_objects_for_user(
-            self.request.user, [])
+        return crudlfap.site[self.model].get_queryset(self)
 
 
 class LegalView(generic.TemplateView):

@@ -1,4 +1,4 @@
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 
 from django import forms
 from django.contrib.auth.models import Group
@@ -28,7 +28,7 @@ class UserForm(forms.ModelForm):
             'username',
             'email',
             'caisses',
-            'profile',
+            'groups',
         ]
 
     def clean_new_password(self):
@@ -47,11 +47,11 @@ del crudlfap.site[User].views['delete']
 crudlfap.site[User]['update'].form_class = UserForm
 crudlfap.site[User]['update'].fields.append('is_active')
 crudlfap.site[User]['create'].form_class = UserForm
-crudlfap.site[User]['list'].filterset_extra_class_attributes = dict(
-    profile=filters.ChoiceFilter(choices=User.PROFILE_CHOICES)
-)
+#crudlfap.site[User]['list'].filterset_extra_class_attributes = dict(
+#    profile=filters.ChoiceFilter(choices=User.PROFILE_CHOICES)
+#)
 crudlfap.site[User]['list'].filter_fields = [
-    'profile',
+    'groups',
     'caisses',
 ]
 crudlfap.site[User]['list'].table_fields = [
@@ -60,6 +60,8 @@ crudlfap.site[User]['list'].table_fields = [
     'email',
     'first_name',
     'last_name',
-    'profile',
+    'groups',
 ]
-del crudlfap.site[Group]
+
+crudlfap.site[User].allowed_groups = ['Admin']
+crudlfap.site[Group].allowed_groups = ['Admin']

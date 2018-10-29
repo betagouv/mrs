@@ -61,13 +61,15 @@ INSTALLED_APPS = [
     'mrsattachment',
     'mrsemail',
     'mrsstat',
-    'crudlfap_auth', 'mrsuser',  # the second overrides the first
     'caisse',
     'denorm',
 
     os.getenv('WEBPACK_LOADER', 'webpack_loader'),
     'django_humanize',
-] + CRUDLFAP_APPS + DJANGO_APPS + ['djcall']
+] + CRUDLFAP_APPS + DJANGO_APPS + [
+    'djcall',
+    'crudlfap_auth', 'mrsuser',  # the second overrides the first
+]
 
 AUTH_USER_MODEL = 'mrsuser.User'
 
@@ -151,6 +153,10 @@ AUTH_PASSWORD_VALIDATORS = [
     ]
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'crudlfap_auth.backends.ViewBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -354,7 +360,7 @@ else:
         'disable_existing_loggers': False,
         'handlers': {
             'console': {
-                'level': LOG_LEVEL,
+                'level': 'DEBUG',
                 'class': 'logging.StreamHandler',
                 'formatter': 'simple'
             },
@@ -367,7 +373,7 @@ else:
         'loggers': {
             'django.db': {
                 'handlers': ['console'],
-                'level': LOG_LEVEL,
+                'level': 'DEBUG',
                 'propagate': True,
             },
             '*': {

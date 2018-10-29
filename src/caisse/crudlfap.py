@@ -1,10 +1,11 @@
-from crudlfap import crudlfap
+from crudlfap import shortcuts as crudlfap
 
 from .models import Caisse, Email
 
 
 crudlfap.Router(
     Caisse,
+    allowed_groups=['Admin'],
     material_icon='domain',
     views=[
         crudlfap.CreateView,

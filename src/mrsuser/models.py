@@ -1,35 +1,30 @@
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import (
+    AbstractUser,
+    Group,
+    Permission,
+    UserManager,
+)
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 
 class UserManager(UserManager):
     def get_queryset(self):
-        return super().get_queryset().prefetch_related('caisses')
+        return super().get_queryset().prefetch_related('caisses', 'groups')
 
     def _create_user(self, *args, **kwargs):
-        if kwargs.pop('is_superuser', False):
-            kwargs['profile'] = 'admin'
-
         if kwargs.pop('is_staff', False) and 'profile' not in kwargs:
-            kwargs['profile'] = 'upn'
+            kwargs['group_names'] = ['upn']
 
-        return super()._create_user(*args, **kwargs)
+        user = super()._create_user(*args, **kwargs)
+        for group in kwargs['group_names']:
+            user.groups.add(
+                Group.objects.get_or_create(group)[0]
+            )
+        return user
 
 
 class User(AbstractUser):
-    PROFILE_CHOICES = (
-        ('admin', 'Admin'),
-        ('upn', 'UPN'),
-        ('stat', 'Stat'),
-        ('support', 'Relation client'),
-    )
-
-    profile = models.CharField(
-        choices=PROFILE_CHOICES,
-        max_length=50,
-        verbose_name='profil',
-    )
-
     caisses = models.ManyToManyField(
         'caisse.caisse',
         null=True,
@@ -39,11 +34,18 @@ class User(AbstractUser):
 
     @property
     def is_staff(self):
-        return self.is_active
+        return True
 
     @property
-    def is_superuser(self):
-        return self.profile == 'admin'
+    def profile(self):
+        try:
+            return self.groups.all()[0].name.lower()
+        except IndexError:
+            return False
+
+    @property
+    def profiles(self):
+        return [g.name for g in view.request.user.groups.all()]
 
     class Meta(AbstractUser.Meta):
         db_table = 'auth_user'
