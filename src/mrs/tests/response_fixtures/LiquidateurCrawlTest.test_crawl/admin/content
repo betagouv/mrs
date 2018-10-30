@@ -86,10 +86,10 @@ textarea {
     <header>
       <div class="navbar-fixed">
         <nav>
-          <div class="nav-wrapper ">
+          <div class="nav-wrapper">
             <span href="#" data-action="click->sidenav#click" data-controller="sidenav" data-target="slide-out" class="sidenav-trigger"><i class="waves-effect material-icons">menu</i></span>
             
-            <a class="brand-logo" href="/admin/" class="waves-effect brand-logo">MRS Admin</a>
+            <a href="#" class="brand-logo teal-text" style="padding-left:10px">MRS Admin</a>
             
           </div>
         </nav>
