@@ -143,6 +143,7 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
                 subject=self.mail_render('insured', 'title', mrsrequest),
                 body=self.mail_render('insured', 'body', mrsrequest),
                 to=[(mrsrequest or self.object).insured.email],
+                reply_to=[settings.TEAM_EMAIL],
             )
         ).spool('mail')
 
