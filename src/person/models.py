@@ -28,7 +28,7 @@ class Person(models.Model):
     )
 
     use_email = models.BooleanField(
-        default=None,
+        default=False,
         null=True,
         blank=True,
         verbose_name="L'assuré autorise à utiliser son email.",

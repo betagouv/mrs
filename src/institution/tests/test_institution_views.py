@@ -80,6 +80,7 @@ def test_mrsrequestcreateview_post_save_integration(
     data['last_name'] = 'wuzere'
     data['birth_date'] = '2007-02-07'
     data['email'] = 'jpic@yourlabs.org'
+    data['use_email'] = False
     data['nir'] = '1234567890123'
 
     # da key
