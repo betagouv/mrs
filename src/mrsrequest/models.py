@@ -325,7 +325,7 @@ class MRSRequest(models.Model):
         blank=True,
         default=False,
         verbose_name='Avez vous voyagé en transports en commun ?',
-        help_text='(Avion, bus, train, bateau)',
+        help_text='(Avion, bus, métro, train, bateau…)',
     )
     expenseatp = models.DecimalField(
         blank=True,
