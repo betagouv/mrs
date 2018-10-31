@@ -192,7 +192,7 @@ jour les memes modeles, rien de plus facile avec une incantation shell::
 
     mrs dumpdata --indent=4 $(grep model src/mrs/tests/data.json  | sort -u | sed 's/.*model": "\([^"]*\)",*/\1/') > src/mrs/tests/data.json
 
-Vérifier en testant que cela n'impacte pas d'autres jeux de données, tels que ``test_mrsstat.json``.
+Vérifier en testant que cela n'impacte pas d'autres jeux de données, tels que ``test_mrsstat.json``, auquel cas le supprimer et relancer les tests.
 
 
 Tests

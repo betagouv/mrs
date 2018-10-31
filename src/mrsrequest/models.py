@@ -458,6 +458,25 @@ class MRSRequest(models.Model):
             ) * 0.91
         ).quantize(TWOPLACES)
 
+    def field_changed(self, fieldname):
+        """
+        If the field was changed, return its original value.
+        """
+        FORMAT_YMD = '%Y-%m-%d'
+        entries = self.logentries.order_by('-datetime')
+        for entry in entries:
+            if entry.data and \
+               'changed' in entry.data and \
+               fieldname in entry.data['changed']:
+                val = entry.data['changed'][fieldname][0]
+                # parse the date string.
+                if fieldname == 'birth_date':
+                    val = datetime.datetime.strptime(val, FORMAT_YMD)
+                    val = val.date()
+                return val
+
+        return False
+
     @denormalized(
         models.DecimalField,
         decimal_places=2,
