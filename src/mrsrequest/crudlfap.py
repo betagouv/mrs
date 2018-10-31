@@ -129,11 +129,17 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
 
     def mail_render(self, destination, part, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
-        return template.loader.get_template(
+        orig_nir = mrsrequest.field_changed('nir')
+        orig_birth_date = mrsrequest.field_changed('birth_date')
+
+        tem = template.loader.get_template(
             'mrsrequest/{}_validation_mail_{}.txt'.format(
                 destination, part
             )
-        ).render(dict(object=mrsrequest or self.object)).strip()
+        ).render(dict(object=mrsrequest or self.object,
+                      orig_nir=orig_nir,
+                      orig_birth_date=orig_birth_date)).strip()
+        return tem
 
     def mail_insured(self, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
@@ -688,17 +694,6 @@ class MRSRequestDetailView(crudlfap.DetailView):
         for name, field in f.fields.items():
             self.labels[name] = field.label
         self.labels['insured'] = 'Assuré'
-
-    def field_changed(self, fieldname):
-        FORMAT_YMD = '%Y-%m-%d'
-        insured_field = self.object.insured.__getattribute__(fieldname)
-        if self.object.data and fieldname in self.object.data:
-            val = self.object.data[fieldname]
-            if fieldname == 'birth_date':
-                val = datetime.strptime(val, FORMAT_YMD)
-                val = val.date()
-            return val != insured_field
-        return False
 
 
 class MRSRequestRouter(crudlfap.Router):

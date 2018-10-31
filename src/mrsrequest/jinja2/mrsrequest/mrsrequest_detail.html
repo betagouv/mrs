@@ -234,7 +234,7 @@
                         Date de naissance
                     </span>
                     <span class="right"
-                        {%- if view.field_changed('birth_date') %}
+                        {%- if object.field_changed('birth_date') %}
                         style="text-decoration: underline dotted red"
                         title="Ce champ a été modifié."
                         {% endif %}
@@ -249,7 +249,7 @@
                         NIR
                     </span>
                     <span class="right"
-                        {%- if view.field_changed('nir') %}
+                        {%- if object.field_changed('nir') %}
                         style="text-decoration: underline dotted red"
                         title="Ce champ a été modifié."
                         {% endif %}

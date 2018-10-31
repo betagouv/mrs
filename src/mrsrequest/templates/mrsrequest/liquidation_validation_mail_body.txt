@@ -6,8 +6,8 @@ Voici l'archive de la demande de remboursement via MRS n°{{ object.display_id }
 - Prescription Médicale de Transport (PMT) : {{ object.pmt.filename }}
 - Prénom : {{ object.insured.first_name }}
 - Nom de famille : {{ object.insured.last_name }}
-- Date de naissance : {{ object.insured.birth_date }}
-- NIR : {{ object.insured.nir }}
+- Date de naissance : {{ object.insured.birth_date }} {% if orig_birth_date %} initialement saisie {{ orig_birth_date }} {% endif %}
+- NIR : {{ object.insured.nir }} {% if orig_nir %} initialement saisi {{ orig_nir }} {% endif %}
 - Adresse email : {{ object.insured.email }}{% for transport in object.transport_set.all %}
 - Date du trajet aller {% if not transport.date_return %}simple {% endif %}{{ forloop.counter }}: {{ transport.date_depart }}{% if transport.date_return %}
 - Date de trajet retour {{ forloop.counter }}: {{ transport.date_return }}{% endif %}{% endfor %}

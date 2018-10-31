@@ -29,7 +29,7 @@ class StatTest(test.TransactionTestCase):
 @pytest.mark.django_db
 def test_stat_update_person_shifted():
     Fixture('mrs/tests/data.json').load()
-    req = MRSRequest.objects.exclude(saving=None).first()
+    req = MRSRequest.objects.get(display_id=201805020002)
     assert req, 'MRSRequest with saving required for this test !'
     MRSRequest.objects.filter(pk=req.pk).update(saving=None)
     req.refresh_from_db()

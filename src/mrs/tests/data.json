@@ -167,6 +167,16 @@
     }
 },
 {
+    "model": "mrsattachment.mrsattachment",
+    "pk": 13,
+    "fields": {
+        "mrsrequest_uuid": "767b8123-2134-48cb-8177-0c411309a0b1",
+        "filename": "utterances.png",
+        "creation_datetime": "2018-10-31T15:40:52.759Z",
+        "binary": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII="
+    }
+},
+{
     "model": "mrsemail.emailtemplate",
     "pk": 1,
     "fields": {
@@ -280,6 +290,13 @@
     }
 },
 {
+    "model": "mrsrequest.pmt",
+    "pk": 13,
+    "fields": {
+        "mrsrequest": "767b8123-2134-48cb-8177-0c411309a0b1"
+    }
+},
+{
     "model": "mrsrequest.transport",
     "pk": 1,
     "fields": {
@@ -352,11 +369,20 @@
     }
 },
 {
+    "model": "mrsrequest.transport",
+    "pk": 9,
+    "fields": {
+        "mrsrequest": "767b8123-2134-48cb-8177-0c411309a0b1",
+        "date_depart": "2018-10-24",
+        "date_return": null
+    }
+},
+{
     "model": "mrsuser.user",
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$120000$1owAfHJwieuy$Lmit2vEdnEpLnnPtEoMP8bYgG/Lll91ACLPAcpHisCQ=",
-        "last_login": "2018-10-24T00:42:41.515Z",
+        "last_login": "2018-10-31T15:26:33.308Z",
         "username": "test",
         "first_name": "",
         "last_name": "",
@@ -497,6 +523,7 @@
         "last_name": "aoeu",
         "birth_date": "2000-04-30",
         "email": "aoeu@example.com",
+        "use_email": false,
         "nir": 1111111111111,
         "shifted": null
     }
@@ -509,6 +536,7 @@
         "last_name": "ue",
         "birth_date": "2000-04-30",
         "email": "aoeaoeuu@example.com",
+        "use_email": false,
         "nir": 2333333333333,
         "shifted": null
     }
@@ -521,6 +549,7 @@
         "last_name": "\u00e0\u00f4\u00e9\u00fboaeu",
         "birth_date": "2000-05-06",
         "email": "jpic@example.com",
+        "use_email": false,
         "nir": 3212312312312,
         "shifted": null
     }
@@ -533,8 +562,35 @@
         "last_name": "oaeuoaeuao",
         "birth_date": "2000-05-29",
         "email": "test@test.com",
+        "use_email": false,
         "nir": 1223123123123,
         "shifted": true
+    }
+},
+{
+    "model": "person.person",
+    "pk": 5,
+    "fields": {
+        "first_name": "titi",
+        "last_name": "rominet",
+        "birth_date": "2001-01-01",
+        "email": "jim@example.com",
+        "use_email": true,
+        "nir": 1223123123122,
+        "shifted": null
+    }
+},
+{
+    "model": "person.person",
+    "pk": 6,
+    "fields": {
+        "first_name": "titi",
+        "last_name": "rominet",
+        "birth_date": "2000-12-31",
+        "email": "jim@example.com",
+        "use_email": true,
+        "nir": 1223123123129,
+        "shifted": null
     }
 },
 {
@@ -688,6 +744,33 @@
     }
 },
 {
+    "model": "mrsrequest.mrsrequestlogentry",
+    "pk": 23,
+    "fields": {
+        "datetime": "2018-10-31T15:42:37.807Z",
+        "user": 1,
+        "mrsrequest": "767b8123-2134-48cb-8177-0c411309a0b1",
+        "comment": "Modification de NIR et Date de naissance",
+        "data": {
+            "changed": {
+                "nir": [
+                    1223123123122,
+                    1223123123129
+                ],
+                "insured": [
+                    5,
+                    6
+                ],
+                "birth_date": [
+                    "2001-01-01",
+                    "2000-12-31"
+                ]
+            }
+        },
+        "action": 2
+    }
+},
+{
     "model": "mrsrequest.mrsrequest",
     "pk": "13751dc2-18bb-4925-a8b4-84383a042bae",
     "fields": {
@@ -754,6 +837,41 @@
         },
         "taxi_cost": "3.20",
         "saving": null,
+        "delay": null
+    }
+},
+{
+    "model": "mrsrequest.mrsrequest",
+    "pk": "767b8123-2134-48cb-8177-0c411309a0b1",
+    "fields": {
+        "creation_datetime": "2018-10-31T15:41:58.150Z",
+        "creation_ip": "127.0.0.1",
+        "display_id": 201810310000,
+        "caisse": 1,
+        "insured": 6,
+        "insured_shift": null,
+        "modevp": true,
+        "distancevp": 10,
+        "expensevp": "0.00",
+        "modeatp": false,
+        "expenseatp": "0.00",
+        "status": 1,
+        "status_datetime": null,
+        "status_user": null,
+        "institution": null,
+        "mandate_date": null,
+        "payment_base": null,
+        "payment_amount": null,
+        "adeli": null,
+        "data": {
+            "nir": 1223123123122,
+            "email": "jim@example.com",
+            "last_name": "rominet",
+            "birth_date": "2001-01-01",
+            "first_name": "titi"
+        },
+        "taxi_cost": "16.47",
+        "saving": "0.00",
         "delay": null
     }
 },
