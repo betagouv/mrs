@@ -235,7 +235,7 @@
                     <div class="row">
     <div class="checkbox-field col s12" id="id_modevp_container">
         <label>
-        <input checked="" class="filled-in " id="id_modevp" name="modevp" type="checkbox"/><span for="id_modevp">Avez vous voyagé en véhicule personnel ?</span></label>
+        <input class="filled-in " id="id_modevp" name="modevp" type="checkbox"/><span for="id_modevp">Avez vous voyagé en véhicule personnel ?</span></label>
         <div class="help-block">(Voiture, moto)</div>
     </div>
 </div>

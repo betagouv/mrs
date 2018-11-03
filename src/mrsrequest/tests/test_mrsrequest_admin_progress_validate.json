@@ -22,7 +22,7 @@
         "insured_shift": null,
         "mandate_date": null,
         "modeatp": false,
-        "modevp": true,
+        "modevp": false,
         "payment_amount": null,
         "payment_base": null,
         "saving": 0,

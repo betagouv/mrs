@@ -296,7 +296,7 @@ class MRSRequest(models.Model):
         verbose_name='Assuré a basculé sur cette demande',
     )
     modevp = models.BooleanField(
-        default=True,
+        default=False,
         blank=True,
         verbose_name='Avez vous voyagé en véhicule personnel ?',
         help_text='(Voiture, moto)',
