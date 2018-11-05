@@ -687,7 +687,7 @@ class MRSRequestDetailView(crudlfap.DetailView):
         f = PersonForm()
         for name, field in f.fields.items():
             self.labels[name] = field.label
-        self.labels['insured'] = 'Assurré'
+        self.labels['insured'] = 'Assuré'
 
     def field_changed(self, fieldname):
         FORMAT_YMD = '%Y-%m-%d'
