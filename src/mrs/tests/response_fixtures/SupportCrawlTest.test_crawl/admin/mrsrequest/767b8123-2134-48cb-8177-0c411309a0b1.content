@@ -1,0 +1,266 @@
+<div class="container" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+          
+            
+<style type="text/css">.card-content p { clear: both; }</style>
+<div class="row" style="padding-top: 12px">
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title tooltipped activator -text" data-position="bottom" data-tooltip="En attente de traitement depuis -155 jours">201810310000<i class="material-icons right">more_vert</i></span>
+                <div class="section">
+                    <p>
+                        <span class="grey-text text-darken-2">
+                            Soumise
+                        </span>
+                        <span class="right">
+                            31/10/2018 16:41
+                        </span>
+                    </p>
+                    </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">95 Bytes <span style="font-size: 50% !important">127.0.0.1</span><i class="material-icons right">close</i></span>
+                <div class="section">
+                    aaaaaaa
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                
+                <div data-action="click-&gt;modal#childmodal" data-controller="modal">
+                    <div class="childmodal" style="display: none">
+                        <div class="modal-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Champs</th>
+                                        <td>Original</td>
+                                        <td>Modification</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                
+                                    
+                                        
+                                        <tr>
+                                            <th>Numéro de sécurité sociale</th>
+                                            <td>
+                                                1223123123122
+                                            </td>
+                                            <td>1223123123129</td>
+                                        </tr>
+                                        
+                                    
+                                
+                                    
+                                        
+                                        <tr>
+                                            <th>Assuré</th>
+                                            <td>
+                                                5
+                                            </td>
+                                            <td>6</td>
+                                        </tr>
+                                        
+                                    
+                                
+                                    
+                                        
+                                        <tr>
+                                            <th>Date de naissance</th>
+                                            <td>
+                                                2001-01-01
+                                            </td>
+                                            <td>2000-12-31</td>
+                                        </tr>
+                                        
+                                    
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
+                        </div>
+                    </div>
+                    <div class="card-title " style=" cursor: pointer ">
+                        Modification de NIR et Date de naissance
+                      <i class="material-icons right" style="cursor: pointer"> search </i>
+                      
+                    </div>
+                </div>
+                31/10/2018 16:42
+                <span class="right">
+                    test
+                </span>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+<div class="row">
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Personne transportée
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        PMT
+                    </span>
+                    <span class="right">
+                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/pmt/13/download/" title="utterances.png">utterances.png (95 Bytes)</a>
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Prénom
+                    </span>
+                    <span class="right">titi</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Nom
+                    </span>
+                    <span class="right">rominet</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Date de naissance
+                    </span>
+                    <span class="right" style="text-decoration: underline dotted red" title="Ce champ a été modifié.">31/12/2000</span>
+                </p>
+                <div class="card-title">
+                    Assuré-e
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        NIR
+                    </span>
+                    <span class="right" style="text-decoration: underline dotted red" title="Ce champ a été modifié.">1223123123129</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Email
+                    </span>
+                    <span class="right">jim@example.com</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Assuré a basculé
+                    </span>
+                    <span class="right">
+                            Non
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Date(s) de Transport(s)
+                </div>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td>1</td>
+                            <td>24/10/2018</td>
+                            <td></td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    VP
+                </div>
+                <p>
+                    <span class="red-text" style="font-weight: bold">
+                        Montant total (Base de remboursement)
+                    </span>
+                    <span class="right red-text" style="font-weight: bold">
+                        3.00€ TTC
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Distance (km parcourus)
+                    </span>
+                    <span class="right">
+                        10
+                    </span>
+                </p>
+                
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant des km parcourus
+                    </span>
+                    <span class="right">
+                        3.00€ TTC
+                    </span>
+                </p>
+                
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Montant total des frais VP
+                    </span>
+                    <span class="right">
+                        0.00€ TTC
+                    </span>
+                </p>
+                
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Coût théorique du trajet en taxi
+                    </span>
+                    <span class="right">
+                        16.47€
+                    </span>
+                </p>
+                
+
+
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

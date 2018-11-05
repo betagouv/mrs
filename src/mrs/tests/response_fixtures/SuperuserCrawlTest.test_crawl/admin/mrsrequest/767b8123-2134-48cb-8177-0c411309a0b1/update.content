@@ -1,0 +1,47 @@
+<div class="container" id="modal-body-ajax">
+        
+<form action="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1/update" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-mrsrequest" method="post">
+
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default " id="modal-title-ajax">Demande "201810310000": modifier</h4>
+            
+          
+            
+  
+
+  
+
+  
+<div class="row">
+    <div class="input-field col s12 required" id="id_nir_container">
+        <input id="id_nir" maxlength="13" minlength="13" name="nir" type="text" value="1223123123129"/>
+        <label class="active" for="id_nir">Numéro de sécurité sociale</label>
+        
+    </div>
+</div>
+ 
+
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_birth_date_container">
+        <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" placeholder="jj/mm/aaaa" type="date" value="2000-12-31"/>
+        <label class="active" for="id_birth_date">Date de naissance</label>
+        
+    </div>
+</div>
+
+
+          </div>
+          <div class="modal-footer">
+            
+    
+    <button class="btn btn-primary" type="submit">Modifier</button>
+
+          </div>
+        
+  </form>
+
+
+      </div>

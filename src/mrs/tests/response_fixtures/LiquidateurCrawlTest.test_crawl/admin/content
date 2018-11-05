@@ -117,7 +117,7 @@ textarea {
                 href="/admin/mrsrequest?status=1&sort=creation_datetime">
                 Soumises
                 <span class="secondary-content">
-                    0
+                    1
                 </span>
             </a>
             <a
@@ -149,7 +149,7 @@ textarea {
                 href="/admin/mrsrequest">
                 Total
                 <span class="right">
-                    4
+                    5
                 </span>
             </a>
         </div>
