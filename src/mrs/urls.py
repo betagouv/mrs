@@ -7,13 +7,14 @@ from django.urls import include, path
 
 from contact.views import ContactView
 from mrsrequest.views import MRSRequestCreateView
+from mrs.settings import TITLE_SUFFIX
 
 from . import views
 
-admin.site.site_header = 'MRS Admin'
-admin.site.site_title = 'MRS Admin'
+admin.site.site_header = 'MRS Admin' + TITLE_SUFFIX
+admin.site.site_title = 'MRS Admin' + TITLE_SUFFIX
 
-crudlfap.site.title = 'MRS Admin'
+crudlfap.site.title = 'MRS Admin' + TITLE_SUFFIX
 crudlfap.site.urlpath = 'admin'
 crudlfap.site.views['home'] = views.Dashboard
 
