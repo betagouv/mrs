@@ -9,7 +9,7 @@
     <link rel="canonical" href="/admin/" />
     <link rel="icon" href="/static/favicon.ico">
 
-    <title>Dashboard - MRS Admin</title>
+    <title>Dashboard - MRS Admin (DEV)</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fengyuanchen.github.io/viewerjs/css/viewer.css" />
@@ -86,10 +86,10 @@ textarea {
     <header>
       <div class="navbar-fixed">
         <nav>
-          <div class="nav-wrapper">
+          <div class="nav-wrapper" style="background-color: tomato">
             <span href="#" data-action="click->sidenav#click" data-controller="sidenav" data-target="slide-out" class="sidenav-trigger"><i class="waves-effect material-icons">menu</i></span>
             
-            <a href="#" class="brand-logo teal-text" style="padding-left:10px">MRS Admin</a>
+            <a href="#" class="brand-logo teal-text" style="padding-left:10px">MRS Admin (DEV)</a>
             
           </div>
         </nav>

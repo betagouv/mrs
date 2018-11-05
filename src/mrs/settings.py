@@ -205,6 +205,25 @@ else:
 
 PREFIX = os.getenv('PLAYLABS_PREFIX', 'mrs')
 INSTANCE = os.getenv('PLAYLABS_INSTANCE', 'dev')
+
+COLORS = {
+    'dev': 'tomato',
+    'jpic': 'gold',  # j -> jaune, bichon -> or
+    'vindarel': 'BlueViolet',
+    'tbinetruy': 'PaleTurquoise',
+}
+
+# Visually differentiate the environments from prod:
+# with a colored breadcrumb...
+CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
+    BACKGROUND_COLOR=COLORS.get(INSTANCE, ''),
+))
+
+# and the page's title.
+TITLE_SUFFIX = ""
+if INSTANCE.upper() != 'PRODUCTION':
+    TITLE_SUFFIX = " ({})".format(INSTANCE.upper())
+
 RELEASE = os.getenv('GIT_COMMIT', '')
 if not RELEASE:
     repo = os.path.join(os.path.dirname(__file__), '..', '..')

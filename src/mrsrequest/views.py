@@ -14,6 +14,8 @@ from caisse.models import Caisse, Email
 from caisse.forms import CaisseVoteForm
 from person.forms import PersonForm
 
+from mrs.settings import TITLE_SUFFIX
+
 from .forms import (
     CertifyForm,
     MRSRequestCreateForm,
@@ -28,6 +30,9 @@ class MRSRequestCreateView(generic.TemplateView):
     template_name = 'mrsrequest/form.html'
     base = 'base.html'
     modes = [i[0] for i in Bill.MODE_CHOICES]
+    extra_context = {
+        'title_suffix': TITLE_SUFFIX,
+    }
 
     def get(self, request, *args, **kwargs):
         self.object = MRSRequest()

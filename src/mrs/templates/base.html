@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{% block title %}Mes Remboursements Simplifiés{% endblock %} | MRS</title>
+    <title>{% block title %}Mes Remboursements Simplifiés{% endblock %} | MRS {{ title_suffix }}</title>
     {% include '_piwik.html' %}
     {% block extra_head %}
     {% render_bundle 'base' 'css' %}
