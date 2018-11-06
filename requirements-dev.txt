@@ -1,0 +1,12 @@
+#
+# Some required packages to run the tests, and more.
+#
+
+
+# qa
+flake8==3.5
+mccabe==0.6
+
+ipdb
+django-debug-toolbar
+django-extensions
