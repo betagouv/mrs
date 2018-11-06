@@ -723,7 +723,7 @@ class MRSRequestRouter(crudlfap.Router):
         if profile == 'admin':
             return True
 
-        if view.urlname in ('export', 'import'):
+        if view.urlname in ('exportcaisse', 'export', 'import'):
             return profile == 'stat'
 
         elif view.urlname == 'list':
