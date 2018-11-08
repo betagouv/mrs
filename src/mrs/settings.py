@@ -209,6 +209,7 @@ INSTANCE = os.getenv('PLAYLABS_INSTANCE', 'dev')
 COLORS = {
     'DEV': 'tomato',
     'STAGING': 'SandyBrown',
+    'ECOLE': 'aquamarine',
     'JPIC': 'gold',  # j -> jaune, bichon -> or
     'VINDAREL': 'BlueViolet',
     'TBINETRUY': 'PaleTurquoise',
