@@ -207,16 +207,17 @@ PREFIX = os.getenv('PLAYLABS_PREFIX', 'mrs')
 INSTANCE = os.getenv('PLAYLABS_INSTANCE', 'dev')
 
 COLORS = {
-    'dev': 'tomato',
-    'jpic': 'gold',  # j -> jaune, bichon -> or
-    'vindarel': 'BlueViolet',
-    'tbinetruy': 'PaleTurquoise',
+    'DEV': 'tomato',
+    'STAGING': 'SandyBrown',
+    'JPIC': 'gold',  # j -> jaune, bichon -> or
+    'VINDAREL': 'BlueViolet',
+    'TBINETRUY': 'PaleTurquoise',
 }
 
 # Visually differentiate the environments from prod:
 # with a colored breadcrumb...
 CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
-    BACKGROUND_COLOR=COLORS.get(INSTANCE, ''),
+    BACKGROUND_COLOR=COLORS.get(INSTANCE.upper(), ''),
 ))
 
 # and the page's title.
