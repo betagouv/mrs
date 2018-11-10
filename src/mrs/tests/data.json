@@ -1,5 +1,37 @@
 [
 {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "Admin",
+        "permissions": []
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "UPN",
+        "permissions": []
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+        "name": "Stat",
+        "permissions": []
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 4,
+    "fields": {
+        "name": "Support",
+        "permissions": []
+    }
+},
+{
     "model": "caisse.caisse",
     "pk": 1,
     "fields": {
@@ -383,13 +415,13 @@
     "fields": {
         "password": "pbkdf2_sha256$120000$1owAfHJwieuy$Lmit2vEdnEpLnnPtEoMP8bYgG/Lll91ACLPAcpHisCQ=",
         "last_login": "2018-10-31T15:26:33.308Z",
+        "is_superuser": true,
         "username": "test",
         "first_name": "",
         "last_name": "",
         "email": "t@tt.tt",
         "is_active": true,
         "date_joined": "2018-05-01T17:05:57Z",
-        "profile": "admin",
         "groups": [],
         "user_permissions": [],
         "caisses": []
@@ -401,14 +433,16 @@
     "fields": {
         "password": "pbkdf2_sha256$100000$UFg967PHT26y$FbgutuXw8aKNbKdcNFBmGkw8v6UFaU/RlxVA3BjaPmo=",
         "last_login": "2018-05-01T17:12:17Z",
+        "is_superuser": false,
         "username": "a",
         "first_name": "",
         "last_name": "",
         "email": "a@aa.aa",
         "is_active": true,
         "date_joined": "2018-05-01T17:11:24Z",
-        "profile": "upn",
-        "groups": [],
+        "groups": [
+            2
+        ],
         "user_permissions": [],
         "caisses": [
             1
@@ -421,14 +455,16 @@
     "fields": {
         "password": "pbkdf2_sha256$100000$UFg967PHT26y$FbgutuXw8aKNbKdcNFBmGkw8v6UFaU/RlxVA3BjaPmo=",
         "last_login": "2018-07-30T18:05:35Z",
+        "is_superuser": false,
         "username": "b",
         "first_name": "",
         "last_name": "",
         "email": "b@example.com",
         "is_active": true,
         "date_joined": "2018-05-01T17:11:40Z",
-        "profile": "upn",
-        "groups": [],
+        "groups": [
+            2
+        ],
         "user_permissions": [],
         "caisses": [
             2
@@ -441,14 +477,16 @@
     "fields": {
         "password": "pbkdf2_sha256$100000$UFg967PHT26y$FbgutuXw8aKNbKdcNFBmGkw8v6UFaU/RlxVA3BjaPmo=",
         "last_login": null,
+        "is_superuser": false,
         "username": "supporta",
         "first_name": "SupportA Prenom",
         "last_name": "Suport A Nom",
         "email": "supporta@example.com",
         "is_active": true,
         "date_joined": "2018-07-29T19:50:05Z",
-        "profile": "support",
-        "groups": [],
+        "groups": [
+            4
+        ],
         "user_permissions": [],
         "caisses": [
             1
@@ -461,14 +499,16 @@
     "fields": {
         "password": "pbkdf2_sha256$100000$UFg967PHT26y$FbgutuXw8aKNbKdcNFBmGkw8v6UFaU/RlxVA3BjaPmo=",
         "last_login": null,
+        "is_superuser": false,
         "username": "stata",
         "first_name": "Stat prenom",
         "last_name": "Stat nom",
         "email": "stata@example.com",
         "is_active": true,
         "date_joined": "2018-07-29T19:50:42Z",
-        "profile": "stat",
-        "groups": [],
+        "groups": [
+            3
+        ],
         "user_permissions": [],
         "caisses": [
             1
@@ -481,14 +521,16 @@
     "fields": {
         "password": "pbkdf2_sha256$100000$UFg967PHT26y$FbgutuXw8aKNbKdcNFBmGkw8v6UFaU/RlxVA3BjaPmo=",
         "last_login": null,
+        "is_superuser": false,
         "username": "statb",
         "first_name": "Statbprenom",
         "last_name": "Statbnom",
         "email": "statb@examplec.mo",
         "is_active": true,
         "date_joined": "2018-07-29T19:52:24Z",
-        "profile": "stat",
-        "groups": [],
+        "groups": [
+            3
+        ],
         "user_permissions": [],
         "caisses": [
             2
@@ -501,14 +543,16 @@
     "fields": {
         "password": "pbkdf2_sha256$100000$UFg967PHT26y$FbgutuXw8aKNbKdcNFBmGkw8v6UFaU/RlxVA3BjaPmo=",
         "last_login": null,
+        "is_superuser": false,
         "username": "supportb",
         "first_name": "Support B Prenom",
         "last_name": "Support B Nom",
         "email": "supportb@example.com",
         "is_active": true,
         "date_joined": "2018-07-29T19:52:58Z",
-        "profile": "support",
-        "groups": [],
+        "groups": [
+            4
+        ],
         "user_permissions": [],
         "caisses": [
             2

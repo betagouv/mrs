@@ -30,7 +30,7 @@ def profile_to_groups(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mrsuser', '0006_nonschematic'),
+        ('mrsuser', '0006_add_is_superuser'),
     ]
 
     operations = [

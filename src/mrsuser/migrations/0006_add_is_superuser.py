@@ -7,7 +7,7 @@ import mrsuser.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mrsuser', '0004_user_profile'),
+        ('mrsuser', '0005_nonschematic_options'),
     ]
 
     operations = [
