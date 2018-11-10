@@ -1,0 +1,59 @@
+<div class="container" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default " id="modal-title-ajax">Support</h4>
+            
+          
+            
+<div class="">
+  <table class="table">
+    <thead class="thead-inverse">
+      
+      <tr>
+        <th>
+          Id
+        </th>
+        <td>
+          
+              4
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Nom
+        </th>
+        <td>
+          
+              Support
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Permissions
+        </th>
+        <td>
+          
+            <ul class="collection">
+              
+            </ul>
+          
+        </td>
+      </tr>
+      
+    
+  </thead></table>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

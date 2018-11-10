@@ -1,0 +1,625 @@
+<div class="" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+          
+            
+<style type="text/css">
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m3 l2">
+    <div>
+      <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+        
+        
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+        
+        
+        
+
+
+        
+      </form>
+    </div>
+  </div>
+  
+
+  <div class="table-responsive col s12 m9 l10" id="render-table">
+    <div>
+      
+      <div class="table-container">
+        
+
+
+<div class="table-container">
+
+<table>
+    
+    
+    <thead>
+        <tr>
+        
+            
+            <th class="orderable"><a href="?sort=controller">Controller</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=id">ID</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=fullurlpath">Fullurlpath</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+        <tr class="even">
+            
+                <td>—</td>
+            
+                <td>LoginView</td>
+            
+                <td>—</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-LoginView" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-LoginView">
+        
+        <li>
+            <a class="" href="/admin/url/LoginView?_next=/admin/url" title="Login">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/LoginView/authorize?_next=/admin/url" title='Url "login": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>—</td>
+            
+                <td>LogoutView</td>
+            
+                <td>—</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-LogoutView" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-LogoutView">
+        
+        <li>
+            <a class="" href="/admin/url/LogoutView?_next=/admin/url" title="Logout">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/LogoutView/authorize?_next=/admin/url" title='Url "logout": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>—</td>
+            
+                <td>Dashboard</td>
+            
+                <td>—</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-Dashboard" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-Dashboard">
+        
+        <li>
+            <a class="" href="/admin/url/Dashboard?_next=/admin/url" title="Dashboard">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/Dashboard/authorize?_next=/admin/url" title='Url "dashboard": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>—</td>
+            
+                <td>UserBecome</td>
+            
+                <td>—</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-UserBecome" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-UserBecome">
+        
+        <li>
+            <a class="" href="/admin/url/UserBecome?_next=/admin/url" title="Become">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/UserBecome/authorize?_next=/admin/url" title='Url "become": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>institution.Institution</td>
+            
+                <td>InstitutionListView</td>
+            
+                <td>admin/institution/</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-InstitutionListView" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-InstitutionListView">
+        
+        <li>
+            <a class="" href="/admin/url/InstitutionListView?_next=/admin/url" title="List">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/InstitutionListView/authorize?_next=/admin/url" title='Url "list": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>institution.Institution</td>
+            
+                <td>InstitutionCreateView</td>
+            
+                <td>admin/institution/create</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-InstitutionCreateView" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-InstitutionCreateView">
+        
+        <li>
+            <a class="" href="/admin/url/InstitutionCreateView?_next=/admin/url" title="Create">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/InstitutionCreateView/authorize?_next=/admin/url" title='Url "create": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>institution.Institution</td>
+            
+                <td>InstitutionUpdateView</td>
+            
+                <td>admin/institution/&lt;pk&gt;/update</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-InstitutionUpdateView" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-InstitutionUpdateView">
+        
+        <li>
+            <a class="" href="/admin/url/InstitutionUpdateView?_next=/admin/url" title="Update">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/InstitutionUpdateView/authorize?_next=/admin/url" title='Url "update": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>institution.Institution</td>
+            
+                <td>InstitutionDeleteView</td>
+            
+                <td>admin/institution/&lt;pk&gt;/delete</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-InstitutionDeleteView" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-InstitutionDeleteView">
+        
+        <li>
+            <a class="" href="/admin/url/InstitutionDeleteView?_next=/admin/url" title="Delete">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/InstitutionDeleteView/authorize?_next=/admin/url" title='Url "delete": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>mrsemail.EmailTemplate</td>
+            
+                <td>EmailTemplateListView</td>
+            
+                <td>admin/emailtemplate/</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-EmailTemplateListView" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-EmailTemplateListView">
+        
+        <li>
+            <a class="" href="/admin/url/EmailTemplateListView?_next=/admin/url" title="List">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/EmailTemplateListView/authorize?_next=/admin/url" title='Url "list": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>mrsemail.EmailTemplate</td>
+            
+                <td>EmailTemplateCreateView</td>
+            
+                <td>admin/emailtemplate/create</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-EmailTemplateCreateView" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-EmailTemplateCreateView">
+        
+        <li>
+            <a class="" href="/admin/url/EmailTemplateCreateView?_next=/admin/url" title="Create">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/url/EmailTemplateCreateView/authorize?_next=/admin/url" title='Url "create": authorize'>
+    <i class="-text material-icons">lock</i>
+    
+    Authorize
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+
+<ul class="pagination">
+    
+
+    
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+            
+            <li class="waves-effect">
+                <a href="?page=2">
+                    2
+                </a>
+            
+            </li>
+        
+            
+            <li class="waves-effect">
+                <a href="?page=3">
+                    3
+                </a>
+            
+            </li>
+        
+            
+            <li class="waves-effect">
+                <a href="?page=4">
+                    4
+                </a>
+            
+            </li>
+        
+            
+            <li class="waves-effect">
+                <a href="?page=5">
+                    5
+                </a>
+            
+            </li>
+        
+            
+            <li class="waves-effect">
+                <a href="?page=6">
+                    6
+                </a>
+            
+            </li>
+        
+    
+    
+        
+            <li class="next">
+                <a href="?page=2"><i class="material-icons">chevron_right</i></a>
+            </li>
+        
+    
+</ul>
+
+
+</div>
+
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

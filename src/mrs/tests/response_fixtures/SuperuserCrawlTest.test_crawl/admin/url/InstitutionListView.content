@@ -1,0 +1,112 @@
+<div class="container" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default " id="modal-title-ajax">List</h4>
+            
+          
+            
+<div class="">
+  <table class="table">
+    <thead class="thead-inverse">
+      
+      <tr>
+        <th>
+          Id
+        </th>
+        <td>
+          
+              InstitutionListView
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Controller
+        </th>
+        <td>
+          
+              institution.Institution
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Urlpath
+        </th>
+        <td>
+          
+              
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Fullurlpath
+        </th>
+        <td>
+          
+              admin/institution/
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Urlname
+        </th>
+        <td>
+          
+              list
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Urlfullname
+        </th>
+        <td>
+          
+              crudlfap:institutionrouter:list
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          View
+        </th>
+        <td>
+          
+              &lt;class 'crudlfap.factory.InstitutionListView'&gt;
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Model
+        </th>
+        <td>
+          
+              &lt;class 'institution.models.Institution'&gt;
+          
+        </td>
+      </tr>
+      
+    
+  </thead></table>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

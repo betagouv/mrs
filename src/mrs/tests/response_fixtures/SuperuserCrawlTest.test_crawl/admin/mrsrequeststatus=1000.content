@@ -68,18 +68,6 @@
         
     </div>
 </div>
- 
-<div class="row">
-    <div class="select-field col s12" id="id_caisse_container">
-        <label for="id_caisse">Caisse</label>
-        <select id="id_caisse" name="caisse">
-            <option value="">---------</option>
-            <option value="1">aaaaaaa</option>
-            <option value="2">bbbb</option>
-        </select>
-        
-    </div>
-</div>
 
         
       </form>

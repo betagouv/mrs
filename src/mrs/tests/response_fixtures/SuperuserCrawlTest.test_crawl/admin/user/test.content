@@ -35,6 +35,17 @@
       
       <tr>
         <th>
+          Statut super-utilisateur
+        </th>
+        <td>
+          
+              True
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
           Nom d'utilisateur
         </th>
         <td>
@@ -95,17 +106,6 @@
         <td>
           
               2018-05-01 17:05:57+00:00
-          
-        </td>
-      </tr>
-      
-      <tr>
-        <th>
-          Profil
-        </th>
-        <td>
-          
-              admin
           
         </td>
       </tr>

@@ -1,0 +1,364 @@
+<div class="" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+          
+            
+<style type="text/css">
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m3 l2">
+    <div>
+      <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+        
+        
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+        
+        
+        
+
+
+        
+      </form>
+    </div>
+  </div>
+  
+
+  <div class="table-responsive col s12 m9 l10" id="render-table">
+    <div>
+      
+      <div class="table-container">
+        
+
+
+<div class="table-container">
+
+<table>
+    
+    
+    <thead>
+        <tr>
+        
+            
+            <th>
+            <label>
+                <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
+                <span></span>
+            </label>
+        </th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=id">ID</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=name">Nom</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+        <tr class="even">
+            
+                <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="1" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+            
+                <td>1</td>
+            
+                <td><a href="/admin/group/1">Admin</a></td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-1" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-1">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/group/1/delete?_next=/admin/group" title='Groupe "admin": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/group/1/update?_next=/admin/group" title='Groupe "admin": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/group/1?_next=/admin/group" title="Admin">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="2" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+            
+                <td>2</td>
+            
+                <td><a href="/admin/group/2">UPN</a></td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-2" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-2">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/group/2/delete?_next=/admin/group" title='Groupe "upn": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/group/2/update?_next=/admin/group" title='Groupe "upn": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/group/2?_next=/admin/group" title="UPN">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="3" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+            
+                <td>3</td>
+            
+                <td><a href="/admin/group/3">Stat</a></td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-3" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-3">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/group/3/delete?_next=/admin/group" title='Groupe "stat": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/group/3/update?_next=/admin/group" title='Groupe "stat": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/group/3?_next=/admin/group" title="Stat">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>
+            <label>
+                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="4" type="checkbox"/>
+                <span></span>
+            </label>
+        </td>
+            
+                <td>4</td>
+            
+                <td><a href="/admin/group/4">Support</a></td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-4" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-4">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/group/4/delete?_next=/admin/group" title='Groupe "support": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/group/4/update?_next=/admin/group" title='Groupe "support": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/group/4?_next=/admin/group" title="Support">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+
+<ul class="pagination">
+    
+
+    
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
+
+
+</div>
+
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

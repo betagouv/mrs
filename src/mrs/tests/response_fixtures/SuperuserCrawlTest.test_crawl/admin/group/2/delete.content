@@ -1,0 +1,31 @@
+<div class="container" id="modal-body-ajax">
+        
+<form action="/admin/group/2/delete" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+
+          <div class="modal-content">
+          
+            
+            <h4 class="text-danger " id="modal-title-ajax">Groupe "upn": supprimer</h4>
+            
+          
+            
+  
+
+  
+
+  
+
+
+
+          </div>
+          <div class="modal-footer">
+            
+    
+    <button class="btn btn-primary" type="submit">Supprimer</button>
+
+          </div>
+        
+  </form>
+
+
+      </div>

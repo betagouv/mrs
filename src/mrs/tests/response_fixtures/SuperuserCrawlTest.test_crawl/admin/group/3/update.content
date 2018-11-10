@@ -1,0 +1,153 @@
+<div class="container" id="modal-body-ajax">
+        
+<form action="/admin/group/3/update" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-group" method="post">
+
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default " id="modal-title-ajax">Groupe "stat": modifier</h4>
+            
+          
+            
+  
+
+  
+
+  
+<div class="row">
+    <div class="input-field col s12 required" id="id_name_container">
+        <input id="id_name" maxlength="80" name="name" type="text" value="Stat"/>
+        <label class="active" for="id_name">Nom</label>
+        
+    </div>
+</div>
+ 
+
+
+<div class="row">
+    <div class="select-field col s12 multiselect" id="id_permissions_container">
+        <label for="id_permissions">Permissions</label>
+        <select id="id_permissions" multiple="True" name="permissions">
+            <option disabled="" value="">Choisissez votre option</option>
+            <option value="173">admin | entrée d'historique | Can add log entry</option>
+            <option value="174">admin | entrée d'historique | Can change log entry</option>
+            <option value="175">admin | entrée d'historique | Can delete log entry</option>
+            <option value="176">admin | entrée d'historique | Can view log entry</option>
+            <option value="185">auth | groupe | Can add group</option>
+            <option value="186">auth | groupe | Can change group</option>
+            <option value="187">auth | groupe | Can delete group</option>
+            <option value="188">auth | groupe | Can view group</option>
+            <option value="181">auth | permission | Can add permission</option>
+            <option value="182">auth | permission | Can change permission</option>
+            <option value="183">auth | permission | Can delete permission</option>
+            <option value="184">auth | permission | Can view permission</option>
+            <option value="153">caisse | caisse | Can add caisse</option>
+            <option value="154">caisse | caisse | Can change caisse</option>
+            <option value="155">caisse | caisse | Can delete caisse</option>
+            <option value="156">caisse | caisse | Can view caisse</option>
+            <option value="157">caisse | email | Can add email</option>
+            <option value="158">caisse | email | Can change email</option>
+            <option value="159">caisse | email | Can delete email</option>
+            <option value="160">caisse | email | Can view email</option>
+            <option value="177">contenttypes | type de contenu | Can add content type</option>
+            <option value="178">contenttypes | type de contenu | Can change content type</option>
+            <option value="179">contenttypes | type de contenu | Can delete content type</option>
+            <option value="180">contenttypes | type de contenu | Can view content type</option>
+            <option value="165">crudlfap | controller | Can add controller</option>
+            <option value="166">crudlfap | controller | Can change controller</option>
+            <option value="167">crudlfap | controller | Can delete controller</option>
+            <option value="168">crudlfap | controller | Can view controller</option>
+            <option value="169">crudlfap | url | Can add url</option>
+            <option value="170">crudlfap | url | Can change url</option>
+            <option value="171">crudlfap | url | Can delete url</option>
+            <option value="172">crudlfap | url | Can view url</option>
+            <option value="161">denorm | dirty instance | Can add dirty instance</option>
+            <option value="162">denorm | dirty instance | Can change dirty instance</option>
+            <option value="163">denorm | dirty instance | Can delete dirty instance</option>
+            <option value="164">denorm | dirty instance | Can view dirty instance</option>
+            <option value="197">djcall | Call | Can add Call</option>
+            <option value="198">djcall | Call | Can change Call</option>
+            <option value="199">djcall | Call | Can delete Call</option>
+            <option value="200">djcall | Call | Can view Call</option>
+            <option value="193">djcall | Caller | Can add Caller</option>
+            <option value="194">djcall | Caller | Can change Caller</option>
+            <option value="195">djcall | Caller | Can delete Caller</option>
+            <option value="196">djcall | Caller | Can view Caller</option>
+            <option value="201">djcall | cron | Can add cron</option>
+            <option value="202">djcall | cron | Can change cron</option>
+            <option value="203">djcall | cron | Can delete cron</option>
+            <option value="204">djcall | cron | Can view cron</option>
+            <option value="105">institution | Établissement | Can add Établissement</option>
+            <option value="106">institution | Établissement | Can change Établissement</option>
+            <option value="107">institution | Établissement | Can delete Établissement</option>
+            <option value="108">institution | Établissement | Can view Établissement</option>
+            <option value="141">mrsattachment | mrs attachment | Can add mrs attachment</option>
+            <option value="142">mrsattachment | mrs attachment | Can change mrs attachment</option>
+            <option value="143">mrsattachment | mrs attachment | Can delete mrs attachment</option>
+            <option value="144">mrsattachment | mrs attachment | Can view mrs attachment</option>
+            <option value="145">mrsemail | Modèle d'email | Can add Modèle d'email</option>
+            <option value="146">mrsemail | Modèle d'email | Can change Modèle d'email</option>
+            <option value="147">mrsemail | Modèle d'email | Can delete Modèle d'email</option>
+            <option value="148">mrsemail | Modèle d'email | Can view Modèle d'email</option>
+            <option value="113">mrsrequest | Justificatif | Can add Justificatif</option>
+            <option value="121">mrsrequest | Justificatif | Can add bill atp</option>
+            <option value="117">mrsrequest | Justificatif | Can add bill vp</option>
+            <option value="114">mrsrequest | Justificatif | Can change Justificatif</option>
+            <option value="122">mrsrequest | Justificatif | Can change bill atp</option>
+            <option value="118">mrsrequest | Justificatif | Can change bill vp</option>
+            <option value="115">mrsrequest | Justificatif | Can delete Justificatif</option>
+            <option value="123">mrsrequest | Justificatif | Can delete bill atp</option>
+            <option value="119">mrsrequest | Justificatif | Can delete bill vp</option>
+            <option value="116">mrsrequest | Justificatif | Can view Justificatif</option>
+            <option value="124">mrsrequest | Justificatif | Can view bill atp</option>
+            <option value="120">mrsrequest | Justificatif | Can view bill vp</option>
+            <option value="125">mrsrequest | Demande | Can add Demande</option>
+            <option value="126">mrsrequest | Demande | Can change Demande</option>
+            <option value="127">mrsrequest | Demande | Can delete Demande</option>
+            <option value="128">mrsrequest | Demande | Can view Demande</option>
+            <option value="129">mrsrequest | mrs request log entry | Can add mrs request log entry</option>
+            <option value="130">mrsrequest | mrs request log entry | Can change mrs request log entry</option>
+            <option value="131">mrsrequest | mrs request log entry | Can delete mrs request log entry</option>
+            <option value="132">mrsrequest | mrs request log entry | Can view mrs request log entry</option>
+            <option value="133">mrsrequest | pmt | Can add pmt</option>
+            <option value="134">mrsrequest | pmt | Can change pmt</option>
+            <option value="135">mrsrequest | pmt | Can delete pmt</option>
+            <option value="136">mrsrequest | pmt | Can view pmt</option>
+            <option value="137">mrsrequest | transport | Can add transport</option>
+            <option value="138">mrsrequest | transport | Can change transport</option>
+            <option value="139">mrsrequest | transport | Can delete transport</option>
+            <option value="140">mrsrequest | transport | Can view transport</option>
+            <option value="149">mrsstat | stat | Can add stat</option>
+            <option value="150">mrsstat | stat | Can change stat</option>
+            <option value="151">mrsstat | stat | Can delete stat</option>
+            <option value="152">mrsstat | stat | Can view stat</option>
+            <option value="205">mrsuser | utilisateur | Can add user</option>
+            <option value="206">mrsuser | utilisateur | Can change user</option>
+            <option value="207">mrsuser | utilisateur | Can delete user</option>
+            <option value="208">mrsuser | utilisateur | Can view user</option>
+            <option value="109">person | Personne | Can add Personne</option>
+            <option value="110">person | Personne | Can change Personne</option>
+            <option value="111">person | Personne | Can delete Personne</option>
+            <option value="112">person | Personne | Can view Personne</option>
+            <option value="189">sessions | session | Can add session</option>
+            <option value="190">sessions | session | Can change session</option>
+            <option value="191">sessions | session | Can delete session</option>
+            <option value="192">sessions | session | Can view session</option>
+        </select>
+        
+    </div>
+</div>
+
+
+          </div>
+          <div class="modal-footer">
+            
+    
+    <button class="btn btn-primary" type="submit">Modifier</button>
+
+          </div>
+        
+  </form>
+
+
+      </div>

@@ -4,7 +4,7 @@ import pytest
 import pytz
 from uuid import uuid4
 
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.messages.storage import default_storage
 from django.contrib.sessions.backends.base import SessionBase
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -23,10 +23,15 @@ id = mrsrequest_uuid = pytest.fixture(
 
 @pytest.fixture
 def su():
-    return User.objects.update_or_create(
-        username='su',
-        defaults=dict(profile='admin')
-    )[0]
+    try:
+        return User.objects.get(username='su')
+    except User.DoesNotExist:
+        pass
+
+    user = User.objects.create(username='su')
+    user.groups.add(Group.objects.get_or_create(name='Admin')[0])
+
+    return user
 
 
 class RequestFactory(drf):

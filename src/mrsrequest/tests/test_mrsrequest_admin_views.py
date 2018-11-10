@@ -6,6 +6,7 @@ from crudlfap_auth.crudlfap import User
 from dbdiff.fixture import Fixture
 
 from django import http
+from django.contrib.auth.models import Group
 
 from freezegun import freeze_time
 
@@ -37,9 +38,9 @@ def ur(request_factory):
             kwargs.setdefault('group', 'UPN')
             if 'caisse' in kwargs:
                 caisse = kwargs.pop('caisse')
+            group = Group.objects.get_or_create(name=kwargs.pop('group'))[0]
             user = User.objects.get_or_create(**kwargs)[0]
-            user.groups.add(
-                Group.objects.get_or_create(name=kwargs['group'])[0])
+            user.groups.add(group)
             if caisse:
                 user.caisses.add(caisse)
         return getattr(request_factory(user), method or 'get')('/path')
@@ -113,7 +114,7 @@ def test_validate_get_fail_if_not_inprogress(ur, mrsrequest):
 @pytest.mark.django_db
 def test_progress_post_fails_for_non_caisse_staff(ur, mrsrequest):
     with pytest.raises(http.Http404):
-        view('progress')(ur('post', profile='upn'), pk=mrsrequest.pk)
+        view('progress')(ur('post', group='UPN'), pk=mrsrequest.pk)
 
 
 @freeze_time('3000-12-31 13:37:42')

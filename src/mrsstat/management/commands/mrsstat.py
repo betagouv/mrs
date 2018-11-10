@@ -20,8 +20,19 @@ class Command(BaseCommand):
             dest='date',
             help='Deal with specific date dd/mm/yyyy',
         )
+        parser.add_argument(
+            '--refresh',
+            action='store_true',
+            dest='refresh',
+            help='Only refresh existing stats',
+        )
 
     def handle(self, *args, **options):
+        if options['refresh']:
+            for stat in Stat.objects.all():
+                stat.denorm_reset()
+                stat.save()
+
         if options['force']:
             stats = Stat.objects.all()
             total = stats.count()

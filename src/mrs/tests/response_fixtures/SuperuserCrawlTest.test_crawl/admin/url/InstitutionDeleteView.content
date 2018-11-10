@@ -1,0 +1,112 @@
+<div class="container" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default " id="modal-title-ajax">Delete</h4>
+            
+          
+            
+<div class="">
+  <table class="table">
+    <thead class="thead-inverse">
+      
+      <tr>
+        <th>
+          Id
+        </th>
+        <td>
+          
+              InstitutionDeleteView
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Controller
+        </th>
+        <td>
+          
+              institution.Institution
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Urlpath
+        </th>
+        <td>
+          
+              &lt;pk&gt;/delete
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Fullurlpath
+        </th>
+        <td>
+          
+              admin/institution/&lt;pk&gt;/delete
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Urlname
+        </th>
+        <td>
+          
+              delete
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Urlfullname
+        </th>
+        <td>
+          
+              crudlfap:institutionrouter:delete
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          View
+        </th>
+        <td>
+          
+              &lt;class 'crudlfap.factory.InstitutionDeleteView'&gt;
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Model
+        </th>
+        <td>
+          
+              &lt;class 'institution.models.Institution'&gt;
+          
+        </td>
+      </tr>
+      
+    
+  </thead></table>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

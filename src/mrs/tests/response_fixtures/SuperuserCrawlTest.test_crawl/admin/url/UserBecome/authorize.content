@@ -1,0 +1,61 @@
+<div class="container" id="modal-body-ajax">
+        
+<form action="/admin/url/UserBecome/authorize" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default " id="modal-title-ajax">Url "become": authorize</h4>
+            
+          
+            
+  
+
+  
+
+  
+<div class="row checkbox-field">
+    <div class="col s12">
+        <label for="">Groups</label>
+    </div>
+    <div class="col s12" id="id_groups_container">
+        <div class="row">
+            <div class="col l12">
+                
+                <div class="checkbox" id="id_groups"><label>
+                    <input id="id_groups_0" name="groups" type="checkbox" value="1"/>
+                    <span for="id_groups_0">Admin</span>
+                </label></div>
+            
+                <div class="checkbox" id="id_groups"><label>
+                    <input id="id_groups_1" name="groups" type="checkbox" value="2"/>
+                    <span for="id_groups_1">UPN</span>
+                </label></div>
+            
+                <div class="checkbox" id="id_groups"><label>
+                    <input id="id_groups_2" name="groups" type="checkbox" value="3"/>
+                    <span for="id_groups_2">Stat</span>
+                </label></div>
+            
+                <div class="checkbox" id="id_groups"><label>
+                    <input id="id_groups_3" name="groups" type="checkbox" value="4"/>
+                    <span for="id_groups_3">Support</span>
+                </label></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+          </div>
+          <div class="modal-footer">
+            
+    
+    <button class="btn btn-primary" type="submit">Authorize</button>
+
+          </div>
+        
+  </form>
+
+
+      </div>
