@@ -52,7 +52,24 @@
 
 
 <div class="row">
-    <div class="select-field col s12 required multiselect" id="id_caisses_container">
+    <div class="select-field col s12 multiselect" id="id_groups_container">
+        <label for="id_groups">Groups</label>
+        <select id="id_groups" multiple="True" name="groups">
+            <option disabled="" value="">Choisissez votre option</option>
+            <option selected="selected" value="1">Admin</option>
+            <option value="2">UPN</option>
+            <option value="3">Stat</option>
+            <option value="4">Support</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+
+
+<div class="row">
+    <div class="select-field col s12 multiselect" id="id_caisses_container">
         <label for="id_caisses">Caisses</label>
         <select id="id_caisses" multiple="True" name="caisses">
             <option disabled="" value="">Choisissez votre option</option>
@@ -64,22 +81,13 @@
 </div>
 
  
-
-
 <div class="row">
-    <div class="select-field col s12 multiselect" id="id_groups_container">
-        <label for="id_groups">Groupes</label>
-        <select id="id_groups" multiple="True" name="groups">
-            <option disabled="" value="">Choisissez votre option</option>
-            <option selected="selected" value="1">Admin</option>
-            <option value="2">UPN</option>
-            <option value="3">Stat</option>
-            <option value="4">Support</option>
-        </select>
-        <div class="help-block">Les groupes dont fait partie cet utilisateur. Celui-ci obtient tous les droits de tous les groupes auxquels il appartient.</div>
+    <div class="checkbox-field col s12" id="id_is_superuser_container">
+        <label>
+        <input class="filled-in " id="id_is_superuser" name="is_superuser" type="checkbox"/><span for="id_is_superuser">Statut super-utilisateur</span></label>
+        <div class="help-block">Précise que l'utilisateur possède toutes les permissions sans les assigner explicitement.</div>
     </div>
 </div>
-
  
 
 <div class="row">
