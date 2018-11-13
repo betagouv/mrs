@@ -9,8 +9,13 @@ from .models import User
 
 
 class UserForm(forms.ModelForm):
+    groups = forms.ModelMultipleChoiceField(
+        Group.objects.all(),
+        required=False,
+    )
     caisses = forms.ModelMultipleChoiceField(
-        Caisse.objects.filter(active=True)
+        Caisse.objects.filter(active=True),
+        required=False,
     )
     new_password = forms.CharField(
         label='Mot de passe',
@@ -25,9 +30,28 @@ class UserForm(forms.ModelForm):
             'last_name',
             'username',
             'email',
-            'caisses',
             'groups',
+            'caisses',
+            'is_superuser',
         ]
+
+    def clean(self):
+        data = super().clean()
+        groups = data.get('groups', [])
+        caisses = self.cleaned_data.get('caisses', [])
+        su = data.get('is_superuser', False)
+
+        if not su and not groups:
+            self.add_error('groups', 'Ce champ est obligatoire.')
+
+        admin = False
+        for group in groups:
+            if group.name == 'Admin':
+                admin = True
+
+        if not (admin or su) and not caisses:
+            self.add_error('caisses', 'Ce champ est obligatoire.')
+        return data
 
     def clean_new_password(self):
         new_password = self.cleaned_data.get('new_password', '')
