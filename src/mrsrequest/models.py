@@ -466,7 +466,8 @@ class MRSRequest(models.Model):
         If the field was changed, return its original value.
         """
         FORMAT_YMD = '%Y-%m-%d'
-        entries = self.logentries.order_by('-datetime')
+        # The oldest logentry has the original value.
+        entries = self.logentries.order_by('datetime')
         for entry in entries:
             if entry.data and \
                'changed' in entry.data and \
