@@ -33,6 +33,7 @@ class UserForm(forms.ModelForm):
             'groups',
             'caisses',
             'is_superuser',
+            'is_active',
         ]
 
     def clean(self):
