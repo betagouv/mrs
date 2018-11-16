@@ -14,7 +14,10 @@ from person.models import Person
 from mrsrequest.models import MRSRequest
 
 
-paris = pytest.fixture(lambda: pytz.timezone('Europe/Paris'))
+def paris_time():
+    return pytz.timezone('Europe/Paris')
+
+paris = pytest.fixture(paris_time)
 
 
 days = dict(
@@ -26,7 +29,7 @@ days = dict(
 hours = {'min': (0, 1), 'max': (23, 59)}
 
 tz = dict(
-    paris=paris(),
+    paris=paris_time(),
     utc=pytz.utc,
 )
 

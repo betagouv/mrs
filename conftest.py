@@ -69,7 +69,7 @@ def admin():
 
 @pytest.fixture(scope='class')
 def srf_class(request):
-    request.cls.srf = srf()
+    request.cls.srf = RequestFactory(AnonymousUser())
 
 
 @pytest.fixture
