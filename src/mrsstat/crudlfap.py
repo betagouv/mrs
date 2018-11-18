@@ -118,7 +118,7 @@ class StatListView(crudlfap.ListView):
         # get our requests from the mrsrequest controller
         # because we are bichons <3
         controller = crudlfap.site['mrsrequest.MRSRequest']
-        self.mrsrequests = controller.get_objects_for_user(self.request.user)
+        self.mrsrequests = controller['list'](request=self.request).get_objects()
         for i in ('caisse', 'institution'):
             if self.filterset_form_cleaned_data.get(i, None):
                 self.mrsrequests = self.mrsrequests.filter(**{
