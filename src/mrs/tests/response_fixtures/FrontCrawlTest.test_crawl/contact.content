@@ -20,13 +20,13 @@
         
 <div class="mrs-std-page--wrapper">
 
-  <div class="mrs-std-page">
+  <div class="mrs-std-page contact-wrapper">
     <div> Nous ne pouvons traiter votre dossier de remboursement
       sur cet espace contact. </div>
     <div>Pour toutes réclamations sur votre demande de remboursement, veuillez nous contacter</div>
     <ul>
-      <li>par mail: connectez-vous sur <a href="https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?_somtc=true" target="_blank"> votre compte ameli</a>, rubrique « Ma messagerie ». </li>
-      <li>par téléphone: appelez un conseiller de l'Assurance Maladie au 36 46*, à votre écoute du lundi au vendredi. (*service 0,06 €/min + prix appel)</li>
+      <li>par mail : connectez-vous sur <a href="https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?_somtc=true" target="_blank"> votre compte ameli</a>, rubrique « Ma messagerie ». </li>
+      <li>par téléphone : appelez un conseiller de l'Assurance Maladie au 36 46*, à votre écoute du lundi au vendredi. (*service 0,06 €/min + prix appel)</li>
     </ul>
     <div>Pour toutes autres questions, utilisez le formulaire de contact ci-dessous.</div>
 
