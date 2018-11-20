@@ -1,3 +1,4 @@
+from datetime import datetime
 import collections
 import json
 
@@ -157,8 +158,14 @@ class MRSRequestCreateView(generic.TemplateView):
             form.fields['date_depart'].label += f' {i}'
             form.fields['date_return'].label += f' {i}'
 
-        with transaction.atomic():
-            self.success = not self.form_errors() and self.save_mrsrequest()
+        # si pas de doublon, on sauvegarde, sinon on affiche un autre template.
+        # si doublons, afficher formulaire en hidden. form_confirms
+        # Le formulaire de date pas en hidden.
+        self.success = False
+        if not self.form_errors():
+            with transaction.atomic():
+                self.save_mrsrequest()
+                self.success = True
 
         return generic.TemplateView.get(self, request, *args, **kwargs)
 
@@ -195,8 +202,44 @@ class MRSRequestCreateView(generic.TemplateView):
         return True
 
     def form_errors(self):
-        return [
+        errors = [
             (form.errors, form.non_field_errors)
             for form in self.forms.values()
             if not form.is_valid()
         ]
+        import ipdb; ipdb.set_trace()
+        if not errors and not self.request.POST.get('confirm'):
+            self.form_confirms()
+            errors = [
+                (form.errors, form.non_field_errors)
+                for form in self.forms.values()
+                if not form.is_valid()
+            ]
+        return errors
+
+    def form_confirms(self):
+        transports = Transport.objects.filter(
+            mrsrequest__insured__nir=self.forms['person'].cleaned_data['nir'],
+            mrsrequest__insured__birth_date=self.forms['person'].cleaned_data['birth_date'],
+        ).select_related('mrsrequest')
+
+        for name, form in self.forms.items():
+            if 'transport-' not in name:
+                continue
+
+            for transport in transports:
+                if form.cleaned_data['date_depart'] == transport.date_depart:
+                    form.add_error(
+                        'date_depart',
+                        f'Deja dans demande {transport.mrsrequest}'
+                    )
+
+                if self.forms['mrsrequest'].cleaned_data.get('trip_kind') == 'simple':
+                    continue
+
+
+                if form.cleaned_data['date_return'] == transport.date_return:
+                    form.add_error(
+                        'date_return',
+                        f'Deja dans demande {transport.mrsrequest}'
+                    )

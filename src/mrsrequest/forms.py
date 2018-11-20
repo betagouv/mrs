@@ -198,6 +198,10 @@ class MRSRequestCreateForm(forms.ModelForm):
                     'Merci de saisir le total du coût de transports en commun',
                 )
 
+        # Check the user didn't submit a request for the same date(s).
+        # self.double_transports = self.check_double_transport()
+        # import ipdb; ipdb.set_trace()
+
         return cleaned_data
 
     def data_attachments(self, data, files, mrsrequest_uuid):
@@ -244,6 +248,11 @@ class MRSRequestCreateForm(forms.ModelForm):
         if self.cleaned_data.get('parking_expensevp', None):
             self.instance.expensevp += self.cleaned_data.get('parking_expensevp')
 
+        # double_transports = self.check_double_transport()
+        # transports_confirmed = True
+        # if double_transports and transports_confirmed:
+        #     import ipdb; ipdb.set_trace()
+
         obj = super().save(commit=commit)
         save_m2m = getattr(self, 'save_m2m', None)
         if save_m2m:
@@ -280,6 +289,9 @@ class TransportForm(forms.Form):
             )
 
         return cleaned_data
+
+    def is_duplicate(self, qs):
+        pass
 
 
 TransportFormSet = forms.formset_factory(TransportForm)

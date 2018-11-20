@@ -44,7 +44,11 @@
             {% endform %}
 
             <div id="mrsrequest-form" style="display: none">
-                <div id="pmt-form">
+              {% if view.duplicate_transports %}
+              <div> {{ view.duplicate_transports }} </div>
+              {% endif %}
+              <div style="{% if view.double_transports %} display: none {% endif %}">
+                <div id="pmt-form" >
                 {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.top %}
                 {% endform %}
                 </div>
@@ -88,6 +92,7 @@
                 {% endform %}
 
             </div>
+            </div>
 
             <div id="caisse-form" style="display: none">
                 {% form form=view.caisse_form %}{% endform %}
@@ -95,7 +100,11 @@
 
             <br />
 
+            {% if view.duplicate_transports %}
+            <button type="submit" name="confirm" class="btn">Confirmer</button>
+            {% else %}
             <button type="submit" name="_submit" class="btn">Soumettre</button>
+            {% endif %}
         {% endif %}
     </form>
 </div>
