@@ -256,16 +256,16 @@ class MRSRequestCreateForm(forms.ModelForm):
         return obj
 
 
-class TransportForm(forms.ModelForm):
+class TransportForm(forms.Form):
     date_depart = DateField(label='Date de l\'aller')
     date_return = DateField(label='Date de retour', required=False)
 
-    class Meta:
-        model = Transport
-        fields = [
+    layout = material.Layout(
+        material.Row(
             'date_depart',
             'date_return',
-        ]
+        )
+    )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -282,7 +282,10 @@ class TransportForm(forms.ModelForm):
         return cleaned_data
 
 
-class TransportIterativeForm(TransportForm):
+TransportFormSet = forms.formset_factory(TransportForm)
+
+
+class TransportIterativeForm(forms.Form):
     iterative_show = forms.BooleanField(
         label='Avez-vous des transports itératifs à déclarer ?',
         widget=forms.CheckboxInput,
@@ -311,10 +314,6 @@ class TransportIterativeForm(TransportForm):
             'trip_kind',
             'iterative_show',
             'iterative_number',
-            material.Row(
-                'date_depart',
-                'date_return',
-            ),
         ),
     )
 

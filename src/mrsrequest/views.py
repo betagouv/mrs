@@ -19,7 +19,7 @@ from mrs.settings import TITLE_SUFFIX
 from .forms import (
     CertifyForm,
     MRSRequestCreateForm,
-    TransportForm,
+    TransportFormSet,
     TransportIterativeForm,
     UseEmailForm,
 )
@@ -48,6 +48,9 @@ class MRSRequestCreateView(generic.TemplateView):
             ('person', PersonForm(
                 initial={k: v for k, v in request.GET.items()})),
             ('transport', TransportIterativeForm()),
+            ('transport_formset', TransportFormSet(
+                prefix='transport'
+            )),
             ('certify', CertifyForm()),
             ('use_email', UseEmailForm()),
         ])
@@ -139,20 +142,14 @@ class MRSRequestCreateView(generic.TemplateView):
         ])
         self.forms['transport'] = TransportIterativeForm(
             request.POST,
-            instance=Transport(mrsrequest_id=self.mrsrequest_uuid),
         )
-        for key, value in self.request.POST.items():
-            if '-date_depart' not in key:
-                continue
-
-            number = key.split('-')[0]
-            self.forms['transport-{}'.format(number)] = form = TransportForm(
-                request.POST,
-                instance=Transport(mrsrequest_id=self.mrsrequest_uuid),
-                prefix=number,
-            )
-            form.fields['date_depart'].label += ' {}'.format(number)
-            form.fields['date_return'].label += ' {}'.format(number)
+        self.forms['transport_formset'] = TransportFormSet(
+            self.request.POST,
+            prefix='transport',
+        )
+        for i, form in enumerate(self.forms['transport_formset'], start=1):
+            form.fields['date_depart'].label += f' {i}'
+            form.fields['date_return'].label += f' {i}'
 
         with transaction.atomic():
             self.success = not self.form_errors() and self.save_mrsrequest()
@@ -165,14 +162,15 @@ class MRSRequestCreateView(generic.TemplateView):
         self.forms['mrsrequest'].instance.creation_ip = get_client_ip(
             self.request)[0]
         self.object = self.forms['mrsrequest'].save()
-        self.forms['transport'].save()
         if self.forms['use_email'].cleaned_data['use_email']:
             self.forms['mrsrequest'].instance.insured.use_email = True
             self.forms['mrsrequest'].instance.insured.save()
-        for name, form in self.forms.items():
-            if 'transport-' not in name:
-                continue
-            form.save()
+        for form in self.forms['transport_formset']:
+            Transport.objects.create(
+                date_depart=form.cleaned_data.get('date_depart'),
+                date_return=form.cleaned_data.get('date_return'),
+                mrsrequest=self.object,
+            )
 
         Caller(
             callback='djcall.django.email_send',
