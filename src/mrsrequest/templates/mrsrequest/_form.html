@@ -54,8 +54,8 @@
                 {% endform %}
 
                 {{ view.forms.transport_formset.management_form }}
-                {% for f in view.forms.transport_formset %}
-                    {% form form=f layout=f.layout %}
+                {% for subform in view.forms.transport_formset %}
+                    {% form form=subform layout=subform.layout %}
                     {% endform %}
                 {% endfor %}
 
