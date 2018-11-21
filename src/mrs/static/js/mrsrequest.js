@@ -94,7 +94,7 @@ var formInit = function (form) {
     } else {
       $iterativeNumberContainer.hide()
       $iterativeNumberContainer.find(':input').val('1')
-      $(form).find('[name*=-date_depart]').each(function() {
+      $(form).find('[name*=-date_depart]:not(:first)').each(function() {
         $(this).parents('div.layout-row.row').remove()
       })
     }
