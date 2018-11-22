@@ -22,6 +22,60 @@ id = mrsrequest_uuid = pytest.fixture(
 
 
 @pytest.fixture
+def ur(request_factory):
+    def user_request(method=None, **kwargs):
+        user = None
+        if kwargs:
+            caisse = None
+            kwargs.setdefault('username', str(kwargs))
+            kwargs.setdefault('group', 'UPN')
+            if 'caisse' in kwargs:
+                caisse = kwargs.pop('caisse')
+            group = Group.objects.get_or_create(name=kwargs.pop('group'))[0]
+            user = User.objects.get_or_create(**kwargs)[0]
+            user.groups.add(group)
+            if caisse:
+                user.caisses.add(caisse)
+        return getattr(request_factory(user), method or 'get')('/path')
+    return user_request
+
+
+@pytest.fixture
+def dts(days, hours, tz):
+    dts = Bunch()
+    for day_name, day_args in days.items():
+        for hour_name, hour_args in hours.items():
+            for tz_name, tz_arg in tz.items():
+                var = f'{day_name}_{hour_name}_{tz_name}'
+                dts[var] = tz_arg.localize(datetime.datetime(
+                    *(day_args + hour_args),
+                ))
+    return dts
+
+
+@pytest.fixture
+def tz():
+    return dict(
+        paris=pytz.timezone('Europe/Paris'),
+        utc=pytz.utc,
+    )
+
+
+@pytest.fixture
+def hours():
+    return {'min': (0, 1), 'max': (23, 59)}
+
+
+@pytest.fixture
+def days():
+    return dict(
+        yesterday=(1999, 12, 31),
+        today=(2000, 1, 1),
+        tomorrow=(2000, 1, 2),
+    )
+
+
+@pytest.fixture
 def su():
     try:
         return User.objects.get(username='su')

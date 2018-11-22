@@ -1,12 +1,10 @@
 import pytest
 
 from crudlfap import shortcuts as crudlfap
-from crudlfap_auth.crudlfap import User
 
 from dbdiff.fixture import Fixture
 
 from django import http
-from django.contrib.auth.models import Group
 
 from freezegun import freeze_time
 
@@ -26,25 +24,6 @@ VIEWS = [
 
 def view(v):
     return crudlfap.site['mrsrequest.mrsrequest'][v].as_view()
-
-
-@pytest.fixture
-def ur(request_factory):
-    def user_request(method=None, **kwargs):
-        user = None
-        if kwargs:
-            caisse = None
-            kwargs.setdefault('username', str(kwargs))
-            kwargs.setdefault('group', 'UPN')
-            if 'caisse' in kwargs:
-                caisse = kwargs.pop('caisse')
-            group = Group.objects.get_or_create(name=kwargs.pop('group'))[0]
-            user = User.objects.get_or_create(**kwargs)[0]
-            user.groups.add(group)
-            if caisse:
-                user.caisses.add(caisse)
-        return getattr(request_factory(user), method or 'get')('/path')
-    return user_request
 
 
 @pytest.mark.dbdiff(models=[MRSRequestLogEntry, Caisse, Person])
