@@ -108,8 +108,7 @@ var formInit = function (form) {
   var iterativeNumberChange = function() {
     var i = parseInt($iterativeNumber.val())
 
-
-    if (i === NaN || i < 1) {
+    if (isNaN(i) || i < 1) {
       $iterativeNumber.val(1)
       i = 1
     }
@@ -136,11 +135,9 @@ var formInit = function (form) {
 
       var $target = $(form).find('[name=transport-' + (i + 1) + '-date_depart]')
       if ($target.length) {
-        console.log("insert before");
         $newRow.insertBefore($target.parents('div.layout-row.row'))
       }
       else {
-          console.log("-- insert after");
         $newRow.insertAfter(
           $(form).find('[name*=date_depart]:last').parents('div.layout-row')
         )
