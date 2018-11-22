@@ -195,13 +195,20 @@
     </div>
 </div>
 
+    </div>
+</div>
+
+
+                <input id="id_transport-TOTAL_FORMS" name="transport-TOTAL_FORMS" type="hidden" value="1"/><input id="id_transport-INITIAL_FORMS" name="transport-INITIAL_FORMS" type="hidden" value="0"/><input id="id_transport-MIN_NUM_FORMS" name="transport-MIN_NUM_FORMS" type="hidden" value="0"/><input id="id_transport-MAX_NUM_FORMS" name="transport-MAX_NUM_FORMS" type="hidden" value="1000"/>
+                
+                    
 <div class="layout-row row"><div class="col s12 m6">
 
 
 <div class="row">
-    <div class="input-field col s12 required" id="id_date_depart_container">
-        <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_date_depart" name="date_depart" placeholder="jj/mm/aaaa" type="date"/>
-        <label for="id_date_depart">Date de l'aller</label>
+    <div class="input-field col s12 required" id="id_transport-0-date_depart_container">
+        <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_transport-0-date_depart" name="transport-0-date_depart" placeholder="jj/mm/aaaa" type="date"/>
+        <label for="id_transport-0-date_depart">Date de l'aller</label>
         
     </div>
 </div>
@@ -209,27 +216,14 @@
 
 
 <div class="row">
-    <div class="input-field col s12" id="id_date_return_container">
-        <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_date_return" name="date_return" placeholder="jj/mm/aaaa" type="date"/>
-        <label for="id_date_return">Date de retour</label>
+    <div class="input-field col s12" id="id_transport-0-date_return_container">
+        <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_transport-0-date_return" name="transport-0-date_return" placeholder="jj/mm/aaaa" type="date"/>
+        <label for="id_transport-0-date_return">Date de retour</label>
         
     </div>
 </div>
 </div></div>
 
-    </div>
-</div>
-
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
                 
 
                     <div class="row">
