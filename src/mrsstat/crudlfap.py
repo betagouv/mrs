@@ -76,6 +76,34 @@ class StatListView(crudlfap.ListView):
 
     body_class = 'full-width'
 
+    @classmethod
+    def reverse(cls, *args, **kwargs):
+        return ''.join([
+            str(super().reverse(*args, **kwargs)),
+            '?',
+            '&'.join([
+                f'{k}={v}'
+                for k, v in cls.date_default_filters.items()
+            ]),  # pure abuse of Factory above, can you spot it ?
+        ])
+
+    def get_date_default_filters(self):
+        today = datetime.date.today()
+        return dict(
+            date__gte=datetime.date(
+                day=1,
+                month=today.month,
+                year=today.year,
+            ).strftime('%d/%m/%Y'),
+            date__lte=(
+                datetime.date(
+                    day=1,
+                    month=today.month + 1 if today.month < 12 else 1,
+                    year=today.year if today.month < 12 else today.year + 1,
+                ) - datetime.timedelta(days=1)
+            ).strftime('%d/%m/%Y'),
+        )
+
     def get_validation_average_delay(self):
         return self.object_list.aggregate(
             result=models.Avg('validation_average_delay')
@@ -100,27 +128,25 @@ class StatListView(crudlfap.ListView):
         )['result']
 
     def get_insured_count_replied(self):
-        kwargs = {
-            i: self.date_values[i]
-            for i in self.date_args
-            if i in self.request.GET
-        }
         mrsrequests = self.mrsrequests.status_filter(
             'validated',
             'rejected',
-            **kwargs
+            **{
+                k: v
+                for k, v in self.filterset.form.cleaned_data.items()
+                if k.startswith('date_')
+            }
         )
         return Person.objects.filter(
             mrsrequest__in=mrsrequests
         ).distinct().count()
 
     def get_mrsrequests(self):
-        # get our requests from the mrsrequest controller
-        # because we are bichons <3
+        # the default controller's list view will return objects user can see
         controller = crudlfap.site['mrsrequest.MRSRequest']
         self.mrsrequests = controller['list'](request=self.request).get_objects()
         for i in ('caisse', 'institution'):
-            if self.filterset_form_cleaned_data.get(i, None):
+            if self.filterset.form.cleaned_data.get(i, None):
                 self.mrsrequests = self.mrsrequests.filter(**{
                     i: self.filterset_form_cleaned_data[i]
                 })
@@ -130,52 +156,6 @@ class StatListView(crudlfap.ListView):
         qs = super().get_object_list()
         self.object_list = self.filter_caisse_institution(qs)
         return self.object_list
-
-    def get_filterset_form_cleaned_data(self):
-        form = self.filterset.form
-        if form.is_valid():
-            self.filterset_form_cleaned_data = form.cleaned_data
-        else:
-            self.filterset_form_cleaned_data = self.filterset_data_default
-
-    def get_filterset_data_default(self):
-        today = datetime.date.today()
-        return dict(
-            date__gte=datetime.date(
-                day=1,
-                month=today.month,
-                year=today.year,
-            ).strftime('%d/%m/%Y'),
-            date__lte=(
-                datetime.date(
-                    day=1,
-                    month=today.month + 1 if today.month < 12 else 1,
-                    year=today.year if today.month < 12 else today.year + 1,
-                ) - datetime.timedelta(days=1)
-            ).strftime('%d/%m/%Y'),
-        )
-
-    def get_date_values(self):
-        today = datetime.date.today()
-        gte = datetime.date(
-            day=1,
-            month=today.month,
-            year=today.year,
-        )
-        lte = datetime.date(
-            day=1,
-            month=today.month + 1 if today.month < 12 else 1,
-            year=today.year if today.month < 12 else today.year + 1,
-        ) - datetime.timedelta(days=1)
-
-        res = dict(date__gte=gte, date__lte=lte)
-        if self.filterset.form.is_valid():
-            if hasattr(self.filterset.form, 'cleaned_data'):
-                for i in ('date__gte', 'date__lte'):
-                    if i in self.filterset.form.cleaned_data:
-                        res[i] = self.filterset.form.cleaned_data[i]
-        self.date_values = res
-        return res
 
     def filter_caisse_institution(self, qs):
         if not self.request.GET.get('caisse'):
