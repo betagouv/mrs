@@ -101,9 +101,8 @@ class MRSRequestCreateView(generic.TemplateView):
             ('person', PersonForm()),
             ('certify', CertifyForm()),
         ])
-        self.forms['transport'] = TransportIterativeForm(
-            instance=Transport(mrsrequest_id=self.mrsrequest_uuid),
-        )
+        self.forms['transport'] = TransportIterativeForm()
+        self.forms['transport_formset'] = TransportFormSet()
 
         self.caisse_form = CaisseVoteForm(request.POST, prefix='other')
         with transaction.atomic():
@@ -143,8 +142,15 @@ class MRSRequestCreateView(generic.TemplateView):
         self.forms['transport'] = TransportIterativeForm(
             request.POST,
         )
+        transport_formset_data = request.POST.copy()
+        transport_formset_data['transport-TOTAL_FORMS'] = request.POST.get(
+            'iterative_number', 1)
+        transport_formset_data['transport-INITIAL_FORMS'] = 0
+        transport_formset_data['transport-MIN_NUM_FORMS'] = 1
+        transport_formset_data['transport-MAX_NUM_FORMS'] = 100
+
         self.forms['transport_formset'] = TransportFormSet(
-            self.request.POST,
+            transport_formset_data,
             prefix='transport',
         )
         for i, form in enumerate(self.forms['transport_formset'], start=1):
@@ -165,7 +171,7 @@ class MRSRequestCreateView(generic.TemplateView):
         if self.forms['use_email'].cleaned_data['use_email']:
             self.forms['mrsrequest'].instance.insured.use_email = True
             self.forms['mrsrequest'].instance.insured.save()
-        for form in self.forms['transport_formset']:
+        for form in self.forms['transport_formset'].forms:
             Transport.objects.create(
                 date_depart=form.cleaned_data.get('date_depart'),
                 date_return=form.cleaned_data.get('date_return'),
