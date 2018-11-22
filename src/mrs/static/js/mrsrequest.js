@@ -94,7 +94,7 @@ var formInit = function (form) {
     } else {
       $iterativeNumberContainer.hide()
       $iterativeNumberContainer.find(':input').val('1')
-      $(form).find('[name*=-date_depart]').each(function() {
+      $(form).find('[name*=-date_depart]:not(:first)').each(function() {
         $(this).parents('div.layout-row.row').remove()
       })
     }
@@ -103,19 +103,24 @@ var formInit = function (form) {
   iterativeShowChange()
 
   // Generate transport date fields
-  var $dateRow = $('#id_date_depart_container').parents('div.layout-row.row')
+  var $dateRow = $('#id_transport-0-date_depart_container').parents('div.layout-row.row')
   var $iterativeNumber = $(form).find('[name=iterative_number]')
   var iterativeNumberChange = function() {
     var i = parseInt($iterativeNumber.val())
 
+    if (isNaN(i) || i < 1) {
+      $iterativeNumber.val(1)
+      i = 1
+    }
+
     $(form).find('[name*=-date_depart]').each(function() {
-      if (parseInt($(this).attr('name').split('-')[0]) > i) {
+      if (parseInt($(this).attr('name').split('-')[1]) > i) {
         $(this).parents('div.layout-row.row').remove()
       }
     })
 
     while(i > 1) {
-      var $existing = $(form).find('[name=' + i + '-date_depart]')
+      var $existing = $(form).find('[name=transport-' + i + '-date_depart]')
       if ($existing.length) {
         i--
         continue
@@ -123,16 +128,20 @@ var formInit = function (form) {
 
       var $newRow = $dateRow.clone(false)
       $newRow.find(':input').each(function() {
-        $(this).attr('name', i + '-' + $(this).attr('name'))
+        $(this).attr('name', $(this).attr('name').replace('-0-', `-${i}-`))
         $(this).val('')
       })
       $newRow.find('label').append(' ' + i)
 
-      var $target = $(form).find('[name=' + (i + 1) + '-date_depart]')
-      if ($target.length)
+      var $target = $(form).find('[name=transport-' + (i + 1) + '-date_depart]')
+      if ($target.length) {
         $newRow.insertBefore($target.parents('div.layout-row.row'))
-      else
-        $dateRow.parent().append($newRow)
+      }
+      else {
+        $newRow.insertAfter(
+          $(form).find('[name*=date_depart]:last').parents('div.layout-row')
+        )
+      }
       i--
     }
   }

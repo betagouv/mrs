@@ -90,8 +90,8 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     assert not p.view.forms['mrsrequest'].is_valid()
 
     data['caisse'] = caisse.pk
-    data['date_depart'] = '2017-02-02'
-    data['date_return'] = '2017-02-02'
+    data['transport-1-date_depart'] = '2017-02-02'
+    data['transport-1-date_return'] = '2017-02-02'
     data['trip_kind'] = 'return'
     data['modevp'] = 'modevp'
     data['distancevp'] = '100'
@@ -145,10 +145,11 @@ def test_mrsrequestcreateview_post_save_integration(p, caisse):
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
     data['caisse'] = caisse.pk
     data['trip_kind'] = 'return'
-    data['date_depart'] = '2017-02-02'
-    data['date_return'] = '2017-02-02'
-    data['1-date_depart'] = '2017-01-02'
-    data['1-date_return'] = '2017-01-02'
+    data['iterative_number'] = 2
+    data['transport-0-date_depart'] = '2017-02-02'
+    data['transport-0-date_return'] = '2017-02-02'
+    data['transport-1-date_depart'] = '2017-01-02'
+    data['transport-1-date_return'] = '2017-01-02'
     data['distancevp'] = '100'
     data['expensevp'] = '10'
     data['modevp'] = 'modevp'

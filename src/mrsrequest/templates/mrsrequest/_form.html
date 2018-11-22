@@ -52,11 +52,11 @@
                 {% endform %}
                 {% form form=view.forms.transport layout=view.forms.transport.layout %}
                 {% endform %}
-                {% for name, f in view.forms.items %}
-                    {% if 'transport-' in name %}
-                        {% form form=f layout=f.layout %}
-                        {% endform %}
-                    {% endif %}
+
+                {{ view.forms.transport_formset.management_form }}
+                {% for subform in view.forms.transport_formset %}
+                    {% form form=subform layout=subform.layout %}
+                    {% endform %}
                 {% endfor %}
 
                 {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modevp %}{% endform %}
