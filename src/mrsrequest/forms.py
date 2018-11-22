@@ -10,7 +10,7 @@ from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 
-from .models import BillATP, BillVP, MRSRequest, PMT, Transport
+from .models import BillATP, BillVP, MRSRequest, PMT
 
 
 class MRSRequestCreateForm(forms.ModelForm):
