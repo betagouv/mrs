@@ -722,9 +722,9 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
         self.changed_labels = []
 
         def add_changed_labels(form):
-            for name in form.changed_fields:
+            for name in form.changed_data:
                 self.changed_labels.append(
-                    self.form[name].label
+                    form[name].label
                 )
 
         add_changed_labels(self.form)
@@ -756,21 +756,11 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
         return dict(changed=self.changed_data)
 
     def get_log_message(self):
-        changed = []
-        if 'nir' in self.changed_data:
-            changed.append('NIR')
-
-        if 'birth_date' in self.changed_data:
-            changed.append('Date de naissance')
-
-        if 'distancevp' in self.changed_data:
-            changed.append('Distance parcourue en VP')
-
-        if len(changed) > 1:
-            msg = 'Modification de %s' % ', '.join(changed[:-1])
-            msg += f' et {changed[-1]}'
+        if len(self.changed_labels) > 1:
+            msg = 'Modification de %s' % ', '.join(self.changed_labels[:-1])
+            msg += f' et {self.changed_labels[-1]}'
         else:
-            msg = 'Modification de %s' % changed[0]
+            msg = 'Modification de %s' % self.changed_labels[0]
 
         return msg
 
