@@ -394,4 +394,4 @@ class UseEmailForm(forms.Form):
 class MRSRequestForm(forms.ModelForm):
     class Meta:
         model = MRSRequest
-        fields = []
+        fields = ['distancevp']
