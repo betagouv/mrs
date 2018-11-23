@@ -66,7 +66,6 @@ class UserForm(forms.ModelForm):
         return super().save(commit=commit)
 
 
-del crudlfap.site[User].views['delete']
 crudlfap.site[User]['update'].form_class = UserForm
 crudlfap.site[User]['update'].fields.append('is_active')
 crudlfap.site[User]['create'].form_class = UserForm
@@ -83,5 +82,7 @@ crudlfap.site[User]['list'].table_fields = [
     'groups',
 ]
 
+del crudlfap.site[User].views['delete']
+del crudlfap.site[User].views['deleteobjects']
 crudlfap.site[User].allowed_groups = ['Admin']
 crudlfap.site[Group].allowed_groups = ['Admin']
