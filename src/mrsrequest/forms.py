@@ -65,6 +65,42 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Votre caisse de rattachement',
     )
 
+    expenseatp = forms.DecimalField(
+        decimal_places=2,
+        max_digits=6,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        label='Frais de transports',
+        help_text=(
+            'Somme totale des frais de'
+            ' transport en commun (en € TTC)'
+        ),
+        required=False,
+        widget=forms.NumberInput(
+            attrs=dict(
+                min='0',
+                step='0.01',
+            )
+        )
+    )
+
+    expensevp = forms.DecimalField(
+        decimal_places=2,
+        max_digits=6,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        label='Frais de péage et/ou transports',
+        help_text=(
+            'Somme totale des frais de péage'
+            ' et/ou de transport en commun (en € TTC)'
+        ),
+        required=False,
+        widget=forms.NumberInput(
+            attrs=dict(
+                min='0',
+                step='0.01',
+            )
+        )
+    )
+
     parking_expensevp = forms.DecimalField(
         decimal_places=2,
         max_digits=6,
@@ -72,6 +108,12 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Frais de parking',
         help_text='Somme totale des frais de parking (en € TTC)',
         required=False,
+        widget=forms.NumberInput(
+            attrs=dict(
+                min='0',
+                step='0.01',
+            )
+        )
     )
 
     layouts = dict(
