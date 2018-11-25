@@ -104,6 +104,7 @@ js-acceptance:
 
 deploy-jpic:
   <<: *deploy
+  image: yourlabs/playlabs:jpic
   only:
     refs: [jpic]
   environment:
