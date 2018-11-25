@@ -40,6 +40,9 @@ RUN mkdir -p ${STATIC_ROOT}
 # Use DEBUG here to inhibate security checks in settings for this command
 RUN DEBUG=1 mrs collectstatic --noinput --clear
 
+# Pre-compress for uWSGI
+RUN for i in $(find $STATIC_ROOT -type f); do gzip $i; done
+
 # Let user write to log
 RUN chown -R app. ${LOG}
 USER app

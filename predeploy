@@ -5,10 +5,6 @@ mrs migrate --noinput
 # Note that this should be disabled in production mode.
 # export SENTRY_OVERWRITE=1
 
-for i in $(find $STATIC_ROOT -type f); do
-    gzip $i
-done
-
 if [ -z "$GIT_COMMIT" -a -z "${SENTRY_DSN-}" -a -z "${SENTRY_PROJECT-}" ]; then
     REPO=betagouv/mrs clilabs sentry:release src/mrs/static
 fi
