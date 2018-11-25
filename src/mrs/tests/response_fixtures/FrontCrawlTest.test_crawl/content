@@ -72,7 +72,7 @@
 
 
         <div
-            style="background-image: url('/static/img/landing-intro-bg.png')"
+            style="background-image: url('/static/img/landing-intro-bg.jpg')"
             id="intro-bg-img">
         </div>
 
