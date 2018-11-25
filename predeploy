@@ -5,4 +5,4 @@ mrs migrate --noinput
 # Note that this should be disabled in production mode.
 # export SENTRY_OVERWRITE=1
 
-test -z "$SENTRY_DSN" || REPO=betagouv/mrs clilabs sentry:release src/mrs/static
+test -z "$GIT_COMMIT" && test -z "$SENTRY_DSN" || REPO=betagouv/mrs clilabs sentry:release src/mrs/static
