@@ -71,4 +71,6 @@ CMD /usr/bin/dumb-init uwsgi \
   --ignore-sigpipe \
   --ignore-write-errors \
   --disable-write-exception \
+  --static-expires '* 7776000' \
+  --static-gzip-all \
   --static-map $STATIC_ROOT=$STATIC_URL
