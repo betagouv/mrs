@@ -13,7 +13,7 @@ ENV LOG=/app/log
 ENV VIRTUAL_PROTO=uwsgi
 EXPOSE 6789
 
-RUN apk update && apk --no-cache upgrade && apk --no-cache add ca-certificates gettext shadow python3 py3-psycopg2 uwsgi-python3 uwsgi-http uwsgi-spooler dumb-init bash git curl && pip3 install --upgrade pip
+RUN apk update && apk --no-cache upgrade && apk --no-cache add ca-certificates gettext shadow python3 py3-psycopg2 dumb-init bash git curl uwsgi-python3 uwsgi-http uwsgi-spooler uwsgi-cache uwsgi-router_cache uwsgi-router_static && pip3 install --upgrade pip
 RUN mkdir -p /app && usermod -d /app -l app node && groupmod -n app node && chown -R app:app /app
 RUN curl -sL https://sentry.io/get-cli/ | bash
 WORKDIR /app
@@ -40,6 +40,9 @@ RUN mkdir -p ${STATIC_ROOT}
 # Use DEBUG here to inhibate security checks in settings for this command
 RUN DEBUG=1 mrs collectstatic --noinput --clear
 
+# Pre-compress for uWSGI
+RUN find $STATIC_ROOT -type f | xargs gzip -f -k -9
+
 # Let user write to log
 RUN chown -R app. ${LOG}
 USER app
@@ -54,7 +57,7 @@ CMD /usr/bin/dumb-init uwsgi \
   --spooler-processes 8 \
   --socket=0.0.0.0:6789 \
   --chdir=/app \
-  --plugin=python3,http \
+  --plugin=python3,http,router_static,router_cache \
   --module=$UWSGI_MODULE \
   --http-keepalive \
   --harakiri=120 \
@@ -71,4 +74,13 @@ CMD /usr/bin/dumb-init uwsgi \
   --ignore-sigpipe \
   --ignore-write-errors \
   --disable-write-exception \
-  --static-map $STATIC_ROOT=$STATIC_URL
+  --mime-file /etc/mime.types \
+  --thunder-lock \
+  --offload-threads '%k' \
+  --file-serve-mode x-accel-redirect \
+  --route "^/static/.* addheader:Cache-Control: public, max-age=7776000" \
+  --static-map $STATIC_ROOT=$STATIC_URL \
+  --static-gzip-all \
+  --cache2 "name=statcalls,items=100" \
+  --static-cache-paths 86400 \
+  --static-cache-paths-name statcalls \
