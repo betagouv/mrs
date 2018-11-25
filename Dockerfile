@@ -71,4 +71,6 @@ CMD /usr/bin/dumb-init uwsgi \
   --ignore-sigpipe \
   --ignore-write-errors \
   --disable-write-exception \
-  --static-map $STATIC_ROOT=$STATIC_URL
+  --static-map $STATIC_ROOT=$STATIC_URL \
+  --static-expires = /* 7776000 \
+  --offload-threads = %k
