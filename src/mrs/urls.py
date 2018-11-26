@@ -1,3 +1,5 @@
+import os
+
 from crudlfap import shortcuts as crudlfap
 
 from django.conf import settings
@@ -29,6 +31,11 @@ urlpatterns = [
     path('manifest.json', views.StaticView.as_view(
         path='manifest.json',
         content_type='application/manifest+json',
+        stream=False,
+    )),
+    path('serviceworker.js', views.StaticView.as_view(
+        path=os.path.dirname(__file__) + '/static/serviceworker.js',
+        content_type='application/javascript',
         stream=False,
     )),
     path('stats/', views.generic.RedirectView.as_view(

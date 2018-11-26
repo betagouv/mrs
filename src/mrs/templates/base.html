@@ -77,6 +77,17 @@
     {% render_bundle 'base' 'js' %}
     {% endblock %}
 
+    <script type="text/javascript">
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.register(
+        'serviceworker.js',
+        {
+          scope: '/'
+        }
+      )
+    }
+    </script>
+
     <!-- PROJECT_INSTANCE={{ PREFIX }}-{{ INSTANCE }} -->
   </body>
 </html>
