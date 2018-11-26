@@ -51,6 +51,15 @@ var cfg = {
   module: {
     rules: [
       {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            name: "fonts/[name].[ext]",
+          },
+        },
+      },
+      {
         test: /\.js$/,
         exclude: /(turbolinks)/,
         use: {
