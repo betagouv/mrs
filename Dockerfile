@@ -18,6 +18,9 @@ RUN mkdir -p /app && usermod -d /app -l app node && groupmod -n app node && chow
 RUN curl -sL https://sentry.io/get-cli/ | bash
 WORKDIR /app
 
+COPY download_fonts /app/download_fonts
+RUN ./download_fonts
+
 ARG GIT_COMMIT
 ENV GIT_COMMIT=$GIT_COMMIT
 
@@ -37,8 +40,9 @@ RUN pip3 install --editable /app
 
 RUN mkdir -p ${LOG}
 RUN mkdir -p ${STATIC_ROOT}
+
 # Use DEBUG here to inhibate security checks in settings for this command
-RUN DEBUG=1 mrs collectstatic --noinput --clear
+RUN DEBUG=1 mrs collectstatic --noinput
 
 # Pre-compress for uWSGI
 RUN for i in $(find $STATIC_ROOT -type f); do gzip $i; done
