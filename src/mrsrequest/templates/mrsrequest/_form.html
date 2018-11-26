@@ -61,9 +61,6 @@
                 {% for subform in view.forms.transport_formset %}
                     {% form form=subform layout=subform.layout %}
                     {% endform %}
-                    {% for error in subform.errors %}
-                        {{ error }}
-                    {% endfor %}
                 {% endfor %}
 
                 {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modevp %}{% endform %}
