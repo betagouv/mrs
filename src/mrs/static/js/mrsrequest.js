@@ -119,7 +119,8 @@ var formInit = function (form) {
       }
     })
 
-    while(i > 1) {
+    i--  // compensate for first form that starts at 0
+    while(i) {
       var $existing = $(form).find('[name=transport-' + i + '-date_depart]')
       if ($existing.length) {
         i--
