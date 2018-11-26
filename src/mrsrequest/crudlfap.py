@@ -191,7 +191,6 @@ class MRSRequestValidateView(MRSRequestValidateMixin, crudlfap.ObjectFormView):
 
     def form_valid(self):
         resp = super().form_valid()
-        import ipdb; ipdb.set_trace()
         self.mail_insured()
         self.mail_liquidation()
         return resp
@@ -205,7 +204,6 @@ class MRSRequestValidateObjectsView(
 
     def form_valid(self):
         resp = super().form_valid()
-        import ipdb; ipdb.set_trace()
         for obj in self.object_list:
             self.mail_insured(obj)
             self.mail_liquidation(obj)

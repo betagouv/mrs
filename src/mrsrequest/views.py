@@ -202,20 +202,20 @@ class MRSRequestCreateView(generic.TemplateView):
         return True
 
     def form_errors(self):
+        confirms = []
         errors = [
             (form.errors, form.non_field_errors)
             for form in self.forms.values()
             if not form.is_valid()
         ]
-        import ipdb; ipdb.set_trace()
         if not errors and not self.request.POST.get('confirm'):
-            self.form_confirms()
+            confirms = self.form_confirms()
             errors = [
                 (form.errors, form.non_field_errors)
                 for form in self.forms.values()
                 if not form.is_valid()
             ]
-        return errors
+        return confirms + errors
 
     def form_confirms(self):
         transports = Transport.objects.filter(
@@ -223,23 +223,40 @@ class MRSRequestCreateView(generic.TemplateView):
             mrsrequest__insured__birth_date=self.forms['person'].cleaned_data['birth_date'],
         ).select_related('mrsrequest')
 
+        trip_kind = None
+        errors = []
         for name, form in self.forms.items():
-            if 'transport-' not in name:
+            if 'transport' not in name:
                 continue
 
+            if name == 'transport':
+                trip_kind = form.cleaned_data['trip_kind']
+                continue
+
+            # Now we deal with the formsets.
+            # we can have form with trip_kind and formset with the dates.
             for transport in transports:
-                if form.cleaned_data['date_depart'] == transport.date_depart:
-                    form.add_error(
-                        'date_depart',
-                        f'Deja dans demande {transport.mrsrequest}'
-                    )
+                for formset_data in form.cleaned_data:
+                    if formset_data['date_depart'] == transport.date_depart:
+                        # no add_error here.
+                        error = {
+                            'date_depart': [
+                                f'Deja dans demande {transport.mrsrequest}',
+                            ]
+                        }
+                        form.errors.append(error)
+                        errors.append(error)
 
-                if self.forms['mrsrequest'].cleaned_data.get('trip_kind') == 'simple':
-                    continue
+                    if trip_kind == 'simple':
+                        continue
 
+                    if formset_data['date_return'] == transport.date_return:
+                        error = {
+                            'date_return': [
+                                f'Deja dans demande {transport.mrsrequest}',
+                            ]
+                        }
+                        form.errors.append(error)
+                        errors.append(error)
 
-                if form.cleaned_data['date_return'] == transport.date_return:
-                    form.add_error(
-                        'date_return',
-                        f'Deja dans demande {transport.mrsrequest}'
-                    )
+        return errors
