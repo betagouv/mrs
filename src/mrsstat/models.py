@@ -19,26 +19,36 @@ from mrsrequest.models import datetime_max, MRSRequest
 logger = logging.getLogger(__name__)
 
 
+def date_range(min_date, max_date=None):
+    max_date = max_date or datetime.date.today()
+    date = min_date
+    while max_date > date:
+        yield date
+        date += datetime.timedelta(days=1)
+
+
 class StatManager(models.Manager):
     def create_missing(self):
         first = MRSRequest.objects.order_by('creation_datetime').first()
         if not first:
             return
 
-        current_date = datetime.date.today()
-        while current_date > first.creation_datetime.date():
-            self.update_date(current_date)
-            current_date -= datetime.timedelta(days=1)
+        for i in date_range(first.creation_datetime.date()):
+            self.update_date(i)
 
     @transaction.atomic
-    def update_date(self, date):
-        caisses = list(Caisse.objects.filter(active=True)) + [None]
-        institutions = list(Institution.objects.all()) + [None]
+    def update_date(self, date, caisses=None, institutions=None):
+        if caisses is None:
+            caisses = list(Caisse.objects.filter(active=True)) + [None]
+
+        if institutions is None:
+            institutions = list(Institution.objects.all()) + [None]
 
         for caisse, institution in itertools.product(caisses, institutions):
             existing = self.filter(
                 date=date, caisse=caisse, institution=institution
             ).first()
+
             if existing:
                 existing.denorm_reset()
                 existing.save()
@@ -231,24 +241,12 @@ class Stat(models.Model):
 
 def update_stat_for_mrsrequest(**kwargs):
     m = MRSRequest.objects.get(pk=kwargs['pk'])
-    date_stats = Stat.objects.filter(
-        date=m.creation_datetime.date(),
-    )
-
-    def get_or_create_stat(**kwargs):  # force a stat save
-        for i in ('caisse', 'institution'):
-            kwargs.setdefault(i, None)
-
-        stat = date_stats.filter(**kwargs).first()
-        if not stat:
-            stat = Stat(date=m.creation_day, **kwargs)
-        stat.save()
-
-    get_or_create_stat()
-    get_or_create_stat(caisse=m.caisse)
-    if m.institution:
-        get_or_create_stat(institution=m.institution)
-        get_or_create_stat(institution=m.institution, caisse=m.caisse)
+    for date in date_range(m.creation_datetime.date()):
+        Stat.objects.update_date(
+            date,
+            [m.caisse],
+            [m.institution],
+        )
 
 
 def stat_update(sender, instance, **kwargs):
