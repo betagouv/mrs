@@ -1,0 +1,9 @@
+{% extends 'crudlfap/update.html' %}
+
+{% block content %}
+    {{ super() }}
+
+    {% for form in view.extra_forms.values() %}
+        {{ render_form(form) }}
+    {% endfor %}
+{% endblock %}

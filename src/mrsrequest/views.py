@@ -1,3 +1,4 @@
+import copy
 from datetime import datetime
 import collections
 import json
@@ -7,6 +8,7 @@ from django import template
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models import Q
 from django.views import generic
 from djcall.models import Caller
 from ipware import get_client_ip
@@ -143,29 +145,38 @@ class MRSRequestCreateView(generic.TemplateView):
         self.forms['transport'] = TransportIterativeForm(
             request.POST,
         )
+
         transport_formset_data = request.POST.copy()
-        transport_formset_data['transport-TOTAL_FORMS'] = request.POST.get(
-            'iterative_number', 1)
-        transport_formset_data['transport-INITIAL_FORMS'] = 0
-        transport_formset_data['transport-MIN_NUM_FORMS'] = 1
-        transport_formset_data['transport-MAX_NUM_FORMS'] = 100
+        for i in ['total', 'initial', 'min_num', 'max_num']:
+            key = f'transport-{i.upper()}_FORMS'
+            transport_formset_data[key] = request.POST.get(
+                'iterative_number', 1)
 
         self.forms['transport_formset'] = TransportFormSet(
             transport_formset_data,
             prefix='transport',
         )
-        for i, form in enumerate(self.forms['transport_formset'], start=1):
+        print(transport_formset_data)
+
+        transport_forms = self.forms['transport_formset'].forms
+        for i, form in enumerate(transport_forms, start=1):
+            form.empty_permitted = False
+            if self.request.POST.get('trip_kind', 'return') == 'return':
+                form.fields['date_return'].required = True
+
             form.fields['date_depart'].label += f' {i}'
             form.fields['date_return'].label += f' {i}'
 
-        # si pas de doublon, on sauvegarde, sinon on affiche un autre template.
-        # si doublons, afficher formulaire en hidden. form_confirms
-        # Le formulaire de date pas en hidden.
-        self.success = False
+        self.success = self.confirm = False
         if not self.form_errors():
-            with transaction.atomic():
-                self.save_mrsrequest()
-                self.success = True
+            confirmed = self.request.POST.get('confirm', False)
+
+            if confirmed or not self.form_confirms():
+                with transaction.atomic():
+                    self.save_mrsrequest()
+                    self.success = True
+            else:
+                self.confirm = True
 
         return generic.TemplateView.get(self, request, *args, **kwargs)
 
@@ -202,48 +213,60 @@ class MRSRequestCreateView(generic.TemplateView):
         return True
 
     def form_errors(self):
-        confirms = []
-        errors = [
-            (form.errors, form.non_field_errors)
+        return [
+            (form.errors, getattr(form, 'non_field_errors', []))
             for form in self.forms.values()
             if not form.is_valid()
         ]
-        if not errors and not self.request.POST.get('confirm'):
-            confirms = self.form_confirms()
-            errors = [
-                (form.errors, getattr(form, 'non_field_errors', []))
-                for form in self.forms.values()
-                if not form.is_valid()
-            ]
-        return confirms + errors
 
     def form_confirms(self):
+        '''
+        dates = {
+            kind: [
+                f.cleaned_data.get('date_depart')
+                for f in self.forms['transport_formset'].forms
+                if f.cleaned_data.get('date_depart', None)
+            ] for kind in ('depart', 'return')
+        }
+        '''
+
         transports = Transport.objects.filter(
             mrsrequest__insured__nir=self.forms['person'].cleaned_data['nir'],
             mrsrequest__insured__birth_date=self.forms['person'].cleaned_data['birth_date'],
-        ).distinct().select_related('mrsrequest')
+        )
 
-        trip_kind = self.forms['transport'].cleaned_data['trip_kind']
-        errors = []
+        '''
+        if self.request.POST.get('trip_kind', 'return') == 'return':
+            transports = transports.filter(
+                Q(date_depart__in=dates['depart']) |
+                Q(date_return__in=dates['return'])
+            )
+        else:
+            transports = transports.filter(
+                date_depart__in=dates['depart']
+            )
+        '''
+
+        transports = transports.distinct().select_related('mrsrequest')
+
         for form in self.forms['transport_formset'].forms:
-            # Now we deal with the formsets.
-            # we can have form with trip_kind and formset with the dates.
+            data = copy.deepcopy(form.cleaned_data)
+
             for transport in transports:
-                if form.cleaned_data.get('date_depart', None) == transport.date_depart:
+                if data['date_depart'] == transport.date_depart:
                     form.add_error(
                         'date_depart',
-                        f'Cette date est déjà dans la demande {transport.mrsrequest}',
+                        f'Deja dans demande {transport.mrsrequest}'
                     )
 
-                if trip_kind == 'simple':
+                if self.request.POST.get('trip_kind') == 'simple':
                     continue
 
-                if form.cleaned_data.get('date_return', None) == transport.date_return:
+
+                if data['date_return'] == transport.date_return:
                     form.add_error(
                         'date_return',
-                        f'Cette date est déjà dans la demande {transport.mrsrequest}',
+                        f'Deja dans demande {transport.mrsrequest}'
                     )
 
-            errors += form.errors
-
-        return errors
+        return self.form_errors()

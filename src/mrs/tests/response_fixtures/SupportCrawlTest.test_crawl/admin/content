@@ -12,7 +12,7 @@
     <title>Dashboard - MRS Admin (DEV)</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://fengyuanchen.github.io/viewerjs/css/viewer.css" />
+    <link rel="stylesheet" type="text/css" href="/static/viewer.css" />
 
     <meta name="turbolinks-root" content="/admin/">
 

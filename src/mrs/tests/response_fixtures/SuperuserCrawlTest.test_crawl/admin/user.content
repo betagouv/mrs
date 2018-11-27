@@ -79,15 +79,6 @@
         <tr>
         
             
-            <th>
-            <label>
-                <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
-                <span></span>
-            </label>
-        </th>
-            
-        
-            
             <th>Caisses</th>
             
         
@@ -124,13 +115,6 @@
     
         
         <tr class="even">
-            
-                <td>
-            <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="2" type="checkbox"/>
-                <span></span>
-            </label>
-        </td>
             
                 <td>aaaaaaa</td>
             
@@ -202,13 +186,6 @@
         
         <tr class="odd">
             
-                <td>
-            <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="3" type="checkbox"/>
-                <span></span>
-            </label>
-        </td>
-            
                 <td>bbbb</td>
             
                 <td><span class="true">✔</span></td>
@@ -278,13 +255,6 @@
     
         
         <tr class="even">
-            
-                <td>
-            <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="4" type="checkbox"/>
-                <span></span>
-            </label>
-        </td>
             
                 <td>aaaaaaa</td>
             
@@ -356,13 +326,6 @@
         
         <tr class="odd">
             
-                <td>
-            <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="5" type="checkbox"/>
-                <span></span>
-            </label>
-        </td>
-            
                 <td>aaaaaaa</td>
             
                 <td><span class="true">✔</span></td>
@@ -432,13 +395,6 @@
     
         
         <tr class="even">
-            
-                <td>
-            <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="6" type="checkbox"/>
-                <span></span>
-            </label>
-        </td>
             
                 <td>bbbb</td>
             
@@ -510,13 +466,6 @@
         
         <tr class="odd">
             
-                <td>
-            <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="7" type="checkbox"/>
-                <span></span>
-            </label>
-        </td>
-            
                 <td>bbbb</td>
             
                 <td><span class="true">✔</span></td>
@@ -586,13 +535,6 @@
     
         
         <tr class="even">
-            
-                <td>
-            <label>
-                <input data-action="change-&gt;listaction#checkboxChange" data-controller="listaction" data-pk="1" type="checkbox"/>
-                <span></span>
-            </label>
-        </td>
             
                 <td>-</td>
             

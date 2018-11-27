@@ -138,7 +138,7 @@
 
 <div class="row">
     <div class="input-field col s12 required" id="id_nir_container">
-        <input id="id_nir" maxlength="13" minlength="13" name="nir" type="text"/>
+        <input id="id_nir" max="9999999999999" min="1000000000000" name="nir" type="number"/>
         <label for="id_nir">Numéro de sécurité sociale</label>
         
     </div>
@@ -252,7 +252,7 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_expensevp_container">
-        <input id="id_expensevp" name="expensevp" step="0.01" type="number" value="0"/>
+        <input id="id_expensevp" min="0" name="expensevp" step="0.01" type="number" value="0"/>
         <label class="active" for="id_expensevp">Frais de péage et/ou transports</label>
         <div class="help-block">Somme totale des frais de péage et/ou de transport en commun (en € TTC)</div>
     </div>
@@ -261,7 +261,7 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_parking_expensevp_container">
-        <input id="id_parking_expensevp" name="parking_expensevp" step="0.01" type="number" value="0"/>
+        <input id="id_parking_expensevp" min="0" name="parking_expensevp" step="0.01" type="number" value="0"/>
         <label class="active" for="id_parking_expensevp">Frais de parking</label>
         <div class="help-block">Somme totale des frais de parking (en € TTC)</div>
     </div>
@@ -304,7 +304,7 @@
                 <div id="atp-form" style="display: none">
                       <div class="row">
     <div class="input-field col s12" id="id_expenseatp_container">
-        <input id="id_expenseatp" name="expenseatp" step="0.01" type="number" value="0"/>
+        <input id="id_expenseatp" min="0" name="expenseatp" step="0.01" type="number" value="0"/>
         <label class="active" for="id_expenseatp">Frais de transports</label>
         <div class="help-block">Somme totale des frais de transport en commun (en € TTC)</div>
     </div>

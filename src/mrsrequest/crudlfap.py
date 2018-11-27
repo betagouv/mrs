@@ -118,7 +118,7 @@ def mail_liquidation(subject, body, mrsrequest_pk):
 
 
 class MRSRequestValidateMixin(MRSRequestStatusMixin):
-    form_class = MRSRequestForm
+    fields = []
     view_label = 'Valider'
     material_icon = 'check_circle'
     color = 'green'
@@ -130,16 +130,17 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
 
     def mail_render(self, destination, part, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
-        orig_nir = mrsrequest.field_changed('nir')
-        orig_birth_date = mrsrequest.field_changed('birth_date')
+        orig = {
+            name: mrsrequest.field_changed(name)
+            for name in ('nir', 'birth_date', 'distancevp')
+        }
 
         tem = template.loader.get_template(
             'mrsrequest/{}_validation_mail_{}.txt'.format(
                 destination, part
             )
         ).render(dict(object=mrsrequest or self.object,
-                      orig_nir=orig_nir,
-                      orig_birth_date=orig_birth_date)).strip()
+                      orig=orig)).strip()
         return tem
 
     def mail_insured(self, mrsrequest=None):
@@ -191,6 +192,7 @@ class MRSRequestValidateView(MRSRequestValidateMixin, crudlfap.ObjectFormView):
 
     def form_valid(self):
         resp = super().form_valid()
+        import ipdb; ipdb.set_trace()
         self.mail_insured()
         self.mail_liquidation()
         return resp
@@ -204,6 +206,7 @@ class MRSRequestValidateObjectsView(
 
     def form_valid(self):
         resp = super().form_valid()
+        import ipdb; ipdb.set_trace()
         for obj in self.object_list:
             self.mail_insured(obj)
             self.mail_liquidation(obj)
@@ -241,7 +244,7 @@ class MRSRequestRejectView(EmailViewMixin,
 
 
 class MRSRequestProgressView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
-    form_class = MRSRequestForm
+    fields = []
     template_name = 'mrsrequest/mrsrequest_progress.html'
     view_label = 'En cours de liquidation'
     title_submit = 'Oui'
@@ -648,18 +651,88 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
 class MRSRequestUpdateView(crudlfap.UpdateView):
     allowed_groups = ['Admin', 'UPN']
-    form_class = forms.modelform_factory(
-        Person,
-        form=PersonForm,
-        fields=['nir', 'birth_date']
+    form_class = MRSRequestForm
+    extra_form_classes = dict(
+        person=forms.modelform_factory(
+            Person,
+            form=PersonForm,
+            fields=['nir', 'birth_date']
+        )
     )
-    form_class.layout = None  # cancel out material layout
+    extra_form_classes['person'].layout = None  # cancel out material layout
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = copy.deepcopy(self.object.insured)
-        kwargs['instance'].pk = None
-        return kwargs
+    def get_extra_forms(self):
+        self.extra_forms = {
+            k: v(
+                *self.extra_form_args,
+                **self.extra_form_kwargs[k],
+            )
+            for k, v in self.extra_form_classes.items()
+        }
+
+    def get_extra_form_args(self):
+        if self.request.method == 'POST':
+            self.extra_form_args = [self.request.POST]
+        else:
+            self.extra_form_args = []
+
+    def get_extra_form_kwargs(self):
+        self.extra_form_kwargs = dict(person=dict())
+        person = copy.deepcopy(self.object.insured)
+        person.pk = None
+        self.extra_form_kwargs['person']['instance'] = person
+
+    def get_extra_forms_valid(self):
+        for form in self.extra_forms.values():
+            if not form.is_valid():
+                return False
+        return True
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        if self.form.is_valid() and self.extra_forms_valid:
+            return self.form_valid()
+        else:
+            return self.form_invalid()
+
+    def get_changed_fields(self):
+        self.changed_fields = copy.copy(self.form.changed_data)
+        for form in self.extra_forms.values():
+            self.changed_fields += form.changed_data
+
+    def get_changed_data(self):
+        self.changed_data = dict()
+
+        def add_changed_data(name, form):
+            if name not in form.fields:
+                return
+
+            self.changed_data[name] = (
+                form[name].initial,
+                form.cleaned_data[name]
+            )
+
+        for name in self.changed_fields:
+            add_changed_data(name, self.form)
+
+            for form in self.extra_forms.values():
+                add_changed_data(name, form)
+
+    def get_changed_labels(self):
+        self.changed_labels = []
+
+        def add_changed_labels(form):
+            for name in form.changed_data:
+                self.changed_labels.append(
+                    form[name].label
+                )
+
+        add_changed_labels(self.form)
+        for form in self.extra_forms.values():
+            add_changed_labels(form)
 
     def form_valid(self):
         def d():
@@ -672,35 +745,26 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
                 )
             }
 
-        self.before = d()
-        self.object.insured = self.form.get_or_create()
-        self.after = d()
+        self.person_before = d()
+        self.object.insured = self.extra_forms['person'].get_or_create()
+        self.person_after = d()
 
-        if self.before != self.after:
+        if self.changed_data:
             self.object.save()
             self.log_insert()
+
         return http.HttpResponseRedirect(self.success_url)
 
-    def get_changed(self):
-        self.changed = dict()
-        for key, old in self.before.items():
-            if old != self.after[key]:
-                self.changed[key] = (old, self.after[key])
-
     def get_log_data(self):
-        return dict(changed=self.changed)
+        return dict(changed=self.changed_data)
 
     def get_log_message(self):
-        changed = []
-        if 'nir' in self.changed:
-            changed.append('NIR')
-        if 'birth_date' in self.changed:
-            changed.append('Date de naissance')
-        if len(changed) > 1:
-            msg = 'Modification de %s' % ', '.join(changed[:-1])
-            msg += f' et {changed[-1]}'
+        if len(self.changed_labels) > 1:
+            msg = 'Modification de %s' % ', '.join(self.changed_labels[:-1])
+            msg += f' et {self.changed_labels[-1]}'
         else:
-            msg = 'Modification de %s' % changed[0]
+            msg = 'Modification de %s' % self.changed_labels[0]
+
         return msg
 
     def log_insert(self):
@@ -723,6 +787,7 @@ class MRSRequestDetailView(crudlfap.DetailView):
         for name, field in f.fields.items():
             self.labels[name] = field.label
         self.labels['insured'] = 'Assuré'
+        self.labels['distancevp'] = 'KM parcourus VP'
 
 
 class MRSRequestRouter(crudlfap.Router):

@@ -136,10 +136,10 @@
         
         <tr class="even">
             
-                <td>31 oct. 2018 16:41</td>
+                <td>3 mai 2018 17:41</td>
             
                 <td>
-    <a class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis -155 jours" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1">201810310000</a>
+    <a class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 1 jours" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1">201810310000</a>
     </td>
             
                 <td>titi</td>
@@ -219,7 +219,7 @@
                 <td>2 mai 2018 17:17</td>
             
                 <td>
-    <a class="red-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 27 jours" href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2">201805020001</a>
+    <a class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 2 jours" href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2">201805020001</a>
     </td>
             
                 <td>oaeu</td>

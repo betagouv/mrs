@@ -32,6 +32,8 @@ function checkedEnables(form, mode) {
 }
 
 var formInit = function (form) {
+  var confirming = $(form).find('[name=confirm]').length
+
   // Make form ajax
   if (listen == false) {
     form.addEventListener('submit', function (e) {
@@ -45,13 +47,17 @@ var formInit = function (form) {
   }
 
   // Show/hide modes
-  for (var mode of ['vp', 'atp']) {
-    checkedEnables(form, mode)
+  if (!confirming) {
+    for (var mode of ['vp', 'atp']) {
+      checkedEnables(form, mode)
+    }
   }
 
 
   // Setup ajax attachment
-  mrsattachment(form)
+  if (!confirming) {
+    mrsattachment(form)
+  }
 
   // Show/hide mrsrequest or vote form
   document.caisses = JSON.parse(document.getElementById('caissesJson').innerHTML)
@@ -80,7 +86,9 @@ var formInit = function (form) {
     }
   }
   $caisse.change(caisseChange)
-  caisseChange()
+  if (!confirming) {
+    caisseChange()
+  }
 
   // Initialize select fields
   $(form).find('select').select()
@@ -100,7 +108,7 @@ var formInit = function (form) {
     }
   }
   $iterativeShow.on('change', iterativeShowChange)
-  iterativeShowChange()
+  confirming || iterativeShowChange()
 
   // Generate transport date fields
   var $dateRow = $('#id_transport-0-date_depart_container').parents('div.layout-row.row')
@@ -112,14 +120,16 @@ var formInit = function (form) {
       $iterativeNumber.val(1)
       i = 1
     }
+    i--  // compensate for first form that starts at 0
 
+    // remove all transport lines that have a form number above the i var
     $(form).find('[name*=-date_depart]').each(function() {
       if (parseInt($(this).attr('name').split('-')[1]) > i) {
         $(this).parents('div.layout-row.row').remove()
       }
     })
 
-    i--  // compensate for first form that starts at 0
+    // add necessary transport lines
     while(i) {
       var $existing = $(form).find('[name=transport-' + i + '-date_depart]')
       if ($existing.length) {
@@ -132,23 +142,18 @@ var formInit = function (form) {
         $(this).attr('name', $(this).attr('name').replace('-0-', `-${i}-`))
         $(this).val('')
       })
-      $newRow.find('label').append(' ' + i)
-
-      var $target = $(form).find('[name=transport-' + (i + 1) + '-date_depart]')
-      if ($target.length) {
-        $newRow.insertBefore($target.parents('div.layout-row.row'))
-      }
-      else {
-        $newRow.insertAfter(
-          $(form).find('[name*=date_depart]:last').parents('div.layout-row')
-        )
-      }
+      $newRow.find('label').append(' ' + (i + 1))
+      $newRow.insertAfter(
+        $(form).find('[name*=date_depart]:last').parents('div.layout-row')
+      )
       i--
     }
   }
   $iterativeNumber.on('input', iterativeNumberChange)
   $iterativeNumber.on('change', iterativeNumberChange)
-  iterativeNumberChange()
+  if (!confirming) {
+    iterativeNumberChange()
+  }
 
   // Expense billvps field
   var $expensevp = $(form).find('[name=expensevp]')
@@ -167,18 +172,23 @@ var formInit = function (form) {
   $expensevp.on('change', expensevpChange)
   $parking.on('input', expensevpChange)
   $parking.on('change', expensevpChange)
-  expensevpChange()
+  if (!confirming) {
+    expensevpChange()
+  }
 
   // Activate label on date inputs because they have placeholders
   $(form).find('[data-form-control="date"]').siblings('label').addClass('active')
 
   // Return date
   $(form).on('input', '[name*=depart]', function() {
-    if ($('[name=no_return]').prop('checked')) return
+    if ($('[name=trip_kind]').val() != 'return') return
 
     var retName = $(this).attr('name').replace('depart', 'return')
     var $ret = $(form).find('[name="' + retName + '"]')
-    $ret.val($(this).val())
+
+    if (! $ret.val()) {
+      $ret.val($(this).val())
+    }
   })
 
   // Simple trips
@@ -192,7 +202,9 @@ var formInit = function (form) {
       $('[name*=date_return]').parent().parent().show()
     }
   })
-  $('[name=trip_kind]').trigger('change')
+  if (!confirming) {
+    $('[name=trip_kind]').trigger('change')
+  }
 
   M.AutoInit(form)
   $(form).is(':visible') || $(form).fadeIn()

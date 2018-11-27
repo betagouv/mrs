@@ -9,10 +9,10 @@ from .models import Person
 
 
 class PersonForm(forms.ModelForm):
-    nir = forms.CharField(
+    nir = forms.IntegerField(
         label='Numéro de sécurité sociale',
-        max_length=13,
-        min_length=13,
+        min_value=1000000000000,
+        max_value=9999999999999,
     )
 
     birth_date = DateField(
