@@ -229,6 +229,9 @@ class MRSRequestCreateView(generic.TemplateView):
             # Now we deal with the formsets.
             # we can have form with trip_kind and formset with the dates.
             for transport in transports:
+                # exclude rejected requests.
+                if transport.mrsrequest.status == 999:
+                    continue
                 if form.cleaned_data.get('date_depart', None) == transport.date_depart:
                     form.add_error(
                         'date_depart',
