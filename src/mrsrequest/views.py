@@ -6,6 +6,7 @@ from django import template
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models import Q
 from django.views import generic
 from djcall.models import Caller
 from ipware import get_client_ip
@@ -163,8 +164,16 @@ class MRSRequestCreateView(generic.TemplateView):
             form.fields['date_depart'].label += f' {i}'
             form.fields['date_return'].label += f' {i}'
 
-        with transaction.atomic():
-            self.success = not self.form_errors() and self.save_mrsrequest()
+        self.success = self.confirm = False
+        if not self.form_errors():
+            confirmed = self.request.POST.get('confirm', False)
+
+            if confirmed or not self.form_confirms():
+                with transaction.atomic():
+                    self.save_mrsrequest()
+                    self.success = True
+            else:
+                self.confirm = True
 
         return generic.TemplateView.get(self, request, *args, **kwargs)
 
@@ -206,3 +215,30 @@ class MRSRequestCreateView(generic.TemplateView):
             for form in self.forms.values()
             if not form.is_valid()
         ]
+
+    def get_submitted_dates(self):
+        dates = []
+        for kind in Transport.DATES:
+            dates += [
+                f.cleaned_data.get(f'date_{kind}')
+                for f in self.forms['transport_formset'].forms
+                if f.cleaned_data.get(f'date_{kind}', None)
+            ]
+        return dates
+
+    def get_insured_transports(self, dates):
+        return Transport.objects.filter(
+            mrsrequest__insured__nir=self.forms['person'].cleaned_data['nir'],
+            mrsrequest__insured__birth_date=self.forms['person'].cleaned_data['birth_date'],
+        ).filter(
+            Q(date_depart__in=dates) | Q(date_return__in=dates)
+        ).distinct().select_related('mrsrequest')
+
+    def form_confirms(self):
+        dates = self.get_submitted_dates()
+        transports = self.get_insured_transports(dates)
+
+        for form in self.forms['transport_formset'].forms:
+            form.add_confirms(dates, transports)
+
+        return self.form_errors()

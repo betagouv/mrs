@@ -28,12 +28,14 @@
 
 <h2 class="scroll-reveal">Formulaire de remboursement</h2>
 <p class="scroll-reveal">
-    Réalisez votre demande de remboursement en ligne dès maintenant.
+   Réalisez votre demande de remboursement en ligne dès maintenant.
 </p>
 
 <div class="form--wrapper scroll-reveal">
     <form class="mrsrequest-wizard" id="mrsrequest-wizard" method="POST" style="display: none">
+
         
+
             
             <style type="text/css">
             #id_iterative_number_container {
@@ -42,7 +44,8 @@
             
             </style>
 
-                <div class="section row">
+            
+                    <div class="section row">
     <div class="col s12">
         <h5>Votre caisse d'assurance maladie</h5>
         
@@ -60,10 +63,12 @@
     </div>
 </div>
 
+            
 
             <div id="mrsrequest-form" style="display: none">
-                <div id="pmt-form">
-                    <div class="section row">
+                
+                    <div id="pmt-form">
+                        <div class="section row">
     <div class="col s12">
         <h5>Votre prescription médicale</h5>
         
@@ -89,8 +94,8 @@
     </div>
 </div>
 
-                </div>
-                
+                    </div>
+                    
 <div class="section row">
     <div class="col s12">
         <h5>Identité de la personne transportée</h5>
@@ -157,7 +162,7 @@
     </div>
 </div>
 
-                
+                    
 <div class="section row">
     <div class="col s12">
         <h5>Informations sur le transport</h5>
@@ -199,9 +204,9 @@
 </div>
 
 
-                <input id="id_transport-TOTAL_FORMS" name="transport-TOTAL_FORMS" type="hidden" value="1"/><input id="id_transport-INITIAL_FORMS" name="transport-INITIAL_FORMS" type="hidden" value="0"/><input id="id_transport-MIN_NUM_FORMS" name="transport-MIN_NUM_FORMS" type="hidden" value="0"/><input id="id_transport-MAX_NUM_FORMS" name="transport-MAX_NUM_FORMS" type="hidden" value="1000"/>
-                
+                    <input id="id_transport-TOTAL_FORMS" name="transport-TOTAL_FORMS" type="hidden" value="1"/><input id="id_transport-INITIAL_FORMS" name="transport-INITIAL_FORMS" type="hidden" value="0"/><input id="id_transport-MIN_NUM_FORMS" name="transport-MIN_NUM_FORMS" type="hidden" value="0"/><input id="id_transport-MAX_NUM_FORMS" name="transport-MAX_NUM_FORMS" type="hidden" value="1000"/>
                     
+                        
 <div class="layout-row row"><div class="col s12 m6">
 
 
@@ -224,9 +229,9 @@
 </div>
 </div></div>
 
-                
+                    
 
-                    <div class="row">
+                        <div class="row">
     <div class="checkbox-field col s12" id="id_modevp_container">
         <label>
         <input class="filled-in " id="id_modevp" name="modevp" type="checkbox"/><span for="id_modevp">Avez vous voyagé en véhicule personnel ?</span></label>
@@ -234,8 +239,8 @@
     </div>
 </div>
 
-                <div id="vp-form" style="display: none">
-                      <div class="layout-row row"><div class="col s12 m12">
+                    <div id="vp-form" style="display: none">
+                          <div class="layout-row row"><div class="col s12 m12">
 
 <div class="row">
     <div class="input-field col s12" id="id_distancevp_container">
@@ -289,11 +294,11 @@
     </div>
 </div>
 
-                </div>
+                    </div>
 
-                
+                    
 
-                    <div class="row">
+                        <div class="row">
     <div class="checkbox-field col s12" id="id_modeatp_container">
         <label>
         <input class="filled-in " id="id_modeatp" name="modeatp" type="checkbox"/><span for="id_modeatp">Avez vous voyagé en transports en commun ?</span></label>
@@ -301,8 +306,8 @@
     </div>
 </div>
 
-                <div id="atp-form" style="display: none">
-                      <div class="row">
+                    <div id="atp-form" style="display: none">
+                          <div class="row">
     <div class="input-field col s12" id="id_expenseatp_container">
         <input id="id_expenseatp" min="0" name="expenseatp" step="0.01" type="number" value="0"/>
         <label class="active" for="id_expenseatp">Frais de transports</label>
@@ -331,9 +336,9 @@
     </div>
 </div>
 
-                </div>
+                    </div>
 
-                
+                    
 <div class="row radio-field">
     <div class="col s12">
         <label class="" for="id_certify_0">Validation de la demande de remboursement</label>
@@ -347,7 +352,7 @@
 </div>
 
 
-                
+                    
 <div class="row">
     <div class="checkbox-field col s12" id="id_use_email_container">
         <label>
@@ -356,7 +361,7 @@
     </div>
 </div>
 
-
+                
             </div>
 
             <div id="caisse-form" style="display: none">
@@ -384,7 +389,9 @@
 
             <br/>
 
+            
             <button class="btn" name="_submit" type="submit">Soumettre</button>
+            
         
     </form>
 </div>

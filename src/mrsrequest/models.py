@@ -864,5 +864,7 @@ class Transport(models.Model):
         ],
     )
 
+    DATES = ('depart', 'return')
+
     class Meta:
         ordering = ['mrsrequest', 'date_depart']
