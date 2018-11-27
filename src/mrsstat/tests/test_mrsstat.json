@@ -11,7 +11,7 @@
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_validated": 0,
         "mrsrequest_total_inprogress": 4,
-        "mrsrequest_total_new": 4,
+        "mrsrequest_total_new": 5,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 2,
         "savings": null,
@@ -53,7 +53,7 @@
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_validated": 0,
         "mrsrequest_total_inprogress": 6,
-        "mrsrequest_total_new": 7,
+        "mrsrequest_total_new": 8,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 4,
         "savings": null,
@@ -74,7 +74,7 @@
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_validated": 0,
         "mrsrequest_total_inprogress": 4,
-        "mrsrequest_total_new": 4,
+        "mrsrequest_total_new": 5,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 2,
         "savings": null,
@@ -116,7 +116,7 @@
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_validated": 0,
         "mrsrequest_total_inprogress": 6,
-        "mrsrequest_total_new": 7,
+        "mrsrequest_total_new": 8,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 4,
         "savings": null,
@@ -137,7 +137,7 @@
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_validated": 2,
         "mrsrequest_total_inprogress": 3,
-        "mrsrequest_total_new": 4,
+        "mrsrequest_total_new": 5,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 2,
         "savings": "5.37",
@@ -179,7 +179,7 @@
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_validated": 2,
         "mrsrequest_total_inprogress": 5,
-        "mrsrequest_total_new": 7,
+        "mrsrequest_total_new": 8,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 4,
         "savings": "5.37",
@@ -196,11 +196,11 @@
         "insured_shifts": 0,
         "insured_shifts_total": 1,
         "mrsrequest_count_inprogress": 2,
-        "mrsrequest_count_new": 0,
+        "mrsrequest_count_new": 1,
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_validated": 0,
         "mrsrequest_total_inprogress": 3,
-        "mrsrequest_total_new": 4,
+        "mrsrequest_total_new": 5,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 0,
         "savings": null,
@@ -238,11 +238,11 @@
         "insured_shifts": 0,
         "insured_shifts_total": 1,
         "mrsrequest_count_inprogress": 4,
-        "mrsrequest_count_new": 2,
+        "mrsrequest_count_new": 3,
         "mrsrequest_count_rejected": 0,
         "mrsrequest_count_validated": 2,
         "mrsrequest_total_inprogress": 5,
-        "mrsrequest_total_new": 7,
+        "mrsrequest_total_new": 8,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 2,
         "savings": null,
@@ -317,48 +317,6 @@
 {
     "fields": {
         "caisse": null,
-        "date": "2018-10-31",
-        "institution": null,
-        "insured_shifts": 0,
-        "insured_shifts_total": 1,
-        "mrsrequest_count_inprogress": 0,
-        "mrsrequest_count_new": 1,
-        "mrsrequest_count_rejected": 0,
-        "mrsrequest_count_validated": 0,
-        "mrsrequest_total_inprogress": 6,
-        "mrsrequest_total_new": 8,
-        "mrsrequest_total_rejected": 1,
-        "mrsrequest_total_validated": 4,
-        "savings": null,
-        "validation_average_delay": null
-    },
-    "model": "mrsstat.stat",
-    "pk": 16
-},
-{
-    "fields": {
-        "caisse": 1,
-        "date": "2018-10-31",
-        "institution": null,
-        "insured_shifts": 0,
-        "insured_shifts_total": 1,
-        "mrsrequest_count_inprogress": 0,
-        "mrsrequest_count_new": 1,
-        "mrsrequest_count_rejected": 0,
-        "mrsrequest_count_validated": 0,
-        "mrsrequest_total_inprogress": 4,
-        "mrsrequest_total_new": 5,
-        "mrsrequest_total_rejected": 1,
-        "mrsrequest_total_validated": 2,
-        "savings": null,
-        "validation_average_delay": null
-    },
-    "model": "mrsstat.stat",
-    "pk": 17
-},
-{
-    "fields": {
-        "caisse": null,
         "date": "2018-05-01",
         "institution": null,
         "insured_shifts": 0,
@@ -375,7 +333,7 @@
         "validation_average_delay": null
     },
     "model": "mrsstat.stat",
-    "pk": 18
+    "pk": 16
 },
 {
     "fields": {
@@ -396,7 +354,7 @@
         "validation_average_delay": null
     },
     "model": "mrsstat.stat",
-    "pk": 19
+    "pk": 17
 },
 {
     "fields": {
@@ -417,6 +375,6 @@
         "validation_average_delay": null
     },
     "model": "mrsstat.stat",
-    "pk": 20
+    "pk": 18
 }
 ]

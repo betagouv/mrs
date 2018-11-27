@@ -10,7 +10,7 @@ from responsediff.test import ResponseDiffTestMixin
 
 
 class FrontCrawlTest(ResponseDiffTestMixin, test.TestCase):
-    @freeze_time('2018-05-30 13:37:42')  # forward compat and bichon <3
+    @freeze_time('2018-05-05 13:37:42')
     def test_crawl(self):
         self.assertWebsiteSame(selector='#app--wrapper')
 
@@ -21,17 +21,14 @@ class FrontCrawlTest(ResponseDiffTestMixin, test.TestCase):
 
 
 class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):
-    fixtures = ['src/mrs/tests/data.json']
+    fixtures = [
+        'src/mrs/tests/data.json',
+        'src/mrsstat/tests/test_mrsstat.json',
+    ]
     username = 'a'
     strip_parameters = ['_next']
 
-    def setUp(self):
-        from mrsstat.models import update_stat_for_mrsrequest
-        for m in MRSRequest.objects.all():
-            update_stat_for_mrsrequest(pk=m.pk)
-        super().setUp()
-
-    @freeze_time('2018-05-30 13:37:42')  # forward compat and bichon <3
+    @freeze_time('2018-05-05 13:37:42')
     def test_crawl(self):
         client = test.Client()
         client.force_login(User.objects.get(username=self.username))
