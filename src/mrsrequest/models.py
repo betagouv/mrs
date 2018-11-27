@@ -718,6 +718,7 @@ def initial_data(sender, instance, **kwargs):
             'birth_date',
         )
     }
+    instance.data['distancevp'] = instance.distancevp
 signals.pre_save.connect(initial_data, sender=MRSRequest)
 
 

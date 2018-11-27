@@ -130,16 +130,17 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
 
     def mail_render(self, destination, part, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
-        orig_nir = mrsrequest.field_changed('nir')
-        orig_birth_date = mrsrequest.field_changed('birth_date')
+        orig = {
+            name: mrsrequest.field_changed(name)
+            for name in ('nir', 'birth_date', 'distancevp')
+        }
 
         tem = template.loader.get_template(
             'mrsrequest/{}_validation_mail_{}.txt'.format(
                 destination, part
             )
         ).render(dict(object=mrsrequest or self.object,
-                      orig_nir=orig_nir,
-                      orig_birth_date=orig_birth_date)).strip()
+                      orig=orig)).strip()
         return tem
 
     def mail_insured(self, mrsrequest=None):
