@@ -100,7 +100,7 @@
             
         
             
-            <th class="asc orderable"><a href="?status=1&amp;sort=-creation_datetime">Date et heure de la demande</a></th>
+            <th class="orderable asc"><a href="?status=1&amp;sort=-creation_datetime">Date et heure de la demande</a></th>
             
         
             
@@ -147,10 +147,10 @@
             
                 <td></td>
             
-                <td>31 oct. 2018 16:41</td>
+                <td>3 mai 2018 17:41</td>
             
                 <td>
-    <a class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis -155 jours" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1">201810310000</a>
+    <a class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 1 jours" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1">201810310000</a>
     </td>
             
                 <td>titi</td>
