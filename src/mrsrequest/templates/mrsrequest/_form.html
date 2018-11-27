@@ -6,22 +6,26 @@
 
 <h2 class="scroll-reveal">Formulaire de remboursement</h2>
 <p class="scroll-reveal">
-    Réalisez votre demande de remboursement en ligne dès maintenant.
+   Réalisez votre demande de remboursement en ligne dès maintenant.
 </p>
 
 <div class="form--wrapper scroll-reveal">
     <form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
+
         {% if view.success %}
         <div class="card-panel teal lighten-4">
             Merci pour votre demande ! Nous reviendrons vers vous dès que possible.
             <br />
             <a data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}">Cliquez ici pour faire une nouvelle demande.</a>
         </div>
+
         {% elif view.success_caisse %}
         <div class="card-panel teal lighten-4">
             Merci pour votre intérêt ! Nous reviendrons vers vous dès que votre caisse entrera dans le dispositif MRS
         </div>
+
         {% else %}
+
             {% comment %}
             in my tests, moving this elsewhere causes view.forms.mrsrequest.errors.pmt to
             always be empty, bug needs isolation and upstream report prolly
@@ -40,53 +44,72 @@
 
             {% csrf_token %}
 
-            {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.above %}
-            {% endform %}
+            {% if not view.confirm %}
+                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.above %}
+                {% endform %}
+            {% endif %}
 
             <div id="mrsrequest-form" style="display: none">
-                <div id="pmt-form">
-                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.top %}
-                {% endform %}
-                </div>
-                {% form form=view.forms.person layout=view.forms.person.layout %}
-                {% endform %}
-                {% form form=view.forms.transport layout=view.forms.transport.layout %}
-                {% endform %}
+                {% if view.confirm %}
+                    {% for name, value in request.POST.items %}
+                        {% if 'transport-' not in name and 'csrfmiddlewaretoken' not in name %}
+                        <input type="hidden" name="{{ name }}" value="{{ value }}" />
+                        {% endif %}
+                    {% endfor %}
 
-                {{ view.forms.transport_formset.management_form }}
-                {% for subform in view.forms.transport_formset %}
-                    {% form form=subform layout=subform.layout %}
+                    {{ view.forms.transport_formset.management_form }}
+                    {% for subform in view.forms.transport_formset %}
+                        {% form form=subform layout=subform.layout %}
+                        {% endform %}
+                    {% endfor %}
+
+                    {% form form=view.forms.certify %}
                     {% endform %}
-                {% endfor %}
 
-                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modevp %}{% endform %}
-                <div id="vp-form" style="display: none">
-                  {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.vp_form %}{% endform %}
-                </div>
+                {% else %}
+                    <div id="pmt-form">
+                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.top %}
+                    {% endform %}
+                    </div>
+                    {% form form=view.forms.person layout=view.forms.person.layout %}
+                    {% endform %}
+                    {% form form=view.forms.transport layout=view.forms.transport.layout %}
+                    {% endform %}
 
-                {% comment %}
-                Please forgive the paste of the same 4 lines as above, below
-                this comment. This is what we could do to refactor it in Jinja2:
+                    {{ view.forms.transport_formset.management_form }}
+                    {% for subform in view.forms.transport_formset %}
+                        {% form form=subform layout=subform.layout %}
+                        {% endform %}
+                    {% endfor %}
 
-                {% for i in ['vp', 'tc'] %}
- '_enable'] %}{% endform %}
-                <div class="#{{ i }}-form">
- '_form'] %}{% endform %}
-                </div>
-                {% endfor %}
-                {% endcomment %}
+                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modevp %}{% endform %}
+                    <div id="vp-form" style="display: none">
+                      {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.vp_form %}{% endform %}
+                    </div>
 
-                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modeatp %}{% endform %}
-                <div id="atp-form" style="display: none">
-                  {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.atp_form %}{% endform %}
-                </div>
+                    {% comment %}
+                    Please forgive the paste of the same 4 lines as above, below
+                    this comment. This is what we could do to refactor it in Jinja2:
 
-                {% form form=view.forms.certify %}
-                {% endform %}
+                    {% for i in ['vp', 'tc'] %}
+ '_enable'] %}       endform %}
+                    <div class="#{{ i }}-form">
+ '_form'] %}{%      ndform %}
+                    </div>
+                    {% endfor %}
+                    {% endcomment %}
 
-                {% form form=view.forms.use_email %}
-                {% endform %}
+                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modeatp %}{% endform %}
+                    <div id="atp-form" style="display: none">
+                      {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.atp_form %}{% endform %}
+                    </div>
 
+                    {% form form=view.forms.certify %}
+                    {% endform %}
+
+                    {% form form=view.forms.use_email %}
+                    {% endform %}
+                {% endif %}
             </div>
 
             <div id="caisse-form" style="display: none">
@@ -95,7 +118,11 @@
 
             <br />
 
+            {% if view.confirm %}
+            <button type="submit" name="confirm" class="btn">Confirmer</button>
+            {% else %}
             <button type="submit" name="_submit" class="btn">Soumettre</button>
+            {% endif %}
         {% endif %}
     </form>
 </div>
