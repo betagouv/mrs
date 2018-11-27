@@ -112,14 +112,17 @@ var formInit = function (form) {
       $iterativeNumber.val(1)
       i = 1
     }
+    i--  // compensate for first form that starts at 0
 
+    // remove all transport lines that have a form number above the i var
     $(form).find('[name*=-date_depart]').each(function() {
       if (parseInt($(this).attr('name').split('-')[1]) > i) {
         $(this).parents('div.layout-row.row').remove()
       }
     })
 
-    while(i > 1) {
+    // add necessary transport lines
+    while(i) {
       var $existing = $(form).find('[name=transport-' + i + '-date_depart]')
       if ($existing.length) {
         i--
@@ -131,17 +134,10 @@ var formInit = function (form) {
         $(this).attr('name', $(this).attr('name').replace('-0-', `-${i}-`))
         $(this).val('')
       })
-      $newRow.find('label').append(' ' + i)
-
-      var $target = $(form).find('[name=transport-' + (i + 1) + '-date_depart]')
-      if ($target.length) {
-        $newRow.insertBefore($target.parents('div.layout-row.row'))
-      }
-      else {
-        $newRow.insertAfter(
-          $(form).find('[name*=date_depart]:last').parents('div.layout-row')
-        )
-      }
+      $newRow.find('label').append(' ' + (i + 1))
+      $newRow.insertAfter(
+        $(form).find('[name*=date_depart]:last').parents('div.layout-row')
+      )
       i--
     }
   }

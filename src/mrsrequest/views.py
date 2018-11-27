@@ -142,18 +142,24 @@ class MRSRequestCreateView(generic.TemplateView):
         self.forms['transport'] = TransportIterativeForm(
             request.POST,
         )
+
         transport_formset_data = request.POST.copy()
-        transport_formset_data['transport-TOTAL_FORMS'] = request.POST.get(
-            'iterative_number', 1)
-        transport_formset_data['transport-INITIAL_FORMS'] = 0
-        transport_formset_data['transport-MIN_NUM_FORMS'] = 1
-        transport_formset_data['transport-MAX_NUM_FORMS'] = 100
+        for i in ['total', 'initial', 'min_num', 'max_num']:
+            key = f'transport-{i.upper()}_FORMS'
+            transport_formset_data[key] = request.POST.get(
+                'iterative_number', 1)
 
         self.forms['transport_formset'] = TransportFormSet(
             transport_formset_data,
             prefix='transport',
         )
-        for i, form in enumerate(self.forms['transport_formset'], start=1):
+
+        transport_forms = self.forms['transport_formset'].forms
+        for i, form in enumerate(transport_forms, start=1):
+            form.empty_permitted = False
+            if self.request.POST.get('trip_kind', 'return') == 'return':
+                form.fields['date_return'].required = True
+
             form.fields['date_depart'].label += f' {i}'
             form.fields['date_return'].label += f' {i}'
 
@@ -196,7 +202,7 @@ class MRSRequestCreateView(generic.TemplateView):
 
     def form_errors(self):
         return [
-            (form.errors, form.non_field_errors)
+            (form.errors, getattr(form, 'non_field_errors', []))
             for form in self.forms.values()
             if not form.is_valid()
         ]

@@ -299,7 +299,7 @@ class MRSRequestCreateForm(forms.ModelForm):
 
 
 class TransportForm(forms.Form):
-    date_depart = DateField(label='Date de l\'aller')
+    date_depart = DateField(label='Date de l\'aller', required=True)
     date_return = DateField(label='Date de retour', required=False)
 
     layout = material.Layout(
