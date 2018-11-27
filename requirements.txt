@@ -1,4 +1,4 @@
-clilabs>=1.1
+clilabs
 django>=2.1,<2.2
 dj-static
 django-webpack-loader
@@ -10,7 +10,7 @@ raven
 requests
 django-humanize==0.1.2
 django-ipware==2.0.1
-crudlfap>=0.7.20,<0.8
+crudlfap>=0.7.21,<0.8
 sqlparse
 holidays
 chardet

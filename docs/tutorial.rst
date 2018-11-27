@@ -184,7 +184,7 @@ Pour charger en DB::
     sudo -u postgres dropdb mrs
     sudo -u postgres createdb -E utf8 -O $USER mrs
     mrs migrate
-    clilabs +django:delete contenttypes.ContentType
+    djcli delete contenttypes.ContentType
     mrs loaddata src/mrs/tests/data.json
 
 Pour sauvegarder la db dans le fichier de data, on veut grosso modo mettre a
