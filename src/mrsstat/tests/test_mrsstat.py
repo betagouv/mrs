@@ -5,14 +5,18 @@ from freezegun import freeze_time
 
 from person.models import Person
 from mrsrequest.models import MRSRequest
-from mrsstat.models import update_stat_for_mrsrequest, stat_update_person, Stat
+from mrsstat.models import (
+    update_stat_for_mrsrequest,
+    stat_update_person,
+    Stat,
+)
 
 
 class StatTest(test.TransactionTestCase):
     reset_sequences = True
     fixtures = ['src/mrs/tests/data.json']
 
-    @freeze_time('2018-05-06 13:37:42')  # forward compat and bichon <3
+    @freeze_time('2018-05-06 13:37:42')
     def test_mrsstat(self):
         Stat.objects.create_missing()
 
@@ -26,8 +30,9 @@ class StatTest(test.TransactionTestCase):
         ).assertNoDiff()
 
 
+@freeze_time('2018-05-06 13:37:42')
 @pytest.mark.django_db
-def test_stat_update_person_shifted():
+def test_stat_update():
     Fixture('mrs/tests/data.json').load()
     req = MRSRequest.objects.get(display_id=201805020002)
     assert req, 'MRSRequest with saving required for this test !'
@@ -38,3 +43,25 @@ def test_stat_update_person_shifted():
     stat_update_person(Person, instance=req.insured)
     req.refresh_from_db()
     assert f'{req.saving}' == '5.37'
+
+    stats = Stat.objects.filter(
+        date=req.status_datetime.date(),
+        caisse__in=(req.caisse, None),
+    )
+    for stat in stats:
+        assert str(stat.savings) == '5.37'
+
+    req.distancevp *= 2
+    req.save()
+    req.refresh_from_db()
+    assert f'{req.saving}' == '12.74'
+
+    # test that it refreshed stats !
+    update_stat_for_mrsrequest(pk=req.pk)
+
+    stats = Stat.objects.filter(
+        date=req.status_datetime.date(),
+        caisse__in=(req.caisse, None),
+    )
+    for stat in stats:
+        assert str(stat.savings) == '12.74'

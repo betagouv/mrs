@@ -45,6 +45,10 @@ def to_date_datetime(date_or_datetime, hour, minute, second, microsecond):
     )
 
 
+def datetime_date(date):
+    return datetime_min(date).date()
+
+
 def datetime_min(date):
     return to_date_datetime(date, 0, 0, 0, 0)
 
