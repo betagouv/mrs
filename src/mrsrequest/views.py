@@ -233,9 +233,14 @@ class MRSRequestCreateView(generic.TemplateView):
                 if transport.mrsrequest.status == 999:
                     continue
                 if form.cleaned_data.get('date_depart', None) == transport.date_depart:
+                    if transport.mrsrequest.status in [1, 1000]:
+                        msg = f'Votre demande de prise en charge pour ce trajet est en cours de traitement.'
+                    elif transport.mrsrequest.status == 2000:
+                        msg = f'Ce trajet vous a été réglé lors de la demande du {transport.mrsrequest} n° {transport.mrsrequest_id}'
+                    msg += ' Merci de modifier si nécessaire votre déclaration avant de valider votre demande.'
                     form.add_error(
                         'date_depart',
-                        f'Cette date est déjà dans la demande {transport.mrsrequest}',
+                        msg
                     )
 
                 if trip_kind == 'simple':
