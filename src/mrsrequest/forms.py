@@ -1,3 +1,4 @@
+import copy
 from decimal import Decimal
 
 from django import forms
@@ -10,7 +11,7 @@ from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 
-from .models import BillATP, BillVP, MRSRequest, PMT
+from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
 
 class MRSRequestCreateForm(forms.ModelForm):
@@ -322,6 +323,32 @@ class TransportForm(forms.Form):
             )
 
         return cleaned_data
+
+    def add_confirms(self, dates, transports):
+        data = copy.deepcopy(self.cleaned_data)
+        duplicates = {k: [] for k in Transport.DATES}
+
+        for transport in transports:
+            for kind in Transport.DATES:
+                date = data.get(f'date_{kind}', None)
+
+                if date == transport.date_depart or (
+                        date and transport.date_return == date):
+
+                    display_id = str(transport.mrsrequest.display_id)
+                    if display_id in duplicates[kind]:
+                        continue
+
+                    duplicates[kind].append(display_id)
+
+        for kind in Transport.DATES:
+            if not duplicates[kind]:
+                continue
+
+            self.add_error(
+                f'date_{kind}',
+                f'La date est dans: {", ".join(duplicates[kind])}',
+            )
 
 
 TransportFormSet = forms.formset_factory(TransportForm)

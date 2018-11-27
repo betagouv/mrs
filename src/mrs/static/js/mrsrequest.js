@@ -32,6 +32,8 @@ function checkedEnables(form, mode) {
 }
 
 var formInit = function (form) {
+  var confirming = $(form).find('[name=confirm]').length
+
   // Make form ajax
   if (listen == false) {
     form.addEventListener('submit', function (e) {
@@ -45,13 +47,17 @@ var formInit = function (form) {
   }
 
   // Show/hide modes
-  for (var mode of ['vp', 'atp']) {
-    checkedEnables(form, mode)
+  if (!confirming) {
+    for (var mode of ['vp', 'atp']) {
+      checkedEnables(form, mode)
+    }
   }
 
 
   // Setup ajax attachment
-  mrsattachment(form)
+  if (!confirming) {
+    mrsattachment(form)
+  }
 
   // Show/hide mrsrequest or vote form
   document.caisses = JSON.parse(document.getElementById('caissesJson').innerHTML)
@@ -80,7 +86,7 @@ var formInit = function (form) {
     }
   }
   $caisse.change(caisseChange)
-  caisseChange()
+  confirming || caisseChange()
 
   // Initialize select fields
   $(form).find('select').select()
@@ -100,7 +106,7 @@ var formInit = function (form) {
     }
   }
   $iterativeShow.on('change', iterativeShowChange)
-  iterativeShowChange()
+  confirming || iterativeShowChange()
 
   // Generate transport date fields
   var $dateRow = $('#id_transport-0-date_depart_container').parents('div.layout-row.row')
@@ -143,7 +149,7 @@ var formInit = function (form) {
   }
   $iterativeNumber.on('input', iterativeNumberChange)
   $iterativeNumber.on('change', iterativeNumberChange)
-  iterativeNumberChange()
+  confirming || iterativeNumberChange()
 
   // Expense billvps field
   var $expensevp = $(form).find('[name=expensevp]')
@@ -162,18 +168,21 @@ var formInit = function (form) {
   $expensevp.on('change', expensevpChange)
   $parking.on('input', expensevpChange)
   $parking.on('change', expensevpChange)
-  expensevpChange()
+  confirming || expensevpChange()
 
   // Activate label on date inputs because they have placeholders
   $(form).find('[data-form-control="date"]').siblings('label').addClass('active')
 
   // Return date
   $(form).on('input', '[name*=depart]', function() {
-    if ($('[name=no_return]').prop('checked')) return
+    if ($('[name=trip_kind]').val() != 'return') return
 
     var retName = $(this).attr('name').replace('depart', 'return')
     var $ret = $(form).find('[name="' + retName + '"]')
-    $ret.val($(this).val())
+
+    if (! $ret.val()) {
+      $ret.val($(this).val())
+    }
   })
 
   // Simple trips
@@ -187,10 +196,15 @@ var formInit = function (form) {
       $('[name*=date_return]').parent().parent().show()
     }
   })
-  $('[name=trip_kind]').trigger('change')
+  confirming || $('[name=trip_kind]').trigger('change')
 
   M.AutoInit(form)
   $(form).is(':visible') || $(form).fadeIn()
+  if (confirming) {
+    var f = $(form).find('#mrsrequest-form')
+    f.is(':visible') || f.fadeIn()
+  }
+
   // compensate for https://github.com/Dogfalo/materialize/issues/6049
   for (let select of document.querySelectorAll('select.invalid')) {
     try {
