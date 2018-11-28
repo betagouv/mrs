@@ -320,31 +320,34 @@ class TransportForm(forms.Form):
 
         return cleaned_data
 
-    def add_confirms(self, dates, transports):
+    def add_confirms(self, transports):
+        """
+        Actually add_errors under date_depart, that should be visualized
+        as confirms.
+        """
+        MSG_EN_COURS = 'Votre demande de prise en charge pour ce trajet est en cours de traitement.'
+        MSG_DEJA_REGLE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}'
         data = copy.deepcopy(self.cleaned_data)
-        duplicates = {k: [] for k in Transport.DATES}
 
         for transport in transports:
-            for kind in Transport.DATES:
-                date = data.get(f'date_{kind}', None)
+            date = data.get('date_depart')
+            if date == transport.date_depart:
+                if transport.mrsrequest.status in [1, 1000]:
+                    msg = MSG_EN_COURS
+                elif transport.mrsrequest.status == 2000:
+                    msg = MSG_DEJA_REGLE.format(
+                        transport.mrsrequest,
+                        transport.mrsrequest_id,
+                    )
 
-                if date == transport.date_depart or (
-                        date and transport.date_return == date):
+                # xxx: faire apparaitre une seule fois:
+                # msg += ' Merci de modifier si nécessaire votre déclaration avant de valider votre demande.'
+                self.add_error(
+                    'date_depart',
+                    msg
+                )
 
-                    display_id = str(transport.mrsrequest.display_id)
-                    if display_id in duplicates[kind]:
-                        continue
-
-                    duplicates[kind].append(display_id)
-
-        for kind in Transport.DATES:
-            if not duplicates[kind]:
-                continue
-
-            self.add_error(
-                f'date_{kind}',
-                f'La date est dans: {", ".join(duplicates[kind])}',
-            )
+        return True
 
 
 TransportFormSet = forms.formset_factory(TransportForm)

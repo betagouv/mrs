@@ -239,6 +239,6 @@ class MRSRequestCreateView(generic.TemplateView):
         transports = self.get_insured_transports(dates)
 
         for form in self.forms['transport_formset'].forms:
-            form.add_confirms(dates, transports)
+            form.add_confirms(transports)
 
         return self.form_errors()
