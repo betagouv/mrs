@@ -31,6 +31,11 @@ function checkedEnables(form, mode) {
   change()
 }
 
+function get_confirming(form) {
+    var confirming = $(form).find('[name=confirm]').length
+    return confirming
+}
+
 var formInit = function (form) {
   var confirming = $(form).find('[name=confirm]').length
 
@@ -263,8 +268,11 @@ var formSubmit = function(form) {
         var $error = $('.has-error')
         if ($error.length) {
           // show error overlay
-          var errorMsg = 'Le formulaire contient une ou plusieurs erreurs'
-          submitUi.showSubmitError(errorMsg, () => {
+          var confirming = get_confirming(newform)
+          const errorMsg = 'Le formulaire contient une ou plusieurs erreurs'
+          const confirmMsg = 'Merci de confirmer vos dates de transport.'
+          var msg = confirming ? confirmMsg : errorMsg
+          submitUi.showSubmitError(msg, () => {
             submitUi.hideOverlay() // hide overlay
 
             $('html, body').animate({
