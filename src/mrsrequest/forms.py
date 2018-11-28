@@ -12,10 +12,11 @@ from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateField
 from mrsattachment.forms import MRSAttachmentField
 
-from .models import BillATP, BillVP, MRSRequest, PMT, Transport
+from .models import BillATP, BillVP, MRSRequest, PMT
 
 
 DATE_FORMAT_FRENCH = '%d-%m-%Y'
+
 
 class MRSRequestCreateForm(forms.ModelForm):
     # do not trust this field, it's used for javascript and checked

@@ -6,7 +6,6 @@ from django import template
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.db.models import Q
 from django.views import generic
 from djcall.models import Caller
 from ipware import get_client_ip
