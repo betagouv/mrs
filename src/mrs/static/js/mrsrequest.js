@@ -272,6 +272,7 @@ var formSubmit = function(form) {
           const errorMsg = 'Le formulaire contient une ou plusieurs erreurs'
           const confirmMsg = 'Merci de confirmer vos dates de transport.'
           var msg = confirming.length ? confirmMsg : errorMsg
+          confirming.length && $('#subtitle').html(confirmMsg)
           submitUi.showSubmitError(msg, () => {
             submitUi.hideOverlay() // hide overlay
 

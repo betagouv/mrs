@@ -27,7 +27,7 @@
 </script>
 
 <h2 class="scroll-reveal">Formulaire de remboursement</h2>
-<p class="scroll-reveal">
+<p class="scroll-reveal" id="subtitle">
    Réalisez votre demande de remboursement en ligne dès maintenant.
 </p>
 
