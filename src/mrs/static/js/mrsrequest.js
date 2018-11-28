@@ -32,8 +32,8 @@ function checkedEnables(form, mode) {
 }
 
 function get_confirming(form) {
-    var confirming = $(form).find('[name=confirm]').length
-    return confirming
+  var confirming = $(form).find('[name=confirm]')
+  return confirming
 }
 
 var formInit = function (form) {
@@ -271,7 +271,7 @@ var formSubmit = function(form) {
           var confirming = get_confirming(newform)
           const errorMsg = 'Le formulaire contient une ou plusieurs erreurs'
           const confirmMsg = 'Merci de confirmer vos dates de transport.'
-          var msg = confirming ? confirmMsg : errorMsg
+          var msg = confirming.length ? confirmMsg : errorMsg
           submitUi.showSubmitError(msg, () => {
             submitUi.hideOverlay() // hide overlay
 
@@ -280,6 +280,12 @@ var formSubmit = function(form) {
               scrollTop: $error.offset().top - 60 + 'px'
             }, 'fast')
           })
+
+          // Change error class to warning.
+          if (confirming.length) {
+            $('.error').attr('class', 'warning')
+          }
+
         } else {
           document.querySelector('html').dispatchEvent(
             new CustomEvent(
