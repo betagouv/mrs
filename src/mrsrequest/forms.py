@@ -1,4 +1,5 @@
 import copy
+import datetime
 from decimal import Decimal
 
 from django import forms
@@ -13,6 +14,8 @@ from mrsattachment.forms import MRSAttachmentField
 
 from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
+
+DATE_FORMAT_FRENCH = '%d-%m-%Y'
 
 class MRSRequestCreateForm(forms.ModelForm):
     # do not trust this field, it's used for javascript and checked
@@ -325,8 +328,8 @@ class TransportForm(forms.Form):
         Actually add_errors under date_depart, that should be visualized
         as confirms.
         """
-        MSG_EN_COURS = 'Votre demande de prise en charge pour ce trajet est en cours de traitement.'
-        MSG_DEJA_REGLE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}'
+        MSG_EN_COURS = 'Votre demande de prise en charge pour ce trajet est en cours de traitement. '
+        MSG_DEJA_REGLE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}. '
         displayed_en_cours = False
 
         data = copy.deepcopy(self.cleaned_data)
@@ -337,15 +340,19 @@ class TransportForm(forms.Form):
                 if transport.mrsrequest.status in [1, 1000]:
                     msg = MSG_EN_COURS
                     if not displayed_en_cours:
+                        displayed_en_cours = True
                         self.add_error(
                             'date_depart',
                             msg
                         )
-                        displayed_en_cours = True
                 elif transport.mrsrequest.status == 2000:
+                    date = datetime.datetime.strftime(
+                        transport.mrsrequest.creation_datetime,
+                        DATE_FORMAT_FRENCH
+                    )
                     msg = MSG_DEJA_REGLE.format(
-                        transport.mrsrequest,
-                        transport.mrsrequest_id,
+                        date,
+                        transport.mrsrequest.display_id,
                     )
                     self.add_error(
                         'date_depart',
