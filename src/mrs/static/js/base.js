@@ -1,5 +1,5 @@
 import ScrollReveal from 'scrollreveal'
-import 'materialize-css/sass/materialize.scss'
+import 'mrsmaterialize/sass/materialize.scss'
 import '../sass/base.sass'
 import '../sass/landing.sass'
 import '../sass/base.sass'
@@ -10,7 +10,7 @@ import '../sass/faq.sass'
 import '../sass/caroussel.sass'
 import './mrsrequest'
 import './contact'
-import M from 'materialize-css'
+import M from 'mrsmaterialize'
 
 // Preact imports
 import { h as React, render } from 'preact'

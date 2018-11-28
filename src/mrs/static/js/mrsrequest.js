@@ -2,7 +2,7 @@ import $ from 'jquery'
 import Cookie from 'js-cookie'
 import mrsattachment from './mrsattachment'
 import SubmitUi from './submit-ui'
-import M from 'materialize-css'
+import M from 'mrsmaterialize'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
 (function () {

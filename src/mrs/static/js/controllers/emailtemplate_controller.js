@@ -1,5 +1,5 @@
 import { Controller } from 'stimulus'
-import M from 'materialize-css'
+import M from 'mrsmaterialize'
 
 export default class extends Controller {
   change() {

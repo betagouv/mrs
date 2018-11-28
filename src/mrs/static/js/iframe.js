@@ -2,8 +2,8 @@
 import '../sass/form.sass'
 import Cookie from 'js-cookie'
 import './mrsrequest'
-import 'materialize-css/sass/materialize.scss'
-import M from 'materialize-css'
+import 'mrsmaterialize/sass/materialize.scss'
+import M from 'mrsmaterialize'
 
 window.addEventListener('message', receiveMessage, false)
 
