@@ -30,21 +30,21 @@ textarea {
   </head>
 
   <body class="full-width">
-    <div id="main-loader" class="turbolinks-progress-bar">
-  <div class="preloader-wrapper big active">
-    <div class="spinner-layer spinner-blue-only">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div>
-      <div class="gap-patch">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
+    <div id="main-loader" class="loader-container turbolinks-progress-bar">
+      <div class="preloader-wrapper big active">
+  <div class="spinner-layer spinner-blue-only">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div>
+    <div class="gap-patch">
+      <div class="circle"></div>
+    </div>
+    <div class="circle-clipper right">
+      <div class="circle"></div>
     </div>
   </div>
 </div>
+    </div>
     <ul id="slide-out" class="sidenav sidenav-fixed">
   <li class="no-padding active"><a href="/admin/">Accueil</a></li>
   <li class="no-padding">
