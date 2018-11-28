@@ -35,6 +35,9 @@
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
+                <div class="card-title">
+                    Suivi du dossier
+                </div>
                 
                 <div data-action="click-&gt;modal#childmodal" data-controller="modal">
                     <div class="childmodal" style="display: none">
@@ -46,7 +49,7 @@
                             <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
                         </div>
                     </div>
-                    <div class="card-title " style="">
+                    <div class="" style="">
                         Possibilité de trajets itératifs
                     </div>
                 </div>
@@ -55,7 +58,7 @@
                     test
                 </span>
                 
-                <div><div class=" green-text" style="">
+                <div><div class="green-text" style="">
                         Validée
                     </div>
                 </div>
@@ -64,7 +67,7 @@
                     test
                 </span>
                 
-                <div><div class=" yellow-text text-darken-3" style="">
+                <div><div class="yellow-text text-darken-3" style="">
                         En cours de liquidation
                     </div>
                 </div>

@@ -110,6 +110,9 @@
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
+                <div class="card-title">
+                    Suivi du dossier
+                </div>
                 {% for entry in entries %}
                 <div
                     {% if entry.data %}
@@ -167,7 +170,7 @@
                     {% endif -%}
 
                     <div
-                        class="{% if loop.index == 1 %}card-title{% endif %} {% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}"
+                        class="{% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}"
                         style="{% if loop.index == 1 and entry.action == 2 %} cursor: pointer {% endif %}"
                     >
                         {{ entry.comment }}
