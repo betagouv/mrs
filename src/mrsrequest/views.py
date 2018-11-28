@@ -231,7 +231,7 @@ class MRSRequestCreateView(generic.TemplateView):
             mrsrequest__insured__nir=self.forms['person'].cleaned_data['nir'],
             mrsrequest__insured__birth_date=self.forms['person'].cleaned_data['birth_date'],
         ).filter(
-            Q(date_depart__in=dates) | Q(date_return__in=dates)
+            date_depart__in=dates
         ).distinct().select_related('mrsrequest')
 
     def form_confirms(self):
