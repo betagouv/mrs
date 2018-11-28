@@ -327,6 +327,8 @@ class TransportForm(forms.Form):
         """
         MSG_EN_COURS = 'Votre demande de prise en charge pour ce trajet est en cours de traitement.'
         MSG_DEJA_REGLE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}'
+        displayed_en_cours = False
+
         data = copy.deepcopy(self.cleaned_data)
 
         for transport in transports:
@@ -334,18 +336,24 @@ class TransportForm(forms.Form):
             if date == transport.date_depart:
                 if transport.mrsrequest.status in [1, 1000]:
                     msg = MSG_EN_COURS
+                    if not displayed_en_cours:
+                        self.add_error(
+                            'date_depart',
+                            msg
+                        )
+                        displayed_en_cours = True
                 elif transport.mrsrequest.status == 2000:
                     msg = MSG_DEJA_REGLE.format(
                         transport.mrsrequest,
                         transport.mrsrequest_id,
                     )
+                    self.add_error(
+                        'date_depart',
+                        msg
+                    )
 
                 # xxx: faire apparaitre une seule fois:
                 # msg += ' Merci de modifier si nécessaire votre déclaration avant de valider votre demande.'
-                self.add_error(
-                    'date_depart',
-                    msg
-                )
 
         return True
 
