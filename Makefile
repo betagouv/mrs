@@ -11,6 +11,9 @@ test:
 qa:
 	tox -e qa
 
+jsqa:
+	yarn run lint
+
 run:
 	DEBUG=1 DB_NAME=mrs_test DB_ENGINE=django.db.backends.postgresql mrs runserver
 
