@@ -359,9 +359,6 @@ class TransportForm(forms.Form):
                         msg
                     )
 
-                # xxx: faire apparaitre une seule fois:
-                # msg += ' Merci de modifier si nécessaire votre déclaration avant de valider votre demande.'
-
         return True
 
 
