@@ -39,7 +39,7 @@
                     Suivi du dossier
                 </div>
                 
-                <div data-action="click-&gt;modal#childmodal" data-controller="modal">
+                <div class="clickable odd" data-action="click-&gt;modal#childmodal" data-controller="modal">
                     <div class="childmodal" style="display: none">
                         <div class="modal-content">
                             <h4 class="modal-title">Rejet pour autre motif</h4>
@@ -50,23 +50,25 @@ blabla</p>
                             <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
                         </div>
                     </div>
-                    <div class="red-text" style="">
-                        Rejet pour autre motif
-                    </div>
+                    <div class="red-text">
+                            Rejet pour autre motif
+                        </div>
+
+                        01/05/2018 19:13
+                        <span class="right">
+                            a
+                        </span>
                 </div>
-                01/05/2018 19:13
-                <span class="right">
-                    a
-                </span>
                 
-                <div><div class="yellow-text text-darken-3" style="">
-                        En cours de liquidation
-                    </div>
+                <div class="even"><div class="yellow-text text-darken-3">
+                            En cours de liquidation
+                        </div>
+
+                        01/05/2018 17:13
+                        <span class="right">
+                            a
+                        </span>
                 </div>
-                01/05/2018 17:13
-                <span class="right">
-                    a
-                </span>
                 
             </div>
         </div>

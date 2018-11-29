@@ -2226,10 +2226,10 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-crudlfap@0.7.23:
-  version "0.7.23"
-  resolved "https://registry.yarnpkg.com/crudlfap/-/crudlfap-0.7.23.tgz#d985c2e797a84d8684811b4f1f8818ba2d53bba1"
-  integrity sha512-J0kRLFjw0CF2pAx09/aerzk34koPwv3fNLH+IyJEIHRyszf5HrCn5BKQsqgCjnXFHwXF67qMhxDFglr45IteKQ==
+crudlfap@0.7.24:
+  version "0.7.24"
+  resolved "https://registry.yarnpkg.com/crudlfap/-/crudlfap-0.7.24.tgz#f54efac42c54c5186c6c22abad5ea50546804ba4"
+  integrity sha512-/a3DQK4hoRp53dB6FHinuee2LayQcPoUstteQ80ZoZVZxexv5/V3N63kFHWxYO3bJk6mauOtFQKtIGuyB/WUIw==
   dependencies:
     babel-core "^6.26.0"
     babel-jest "^22.4.1"

@@ -10,7 +10,7 @@ raven
 requests
 django-humanize==0.1.2
 django-ipware==2.0.1
-crudlfap==0.7.23
+crudlfap==0.7.24
 sqlparse
 holidays
 chardet

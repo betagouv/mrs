@@ -39,7 +39,7 @@
                     Suivi du dossier
                 </div>
                 
-                <div data-action="click-&gt;modal#childmodal" data-controller="modal">
+                <div class="clickable odd" data-action="click-&gt;modal#childmodal" data-controller="modal">
                     <div class="childmodal" style="display: none">
                         <div class="modal-content">
                             <table>
@@ -95,16 +95,17 @@
                             <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
                         </div>
                     </div>
-                    <div class="" style=" cursor: pointer ">
-                        Modification de NIR et Date de naissance
-                      <i class="material-icons right" style="cursor: pointer"> search </i>
-                      
-                    </div>
+                    <div class="">
+                            Modification de NIR et Date de naissance
+                        </div>
+                            <i class="material-icons right" style="cursor: pointer"> search </i>
+                        
+
+                        31/05/2018 17:42
+                        <span class="right">
+                            test
+                        </span>
                 </div>
-                31/05/2018 17:42
-                <span class="right">
-                    test
-                </span>
                 
             </div>
         </div>
