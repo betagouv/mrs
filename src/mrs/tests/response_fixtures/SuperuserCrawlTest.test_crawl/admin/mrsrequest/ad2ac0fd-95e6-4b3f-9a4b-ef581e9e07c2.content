@@ -39,14 +39,15 @@
                     Suivi du dossier
                 </div>
                 
-                <div><div class="yellow-text text-darken-3" style="">
-                        En cours de liquidation
-                    </div>
+                <div class="odd"><div class="yellow-text text-darken-3">
+                            En cours de liquidation
+                        </div>
+
+                        05/05/2018 17:17
+                        <span class="right">
+                            test
+                        </span>
                 </div>
-                05/05/2018 17:17
-                <span class="right">
-                    test
-                </span>
                 
             </div>
         </div>

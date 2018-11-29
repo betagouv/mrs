@@ -39,7 +39,7 @@
                     Suivi du dossier
                 </div>
                 
-                <div data-action="click-&gt;modal#childmodal" data-controller="modal">
+                <div class="clickable odd" data-action="click-&gt;modal#childmodal" data-controller="modal">
                     <div class="childmodal" style="display: none">
                         <div class="modal-content">
                             <h4 class="modal-title">Nous avons un super conseil pour vous !</h4>
@@ -49,32 +49,35 @@
                             <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
                         </div>
                     </div>
-                    <div class="" style="">
-                        Possibilité de trajets itératifs
-                    </div>
+                    <div class="">
+                            Possibilité de trajets itératifs
+                        </div>
+
+                        24/05/2018 02:43
+                        <span class="right">
+                            test
+                        </span>
                 </div>
-                24/05/2018 02:43
-                <span class="right">
-                    test
-                </span>
                 
-                <div><div class="green-text" style="">
-                        Validée
-                    </div>
+                <div class="even"><div class="green-text">
+                            Validée
+                        </div>
+
+                        03/05/2018 16:21
+                        <span class="right">
+                            test
+                        </span>
                 </div>
-                03/05/2018 16:21
-                <span class="right">
-                    test
-                </span>
                 
-                <div><div class="yellow-text text-darken-3" style="">
-                        En cours de liquidation
-                    </div>
+                <div class="odd"><div class="yellow-text text-darken-3">
+                            En cours de liquidation
+                        </div>
+
+                        03/05/2018 16:20
+                        <span class="right">
+                            test
+                        </span>
                 </div>
-                03/05/2018 16:20
-                <span class="right">
-                    test
-                </span>
                 
             </div>
         </div>

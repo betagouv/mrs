@@ -39,23 +39,25 @@
                     Suivi du dossier
                 </div>
                 
-                <div><div class="green-text" style="">
-                        Validée
-                    </div>
+                <div class="odd"><div class="green-text">
+                            Validée
+                        </div>
+
+                        03/05/2018 16:20
+                        <span class="right">
+                            test
+                        </span>
                 </div>
-                03/05/2018 16:20
-                <span class="right">
-                    test
-                </span>
                 
-                <div><div class="yellow-text text-darken-3" style="">
-                        En cours de liquidation
-                    </div>
+                <div class="even"><div class="yellow-text text-darken-3">
+                            En cours de liquidation
+                        </div>
+
+                        03/05/2018 16:20
+                        <span class="right">
+                            test
+                        </span>
                 </div>
-                03/05/2018 16:20
-                <span class="right">
-                    test
-                </span>
                 
             </div>
         </div>
