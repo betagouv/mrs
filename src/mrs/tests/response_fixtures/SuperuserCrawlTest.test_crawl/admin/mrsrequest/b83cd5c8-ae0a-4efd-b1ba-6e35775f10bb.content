@@ -5,7 +5,10 @@
             
           
             
-<style type="text/css">.card-content p { clear: both; }</style>
+<style type="text/css">
+.card-content p { clear: both; }
+.underline-dotted-red { text-decoration: underline dotted red; }
+</style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
         <div class="card">

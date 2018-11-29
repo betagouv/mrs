@@ -5,7 +5,10 @@
             
           
             
-<style type="text/css">.card-content p { clear: both; }</style>
+<style type="text/css">
+.card-content p { clear: both; }
+.underline-dotted-red { text-decoration: underline dotted red; }
+</style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
         <div class="card">
@@ -96,10 +99,10 @@
                         </div>
                     </div>
                     <div class="">
+                                <i class="material-icons right tiny">search</i>
+                            
                             Modification de NIR et Date de naissance
                         </div>
-                            <i class="material-icons right" style="cursor: pointer"> search </i>
-                        
 
                         31/05/2018 17:42
                         <span class="right">
@@ -144,7 +147,7 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right" style="text-decoration: underline dotted red" title="Ce champ a été modifié.">31/12/2000</span>
+                    <span class="right" title="Ce champ a été modifié de sa valeur initiale qui était: 2001-01-01">31/12/2000</span>
                 </p>
                 <div class="card-title">
                     Assuré-e
@@ -153,7 +156,7 @@
                     <span class="grey-text text-darken-2">
                         NIR
                     </span>
-                    <span class="right" style="text-decoration: underline dotted red" title="Ce champ a été modifié.">1223123123129</span>
+                    <span class="right" title="Ce champ a été modifié de sa valeur initiale qui était: 1223123123122">1223123123129</span>
                 </p>
                 <p>
                     <span class="grey-text text-darken-2">
@@ -220,7 +223,7 @@
                     <span class="grey-text text-darken-2">
                         Distance (km parcourus)
                     </span>
-                    <span class="right">
+                    <span class="underline-dotted-red right" title="Ce champ a été modifié de sa valeur initiale qui était: ">
                         10
                     </span>
                 </p>

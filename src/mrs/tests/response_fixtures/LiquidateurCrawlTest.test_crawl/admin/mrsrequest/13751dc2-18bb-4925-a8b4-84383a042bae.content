@@ -5,7 +5,10 @@
             
           
             
-<style type="text/css">.card-content p { clear: both; }</style>
+<style type="text/css">
+.card-content p { clear: both; }
+.underline-dotted-red { text-decoration: underline dotted red; }
+</style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
         <div class="card">
@@ -51,6 +54,8 @@ blabla</p>
                         </div>
                     </div>
                     <div class="red-text">
+                                <i class="material-icons right tiny">search</i>
+                            
                             Rejet pour autre motif
                         </div>
 
@@ -189,7 +194,7 @@ blabla</p>
                     <span class="grey-text text-darken-2">
                         Distance (km parcourus)
                     </span>
-                    <span class="right">
+                    <span class="underline-dotted-red right" title="Ce champ a été modifié de sa valeur initiale qui était: ">
                         123
                     </span>
                 </p>

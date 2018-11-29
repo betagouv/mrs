@@ -56,7 +56,10 @@
 {% endblock %}
 
 {% block content %}
-<style type="text/css">.card-content p { clear: both; }</style>
+<style type="text/css">
+.card-content p { clear: both; }
+.underline-dotted-red { text-decoration: underline dotted red; }
+</style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
         <div class="card">
@@ -173,12 +176,11 @@
                         <div
                                 class="{% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}"
                         >
+                            {%- if entry.data %}
+                                <i class="material-icons right tiny">search</i>
+                            {% endif %}
                             {{ entry.comment }}
                         </div>
-
-                        {%- if loop.index == 1 and entry.action == entry.ACTION_UPDATE %}
-                            <i class="material-icons right" style="cursor: pointer"> search </i>
-                        {% endif %}
 
                         {{ localtime(entry.datetime).strftime('%d/%m/%Y %H:%M') }}
                         <span class="right">
@@ -239,8 +241,8 @@
                     </span>
                     <span class="right"
                         {%- if object.field_changed('birth_date') %}
-                        style="text-decoration: underline dotted red"
-                        title="Ce champ a été modifié."
+                        class="underline-dotted-red"
+                        title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.data.birth_date }}"
                         {% endif %}
                     >{{ object.insured.birth_date.strftime('%d/%m/%Y') }}</span>
                 </p>
@@ -254,8 +256,8 @@
                     </span>
                     <span class="right"
                         {%- if object.field_changed('nir') %}
-                        style="text-decoration: underline dotted red"
-                        title="Ce champ a été modifié."
+                        class="underline-dotted-red"
+                        title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.data.nir }}"
                         {% endif %}
                     >{{ object.insured.nir }}</span>
                 </p>
@@ -332,7 +334,12 @@
                     <span class="grey-text text-darken-2">
                         Distance (km parcourus)
                     </span>
-                    <span class="right">
+                    <span
+                        {% if object.distancevp != object.data.distancevp %}
+                        title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.data.distancevp }}"
+                        {% endif %}
+                        class="{% if object.distancevp != object.data.distancevp %}underline-dotted-red {% endif %}right"
+                    >
                         {{ object.distancevp }}
                     </span>
                 </p>
