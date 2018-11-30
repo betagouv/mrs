@@ -258,8 +258,8 @@
 <div class="row">
     <div class="input-field col s12" id="id_expensevp_container">
         <input id="id_expensevp" min="0" name="expensevp" step="0.01" type="number" value="0"/>
-        <label class="active" for="id_expensevp">Frais de péage et/ou transports</label>
-        <div class="help-block">Somme totale des frais de péage et/ou de transport en commun (en € TTC)</div>
+        <label class="active" for="id_expensevp">Frais de péage</label>
+        <div class="help-block">Somme totale des frais de péage (en € TTC)</div>
     </div>
 </div>
 </div><div class="col s12 m6">
@@ -286,7 +286,7 @@
         <div class="file-path-wrapper">
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/billvp/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
         </div>
-        <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement </span> / transport en commun</div>
+        <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement </span></div>
 
         <ul class="files">
             

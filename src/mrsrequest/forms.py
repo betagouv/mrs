@@ -45,7 +45,6 @@ class MRSRequestCreateForm(forms.ModelForm):
             ' <span data-parking-enable>'
             ' / stationnement'
             ' </span>'
-            ' / transport en commun'
         )
     )
 
@@ -57,8 +56,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Justificatifs',
         required=False,
         help_text=(
-            'Joindre vos justificatifs de'
-            ' transport en commun'
+            'Joindre vos justificatifs de transport en commun'
         )
     )
 
@@ -72,8 +70,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         validators=[validators.MinValueValidator(Decimal('0.00'))],
         label='Frais de transports',
         help_text=(
-            'Somme totale des frais de'
-            ' transport en commun (en € TTC)'
+            'Somme totale des frais de transport en commun (en € TTC)'
         ),
         required=False,
         widget=forms.NumberInput(
@@ -88,10 +85,9 @@ class MRSRequestCreateForm(forms.ModelForm):
         decimal_places=2,
         max_digits=6,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
-        label='Frais de péage et/ou transports',
+        label='Frais de péage',
         help_text=(
-            'Somme totale des frais de péage'
-            ' et/ou de transport en commun (en € TTC)'
+            'Somme totale des frais de péage (en € TTC)'
         ),
         required=False,
         widget=forms.NumberInput(
