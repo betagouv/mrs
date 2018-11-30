@@ -370,7 +370,7 @@ class MRSRequest(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    mandate_date = models.DateField(
+    mandate_datevp = models.DateField(
         null=True,
         blank=True,
         verbose_name='Date de mandatement',
@@ -688,6 +688,10 @@ class MRSRequest(models.Model):
             return '99'
 
         return '{:02d}'.format(number)
+
+    @property
+    def mandate_date(self):
+        return self.mandate_datevp
 
 
 class MRSRequestLogEntryQuerySet(models.QuerySet):

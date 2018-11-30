@@ -400,7 +400,7 @@ class MRSRequestExport(crudlfap.ObjectsView):
 
     def get_objects(self):
         self.objects = self.queryset.filter(
-            mandate_date=None,
+            mandate_datevp=None,
         ).status(
             'validated',
         ).select_related(
@@ -575,7 +575,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
     def update_mrsrequest(self, i, obj, row):
         if row['mandatement']:
-            obj.mandate_date = datetime.strptime(
+            obj.mandate_datevp = datetime.strptime(
                 row['mandatement'],
                 DATE_FORMAT,
             ).date()

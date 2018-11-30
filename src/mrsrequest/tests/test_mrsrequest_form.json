@@ -44,7 +44,7 @@
         "institution": null,
         "insured": null,
         "insured_shift": null,
-        "mandate_date": null,
+        "mandate_datevp": null,
         "modeatp": true,
         "modevp": true,
         "payment_amount": null,
