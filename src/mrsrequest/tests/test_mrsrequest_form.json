@@ -44,6 +44,7 @@
         "institution": null,
         "insured": null,
         "insured_shift": null,
+        "mandate_dateatp": null,
         "mandate_datevp": null,
         "modeatp": true,
         "modevp": true,
@@ -85,11 +86,11 @@
     "fields": {
         "birth_date": "2007-02-07",
         "email": "jpic@yourlabs.org",
-        "use_email": false,
         "first_name": "jamesy",
         "last_name": "wuzere",
         "nir": 1234567890123,
-        "shifted": null
+        "shifted": null,
+        "use_email": false
     },
     "model": "person.person",
     "pk": 1

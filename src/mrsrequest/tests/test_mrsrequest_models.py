@@ -284,3 +284,17 @@ def test_mrsrequest_order_number_sticks_at_99():
             assert obj.order_number == '{:02d}'.format(i), 'object #' + i
 
     assert obj.order_number == '99'
+
+
+def test_mrsrequest_mandate_date():
+    m = MRSRequest()
+    assert m.mandate_date is None
+
+    m.mandate_datevp = '2018-05-01'
+    assert m.mandate_date == m.mandate_datevp
+
+    m.mandate_dateatp = '2018-04-01'
+    assert m.mandate_date == m.mandate_datevp
+
+    m.mandate_dateatp = '2018-06-01'
+    assert m.mandate_date == m.mandate_dateatp
