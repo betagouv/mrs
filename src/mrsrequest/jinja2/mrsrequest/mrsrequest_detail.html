@@ -58,7 +58,7 @@
 {% block content %}
 <style type="text/css">
 .card-content p { clear: both; }
-.underline-dotted-red { text-decoration: underline dotted red; }
+.underline-dotted { text-decoration: underline dotted; }
 </style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
@@ -239,9 +239,9 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right"
+                    <span
                         {%- if object.field_changed('birth_date') %}
-                        class="underline-dotted-red"
+                        class="right underline-dotted"
                         title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.data.birth_date }}"
                         {% endif %}
                     >{{ object.insured.birth_date.strftime('%d/%m/%Y') }}</span>
@@ -254,12 +254,12 @@
                     <span class="grey-text text-darken-2">
                         NIR
                     </span>
-                    <span class="right"
+                    <span
                         {%- if object.field_changed('nir') %}
-                        class="underline-dotted-red"
+                        class="right underline-dotted"
                         title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.data.nir }}"
                         {% endif %}
-                    >{{ object.insured.nir }}</span>
+                    >{{ object.insured.nir }}{% if object.data.nir != object.nir %}*{% endif %}</span>
                 </p>
                 <p>
                     <span class="grey-text text-darken-2">
@@ -302,7 +302,7 @@
                     </thead>
                     <tbody>
                         {% for transport in object.transport_set.all() %}
-                        <tr>
+                        <tr class="{{ loop.cycle('odd', 'even') }}">
                             <td>{{ loop.index }}</td>
                             <td>{% if transport.date_depart %}{{ transport.date_depart.strftime('%d/%m/%Y') }}{% endif %}</td>
                             <td>{% if transport.date_return %}{{ transport.date_return.strftime('%d/%m/%Y') }}{% endif %}</td>
@@ -322,85 +322,87 @@
                 <div class="card-title">
                     VP
                 </div>
-                <p>
-                    <span class="red-text" style="font-weight: bold">
-                        Montant total (Base de remboursement)
-                    </span>
-                    <span class="right red-text" style="font-weight: bold">
-                        {{ object.estimate }}€ TTC
-                    </span>
-                </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Distance (km parcourus)
-                    </span>
-                    <span
+                <table>
+                    <tr class="red-text">
+                        <td>
+                            Montant total (Base de remboursement)
+                        </td>
+                        <td>
+                            {{ object.estimate }}€ TTC
+                        </td>
+                    </tr>
+                    <tr
                         {% if object.distancevp != object.data.distancevp %}
                         title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.data.distancevp }}"
                         {% endif %}
-                        class="{% if object.distancevp != object.data.distancevp %}underline-dotted-red {% endif %}right"
+                        class="{% if object.distancevp != object.data.distancevp %}underline-dotted{% endif %}"
                     >
-                        {{ object.distancevp }}
-                    </span>
-                </p>
-                {% if object.distancevp %}
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Montant des km parcourus
-                    </span>
-                    <span class="right">
-                        {{ '%.2f'|format(object.distancevp * 0.3) }}€ TTC
-                    </span>
-                </p>
-                {% endif %}
-                <p>
-                    <span class="grey-text text-darken-2">
+                        <td>
+                            Distance km parcourus
+                        </td>
+                        <td>
+                            {{ object.distancevp }}
+                        </td>
+                    </tr>
+                    {% if object.distancevp %}
+                    <tr>
+                        <td>
+                            Montant des km parcourus
+                        </td>
+                        <td>
+                            {{ '%.2f'|format(object.distancevp * 0.3) }}€ TTC
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td>
                         Montant total des frais VP
-                    </span>
-                    <span class="right">
+                        </td>
+                        <td>
                         {{ object.expensevp }}€ TTC
-                    </span>
-                </p>
-                {% if object.payment_base -%}
-                <p>
-                    <span class="grey-text text-darken-2">
+                        </td>
+                    </tr>
+                    {% if object.payment_base -%}
+                    <tr>
+                        <td>
                         Base de remboursement
-                    </span>
-                    <span class="right">
+                        </td>
+                        <td>
                         {{ object.payment_base }}€
-                    </span>
-                </p>
-                {% endif %}
-                {% if object.payment_amount -%}
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Montant remboursé
-                    </span>
-                    <span class="right">
-                        {{ object.payment_amount }}€
-                    </span>
-                </p>
-                {% endif -%}
-                {% if object.taxi_cost -%}
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Coût théorique du trajet en taxi
-                    </span>
-                    <span class="right">
-                        {{ object.taxi_cost }}€
-                    </span>
-                </p>
-                {% endif -%}
-                {% if object.saving -%}
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Economie calculée
-                    </span>
-                    <span class="right">
-                        {{ object.saving }}€
-                    </span>
-                </p>
-                {% endif -%}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if object.payment_amount -%}
+                    <tr>
+                        <td>
+                            Montant remboursé
+                        </td>
+                        <td>
+                            {{ object.payment_amount }}€
+                        </td>
+                    </tr>
+                    {% endif -%}
+                    {% if object.taxi_cost -%}
+                    <tr>
+                        <td>
+                            Coût tdéorique du trajet en taxi
+                        </td>
+                        <td>
+                            {{ object.taxi_cost }}€
+                        </td>
+                    </tr>
+                    {% endif -%}
+                    {% if object.saving -%}
+                    <tr>
+                        <td>
+                            Economie calculée
+                        </td>
+                        <td>
+                            {{ object.saving }}€
+                        </td>
+                    </tr>
+                    {% endif -%}
+                </table>
                 {{ show_bills('vp') }}
             </div>
         </div>
@@ -413,14 +415,16 @@
                 <div class="card-title">
                     ATP
                 </div>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Montant total des frais ATP
-                    </span>
-                    <span class="right">
-                        {{ object.expenseatp }}€ TTC
-                    </span>
-                </p>
+                <table>
+                    <tr>
+                        <td>
+                            Montant total des frais ATP
+                        </td>
+                        <td>
+                            {{ object.expenseatp }}€ TTC
+                        </td>
+                    </tr>
+                </table>
                 {{ show_bills('atp') }}
             </div>
         </div>
