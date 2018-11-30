@@ -7,7 +7,7 @@
             
 <style type="text/css">
 .card-content p { clear: both; }
-.underline-dotted { text-decoration: underline dotted; }
+.underline-dotted-red { text-decoration: underline dotted red; }
 </style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
@@ -121,7 +121,7 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span>29/05/2000</span>
+                    <span class="right">29/05/2000</span>
                 </p>
                 <div class="card-title">
                     Assuré-e
@@ -130,7 +130,7 @@
                     <span class="grey-text text-darken-2">
                         NIR
                     </span>
-                    <span>1223123123123*</span>
+                    <span class="right">1223123123123</span>
                 </p>
                 <p>
                     <span class="grey-text text-darken-2">
@@ -194,7 +194,7 @@
                             4.30€ TTC
                         </td>
                     </tr>
-                    <tr class="underline-dotted" title="Ce champ a été modifié de sa valeur initiale qui était: ">
+                    <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
                         <td>
                             Distance km parcourus
                         </td>

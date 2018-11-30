@@ -58,7 +58,7 @@
 {% block content %}
 <style type="text/css">
 .card-content p { clear: both; }
-.underline-dotted { text-decoration: underline dotted; }
+.underline-dotted-red { text-decoration: underline dotted red; }
 </style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
@@ -241,9 +241,9 @@
                     </span>
                     <span
                         {%- if object.field_changed('birth_date') %}
-                        class="right underline-dotted"
                         title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.insured.birth_date.strftime('%d/%m/%Y') }}"
                         {% endif %}
+                        class="right{%- if object.field_changed('birth_date') %} underline-dotted-red{% endif %}"
                     >{{ object.insured.birth_date.strftime('%d/%m/%Y') }}</span>
                 </p>
                 {%- endif %}
@@ -256,10 +256,10 @@
                     </span>
                     <span
                         {%- if object.field_changed('nir') %}
-                        class="right underline-dotted"
                         title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.data.nir }}"
                         {% endif %}
-                    >{{ object.insured.nir }}{% if object.data.nir != object.nir %}*{% endif %}</span>
+                        class="right{%- if object.field_changed('nir') %} underline-dotted-red{% endif %}"
+                    >{{ object.insured.nir }}</span>
                 </p>
                 <p>
                     <span class="grey-text text-darken-2">
@@ -335,7 +335,7 @@
                         {% if object.distancevp != object.data.distancevp %}
                         title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.data.distancevp }}"
                         {% endif %}
-                        class="{% if object.distancevp != object.data.distancevp %}underline-dotted{% endif %}"
+                        class="{% if object.distancevp != object.data.distancevp %}underline-dotted-red{% endif %}"
                     >
                         <td>
                             Distance km parcourus
