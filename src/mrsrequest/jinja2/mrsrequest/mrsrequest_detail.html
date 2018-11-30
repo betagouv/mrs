@@ -242,7 +242,7 @@
                     <span
                         {%- if object.field_changed('birth_date') %}
                         class="right underline-dotted"
-                        title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.data.birth_date }}"
+                        title="Ce champ a été modifié de sa valeur initiale qui était: {{ object.insured.birth_date.strftime('%d/%m/%Y') }}"
                         {% endif %}
                     >{{ object.insured.birth_date.strftime('%d/%m/%Y') }}</span>
                 </p>
