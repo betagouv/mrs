@@ -158,14 +158,14 @@ blabla</p>
                         
                         <tr class="odd">
                             <td>1</td>
-                            <td>29/04/2018</td>
-                            <td>29/04/2018</td>
+                            <td class="orange">29/04/2018</td>
+                            <td class="orange">29/04/2018</td>
                         </tr>
                         
                         <tr class="even">
                             <td>2</td>
-                            <td>30/04/2018</td>
-                            <td>30/04/2018</td>
+                            <td class="orange">30/04/2018</td>
+                            <td class="orange">30/04/2018</td>
                         </tr>
                         
                     </tbody>
