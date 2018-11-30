@@ -373,7 +373,17 @@ class MRSRequest(models.Model):
     mandate_datevp = models.DateField(
         null=True,
         blank=True,
-        verbose_name='Date de mandatement',
+        verbose_name='Date de mandatement VP',
+        validators=[
+            validators.MinValueValidator(
+                datetime.date(year=2000, month=1, day=1)
+            )
+        ],
+    )
+    mandate_dateatp = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name='Date de mandatement ATP',
         validators=[
             validators.MinValueValidator(
                 datetime.date(year=2000, month=1, day=1)
@@ -691,7 +701,13 @@ class MRSRequest(models.Model):
 
     @property
     def mandate_date(self):
-        return self.mandate_datevp
+        dates = (self.mandate_datevp, self.mandate_dateatp)
+        if dates[0] and dates[1]:
+            return dates[0] if dates[0] > dates[1] else dates[1]
+
+        for date in dates:
+            if date:
+                return date
 
 
 class MRSRequestLogEntryQuerySet(models.QuerySet):
