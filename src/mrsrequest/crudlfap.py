@@ -14,7 +14,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.mail import EmailMessage
-from django.db import transaction
+from django.db import models, transaction
 
 import django_filters
 
@@ -43,7 +43,10 @@ CSV_COLUMNS = (
     'nir',
     'naissance',
     'transport',
-    'mandatement',
+    'modevp',
+    'modeatp',
+    'mandatementvp',
+    'mandatementatp',
     'base',
     'montant',
     'bascule',
@@ -400,7 +403,7 @@ class MRSRequestExport(crudlfap.ObjectsView):
 
     def get_objects(self):
         self.objects = self.queryset.filter(
-            mandate_datevp=None,
+            models.Q(mandate_datevp=None) | models.Q(mandate_dateatp=None)
         ).status(
             'validated',
         ).select_related(
@@ -430,6 +433,9 @@ class MRSRequestExport(crudlfap.ObjectsView):
                 obj.insured.nir,
                 obj.insured.birth_date.strftime(DATE_FORMAT),
                 date_depart.strftime(DATE_FORMAT),
+                '1' if obj.modevp else '0',
+                '1' if obj.modeatp else '0',
+                '',
                 '',
                 '',
                 '',
@@ -574,11 +580,12 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         return obj
 
     def update_mrsrequest(self, i, obj, row):
-        if row['mandatement']:
-            obj.mandate_datevp = datetime.strptime(
-                row['mandatement'],
-                DATE_FORMAT,
-            ).date()
+        for i in ['vp', 'atp']:
+            if row[f'mandatement{i}']:
+                obj.mandate_datevp = datetime.strptime(
+                    row[f'mandatement{i}'],
+                    DATE_FORMAT,
+                ).date()
 
         if row['base']:
             obj.payment_base = row['base'].replace(',', '.')
