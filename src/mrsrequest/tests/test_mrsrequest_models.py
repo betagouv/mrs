@@ -80,7 +80,7 @@ def test_payment_delay():
         creation_datetime=datetime.datetime(
             2000, 12, 20, 12, tzinfo=pytz.timezone(settings.TIME_ZONE)
         ),
-        mandate_date=datetime.date(2000, 12, 30),
+        mandate_datevp=datetime.date(2000, 12, 30),
     )
     assert obj.delay == 9.5
 
