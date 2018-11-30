@@ -7,7 +7,7 @@
             
 <style type="text/css">
 .card-content p { clear: both; }
-.underline-dotted-red { text-decoration: underline dotted red; }
+.underline-dotted { text-decoration: underline dotted; }
 </style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
@@ -112,7 +112,7 @@ blabla</p>
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right">30/04/2000</span>
+                    <span>30/04/2000</span>
                 </p>
                 <div class="card-title">
                     Assuré-e
@@ -121,7 +121,7 @@ blabla</p>
                     <span class="grey-text text-darken-2">
                         NIR
                     </span>
-                    <span class="right">1111111111111</span>
+                    <span>1111111111111*</span>
                 </p>
                 <p>
                     <span class="grey-text text-darken-2">
@@ -156,13 +156,13 @@ blabla</p>
                     </thead>
                     <tbody>
                         
-                        <tr>
+                        <tr class="odd">
                             <td>1</td>
                             <td>29/04/2018</td>
                             <td>29/04/2018</td>
                         </tr>
                         
-                        <tr>
+                        <tr class="even">
                             <td>2</td>
                             <td>30/04/2018</td>
                             <td>30/04/2018</td>
@@ -182,49 +182,51 @@ blabla</p>
                 <div class="card-title">
                     VP
                 </div>
-                <p>
-                    <span class="red-text" style="font-weight: bold">
-                        Montant total (Base de remboursement)
-                    </span>
-                    <span class="right red-text" style="font-weight: bold">
-                        37.90€ TTC
-                    </span>
-                </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Distance (km parcourus)
-                    </span>
-                    <span class="underline-dotted-red right" title="Ce champ a été modifié de sa valeur initiale qui était: ">
-                        123
-                    </span>
-                </p>
-                
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Montant des km parcourus
-                    </span>
-                    <span class="right">
-                        36.90€ TTC
-                    </span>
-                </p>
-                
-                <p>
-                    <span class="grey-text text-darken-2">
+                <table>
+                    <tbody><tr class="red-text">
+                        <td>
+                            Montant total (Base de remboursement)
+                        </td>
+                        <td>
+                            37.90€ TTC
+                        </td>
+                    </tr>
+                    <tr class="underline-dotted" title="Ce champ a été modifié de sa valeur initiale qui était: ">
+                        <td>
+                            Distance km parcourus
+                        </td>
+                        <td>
+                            123
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            Montant des km parcourus
+                        </td>
+                        <td>
+                            36.90€ TTC
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
                         Montant total des frais VP
-                    </span>
-                    <span class="right">
+                        </td>
+                        <td>
                         1.00€ TTC
-                    </span>
-                </p>
-                
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Coût théorique du trajet en taxi
-                    </span>
-                    <span class="right">
-                        188.24€
-                    </span>
-                </p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            Coût tdéorique du trajet en taxi
+                        </td>
+                        <td>
+                            188.24€
+                        </td>
+                    </tr>
+                    </tbody></table>
                 
 
 <p>

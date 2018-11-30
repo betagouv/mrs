@@ -7,7 +7,7 @@
             
 <style type="text/css">
 .card-content p { clear: both; }
-.underline-dotted-red { text-decoration: underline dotted red; }
+.underline-dotted { text-decoration: underline dotted; }
 </style>
 <div class="row" style="padding-top: 12px">
     <div class="col m6 s12">
@@ -99,7 +99,7 @@
                     <span class="grey-text text-darken-2">
                         Date de naissance
                     </span>
-                    <span class="right">29/05/2000</span>
+                    <span>29/05/2000</span>
                 </p>
                 <div class="card-title">
                     Assuré-e
@@ -108,7 +108,7 @@
                     <span class="grey-text text-darken-2">
                         NIR
                     </span>
-                    <span class="right">1223123123123</span>
+                    <span>1223123123123*</span>
                 </p>
                 <p>
                     <span class="grey-text text-darken-2">
@@ -143,13 +143,13 @@
                     </thead>
                     <tbody>
                         
-                        <tr>
+                        <tr class="odd">
                             <td>1</td>
                             <td>01/05/2018</td>
                             <td></td>
                         </tr>
                         
-                        <tr>
+                        <tr class="even">
                             <td>2</td>
                             <td>02/05/2018</td>
                             <td></td>
@@ -170,14 +170,16 @@
                 <div class="card-title">
                     ATP
                 </div>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Montant total des frais ATP
-                    </span>
-                    <span class="right">
-                        4.00€ TTC
-                    </span>
-                </p>
+                <table>
+                    <tbody><tr>
+                        <td>
+                            Montant total des frais ATP
+                        </td>
+                        <td>
+                            4.00€ TTC
+                        </td>
+                    </tr>
+                </tbody></table>
                 
 
 <p>
