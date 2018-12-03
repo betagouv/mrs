@@ -363,6 +363,12 @@ class TransportForm(forms.Form):
         return True
 
 
+class BaseTransportFormSet(forms.BaseFormSet):
+    def add_confirms(self, transports):
+        for form in self.forms:
+            form.add_confirms(transports)
+
+
 TransportFormSet = forms.formset_factory(TransportForm)
 
 
