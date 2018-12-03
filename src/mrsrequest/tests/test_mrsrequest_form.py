@@ -1,5 +1,6 @@
 import io
 
+from datetime import date
 from dbdiff.fixture import Fixture
 from freezegun import freeze_time
 import pytest
@@ -8,6 +9,7 @@ from mrsattachment.models import MRSAttachment
 from mrsrequest.forms import (
     MRSRequestCreateForm,
     TransportForm,
+    TransportFormSet,
 )
 from mrsrequest.models import Bill, MRSRequest, PMT, Transport
 from person.models import Person
@@ -134,3 +136,39 @@ def test_transport_form():
             'Votre demande de prise en charge pour ce trajet est en cours de traitement. '
         ]
     }
+
+
+@pytest.mark.django_db
+def test_transport_formset():
+    Fixture('./src/mrs/tests/data.json').load()
+
+    form = TransportFormSet({
+        'transport-TOTAL_FORMS': 2,
+        'transport-INITIAL_FORMS': 2,
+        'transport-MIN_NUM_FORMS': 2,
+        'transport-MAX_NUM_FORMS': 2,
+        'transport-0-date_depart': '2018-05-01',
+        'transport-0-date_return': '2018-05-02',
+        'transport-1-date_depart': '2018-05-02',
+        'transport-1-date_return': '2018-05-02',
+    }, prefix='transport')
+
+    assert form.is_valid()
+
+    form.add_confirms([Transport(
+        date_depart=date(2018, 5, 1),
+        date_return=date(2018, 5, 2),
+        mrsrequest=MRSRequest(),
+    )])
+    assert not form.is_valid()
+    assert form.errors == [
+        {
+            'date_depart': [
+                'Votre demande de prise en charge pour ce trajet est en cours de traitement. '
+            ],
+            'date_return': [
+                'La date 2018-05-02 est déjà utilisée sur le transport: 1'
+            ]
+        },
+        {}
+    ]
