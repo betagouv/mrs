@@ -360,10 +360,17 @@ class TransportForm(forms.Form):
                         msg
                     )
 
-        return True
+
+class BaseTransportFormSet(forms.BaseFormSet):
+    def add_confirms(self, transports):
+        for form in self.forms:
+            form.add_confirms(transports)
 
 
-TransportFormSet = forms.formset_factory(TransportForm)
+TransportFormSet = forms.formset_factory(
+    TransportForm,
+    formset=BaseTransportFormSet
+)
 
 
 class TransportIterativeForm(forms.Form):

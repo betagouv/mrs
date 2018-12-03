@@ -5,7 +5,10 @@ from freezegun import freeze_time
 import pytest
 
 from mrsattachment.models import MRSAttachment
-from mrsrequest.forms import MRSRequestCreateForm
+from mrsrequest.forms import (
+    MRSRequestCreateForm,
+    TransportForm,
+)
 from mrsrequest.models import Bill, MRSRequest, PMT, Transport
 from person.models import Person
 
@@ -92,3 +95,42 @@ def test_form_save_m2m(monkeypatch, person, caisse):
         './src/mrsrequest/tests/test_mrsrequest_form.json',  # noqa
         models=[MRSAttachment, MRSRequest, PMT, Person, Bill, Transport]
     ).assertNoDiff()
+
+
+@pytest.mark.django_db
+def test_transport_form():
+    Fixture('./src/mrs/tests/data.json').load()
+    person = Person.objects.get(pk=4)
+    form = TransportForm(dict(
+        date_depart='2018-05-01',
+        date_return='2018-05-02',
+    ))
+    assert form.is_valid()
+
+    form.add_confirms(Transport.objects.filter(
+        mrsrequest__insured=person))
+
+    # given the above person already have submited dates in
+    # a validated request, add_confirms should have added
+    # errors.
+    assert not form.is_valid()
+
+    # This should definitely be improved, it will duplicate errors for each
+    # transport, ie. will generate:
+    #
+    # Ce trajet vous a été réglé lors de la demande du 03-05-2018 n°
+    # 201805030001. Ce trajet vous a été réglé lors de la demande du 03-05-2018
+    # n° 201805030000.
+    #
+    # Instead of:
+    #
+    # Ce trajet vous a été réglé lors de la demande du 03-05-2018 n°
+    # 201805030001 et la demande du 03-05-2018 n° 201805030000.
+
+    assert form.errors == {
+        'date_depart': [
+            'Ce trajet vous a été réglé lors de la demande du 03-05-2018 n° 201805030001. ',
+            'Ce trajet vous a été réglé lors de la demande du 03-05-2018 n° 201805030000. ',
+            'Votre demande de prise en charge pour ce trajet est en cours de traitement. '
+        ]
+    }
