@@ -430,6 +430,13 @@ class MRSRequest(models.Model):
                 modes.append(mode)
         return modes
 
+    def status_in(self, *names):
+        return self.status in [
+            getattr(self, f'STATUS_{name.upper()}')
+            for name in names
+        ]
+
+    # todo: rename to status_update
     def update_status(self, user, status, log_datetime=None,
                       create_logentry=False):
 
@@ -662,6 +669,11 @@ class MRSRequest(models.Model):
 
     def get_validate_url(self):
         return reverse('mrsrequest:validate', args=[self.pk])
+
+    @property
+    def creation_date_normalized(self):
+        return pytz.timezone(settings.TIME_ZONE).normalize(
+            self.creation_datetime).strftime('%d/%m/%Y')
 
     @property
     def creation_datetime_normalized(self):

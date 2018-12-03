@@ -1,3 +1,4 @@
+import copy
 import io
 
 from dbdiff.fixture import Fixture
@@ -7,7 +8,7 @@ import pytest
 from mrsattachment.models import MRSAttachment
 from mrsrequest.forms import (
     MRSRequestCreateForm,
-    TransportForm,
+    TransportFormSet,
 )
 from mrsrequest.models import Bill, MRSRequest, PMT, Transport
 from person.models import Person
@@ -97,44 +98,145 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     ).assertNoDiff()
 
 
-@pytest.mark.django_db
-def test_transport_form():
+def person_transport_formset():
     Fixture('./src/mrs/tests/data.json').load()
     person = Person.objects.get(pk=4)
-    form = TransportForm(dict(
-        date_depart='2018-05-01',
-        date_return='2018-05-02',
-    ))
-    assert form.is_valid()
+    formset = TransportFormSet({
+        # base new one, should not have duplicate errors
+        'transport-0-date_depart': '2018-05-01',
+        'transport-0-date_return': '2018-05-02',
+        # this one should not raise any error
+        'transport-1-date_depart': '2018-06-01',
+        'transport-1-date_return': '2018-06-02',
+        # this should be detected as duplicate of transport-0
+        'transport-2-date_depart': '2018-05-01',
+        'transport-2-date_return': '2018-05-02',
+        # this depart should be detected as dupe of return-0
+        'transport-3-date_depart': '2018-05-02',
+        'transport-3-date_return': '2018-05-07',
+        # this return should be detected as dupe of depart-0
+        'transport-4-date_depart': '2018-04-02',
+        'transport-4-date_return': '2018-05-01',
+        'iterative_number': '5',
+    })
 
-    form.add_confirms(Transport.objects.filter(
-        mrsrequest__insured=person))
+    formset.full_clean()  # make cleaned_data
+
+    for form in formset.forms:
+        # let's keep a copy of those for assertions
+        form.cleaned_data_copy = copy.copy(form.cleaned_data)
+
+    return person, formset
+
+
+@pytest.mark.django_db
+def test_transport_formset_is_valid():
+    person, formset = person_transport_formset()
+    assert formset.is_valid()
+
+
+@pytest.mark.django_db
+def test_transport_formset_confirms_invalidates():
+    person, formset = person_transport_formset()
+    formset.add_confirms(person.nir, person.birth_date)
 
     # given the above person already have submited dates in
     # a validated request, add_confirms should have added
     # errors.
-    assert not form.is_valid()
+    assert not formset.is_valid()
 
-    # This should definitely be improved, it will duplicate errors for each
-    # transport, ie. will generate:
-    #
-    # Ce trajet vous a été réglé lors de la demande du 03-05-2018 n°
-    # 201805030001. Ce trajet vous a été réglé lors de la demande du 03-05-2018
-    # n° 201805030000.
-    #
-    # Instead of:
-    #
-    # Ce trajet vous a été réglé lors de la demande du 03-05-2018 n°
-    # 201805030001 et la demande du 03-05-2018 n° 201805030000.
 
-    MSG_DONE = "Ce trajet vous a été réglé lors de la demande du {} n° {}. "
-    MSG_IN_PROCESS = ("Votre demande de prise en charge pour ce trajet "
-                      "est en cours de traitement. ")
+@pytest.mark.django_db  # noqa
+def test_transport_formset_add_confirms():
+    """Assert that it will generate proper confirms structure."""
+    person, formset = person_transport_formset()
+    formset.add_confirms(person.nir, person.birth_date)
 
-    assert form.errors == {
-        'date_depart': [
-            MSG_DONE.format("03/05/2018", "201805030001"),
-            MSG_DONE.format("03/05/2018", "201805030000"),
-            MSG_IN_PROCESS,
+    # ok it's a bit overkill but keep in mind this is critical to be done right
+    # for the user experience, and there also are (light, but significant)
+    # security implications
+    for form in formset.forms:
+        data = form.cleaned_data_copy
+
+        for field, confirms in form.confirms.items():
+            for confirm, confirm_data in confirms.items():
+                if confirm == 'inprogress':
+                    for transport in confirm_data:
+                        mrsrequest = transport.mrsrequest
+
+                        # basic security test are going to be omnipresent here
+                        assert mrsrequest.insured == person
+                        # check that the mrsrequest has the right status
+                        assert mrsrequest.status_in('new', 'inprogress')
+                        # check that the transport in question does have a
+                        # matching date
+                        assert getattr(transport, field) == data.get(field)
+
+                elif confirm == 'validated':
+                    for transport in confirm_data:
+                        mrsrequest = transport.mrsrequest
+
+                        assert mrsrequest.insured == person
+                        assert mrsrequest.status_in('validated')
+                        assert getattr(transport, field) == data.get(field)
+
+                elif confirm == 'duplicate':
+                    for form_number, form_field in confirm_data:
+                        compare = formset.forms[form_number].cleaned_data_copy
+                        assert compare[form_field] == data[field]
+
+
+@pytest.mark.django_db
+def test_transport_formset_confirm_messages():
+    person, formset = person_transport_formset()
+    formset.add_confirms(person.nir, person.birth_date)
+
+    assert formset.errors[0] == dict(
+        date_depart=[
+            ' '.join([
+                'Ce trajet vous a été réglé lors des demandes du 03/05/2018',
+                'n° 201805030001 et du 03/05/2018 n° 201805030000.'
+            ]),
+            ' '.join([
+                'Votre demande de prise en charge pour ce trajet est en cours',
+                'de traitement dans la demande du 02/05/2018 n° 201805020001.'
+            ]),
         ]
-    }
+    )
+    assert formset.errors[1] == dict()
+    assert formset.errors[2] == dict(
+        date_depart=[
+            'Date de trajet déjà présente dans le trajet aller n° 1.',
+            ' '.join([
+                'Ce trajet vous a été réglé lors des demandes du 03/05/2018',
+                'n° 201805030001 et du 03/05/2018 n° 201805030000.',
+            ]),
+            ' '.join([
+                'Votre demande de prise en charge pour ce trajet est en cours',
+                'de traitement dans la demande du 02/05/2018 n° 201805020001.'
+            ]),
+        ],
+        date_return=[
+            'Date de trajet déjà présente dans le trajet retour n° 1.',
+        ]
+    )
+    assert formset.errors[3] == dict(
+        date_depart=[
+            ' '.join([
+                'Date de trajet déjà présente dans les trajets',
+                'retour n° 1 et retour n° 3.',
+            ]),
+            ' '.join([
+                'Ce trajet vous a été réglé lors de la demande du 03/05/2018',
+                'n° 201805030000.',
+            ]),
+        ]
+    )
+    assert formset.errors[4] == dict(
+        date_return=[
+            ' '.join([
+                'Date de trajet déjà présente dans les trajets',
+                'aller n° 1 et aller n° 3.',
+            ])
+        ],
+    )
