@@ -48,9 +48,7 @@ class MRSRequestCreateView(generic.TemplateView):
             ('person', PersonForm(
                 initial={k: v for k, v in request.GET.items()})),
             ('transport', TransportIterativeForm()),
-            ('transport_formset', TransportFormSet(
-                prefix='transport'
-            )),
+            ('transport_formset', TransportFormSet()),
             ('certify', CertifyForm()),
             ('use_email', UseEmailForm()),
         ])
@@ -155,33 +153,8 @@ class MRSRequestCreateView(generic.TemplateView):
             ('certify', CertifyForm(request.POST)),
             ('use_email', UseEmailForm(request.POST)),
         ])
-        forms['transport'] = TransportIterativeForm(
-            request.POST,
-        )
-
-        transport_formset_data = request.POST.copy()
-        iterative_number = request.POST.get('iterative_number', 1)
-        try:
-            int(iterative_number)
-        except ValueError:
-            iterative_number = 1
-        for i in ['total', 'initial', 'min_num', 'max_num']:
-            key = f'transport-{i.upper()}_FORMS'
-            transport_formset_data[key] = iterative_number
-
-        forms['transport_formset'] = TransportFormSet(
-            transport_formset_data,
-            prefix='transport',
-        )
-
-        transport_forms = forms['transport_formset'].forms
-        for i, form in enumerate(transport_forms, start=1):
-            form.empty_permitted = False
-            if self.request.POST.get('trip_kind', 'return') == 'return':
-                form.fields['date_return'].required = True
-
-            form.fields['date_depart'].label += f' {i}'
-            form.fields['date_return'].label += f' {i}'
+        forms['transport'] = TransportIterativeForm(request.POST)
+        forms['transport_formset'] = TransportFormSet(request.POST)
 
         return forms
 
@@ -224,27 +197,9 @@ class MRSRequestCreateView(generic.TemplateView):
             if not form.is_valid()
         ]
 
-    def get_submitted_dates(self):
-        dates = []
-        for kind in Transport.DATES:
-            dates += [
-                f.cleaned_data.get(f'date_{kind}')
-                for f in self.forms['transport_formset'].forms
-                if f.cleaned_data.get(f'date_{kind}', None)
-            ]
-        return dates
-
-    def get_insured_transports(self):
-        return Transport.objects.filter(
-            mrsrequest__insured__nir=self.forms['person'].cleaned_data['nir'],
-            mrsrequest__insured__birth_date=self.forms['person'].
-            cleaned_data['birth_date'],
-        ).filter(
-            date_depart__in=self.get_submitted_dates()
-        ).distinct().select_related('mrsrequest')
-
     def form_confirms(self):
         self.forms['transport_formset'].add_confirms(
-            self.get_insured_transports()
+            nir=self.forms['person'].cleaned_data['nir'],
+            birth_date=self.forms['person'].cleaned_data['birth_date'],
         )
         return self.form_errors()

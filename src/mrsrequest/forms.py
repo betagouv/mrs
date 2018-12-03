@@ -1,5 +1,3 @@
-import copy
-import datetime
 from decimal import Decimal
 
 from django import forms
@@ -10,10 +8,9 @@ import material
 
 from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateFieldNative
-from mrs.settings import DATE_FORMAT_FR
 from mrsattachment.forms import MRSAttachmentField
 
-from .models import BillATP, BillVP, MRSRequest, PMT
+from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
 
 class MRSRequestCreateForm(forms.ModelForm):
@@ -309,6 +306,10 @@ class TransportForm(forms.Form):
         )
     )
 
+    def __init__(self, *args, **kwargs):
+        self.confirms = dict()
+        super().__init__(*args, **kwargs)
+
     def clean(self):
         cleaned_data = super().clean()
 
@@ -323,53 +324,169 @@ class TransportForm(forms.Form):
 
         return cleaned_data
 
-    def add_confirms(self, transports):
-        """
-        Actually add_errors under date_depart, that should be visualized
-        as confirms.
-        """
-        MSG_IN_PROGRESS = ("Votre demande de prise en charge pour ce trajet "
-                           "est en cours de traitement. ")
-        MSG_VALIDATED = ("Ce trajet vous a été réglé lors de "
-                         "la demande du {} n° {}. ")
-        displayed_in_progress = False
+    def add_confirm(self, field, kind, other):
+        self.confirms.setdefault(field, dict())
+        self.confirms[field].setdefault(kind, list())
+        self.confirms[field][kind].append(other)
 
-        data = copy.deepcopy(self.cleaned_data)
+    def set_confirms(self, formset, transports):
+        """Provision self.confirms"""
+        self.set_confirms_formset(formset)
+        self.set_confirms_queryset(transports)
 
+    def set_confirms_queryset(self, transports):
+        date_depart = self.cleaned_data.get('date_depart')
         for transport in transports:
-            date = data.get('date_depart')
-            status = transport.mrsrequest.status
-            if date == transport.date_depart:
-                if status in [
-                        MRSRequest.STATUS_NEW,
-                        MRSRequest.STATUS_INPROGRESS,
-                ]:
-                    msg = MSG_IN_PROGRESS
-                    if not displayed_in_progress:
-                        displayed_in_progress = True
-                        self.add_error(
-                            'date_depart',
-                            msg
+            if date_depart != transport.date_depart:
+                continue
+
+            if transport.mrsrequest.status_in('new', 'inprogress'):
+                self.add_confirm('date_depart', 'inprogress', transport)
+            if transport.mrsrequest.status_in('validated'):
+                self.add_confirm('date_depart', 'validated', transport)
+
+    def set_confirms_formset(self, formset):
+        for my_name in ('depart', 'return'):
+            my_name = f'date_{my_name}'
+            my_value = self.cleaned_data.get(my_name)
+
+            for form_number, form in enumerate(formset.forms):
+                if form is self:
+                    break
+
+                for other_name in ('depart', 'return'):
+                    other_name = f'date_{other_name}'
+                    other_value = form.cleaned_data[other_name]
+
+                    if my_value == other_value:
+                        self.add_confirm(
+                            my_name,
+                            'duplicate',
+                            (form_number, other_name)
                         )
-                elif status == MRSRequest.STATUS_VALIDATED:
-                    date = datetime.datetime.strftime(
-                        transport.mrsrequest.creation_datetime,
-                        DATE_FORMAT_FR
-                    )
-                    msg = MSG_VALIDATED.format(
-                        date,
-                        transport.mrsrequest.display_id,
-                    )
-                    self.add_error(
-                        'date_depart',
-                        msg
-                    )
+
+    def add_confirms(self):
+        for field, confirms in self.confirms.items():
+            for confirm, confirm_data in confirms.items():
+                self.add_error(
+                    field,
+                    getattr(self, f'get_{confirm}_message')(confirm_data)
+                )
+
+    def get_duplicate_message(self, forms_fields):
+        names = dict(date_depart='aller', date_return='retour')
+        labels = [
+            f'{names[field_name]} n° {form_number + 1}'
+            for form_number, field_name in forms_fields
+        ]
+
+        msg = ['Date de trajet déjà présente dans']
+        if len(labels) == 1:
+            msg.append(f'le trajet {labels[0]}')
+        else:
+            msg += [
+                'les trajets',
+                ', '.join(labels[:-1]),
+                'et',
+                labels[-1],
+            ]
+
+        return ' '.join(msg) + '.'
+
+    def get_verbose_transports(self, singular, plural, transports):
+        mrsrequests = set([transport.mrsrequest for transport in transports])
+
+        msg = [plural if len(mrsrequests) > 1 else singular]
+
+        labels = [
+            ' '.join([
+                'du',
+                mrsrequest.creation_date_normalized,
+                'n°',
+                str(mrsrequest.display_id),
+            ])
+            for mrsrequest in mrsrequests
+        ]
+
+        if len(labels) == 1:
+            msg += ['demande', labels[0]]
+        else:
+            msg += [
+                'demandes',
+                ', '.join(labels[:-1]),
+                'et',
+                labels[-1],
+            ]
+
+        return ' '.join(msg)
+
+    def get_inprogress_message(self, transports):
+        return ' '.join([
+            'Votre demande de prise en charge pour ce trajet',
+            'est en cours de traitement dans',
+            self.get_verbose_transports('la', 'les', transports)
+        ]) + '.'
+
+    def get_validated_message(self, transports):
+        return ' '.join([
+            'Ce trajet vous a été réglé lors',
+            self.get_verbose_transports('de la', 'des', transports),
+        ]) + '.'
 
 
 class BaseTransportFormSet(forms.BaseFormSet):
-    def add_confirms(self, transports):
+    MSG_DUPLICATE = (
+        'La date {form_value} est déjà utilisée sur le transport: '
+    )
+
+    def __init__(self, data=None, *args, **kwargs):
+        prefix = kwargs.get('prefix', None) or self.get_default_prefix()
+
+        if data:
+            number = data.get('iterative_number', '1')
+            try:
+                number = int(number)
+            except ValueError:
+                number = 1
+
+            data = data.copy()
+            for i in ['total', 'initial', 'min_num', 'max_num']:
+                data[f'{prefix}-{i.upper()}_FORMS'] = number
+
+        super().__init__(data, *args, **kwargs)
+
+        if data:
+            for i, form in enumerate(self.forms, start=1):
+                form.empty_permitted = False
+                if data.get('trip_kind', 'return') == 'return':
+                    form.fields['date_return'].required = True
+
+                form.fields['date_depart'].label += f' {i}'
+                form.fields['date_return'].label += f' {i}'
+
+    def get_default_prefix(self):
+        return 'transport'
+
+    def add_confirms(self, nir, birth_date):
+        dates = set()
         for form in self.forms:
-            form.add_confirms(transports)
+            dates.add(form.cleaned_data.get('date_depart'))
+            dates.add(form.cleaned_data.get('date_return'))
+
+        transports = Transport.objects.filter(
+            mrsrequest__insured__nir=nir,
+            mrsrequest__insured__birth_date=birth_date,
+        ).filter(
+            date_depart__in=dates
+        ).distinct().select_related('mrsrequest')
+
+        for form in self.forms:
+            form.set_confirms(self, transports)
+
+        # this will call add_error for every confirm which will invalidate
+        # cleaned_data
+        for form in self.forms:
+            form.add_confirms()
 
 
 TransportFormSet = forms.formset_factory(
