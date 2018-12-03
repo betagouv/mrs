@@ -180,9 +180,7 @@ var formInit = function (form) {
     var retName = $(this).attr('name').replace('depart', 'return')
     var $ret = $(form).find('[name="' + retName + '"]')
 
-    if (! $ret.val()) {
-      $ret.val($(this).val())
-    }
+    $ret.val($(this).val())
   })
 
   // Simple trips
