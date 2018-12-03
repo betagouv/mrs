@@ -649,7 +649,6 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
 class MRSRequestUpdateView(crudlfap.UpdateView):
     allowed_groups = ['Admin', 'UPN']
-    form_class = MRSRequestForm
     extra_form_classes = dict(
         person=forms.modelform_factory(
             Person,
@@ -667,6 +666,12 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
             )
             for k, v in self.extra_form_classes.items()
         }
+
+    def get_form_class(self):
+        if self.object.modevp:
+            self.form_class = MRSRequestForm
+        else:
+            self.form_class = forms.Form
 
     def get_extra_form_args(self):
         if self.request.method == 'POST':
