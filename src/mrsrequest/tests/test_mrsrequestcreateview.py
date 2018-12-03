@@ -205,3 +205,19 @@ def test_mrsrequestcreateview_vote_with_mail(p, caisse, other_caisse):
         './src/mrsrequest/tests/test_mrsrequestcreateview_caisseemail.json',  # noqa
         models=[Caisse, MRSRequest, Email]
     ).assertNoDiff()
+
+
+@pytest.mark.django_db
+def test_mrsrequestcreateview_get_insured_transports(p):
+    Fixture('./src/mrs/tests/data.json').load()
+    person = Person.objects.get(pk=4)
+    data = dict(
+        mrsrequest_uuid=p.mrsrequest.id,
+        birth_date=person.birth_date,
+        nir=person.nir,
+    )
+    data['transport-0-date_depart'] = '2018-05-01'
+    data['transport-0-date_return'] = '2018-05-02'
+    p.post(**data)
+    # it should find 3 duplicate transports in data.json
+    assert len(p.view.get_insured_transports()) == 4
