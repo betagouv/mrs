@@ -12,7 +12,7 @@ from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateFieldNative
 from mrsattachment.forms import MRSAttachmentField
 
-from .models import BillATP, BillVP, MRSRequest, PMT
+from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
 
 DATE_FORMAT_FRENCH = '%d-%m-%Y'
@@ -369,9 +369,39 @@ class TransportForm(forms.Form):
 
 
 class BaseTransportFormSet(forms.BaseFormSet):
+    MSG_DUPLICATE = (
+        'La date {form_value} est déjà utilisée sur le transport: '
+    )
+
     def add_confirms(self, transports):
-        for form in self.forms:
+        for form_number, form in enumerate(self.forms, start=0):
             form.add_confirms(transports)
+            self.add_duplicates(form_number, form)
+
+    def add_duplicates(self, form_number, form):
+        for name in Transport.DATES:
+            duplicates = []
+            name = f'date_{name}'
+            form_value = form.cleaned_data.get(name)
+
+            for compare_number, compare in enumerate(self.forms, start=0):
+                if compare_number == form_number:
+                    continue
+
+                compare_value = compare.cleaned_data.get(name)
+                if compare_value != form_value:
+                    continue
+
+                duplicates.append(compare_number)
+
+            if not duplicates:
+                continue
+
+            msg = self.MSG_DUPLICATE.format(**locals())
+            msg += ', '.join(list(map(str, duplicates)))
+            if len(duplicates) > 1:
+                msg = msg.replace('le transport', 'les transports')
+            form.add_error(name, msg)
 
 
 TransportFormSet = forms.formset_factory(
