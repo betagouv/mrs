@@ -146,9 +146,15 @@ var formInit = function (form) {
         $(this).val('')
       })
       $newRow.find('label').append(' ' + (i + 1))
-      $newRow.insertAfter(
-        $(form).find('[name*=date_depart]:last').parents('div.layout-row')
-      )
+
+      var $nextRow = $(form).find(`[name*=-${i + 1}-date_depart]:last`).parents('div.layout-row')
+      if ($nextRow.length) {
+        $newRow.insertBefore($nextRow)
+      } else {
+        $newRow.insertAfter(
+          $(form).find('[name*=date_depart]:last').parents('div.layout-row')
+        )
+      }
       i--
     }
   }
