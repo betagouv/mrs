@@ -28,8 +28,19 @@
 
 <h2 class="scroll-reveal">Formulaire de remboursement</h2>
 <p class="scroll-reveal" id="subtitle">
-   Réalisez votre demande de remboursement en ligne dès maintenant.
+  Réalisez votre demande de remboursement en ligne dès maintenant.
 </p>
+
+<div class="with-ul" hidden="true" id="subtitle-confirm">
+  <p>
+    Attention certaines dates de trajet ont déjà été déclarées. Cela peut pénaliser votre remboursement. Nous vous invitons à vérifier chaque date soulignée et à :
+    </p><ul style="margin-left: 7em">
+      <li> corriger votre saisie s'il s'agit d'une erreur de date </li>
+      <li> annuler votre saisie si la demande a déjà été faite précédemment </li>
+      <li> confirmer votre saisie s'il s'agit d'une nouvelle demande. </li>
+    </ul>
+  <p></p>
+</div>
 
 <div class="form--wrapper scroll-reveal">
     <form class="mrsrequest-wizard" id="mrsrequest-wizard" method="POST" style="display: none">

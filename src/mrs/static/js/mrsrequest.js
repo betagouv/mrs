@@ -276,9 +276,12 @@ var formSubmit = function(form) {
           // show error overlay
           var confirming = get_confirming(newform)
           const errorMsg = 'Le formulaire contient une ou plusieurs erreurs'
-          const confirmMsg = 'Merci de confirmer vos dates de transport.'
-          var msg = confirming.length ? confirmMsg : errorMsg
-          confirming.length && $('#subtitle').html(confirmMsg)
+          const confirmMsgModal = 'Attention motif de rejet potentiel détecté. Merci de corriger ou confirmer vos dates de transport.'
+          var msg = confirming.length ? confirmMsgModal : errorMsg
+          if (confirming.length) {
+            $('#subtitle').hide()
+            $('#subtitle-confirm').show()
+          }
           submitUi.showSubmitError(msg, () => {
             submitUi.hideOverlay() // hide overlay
 
