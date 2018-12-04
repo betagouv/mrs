@@ -22,7 +22,9 @@ def webpackwatch(sender, **kwargs):
     npmroot = os.path.abspath(os.path.join(
         os.path.dirname(__file__), '../' * 4))
 
-    process = subprocess.Popen(['npm start -- --watch'], shell=True, cwd=npmroot)
+    process = subprocess.Popen(['npm start -- --watch'],
+                               shell=True,
+                               cwd=npmroot)
     with open(watch, 'w+') as f:
         f.write(str(process.pid))
 signal.connect(webpackwatch)

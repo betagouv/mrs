@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Manually re-calculate savings.'
 
     def handle(self, *args, **options):
-        print("****** Computing savings for all requests of all persons... *****")
+        print("** Computing savings for all requests of all persons…")
         for person in Person.objects.all():
             print("   * updating person {}...".format(person.pk))
             for req in person.mrsrequest_set.all():

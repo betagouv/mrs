@@ -228,7 +228,8 @@ class MRSRequestCreateView(generic.TemplateView):
     def get_insured_transports(self):
         return Transport.objects.filter(
             mrsrequest__insured__nir=self.forms['person'].cleaned_data['nir'],
-            mrsrequest__insured__birth_date=self.forms['person'].cleaned_data['birth_date'],
+            mrsrequest__insured__birth_date=self.forms['person'].
+            cleaned_data['birth_date'],
         ).filter(
             date_depart__in=self.get_submitted_dates()
         ).distinct().select_related('mrsrequest')

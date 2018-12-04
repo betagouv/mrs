@@ -129,8 +129,11 @@ def test_transport_form():
 
     assert form.errors == {
         'date_depart': [
-            'Ce trajet vous a été réglé lors de la demande du 03-05-2018 n° 201805030001. ',
-            'Ce trajet vous a été réglé lors de la demande du 03-05-2018 n° 201805030000. ',
-            'Votre demande de prise en charge pour ce trajet est en cours de traitement. '
+            "Ce trajet vous a été réglé lors de la demande du \
+03-05-2018 n° 201805030001. ",
+            "Ce trajet vous a été réglé lors de la demande du 03-05-2018 \
+n° 201805030000. ",
+            "Votre demande de prise en charge pour ce trajet est en \
+cours de traitement. "
         ]
     }

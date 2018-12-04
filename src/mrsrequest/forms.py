@@ -285,7 +285,8 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     def save(self, commit=True):
         if self.cleaned_data.get('parking_expensevp', None):
-            self.instance.expensevp += self.cleaned_data.get('parking_expensevp')
+            self.instance.expensevp += self.cleaned_data.get(
+                'parking_expensevp')
 
         obj = super().save(commit=commit)
         save_m2m = getattr(self, 'save_m2m', None)
@@ -329,8 +330,10 @@ class TransportForm(forms.Form):
         Actually add_errors under date_depart, that should be visualized
         as confirms.
         """
-        MSG_EN_COURS = 'Votre demande de prise en charge pour ce trajet est en cours de traitement. '
-        MSG_DEJA_REGLE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}. '
+        MSG_EN_COURS = ("Votre demande de prise en charge pour ce trajet "
+                        "est en cours de traitement. ")
+        MSG_DEJA_REGLE = ("Ce trajet vous a été réglé lors de "
+                          "la demande du {} n° {}. ")
         displayed_en_cours = False
 
         data = copy.deepcopy(self.cleaned_data)
@@ -426,9 +429,10 @@ class CertifyForm(forms.Form):
 class UseEmailForm(forms.Form):
     USE_EMAIL_LABEL = ("En cochant cette case, vous acceptez que "
                        "Mes Remboursements Simplifiés mémorise et utilise "
-                       "votre adresse email dans le but de vous envoyer occasionnellement "
-                       "des emails d'informations. "
-                       "Vous pouvez à tout moment vous désinscrire de ce service.")
+                       "votre adresse email dans le but de vous envoyer "
+                       "occasionnellement des emails d'informations. "
+                       "Vous pouvez à tout moment vous désinscrire de "
+                       "ce service.")
 
     use_email = forms.BooleanField(
         label=USE_EMAIL_LABEL,
