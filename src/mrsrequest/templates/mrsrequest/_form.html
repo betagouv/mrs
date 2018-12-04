@@ -131,7 +131,20 @@
             <br />
 
             {% if view.confirm %}
-            <button type="submit" name="confirm" class="btn">Confirmer</button>
+            <table>
+              <tr>
+                <td style="text-align: right">
+                  <a
+                      href="/demande" name="cancel" class="btn red"
+                      title="Annuler cette demande et revenir au formulaire">
+                    Annuler
+                  </a>
+                </td>
+                <td>
+                  <button type="submit" name="confirm" class="btn">Confirmer</button>
+                </td>
+              </tr>
+            </table>
             {% else %}
             <button type="submit" name="_submit" class="btn">Soumettre</button>
             {% endif %}
