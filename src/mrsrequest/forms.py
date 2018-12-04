@@ -367,9 +367,11 @@ class BaseTransportFormSet(forms.BaseFormSet):
     )
 
     def add_confirms(self, transports):
-        for form_number, form in enumerate(self.forms, start=0):
-            form.add_confirms(transports)
+        for form_number, form in enumerate(self.forms, start=1):
+            cleaned_data = form.cleaned_data
             self.add_duplicates(form_number, form)
+            form.cleaned_data = cleaned_data
+            form.add_confirms(transports)
 
     def add_duplicates(self, form_number, form):
         for name in Transport.DATES:
@@ -377,7 +379,7 @@ class BaseTransportFormSet(forms.BaseFormSet):
             name = f'date_{name}'
             form_value = form.cleaned_data.get(name)
 
-            for compare_number, compare in enumerate(self.forms, start=0):
+            for compare_number, compare in enumerate(self.forms, start=1):
                 if compare_number == form_number:
                     continue
 

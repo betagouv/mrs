@@ -167,8 +167,12 @@ def test_transport_formset():
                 'Votre demande de prise en charge pour ce trajet est en cours de traitement. '
             ],
             'date_return': [
-                'La date 2018-05-02 est déjà utilisée sur le transport: 1'
+                'La date 2018-05-02 est déjà utilisée sur le transport: 2'
             ]
         },
-        {}
+        {
+            'date_return': [
+                'La date 2018-05-02 est déjà utilisée sur le transport: 1'
+            ]
+        }
     ]
