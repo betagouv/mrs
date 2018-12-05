@@ -111,8 +111,7 @@ var formInit = function (form) {
     var i = parseInt($iterativeNumber.val())
 
     if (isNaN(i) || i < 1) {
-      $iterativeNumber.val(1)
-      i = 1
+      return
     }
     i--  // compensate for first form that starts at 0
 
