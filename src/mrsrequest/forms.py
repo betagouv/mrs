@@ -389,6 +389,7 @@ class TransportIterativeForm(forms.Form):
         label='Combien de trajets itératifs ?',
         initial=1,
         required=False,
+        widget=forms.TextInput,
     )
     trip_kind = forms.ChoiceField(
         label='',

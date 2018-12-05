@@ -192,7 +192,7 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_iterative_number_container">
-        <input id="id_iterative_number" name="iterative_number" type="number" value="1"/>
+        <input id="id_iterative_number" name="iterative_number" type="text" value="1"/>
         <label class="active" for="id_iterative_number">Combien de trajets itératifs ?</label>
         
     </div>

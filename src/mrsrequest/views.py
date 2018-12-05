@@ -144,10 +144,14 @@ class MRSRequestCreateView(generic.TemplateView):
         )
 
         transport_formset_data = request.POST.copy()
+        iterative_number = request.POST.get('iterative_number', 1)
+        try:
+            int(iterative_number)
+        except ValueError:
+            iterative_number = 1
         for i in ['total', 'initial', 'min_num', 'max_num']:
             key = f'transport-{i.upper()}_FORMS'
-            transport_formset_data[key] = request.POST.get(
-                'iterative_number', 1)
+            transport_formset_data[key] = iterative_number
 
         self.forms['transport_formset'] = TransportFormSet(
             transport_formset_data,
