@@ -806,6 +806,17 @@ class MRSRequestDetailView(crudlfap.DetailView):
 
                 dates.append(date)
 
+    def print_date(self, data):
+        """
+        Print the date in french format.
+        """
+        if isinstance(data, str):
+            try:
+                return datetime.strptime(data, '%Y-%m-%d').strftime('%d/%m/%Y')
+            except Exception:
+                pass
+        return data
+
 
 class MRSRequestRouter(crudlfap.Router):
     model = MRSRequest

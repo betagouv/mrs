@@ -60,9 +60,15 @@
                                         <tr>
                                             <th>Numéro de sécurité sociale</th>
                                             <td>
+                                                
                                                 1223123123122
+                                                
                                             </td>
-                                            <td>1223123123129</td>
+                                            <td>
+                                              
+                                              1223123123129
+                                              
+                                            </td>
                                         </tr>
                                         
                                     
@@ -72,9 +78,15 @@
                                         <tr>
                                             <th>Assuré</th>
                                             <td>
+                                                
                                                 5
+                                                
                                             </td>
-                                            <td>6</td>
+                                            <td>
+                                              
+                                              6
+                                              
+                                            </td>
                                         </tr>
                                         
                                     
@@ -84,9 +96,15 @@
                                         <tr>
                                             <th>Date de naissance</th>
                                             <td>
-                                                2001-01-01
+                                                
+                                                01/01/2001
+                                                
                                             </td>
-                                            <td>2000-12-31</td>
+                                            <td>
+                                              
+                                              31/12/2000
+                                              
+                                            </td>
                                         </tr>
                                         
                                     
