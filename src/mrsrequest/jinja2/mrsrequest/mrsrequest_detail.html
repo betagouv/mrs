@@ -155,9 +155,19 @@
                                         <tr>
                                             <th>{{ view.labels[key] }}</th>
                                             <td>
+                                                {% if key == 'birth_date' %}
+                                                {{ view.object.field_changed(key).strftime('%d/%m/%Y') }}
+                                                {% else %}
                                                 {{ view.object.data.get(key, values[0]) }}
+                                                {% endif %}
                                             </td>
-                                            <td>{{ values[1] }}</td>
+                                            <td>
+                                              {% if key == 'birth_date' %}
+                                              {{ view.print_date(values[1]) }}
+                                              {% else %}
+                                              {{ values[1] }}
+                                              {% endif %}
+                                            </td>
                                         </tr>
                                         {% endif %}
                                     {% endif %}
