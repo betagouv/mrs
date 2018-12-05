@@ -130,42 +130,7 @@ class MRSRequestCreateView(generic.TemplateView):
         # for display
         self.caisse_form = CaisseVoteForm(prefix='other')
 
-        self.forms = collections.OrderedDict([
-            ('mrsrequest', MRSRequestCreateForm(
-                request.POST,
-                mrsrequest_uuid=self.mrsrequest_uuid
-            )),
-            ('person', PersonForm(request.POST)),
-            ('certify', CertifyForm(request.POST)),
-            ('use_email', UseEmailForm(request.POST)),
-        ])
-        self.forms['transport'] = TransportIterativeForm(
-            request.POST,
-        )
-
-        transport_formset_data = request.POST.copy()
-        iterative_number = request.POST.get('iterative_number', 1)
-        try:
-            int(iterative_number)
-        except ValueError:
-            iterative_number = 1
-        for i in ['total', 'initial', 'min_num', 'max_num']:
-            key = f'transport-{i.upper()}_FORMS'
-            transport_formset_data[key] = iterative_number
-
-        self.forms['transport_formset'] = TransportFormSet(
-            transport_formset_data,
-            prefix='transport',
-        )
-
-        transport_forms = self.forms['transport_formset'].forms
-        for i, form in enumerate(transport_forms, start=1):
-            form.empty_permitted = False
-            if self.request.POST.get('trip_kind', 'return') == 'return':
-                form.fields['date_return'].required = True
-
-            form.fields['date_depart'].label += f' {i}'
-            form.fields['date_return'].label += f' {i}'
+        self.forms = self.post_get_forms(request)
 
         self.success = self.confirm = False
         if not self.form_errors():
@@ -179,6 +144,46 @@ class MRSRequestCreateView(generic.TemplateView):
                 self.confirm = True
 
         return generic.TemplateView.get(self, request, *args, **kwargs)
+
+    def post_get_forms(self, request):
+        forms = collections.OrderedDict([
+            ('mrsrequest', MRSRequestCreateForm(
+                request.POST,
+                mrsrequest_uuid=self.mrsrequest_uuid
+            )),
+            ('person', PersonForm(request.POST)),
+            ('certify', CertifyForm(request.POST)),
+            ('use_email', UseEmailForm(request.POST)),
+        ])
+        forms['transport'] = TransportIterativeForm(
+            request.POST,
+        )
+
+        transport_formset_data = request.POST.copy()
+        iterative_number = request.POST.get('iterative_number', 1)
+        try:
+            int(iterative_number)
+        except ValueError:
+            iterative_number = 1
+        for i in ['total', 'initial', 'min_num', 'max_num']:
+            key = f'transport-{i.upper()}_FORMS'
+            transport_formset_data[key] = iterative_number
+
+        forms['transport_formset'] = TransportFormSet(
+            transport_formset_data,
+            prefix='transport',
+        )
+
+        transport_forms = forms['transport_formset'].forms
+        for i, form in enumerate(transport_forms, start=1):
+            form.empty_permitted = False
+            if self.request.POST.get('trip_kind', 'return') == 'return':
+                form.fields['date_return'].required = True
+
+            form.fields['date_depart'].label += f' {i}'
+            form.fields['date_return'].label += f' {i}'
+
+        return forms
 
     def save_mrsrequest(self):
         self.forms['mrsrequest'].instance.insured = (
