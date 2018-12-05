@@ -31,11 +31,6 @@ function checkedEnables(form, mode) {
   change()
 }
 
-function get_confirming(form) {
-  var confirming = $(form).find('[name=confirm]')
-  return confirming
-}
-
 var formInit = function (form) {
   var confirming = $(form).find('[name=confirm]').length
 
@@ -44,9 +39,6 @@ var formInit = function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault()
       formSubmit(form)
-      $(form).find(':input').each(function() {
-        $(this).attr('disabled', 'disabled')
-      })
     }, false)
     listen = true
   }
@@ -57,7 +49,6 @@ var formInit = function (form) {
       checkedEnables(form, mode)
     }
   }
-
 
   // Setup ajax attachment
   if (!confirming) {
@@ -145,7 +136,10 @@ var formInit = function (form) {
         $(this).attr('name', $(this).attr('name').replace('-0-', `-${i}-`))
         $(this).val('')
       })
-      $newRow.find('label').append(' ' + (i + 1))
+      $newRow.find('label').html(
+        $newRow.find('label').html()
+          .replace(/^([^0-9]+)([0-9]*)$/, '$1 ' + (i + 1))
+      )
 
       var $nextRow = $(form).find(`[name*=-${i + 1}-date_depart]:last`).parents('div.layout-row')
       if ($nextRow.length) {
@@ -235,8 +229,6 @@ var formSubmit = function(form) {
 
   if ($.active) {
     if ($(form).find('.wait').length < 1) {
-      submitUi.hideOverlay() // hide overlay and show message
-
       $(`<div class="wait card-panel orange lighten-4">
             Merci de laisser le site ouvert pendant téléchargement complêt de vos documents
         </div>`).appendTo($(form))
@@ -254,48 +246,38 @@ var formSubmit = function(form) {
     {
       url: document.location.href,
       type: 'POST',
-      data: $(form).serialize(),
+      data: $form.serialize(),
       error: function() {
-        // Show overlay with error state
-        var errorMsg = 'Une erreur inconnue est survenue. Veuillez reessayer dans quelques minutes, merci.'
-        submitUi.showSubmitError(errorMsg, () => {
-          submitUi.hideOverlay() // hide overlay
-          $(form).find(':input').each(function() {
-            $(this).removeAttr('disabled')
-          })
-        })
+        submitUi.showSubmitError(
+          'Une erreur inconnue est survenue. Veuillez reessayer dans quelques minutes, merci.',
+          () => {
+            $(form).find(':input').each(function() {
+              $(this).removeAttr('disabled')
+            })
+            submitUi.hideOverlay()
+          }
+        )
       },
       success: function(data) {
         var dom = $(data)
         var newform = dom.find('form#mrsrequest-wizard')
         $form.html(newform.html())
         formInit(form)
+        submitUi.hideOverlay() // hide overlay
 
         var $error = $('.has-error')
         if ($error.length) {
-          // show error overlay
-          var confirming = get_confirming(newform)
-          const errorMsg = 'Le formulaire contient une ou plusieurs erreurs'
-          const confirmMsgModal = 'Attention motif de rejet potentiel détecté. Merci de corriger ou confirmer vos dates de transport.'
-          var msg = confirming.length ? confirmMsgModal : errorMsg
-          if (confirming.length) {
-            $('#subtitle').hide()
-            $('#subtitle-confirm').show()
-          }
-          submitUi.showSubmitError(msg, () => {
-            submitUi.hideOverlay() // hide overlay
-
-            $('html, body').animate({
-              // Compensate for potential heading to show
-              scrollTop: $error.offset().top - 60 + 'px'
-            }, 'fast')
-          })
+          var $header = $('.Header--wrapper')
+          var headerHeight = $header.length ? $header.outerHeight() : 60
+          $('html, body').animate({
+            // Compensate for heading to show
+            scrollTop: $error.offset().top - headerHeight + 'px'
+          }, 'fast')
 
           // Change error class to warning.
-          if (confirming.length) {
+          if (newform.find('[name=confirm]').length) {
             $('.error').attr('class', 'warning')
           }
-
         } else {
           document.querySelector('html').dispatchEvent(
             new CustomEvent(
@@ -303,18 +285,6 @@ var formSubmit = function(form) {
               {detail: {'mrsrequest_uuid': mrsrequest_uuid}}
             )
           )
-
-          var successMsg = 'Soumission du formulaire reussie'
-          submitUi.showSubmitSuccess(successMsg) // show success overlay
-
-          // artificially show success overlay for 3s so user has feedback
-          window.setTimeout(() => {
-            submitUi.hideOverlay() // hide overlay
-
-            $('html, body').animate({
-              scrollTop: $(form).offset().top + 'px'
-            }, 'fast')
-          }, 3000)
         }
       },
       beforeSend: function(xhr) {
@@ -325,13 +295,18 @@ var formSubmit = function(form) {
     }
   )
 
-  $(form).fadeIn()
+  // prevent modification during submission
+  $(form).find(':input').each(function() {
+    $(this).attr('disabled', 'disabled')
+  })
 }
 
 if(document.querySelector('form#mrsrequest-wizard'))
   formInit(document.querySelector('form#mrsrequest-wizard'))
 
 $('body').on('click', '[data-load-in-form]', function() {
+  submitUi.showSubmitLoading()
+
   $.ajax({
     method: 'GET',
     url: $(this).attr('data-load-in-form'),
@@ -344,6 +319,7 @@ $('body').on('click', '[data-load-in-form]', function() {
       var form = document.querySelector('form#mrsrequest-wizard')
       $(form).html(newform.html())
       formInit(form)
+      submitUi.hideOverlay() // hide overlay
     },
   })
 })

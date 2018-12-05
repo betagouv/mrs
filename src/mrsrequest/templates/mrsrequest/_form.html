@@ -4,39 +4,32 @@
 {{ view.caisses_json|safe }}
 </script>
 
-<h2 class="scroll-reveal">Formulaire de remboursement</h2>
-<p id="subtitle" class="scroll-reveal">
-  Réalisez votre demande de remboursement en ligne dès maintenant.
-</p>
-
-<div id="subtitle-confirm" hidden="true" class="with-ul">
-  <p>
-    Attention certaines dates de trajet ont déjà été déclarées. Cela peut pénaliser votre remboursement. Nous vous invitons à vérifier chaque date soulignée et à :
-    <ul style="margin-left: 7em">
-      <li> corriger votre saisie s'il s'agit d'une erreur de date </li>
-      <li> annuler votre saisie si la demande a déjà été faite précédemment </li>
-      <li> confirmer votre saisie s'il s'agit d'une nouvelle demande. </li>
-    </ul>
-  </p>
-</div>
-
 <div class="form--wrapper scroll-reveal">
     <form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
-
         {% if view.success %}
-        <div class="card-panel teal lighten-4">
+        <h2 class="scroll-reveal">Formulaire envoyé avec succès !</h2>
+        <div class="card-panel teal lighten-4" id="submitui-message">
             Merci pour votre demande ! Nous reviendrons vers vous dès que possible.
-            <br />
-            <a data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}">Cliquez ici pour faire une nouvelle demande.</a>
+        </div>
+        <div>
+            <a
+                class="right btn"
+                data-load-in-form="{{ path_info }}?caisse={{ request.POST.caisse }}"
+            >Nouvelle demande</a>
+            </a>
+            <a
+                class="left teal-text"
+                data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
+            >Nouvelle demande: même assurré</a>
+            </a>
         </div>
 
         {% elif view.success_caisse %}
-        <div class="card-panel teal lighten-4">
+        <div class="card-panel teal lighten-4" id="submitui-message">
             Merci pour votre intérêt ! Nous reviendrons vers vous dès que votre caisse entrera dans le dispositif MRS
         </div>
 
         {% else %}
-
             {% comment %}
             in my tests, moving this elsewhere causes view.forms.mrsrequest.errors.pmt to
             always be empty, bug needs isolation and upstream report prolly
@@ -55,7 +48,28 @@
 
             {% csrf_token %}
 
-            {% if not view.confirm %}
+            {% if view.confirm %}
+                <h2 class="has-error">Attention: penalisation de remboursement potentiel</h2>
+                <div class="with-ul">
+                  <p>
+                    Attention <b>certaines dates de trajet ont déjà été déclarées</b>.
+                    <br/>
+                    Cela peut pénaliser votre remboursement.
+                    <br/>
+                    Nous vous invitons à vérifier chaque date soulignée et à :
+                    <ul style="margin-left: 7em">
+                      <li> corriger votre saisie s'il s'agit d'une erreur de date puis cliquer sur le bouton CONTINUER. </li>
+                      <li> annuler votre saisie si la demande a déjà été faite précédemment en cliquant sur le bouton RETOUR</li>
+                      <li> confirmer votre saisie s'il s'agit d'une nouvelle demande en cliquant sur CONTINUER. </li>
+                    </ul>
+                  </p>
+                </div>
+            {% else %}
+                <h2>Formulaire de remboursement de transports</h2>
+                <p id="subtitle" class="scroll-reveal">
+                  Réalisez votre demande de remboursement en ligne dès maintenant.
+                </p>
+
                 {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.above %}
                 {% endform %}
             {% endif %}
@@ -131,20 +145,17 @@
             <br />
 
             {% if view.confirm %}
-            <table>
-              <tr>
-                <td style="text-align: right">
-                  <a
-                      href="/demande" name="cancel" class="btn red"
-                      title="Annuler cette demande et revenir au formulaire">
-                    Annuler
-                  </a>
-                </td>
-                <td>
-                  <button type="submit" name="confirm" class="btn">Confirmer</button>
-                </td>
-              </tr>
-            </table>
+            <div>
+                <a
+                    class="left red-text"
+                    data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
+                >Retour</a>
+                </a>
+                <button
+                    type="submit"
+                    class="btn right"
+                    value="Continuer"
+                >Continuer</button>
             {% else %}
             <button type="submit" name="_submit" class="btn">Soumettre</button>
             {% endif %}
