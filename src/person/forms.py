@@ -37,24 +37,6 @@ class PersonForm(forms.ModelForm):
         ),
     )
 
-    layout = material.Layout(
-        material.Fieldset(
-            'Identité de la personne transportée',
-            material.Row(
-                'first_name',
-                'last_name',
-            ),
-            'birth_date',
-        ),
-        material.Fieldset(
-            'Identité de l\'assuré',
-            material.Row(
-                'nir',
-                'email',
-            )
-        ),
-    )
-
     def clean_nir(self):
         nir = self.cleaned_data['nir']
         try:
