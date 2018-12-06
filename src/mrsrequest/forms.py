@@ -340,8 +340,12 @@ class TransportForm(forms.Form):
 
         for transport in transports:
             date = data.get('date_depart')
+            status = transport.mrsrequest.status
             if date == transport.date_depart:
-                if transport.mrsrequest.status in [1, 1000]:
+                if status in [
+                        MRSRequest.STATUS_NEW,
+                        MRSRequest.STATUS_INPROGRESS,
+                ]:
                     msg = MSG_IN_PROGRESS
                     if not displayed_in_progress:
                         displayed_in_progress = True
@@ -349,7 +353,7 @@ class TransportForm(forms.Form):
                             'date_depart',
                             msg
                         )
-                elif transport.mrsrequest.status == 2000:
+                elif status == MRSRequest.STATUS_VALIDATED:
                     date = datetime.datetime.strftime(
                         transport.mrsrequest.creation_datetime,
                         DATE_FORMAT_FRENCH
