@@ -212,7 +212,7 @@
     <div class="input-field col s12 required" id="id_transport-0-date_depart_container">
         <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_transport-0-date_depart" name="transport-0-date_depart" placeholder="jj/mm/aaaa" type="date"/>
         <label for="id_transport-0-date_depart">Date de l'aller</label>
-        <div class="help-block">Au format jj/mm/aaaa, exemple: 31/12/2000</div>
+        
     </div>
 </div>
 </div><div class="col s12 m6">
@@ -222,7 +222,7 @@
     <div class="input-field col s12" id="id_transport-0-date_return_container">
         <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_transport-0-date_return" name="transport-0-date_return" placeholder="jj/mm/aaaa" type="date"/>
         <label for="id_transport-0-date_return">Date de retour</label>
-        <div class="help-block">Au format jj/mm/aaaa, exemple: 31/12/2000</div>
+        
     </div>
 </div>
 </div></div>
