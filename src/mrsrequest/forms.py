@@ -9,7 +9,7 @@ from django.utils.datastructures import MultiValueDict
 import material
 
 from caisse.forms import ActiveCaisseChoiceField
-from mrs.forms import DateField
+from mrs.forms import DateFieldNative
 from mrsattachment.forms import MRSAttachmentField
 
 from .models import BillATP, BillVP, MRSRequest, PMT
@@ -301,8 +301,8 @@ class MRSRequestCreateForm(forms.ModelForm):
 
 
 class TransportForm(forms.Form):
-    date_depart = DateField(label='Date de l\'aller', required=True)
-    date_return = DateField(label='Date de retour', required=False)
+    date_depart = DateFieldNative(label='Date de l\'aller', required=True)
+    date_return = DateFieldNative(label='Date de retour', required=False)
 
     layout = material.Layout(
         material.Row(

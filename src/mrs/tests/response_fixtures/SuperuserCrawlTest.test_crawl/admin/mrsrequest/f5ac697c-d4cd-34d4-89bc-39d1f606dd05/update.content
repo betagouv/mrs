@@ -39,9 +39,9 @@
 
 <div class="row">
     <div class="input-field col s12 required" id="id_birth_date_container">
-        <input data-date-format="Y-m-d" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" placeholder="jj/mm/aaaa" type="date" value="2000-05-29"/>
+        <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" type="text" value="29/05/2000"/>
         <label class="active" for="id_birth_date">Date de naissance</label>
-        
+        <div class="help-block">Au format jj/mm/aaaa, exemple: 31/12/2000</div>
     </div>
 </div>
 
