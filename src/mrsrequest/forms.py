@@ -330,11 +330,11 @@ class TransportForm(forms.Form):
         Actually add_errors under date_depart, that should be visualized
         as confirms.
         """
-        MSG_EN_COURS = ("Votre demande de prise en charge pour ce trajet "
-                        "est en cours de traitement. ")
-        MSG_DEJA_REGLE = ("Ce trajet vous a été réglé lors de "
-                          "la demande du {} n° {}. ")
-        displayed_en_cours = False
+        MSG_IN_PROGRESS = ("Votre demande de prise en charge pour ce trajet "
+                           "est en cours de traitement. ")
+        MSG_VALIDATED = ("Ce trajet vous a été réglé lors de "
+                         "la demande du {} n° {}. ")
+        displayed_in_progress = False
 
         data = copy.deepcopy(self.cleaned_data)
 
@@ -342,9 +342,9 @@ class TransportForm(forms.Form):
             date = data.get('date_depart')
             if date == transport.date_depart:
                 if transport.mrsrequest.status in [1, 1000]:
-                    msg = MSG_EN_COURS
-                    if not displayed_en_cours:
-                        displayed_en_cours = True
+                    msg = MSG_IN_PROGRESS
+                    if not displayed_in_progress:
+                        displayed_in_progress = True
                         self.add_error(
                             'date_depart',
                             msg
@@ -354,7 +354,7 @@ class TransportForm(forms.Form):
                         transport.mrsrequest.creation_datetime,
                         DATE_FORMAT_FRENCH
                     )
-                    msg = MSG_DEJA_REGLE.format(
+                    msg = MSG_VALIDATED.format(
                         date,
                         transport.mrsrequest.display_id,
                     )

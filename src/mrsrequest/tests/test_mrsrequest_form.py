@@ -127,13 +127,14 @@ def test_transport_form():
     # Ce trajet vous a été réglé lors de la demande du 03-05-2018 n°
     # 201805030001 et la demande du 03-05-2018 n° 201805030000.
 
+    MSG_DONE = "Ce trajet vous a été réglé lors de la demande du {} n° {}. "
+    MSG_IN_PROCESS = ("Votre demande de prise en charge pour ce trajet "
+                      "est en cours de traitement. ")
+
     assert form.errors == {
         'date_depart': [
-            "Ce trajet vous a été réglé lors de la demande du \
-03-05-2018 n° 201805030001. ",
-            "Ce trajet vous a été réglé lors de la demande du 03-05-2018 \
-n° 201805030000. ",
-            "Votre demande de prise en charge pour ce trajet est en \
-cours de traitement. "
+            MSG_DONE.format("03-05-2018", "201805030001"),
+            MSG_DONE.format("03-05-2018", "201805030000"),
+            MSG_IN_PROCESS,
         ]
     }
