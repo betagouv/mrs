@@ -808,8 +808,8 @@
                     6
                 ],
                 "birth_date": [
-                    "2001-01-01",
-                    "2000-12-31"
+                    "01/01/2001",
+                    "31/12/2000"
                 ]
             }
         },
@@ -913,7 +913,7 @@
             "nir": 1223123123122,
             "email": "jim@example.com",
             "last_name": "rominet",
-            "birth_date": "2001-01-01",
+            "birth_date": "01/01/2001",
             "first_name": "titi"
         },
         "taxi_cost": "16.47",

@@ -1,7 +1,7 @@
 from chardet.universaldetector import UniversalDetector
 import copy
 import csv
-from datetime import datetime
+import datetime
 import io
 import logging
 
@@ -25,6 +25,7 @@ from djcall.models import Caller
 from institution.models import Institution
 
 from mrsemail.crudlfap import EmailViewMixin
+from mrsrequest.models import DATE_FORMAT_FR
 from person.forms import PersonForm
 from person.models import Person
 
@@ -34,8 +35,6 @@ from .forms import (
 from .models import MRSRequest, MRSRequestLogEntry
 
 logger = logging.getLogger(__name__)
-
-DATE_FORMAT = '%d/%m/%Y'
 
 CSV_COLUMNS = (
     'caisse',
@@ -289,7 +288,7 @@ class MRSRequestListView(crudlfap.ListView):
         creation_date__gte=django_filters.DateFilter(
             field_name='creation_datetime',
             lookup_expr='gte',
-            input_formats=[DATE_FORMAT],
+            input_formats=[DATE_FORMAT_FR],
             label='Date minimale',
             widget=forms.TextInput(
                 attrs={
@@ -302,7 +301,7 @@ class MRSRequestListView(crudlfap.ListView):
         creation_date__lte=django_filters.DateFilter(
             field_name='creation_datetime',
             lookup_expr='lte',
-            input_formats=[DATE_FORMAT],
+            input_formats=[DATE_FORMAT_FR],
             label='Date maximale',
             widget=forms.TextInput(
                 attrs={
@@ -428,8 +427,8 @@ class MRSRequestExport(crudlfap.ObjectsView):
                 str(obj.caisse.number),
                 obj.display_id,
                 obj.insured.nir,
-                obj.insured.birth_date.strftime(DATE_FORMAT),
-                date_depart.strftime(DATE_FORMAT),
+                obj.insured.birth_date.strftime(DATE_FORMAT_FR),
+                date_depart.strftime(DATE_FORMAT_FR),
                 '',
                 '',
                 '',
@@ -575,9 +574,9 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
     def update_mrsrequest(self, i, obj, row):
         if row['mandatement']:
-            obj.mandate_datevp = datetime.strptime(
+            obj.mandate_datevp = datetime.datetime.strptime(
                 row['mandatement'],
-                DATE_FORMAT,
+                DATE_FORMAT_FR,
             ).date()
 
         if row['base']:
@@ -713,10 +712,16 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
             if name not in form.fields:
                 return
 
-            self.changed_data[name] = (
-                form[name].initial,
-                form.cleaned_data[name]
-            )
+            if isinstance(form[name].initial, datetime.date):
+                self.changed_data[name] = (
+                    form[name].initial,
+                    form.cleaned_data[name].strftime('%d/%m/%Y')
+                )
+            else:
+                self.changed_data[name] = (
+                    form[name].initial,
+                    form.cleaned_data[name]
+                )
 
         for name in self.changed_fields:
             add_changed_data(name, self.form)
@@ -738,15 +743,20 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
             add_changed_labels(form)
 
     def form_valid(self):
+
         def d():
-            return {
+            data = {
                 'insured' if i == 'pk' else i: getattr(self.object.insured, i)
                 for i in (
                     'nir',
-                    'birth_date',
+                    # 'birth_date',
                     'pk'
                 )
             }
+            date = getattr(self.object.insured, 'birth_date')
+            if date:
+                data['birth_date'] = date.strftime(DATE_FORMAT_FR)
+            return data
 
         self.person_before = d()
         self.object.insured = self.extra_forms['person'].get_or_create()
@@ -805,17 +815,6 @@ class MRSRequestDetailView(crudlfap.DetailView):
                     self.duplicate_dates.append(date)
 
                 dates.append(date)
-
-    def print_date(self, data):
-        """
-        Print the date in french format.
-        """
-        if isinstance(data, str):
-            try:
-                return datetime.strptime(data, '%Y-%m-%d').strftime('%d/%m/%Y')
-            except Exception:
-                pass
-        return data
 
 
 class MRSRequestRouter(crudlfap.Router):

@@ -11,11 +11,9 @@ import material
 from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateFieldNative
 from mrsattachment.forms import MRSAttachmentField
+from mrsrequest.models import DATE_FORMAT_FR
 
 from .models import BillATP, BillVP, MRSRequest, PMT
-
-
-DATE_FORMAT_FRENCH = '%d-%m-%Y'
 
 
 class MRSRequestCreateForm(forms.ModelForm):
@@ -356,7 +354,7 @@ class TransportForm(forms.Form):
                 elif status == MRSRequest.STATUS_VALIDATED:
                     date = datetime.datetime.strftime(
                         transport.mrsrequest.creation_datetime,
-                        DATE_FORMAT_FRENCH
+                        DATE_FORMAT_FR
                     )
                     msg = MSG_VALIDATED.format(
                         date,
