@@ -18,6 +18,7 @@ from django.utils import timezone
 from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 
 TWOPLACES = Decimal(10) ** -2
+DATE_FORMAT_FR = '%d/%m/%Y'
 
 raven_logger = logging.getLogger('raven')
 
@@ -482,18 +483,14 @@ class MRSRequest(models.Model):
         """
         If the field was changed, return its original value.
         """
-        FORMAT_YMD = '%Y-%m-%d'
         # The oldest logentry has the original value.
-        entries = self.logentries.order_by('datetime')
-        for entry in entries:
+        if not hasattr(self, '_logentries'):
+            self._logentries = self.logentries.order_by('datetime')
+        for entry in self._logentries:
             if entry.data and \
                'changed' in entry.data and \
                fieldname in entry.data['changed']:
                 val = entry.data['changed'][fieldname][0]
-                # parse the date string.
-                if fieldname == 'birth_date':
-                    val = datetime.datetime.strptime(val, FORMAT_YMD)
-                    val = val.date()
                 return val
 
         return False
@@ -735,9 +732,10 @@ def initial_data(sender, instance, **kwargs):
             'last_name',
             'nir',
             'email',
-            'birth_date',
         )
     }
+    instance.data['birth_date'] = instance.insured.birth_date.\
+        strftime(DATE_FORMAT_FR)
     instance.data['distancevp'] = instance.distancevp
 signals.pre_save.connect(initial_data, sender=MRSRequest)
 

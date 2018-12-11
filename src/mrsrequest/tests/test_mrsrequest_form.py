@@ -133,8 +133,8 @@ def test_transport_form():
 
     assert form.errors == {
         'date_depart': [
-            MSG_DONE.format("03-05-2018", "201805030001"),
-            MSG_DONE.format("03-05-2018", "201805030000"),
+            MSG_DONE.format("03/05/2018", "201805030001"),
+            MSG_DONE.format("03/05/2018", "201805030000"),
             MSG_IN_PROCESS,
         ]
     }
