@@ -449,26 +449,30 @@ class BaseTransportFormSet(forms.BaseFormSet):
         'La date {form_value} est déjà utilisée sur le transport: '
     )
 
-    def __init__(self, data, *args, **kwargs):
+    def __init__(self, data=None, *args, **kwargs):
         prefix = kwargs.get('prefix', None) or self.get_default_prefix()
-        number = data.get('iterative_number', '1')
-        try:
-            number = int(number)
-        except ValueError:
-            number = 1
 
-        for i in ['total', 'initial', 'min_num', 'max_num']:
-            data[f'{prefix}-{i.upper()}_FORMS'] = number
+        if data:
+            number = data.get('iterative_number', '1')
+            try:
+                number = int(number)
+            except ValueError:
+                number = 1
+
+            data = data.copy()
+            for i in ['total', 'initial', 'min_num', 'max_num']:
+                data[f'{prefix}-{i.upper()}_FORMS'] = number
 
         super().__init__(data, *args, **kwargs)
 
-        for i, form in enumerate(self.forms, start=1):
-            form.empty_permitted = False
-            if data.get('trip_kind', 'return') == 'return':
-                form.fields['date_return'].required = True
+        if data:
+            for i, form in enumerate(self.forms, start=1):
+                form.empty_permitted = False
+                if data.get('trip_kind', 'return') == 'return':
+                    form.fields['date_return'].required = True
 
-            form.fields['date_depart'].label += f' {i}'
-            form.fields['date_return'].label += f' {i}'
+                form.fields['date_depart'].label += f' {i}'
+                form.fields['date_return'].label += f' {i}'
 
     def get_default_prefix(self):
         return 'transport'
