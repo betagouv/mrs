@@ -24,8 +24,8 @@ from djcall.models import Caller
 
 from institution.models import Institution
 
+from mrs.settings import DATE_FORMAT_FR
 from mrsemail.crudlfap import EmailViewMixin
-from mrsrequest.models import DATE_FORMAT_FR
 from person.forms import PersonForm
 from person.models import Person
 

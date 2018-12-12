@@ -15,10 +15,10 @@ from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
 
+from mrs.settings import DATE_FORMAT_FR
 from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 
 TWOPLACES = Decimal(10) ** -2
-DATE_FORMAT_FR = '%d/%m/%Y'
 
 raven_logger = logging.getLogger('raven')
 

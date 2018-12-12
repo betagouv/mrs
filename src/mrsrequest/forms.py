@@ -10,8 +10,8 @@ import material
 
 from caisse.forms import ActiveCaisseChoiceField
 from mrs.forms import DateFieldNative
+from mrs.settings import DATE_FORMAT_FR
 from mrsattachment.forms import MRSAttachmentField
-from mrsrequest.models import DATE_FORMAT_FR
 
 from .models import BillATP, BillVP, MRSRequest, PMT
 

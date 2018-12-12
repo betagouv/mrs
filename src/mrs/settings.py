@@ -411,3 +411,6 @@ if DEBUG:
         INSTALLED_APPS += ('debug_toolbar',)
         MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
         INTERNAL_IPS = ['172.17.0.1', '127.0.0.1']
+
+
+DATE_FORMAT_FR = '%d/%m/%Y'
