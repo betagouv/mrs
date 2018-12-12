@@ -348,30 +348,48 @@ class TransportForm(forms.Form):
             elif status == MRSRequest.STATUS_VALIDATED:
                 self.add_confirm('date_depart', 'validated', transport)
 
-        for name in ('depart', 'return'):
-            name = f'date_{name}'
-            value = self.cleaned_data.get(name)
+        for my_name in ('depart', 'return'):
+            my_name = f'date_{my_name}'
+            my_value = self.cleaned_data.get(my_name)
 
             for form_number, form in enumerate(formset.forms):
                 if form is self:
-                    continue
+                    break
 
-                compare_value = compare.cleaned_data.get(name)
-                if compare_value != value:
-                    continue
+                for other_name in ('depart', 'return'):
+                    other_name = f'date_{other_name}'
+                    other_value = form.cleaned_data[other_name]
 
-                self.add_confirm(name, 'duplicate', form_number)
+                    if my_value == other_value:
+                        self.add_confirm(
+                            my_name,
+                            'duplicate',
+                            (form_number, other_name)
+                        )
 
     def add_confirms(self):
         for field, confirms in self.confirms.items():
             for confirm, confirm_data in confirms.items():
                 if confirm == 'validated':
+                    MSG_DONE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}. '
                     message = 'Date de voyage déjà validée dans les demandes' + repr(confirm_data)
                 elif confirm == 'inprogress':
                     message = 'Date en cours'
-                elif confirm == 'current':
+                elif confirm == 'duplicate':
                     message = 'bla'
-                self.add_error(field, message)
+                self.add_error(
+                    field,
+                    getattr(self, f'get_{confirm}_message')(confirm_data)
+                )
+
+    def get_duplicate_message(self, data):
+        return 'dup'
+
+    def get_inprogress_message(self, data):
+        return 'prog'
+
+    def get_validated_message(self, data):
+        return 'valid'
 
 
 class BaseTransportFormSet(forms.BaseFormSet):
@@ -379,12 +397,11 @@ class BaseTransportFormSet(forms.BaseFormSet):
         'La date {form_value} est déjà utilisée sur le transport: '
     )
 
-    def __init__(self, data, number=None, *args, **kwargs):
+    def __init__(self, data, *args, **kwargs):
         prefix = kwargs.get('prefix', None) or self.get_default_prefix()
-        number = data.get('iterative_number', 1)
-
+        number = data.get('iterative_number', '1')
         try:
-            int(number)
+            number = int(number)
         except ValueError:
             number = 1
 
@@ -404,7 +421,7 @@ class BaseTransportFormSet(forms.BaseFormSet):
     def get_default_prefix(self):
         return 'transport'
 
-    def add_confirms(self, nir, birth_date):
+    def add_confirms(self, nir, birth_date, commit=True):
         dates = set()
         for form in self.forms:
             dates.add(form.cleaned_data.get('date_depart'))
@@ -420,8 +437,11 @@ class BaseTransportFormSet(forms.BaseFormSet):
         for form in self.forms:
             form.set_confirms(self, transports)
 
-        for form in self.forms:
-            form.add_confirms()
+        if commit:
+            # this will call add_error for every confirm which will invalidate
+            # cleaned_data
+            for form in self.forms:
+                form.add_confirms()
 
 
 TransportFormSet = forms.formset_factory(

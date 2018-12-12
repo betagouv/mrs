@@ -429,6 +429,13 @@ class MRSRequest(models.Model):
                 modes.append(mode)
         return modes
 
+    def status_in(self, *names):
+        return self.status in [
+            getattr(self, f'STATUS_{name.upper()}')
+            for name in names
+        ]
+
+    # todo: rename to status_update
     def update_status(self, user, status, log_datetime=None,
                       create_logentry=False):
 

@@ -103,27 +103,61 @@ def test_form_save_m2m(monkeypatch, person, caisse):
 def test_transport_form():
     Fixture('./src/mrs/tests/data.json').load()
     person = Person.objects.get(pk=4)
+
+    # todo: split this tests into smaller ones
+    # challenge: with no more than one duplicate call in each
     formset = TransportFormSet({
+        # base new one, should not have duplicate errors
         'transport-0-date_depart': '2018-05-01',
         'transport-0-date_return': '2018-05-02',
+        # this one should not raise any error
+        'transport-1-date_depart': '2018-06-01',
+        'transport-1-date_return': '2018-06-02',
+        # this should be detected as duplicate of transport-0
+        'transport-2-date_depart': '2018-05-01',
+        'transport-2-date_return': '2018-05-02',
+        # this depart should be detected as dupe of return-0
+        'transport-3-date_depart': '2018-05-02',
+        'transport-3-date_return': '2018-05-07',
+        # this return should be detected as dupe of depart-0
+        'transport-4-date_depart': '2018-04-02',
+        'transport-4-date_return': '2018-05-01',
+        'iterative_number': '5',
     })
     assert formset.is_valid()
 
-    formset.add_confirms(person.nir, person.birth_date)
+    formset.add_confirms(person.nir, person.birth_date, commit=False)
 
     # given the above person already have submited dates in
     # a validated request, add_confirms should have added
     # errors.
-    assert not formset.is_valid()
+    # assert not formset.is_valid()
 
-    MSG_DONE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}. '
-    MSG_IN_PROCESS = ('Votre demande de prise en charge pour ce trajet '
-                      'est en cours de traitement. ')
+    for form in formset.forms:
+        data = form.cleaned_data
 
-    assert formset.errors == {
-        'date_depart': [
-            MSG_DONE.format('03-05-2018', '201805030001'),
-            MSG_DONE.format('03-05-2018', '201805030000'),
-            MSG_IN_PROCESS,
-        ]
-    }
+        for field, confirms in form.confirms.items():
+            for confirm, confirm_data in confirms.items():
+                if confirm == 'inprogress':
+                    for transport in confirm_data:
+                        mrsrequest = transport.mrsrequest
+
+                        # basic security test are going to be omnipresent here
+                        assert mrsrequest.insured == person
+                        # check that the mrsrequest has the right status
+                        assert mrsrequest.status_in('new', 'inprogress')
+                        # check that the transport in question does have a matching date
+                        assert getattr(transport, field) == data.get(field)
+
+                elif confirm == 'validated':
+                    for transport in confirm_data:
+                        mrsrequest = transport.mrsrequest
+
+                        assert mrsrequest.insured == person
+                        assert mrsrequest.status_in('validated')
+                        assert getattr(transport, field) == data.get(field)
+
+                elif confirm == 'duplicate':
+                    for form_number, form_field in confirm_data:
+                        compare = formset.forms[form_number].cleaned_data
+                        assert compare[form_field] == data[field]
