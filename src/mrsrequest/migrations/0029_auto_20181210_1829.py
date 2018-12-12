@@ -23,23 +23,24 @@ def change_birth_date_format(apps, schema_editor):
         if 'birth_date' in request.data:
             old = request.data['birth_date']
             try:
-                new= datetime.strptime(request.data['birth_date'],
-                                       FORMAT_EN)\
-                             .strftime(FORMAT_FR)
-                request.data['birth_date'] = new
-                print("\t request {}: {} -> {}".format(
-                    request.display_id,
-                    old,
-                    new,
-                ))
-                request.save()
+                # skip dates already in the right format
+                # (like after a downgrade).
+                datetime.strptime(old, FORMAT_FR)
             except ValueError:
-                # idempotent.
-                # if downgraded we have the right format.
-                print("\t request {} good format: {}".format(
-                    request.display_id,
-                    old,
-                ))
+                pass
+            else:
+                continue
+
+            new= datetime.strptime(request.data['birth_date'],
+                                   FORMAT_EN)\
+                         .strftime(FORMAT_FR)
+            request.data['birth_date'] = new
+            print("\t request {}: {} -> {}".format(
+                request.display_id,
+                old,
+                new,
+            ))
+            request.save()
 
     logentries = MRSRequestLogEntry.objects.all()
     # logentries.data.changed = dict with a list of birth_date
@@ -50,15 +51,18 @@ def change_birth_date_format(apps, schema_editor):
             dates = entry.data['changed']['birth_date']
             for i, date in enumerate(dates):
                 try:
-                    new = datetime.strptime(date, FORMAT_EN)\
-                                  .strftime(FORMAT_FR)
-                    print("\t {} -> {}".format(date, new))
-                    dates[i] = new
-
+                    datetime.strptime(date, FORMAT_FR)
                 except ValueError:
-                    print("\t logentry good format: {}".format(date))
+                    pass
+                else:
+                    continue
 
-            entry.save()
+                new = datetime.strptime(date, FORMAT_EN)\
+                              .strftime(FORMAT_FR)
+                print("\t {} -> {}".format(date, new))
+                dates[i] = new
+
+        entry.save()
 
 
 def reverse_dates(apps, schema_editor):
