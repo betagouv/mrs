@@ -172,28 +172,52 @@ def test_transport_formset():
                         compare = formset.forms[form_number].cleaned_data_copy
                         assert compare[form_field] == data[field]
 
-    assert formset.errors[0] == dict()
-    assert formset.errors[1] == dict(
+    assert formset.errors[0] == dict(
         date_depart=[
-            'Date de trajet déjà présente dans le trajet numéro 1 (aller)',
-        ],
-        date_return=[
-            'Date de trajet déjà présente dans le trajet numéro 1'
-            '(retour)',
+            ' '.join([
+                'Ce trajet vous a été réglé lors des demandes du 03/05/2018 n°',
+                '201805030001 et du 03/05/2018 n° 201805030000'
+            ]),
+            ' '.join([
+                'Votre demande de prise en charge pour ce trajet est en cours',
+                'de traitement dans la demande du 02/05/2018 n° 201805020001'
+            ]),
         ]
     )
-    assert formset.errors[2] == dict()
+    assert formset.errors[1] == dict()
+    assert formset.errors[2] == dict(
+        date_depart=[
+            'Date de trajet déjà présente dans le trajet n° 1 (aller)',
+            ' '.join([
+                'Ce trajet vous a été réglé lors des demandes du 03/05/2018',
+                'n° 201805030001 et du 03/05/2018 n° 201805030000',
+            ]),
+            ' '.join([
+                'Votre demande de prise en charge pour ce trajet est en cours',
+                'de traitement dans la demande du 02/05/2018 n° 201805020001'
+            ]),
+        ],
+        date_return=[
+            'Date de trajet déjà présente dans le trajet n° 1 (retour)',
+        ]
+    )
     assert formset.errors[3] == dict(
         date_depart=[
-            'Date de trajet déjà présente dans les trajets numéro 1'
-            '(retour) et numéro 3 (retour)',
+            ' '.join([
+                'Date de trajet déjà présente dans les trajets n° 1'
+                '(retour) et n° 3 (retour)',
+            ]),
+            ' '.join([
+                'Ce trajet vous a été réglé lors de la demande du 03/05/2018',
+                'n° 201805030000'
+            ]),
         ]
     )
     assert formset.errors[4] == dict(
         date_return=[
             ' '.join([
-                'Date de trajet déjà présente dans les trajets numéro 1',
-                '(aller) et numéro 3 (aller)',
+                'Date de trajet déjà présente dans les trajets n° 1',
+                '(aller) et n° 3 (aller)',
             ])
         ],
     )

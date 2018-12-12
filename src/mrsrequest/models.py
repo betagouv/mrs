@@ -674,6 +674,11 @@ class MRSRequest(models.Model):
         return reverse('mrsrequest:validate', args=[self.pk])
 
     @property
+    def creation_date_normalized(self):
+        return pytz.timezone(settings.TIME_ZONE).normalize(
+            self.creation_datetime).strftime('%d/%m/%Y')
+
+    @property
     def creation_datetime_normalized(self):
         return pytz.timezone(settings.TIME_ZONE).normalize(
             self.creation_datetime)

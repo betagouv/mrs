@@ -381,25 +381,67 @@ class TransportForm(forms.Form):
     def get_duplicate_message(self, forms_fields):
         names = dict(date_depart='aller', date_return='retour')
         labels = [
-            f'numéro {form_number + 1} ({names[field_name]})'
+            f'n° {form_number + 1} ({names[field_name]})'
             for form_number, field_name in forms_fields
         ]
 
-        msg = 'Date de trajet déjà présente dans '
+        msg = ['Date de trajet déjà présente dans']
         if len(labels) == 1:
-            msg += f'le trajet {labels[0]}'
+            msg.append(f'le trajet {labels[0]}')
         else:
-            msg += 'les trajets '
-            msg += ', '.join(labels[:-1])
-            msg += f' et {labels[-1]}'
+            msg += [
+                'les trajets',
+                ', '.join(labels[:-1]),
+                'et',
+                labels[-1],
+            ]
 
-        return msg
+        return ' '.join(msg)
+
+    def get_verbose_transports(self, pronoun, transports):
+        msg = [pronoun]
+
+        labels = [
+            ' '.join([
+                'du',
+                transport.mrsrequest.creation_date_normalized,
+                'n°',
+                str(transport.mrsrequest.display_id),
+            ])
+            for transport in transports
+        ]
+
+        if len(labels) == 1:
+            msg += ['demande', labels[0]]
+        else:
+            msg += [
+                'demandes',
+                ', '.join(labels[:-1]),
+                'et',
+                labels[-1],
+            ]
+
+        return ' '.join(msg)
+
 
     def get_inprogress_message(self, transports):
-        return 'prog'
+        return ' '.join([
+            'Votre demande de prise en charge pour ce trajet',
+            'est en cours de traitement dans',
+            self.get_verbose_transports(
+                'la' if len(transports) == 1 else 'les',
+                transports
+            )
+        ])
 
     def get_validated_message(self, transports):
-        return 'valid'
+        return ' '.join([
+            'Ce trajet vous a été réglé lors',
+            self.get_verbose_transports(
+                'de la' if len(transports) == 1 else 'des',
+                transports
+            )
+        ])
 
 
 class BaseTransportFormSet(forms.BaseFormSet):
