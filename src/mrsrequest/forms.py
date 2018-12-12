@@ -336,18 +336,21 @@ class TransportForm(forms.Form):
 
     def set_confirms(self, formset, transports):
         """Provision self.confirms"""
-        date_depart = self.cleaned_data.get('date_depart')
+        self.set_confirms_formset(formset)
+        self.set_confirms_queryset(transports)
 
+    def set_confirms_queryset(self, transports):
+        date_depart = self.cleaned_data.get('date_depart')
         for transport in transports:
             if date_depart != transport.date_depart:
                 continue
 
-            status = transport.mrsrequest.status
-            if status in (MRSRequest.STATUS_NEW, MRSRequest.STATUS_INPROGRESS):
+            if transport.mrsrequest.status_in('new', 'inprogress'):
                 self.add_confirm('date_depart', 'inprogress', transport)
-            elif status == MRSRequest.STATUS_VALIDATED:
+            if transport.mrsrequest.status_in('validated'):
                 self.add_confirm('date_depart', 'validated', transport)
 
+    def set_confirms_formset(self, formset):
         for my_name in ('depart', 'return'):
             my_name = f'date_{my_name}'
             my_value = self.cleaned_data.get(my_name)
