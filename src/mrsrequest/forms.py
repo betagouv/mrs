@@ -348,47 +348,61 @@ class TransportForm(forms.Form):
             elif status == MRSRequest.STATUS_VALIDATED:
                 self.add_confirm('date_depart', 'validated', transport)
 
+        for name in ('depart', 'return'):
+            name = f'date_{name}'
+            value = self.cleaned_data.get(name)
+
+            for form_number, form in enumerate(formset.forms):
+                if form is self:
+                    continue
+
+                compare_value = compare.cleaned_data.get(name)
+                if compare_value != value:
+                    continue
+
+                self.add_confirm(name, 'duplicate', form_number)
+
     def add_confirms(self):
         for field, confirms in self.confirms.items():
             for confirm, confirm_data in confirms.items():
                 if confirm == 'validated':
-                    message = 'Date de voyage déjà validée dans les demandes' + confirm_data
+                    message = 'Date de voyage déjà validée dans les demandes' + repr(confirm_data)
                 elif confirm == 'inprogress':
                     message = 'Date en cours'
-                elif confirm == 'current_pmt':
+                elif confirm == 'current':
                     message = 'bla'
-                form.add_error(field, message)
-
-    def provision_confirms(self, form_number, form):
-        for name in Transport.DATES:
-            duplicates = []
-            name = f'date_{name}'
-            form_value = form.cleaned_data.get(name)
-
-            for compare_number, compare in enumerate(self.forms, start=0):
-                if compare_number == form_number:
-                    continue
-
-                compare_value = compare.cleaned_data.get(name)
-                if compare_value != form_value:
-                    continue
-
-                self.add_confirm('date_depart', 'validated', transport)
-
-            if not duplicates:
-                continue
-
-            msg = self.MSG_DUPLICATE.format(**locals())
-            msg += ', '.join(list(map(str, duplicates)))
-            if len(duplicates) > 1:
-                msg = msg.replace('le transport', 'les transports')
-            form.add_error(name, msg)
+                self.add_error(field, message)
 
 
 class BaseTransportFormSet(forms.BaseFormSet):
     MSG_DUPLICATE = (
         'La date {form_value} est déjà utilisée sur le transport: '
     )
+
+    def __init__(self, data, number=None, *args, **kwargs):
+        prefix = kwargs.get('prefix', None) or self.get_default_prefix()
+        number = data.get('iterative_number', 1)
+
+        try:
+            int(number)
+        except ValueError:
+            number = 1
+
+        for i in ['total', 'initial', 'min_num', 'max_num']:
+            data[f'{prefix}-{i.upper()}_FORMS'] = number
+
+        super().__init__(data, *args, **kwargs)
+
+        for i, form in enumerate(self.forms, start=1):
+            form.empty_permitted = False
+            if data.get('trip_kind', 'return') == 'return':
+                form.fields['date_return'].required = True
+
+            form.fields['date_depart'].label += f' {i}'
+            form.fields['date_return'].label += f' {i}'
+
+    def get_default_prefix(self):
+        return 'transport'
 
     def add_confirms(self, nir, birth_date):
         dates = set()

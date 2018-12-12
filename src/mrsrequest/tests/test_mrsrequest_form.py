@@ -103,37 +103,24 @@ def test_form_save_m2m(monkeypatch, person, caisse):
 def test_transport_form():
     Fixture('./src/mrs/tests/data.json').load()
     person = Person.objects.get(pk=4)
-    form = TransportForm(dict(
-        date_depart='2018-05-01',
-        date_return='2018-05-02',
-    ))
-    assert form.is_valid()
+    formset = TransportFormSet({
+        'transport-0-date_depart': '2018-05-01',
+        'transport-0-date_return': '2018-05-02',
+    })
+    assert formset.is_valid()
 
-    form.add_confirms(person.nir, person.birth_date)
-    Transport.objects.filter(mrsrequest__insured=person)
+    formset.add_confirms(person.nir, person.birth_date)
 
     # given the above person already have submited dates in
     # a validated request, add_confirms should have added
     # errors.
-    assert not form.is_valid()
-
-    # This should definitely be improved, it will duplicate errors for each
-    # transport, ie. will generate:
-    #
-    # Ce trajet vous a été réglé lors de la demande du 03-05-2018 n°
-    # 201805030001. Ce trajet vous a été réglé lors de la demande du 03-05-2018
-    # n° 201805030000.
-    #
-    # Instead of:
-    #
-    # Ce trajet vous a été réglé lors de la demande du 03-05-2018 n°
-    # 201805030001 et la demande du 03-05-2018 n° 201805030000.
+    assert not formset.is_valid()
 
     MSG_DONE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}. '
     MSG_IN_PROCESS = ('Votre demande de prise en charge pour ce trajet '
                       'est en cours de traitement. ')
 
-    assert form.errors == {
+    assert formset.errors == {
         'date_depart': [
             MSG_DONE.format('03-05-2018', '201805030001'),
             MSG_DONE.format('03-05-2018', '201805030000'),
