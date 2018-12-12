@@ -1,7 +1,6 @@
 import copy
 import io
 
-from datetime import date
 from dbdiff.fixture import Fixture
 from freezegun import freeze_time
 import pytest
@@ -9,7 +8,6 @@ import pytest
 from mrsattachment.models import MRSAttachment
 from mrsrequest.forms import (
     MRSRequestCreateForm,
-    TransportForm,
     TransportFormSet,
 )
 from mrsrequest.models import Bill, MRSRequest, PMT, Transport
@@ -100,8 +98,10 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     ).assertNoDiff()
 
 
-def transport_formset():
-    return TransportFormSet({
+def person_transport_formset():
+    Fixture('./src/mrs/tests/data.json').load()
+    person = Person.objects.get(pk=4)
+    formset = TransportFormSet({
         # base new one, should not have duplicate errors
         'transport-0-date_depart': '2018-05-01',
         'transport-0-date_return': '2018-05-02',
@@ -120,25 +120,37 @@ def transport_formset():
         'iterative_number': '5',
     })
 
+    formset.full_clean()  # make cleaned_data
 
-@pytest.mark.django_db
-def test_transport_formset():
-    Fixture('./src/mrs/tests/data.json').load()
-    person = Person.objects.get(pk=4)
-
-    formset = transport_formset()
-    assert formset.is_valid()
-
-    # let's keep a copy of those for assertions
     for form in formset.forms:
+        # let's keep a copy of those for assertions
         form.cleaned_data_copy = copy.copy(form.cleaned_data)
 
+    return person, formset
+
+
+@pytest.mark.django_db
+def test_transport_formset_is_valid():
+    person, formset = person_transport_formset()
+    assert formset.is_valid()
+
+
+@pytest.mark.django_db
+def test_transport_formset_confirms_invalidates():
+    person, formset = person_transport_formset()
     formset.add_confirms(person.nir, person.birth_date)
 
     # given the above person already have submited dates in
     # a validated request, add_confirms should have added
     # errors.
     assert not formset.is_valid()
+
+
+@pytest.mark.django_db  # noqa
+def test_transport_formset_add_confirms():
+    """Assert that it will generate proper confirms structure."""
+    person, formset = person_transport_formset()
+    formset.add_confirms(person.nir, person.birth_date)
 
     # ok it's a bit overkill but keep in mind this is critical to be done right
     # for the user experience, and there also are (light, but significant)
@@ -156,7 +168,8 @@ def test_transport_formset():
                         assert mrsrequest.insured == person
                         # check that the mrsrequest has the right status
                         assert mrsrequest.status_in('new', 'inprogress')
-                        # check that the transport in question does have a matching date
+                        # check that the transport in question does have a
+                        # matching date
                         assert getattr(transport, field) == data.get(field)
 
                 elif confirm == 'validated':
@@ -172,11 +185,17 @@ def test_transport_formset():
                         compare = formset.forms[form_number].cleaned_data_copy
                         assert compare[form_field] == data[field]
 
+
+@pytest.mark.django_db
+def test_transport_formset_confirm_messages():
+    person, formset = person_transport_formset()
+    formset.add_confirms(person.nir, person.birth_date)
+
     assert formset.errors[0] == dict(
         date_depart=[
             ' '.join([
-                'Ce trajet vous a été réglé lors des demandes du 03/05/2018 n°',
-                '201805030001 et du 03/05/2018 n° 201805030000'
+                'Ce trajet vous a été réglé lors des demandes du 03/05/2018',
+                'n° 201805030001 et du 03/05/2018 n° 201805030000'
             ]),
             ' '.join([
                 'Votre demande de prise en charge pour ce trajet est en cours',

@@ -1,5 +1,3 @@
-import copy
-import datetime
 from decimal import Decimal
 
 from django import forms
@@ -422,7 +420,6 @@ class TransportForm(forms.Form):
             ]
 
         return ' '.join(msg)
-
 
     def get_inprogress_message(self, transports):
         return ' '.join([
