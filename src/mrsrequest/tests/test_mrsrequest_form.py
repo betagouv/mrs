@@ -204,12 +204,12 @@ def test_transport_formset():
     assert formset.errors[3] == dict(
         date_depart=[
             ' '.join([
-                'Date de trajet déjà présente dans les trajets n° 1'
+                'Date de trajet déjà présente dans les trajets n° 1',
                 '(retour) et n° 3 (retour)',
             ]),
             ' '.join([
                 'Ce trajet vous a été réglé lors de la demande du 03/05/2018',
-                'n° 201805030000'
+                'n° 201805030000',
             ]),
         ]
     )
