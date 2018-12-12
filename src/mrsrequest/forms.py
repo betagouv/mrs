@@ -311,6 +311,10 @@ class TransportForm(forms.Form):
         )
     )
 
+    def __init__(self, *args, **kwargs):
+        self.confirms = dict()
+        super().__init__(*args, **kwargs)
+
     def clean(self):
         cleaned_data = super().clean()
 
@@ -325,60 +329,37 @@ class TransportForm(forms.Form):
 
         return cleaned_data
 
-    def add_confirms(self, transports):
-        """
-        Actually add_errors under date_depart, that should be visualized
-        as confirms.
-        """
-        MSG_IN_PROGRESS = ("Votre demande de prise en charge pour ce trajet "
-                           "est en cours de traitement. ")
-        MSG_VALIDATED = ("Ce trajet vous a été réglé lors de "
-                         "la demande du {} n° {}. ")
-        displayed_in_progress = False
+    def add_confirm(self, field, kind, other):
+        self.confirms.setdefault(field, dict())
+        self.confirms[field].setdefault(kind, list())
+        self.confirms[field][kind].append(other)
 
-        data = copy.deepcopy(self.cleaned_data)
+    def set_confirms(self, formset, transports):
+        """Provision self.confirms"""
+        date_depart = self.cleaned_data.get('date_depart')
 
         for transport in transports:
-            date = data.get('date_depart')
+            if date_depart != transport.date_depart:
+                continue
+
             status = transport.mrsrequest.status
-            if date == transport.date_depart:
-                if status in [
-                        MRSRequest.STATUS_NEW,
-                        MRSRequest.STATUS_INPROGRESS,
-                ]:
-                    msg = MSG_IN_PROGRESS
-                    if not displayed_in_progress:
-                        displayed_in_progress = True
-                        self.add_error(
-                            'date_depart',
-                            msg
-                        )
-                elif status == MRSRequest.STATUS_VALIDATED:
-                    date = datetime.datetime.strftime(
-                        transport.mrsrequest.creation_datetime,
-                        DATE_FORMAT_FRENCH
-                    )
-                    msg = MSG_VALIDATED.format(
-                        date,
-                        transport.mrsrequest.display_id,
-                    )
-                    self.add_error(
-                        'date_depart',
-                        msg
-                    )
+            if status in (MRSRequest.STATUS_NEW, MRSRequest.STATUS_INPROGRESS):
+                self.add_confirm('date_depart', 'inprogress', transport)
+            elif status == MRSRequest.STATUS_VALIDATED:
+                self.add_confirm('date_depart', 'validated', transport)
 
+    def add_confirms(self):
+        for field, confirms in self.confirms.items():
+            for confirm, confirm_data in confirms.items():
+                if confirm == 'validated':
+                    message = 'Date de voyage déjà validée dans les demandes' + confirm_data
+                elif confirm == 'inprogress':
+                    message = 'Date en cours'
+                elif confirm == 'current_pmt':
+                    message = 'bla'
+                form.add_error(field, message)
 
-class BaseTransportFormSet(forms.BaseFormSet):
-    MSG_DUPLICATE = (
-        'La date {form_value} est déjà utilisée sur le transport: '
-    )
-
-    def add_confirms(self, transports):
-        for form_number, form in enumerate(self.forms, start=0):
-            form.add_confirms(transports)
-            self.add_duplicates(form_number, form)
-
-    def add_duplicates(self, form_number, form):
+    def provision_confirms(self, form_number, form):
         for name in Transport.DATES:
             duplicates = []
             name = f'date_{name}'
@@ -392,7 +373,7 @@ class BaseTransportFormSet(forms.BaseFormSet):
                 if compare_value != form_value:
                     continue
 
-                duplicates.append(compare_number)
+                self.add_confirm('date_depart', 'validated', transport)
 
             if not duplicates:
                 continue
@@ -402,6 +383,31 @@ class BaseTransportFormSet(forms.BaseFormSet):
             if len(duplicates) > 1:
                 msg = msg.replace('le transport', 'les transports')
             form.add_error(name, msg)
+
+
+class BaseTransportFormSet(forms.BaseFormSet):
+    MSG_DUPLICATE = (
+        'La date {form_value} est déjà utilisée sur le transport: '
+    )
+
+    def add_confirms(self, nir, birth_date):
+        dates = set()
+        for form in self.forms:
+            dates.add(form.cleaned_data.get('date_depart'))
+            dates.add(form.cleaned_data.get('date_return'))
+
+        transports = Transport.objects.filter(
+            mrsrequest__insured__nir=nir,
+            mrsrequest__insured__birth_date=birth_date,
+        ).filter(
+            date_depart__in=dates
+        ).distinct().select_related('mrsrequest')
+
+        for form in self.forms:
+            form.set_confirms(self, transports)
+
+        for form in self.forms:
+            form.add_confirms()
 
 
 TransportFormSet = forms.formset_factory(

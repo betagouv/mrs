@@ -224,27 +224,9 @@ class MRSRequestCreateView(generic.TemplateView):
             if not form.is_valid()
         ]
 
-    def get_submitted_dates(self):
-        dates = []
-        for kind in Transport.DATES:
-            dates += [
-                f.cleaned_data.get(f'date_{kind}')
-                for f in self.forms['transport_formset'].forms
-                if f.cleaned_data.get(f'date_{kind}', None)
-            ]
-        return dates
-
-    def get_insured_transports(self):
-        return Transport.objects.filter(
-            mrsrequest__insured__nir=self.forms['person'].cleaned_data['nir'],
-            mrsrequest__insured__birth_date=self.forms['person'].
-            cleaned_data['birth_date'],
-        ).filter(
-            date_depart__in=self.get_submitted_dates()
-        ).distinct().select_related('mrsrequest')
-
     def form_confirms(self):
         self.forms['transport_formset'].add_confirms(
-            self.get_insured_transports()
+            nir=self.forms['person'].cleaned_data['nir'],
+            birth_date=self.forms['person'].cleaned_data['birth_date'],
         )
         return self.form_errors()

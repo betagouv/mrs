@@ -109,8 +109,8 @@ def test_transport_form():
     ))
     assert form.is_valid()
 
-    form.add_confirms(Transport.objects.filter(
-        mrsrequest__insured=person))
+    form.add_confirms(person.nir, person.birth_date)
+    Transport.objects.filter(mrsrequest__insured=person)
 
     # given the above person already have submited dates in
     # a validated request, add_confirms should have added
@@ -129,50 +129,14 @@ def test_transport_form():
     # Ce trajet vous a été réglé lors de la demande du 03-05-2018 n°
     # 201805030001 et la demande du 03-05-2018 n° 201805030000.
 
-    MSG_DONE = "Ce trajet vous a été réglé lors de la demande du {} n° {}. "
-    MSG_IN_PROCESS = ("Votre demande de prise en charge pour ce trajet "
-                      "est en cours de traitement. ")
+    MSG_DONE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}. '
+    MSG_IN_PROCESS = ('Votre demande de prise en charge pour ce trajet '
+                      'est en cours de traitement. ')
 
     assert form.errors == {
         'date_depart': [
-            MSG_DONE.format("03-05-2018", "201805030001"),
-            MSG_DONE.format("03-05-2018", "201805030000"),
+            MSG_DONE.format('03-05-2018', '201805030001'),
+            MSG_DONE.format('03-05-2018', '201805030000'),
             MSG_IN_PROCESS,
         ]
     }
-
-
-@pytest.mark.django_db
-def test_transport_formset():
-    Fixture('./src/mrs/tests/data.json').load()
-
-    form = TransportFormSet({
-        'transport-TOTAL_FORMS': 2,
-        'transport-INITIAL_FORMS': 2,
-        'transport-MIN_NUM_FORMS': 2,
-        'transport-MAX_NUM_FORMS': 2,
-        'transport-0-date_depart': '2018-05-01',
-        'transport-0-date_return': '2018-05-02',
-        'transport-1-date_depart': '2018-05-02',
-        'transport-1-date_return': '2018-05-02',
-    }, prefix='transport')
-
-    assert form.is_valid()
-
-    form.add_confirms([Transport(
-        date_depart=date(2018, 5, 1),
-        date_return=date(2018, 5, 2),
-        mrsrequest=MRSRequest(),
-    )])
-    assert not form.is_valid()
-    assert form.errors == [
-        {
-            'date_depart': [
-                'Votre demande de prise en charge pour ce trajet est en cours de traitement. '
-            ],
-            'date_return': [
-                'La date 2018-05-02 est déjà utilisée sur le transport: 1'
-            ]
-        },
-        {}
-    ]
