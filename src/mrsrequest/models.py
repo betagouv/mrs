@@ -726,17 +726,15 @@ def initial_data(sender, instance, **kwargs):
     if instance.data or not instance.insured:
         return
 
-    instance.data = {
-        i: getattr(instance.insured, i) for i in (
-            'first_name',
-            'last_name',
-            'nir',
-            'email',
-        )
-    }
-    instance.data['birth_date'] = instance.insured.birth_date.\
-        strftime(DATE_FORMAT_FR)
-    instance.data['distancevp'] = instance.distancevp
+    insured = instance.insured
+    instance.data = dict(
+        birth_date=insured.birth_date.strftime(DATE_FORMAT_FR),
+        nir=insured.nir,
+        email=insured.email,
+        first_name=insured.first_name,
+        last_name=insured.last_name,
+        distancevp=instance.distancevp
+    )
 signals.pre_save.connect(initial_data, sender=MRSRequest)
 
 
