@@ -1,3 +1,4 @@
+import copy
 import io
 
 from datetime import date
@@ -99,14 +100,8 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     ).assertNoDiff()
 
 
-@pytest.mark.django_db
-def test_transport_form():
-    Fixture('./src/mrs/tests/data.json').load()
-    person = Person.objects.get(pk=4)
-
-    # todo: split this tests into smaller ones
-    # challenge: with no more than one duplicate call in each
-    formset = TransportFormSet({
+def transport_formset():
+    return TransportFormSet({
         # base new one, should not have duplicate errors
         'transport-0-date_depart': '2018-05-01',
         'transport-0-date_return': '2018-05-02',
@@ -124,17 +119,32 @@ def test_transport_form():
         'transport-4-date_return': '2018-05-01',
         'iterative_number': '5',
     })
+
+
+@pytest.mark.django_db
+def test_transport_formset():
+    Fixture('./src/mrs/tests/data.json').load()
+    person = Person.objects.get(pk=4)
+
+    formset = transport_formset()
     assert formset.is_valid()
 
-    formset.add_confirms(person.nir, person.birth_date, commit=False)
+    # let's keep a copy of those for assertions
+    for form in formset.forms:
+        form.cleaned_data_copy = copy.copy(form.cleaned_data)
+
+    formset.add_confirms(person.nir, person.birth_date)
 
     # given the above person already have submited dates in
     # a validated request, add_confirms should have added
     # errors.
-    # assert not formset.is_valid()
+    assert not formset.is_valid()
 
+    # ok it's a bit overkill but keep in mind this is critical to be done right
+    # for the user experience, and there also are (light, but significant)
+    # security implications
     for form in formset.forms:
-        data = form.cleaned_data
+        data = form.cleaned_data_copy
 
         for field, confirms in form.confirms.items():
             for confirm, confirm_data in confirms.items():
@@ -159,5 +169,31 @@ def test_transport_form():
 
                 elif confirm == 'duplicate':
                     for form_number, form_field in confirm_data:
-                        compare = formset.forms[form_number].cleaned_data
+                        compare = formset.forms[form_number].cleaned_data_copy
                         assert compare[form_field] == data[field]
+
+    assert formset.errors[0] == dict()
+    assert formset.errors[1] == dict(
+        date_depart=[
+            'Date de trajet déjà présente dans le trajet numéro 1 (aller)',
+        ],
+        date_return=[
+            'Date de trajet déjà présente dans le trajet numéro 1'
+            '(retour)',
+        ]
+    )
+    assert formset.errors[2] == dict()
+    assert formset.errors[3] == dict(
+        date_depart=[
+            'Date de trajet déjà présente dans les trajets numéro 1'
+            '(retour) et numéro 3 (retour)',
+        ]
+    )
+    assert formset.errors[4] == dict(
+        date_return=[
+            ' '.join([
+                'Date de trajet déjà présente dans les trajets numéro 1',
+                '(aller) et numéro 3 (aller)',
+            ])
+        ],
+    )

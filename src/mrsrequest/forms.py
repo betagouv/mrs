@@ -373,25 +373,32 @@ class TransportForm(forms.Form):
     def add_confirms(self):
         for field, confirms in self.confirms.items():
             for confirm, confirm_data in confirms.items():
-                if confirm == 'validated':
-                    MSG_DONE = 'Ce trajet vous a été réglé lors de la demande du {} n° {}. '
-                    message = 'Date de voyage déjà validée dans les demandes' + repr(confirm_data)
-                elif confirm == 'inprogress':
-                    message = 'Date en cours'
-                elif confirm == 'duplicate':
-                    message = 'bla'
                 self.add_error(
                     field,
                     getattr(self, f'get_{confirm}_message')(confirm_data)
                 )
 
-    def get_duplicate_message(self, data):
-        return 'dup'
+    def get_duplicate_message(self, forms_fields):
+        names = dict(date_depart='aller', date_return='retour')
+        labels = [
+            f'numéro {form_number + 1} ({names[field_name]})'
+            for form_number, field_name in forms_fields
+        ]
 
-    def get_inprogress_message(self, data):
+        msg = 'Date de trajet déjà présente dans '
+        if len(labels) == 1:
+            msg += f'le trajet {labels[0]}'
+        else:
+            msg += 'les trajets '
+            msg += ', '.join(labels[:-1])
+            msg += f' et {labels[-1]}'
+
+        return msg
+
+    def get_inprogress_message(self, transports):
         return 'prog'
 
-    def get_validated_message(self, data):
+    def get_validated_message(self, transports):
         return 'valid'
 
 
@@ -424,7 +431,7 @@ class BaseTransportFormSet(forms.BaseFormSet):
     def get_default_prefix(self):
         return 'transport'
 
-    def add_confirms(self, nir, birth_date, commit=True):
+    def add_confirms(self, nir, birth_date):
         dates = set()
         for form in self.forms:
             dates.add(form.cleaned_data.get('date_depart'))
@@ -440,11 +447,10 @@ class BaseTransportFormSet(forms.BaseFormSet):
         for form in self.forms:
             form.set_confirms(self, transports)
 
-        if commit:
-            # this will call add_error for every confirm which will invalidate
-            # cleaned_data
-            for form in self.forms:
-                form.add_confirms()
+        # this will call add_error for every confirm which will invalidate
+        # cleaned_data
+        for form in self.forms:
+            form.add_confirms()
 
 
 TransportFormSet = forms.formset_factory(
