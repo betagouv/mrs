@@ -802,20 +802,6 @@ class MRSRequestDetailView(crudlfap.DetailView):
         self.labels['insured'] = 'Assuré'
         self.labels['distancevp'] = 'KM parcourus VP'
 
-    def get_duplicate_dates(self):
-        dates = []
-        self.duplicate_dates = []
-        for transport in self.object.transport_set.all():
-            for i in ('depart', 'return'):
-                date = getattr(transport, f'date_{i}')
-                if not date:
-                    continue
-
-                if date in dates:
-                    self.duplicate_dates.append(date)
-
-                dates.append(date)
-
 
 class MRSRequestRouter(crudlfap.Router):
     model = MRSRequest

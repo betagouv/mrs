@@ -306,8 +306,8 @@
                         {% for transport in object.transport_set.all() %}
                         <tr class="{{ loop.cycle('odd', 'even') }}">
                             <td>{{ loop.index }}</td>
-                            <td {% if transport.date_depart in view.duplicate_dates %}class="orange"{% endif %}>{% if transport.date_depart %}{{ transport.date_depart.strftime('%d/%m/%Y') }}{% endif %}</td>
-                            <td {% if transport.date_return in view.duplicate_dates %}class="orange"{% endif %}>{% if transport.date_return %}{{ transport.date_return.strftime('%d/%m/%Y') }}{% endif %}</td>
+                            <td>{% if transport.date_depart %}{{ transport.date_depart.strftime('%d/%m/%Y') }}{% endif %}</td>
+                            <td>{% if transport.date_return %}{{ transport.date_return.strftime('%d/%m/%Y') }}{% endif %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
