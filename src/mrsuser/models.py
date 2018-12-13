@@ -1,5 +1,6 @@
 from django.contrib.auth.models import (
     AbstractUser,
+    Group,
     UserManager,
 )
 from django.db import models
@@ -35,3 +36,15 @@ class User(AbstractUser):
 
     class Meta(AbstractUser.Meta):
         db_table = 'auth_user'
+
+    def add_group(self, groupname):
+        """
+        Add this user to a group by the group name.
+        """
+        group = Group.objects.get(name=groupname)
+        self.groups.add(group)
+        self.save()
+
+    def add_groups(self, groupnames):
+        for name in groupnames:
+            self.add_group(name)
