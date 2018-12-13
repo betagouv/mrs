@@ -22,7 +22,7 @@ def add_user(row):
     else:
         print("already exists: {}".format(username))
 
-    user.password = password
+    user.set_password(password)
     user.save()
 
     groups = row[3].split(',')
