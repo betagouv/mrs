@@ -67,7 +67,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/stat?date__gte=01/05/2018&amp;date__lte=31/05/2018"
+                      href="/admin/stat?date__gte=01%2F05%2F2018&amp;date__lte=31%2F05%2F2018"
                       title="Graphique de statistiques quotidiennes"
                     ><i class="material-icons">insert_chart</i>Quotidiennes</a>
                   </li>
@@ -75,7 +75,7 @@ textarea {
                   <li>
                     <a
                       class="waves-effect"
-                      href="/admin/stat/total?date__gte=01/05/2018&amp;date__lte=31/05/2018"
+                      href="/admin/stat/total?date__gte=01%2F05%2F2018&amp;date__lte=31%2F05%2F2018"
                       title="Graphique de statistiques cumulatives"
                     ><i class="material-icons">show_chart</i>Cumulatives</a>
                   </li>
