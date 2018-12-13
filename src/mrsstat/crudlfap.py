@@ -1,5 +1,6 @@
 import datetime
 import json
+import urllib.parse
 
 from crudlfap import shortcuts as crudlfap
 
@@ -81,10 +82,11 @@ class StatListView(crudlfap.ListView):
         return ''.join([
             str(super().reverse(*args, **kwargs)),
             '?',
-            '&'.join([
-                f'{k}={v}'
+            # pure abuse of Factory below
+            urllib.parse.urlencode({
+                str(k): str(v)
                 for k, v in cls.date_default_filters.items()
-            ]),  # pure abuse of Factory above, can you spot it ?
+            })
         ])
 
     def get_date_default_filters(self):
