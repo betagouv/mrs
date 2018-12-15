@@ -4,8 +4,10 @@ from datetime import datetime
 
 from django.db import migrations
 from django.db import transaction
+from django.db.models import signals
 
 from mrsrequest.models import MRSRequest, MRSRequestLogEntry
+from mrsstat.models import stat_update
 
 FORMAT_EN = '%Y-%m-%d'
 FORMAT_FR = '%d/%m/%Y'
@@ -22,10 +24,14 @@ def convert_date(date):
 
     return datetime.strptime(date, FORMAT_EN).strftime(FORMAT_FR)
 
+
 def change_birth_date_format(apps, schema_editor):
     """
     From birth_date yyy-mm-dd to dd/mm/yyyy.
     """
+    # disable stat auto-recalculate on save
+    signals.post_save.disconnect(stat_update)
+
     # disable stat auto-recalculate on save
     signals.post_save.disconnect(stat_update)
 
