@@ -507,6 +507,7 @@ class MRSRequest(models.Model):
         decimal_places=2,
         max_digits=8,
         null=True,
+        verbose_name='économie',
     )
     def saving(self):
         if not self.insured or not self.insured.shifted:
