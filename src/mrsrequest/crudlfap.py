@@ -344,17 +344,6 @@ class MRSRequestListView(crudlfap.ListView):
         ),
     )
 
-    table_sequence = (
-        'creation_datetime',
-        'display_id',
-        'first_name',
-        'last_name',
-        'nir',
-        'status',
-        'institution',
-        'caisse',
-    )
-
     search_fields = (
         'insured__first_name',
         'insured__last_name',
@@ -366,6 +355,21 @@ class MRSRequestListView(crudlfap.ListView):
         'caisse__number',
         'caisse__code',
     )
+
+    def get_table_sequence(self):
+        sequence = [
+            'creation_datetime',
+            'display_id',
+            'first_name',
+            'last_name',
+            'nir',
+            'status',
+            'institution',
+            'caisse',
+        ]
+        if self.request.user.profile == 'admin':
+            sequence.append('saving')
+        return sequence
 
     def get_filterset(self):
         filterset = super().get_filterset() or self.filterset

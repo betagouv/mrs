@@ -144,6 +144,10 @@
             
         
             
+            <th class="orderable"><a href="?status=999&amp;sort=saving">Saving</a></th>
+            
+        
+            
             <th>Actions</th>
             
         
@@ -176,6 +180,8 @@
                 <td>—</td>
             
                 <td>aaaaaaa</td>
+            
+                <td>0,00</td>
             
                 <td>
                 
