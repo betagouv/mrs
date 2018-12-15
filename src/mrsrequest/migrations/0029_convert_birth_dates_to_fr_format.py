@@ -3,6 +3,7 @@
 from datetime import datetime
 import os
 
+from django.conf import settings
 from django.db import migrations
 from django.db import transaction
 from django.db.models import signals
@@ -33,6 +34,9 @@ def change_birth_date_format(apps, schema_editor):
     """
     From birth_date yyy-mm-dd to dd/mm/yyyy.
     """
+    if 'sqlite' in settings.DATABASES['default']['ENGINE']:
+        return  # this migration only works on pg
+
     # disable stat auto-recalculate on save
     if not os.getenv('CI'):
         disconnect = signals.post_save.disconnect(stat_update, MRSRequest)
