@@ -49,8 +49,7 @@ class Command(BaseCommand):
                 print(f'{percentile}% done refreshing existing')
                 percent = percentile
 
-    def date(self, options):
-        date = datetime.strptime(options['date'], '%d/%m/%Y').date()
+    def date(self, date):
         for stat in Stat.objects.filter(date=date):
             stat.denorm_reset()
             stat.save()
@@ -65,7 +64,7 @@ class Command(BaseCommand):
             self.force()
 
         if options['date']:
-            self.date()
+            self.date(datetime.strptime(options['date'], '%d/%m/%Y').date())
         else:
             print('Creating missing stats now ...')
             Stat.objects.create_missing()
