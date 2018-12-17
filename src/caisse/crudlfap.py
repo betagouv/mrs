@@ -1,5 +1,7 @@
 from crudlfap import shortcuts as crudlfap
 
+import django_tables2 as tables
+
 from .models import Caisse, Email
 
 
@@ -18,7 +20,14 @@ crudlfap.Router(
                 'name',
                 'number',
                 'active',
-                'score'
+                'score',
+                'confirms',
+            ),
+            table_columns=dict(
+                confirms=tables.Column(
+                    accessor='confirms',
+                    verbose_name='Alertes',
+                ),
             ),
             search_fields=(
                 'code',

@@ -81,6 +81,10 @@
             
         
             
+            <th class="orderable"><a href="?sort=confirms">Alertes</a></th>
+            
+        
+            
             <th>Actions</th>
             
         
@@ -101,6 +105,8 @@
                 <td>111</td>
             
                 <td><span class="true">✔</span></td>
+            
+                <td>0</td>
             
                 <td>0</td>
             
@@ -163,6 +169,8 @@
             
                 <td>0</td>
             
+                <td>0</td>
+            
                 <td>
                 
                 
@@ -221,6 +229,8 @@
                 <td><span class="false">✘</span></td>
             
                 <td>2</td>
+            
+                <td>—</td>
             
                 <td>
                 
