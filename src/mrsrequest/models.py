@@ -413,6 +413,11 @@ class MRSRequest(models.Model):
         null=True,
         verbose_name='Formulaire tel que soumit par l\'usager',
     )
+    confirms = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Nb. signalements',
+        help_text='Nombre de signalements pour cette demande',
+    )
 
     objects = MRSRequestManager()
 
