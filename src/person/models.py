@@ -26,14 +26,12 @@ class Person(models.Model):
         null=True,
         verbose_name='Email',
     )
-
     use_email = models.BooleanField(
         default=False,
         null=True,
         blank=True,
         verbose_name="L'assuré autorise à utiliser son email.",
     )
-
     nir = models.BigIntegerField(
         verbose_name='Numéro de sécurité sociale',
         validators=[
@@ -48,6 +46,11 @@ class Person(models.Model):
         null=True,
         blank=True,
         verbose_name='Assuré a basculé',
+    )
+    confirms = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Nb. signalements',
+        help_text='Nombre de signalements faits a l\'assuré',
     )
 
     class Meta:
