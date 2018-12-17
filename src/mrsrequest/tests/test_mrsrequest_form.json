@@ -85,6 +85,7 @@
 {
     "fields": {
         "birth_date": "2007-02-07",
+        "confirms": 0,
         "email": "jpic@yourlabs.org",
         "first_name": "jamesy",
         "last_name": "wuzere",
