@@ -127,9 +127,7 @@ class Stat(models.Model):
         return self.mrsrequest_set.status_changed(
             'validated',
             self.date,
-        ).aggregate(
-            result=models.Avg('delay')
-        )['result']
+        ).aggregate(result=models.Avg('delay'))['result']
 
     @denormalized(
         models.IntegerField,
@@ -244,8 +242,8 @@ def update_stat_for_mrsrequest(**kwargs):
     for date in date_range(m.creation_datetime.date()):
         Stat.objects.update_date(
             date,
-            [m.caisse],
-            [m.institution],
+            [None, m.caisse],
+            [None, m.institution],
         )
 
 
