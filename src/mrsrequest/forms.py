@@ -497,10 +497,10 @@ TransportFormSet = forms.formset_factory(
 
 class TransportIterativeForm(forms.Form):
     iterative_show = forms.BooleanField(
-        label='Avez-vous des transports itératifs à déclarer ?',
+        label='Avez-vous des transports itératifs* à déclarer ?',
         widget=forms.CheckboxInput,
         required=False,
-        help_text='Les transports itératifs sont des transports'
+        help_text='*Les transports itératifs sont des transports'
                   ' réguliers de distance identique (même lieu de'
                   ' départ, même lieu d\'arrivée)',
     )
