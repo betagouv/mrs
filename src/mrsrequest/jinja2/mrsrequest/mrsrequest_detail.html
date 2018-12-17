@@ -59,8 +59,56 @@
 <style type="text/css">
 .card-content p { clear: both; }
 .underline-dotted-red { text-decoration: underline dotted red; }
+.duplicates th, .duplicates td, .duplicates ul { margin: 0; padding: 2px; }
+.row:first { padding-top: 12px; }
 </style>
-<div class="row" style="padding-top: 12px">
+{% if object.duplicates_by_date %}
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content valign-wrapper">
+                <div style="display: inline-block; width: 50%">
+                    <span class="card-title red-text">
+                        <b>Attention</b>
+                        <br />
+                        Dates de trajet conflictuelles
+                    </span>
+                    <p>
+                        Les dates de trajets suivantes ont déjà fait l'objet d'une demande.
+                        Merci de vérifier que les demandes correspondent à des trajets différents
+                        afin de ne pas traiter et rembourser plusieurs fois cet assuré.
+                    </p>
+                </div>
+                <div style="display: inline-block; width: 50%">
+                    <table class="duplicates">
+                        {% for date, duplicates in object.duplicates_by_date.items() %}
+                        <tr>
+                            <td>{{ date.strftime('%d/%m/%Y') }}</td>
+                            <td>
+                                <ul>
+                                    {% for duplicate in duplicates %}
+                                    <li>
+                                        <a
+                                            href="{{ duplicate.get_absolute_url() }}"
+                                            data-controller="modal"
+                                            data-action="click->modal#open"
+                                        >
+                                        {{ duplicate }} ({{ duplicate.get_status_display() }})
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="row">
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
@@ -292,7 +340,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Date(s) de Transport(s)
+                    Date{% if object.transport_set.all()|length %}s{% endif %} de Transport{% if object.transport_set.all()|length %}s{% endif %}
                 </div>
                 <table class="centered highlight">
                     <thead>

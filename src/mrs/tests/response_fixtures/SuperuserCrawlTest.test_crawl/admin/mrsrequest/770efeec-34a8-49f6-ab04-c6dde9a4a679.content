@@ -8,8 +8,11 @@
 <style type="text/css">
 .card-content p { clear: both; }
 .underline-dotted-red { text-decoration: underline dotted red; }
+.duplicates th, .duplicates td, .duplicates ul { margin: 0; padding: 2px; }
+.row:first { padding-top: 12px; }
 </style>
-<div class="row" style="padding-top: 12px">
+
+<div class="row">
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
@@ -100,7 +103,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Date(s) de Transport(s)
+                    Dates de Transports
                 </div>
                 <table class="centered highlight">
                     <thead>

@@ -1,3 +1,4 @@
+import collections
 import datetime
 from decimal import Decimal
 from denorm import denormalized
@@ -419,6 +420,65 @@ class MRSRequest(models.Model):
         verbose_name = 'Demande'
         ordering = ['-creation_datetime']
 
+    @property
+    def dates(self):
+        if getattr(self, '_dates', None) is None:
+            self._dates = set()
+            for transport in self.transport_set.all():
+                for date in transport.dates:
+                    self._dates.add(date)
+            self._dates = sorted(self._dates)
+        return self._dates
+
+    @property
+    def duplicate_transports(self):
+        if getattr(self, '_duplicate_transports', None) is None:
+            self._duplicate_transports = Transport.objects.filter(
+                mrsrequest__insured=self.insured
+            ).exclude(
+                mrsrequest__pk=self.pk
+            ).filter(
+                models.Q(date_depart__in=self.dates)
+                | models.Q(date_return__in=self.dates)
+            ).distinct().order_by(
+                'mrsrequest__creation_datetime'
+            ).select_related(
+                'mrsrequest'
+            ).prefetch_related('mrsrequest__transport_set')
+        return self._duplicate_transports
+
+    @property
+    def duplicates_dates(self):
+        if getattr(self, '_duplicates_dates', None) is None:
+            dupes = dict()
+            for date in self.dates:
+                for transport in self.duplicate_transports:
+                    if date in transport.dates:
+                        dupes.setdefault(transport.mrsrequest, set())
+                        dupes[transport.mrsrequest].add(date)
+
+            self._duplicates_dates = collections.OrderedDict()
+            for key in sorted(dupes.keys(), key=lambda x: x.creation_datetime):
+                self._duplicates_dates[key] = sorted(dupes[key])
+
+        return self._duplicates_dates
+
+    @property
+    def duplicates_by_date(self):
+        if getattr(self, '_duplicates_by_date', None) is None:
+            self._duplicates_by_date = dupes = dict()
+            for date in self.dates:
+                for transport in self.duplicate_transports:
+                    if date in transport.dates:
+                        dupes.setdefault(date, set())
+                        dupes[date].add(transport.mrsrequest)
+                if date in dupes:
+                    dupes[date] = sorted(
+                        dupes[date],
+                        key=lambda mrsrequest: mrsrequest.creation_datetime
+                    )
+        return self._duplicates_by_date
+
     def __str__(self):
         return str(self.display_id)
 
@@ -657,10 +717,12 @@ class MRSRequest(models.Model):
 
     @property
     def total_size(self):
-        if self.pmt:
-            return len(self.pmt.binary) + sum(
-                [len(b.binary) for b in self.bill_set.all()])
-        return 0
+        if getattr(self, '_total_size', None) is None:
+            self._total_size = 0
+            if self.pmt:
+                self._total_size = len(self.pmt.binary) + sum(
+                    [len(b.binary) for b in self.bill_set.all()])
+        return self._total_size
 
     def get_admin_url(self):
         return reverse('admin:mrsrequest_mrsrequest_change', args=[self.pk])
@@ -897,3 +959,7 @@ class Transport(models.Model):
 
     class Meta:
         ordering = ['mrsrequest', 'date_depart']
+
+    @property
+    def dates(self):
+        return [i for i in (self.date_depart, self.date_return) if i]
