@@ -139,11 +139,7 @@ def test_mrsrequestcreateview_hydrate_person(p):
     assert p.view.forms['person'].is_valid()
 
 
-@freeze_time('2017-12-19 05:51:11')
-@pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_mrsrequestcreateview_post_save_integration(p, caisse):
-    data = dict(mrsrequest_uuid=p.mrsrequest.id)
-    data['caisse'] = caisse.pk
+def form_data(**data):
     data['trip_kind'] = 'return'
     data['iterative_number'] = 2
     data['transport-0-date_depart'] = '2017-02-02'
@@ -159,27 +155,42 @@ def test_mrsrequestcreateview_post_save_integration(p, caisse):
     data['email'] = 'jpic@yourlabs.org'
     data['use_email'] = False
     data['nir'] = '1234567890123'
-
-    # da key
     data['certify'] = True
 
     PMT.objects.create(
-        mrsrequest_uuid=p.mrsrequest.id,
+        mrsrequest_uuid=data['mrsrequest_uuid'],
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
     )
     BillVP.objects.create(
-        mrsrequest_uuid=p.mrsrequest.id,
+        mrsrequest_uuid=data['mrsrequest_uuid'],
         filename='test_mrsrequestcreateview_story.jpg',
         binary=b'test_mrsrequestcreateview_story',
     )
+    return data
 
+
+@freeze_time('2017-12-19 05:51:11')
+@pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
+def test_mrsrequestcreateview_post_save_integration(p, caisse):
+    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
     p.post(**data)
 
     Fixture(
         './src/mrsrequest/tests/test_mrsrequestcreateview.json',  # noqa
         models=[MRSAttachment, MRSRequest, PMT, Person, Bill, Transport]
     ).assertNoDiff()
+
+
+@freeze_time('2017-12-19 05:51:11')
+@pytest.mark.django_db
+def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
+    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+    data['transport-1-date_depart'] = data['transport-0-date_depart']
+    data['transport-1-date_return'] = data['transport-0-date_return']
+    data['confirm'] = '1'
+    p.post(**data)
+    assert p.view.forms['mrsrequest'].instance.insured.confirms == 2
 
 
 @pytest.mark.dbdiff(models=[Caisse, Email])
