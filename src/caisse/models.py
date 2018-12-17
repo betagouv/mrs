@@ -10,8 +10,6 @@ from djcall.models import Caller
 
 import holidays
 
-from person.models import Person
-
 
 def validate_caisse_number(value):
     try:
@@ -51,9 +49,7 @@ class Caisse(models.Model):
 
     @property
     def confirms(self):
-        return Person.objects.filter(
-            mrsrequest__caisse=self
-        ).distinct().aggregate(
+        return self.mrsrequest_set.aggregate(
             confirms=models.Sum('confirms')
         )['confirms']
 

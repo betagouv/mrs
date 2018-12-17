@@ -166,6 +166,7 @@ class MRSRequestCreateView(generic.TemplateView):
         for form in self.forms['transport_formset'].forms:
             for field, kinds in form.confirms.items():
                 person.confirms += len(kinds)
+                self.forms['mrsrequest'].instance.confirms += len(kinds)
 
         self.forms['mrsrequest'].instance.insured = person
         self.forms['mrsrequest'].instance.creation_ip = get_client_ip(
