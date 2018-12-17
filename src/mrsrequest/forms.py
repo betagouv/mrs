@@ -468,6 +468,13 @@ class BaseTransportFormSet(forms.BaseFormSet):
         return 'transport'
 
     def add_confirms(self, nir, birth_date):
+        self.set_confirms(nir, birth_date)
+        # this will call add_error for every confirm which will invalidate
+        # cleaned_data
+        for form in self.forms:
+            form.add_confirms()
+
+    def set_confirms(self, nir, birth_date):
         dates = set()
         for form in self.forms:
             dates.add(form.cleaned_data.get('date_depart'))
@@ -482,11 +489,6 @@ class BaseTransportFormSet(forms.BaseFormSet):
 
         for form in self.forms:
             form.set_confirms(self, transports)
-
-        # this will call add_error for every confirm which will invalidate
-        # cleaned_data
-        for form in self.forms:
-            form.add_confirms()
 
 
 TransportFormSet = forms.formset_factory(

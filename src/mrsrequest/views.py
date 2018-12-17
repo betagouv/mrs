@@ -159,20 +159,28 @@ class MRSRequestCreateView(generic.TemplateView):
         return forms
 
     def save_mrsrequest(self):
-        self.forms['mrsrequest'].instance.insured = (
-            self.forms['person'].get_or_create())
+        person = self.forms['person'].get_or_create()
+        self.forms['transport_formset'].set_confirms(
+            person.nir, person.birth_date
+        )
+        for form in self.forms['transport_formset'].forms:
+            for field, kinds in form.confirms.items():
+                person.confirms += len(kinds)
+
+        self.forms['mrsrequest'].instance.insured = person
         self.forms['mrsrequest'].instance.creation_ip = get_client_ip(
             self.request)[0]
         self.object = self.forms['mrsrequest'].save()
         if self.forms['use_email'].cleaned_data['use_email']:
-            self.forms['mrsrequest'].instance.insured.use_email = True
-            self.forms['mrsrequest'].instance.insured.save()
+            person.use_email = True
+
         for form in self.forms['transport_formset'].forms:
             Transport.objects.create(
                 date_depart=form.cleaned_data.get('date_depart'),
                 date_return=form.cleaned_data.get('date_return'),
                 mrsrequest=self.object,
             )
+        person.save()
 
         Caller(
             callback='djcall.django.email_send',
