@@ -8,7 +8,6 @@ from django.db import migrations
 from django.db import transaction
 from django.db.models import signals
 
-from mrsrequest.models import MRSRequest, MRSRequestLogEntry
 from mrsstat.models import stat_update
 
 FORMAT_EN = '%Y-%m-%d'
@@ -34,6 +33,9 @@ def change_birth_date_format(apps, schema_editor):
     """
     From birth_date yyy-mm-dd to dd/mm/yyyy.
     """
+    MRSRequest = apps.get_model('mrsrequest', 'MRSRequest')
+    MRSRequestLogEntry = apps.get_model('mrsrequest', 'MRSRequestLogEntry')
+
     if 'sqlite' in settings.DATABASES['default']['ENGINE']:
         return  # this migration only works on pg
 
