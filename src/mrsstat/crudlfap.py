@@ -146,8 +146,9 @@ class StatListView(crudlfap.ListView):
     def get_mrsrequests(self):
         # the default controller's list view will return objects user can see
         controller = crudlfap.site['mrsrequest.MRSRequest']
-        self.mrsrequests = controller['list'](request=self.request)\
-            .get_objects()
+        self.mrsrequests = controller['list'](
+            request=self.request
+        ).get_objects()
         for i in ('caisse', 'institution'):
             if self.filterset.form.cleaned_data.get(i, None):
                 self.mrsrequests = self.mrsrequests.filter(**{
