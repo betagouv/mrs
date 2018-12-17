@@ -5,6 +5,8 @@ import pytest
 import pytz
 import uuid
 
+from dbdiff.fixture import Fixture
+
 from django.conf import settings
 from django.utils import timezone
 from freezegun import freeze_time
@@ -298,3 +300,36 @@ def test_mrsrequest_mandate_date():
 
     m.mandate_dateatp = '2018-06-01'
     assert m.mandate_date == m.mandate_dateatp
+
+
+@pytest.mark.django_db
+def test_mrsrequest_duplicate_transports():
+    Fixture('./src/mrs/tests/data.json').load()
+    req = MRSRequest.objects.get(display_id='201805030001')
+    assert len(req.duplicate_transports) == 2
+
+
+@pytest.mark.django_db
+def test_mrsrequest_duplicates_by_date():
+    Fixture('./src/mrs/tests/data.json').load()
+    req = MRSRequest.objects.get(display_id='201805030001')
+    assert req.duplicates_by_date == {
+        datetime.date(2018, 5, 1): [
+            MRSRequest.objects.get(display_id='201805020001'),
+            MRSRequest.objects.get(display_id='201805030000'),
+        ]
+    }
+
+
+@pytest.mark.django_db
+def test_mrsrequest_duplicates_dates():
+    Fixture('./src/mrs/tests/data.json').load()
+    req = MRSRequest.objects.get(display_id='201805030001')
+    assert req.duplicates_dates == {
+        MRSRequest.objects.get(display_id='201805020001'): [
+            datetime.date(2018, 5, 1)
+        ],
+        MRSRequest.objects.get(display_id='201805030000'): [
+            datetime.date(2018, 5, 1)
+        ]
+    }

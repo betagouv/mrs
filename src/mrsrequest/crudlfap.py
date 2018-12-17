@@ -747,7 +747,6 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
             add_changed_labels(form)
 
     def form_valid(self):
-
         def d():
             data = {
                 'insured' if i == 'pk' else i: getattr(self.object.insured, i)
@@ -797,6 +796,14 @@ class MRSRequestDetailView(crudlfap.DetailView):
     locks = True
     title_heading = None
     allowed_groups = ['Admin', 'UPN', 'Support']
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.select_related(
+            'insured',
+        ).prefetch_related(
+            'transport_set',
+        )
 
     def get_labels(self):
         self.labels = dict()

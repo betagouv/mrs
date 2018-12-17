@@ -8,8 +8,58 @@
 <style type="text/css">
 .card-content p { clear: both; }
 .underline-dotted-red { text-decoration: underline dotted red; }
+.duplicates th, .duplicates td, .duplicates ul { margin: 0; padding: 2px; }
+.row:first { padding-top: 12px; }
 </style>
-<div class="row" style="padding-top: 12px">
+
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content valign-wrapper">
+                <div style="display: inline-block; width: 50%">
+                    <span class="card-title red-text">
+                        <b>Attention</b>
+                        <br/>
+                        Dates de trajet conflictuelles
+                    </span>
+                    <p>
+                        Les dates de trajets suivantes ont déjà fait l'objet d'une demande.
+                        Merci de vérifier que les demandes correspondent à des trajets différents
+                        afin de ne pas traiter et rembourser plusieurs fois cet assuré.
+                    </p>
+                </div>
+                <div style="display: inline-block; width: 50%">
+                    <table class="duplicates">
+                        
+                        <tbody><tr>
+                            <td>01/05/2018</td>
+                            <td>
+                                <ul>
+                                    
+                                    <li>
+                                        <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2">
+                                        201805020001 (En cours de liquidation)
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb">
+                                        201805030000 (Validée)
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </td>
+                        </tr>
+                        
+                    </tbody></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
@@ -153,7 +203,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Date(s) de Transport(s)
+                    Dates de Transports
                 </div>
                 <table class="centered highlight">
                     <thead>
