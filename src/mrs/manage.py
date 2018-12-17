@@ -7,9 +7,10 @@ import warnings
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mrs.settings")
 
-    if sys.argv[-1] == 'dev':
-        warnings.warn("DEFAULTING DEBUG=1 FOR mrs dev COMMAND")
-        os.environ.setdefault("DEBUG", "1")
+    warnings.warn(
+        "DEFAULTING DEBUG=1 FOR mrs COMMAND, that doesnt enable it in wsgi"
+    )
+    os.environ.setdefault("DEBUG", "1")
 
     try:
         from django.core.management import execute_from_command_line
