@@ -39,12 +39,6 @@ def change_birth_date_format(apps, schema_editor):
     if 'sqlite' in settings.DATABASES['default']['ENGINE']:
         return  # this migration only works on pg
 
-    # disable stat auto-recalculate on save
-    if not os.getenv('CI'):
-        disconnect = signals.post_save.disconnect(stat_update, MRSRequest)
-        if not disconnect:
-            raise Exception('Could not disable signal')
-
     requests = MRSRequest.objects.all()
     if len(requests):
         print('--- found: {} requests'.format(len(requests)))
