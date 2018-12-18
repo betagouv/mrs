@@ -135,10 +135,11 @@ var formInit = function (form) {
         $(this).attr('name', $(this).attr('name').replace('-0-', `-${i}-`))
         $(this).val('')
       })
-      $newRow.find('label').html(
-        $newRow.find('label').html()
-          .replace(/^([^0-9]+)([0-9]*)$/, '$1 ' + (i + 1))
-      )
+      $newRow.find('label').each(function() {
+        var oldLabel = $(this).html()
+        var newLabel = oldLabel.replace(/^([^0-9]+)([0-9]*)$/, '$1 ' + (i + 1))
+        $(this).html(newLabel)
+      })
 
       var $nextRow = $(form).find(`[name*=-${i + 1}-date_depart]:last`).parents('div.layout-row')
       if ($nextRow.length) {
