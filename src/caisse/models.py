@@ -47,12 +47,6 @@ class Caisse(models.Model):
     )
     score = models.PositiveIntegerField(default=0)
 
-    @property
-    def confirms(self):
-        return self.mrsrequest_set.aggregate(
-            confirms=models.Sum('confirms')
-        )['confirms']
-
     class Meta:
         ordering = ['name']
 
