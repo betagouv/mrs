@@ -2,7 +2,6 @@ import collections
 import datetime
 from decimal import Decimal
 from denorm import denormalized
-import logging
 import pytz
 import uuid
 
@@ -20,8 +19,6 @@ from mrs.settings import DATE_FORMAT_FR
 from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 
 TWOPLACES = Decimal(10) ** -2
-
-raven_logger = logging.getLogger('raven')
 
 
 def to_date_datetime(date_or_datetime, hour, minute, second, microsecond):
@@ -579,13 +576,9 @@ class MRSRequest(models.Model):
             return 0
         if not self.payment_base:
             return
-        saving = Decimal(
+        return Decimal(
             float(self.taxi_cost) - float(self.payment_base)
         ).quantize(TWOPLACES)
-        if saving < 0:
-            raven_logger.info("The balance from {} is negative: {}".
-                              format(self.insured, saving))
-        return saving
 
     @denormalized(
         models.DecimalField,
