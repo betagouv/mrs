@@ -44,7 +44,11 @@ def add_user(row):
 
 
 class Command(BaseCommand):
-    help = 'Import users and set permissions from csv file.'
+    help = """Import users and set permissions from a csv file.
+
+    Columns are:
+    NOM	PRENOM	NUMERO AGENT	PROFIL	NUMERO ORGANISME	MAIL
+    """
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -62,10 +66,11 @@ class Command(BaseCommand):
             reader = csv.reader(f, delimiter='\t')  # watch delimiter
             # DictReader ? clunky.
             for row in reader:
-                if not row[0]:
-                    continue
-                elif row[0] == 'NOM' and row[1] == 'PRENOM':
-                    continue
+                if row:
+                    if not row[0]:
+                        continue
+                    elif row[0] == 'NOM' and row[1] == 'PRENOM':
+                        continue
 
-                print(row)
-                add_user(row)
+                    print(row)
+                    add_user(row)

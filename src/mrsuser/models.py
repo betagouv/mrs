@@ -41,7 +41,10 @@ class User(AbstractUser):
         """
         Add this user to a group by the group name.
         """
-        group = Group.objects.get(name=groupname)
+        name = groupname.strip().capitalize()
+        if 'Upn' in name:
+            name = 'UPN'
+        group = Group.objects.get(name=name)
         self.groups.add(group)
         self.save()
 
