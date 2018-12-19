@@ -2,4 +2,4 @@ Nom: {{ form.cleaned_data.nom }}
 Email: {{ form.cleaned_data.email }}
 Message:
 
-{{ form.cleaned_data.message }}
+{{ form.cleaned_data.message | safe }}
