@@ -201,13 +201,12 @@
                                 
                             </td>
                         </tr>
-                        
                         <tr class="even">
                             <td>2</td>
                             <td>
                                 02/05/2018
                             </td>
-                            <td>
+                            <td class="underline-dotted-red red-text" title="Cette date apparait dans un autre trajet de cette demande">
                                 
                             </td>
                         </tr>
