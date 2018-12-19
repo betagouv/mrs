@@ -2,4 +2,9 @@ Nom: {{ form.cleaned_data.nom | safe }}
 Email: {{ form.cleaned_data.email }}
 Message:
 
+Bonjour,
+
+Veuillez trouver ci-dessous une réclamation déposée ce jour sur le site par un de vos assurés.
+
+
 {{ form.cleaned_data.message | safe }}
