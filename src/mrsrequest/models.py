@@ -917,6 +917,27 @@ class PMT(MRSAttachment):
         ordering = ['mrsrequest', 'id']
 
 
+class TransportQuerySet(models.QuerySet):
+    def annotate_duplicates(self):
+        seen = set()
+        for number, transport in enumerate(self, start=1):
+            if not transport.date_depart:
+                continue
+
+            transport.date_depart_is_duplicate = transport.date_depart in seen
+            transport.date_return_is_duplicate = transport.date_return in seen
+
+            seen.add(transport.date_depart)
+            seen.add(transport.date_return)
+
+        return self
+
+
+class TransportManager(models.Manager):
+    def get_queryset(self):
+        return TransportQuerySet(self.model, using=self._db)
+
+
 def transport_date_validate(value):
     if value > timezone.now().date():
         raise ValidationError(
@@ -954,6 +975,8 @@ class Transport(models.Model):
     )
 
     DATES = ('depart', 'return')
+
+    objects = TransportManager()
 
     class Meta:
         ordering = ['mrsrequest', 'date_depart']
