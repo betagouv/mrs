@@ -354,7 +354,7 @@
 <div class="row">
     <div class="checkbox-field col s12" id="id_use_email_container">
         <label>
-        <input class="filled-in " id="id_use_email" name="use_email" type="checkbox"/><span for="id_use_email">En cochant cette case, vous acceptez que Mes Remboursements Simplifiés mémorise et utilise votre adresse email dans le but de vous envoyer occasionnellement des emails d'informations. Vous pouvez à tout moment vous désinscrire de ce service.</span></label>
+        <input class="filled-in " id="id_use_email" name="use_email" type="checkbox"/><span for="id_use_email">En cochant cette case, vous acceptez que Mes Remboursements Simplifiés utilise votre adresse email dans le but de vous envoyer occasionnellement des emails d'informations. Vous pouvez à tout moment vous désinscrire de ce service.</span></label>
         
     </div>
 </div>
@@ -402,7 +402,10 @@
         En outre, l'inexactitude, le caractère incomplet des déclarations ou l'absence de déclaration d'un changement de situation dans le but d'obtenir le versement de prestations indues, peuvent faire l'objet d'une pénalité financière en application de l'article L.162-1-14 du Code de la sécurité sociale.
     </p>
     <p>
-        La loi 78.17 du 6/01/78 modifiée relative à l'informatique, aux fichiers et aux libertés s'applique aux réponses faites sur ce formulaire. Elle garantit un droit d'accès et de rectification pour les données vous concernant
+      Les informations recueillies sont traitées pour gérer votre demande de remboursement de transport sous la responsabilité du Directeur de votre CPAM de rattachement. Elles sont conservées pendant 33 mois et sont adressées à votre CPAM de rattachement.
+      Votre email sera utilisé dans le but de vous envoyer occasionnellement des emails de confirmation.
+      Conformément aux dispositions relatives à la protection des données personnelles, vous pouvez exercer les droit d'accès et de rectification des données vous concernant en adressant une demande écrite au Délégué à la Protection des Données par mail à dpo.cpam-toulouse@assurance-maladie.fr ou par courrier à CPAM - Délégué à la Protection des Données – 31093 Toulouse cedex 9.
+      Les réclamations au titre de la protection des données personnelles peuvent être introduites auprès de la CNIL (Commission Nationale Informatique et Libertés - TSA 80715 - 75334 PARIS CEDEX 07).
     </p>
 </div>
 

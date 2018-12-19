@@ -550,7 +550,7 @@ class CertifyForm(forms.Form):
 
 class UseEmailForm(forms.Form):
     USE_EMAIL_LABEL = ("En cochant cette case, vous acceptez que "
-                       "Mes Remboursements Simplifiés mémorise et utilise "
+                       "Mes Remboursements Simplifiés utilise "
                        "votre adresse email dans le but de vous envoyer "
                        "occasionnellement des emails d'informations. "
                        "Vous pouvez à tout moment vous désinscrire de "
