@@ -6,5 +6,9 @@ Bonjour,
 
 Veuillez trouver ci-dessous une réclamation déposée ce jour sur le site par un de vos assurés.
 
+Motif: {{ motif }}
+Caisse: {{ form.cleaned_data.caisse.name }}
+
+---
 
 {{ form.cleaned_data.message | safe }}
