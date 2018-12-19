@@ -13,6 +13,7 @@ MOTIF_CHOICES = (
     ('other', 'Autre'),
 )
 
+
 def get_motif(rawname):
     for tup in MOTIF_CHOICES:
         if tup[0] == rawname:
@@ -23,7 +24,7 @@ def get_motif(rawname):
 class ContactForm(forms.Form):
     motif = forms.ChoiceField(
         label='Motif',
-        choices= MOTIF_CHOICES,
+        choices=MOTIF_CHOICES,
     )
     caisse = ActiveCaisseChoiceField(
         label='Votre caisse de rattachement',
