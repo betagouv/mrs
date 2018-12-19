@@ -2,8 +2,12 @@ from crudlfap import shortcuts as crudlfap
 
 from django import forms
 from django.contrib.auth.models import Group
+from django.db.models import Case, Count, When, IntegerField
+
+import django_tables2 as tables
 
 from caisse.models import Caisse
+from mrsrequest.models import MRSRequestLogEntry
 
 from .models import User
 
@@ -69,11 +73,12 @@ class UserForm(forms.ModelForm):
 crudlfap.site[User]['update'].form_class = UserForm
 crudlfap.site[User]['update'].fields.append('is_active')
 crudlfap.site[User]['create'].form_class = UserForm
-crudlfap.site[User]['list'].filter_fields = [
+crudlfap.site[User].views['list'].filter_fields = [
     'groups',
     'caisses',
 ]
-crudlfap.site[User]['list'].table_fields = [
+
+crudlfap.site[User].views['list'].table_fields = [
     'caisses',
     'is_active',
     'email',
@@ -82,7 +87,30 @@ crudlfap.site[User]['list'].table_fields = [
     'groups',
 ]
 
+crudlfap.site[User].views['list'].table_columns = dict(
+    modifications=tables.Column(
+        accessor='count_updates',
+        verbose_name='Alertes',
+    )
+)
+
+
+def get_queryset(self):
+    return super(type(self), self).get_queryset().annotate(
+        count_updates=Count(Case(
+            When(
+                mrsrequestlogentry__action=MRSRequestLogEntry.ACTION_UPDATE,
+                then=1
+            ),
+            output_field=IntegerField(),
+        ))
+    )
+
+
+crudlfap.site[User].views['list'].get_queryset = get_queryset
+
 del crudlfap.site[User].views['delete']
 del crudlfap.site[User].views['deleteobjects']
+
 crudlfap.site[User].allowed_groups = ['Admin']
 crudlfap.site[Group].allowed_groups = ['Admin']
