@@ -7,14 +7,15 @@ import csv
 
 
 def add_user(row):
-    agent_nb = row[2]
-    username = "{}_{}".format(row[0], agent_nb)
+    agent_nb = row[2].strip()
+    last_name = row[0].strip().upper()
+    username = "{}_{}".format(last_name, agent_nb)
     password = agent_nb
 
     user, created = User.objects.get_or_create(
-        last_name=row[0],
-        first_name=row[1],
-        email=row[-1],
+        last_name=last_name,
+        first_name=row[1].strip(),
+        email=row[-1].strip(),
         username=username,
     )
     if created:
