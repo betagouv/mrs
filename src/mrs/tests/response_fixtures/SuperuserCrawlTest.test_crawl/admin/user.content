@@ -103,6 +103,10 @@
             
         
             
+            <th class="orderable"><a href="?sort=modifications">Alertes</a></th>
+            
+        
+            
             <th>Actions</th>
             
         
@@ -116,6 +120,78 @@
         
         <tr class="even">
             
+                <td>-</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/test">t@tt.tt</a></td>
+            
+                <td>—</td>
+            
+                <td>—</td>
+            
+                <td>Admin</td>
+            
+                <td>1</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-1" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-1">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update?_next=/admin/user" title='Utilisateur "test": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password?_next=/admin/user" title='Utilisateur "test": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/test/su?_next=/admin/user" title='Utilisateur "test": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Devenir
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/test?_next=/admin/user" title="test">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
                 <td>aaaaaaa</td>
             
                 <td><span class="true">✔</span></td>
@@ -127,6 +203,8 @@
                 <td>—</td>
             
                 <td>UPN</td>
+            
+                <td>0</td>
             
                 <td>
                 
@@ -184,7 +262,7 @@
         
     
         
-        <tr class="odd">
+        <tr class="even">
             
                 <td>bbbb</td>
             
@@ -197,6 +275,8 @@
                 <td>—</td>
             
                 <td>UPN</td>
+            
+                <td>0</td>
             
                 <td>
                 
@@ -254,7 +334,7 @@
         
     
         
-        <tr class="even">
+        <tr class="odd">
             
                 <td>aaaaaaa</td>
             
@@ -267,6 +347,8 @@
                 <td>Suport A Nom</td>
             
                 <td>Support</td>
+            
+                <td>0</td>
             
                 <td>
                 
@@ -324,7 +406,7 @@
         
     
         
-        <tr class="odd">
+        <tr class="even">
             
                 <td>aaaaaaa</td>
             
@@ -337,6 +419,8 @@
                 <td>Stat nom</td>
             
                 <td>Stat</td>
+            
+                <td>0</td>
             
                 <td>
                 
@@ -394,7 +478,7 @@
         
     
         
-        <tr class="even">
+        <tr class="odd">
             
                 <td>bbbb</td>
             
@@ -407,6 +491,8 @@
                 <td>Statbnom</td>
             
                 <td>Stat</td>
+            
+                <td>0</td>
             
                 <td>
                 
@@ -464,7 +550,7 @@
         
     
         
-        <tr class="odd">
+        <tr class="even">
             
                 <td>bbbb</td>
             
@@ -477,6 +563,8 @@
                 <td>Support B Nom</td>
             
                 <td>Support</td>
+            
+                <td>0</td>
             
                 <td>
                 
@@ -518,76 +606,6 @@
         
         <li>
             <a class="" href="/admin/user/supportb?_next=/admin/user" title="supportb">
-    <i class="blue-text material-icons">search</i>
-    
-    Detail
-    
-  </a>
-        </li>
-        
-      </ul>
-    
-  
-                </td>
-            
-        </tr>
-        
-    
-        
-        <tr class="even">
-            
-                <td>-</td>
-            
-                <td><span class="true">✔</span></td>
-            
-                <td><a href="/admin/user/test">t@tt.tt</a></td>
-            
-                <td>—</td>
-            
-                <td>—</td>
-            
-                <td>Admin</td>
-            
-                <td>
-                
-                
-    
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-1" title="Actions">
-        <i class="material-icons">more_vert</i>
-        
-      </a>
-
-      <ul class="dropdown-content" id="row-actions-1">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update?_next=/admin/user" title='Utilisateur "test": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password?_next=/admin/user" title='Utilisateur "test": mot de passe'>
-    <i class="purple-text darken-4-text material-icons">vpn_key</i>
-    
-    Mot de passe
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-noprefetch="true" href="/admin/user/test/su?_next=/admin/user" title='Utilisateur "test": become user'>
-    <i class="pink-text darken-4-text material-icons">attach_money</i>
-    
-    Devenir
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" href="/admin/user/test?_next=/admin/user" title="test">
     <i class="blue-text material-icons">search</i>
     
     Detail
