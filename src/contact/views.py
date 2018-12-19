@@ -14,12 +14,20 @@ class ContactView(generic.FormView):
     def form_valid(self, form):
         self.success = True
 
+        subject = ""
+        if form.cleaned_data.get('motif').startswith('request'):
+            subject = template.loader.get_template(
+                'contact/team_mail_reclamation_mrs.txt'
+            ).render().strip()
+        else:
+            subject = template.loader.get_template(
+                'contact/team_mail_title.txt'
+            ).render(dict(form=form)).strip()
+
         Caller(
             callback='djcall.django.email_send',
             kwargs=dict(
-                subject=template.loader.get_template(
-                    'contact/team_mail_title.txt'
-                ).render(dict(form=form)).strip(),
+                subject=subject,
                 body=template.loader.get_template(
                     'contact/team_mail_body.txt'
                 ).render(dict(form=form)).strip(),
