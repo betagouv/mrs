@@ -62,6 +62,8 @@
                 </div>
                 
                 <div class="odd"><div class="green-text">
+                                <i class="material-icons right tiny"> check_circle</i>
+                            
                             Validée
                         </div>
 
@@ -72,6 +74,8 @@
                 </div>
                 
                 <div class="even"><div class="yellow-text text-darken-3">
+                                <i class="material-icons right tiny"> playlist_add_check</i>
+                            
                             En cours de liquidation
                         </div>
 

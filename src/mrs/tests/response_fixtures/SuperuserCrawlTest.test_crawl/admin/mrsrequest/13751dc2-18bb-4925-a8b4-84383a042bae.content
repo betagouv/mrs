@@ -57,7 +57,7 @@ blabla</p>
                         </div>
                     </div>
                     <div class="red-text">
-                                <i class="material-icons right tiny">search</i>
+                                <i class="material-icons right tiny"> do_not_disturb_on</i>
                             
                             Rejet pour autre motif
                         </div>
@@ -69,6 +69,8 @@ blabla</p>
                 </div>
                 
                 <div class="even"><div class="yellow-text text-darken-3">
+                                <i class="material-icons right tiny"> playlist_add_check</i>
+                            
                             En cours de liquidation
                         </div>
 

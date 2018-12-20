@@ -881,6 +881,31 @@ class MRSRequestLogEntry(models.Model):
             if name == name:
                 return value
 
+    def get_icons(self):
+        """
+        Return a string with possibly more than one icon names
+        corresponding to the fields changed in this logentry.
+        """
+        icons = []
+        action_icons = {
+            self.ACTION_CONTACT: 'email',
+            MRSRequest.STATUS_REJECTED: 'do_not_disturb_on',
+            MRSRequest.STATUS_CANCELED: 'do_not_disturb_on',
+            MRSRequest.STATUS_INPROGRESS: 'playlist_add_check',
+            MRSRequest.STATUS_VALIDATED: 'check_circle',
+        }
+        changed = self.data.get('changed', None) if self.data else None
+        if changed:
+            if 'nir' in changed:
+                icons.append('perm_identity')
+            if 'birth_date' in changed:
+                icons.append('directions_car')
+            if 'distancevp' in changed:
+                icons.append('date_range')
+        elif self.action in action_icons:
+            icons.append(action_icons[self.action])
+        return ' '.join(icons)
+
 
 def creation_datetime_and_display_id(sender, instance, **kwargs):
     """Signal receiver executed at the beginning of MRSRequest.save()"""
