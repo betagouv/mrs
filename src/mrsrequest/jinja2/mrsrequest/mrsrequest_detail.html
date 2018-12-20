@@ -226,7 +226,7 @@
                                 class="{% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}"
                         >
                             {%- if entry.data %}
-                                <i class="material-icons right tiny">search</i>
+                                <i class="material-icons right tiny"> {{ entry.get_icons() }}</i>
                             {% endif %}
                             {{ entry.comment }}
                         </div>
