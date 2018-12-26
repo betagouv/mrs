@@ -29,7 +29,7 @@
         
 <div class="row">
     <div class="input-field col s12 required" id="id_nir_container">
-        <input id="id_nir" max="9999999999999" min="1000000000000" name="nir" type="number" value="1223123123123"/>
+        <input id="id_nir" maxlength="13" name="nir" type="text" value="1223123123123"/>
         <label class="active" for="id_nir">Numéro de sécurité sociale</label>
         
     </div>
