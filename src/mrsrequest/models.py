@@ -574,7 +574,7 @@ class MRSRequest(models.Model):
     def saving(self):
         if not self.insured or not self.insured.shifted:
             return 0
-        if not self.payment_base:
+        if not self.modevp or not self.payment_base:
             return
         return Decimal(
             float(self.taxi_cost) - float(self.payment_base)

@@ -49,6 +49,7 @@ for day_name, day_args in days.items():
 def test_mrsrequest_update_taxi_cost():
     obj = MRSRequest.objects.create(
         distancevp=100,
+        modevp=True,
         payment_base=120,
     )
     obj.transport_set.create(
