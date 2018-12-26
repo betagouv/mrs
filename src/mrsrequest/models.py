@@ -438,7 +438,8 @@ class MRSRequest(models.Model):
             self._duplicate_transports = Transport.objects.filter(
                 mrsrequest__insured=self.insured
             ).exclude(
-                mrsrequest__pk=self.pk
+                models.Q(mrsrequest__pk=self.pk)
+                | models.Q(mrsrequest__status=self.STATUS_REJECTED)
             ).filter(
                 models.Q(date_depart__in=self.dates)
                 | models.Q(date_return__in=self.dates)
