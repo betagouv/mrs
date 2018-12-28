@@ -38,7 +38,10 @@ class Person(models.Model):
             validators.
             MinValueValidator(
                 1000000000000,
-                message="Le NIR doit contenir 13 caracteres."),
+                message=(
+                    "Le numéro de sécurité sociale doit contenir 13 chiffres."
+                )
+            ),
         ]
     )
     shifted = models.NullBooleanField(
