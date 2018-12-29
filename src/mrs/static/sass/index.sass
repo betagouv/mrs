@@ -53,7 +53,6 @@
     position: absolute
     height: $height
     width: 20rem
-    transform: translateY(-50%)
     border-top-right-radius: $height
     border-bottom-right-radius: $height
     background-color: red
@@ -129,6 +128,7 @@
     .thumb
       +flex-column()
       +wrapper()
+      transform: translateY(-100%)
       background-color: $primary-green
       color: white
       padding-right: 3rem
@@ -165,11 +165,9 @@
     +wrapper()
     background-color: $secondary-blue
     color: $primary-blue
-    padding-top: 5rem
-    padding-bottom: 5rem
+    padding: 0 !important
 
     @media (min-width: $desktop-min-width)
-      padding-right: $desktop-page-margin-left
       justify-content: space-between
 
     a
@@ -207,7 +205,7 @@
       .arrow
         font-size: 1.2rem
 
-    .hier--wrapper, .ajd--wrapper
+    .hier--wrapper
       +flex-column()
       padding-left: 1rem
 
@@ -252,6 +250,10 @@
     .thumb
       +wrapper()
       +barlow-regular()
+      $height: 3rem
+      height: $height
+      border-top-right-radius: $height
+      border-bottom-right-radius: $height
       background-color: white
       color: $primary-blue
       line-height: 1.5rem

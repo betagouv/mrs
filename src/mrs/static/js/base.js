@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import ScrollReveal from 'scrollreveal'
 import 'mrsmaterialize/sass/materialize.scss'
 import '../sass/base.sass'
@@ -55,4 +56,13 @@ import Carousel from './components/Caroussel.js'
     })
     form.style.display = 'block'
   }
+
+  function resizeIframe() {
+    if ($('#hier-ajd--wrapper').length) {
+      var iframe = $('#hier-ajd--wrapper iframe')
+      iframe.height((iframe.width()/16)*9)
+    }
+  }
+  resizeIframe()
+  window.addEventListener('resize', resizeIframe)
 })()
