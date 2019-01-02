@@ -46,3 +46,16 @@ class CaisseVoteForm(forms.Form):
             raise forms.ValidationError('Email déjà enregistré')
 
         return email
+
+
+class CaisseForm(forms.ModelForm):
+    class Meta:
+        model = Caisse
+        fields = (
+            'code',
+            'name',
+            'number',
+            'liquidation_email',
+            'active',
+            'parking_enable',
+        )

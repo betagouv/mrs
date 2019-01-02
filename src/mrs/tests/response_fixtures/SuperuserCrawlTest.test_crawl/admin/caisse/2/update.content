@@ -73,6 +73,16 @@
         
     </div>
 </div>
+ 
+
+
+<div class="row">
+    <div class="input-field col s12" id="id_import_datetime_container">
+        <input data-date-format="d/m/Y H:i:s" data-form-control="datetime" data-lang="fr" id="id_import_datetime" name="import_datetime" type="text"/>
+        <label for="id_import_datetime">Dernier import</label>
+        
+    </div>
+</div>
 
 
           </div>
