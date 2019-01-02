@@ -15,6 +15,7 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.mail import EmailMessage
 from django.db import transaction
+from django.utils import timezone
 
 import django_filters
 
@@ -505,9 +506,6 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         detector.close()
         self.encoding = detector.result['encoding']
 
-    def form_valid(self):
-        self.preflight()
-
         self.errors = dict()
         self.success = dict()
 
@@ -516,6 +514,10 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
         self.first_line_found = self.first_line_found.decode(self.encoding)
         self.first_line_expected = ';'.join(CSV_COLUMNS)
+
+    def form_valid(self):
+        self.preflight()
+
         if self.first_line_found != self.first_line_expected:
             return self.render_to_response()
 
@@ -529,6 +531,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         )
 
         objects = []
+        caisses = set()
         for i, row in enumerate(f):
             if i + 2 in self.missing_columns.keys():
                 continue
@@ -536,6 +539,11 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
             obj = self.import_row(i, row)
             if obj:
                 objects.append(obj)
+                caisses.add(obj.caisse)
+
+        for caisse in caisses:
+            caisse.import_datetime = timezone.now()
+            caisse.save()
 
         self.keys = row.keys()
         return self.render_to_response()

@@ -46,6 +46,11 @@ class Caisse(models.Model):
         default=True,
     )
     score = models.PositiveIntegerField(default=0)
+    import_datetime = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name='Dernier import'
+    )
 
     class Meta:
         ordering = ['name']

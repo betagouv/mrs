@@ -64,15 +64,6 @@
         
     </div>
 </div>
- 
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_score_container">
-        <input id="id_score" min="0" name="score" type="number" value="0"/>
-        <label class="active" for="id_score">Score</label>
-        
-    </div>
-</div>
 
 
           </div>

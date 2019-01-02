@@ -85,6 +85,10 @@
             
         
             
+            <th class="orderable"><a href="?sort=import_datetime">Dernier import</a></th>
+            
+        
+            
             <th>Actions</th>
             
         
@@ -109,6 +113,8 @@
                 <td>0</td>
             
                 <td>0</td>
+            
+                <td>—</td>
             
                 <td>
                 
@@ -171,6 +177,8 @@
             
                 <td>0</td>
             
+                <td>—</td>
+            
                 <td>
                 
                 
@@ -229,6 +237,8 @@
                 <td><span class="false">✘</span></td>
             
                 <td>2</td>
+            
+                <td>—</td>
             
                 <td>—</td>
             

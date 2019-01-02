@@ -4,6 +4,7 @@ from django.db import models
 
 import django_tables2 as tables
 
+from .forms import CaisseForm
 from .models import Caisse, Email
 
 
@@ -15,6 +16,7 @@ class CaisseListView(crudlfap.ListView):
         'active',
         'score',
         'confirms',
+        'import_datetime',
     )
 
     table_columns = dict(
@@ -46,10 +48,10 @@ crudlfap.Router(
     allowed_groups=['Admin'],
     material_icon='domain',
     views=[
-        crudlfap.CreateView,
+        crudlfap.CreateView.clone(form_class=CaisseForm),
         crudlfap.DeleteView,
         crudlfap.UpdateView,
-        crudlfap.DetailView,
+        crudlfap.DetailView.clone(form_class=CaisseForm),
         CaisseListView,
     ]
 ).register()
