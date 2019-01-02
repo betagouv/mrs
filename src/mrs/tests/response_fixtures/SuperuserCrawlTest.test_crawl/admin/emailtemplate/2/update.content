@@ -5,7 +5,7 @@
           <div class="modal-content">
           
             
-            <h4 class="text-default " id="modal-title-ajax">Modèle d'email "possibilité de trajets itératifs": modifier</h4>
+            <h4 class="text-default" id="modal-title-ajax">Modèle d'email "possibilité de trajets itératifs": modifier</h4>
             
           
             
@@ -42,7 +42,7 @@
 <div class="row">
     <div class="checkbox-field col s12" id="id_active_container">
         <label>
-        <input checked="" class="filled-in " id="id_active" name="active" type="checkbox"/><span for="id_active">Activé</span></label>
+        <input checked="" class="filled-in" id="id_active" name="active" type="checkbox"/><span for="id_active">Activé</span></label>
         
     </div>
 </div>
