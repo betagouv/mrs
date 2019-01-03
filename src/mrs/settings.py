@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'mrsstat',
     'caisse',
     'denorm',
+    'explorer',
 
     os.getenv('WEBPACK_LOADER', 'webpack_loader'),
     'django_humanize',
@@ -258,6 +259,13 @@ BASE_URL = 'http://localhost:8000'
 if 'LETSENCRYPT_HOST' in os.environ:
     SITE_DOMAIN = os.environ.get('LETSENCRYPT_HOST').split(',')[0]
     BASE_URL = 'https://{}'.format(SITE_DOMAIN)
+
+EXPLORER_CONNECTIONS = {
+    'Default': 'default'
+}
+EXPLORER_DEFAULT_CONNECTION = 'default'
+EXPLORER_PERMISSION_VIEW = lambda u: u.profile == 'admin'  # noqa
+EXPLORER_PERMISSION_CHANGE = lambda u: u.profile == 'admin'  # noqa
 
 LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
 if os.getenv('LOG'):

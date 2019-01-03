@@ -31,6 +31,7 @@ urlpatterns = [
         content_type='application/manifest+json',
         stream=False,
     )),
+    path('explorer/', include('explorer.urls')),
     path('stats/', views.generic.RedirectView.as_view(
         url='/stats', permanent=True)),
     path(
