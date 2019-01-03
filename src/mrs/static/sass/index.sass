@@ -92,6 +92,9 @@
       height: 5rem
       padding: 0 $padding-left
 
+      @media (max-width: $desktop-min-width)
+        text-align: center
+
       @media (min-width: $desktop-min-width)
         background-color: rgba(0, 0, 0, 0)
         color: $primary-blue
@@ -109,15 +112,14 @@
         +button($primary-red)
         position: absolute
         top: calc(100% + 1rem)
-        left: $padding-left
         color: white
-        display: none
 
         @media (min-width: $desktop-min-width)
           align-self: flex-start
           transform: translateY(-20px)!important
           position: absolute
           display: flex
+          left: $padding-left
 
   #intro-bg-img
     background-size: cover
