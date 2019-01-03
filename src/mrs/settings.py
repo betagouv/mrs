@@ -260,12 +260,17 @@ if 'LETSENCRYPT_HOST' in os.environ:
     SITE_DOMAIN = os.environ.get('LETSENCRYPT_HOST').split(',')[0]
     BASE_URL = 'https://{}'.format(SITE_DOMAIN)
 
+
+def is_admin(user):
+    return user.is_authenticated and user.profile == 'admin'
+
+
 EXPLORER_CONNECTIONS = {
     'Default': 'default'
 }
 EXPLORER_DEFAULT_CONNECTION = 'default'
-EXPLORER_PERMISSION_VIEW = lambda u: u.profile == 'admin'  # noqa
-EXPLORER_PERMISSION_CHANGE = lambda u: u.profile == 'admin'  # noqa
+EXPLORER_PERMISSION_VIEW = EXPLORER_PERMISSION_CHANGE = is_admin
+
 
 LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
 if os.getenv('LOG'):
