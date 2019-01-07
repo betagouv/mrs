@@ -7,7 +7,7 @@ from contact.views import get_email_data
 
 @pytest.mark.django_db
 def test_contactview(p, srf):
-    Caisse.objects.create(
+    caisse = Caisse.objects.create(
         code="999",
         name="caisse",
         number="001",
@@ -17,7 +17,7 @@ def test_contactview(p, srf):
 
     form_data = dict(
         motif='request_error',
-        caisse=1,
+        caisse=caisse.pk,
         nom='alice',
         email='example@example.com',
         message="J'écris \"selfalut l'monde.\".",
