@@ -31,8 +31,7 @@
     <div>Pour toutes autres questions, utilisez le formulaire de contact ci-dessous.</div>
 
     
-<form action="/contact" class="contact" id="contact" method="POST" style="display: none">    
-
+<form action="/contact" class="contact" id="contact" method="POST" style="display: none">
     
       
 <div class="section row">
@@ -95,10 +94,9 @@
     </div>
 </div>
 
+      <br/>
+      <button class="btn" name="_submit" type="submit">Envoyer</button>
     
-
-    <br/>
-    <button class="btn" name="_submit" type="submit">Envoyer</button>
 </form>
 
   </div>
