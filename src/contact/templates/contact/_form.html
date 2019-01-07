@@ -1,19 +1,15 @@
 {% load material_form %}
 <form method="POST" action="{% url 'contact' %}" id="contact" class="contact" style="display: none">
     {% csrf_token %}
+
     {% if view.success %}
     <div class="card-panel teal lighten-4">
         Merci pour votre demande ! Nous reviendrons vers vous dès que possible.
         <br />
     </div>
-    {% endif %}
-
-    {% if form and not view.success %}
+    {% elif form %}
       {% form form=form %}{% endform %}
-    {% else %}
-      {% form form=new_contact_form %}{% endform %}
+      <br />
+      <button type="submit" name="_submit" class="btn">Envoyer</button>
     {% endif %}
-
-    <br />
-    <button type="submit" name="_submit" class="btn">Envoyer</button>
 </form>
