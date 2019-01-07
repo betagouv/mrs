@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Cookie from 'js-cookie'
+import M from 'mrsmaterialize'
 
 var contactForm = function(form) {
   initForm(form)
@@ -28,7 +29,9 @@ var submitForm = function(form) {
         })
       },
       success: function(data) {
-        $(form).html($(data).find('form').html())
+        var newForm = $(data).find('form')
+        $(form).html(newForm.html())
+        M.AutoInit(form)
 
         var $error = $('.has-error')
         if ($error.length) {
