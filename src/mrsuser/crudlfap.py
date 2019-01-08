@@ -90,7 +90,7 @@ crudlfap.site[User].views['list'].table_fields = [
 crudlfap.site[User].views['list'].table_columns = dict(
     modifications=tables.Column(
         accessor='count_updates',
-        verbose_name='Alertes',
+        verbose_name='Modifications',
     )
 )
 
