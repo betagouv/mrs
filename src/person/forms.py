@@ -9,11 +9,6 @@ from .models import Person
 
 
 class PersonForm(forms.ModelForm):
-    nir = forms.CharField(
-        label='Numéro de sécurité sociale',
-        max_length=13
-    )
-
     birth_date = DateField(
         label='Date de naissance',
     )
@@ -35,16 +30,6 @@ class PersonForm(forms.ModelForm):
             )
         ),
     )
-
-    def clean_nir(self):
-        nir = self.cleaned_data['nir']
-        try:
-            int(nir)
-        except ValueError:
-            raise forms.ValidationError(
-                'Doit être composé de 13 chiffres'
-            )
-        return nir
 
     def clean_birth_date(self):
         data = self.cleaned_data['birth_date']

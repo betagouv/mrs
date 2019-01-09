@@ -1,7 +1,29 @@
 import datetime
 
 from django.core import validators
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.translation import gettext as _
+
+
+def nir_validate_alphanumeric(value):
+    """Validate NIR number with Corsican letters support."""
+    value = str(value)
+
+    # A and B are acceptable on 7th position ...
+    if value[6] in ('A', 'B'):
+        # only if 6th position character is 2 !
+        if value[5] != '2':
+            raise ValidationError(_('NIR_EXPECTED_2'))
+
+        # Sounds like a regular corsican so far:
+        # Patch that 7th position string into a 0 so that
+        # any other letter will be detected in the next if
+        # not isdigit() block
+        value = value[:6] + '0' + value[7:]
+
+    if not value.isdigit():
+        raise ValidationError(_('NIR_UNEXPECTED_LETTER'))
 
 
 class Person(models.Model):
@@ -32,16 +54,13 @@ class Person(models.Model):
         blank=True,
         verbose_name="L'assuré autorise à utiliser son email.",
     )
-    nir = models.BigIntegerField(
+    nir = models.CharField(
+        max_length=13,
         verbose_name='Numéro de sécurité sociale',
         validators=[
-            validators.
-            MinValueValidator(
-                1000000000000,
-                message=(
-                    "Le numéro de sécurité sociale doit contenir 13 chiffres."
-                )
-            ),
+            nir_validate_alphanumeric,
+            validators.MinLengthValidator(13),
+            # note that max_length attribute implies a max length validator
         ]
     )
     shifted = models.NullBooleanField(

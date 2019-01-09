@@ -37,8 +37,11 @@ RUN pip3 install --editable /app
 
 RUN mkdir -p ${LOG}
 RUN mkdir -p ${STATIC_ROOT}
-# Use DEBUG here to inhibate security checks in settings for this command
-RUN DEBUG=1 mrs collectstatic --noinput --clear
+
+RUN mrs collectstatic --noinput --clear
+
+COPY locale /app/locale
+RUN mrs compilemessages -l fr
 
 # Pre-compress for uWSGI
 RUN find $STATIC_ROOT -type f | xargs gzip -f -k -9

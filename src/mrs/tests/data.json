@@ -570,7 +570,7 @@
         "birth_date": "2000-04-30",
         "email": "aoeu@example.com",
         "use_email": false,
-        "nir": 1111111111111,
+        "nir": "1111111111111",
         "shifted": null
     }
 },
@@ -583,7 +583,7 @@
         "birth_date": "2000-04-30",
         "email": "aoeaoeuu@example.com",
         "use_email": false,
-        "nir": 2333333333333,
+        "nir": "2333333333333",
         "shifted": null
     }
 },
@@ -596,7 +596,7 @@
         "birth_date": "2000-05-06",
         "email": "jpic@example.com",
         "use_email": false,
-        "nir": 3212312312312,
+        "nir": "3212312312312",
         "shifted": null
     }
 },
@@ -609,7 +609,7 @@
         "birth_date": "2000-05-29",
         "email": "test@test.com",
         "use_email": false,
-        "nir": 1223123123123,
+        "nir": "1223123123123",
         "shifted": true
     }
 },
@@ -622,7 +622,7 @@
         "birth_date": "2001-01-01",
         "email": "jim@example.com",
         "use_email": true,
-        "nir": 1223123123122,
+        "nir": "1223123123122",
         "shifted": null
     }
 },
@@ -635,7 +635,7 @@
         "birth_date": "2000-12-31",
         "email": "jim@example.com",
         "use_email": true,
-        "nir": 1223123123129,
+        "nir": "1223123123129",
         "shifted": null
     }
 },
@@ -840,7 +840,7 @@
         "payment_amount": null,
         "adeli": null,
         "data": {
-            "nir": 1111111111111,
+            "nir": "1111111111111",
             "email": "aoeu@example.com",
             "last_name": "aoeu",
             "birth_date": "2000-04-30",
@@ -875,7 +875,7 @@
         "payment_amount": null,
         "adeli": null,
         "data": {
-            "nir": 1223123123123,
+            "nir": "1223123123123",
             "email": "test@test.com",
             "last_name": "oaeuoaeuao",
             "birth_date": "2000-05-29",
@@ -910,7 +910,7 @@
         "payment_amount": null,
         "adeli": null,
         "data": {
-            "nir": 1223123123122,
+            "nir": "1223123123122",
             "email": "jim@example.com",
             "last_name": "rominet",
             "birth_date": "01/01/2001",
@@ -945,7 +945,7 @@
         "payment_amount": null,
         "adeli": null,
         "data": {
-            "nir": 2333333333333,
+            "nir": "2333333333333",
             "email": "aoeaoeuu@example.com",
             "last_name": "ue",
             "birth_date": "2000-04-30",
@@ -980,7 +980,7 @@
         "payment_amount": null,
         "adeli": null,
         "data": {
-            "nir": 1223123123123,
+            "nir": "1223123123123",
             "email": "test@test.com",
             "last_name": "oaeuoaeuao",
             "birth_date": "2000-05-29",
@@ -1015,7 +1015,7 @@
         "payment_amount": null,
         "adeli": null,
         "data": {
-            "nir": 1223123123123,
+            "nir": "1223123123123",
             "email": "test@test.com",
             "last_name": "oaeuoaeuao",
             "birth_date": "2000-05-29",
@@ -1050,7 +1050,7 @@
         "payment_amount": null,
         "adeli": null,
         "data": {
-            "nir": 3212312312312,
+            "nir": "3212312312312",
             "email": "jpic@example.com",
             "last_name": "\u00e0\u00f4\u00e9\u00fboaeu",
             "birth_date": "2000-05-06",
@@ -1085,7 +1085,7 @@
         "payment_amount": "2.00",
         "adeli": null,
         "data": {
-            "nir": 1223123123123,
+            "nir": "1223123123123",
             "email": "test@test.com",
             "last_name": "oaeuoaeuao",
             "birth_date": "2000-05-29",

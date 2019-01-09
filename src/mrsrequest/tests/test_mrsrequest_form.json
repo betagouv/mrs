@@ -90,7 +90,7 @@
         "email": "jpic@yourlabs.org",
         "first_name": "jamesy",
         "last_name": "wuzere",
-        "nir": 1234567890123,
+        "nir": "1234567890123",
         "shifted": null,
         "use_email": false
     },
