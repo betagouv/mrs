@@ -1,0 +1,125 @@
+[
+{
+    "fields": {
+        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
+        "creation_datetime": "2017-12-19T05:51:11Z",
+        "filename": "test_mrsrequestcreateview_story.jpg",
+        "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsattachment.mrsattachment",
+    "pk": 1
+},
+{
+    "fields": {
+        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
+        "creation_datetime": "2017-12-19T05:51:11Z",
+        "filename": "test_mrsrequestcreateview_story.jpg",
+        "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsattachment.mrsattachment",
+    "pk": 2
+},
+{
+    "fields": {
+        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
+        "creation_datetime": "2017-12-19T05:51:11Z",
+        "filename": "test_mrsrequestcreateview_story.jpg",
+        "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsattachment.mrsattachment",
+    "pk": 3
+},
+{
+    "fields": {
+        "adeli": null,
+        "caisse": 9,
+        "confirms": 0,
+        "creation_datetime": "2017-12-19T05:51:11Z",
+        "creation_ip": "127.0.0.1",
+        "data": {
+            "birth_date": "07/02/2007",
+            "distancevp": 100,
+            "email": "jpic@yourlabs.org",
+            "first_name": "jamesy",
+            "last_name": "wuzere",
+            "nir": 1234567890123
+        },
+        "delay": null,
+        "display_id": 201712190000,
+        "distancevp": 100,
+        "expenseatp": 10,
+        "expensevp": null,
+        "institution": null,
+        "insured": 1,
+        "insured_shift": null,
+        "mandate_dateatp": null,
+        "mandate_datevp": null,
+        "modeatp": true,
+        "modevp": false,
+        "payment_amount": null,
+        "payment_base": null,
+        "saving": 0,
+        "status": 1,
+        "status_datetime": null,
+        "status_user": null,
+        "taxi_cost": "147.42"
+    },
+    "model": "mrsrequest.mrsrequest",
+    "pk": "e29db065-0566-48be-822d-66bd3277d823"
+},
+{
+    "fields": {
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsrequest.pmt",
+    "pk": 1
+},
+{
+    "fields": {
+        "mode": "vp",
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsrequest.bill",
+    "pk": 2
+},
+{
+    "fields": {
+        "mode": "atp",
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsrequest.bill",
+    "pk": 3
+},
+{
+    "fields": {
+        "date_depart": "2017-02-02",
+        "date_return": "2017-02-02",
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsrequest.transport",
+    "pk": 1
+},
+{
+    "fields": {
+        "date_depart": "2017-01-02",
+        "date_return": "2017-01-02",
+        "mrsrequest": "e29db065-0566-48be-822d-66bd3277d823"
+    },
+    "model": "mrsrequest.transport",
+    "pk": 2
+},
+{
+    "fields": {
+        "birth_date": "2007-02-07",
+        "confirms": 0,
+        "email": "jpic@yourlabs.org",
+        "first_name": "jamesy",
+        "last_name": "wuzere",
+        "nir": 1234567890123,
+        "shifted": null,
+        "use_email": false
+    },
+    "model": "person.person",
+    "pk": 1
+}
+]

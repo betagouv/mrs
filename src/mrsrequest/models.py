@@ -318,6 +318,7 @@ class MRSRequest(models.Model):
     )
     expensevp = models.DecimalField(
         blank=True,
+        null=True,
         decimal_places=2, max_digits=6,
         default=0,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
@@ -335,6 +336,7 @@ class MRSRequest(models.Model):
     )
     expenseatp = models.DecimalField(
         blank=True,
+        null=True,
         decimal_places=2, max_digits=6,
         default=0,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
