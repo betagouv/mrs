@@ -6,15 +6,7 @@ from contact.views import get_email_data
 
 
 @pytest.mark.django_db
-def test_contactview(p, srf):
-    caisse = Caisse.objects.create(
-        code="999",
-        name="caisse",
-        number="001",
-        liquidation_email="caisse@example.com",
-        active=True,
-    )
-
+def test_contactview(p, srf, caisse):
     form_data = dict(
         motif='request_error',
         caisse=caisse.pk,
@@ -23,12 +15,9 @@ def test_contactview(p, srf):
         message="J'écris \"selfalut l'monde.\".",
     )
 
-    def d():
-        return form_data
-
-    form = ContactForm(d())
+    form = ContactForm(form_data)
     assert form.is_valid()
     email_data = get_email_data(form)
     assert email_data['subject'] == 'RÉCLAMATION MRS'
-    assert 'caisse@example.com' in email_data['to']
-    assert 'Motif: Erreur dans votre demande' in email_data['body']
+    assert caisse.liquidation_email in email_data['to']
+    assert 'Motif: J\'ai fait une erreur' in email_data['body']
