@@ -24,15 +24,7 @@ class ContactForm(forms.Form):
     caisse = ActiveCaisseChoiceField(
         label='Votre caisse de rattachement',
     )
-    nom = forms.CharField(
-        min_length=3,
-        validators=[
-            validators.RegexValidator(
-                regex=r'[a-zA-Z]',
-                message=_('EXPECTS_ALPHA'),
-            )
-        ]
-    )
+    nom = forms.CharField()
     email = forms.EmailField()
     mrsrequest_display_id = forms.CharField(
         label='Numéro de demande',
