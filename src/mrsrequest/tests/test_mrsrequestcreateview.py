@@ -6,7 +6,7 @@ import pytest
 from caisse.models import Caisse, Email
 from mrsattachment.models import MRSAttachment
 from mrsrequest.models import (
-    Bill, BillVP, MRSRequest, PMT, Transport)
+    Bill, BillATP, BillVP, MRSRequest, PMT, Transport)
 from mrsrequest.views import MRSRequestCreateView
 from person.models import Person
 
@@ -172,14 +172,45 @@ def form_data(**data):
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_mrsrequestcreateview_post_save_integration(p, caisse):
+def test_mrsrequestcreateview_modevp_post_save_integration(p, caisse):
     data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+
     p.post(**data)
 
     Fixture(
-        './src/mrsrequest/tests/test_mrsrequestcreateview.json',  # noqa
+        './src/mrsrequest/tests/test_mrsrequestcreateview_modevp.json',
         models=[MRSAttachment, MRSRequest, PMT, Person, Bill, Transport]
     ).assertNoDiff()
+
+
+@freeze_time('2017-12-19 05:51:11')
+@pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
+def test_mrsrequestcreateview_modeatp_post_save_integration(p, caisse):
+    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+    data['expensevp'] = ''
+    data['expenseatp'] = '10'
+    data['modevp'] = ''
+    data['modeatp'] = 'modeatp'
+    BillATP.objects.create(
+        mrsrequest_uuid=data['mrsrequest_uuid'],
+        filename='test_mrsrequestcreateview_story.jpg',
+        binary=b'test_mrsrequestcreateview_story',
+    )
+
+    p.post(**data)
+
+    Fixture(
+        './src/mrsrequest/tests/test_mrsrequestcreateview_modeatp.json',
+        models=[MRSAttachment, MRSRequest, PMT, Person, Bill, Transport]
+    ).assertNoDiff()
+
+
+@freeze_time('2017-12-19 05:51:11')
+@pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
+def test_mrsrequestcreateview_empty_expenseatp(p, caisse):
+    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+    data['expenseatp'] = ''
+    p.post(**data)
 
 
 @freeze_time('2017-12-19 05:51:11')
