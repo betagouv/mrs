@@ -24,4 +24,5 @@ msgstr "Le 7eme caractere peut etre A ou B si le sixieme est 2."
 
 #: models.py:26
 msgid "NIR_UNEXPECTED_LETTER"
-msgstr "Le NIR doit etre compose de 13 chiffres (ou Corse)."
+msgstr "Le NIR doit être 13 chiffres (ou Corse)."
+
