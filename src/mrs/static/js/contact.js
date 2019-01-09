@@ -1,6 +1,9 @@
 import $ from 'jquery'
 import Cookie from 'js-cookie'
 import M from 'mrsmaterialize'
+import SubmitUi from './submit-ui'
+
+var submitUi = new SubmitUi(document.querySelector('body'))
 
 var contactForm = function(form) {
   initForm(form)
@@ -18,20 +21,29 @@ var initForm = function (form) {
 }
 
 var submitForm = function(form) {
+  submitUi.showSubmitLoading()
+
   $.post(
     {
       url: form.action,
       type: 'POST',
       data: $(form).serialize(),
       error: function() {
-        $(form).find(':input').each(function() {
-          $(this).removeAttr('disabled')
-        })
+        submitUi.showSubmitError(
+          'Une erreur inconnue est survenue. Veuillez reessayer dans quelques minutes, merci.',
+          () => {
+            $(form).find(':input').each(function() {
+              $(this).removeAttr('disabled')
+            })
+            submitUi.hideOverlay()
+          }
+        )
       },
       success: function(data) {
         var newForm = $(data).find('form')
         $(form).html(newForm.html())
         M.AutoInit(form)
+        submitUi.hideOverlay()
 
         var $error = $('.has-error')
         if ($error.length) {

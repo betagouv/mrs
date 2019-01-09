@@ -40,6 +40,3 @@ msgstr "J'ai une idée d'amélioration pour votre site"
 
 msgid "CONTACT_OTHER_SUBJECT"
 msgstr "Autre sujet"
-
-msgid "EXPECTS_ALPHA"
-msgstr "Doit contenir des lettres"
