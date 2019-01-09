@@ -1,0 +1,13 @@
+Bonjour,
+
+Veuillez trouver ci-dessous une réclamation déposée ce jour sur le site par un de vos assurés.
+
+Motif: {{ motif|safe }}
+Caisse: {{ data.caisse.name }}
+Nom: {{ data.nom|safe }}
+Email: {{ data.email }}
+{% if data.mrsrequest_display_id %}Demande: {{ data.mrsrequest_display_id }}{% endif %}
+
+Message:
+
+{{ data.message|safe }}

@@ -5,43 +5,28 @@ from django.views import generic
 from djcall.models import Caller
 
 from .forms import ContactForm
-from .forms import get_motif
-
-
-def message_for_caisse(form):
-    if form.cleaned_data.get('motif').startswith('request'):
-        return True
-    return False
 
 
 def get_email_data(form):
-    subject = ""
-    if message_for_caisse(form):
-        subject = template.loader.get_template(
-            'contact/team_mail_reclamation_mrs.txt'
-        ).render().strip()
+    to = [settings.TEAM_EMAIL]
+
+    if form.cleaned_data.get('motif').startswith('request'):
+        subject = 'RÉCLAMATION MRS'
+        email = getattr(form.cleaned_data['caisse'], 'liquidation_email', None)
+
+        if email:  # in case caisse == 'other', let TEAM_EMAIL
+            to = [email]
     else:
-        subject = template.loader.get_template(
-            'contact/team_mail_title.txt'
-        ).render(dict(form=form)).strip()
+        subject = 'Nouveau message envoyé depuis le site'
 
     body = template.loader.get_template(
-        'contact/team_mail_body.txt'
+        'contact/contact_mail_body.txt'
     ).render(dict(
         form=form,
-        motif=get_motif(form.cleaned_data.get('motif')),
+        motif=dict(form.fields['motif'].choices)[form.cleaned_data['motif']],
     )).strip()
 
-    to = [settings.TEAM_EMAIL]
-    if message_for_caisse(form):
-        caisse = form.cleaned_data.get('caisse')
-        to = [caisse.liquidation_email]
-
-    return dict(
-        subject=subject,
-        body=body,
-        to=to,
-    )
+    return dict(subject=subject, body=body, to=to)
 
 
 class ContactView(generic.FormView):

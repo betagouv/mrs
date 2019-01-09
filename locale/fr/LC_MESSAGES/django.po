@@ -26,3 +26,5 @@ msgstr "Le 7eme caractere peut etre A ou B si le sixieme est 2."
 msgid "NIR_UNEXPECTED_LETTER"
 msgstr "Le NIR doit être 13 chiffres (ou Corse)."
 
+msgid "MRSREQUEST_UNEXPECTED_DISPLAY_ID"
+msgstr "Le numéro de demande doit être 12 chiffres."

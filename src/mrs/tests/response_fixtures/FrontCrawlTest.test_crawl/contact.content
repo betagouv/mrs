@@ -38,20 +38,21 @@
     <div class="col s12">
         <h5> </h5>
         
+<div class="layout-row row"><div class="col s12 m6">
 <div class="row">
     <div class="select-field col s12 required" id="id_motif_container">
         <label for="id_motif">Motif</label>
         <select id="id_motif" name="motif">
             <option value="">---------</option>
-            <option value="request_error">Erreur dans votre demande</option>
-            <option value="request_question">Réclamation sur votre demande</option>
-            <option value="website_question">Question sur le site</option>
-            <option value="other">Autre</option>
+            <option value="request_error">J'ai fait une erreur de saisie dans mon dossier</option>
+            <option value="request_question">J'ai une question sur mon dossier</option>
+            <option value="website_question">J'ai une idée d'amélioration pour votre site</option>
+            <option value="other">Autre sujet</option>
         </select>
         
     </div>
 </div>
-
+</div><div class="col s12 m6">
 <div class="row">
     <div class="select-field col s12 required" id="id_caisse_container">
         <label for="id_caisse">Votre caisse de rattachement</label>
@@ -59,6 +60,16 @@
             <option value="">---------</option>
             <option value="other">Autre</option>
         </select>
+        
+    </div>
+</div>
+</div></div>
+
+
+<div class="row">
+    <div class="input-field col s12" id="id_mrsrequest_display_id_container">
+        <input id="id_mrsrequest_display_id" maxlength="12" name="mrsrequest_display_id" type="text"/>
+        <label for="id_mrsrequest_display_id">Numéro de demande</label>
         
     </div>
 </div>

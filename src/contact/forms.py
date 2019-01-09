@@ -1,24 +1,19 @@
 import material
 
 from django import forms
+from django.core import validators
+from django.utils.translation import gettext as _
 
 from caisse.forms import ActiveCaisseChoiceField
 
 
 MOTIF_CHOICES = (
     (None, '---------'),
-    ('request_error', 'Erreur dans votre demande'),
-    ('request_question', 'Réclamation sur votre demande'),
-    ('website_question', 'Question sur le site'),
-    ('other', 'Autre'),
+    ('request_error', "J'ai fait une erreur de saisie dans mon dossier"),
+    ('request_question', "J'ai une question sur mon dossier"),
+    ('website_question', "J'ai une idée d'amélioration pour votre site"),
+    ('other', 'Autre sujet'),
 )
-
-
-def get_motif(rawname):
-    for tup in MOTIF_CHOICES:
-        if tup[0] == rawname:
-            return tup[1]
-    return ''
 
 
 class ContactForm(forms.Form):
@@ -29,15 +24,37 @@ class ContactForm(forms.Form):
     caisse = ActiveCaisseChoiceField(
         label='Votre caisse de rattachement',
     )
-    nom = forms.CharField()
+    nom = forms.CharField(
+        min_length=3,
+        validators=[
+            validators.RegexValidator(
+                regex=r'[a-zA-Z]',
+                message=_('EXPECTS_ALPHA'),
+            )
+        ]
+    )
     email = forms.EmailField()
+    mrsrequest_display_id = forms.CharField(
+        label='Numéro de demande',
+        required=False,
+        max_length=12,
+        validators=[
+            validators.RegexValidator(
+                regex=r'^\d{12}$',
+                message=_('MRSREQUEST_UNEXPECTED_DISPLAY_ID'),
+            )
+        ]
+    )
     message = forms.CharField(widget=forms.Textarea)
 
     layout = material.Layout(
         material.Fieldset(
             ' ',
-            'motif',
-            'caisse',
+            material.Row(
+                'motif',
+                'caisse',
+            ),
+            'mrsrequest_display_id',
             material.Row(
                 'nom',
                 'email',
