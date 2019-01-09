@@ -12,7 +12,7 @@
             "email": "t@tt.tt",
             "first_name": "test",
             "last_name": "test",
-            "nir": 1111111111113
+            "nir": "1111111111113"
         },
         "delay": null,
         "display_id": 300012310000,

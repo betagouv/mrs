@@ -17,16 +17,42 @@ def test_person_str():
     assert str(p) == 'a b 1969-01-01'
 
 
-@pytest.mark.django_db
-def test_person_validate_nir():
-    with pytest.raises(ValidationError):
-        Person.objects.create(
-            first_name='a',
-            last_name='b',
-            nir=123456789012,
-            birth_date='1969-01-01',
-            email="foo@foo.fr",
-        )
+@pytest.mark.parametrize('nir,expected', [
+    (123456789012, 1),
+    (12345678901234, 1),
+    ('123456A890123', 1),
+    ('123456B890123', 1),
+    ('123456C890123', 1),
+    ('A234566890123', 1),
+    ('A23456689012', 2),
+    ('A2345668901222', 2),
+    (123456789012, 1),
+    # Lets support legacy code that treated NIR as int
+    (1234567890123, 0),
+    ('1234567890123', 0),
+    # two acceptable corsican cases with 2 on 6th position
+    # and A or B at 7th position
+    ('123452A890123', 0),
+    ('123452B890123', 0),
+    (1234567890123, 0),
+    (1234567890123, 0),
+])
+def test_person_validate_nirs(nir, expected):
+    person = Person(
+        first_name='a',
+        last_name='b',
+        nir=nir,
+        birth_date='1969-01-01',
+        email="foo@foo.fr",
+    )
+
+    if not expected:
+        person.full_clean()
+        assert person.nir == str(nir)
+    else:
+        with pytest.raises(ValidationError) as raised:
+            person.full_clean()
+        assert len(raised.value.error_dict['nir']) == expected
 
 
 @pytest.mark.django_db
