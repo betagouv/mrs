@@ -332,6 +332,28 @@
                         {%- endif %}
                     </span>
                 </p>
+                {%- if object.insured.conflicts_accepted %}
+                <p title="Nombre de signalements que l'assuré a accepté dans toutes ses demandes">
+                    <span class="grey-text text-darken-2">
+                        Assuré a accepté
+                    </span>
+                    <span class="right">
+                        {{ object.insured.conflicts_accepted }}
+                        signalements
+                    </span>
+                </p>
+                {%- endif %}
+                {%- if object.insured.conflicts_resolved %}
+                <p title="Nombre de signalements que l'assuré a résolu dans toutes ses demandes">
+                    <span class="grey-text text-darken-2">
+                        Assuré a résolu
+                    </span>
+                    <span class="right">
+                        {{ object.insured.conflicts_resolved }}
+                        signalements
+                    </span>
+                </p>
+                {%- endif %}
             </div>
         </div>
     </div>
@@ -341,6 +363,28 @@
                 <div class="card-title">
                     Date{% if object.transport_set.all()|length %}s{% endif %} de Transport{% if object.transport_set.all()|length %}s{% endif %}
                 </div>
+                {%- if object.conflicts_accepted %}
+                <p title="Nombre de signalements que l'assuré a accepté dans cette demandes">
+                    <span class="grey-text text-darken-2">
+                        Assuré a accepté sur cette demande
+                    </span>
+                    <span class="right">
+                        {{ object.conflicts_accepted }}
+                        signalements
+                    </span>
+                </p>
+                {%- endif %}
+                {%- if object.conflicts_resolved %}
+                <p title="Nombre de signalements que l'assuré a résolu dans cette demandes">
+                    <span class="grey-text text-darken-2">
+                        Assuré a résolu sur cette demande
+                    </span>
+                    <span class="right">
+                        {{ object.conflicts_resolved }}
+                        signalements
+                    </span>
+                </p>
+                {%- endif %}
                 <table class="centered highlight">
                     <thead>
                         <tr>

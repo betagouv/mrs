@@ -21,7 +21,7 @@ class CaisseListView(crudlfap.ListView):
 
     table_columns = dict(
         confirms=tables.Column(
-            accessor='mrsrequest__confirms__sum',
+            accessor='mrsrequest__conflicts_accepted__sum',
             verbose_name='Alertes',
         )
     )
@@ -39,9 +39,10 @@ class CaisseListView(crudlfap.ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.annotate(
-            models.Sum('mrsrequest__confirms')
+            models.Sum('mrsrequest__conflicts_accepted')
         )
         return qs
+
 
 crudlfap.Router(
     Caisse,

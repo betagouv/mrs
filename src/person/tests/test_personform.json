@@ -2,7 +2,8 @@
 {
     "fields": {
         "birth_date": "1990-01-01",
-        "confirms": 0,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "email": "example@example.com",
         "first_name": "jamesy",
         "last_name": "lebowski",

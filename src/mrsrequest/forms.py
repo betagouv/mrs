@@ -490,6 +490,9 @@ class BaseTransportFormSet(forms.BaseFormSet):
         for form in self.forms:
             form.set_confirms(self, transports)
 
+    def get_confirms_count(self):
+        return sum(len(form.confirms.keys()) for form in self.forms)
+
 
 TransportFormSet = forms.formset_factory(
     TransportForm,

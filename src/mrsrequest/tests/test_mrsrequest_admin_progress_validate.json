@@ -3,7 +3,8 @@
     "fields": {
         "adeli": null,
         "caisse": 1,
-        "confirms": 0,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "creation_datetime": "3000-12-31T13:37:42Z",
         "data": {
             "birth_date": "01/01/1969",

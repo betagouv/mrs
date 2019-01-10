@@ -133,14 +133,53 @@ class MRSRequestCreateView(generic.TemplateView):
         if not self.form_errors():
             confirmed = self.request.POST.get('confirm', False)
 
+            # beware that form_confirms will provision forms with artificial
+            # errors: do NOT call it if confirmed was POST-ed
             if confirmed or not self.form_confirms():
                 with transaction.atomic():
                     self.save_mrsrequest()
                     self.success = True
             else:
+                # will be needed later on by save_mrsrequest to calculate the
+                # number of conflicts that the user has resolved on their own
+                # for this MRSRequest
+                self.session.setdefault(
+                    'conflicts_initial',
+                    self.conflicts_count,
+                )
+
+                # trigger session backend write by session middleware
+                self.request.session.modified = True
+
                 self.confirm = True
 
         return generic.TemplateView.get(self, request, *args, **kwargs)
+
+    @property
+    def session(self):
+        """Return a reference to the session dict for this MRSRequest."""
+        return self.request.session.get(
+            MRSRequest.SESSION_KEY
+        ).get(
+            self.mrsrequest_uuid
+        )
+
+    @property
+    def conflicts_initial(self):
+        return self.session.get('conflicts_initial', 0)
+
+    @property
+    def conflicts_count(self):
+        '''
+        return self.forms.get(
+                'transport_formset'
+            ).get_confirms_count()
+        '''
+        if '_conflicts_count' not in self.__dict__:
+            self._conflicts_count = self.forms.get(
+                'transport_formset'
+            ).get_confirms_count()
+        return self._conflicts_count
 
     def post_get_forms(self, request):
         forms = collections.OrderedDict([
@@ -159,18 +198,17 @@ class MRSRequestCreateView(generic.TemplateView):
 
     def save_mrsrequest(self):
         person = self.forms['person'].get_or_create()
+        mrsrequest = self.forms['mrsrequest'].instance
+
         self.forms['transport_formset'].set_confirms(
             person.nir, person.birth_date
         )
-        for form in self.forms['transport_formset'].forms:
-            for field, kinds in form.confirms.items():
-                person.confirms += len(kinds)
-                self.forms['mrsrequest'].instance.confirms += len(kinds)
+        conflicts_resolved = self.conflicts_initial - self.conflicts_count
+        mrsrequest.conflicts_accepted = self.conflicts_count
+        mrsrequest.conflicts_resolved = conflicts_resolved
 
-        self.forms['mrsrequest'].instance.insured = person
+        mrsrequest.insured = person
         self.object = self.forms['mrsrequest'].save()
-        if self.forms['use_email'].cleaned_data['use_email']:
-            person.use_email = True
 
         for form in self.forms['transport_formset'].forms:
             Transport.objects.create(
@@ -178,6 +216,12 @@ class MRSRequestCreateView(generic.TemplateView):
                 date_return=form.cleaned_data.get('date_return'),
                 mrsrequest=self.object,
             )
+
+        if self.forms['use_email'].cleaned_data['use_email']:
+            person.use_email = True
+
+        person.conflicts_accepted += self.conflicts_count
+        person.conflicts_resolved += conflicts_resolved
         person.save()
 
         Caller(

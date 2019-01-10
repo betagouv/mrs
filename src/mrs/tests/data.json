@@ -404,6 +404,15 @@
     "model": "mrsrequest.transport",
     "pk": 9,
     "fields": {
+        "mrsrequest": "35fe2514-b1e7-4f97-955a-f163788afdf3",
+        "date_depart": "2018-04-01",
+        "date_return": null
+    }
+},
+{
+    "model": "mrsrequest.transport",
+    "pk": 10,
+    "fields": {
         "mrsrequest": "767b8123-2134-48cb-8177-0c411309a0b1",
         "date_depart": "2018-05-02",
         "date_return": null
@@ -607,6 +616,8 @@
         "first_name": "oaeu",
         "last_name": "oaeuoaeuao",
         "birth_date": "2000-05-29",
+        "conflicts_accepted": 2,
+        "conflicts_resolved": 1,
         "email": "test@test.com",
         "use_email": false,
         "nir": "1223123123123",
@@ -857,6 +868,8 @@
         "creation_datetime": "2018-05-03T08:32:58.790Z",
         "display_id": 201805030001,
         "caisse": 2,
+        "conflicts_accepted": 1,
+        "conflicts_resolved": 1,
         "insured": 4,
         "insured_shift": null,
         "modevp": true,
@@ -958,6 +971,8 @@
     "fields": {
         "creation_datetime": "2018-05-02T15:17:03Z",
         "display_id": 201805020001,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "caisse": 1,
         "insured": 4,
         "insured_shift": null,
@@ -992,6 +1007,8 @@
     "fields": {
         "creation_datetime": "2018-05-03T08:31:36.603Z",
         "display_id": 201805030000,
+        "conflicts_accepted": 1,
+        "conflicts_resolved": 0,
         "caisse": 2,
         "insured": 4,
         "insured_shift": null,
