@@ -29,7 +29,7 @@ class ContactForm(forms.Form):
     nom = forms.CharField()
     email = forms.EmailField()
     mrsrequest_display_id = forms.CharField(
-        label='Numéro de demande',
+        label='Numéro de demande (optionnel)',
         required=False,
         max_length=12,
         validators=[
