@@ -1,6 +1,8 @@
 import material
 
 from django import forms
+from django import template
+from django.conf import settings
 from django.core import validators
 from django.utils.translation import gettext as _
 
@@ -54,3 +56,30 @@ class ContactForm(forms.Form):
             'message',
         )
     )
+
+    def get_email_kwargs(self):
+        data = self.cleaned_data
+        to = [settings.TEAM_EMAIL]
+
+        if data['motif'].startswith('request'):
+            subject = 'RÉCLAMATION MRS'
+            email = getattr(data['caisse'], 'liquidation_email', None)
+
+            if email:  # in case caisse == 'other', let TEAM_EMAIL
+                to = [email]
+        else:
+            subject = 'Nouveau message envoyé depuis le site'
+
+        body = template.loader.get_template(
+            'contact/contact_mail_body.txt'
+        ).render(dict(
+            self=self,
+            motif=dict(self.fields['motif'].choices)[data['motif']],
+        )).strip()
+
+        return dict(
+            subject=subject,
+            body=body,
+            to=to,
+            reply_to=[data['email']],
+        )
