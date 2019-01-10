@@ -22,7 +22,9 @@ def test_contactform_email_kwargs_request(p, srf, caisse, data):
     assert form.is_valid()
     kwargs = form.get_email_kwargs()
     assert kwargs['subject'] == 'RÉCLAMATION MRS'
-    assert caisse.liquidation_email in kwargs['to']
+    # do not enable before product team is ready
+    # assert caisse.liquidation_email in kwargs['to']
+    assert settings.TEAM_EMAIL in kwargs['to']
     assert 'Motif: J\'ai fait une erreur' in kwargs['body']
 
 
