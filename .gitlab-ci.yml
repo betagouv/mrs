@@ -136,6 +136,7 @@ deploy-staging:
 
 deploy-ecole:
   <<: *deploy
+  when: manual
   stage: ecole
   only:
     refs: [master]
@@ -146,7 +147,6 @@ deploy-ecole:
 deploy-production:
   <<: *deploy
   stage: production
-  when: manual
   only:
     refs: [master]
   environment:
