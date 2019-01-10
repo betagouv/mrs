@@ -36,8 +36,7 @@
                               <a href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb" target="_blank">
                                 201805030000 (Validée)
                               </a>
-                            </td>
-                            <td>
+                            </td><td>
                               <ul>
                                     
                                     <li>
@@ -46,6 +45,7 @@
                                     
                               </ul>
                             </td>
+                            
                         </tr>
                         
                         <tr>
@@ -53,8 +53,7 @@
                               <a href="/admin/mrsrequest/35fe2514-b1e7-4f97-955a-f163788afdf3" target="_blank">
                                 201805030001 (Validée)
                               </a>
-                            </td>
-                            <td>
+                            </td><td>
                               <ul>
                                     
                                     <li>
@@ -63,6 +62,7 @@
                                     
                               </ul>
                             </td>
+                            
                         </tr>
                         
                     </tbody></table>
@@ -175,24 +175,6 @@
                     </span>
                     <span class="right">
                             Oui, sur une demande précédente
-                    </span>
-                </p>
-                <p title="Nombre de signalements que l'assuré a accepté dans toutes ses demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a accepté
-                    </span>
-                    <span class="right">
-                        2
-                        signalements
-                    </span>
-                </p>
-                <p title="Nombre de signalements que l'assuré a résolu dans toutes ses demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a résolu
-                    </span>
-                    <span class="right">
-                        1
-                        signalements
                     </span>
                 </p>
             </div>

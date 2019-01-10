@@ -36,8 +36,7 @@
                               <a href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2" target="_blank">
                                 201805020001 (En cours de liquidation)
                               </a>
-                            </td>
-                            <td>
+                            </td><td>
                               <ul>
                                     
                                     <li>
@@ -46,6 +45,7 @@
                                     
                               </ul>
                             </td>
+                            
                         </tr>
                         
                         <tr>
@@ -53,8 +53,7 @@
                               <a href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb" target="_blank">
                                 201805030000 (Validée)
                               </a>
-                            </td>
-                            <td>
+                            </td><td>
                               <ul>
                                     
                                     <li>
@@ -63,6 +62,7 @@
                                     
                               </ul>
                             </td>
+                            
                         </tr>
                         
                     </tbody></table>
@@ -209,24 +209,6 @@
                             Oui, sur une demande précédente
                     </span>
                 </p>
-                <p title="Nombre de signalements que l'assuré a accepté dans toutes ses demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a accepté
-                    </span>
-                    <span class="right">
-                        2
-                        signalements
-                    </span>
-                </p>
-                <p title="Nombre de signalements que l'assuré a résolu dans toutes ses demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a résolu
-                    </span>
-                    <span class="right">
-                        1
-                        signalements
-                    </span>
-                </p>
             </div>
         </div>
     </div>
@@ -236,24 +218,6 @@
                 <div class="card-title">
                     Dates de Transports
                 </div>
-                <p title="Nombre de signalements que l'assuré a accepté dans cette demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a accepté sur cette demande
-                    </span>
-                    <span class="right">
-                        1
-                        signalements
-                    </span>
-                </p>
-                <p title="Nombre de signalements que l'assuré a résolu dans cette demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a résolu sur cette demande
-                    </span>
-                    <span class="right">
-                        1
-                        signalements
-                    </span>
-                </p>
                 <table class="centered highlight">
                     <thead>
                         <tr>
@@ -265,15 +229,6 @@
                     <tbody>
                         <tr class="odd">
                             <td>1</td>
-                            <td>
-                                01/04/2018
-                            </td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        <tr class="even">
-                            <td>2</td>
                             <td>
                                 01/05/2018
                             </td>
