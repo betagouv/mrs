@@ -23,7 +23,7 @@
                         Dates de trajet conflictuelles
                     </span>
                     <p>
-                        Les dates de trajets suivantes ont déjà fait l'objet d'une demande.
+                        Les transports suivants contiennent des dates qui apparaissent dans d'autres demandes.
                         Merci de vérifier que les demandes correspondent à des trajets différents
                         afin de ne pas traiter et rembourser plusieurs fois cet assuré.
                     </p>
@@ -32,24 +32,37 @@
                     <table class="duplicates">
                         
                         <tbody><tr>
-                            <td>01/05/2018</td>
                             <td>
-                                <ul>
+                              <a href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2" target="_blank">
+                                201805020001 (En cours de liquidation)
+                              </a>
+                            </td><td>
+                              <ul>
                                     
                                     <li>
-                                        <a href="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2" target="_blank">
-                                        201805020001 (En cours de liquidation)
-                                        </a>
+                                      01/05/2018
                                     </li>
                                     
-                                    <li>
-                                        <a href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb" target="_blank">
-                                        201805030000 (Validée)
-                                        </a>
-                                    </li>
-                                    
-                                </ul>
+                              </ul>
                             </td>
+                            
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                              <a href="/admin/mrsrequest/b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb" target="_blank">
+                                201805030000 (Validée)
+                              </a>
+                            </td><td>
+                              <ul>
+                                    
+                                    <li>
+                                      01/05/2018
+                                    </li>
+                                    
+                              </ul>
+                            </td>
+                            
                         </tr>
                         
                     </tbody></table>
