@@ -616,22 +616,19 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
         try:
             obj.full_clean()
         except ValidationError as e:
-            if list(e.error_dict.keys()) == ['creation_ip']:
-                '''joys of legacy data'''
-            else:
-                self.errors[i + 1] = dict(
-                    row=row,
-                    message=', '.join([
-                        '{}: {}'.format(k, ', '.join([
-                            e.message % e.params
-                            if e.params
-                            else str(e.message)
-                            for e in v
-                        ]))
-                        for k, v in e.error_dict.items()
-                    ])
-                )
-                return
+            self.errors[i + 1] = dict(
+                row=row,
+                message=', '.join([
+                    '{}: {}'.format(k, ', '.join([
+                        e.message % e.params
+                        if e.params
+                        else str(e.message)
+                        for e in v
+                    ]))
+                    for k, v in e.error_dict.items()
+                ])
+            )
+            return
 
         try:
             obj.save()
