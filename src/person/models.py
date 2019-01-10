@@ -69,10 +69,15 @@ class Person(models.Model):
         blank=True,
         verbose_name='Assuré a basculé',
     )
-    confirms = models.PositiveIntegerField(
+    conflicts_accepted = models.PositiveIntegerField(
         default=0,
-        verbose_name='Nb. signalements',
-        help_text='Nombre de signalements faits a l\'assuré',
+        verbose_name='Nb. signalements acceptés',
+        help_text='Nombre de signalements acceptés par l\'utilisateur',
+    )
+    conflicts_resolved = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Nb. signalements résolus',
+        help_text='Nombre de signalements résolus par l\'utilisateur',
     )
 
     class Meta:

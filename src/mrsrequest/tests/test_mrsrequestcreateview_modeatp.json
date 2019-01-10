@@ -33,7 +33,8 @@
     "fields": {
         "adeli": null,
         "caisse": 9,
-        "confirms": 0,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "data": {
             "birth_date": "07/02/2007",
@@ -110,7 +111,8 @@
 {
     "fields": {
         "birth_date": "2007-02-07",
-        "confirms": 0,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "email": "jpic@yourlabs.org",
         "first_name": "jamesy",
         "last_name": "wuzere",

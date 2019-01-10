@@ -152,9 +152,12 @@ class Payload(object):
         self.url = reverse('mrsrequest:wizard')
         self.view_class = MRSRequestCreateView
         self.view_kwargs = dict()
+        self.session = None
+        self.request = None
 
     def post(self, **data):
         self.request = self.srf.post(self.url, data)
+        self.session = self.request.session = self.session or self.request.session
         self.mrsrequest.allow(self.request)
         self.view = self.view_class(request=self.request, **self.view_kwargs)
         self.response = self.view.dispatch(self.request, **self.view_kwargs)

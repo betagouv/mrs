@@ -217,11 +217,66 @@ def test_mrsrequestcreateview_empty_expenseatp(p, caisse):
 @pytest.mark.django_db
 def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
     data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+
+    # Let's get started with two conflicts from inside the same request
     data['transport-1-date_depart'] = data['transport-0-date_depart']
     data['transport-1-date_return'] = data['transport-0-date_return']
+    p.post(**data)
+    assert p.view.conflicts_count == 2
+
+    # Resolve one conflict and confirm it's fine
+    data['transport-1-date_return'] = '03/02/2018'
     data['confirm'] = '1'
     p.post(**data)
-    assert p.view.forms['mrsrequest'].instance.insured.confirms == 2
+    assert not p.view.form_errors()
+    assert p.view.conflicts_count == 1
+
+    # View should see one resolved and one accepted conflict
+    assert p.view.forms['mrsrequest'].instance.insured.conflicts_resolved == 1
+    assert p.view.forms['mrsrequest'].instance.insured.conflicts_accepted == 1
+    assert p.view.forms['mrsrequest'].instance.conflicts_resolved == 1
+    assert p.view.forms['mrsrequest'].instance.conflicts_accepted == 1
+
+    # Let's duplicate this request, only first trip should be conflicting
+    p.mrsrequest = MRSRequest()
+    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+    p.post(**data)
+    assert p.view.conflicts_count == 1
+
+    # Resolve that conflicts with new dates for first  transport
+    data['confirm'] = '1'
+    data['transport-0-date_depart'] = '03/01/2018'
+    data['transport-0-date_return'] = '03/01/2018'
+    p.post(**data)
+    assert not p.view.form_errors()
+    assert p.view.conflicts_count == 0
+
+    # Insured has resolved a new conflict and not accepted any new one
+    assert p.view.forms['mrsrequest'].instance.insured.conflicts_resolved == 2
+    assert p.view.forms['mrsrequest'].instance.insured.conflicts_accepted == 1
+    assert p.view.forms['mrsrequest'].instance.conflicts_resolved == 1
+    assert p.view.forms['mrsrequest'].instance.conflicts_accepted == 0
+
+    # While we're at it try just to increment accepted conflicts
+    p.mrsrequest = MRSRequest()
+    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+    p.post(**data)
+    # We're duplicating both Transport dates ...
+    assert p.view.conflicts_count == 2
+
+    # ... and fixing only the second one
+    data['transport-1-date_depart'] = '01/01/2018'
+    data['transport-1-date_return'] = '01/01/2018'
+    data['confirm'] = '1'
+    p.post(**data)
+    assert not p.view.form_errors()
+    assert p.view.conflicts_count == 1
+
+    # We so have resolved one conflict and accepted one conflict
+    assert p.view.forms['mrsrequest'].instance.insured.conflicts_resolved == 3
+    assert p.view.forms['mrsrequest'].instance.insured.conflicts_accepted == 2
+    assert p.view.forms['mrsrequest'].instance.conflicts_resolved == 1
+    assert p.view.forms['mrsrequest'].instance.conflicts_accepted == 1
 
 
 @pytest.mark.dbdiff(models=[Caisse, Email])

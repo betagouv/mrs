@@ -411,10 +411,15 @@ class MRSRequest(models.Model):
         null=True,
         verbose_name='Formulaire tel que soumit par l\'usager',
     )
-    confirms = models.PositiveIntegerField(
+    conflicts_accepted = models.PositiveIntegerField(
         default=0,
-        verbose_name='Nb. signalements',
-        help_text='Nombre de signalements pour cette demande',
+        verbose_name='Nb. signalements acceptés',
+        help_text='Nombre de signalements acceptés pour cette demande',
+    )
+    conflicts_resolved = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Nb. signalements résolus',
+        help_text='Nombre de signalements résolus avant soumission',
     )
 
     objects = MRSRequestManager()
@@ -669,7 +674,8 @@ class MRSRequest(models.Model):
     def allow(self, request):
         if self.SESSION_KEY not in request.session:
             request.session[self.SESSION_KEY] = {}
-        request.session[self.SESSION_KEY][str(self.id)] = dict()
+
+        request.session[self.SESSION_KEY].setdefault(str(self.id), dict())
 
         # The above doesn't use the request.session setter, won't automatically
         # trigger session save unless we do the following
@@ -928,10 +934,16 @@ class TransportQuerySet(models.QuerySet):
                 continue
 
             transport.date_depart_is_duplicate = transport.date_depart in seen
-            transport.date_return_is_duplicate = transport.date_return in seen
+
+            if transport.date_return:
+                transport.date_return_is_duplicate = (
+                    transport.date_return in seen
+                )
 
             seen.add(transport.date_depart)
-            seen.add(transport.date_return)
+
+            if transport.date_return:
+                seen.add(transport.date_return)
 
         return self
 
