@@ -8,7 +8,6 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.views import generic
 from djcall.models import Caller
-from ipware import get_client_ip
 
 from caisse.models import Caisse, Email
 from caisse.forms import CaisseVoteForm
@@ -169,8 +168,6 @@ class MRSRequestCreateView(generic.TemplateView):
                 self.forms['mrsrequest'].instance.confirms += len(kinds)
 
         self.forms['mrsrequest'].instance.insured = person
-        self.forms['mrsrequest'].instance.creation_ip = get_client_ip(
-            self.request)[0]
         self.object = self.forms['mrsrequest'].save()
         if self.forms['use_email'].cleaned_data['use_email']:
             person.use_email = True

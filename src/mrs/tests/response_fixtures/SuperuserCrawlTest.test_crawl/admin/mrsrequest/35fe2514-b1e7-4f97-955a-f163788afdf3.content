@@ -76,7 +76,7 @@
                     </div>
             </div>
             <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">285 Bytes <span style="font-size: 50% !important">127.0.0.1</span><i class="material-icons right">close</i></span>
+                <span class="card-title grey-text text-darken-4">285 Bytes <i class="material-icons right">close</i></span>
                 <div class="section">
                     bbbb
                 </div>
