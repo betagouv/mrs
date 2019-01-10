@@ -11,10 +11,10 @@ from caisse.forms import ActiveCaisseChoiceField
 
 MOTIF_CHOICES = (
     (None, '---------'),
-    ('request_error', _('CONTACT_REQUEST_MISTAKE')),
-    ('request_question', _('CONTACT_REQUEST_QUESTION')),
-    ('website_question', _('CONTACT_WEBSITE_SUGGESTION')),
-    ('other', _('CONTACT_OTHER_SUBJECT')),
+    ('request_error', "J'ai fait une erreur de saisie dans mon dossier"),
+    ('request_question', "J'ai une question sur mon dossier"),
+    ('website_question', "J'ai une idée d'amélioration pour votre site"),
+    ('other', 'Autre sujet'),
 )
 
 
