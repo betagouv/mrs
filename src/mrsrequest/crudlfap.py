@@ -523,7 +523,7 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
         def decode_utf8(input_iterator):
             for l in input_iterator:
-                yield l.decode(self.encoding)
+                yield l.decode(self.encoding).strip()
 
         f = csv.DictReader(
             decode_utf8(self.request.FILES['csv']),
