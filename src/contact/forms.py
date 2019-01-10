@@ -63,10 +63,13 @@ class ContactForm(forms.Form):
 
         if data['motif'].startswith('request'):
             subject = 'RÉCLAMATION MRS'
+
+            ''' Not to enable before product team is ready
             email = getattr(data['caisse'], 'liquidation_email', None)
 
             if email:  # in case caisse == 'other', let TEAM_EMAIL
                 to = [email]
+            '''
         else:
             subject = 'Nouveau message envoyé depuis le site'
 
