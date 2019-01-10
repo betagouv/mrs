@@ -452,7 +452,7 @@ class MRSRequest(models.Model):
         return self._duplicate_transports
 
     @property
-    def duplicates_dates(self):
+    def duplicates_by_transport(self):
         if getattr(self, '_duplicates_dates', None) is None:
             dupes = dict()
             for date in self.dates:
@@ -466,22 +466,6 @@ class MRSRequest(models.Model):
                 self._duplicates_dates[key] = sorted(dupes[key])
 
         return self._duplicates_dates
-
-    @property
-    def duplicates_by_date(self):
-        if getattr(self, '_duplicates_by_date', None) is None:
-            self._duplicates_by_date = dupes = dict()
-            for date in self.dates:
-                for transport in self.duplicate_transports:
-                    if date in transport.dates:
-                        dupes.setdefault(date, set())
-                        dupes[date].add(transport.mrsrequest)
-                if date in dupes:
-                    dupes[date] = sorted(
-                        dupes[date],
-                        key=lambda mrsrequest: mrsrequest.creation_datetime
-                    )
-        return self._duplicates_by_date
 
     def __str__(self):
         return str(self.display_id)

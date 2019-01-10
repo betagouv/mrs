@@ -311,22 +311,10 @@ def test_mrsrequest_duplicate_transports():
 
 
 @pytest.mark.django_db
-def test_mrsrequest_duplicates_by_date():
+def test_mrsrequest_duplicates_transport():
     Fixture('./src/mrs/tests/data.json').load()
     req = MRSRequest.objects.get(display_id='201805030001')
-    assert req.duplicates_by_date == {
-        datetime.date(2018, 5, 1): [
-            MRSRequest.objects.get(display_id='201805020001'),
-            MRSRequest.objects.get(display_id='201805030000'),
-        ]
-    }
-
-
-@pytest.mark.django_db
-def test_mrsrequest_duplicates_dates():
-    Fixture('./src/mrs/tests/data.json').load()
-    req = MRSRequest.objects.get(display_id='201805030001')
-    assert req.duplicates_dates == {
+    assert req.duplicates_by_transport == {
         MRSRequest.objects.get(display_id='201805020001'): [
             datetime.date(2018, 5, 1)
         ],

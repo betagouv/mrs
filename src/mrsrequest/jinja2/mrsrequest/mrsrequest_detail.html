@@ -62,7 +62,7 @@
 .duplicates th, .duplicates td, .duplicates ul { margin: 0; padding: 2px; }
 .row:first { padding-top: 12px; }
 </style>
-{% if object.duplicates_by_date %}
+{% if object.duplicates_by_transport %}
 <div class="row">
     <div class="col s12">
         <div class="card">
@@ -74,29 +74,31 @@
                         Dates de trajet conflictuelles
                     </span>
                     <p>
-                        Les dates de trajets suivantes ont déjà fait l'objet d'une demande.
+                        Les transports suivants contiennent des dates qui apparaissent dans d'autres demandes.
                         Merci de vérifier que les demandes correspondent à des trajets différents
                         afin de ne pas traiter et rembourser plusieurs fois cet assuré.
                     </p>
                 </div>
                 <div style="display: inline-block; width: 50%">
                     <table class="duplicates">
-                        {% for date, duplicates in object.duplicates_by_date.items() %}
+                        {% for duplicate, dates in object.duplicates_by_transport.items() %}
                         <tr>
-                            <td>{{ date.strftime('%d/%m/%Y') }}</td>
                             <td>
-                                <ul>
-                                    {% for duplicate in duplicates %}
+                              <a
+                                 href="{{ duplicate.get_absolute_url() }}"
+                                 target="_blank"
+                                 >
+                                {{ duplicate }} ({{ duplicate.get_status_display() }})
+                              </a>
+                            </td>
+                            <td>
+                              <ul>
+                                    {% for date in dates %}
                                     <li>
-                                        <a
-                                            href="{{ duplicate.get_absolute_url() }}"
-                                            target="_blank"
-                                        >
-                                        {{ duplicate }} ({{ duplicate.get_status_display() }})
-                                        </a>
+                                      {{ date.strftime('%d/%m/%Y') }}
                                     </li>
                                     {% endfor %}
-                                </ul>
+                              </ul>
                             </td>
                         </tr>
                         {% endfor %}
