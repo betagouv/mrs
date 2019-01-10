@@ -147,6 +147,7 @@ deploy-ecole:
 deploy-production:
   <<: *deploy
   stage: production
+  when: on_success
   only:
     refs: [master]
   environment:
