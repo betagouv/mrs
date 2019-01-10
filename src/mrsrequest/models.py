@@ -441,6 +441,7 @@ class MRSRequest(models.Model):
             ).exclude(
                 models.Q(mrsrequest__pk=self.pk)
                 | models.Q(mrsrequest__status=self.STATUS_REJECTED)
+                | models.Q(mrsrequest__status=self.STATUS_NEW)
             ).filter(
                 models.Q(date_depart__in=self.dates)
                 | models.Q(date_return__in=self.dates)
