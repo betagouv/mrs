@@ -90,6 +90,13 @@
                                  >
                                 {{ duplicate }} ({{ duplicate.get_status_display() }})
                               </a>
+                              -
+                              <a href="{{ duplicate.pmt.get_download_url() }}"
+                                 target="_blank"
+                                 title="ouvrir la PMT dans un autre onglet">
+                                  PMT
+                              </a>
+
                             <td>
                               <ul>
                                     {% for date in dates %}
