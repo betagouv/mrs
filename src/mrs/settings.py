@@ -156,6 +156,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+    'mrsrequest.backends.AuthenticationBackend',
     'crudlfap_auth.backends.ViewBackend',
 ]
 
