@@ -11,9 +11,7 @@ from django import forms
 from django import http
 from django import template
 from django.conf import settings
-from django.contrib import messages
 from django.core.exceptions import ValidationError
-from django.core.mail import EmailMessage
 from django.db import transaction
 from django.utils import timezone
 
@@ -103,20 +101,6 @@ class MRSRequestStatusMixin:
             )
 
 
-def mail_liquidation(subject, body, mrsrequest_pk):
-    mrsrequest = MRSRequest.objects.get(pk=mrsrequest_pk)
-    EmailMessage(
-        subject,
-        body,
-        settings.DEFAULT_FROM_EMAIL,
-        [mrsrequest.caisse.liquidation_email],
-        reply_to=[settings.TEAM_EMAIL],
-        attachments=[mrsrequest.pmt.tuple()] + [
-            bill.tuple() for bill in mrsrequest.bill_set.all()
-        ]
-    ).send()
-
-
 class MRSRequestValidateMixin(MRSRequestStatusMixin):
     fields = []
     view_label = 'Valider'
@@ -155,28 +139,6 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
             )
         ).spool('mail')
 
-    def mail_liquidation(self, mrsrequest=None):
-        mrsrequest = mrsrequest or self.object
-
-        if mrsrequest.total_size >= 10000000:
-            messages.info(
-                self.request,
-                f'Demande {mrsrequest.display_id}: taille PJs superieure a 10 '
-                'Mega Octets, pas de mail sur la boite de liquidation'
-            )
-            return
-
-        Caller(
-            callback='mrsrequest.crudlfap.mail_liquidation',
-            kwargs=dict(
-                subject=self.mail_render('liquidation', 'title', mrsrequest),
-                body=self.mail_render('liquidation', 'body', mrsrequest),
-                mrsrequest_pk=mrsrequest.pk,
-            )
-        ).spool('mail')
-
-        return True
-
 
 class MRSRequestValidateView(MRSRequestValidateMixin, crudlfap.ObjectFormView):
     menus = ['object', 'object_detail']
@@ -193,7 +155,6 @@ class MRSRequestValidateView(MRSRequestValidateMixin, crudlfap.ObjectFormView):
     def form_valid(self):
         resp = super().form_valid()
         self.mail_insured()
-        self.mail_liquidation()
         return resp
 
 
@@ -207,7 +168,6 @@ class MRSRequestValidateObjectsView(
         resp = super().form_valid()
         for obj in self.object_list:
             self.mail_insured(obj)
-            self.mail_liquidation(obj)
         return resp
 
 
