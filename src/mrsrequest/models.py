@@ -15,6 +15,8 @@ from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
 
+import crudlfap
+from mrsuser.models import User
 from mrs.settings import DATE_FORMAT_FR
 from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 

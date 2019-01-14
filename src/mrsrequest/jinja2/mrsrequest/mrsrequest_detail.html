@@ -91,11 +91,15 @@
                                 {{ duplicate }} ({{ duplicate.get_status_display() }})
                               </a>
                               -
+                              {% if duplicate.caisse in request.user.caisses.all() or request.user.profile == 'admin' %}
                               <a href="{{ duplicate.pmt.get_download_url() }}"
                                  target="_blank"
                                  title="ouvrir la PMT dans un autre onglet">
                                   PMT
                               </a>
+                              {% else %}
+                              {{ duplicate.caisse }}: {{ duplicate }} ({{ duplicate.get_status_display() }})
+                              {% endif %}
 
                             <td>
                               <ul>
