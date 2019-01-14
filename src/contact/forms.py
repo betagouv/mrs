@@ -76,7 +76,7 @@ class ContactForm(forms.Form):
         body = template.loader.get_template(
             'contact/contact_mail_body.txt'
         ).render(dict(
-            self=self,
+            data=data,
             motif=dict(self.fields['motif'].choices)[data['motif']],
         )).strip()
 
