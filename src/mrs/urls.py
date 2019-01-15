@@ -7,6 +7,7 @@ from django.urls import include, path
 
 from contact.views import ContactView
 from mrsrequest.views import MRSRequestCreateView
+from mrsrequest.views import MRSRequestCancelView
 from mrs.settings import TITLE_SUFFIX
 
 from . import views
@@ -23,6 +24,11 @@ urlpatterns = [
     path('', MRSRequestCreateView.as_view(
         template_name='index.html'), name='index'),
     path('demande', MRSRequestCreateView.as_view(), name='demande'),
+    path('demande/<update_token>/annuler/confirm',
+         MRSRequestCancelView.as_view(),
+         name='confirm_cancel_demande'),
+    path('demande/<update_token>/annuler', MRSRequestCancelView.as_view(),
+         name='cancel_demande'),
     path('contact', ContactView.as_view(), name='contact'),
     path('mentions-legales', views.LegalView.as_view(), name='legal'),
     path('faq', views.FaqView.as_view(), name='faq'),

@@ -7,6 +7,8 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.views import generic
+from django.urls import reverse
+
 from djcall.models import Caller
 
 from caisse.models import Caisse, Email
@@ -253,3 +255,45 @@ class MRSRequestCreateView(generic.TemplateView):
             birth_date=self.forms['person'].cleaned_data['birth_date'],
         )
         return self.form_errors()
+
+class MRSRequestCancelView(generic.TemplateView):
+    template_name = 'mrsrequest/cancel.html'
+    base = 'base.html'
+    extra_context = {
+        'title_suffix': TITLE_SUFFIX,
+    }
+
+    def get_context_data(self, **kwargs):
+        update_token = kwargs.pop('update_token')
+        requests = MRSRequest.objects.filter(update_token=update_token)
+        context = super().get_context_data(**kwargs)
+
+        if not requests.count():
+            context['does_not_exist'] = True
+            return context
+
+        mrsrequest = requests.first()
+
+        if mrsrequest.status == MRSRequest.STATUS_NEW:
+            context['object'] = mrsrequest
+        else:
+            context['too_late'] = True
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        update_token = kwargs.pop('update_token')
+        requests = MRSRequest.objects.filter(update_token=update_token)
+
+        if not requests.count():
+            return
+
+        mrsrequest = requests.first()
+        if mrsrequest:
+            deleted, _ = mrsrequest.delete()
+
+            if deleted:
+                return http.HttpResponseRedirect(
+                    reverse('demande'))
+            else:
+                pass  # ajax message

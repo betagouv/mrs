@@ -1,10 +1,9 @@
 import collections
 import datetime
-from decimal import Decimal
-from denorm import denormalized
-import pytz
 import uuid
+from decimal import Decimal
 
+import pytz
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core import validators
@@ -15,6 +14,7 @@ from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
 
+from denorm import denormalized
 from mrs.settings import DATE_FORMAT_FR
 from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 
@@ -420,6 +420,11 @@ class MRSRequest(models.Model):
         default=0,
         verbose_name='Nb. signalements résolus',
         help_text='Nombre de signalements résolus avant soumission',
+    )
+    update_token = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        verbose_name='Link to delete or edit a request',
     )
 
     objects = MRSRequestManager()

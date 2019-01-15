@@ -1,0 +1,52 @@
+{% extends view.base %}
+
+{% block title %}Annuler votre demande{% endblock %}
+{% block description %}Vous pouvez annuler votre demande si elle n'est pas en cours de traitement.{% endblock %}
+
+{% block content %}
+<div class="mrs-std-page--wrapper">
+  <div class="mrs-std-page">
+    {% if object %}
+    <div> Votre demande n° {{ object.display_id }} du {{ object.creation_datetime }} </div>
+    {% endif %}
+
+    {% if does_not_exist %}
+
+    Cette demande n'existe pas ou a déjà été annulée.
+
+    {% elif too_late %}
+
+    Votre demande est en cours de traitement, vous ne pouvez plus l'annuler.
+
+    {% else %}
+
+    <div> Concernait les trajets suivants:
+      <ul>
+        {% for transport in object.transport_set.all %}
+        <li> {{ transport.date_depart }} - {{ transport.date_return }} </li>
+        {% endfor %}
+      </ul>
+
+      Pour un total de {{ object.distancevp }} km parcourus.
+
+    </div>
+
+    <div>
+
+      Êtes-vous sûr(e) de vouloir annuler votre demande ?
+
+      <form method="POST" id="cancel-request" action="/demande/{{ object.update_token }}/annuler/confirm" >
+        {% csrf_token %}
+
+        <button
+            type="submit"
+            class="btn right"
+            value="Continuer"
+        >Oui, annuler</button>
+      </form>
+
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
