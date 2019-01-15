@@ -32,7 +32,7 @@
         <label for="id_status">Statut</label>
         <select id="id_status" name="status">
             <option value="">---------</option>
-            <option selected="selected" value="1">Soumise</option>
+            <option value="1">Soumise</option>
             <option value="999">Rejetée</option>
             <option value="1000">En cours de liquidation</option>
             <option value="2000">Validée</option>
@@ -74,7 +74,7 @@
         <label for="id_caisse">Caisse</label>
         <select id="id_caisse" name="caisse">
             <option value="">---------</option>
-            <option value="1">aaaaaaa</option>
+            <option selected="selected" value="1">aaaaaaa</option>
             <option value="2">bbbb</option>
         </select>
         
@@ -87,8 +87,8 @@
     <div class="select-field col s12" id="id_has_conflicts_accepted_container">
         <label for="id_has_conflicts_accepted">Signalements acceptés</label>
         <select id="id_has_conflicts_accepted" name="has_conflicts_accepted">
-            <option selected="selected" value="1">Inconnu</option>
-            <option value="2">Oui</option>
+            <option value="1">Inconnu</option>
+            <option selected="selected" value="2">Oui</option>
             <option value="3">Non</option>
         </select>
         
@@ -141,39 +141,39 @@
             
         
             
-            <th class="asc orderable"><a href="?status=1&amp;sort=-creation_datetime">Date et heure de la demande</a></th>
+            <th class="orderable"><a href="?amp=&amp;amp=&amp;caisse=1&amp;has_conflicts_accepted=2&amp;sort=creation_datetime">Date et heure de la demande</a></th>
             
         
             
-            <th class="orderable"><a href="?status=1&amp;sort=display_id">Numéro de demande</a></th>
+            <th class="orderable"><a href="?amp=&amp;amp=&amp;caisse=1&amp;has_conflicts_accepted=2&amp;sort=display_id">Numéro de demande</a></th>
             
         
             
-            <th class="orderable"><a href="?status=1&amp;sort=first_name">Prénom</a></th>
+            <th class="orderable"><a href="?amp=&amp;amp=&amp;caisse=1&amp;has_conflicts_accepted=2&amp;sort=first_name">Prénom</a></th>
             
         
             
-            <th class="orderable"><a href="?status=1&amp;sort=last_name">Nom</a></th>
+            <th class="orderable"><a href="?amp=&amp;amp=&amp;caisse=1&amp;has_conflicts_accepted=2&amp;sort=last_name">Nom</a></th>
             
         
             
-            <th class="orderable"><a href="?status=1&amp;sort=nir">NIR</a></th>
+            <th class="orderable"><a href="?amp=&amp;amp=&amp;caisse=1&amp;has_conflicts_accepted=2&amp;sort=nir">NIR</a></th>
             
         
             
-            <th class="orderable"><a href="?status=1&amp;sort=status">Statut</a></th>
+            <th class="orderable"><a href="?amp=&amp;amp=&amp;caisse=1&amp;has_conflicts_accepted=2&amp;sort=status">Statut</a></th>
             
         
             
-            <th class="orderable"><a href="?status=1&amp;sort=institution">Établissement</a></th>
+            <th class="orderable"><a href="?amp=&amp;amp=&amp;caisse=1&amp;has_conflicts_accepted=2&amp;sort=institution">Établissement</a></th>
             
         
             
-            <th class="orderable"><a href="?status=1&amp;sort=caisse">Caisse</a></th>
+            <th class="orderable"><a href="?amp=&amp;amp=&amp;caisse=1&amp;has_conflicts_accepted=2&amp;sort=caisse">Caisse</a></th>
             
         
             
-            <th class="orderable"><a href="?status=1&amp;sort=saving">Économie</a></th>
+            <th class="orderable"><a href="?amp=&amp;amp=&amp;caisse=1&amp;has_conflicts_accepted=2&amp;sort=saving">Économie</a></th>
             
         
             
@@ -188,66 +188,6 @@
     <tbody>
     
         
-        <tr class="even">
-            
-                <td></td>
-            
-                <td>3 mai 2018 17:41</td>
-            
-                <td>
-    <a class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 1 jours" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1">201810310000</a>
-    </td>
-            
-                <td>titi</td>
-            
-                <td>rominet</td>
-            
-                <td>1223123123129</td>
-            
-                <td>Soumise</td>
-            
-                <td>—</td>
-            
-                <td>aaaaaaa</td>
-            
-                <td>0,00</td>
-            
-                <td>
-                
-                
-    
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-767b8123-2134-48cb-8177-0c411309a0b1" title="Actions">
-        <i class="material-icons">more_vert</i>
-        
-      </a>
-
-      <ul class="dropdown-content" id="row-actions-767b8123-2134-48cb-8177-0c411309a0b1">
-        
-        <li>
-            <a class="" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1?_next=/admin/mrsrequest" title="201810310000">
-    <i class="blue-text material-icons">search</i>
-    
-    Detail
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1/update?_next=/admin/mrsrequest" title='Demande "201810310000": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-      </ul>
-    
-  
-                </td>
-            
-        </tr>
-        
     
     </tbody>
     
@@ -256,25 +196,6 @@
     
 </table>
 
-
-
-
-<ul class="pagination">
-    
-
-    
-        
-            
-            <li class="active">
-                <a href="#!">
-                    1
-                </a>
-            
-            </li>
-        
-    
-    
-</ul>
 
 
 </div>

@@ -225,6 +225,13 @@ class MRSRequestProgressView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
         return super().get_queryset().status('new')
 
 
+def boolean_gte_filter(qs, name, value):
+    if value is True:
+        return qs.filter(**{f'{name}__gte': 1})
+    elif value is False:
+        return qs.filter(**{f'{name}': 0})
+
+
 class MRSRequestListView(crudlfap.ListView):
     allowed_groups = ['Admin', 'UPN', 'Support']
 
@@ -271,6 +278,16 @@ class MRSRequestListView(crudlfap.ListView):
                     'data-format': 'dd/mm/yyyy',
                 },
             ),
+        ),
+        has_conflicts_accepted=django_filters.BooleanFilter(
+            field_name='conflicts_accepted',
+            label='Signalements acceptés',
+            method=boolean_gte_filter,
+        ),
+        has_conflicts_resolved=django_filters.BooleanFilter(
+            field_name='conflicts_resolved',
+            label='Signalements résolus',
+            method=boolean_gte_filter,
         ),
     )
 
