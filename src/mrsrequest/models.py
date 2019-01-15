@@ -15,6 +15,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from denorm import denormalized
+from mrs.settings import BASE_URL
 from mrs.settings import DATE_FORMAT_FR
 from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 
@@ -744,6 +745,12 @@ class MRSRequest(models.Model):
 
     def get_validate_url(self):
         return reverse('mrsrequest:validate', args=[self.pk])
+
+    def get_cancel_url(self):
+        return reverse('cancel_demande', args=[self.update_token])
+
+    def get_full_cancel_url(self):
+        return BASE_URL + self.get_cancel_url()
 
     @property
     def creation_date_normalized(self):
