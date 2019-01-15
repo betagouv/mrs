@@ -68,6 +68,35 @@
         
     </div>
 </div>
+ 
+
+
+<div class="row">
+    <div class="select-field col s12" id="id_has_conflicts_accepted_container">
+        <label for="id_has_conflicts_accepted">Signalements acceptés</label>
+        <select id="id_has_conflicts_accepted" name="has_conflicts_accepted">
+            <option selected="selected" value="1">Inconnu</option>
+            <option value="2">Oui</option>
+            <option value="3">Non</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+
+
+<div class="row">
+    <div class="select-field col s12" id="id_has_conflicts_resolved_container">
+        <label for="id_has_conflicts_resolved">Signalements résolus</label>
+        <select id="id_has_conflicts_resolved" name="has_conflicts_resolved">
+            <option selected="selected" value="1">Inconnu</option>
+            <option value="2">Oui</option>
+            <option value="3">Non</option>
+        </select>
+        
+    </div>
+</div>
 
         
       </form>

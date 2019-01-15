@@ -81,7 +81,11 @@
             
         
             
-            <th class="orderable"><a href="?sort=confirms">Alertes</a></th>
+            <th class="orderable"><a href="?sort=conflicts_accepted">Signalements confirmés</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=conflicts_resolved">Signalements resolus</a></th>
             
         
             
@@ -112,7 +116,13 @@
             
                 <td>0</td>
             
-                <td>0</td>
+                <td>
+    <a href="/admin/mrsrequest?&amp;caisse=1&amp;has_conflicts_accepted=2">0</a>
+    </td>
+            
+                <td>
+    <a href="/admin/mrsrequest?&amp;caisse=1&amp;has_conflicts_resolved=2">0</a>
+    </td>
             
                 <td>—</td>
             
@@ -175,7 +185,13 @@
             
                 <td>0</td>
             
-                <td>2</td>
+                <td>
+    <a href="/admin/mrsrequest?&amp;caisse=2&amp;has_conflicts_accepted=2">2</a>
+    </td>
+            
+                <td>
+    <a href="/admin/mrsrequest?&amp;caisse=2&amp;has_conflicts_resolved=2">1</a>
+    </td>
             
                 <td>—</td>
             
@@ -238,7 +254,13 @@
             
                 <td>2</td>
             
-                <td>—</td>
+                <td>
+    <a href="/admin/mrsrequest?&amp;caisse=3&amp;has_conflicts_accepted=2">None</a>
+    </td>
+            
+                <td>
+    <a href="/admin/mrsrequest?&amp;caisse=3&amp;has_conflicts_resolved=2">None</a>
+    </td>
             
                 <td>—</td>
             

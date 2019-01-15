@@ -15,14 +15,33 @@ class CaisseListView(crudlfap.ListView):
         'number',
         'active',
         'score',
-        'confirms',
+        'conflicts_accepted',
+        'conflicts_resolved',
         'import_datetime',
     )
 
+    conflicts_accepted_template = '''
+    <a
+        href="{{ record.get_conflicts_accepted_url }}"
+    >{{ record.mrsrequest__conflicts_accepted__sum }}</a>
+    '''
+
+    conflicts_resolved_template = '''
+    <a
+        href="{{ record.get_conflicts_resolved_url }}"
+    >{{ record.mrsrequest__conflicts_resolved__sum }}</a>
+    '''
+
     table_columns = dict(
-        confirms=tables.Column(
+        conflicts_accepted=tables.TemplateColumn(
+            conflicts_accepted_template,
             accessor='mrsrequest__conflicts_accepted__sum',
-            verbose_name='Alertes',
+            verbose_name='Signalements confirmés',
+        ),
+        conflicts_resolved=tables.TemplateColumn(
+            conflicts_resolved_template,
+            accessor='mrsrequest__conflicts_resolved__sum',
+            verbose_name='Signalements resolus',
         )
     )
 
@@ -39,7 +58,8 @@ class CaisseListView(crudlfap.ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.annotate(
-            models.Sum('mrsrequest__conflicts_accepted')
+            models.Sum('mrsrequest__conflicts_accepted'),
+            models.Sum('mrsrequest__conflicts_resolved'),
         )
         return qs
 
