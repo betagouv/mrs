@@ -1,0 +1,37 @@
+---
+name: env
+hook: before jobs
+env:
+  DB_ENGINE: django.db.backends.postgresql
+  DB_NAME: mrs
+  DEBUG: 1
+  DJANGO_SETTINGS_MODULE: mrs.settings
+
+---
+name: dbreset
+script: |
+  sudo -u postgres dropdb mrs || echo could not drop db
+  sudo -u postgres createdb -E utf8 -O $USER mrs
+
+---
+name: dbreload
+requires: [dbreset, dbload]
+
+---
+name: dbload
+script: |
+  mrs migrate --noinput
+  djcli delete contenttypes.ContentType
+  djcli delete auth.Group
+  djcli delete mrsuser.User
+  CI=1 mrs loaddata src/mrs/tests/data.json
+
+---
+name: dbdump
+script:
+- CI=1 mrs mrsstat --refresh
+- mrs
+    dumpdata
+    --indent=4
+    $(grep model src/mrs/tests/data.json | sort -u | sed 's/.*model". "\([^"]*\)",*/\1/')
+    > src/mrs/tests/data.json
