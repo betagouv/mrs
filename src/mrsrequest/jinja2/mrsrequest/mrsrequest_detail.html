@@ -334,28 +334,6 @@
                         {%- endif %}
                     </span>
                 </p>
-                {%- if object.insured.conflicts_accepted %}
-                <p title="Nombre de signalements que l'assuré a accepté dans toutes ses demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a accepté
-                    </span>
-                    <span class="right">
-                        {{ object.insured.conflicts_accepted }}
-                        signalements
-                    </span>
-                </p>
-                {%- endif %}
-                {%- if object.insured.conflicts_resolved %}
-                <p title="Nombre de signalements que l'assuré a résolu dans toutes ses demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a résolu
-                    </span>
-                    <span class="right">
-                        {{ object.insured.conflicts_resolved }}
-                        signalements
-                    </span>
-                </p>
-                {%- endif %}
             </div>
         </div>
     </div>

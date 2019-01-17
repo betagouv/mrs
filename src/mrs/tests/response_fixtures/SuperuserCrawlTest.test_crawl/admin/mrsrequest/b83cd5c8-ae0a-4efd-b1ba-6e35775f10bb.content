@@ -187,24 +187,6 @@
                             Oui, sur une demande précédente
                     </span>
                 </p>
-                <p title="Nombre de signalements que l'assuré a accepté dans toutes ses demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a accepté
-                    </span>
-                    <span class="right">
-                        2
-                        signalements
-                    </span>
-                </p>
-                <p title="Nombre de signalements que l'assuré a résolu dans toutes ses demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a résolu
-                    </span>
-                    <span class="right">
-                        1
-                        signalements
-                    </span>
-                </p>
             </div>
         </div>
     </div>
