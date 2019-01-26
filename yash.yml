@@ -9,7 +9,10 @@ env:
 
 ---
 name: dbreset
+color: red
+help: Drop and re-create the database
 script: |
+  sudo systemctl start postgresql
   sudo -u postgres dropdb mrs || echo could not drop db
   sudo -u postgres createdb -E utf8 -O $USER mrs
 
