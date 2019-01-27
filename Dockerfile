@@ -49,12 +49,11 @@ RUN find $STATIC_ROOT -type f | xargs gzip -f -k -9
 # Let user write to log
 RUN chown -R app. ${LOG}
 USER app
-ADD predeploy /app/predeploy
 RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}
 
 EXPOSE 6789
 
-CMD /usr/bin/dumb-init uwsgi \
+CMD /usr/bin/dumb-init bash -euxc "mrs migrate --noinput && uwsgi \
   --spooler=${UWSGI_SPOOLER_MOUNT}/mail \
   --spooler=${UWSGI_SPOOLER_MOUNT}/stat \
   --spooler-processes 8 \
@@ -81,9 +80,9 @@ CMD /usr/bin/dumb-init uwsgi \
   --thunder-lock \
   --offload-threads '%k' \
   --file-serve-mode x-accel-redirect \
-  --route "^/static/.* addheader:Cache-Control: public, max-age=7776000" \
+  --route '^/static/.* addheader:Cache-Control: public, max-age=7776000' \
   --static-map $STATIC_ROOT=$STATIC_URL \
   --static-gzip-all \
-  --cache2 "name=statcalls,items=100" \
+  --cache2 'name=statcalls,items=100' \
   --static-cache-paths 86400 \
-  --static-cache-paths-name statcalls \
+  --static-cache-paths-name statcalls"
