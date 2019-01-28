@@ -3,6 +3,7 @@ import datetime
 from decimal import Decimal
 from denorm import denormalized
 import pytz
+import secrets
 import uuid
 
 from django.conf import settings
@@ -263,12 +264,14 @@ class MRSRequest(models.Model):
 
     STATUS_NEW = 1  # matches admin.models.ADDITION
     # Those have status different from admin flags
+    STATUS_CANCELED = 100
     STATUS_REJECTED = 999
     STATUS_INPROGRESS = 1000
     STATUS_VALIDATED = 2000
 
     STATUS_CHOICES = (
         (STATUS_NEW, 'Soumise'),
+        (STATUS_CANCELED, 'Annulée'),
         (STATUS_REJECTED, 'Rejetée'),
         (STATUS_INPROGRESS, 'En cours de liquidation'),
         (STATUS_VALIDATED, 'Validée'),
@@ -420,6 +423,13 @@ class MRSRequest(models.Model):
         default=0,
         verbose_name='Nb. signalements résolus',
         help_text='Nombre de signalements résolus avant soumission',
+    )
+    token = models.CharField(
+        default=secrets.token_urlsafe,
+        null=True,
+        editable=False,
+        verbose_name='Token d\'authentification pour modifier la demande',
+        max_length=255,
     )
 
     objects = MRSRequestManager()
@@ -723,6 +733,12 @@ class MRSRequest(models.Model):
 
     def get_validate_url(self):
         return reverse('mrsrequest:validate', args=[self.pk])
+
+    def get_cancel_url(self):
+        return reverse('demande-cancel', args=[self.pk, self.token])
+
+    def get_update_url(self):
+        return reverse('demande-update', args=[self.pk, self.token])
 
     @property
     def creation_date_normalized(self):

@@ -1,4 +1,5 @@
 import collections
+from datetime import datetime
 import json
 
 from django import http
@@ -25,7 +26,23 @@ from .forms import (
 from .models import Bill, MRSRequest, Transport
 
 
-class MRSRequestCreateView(generic.TemplateView):
+class MRSRequestFormBaseView(generic.TemplateView):
+    def form_errors(self):
+        return [
+            (form.errors, getattr(form, 'non_field_errors', []))
+            for form in self.forms.values()
+            if not form.is_valid()
+        ]
+
+    def form_confirms(self):
+        self.forms['transport_formset'].add_confirms(
+            nir=self.forms['person'].cleaned_data['nir'],
+            birth_date=self.forms['person'].cleaned_data['birth_date'],
+        )
+        return self.form_errors()
+
+
+class MRSRequestCreateView(MRSRequestFormBaseView):
     template_name = 'mrsrequest/form.html'
     base = 'base.html'
     modes = [i[0] for i in Bill.MODE_CHOICES]
@@ -224,15 +241,16 @@ class MRSRequestCreateView(generic.TemplateView):
         person.conflicts_resolved += conflicts_resolved
         person.save()
 
+        mail_context = dict(view=self, base_url=settings.BASE_URL)
         Caller(
             callback='djcall.django.email_send',
             kwargs=dict(
                 subject=template.loader.get_template(
                     'mrsrequest/success_mail_title.txt'
-                ).render(dict(view=self)).strip(),
+                ).render(mail_context).strip(),
                 body=template.loader.get_template(
                     'mrsrequest/success_mail_body.txt'
-                ).render(dict(view=self)).strip(),
+                ).render(mail_context).strip(),
                 to=[self.object.insured.email],
                 reply_to=[settings.TEAM_EMAIL],
             )
@@ -240,16 +258,57 @@ class MRSRequestCreateView(generic.TemplateView):
 
         return True
 
-    def form_errors(self):
-        return [
-            (form.errors, getattr(form, 'non_field_errors', []))
-            for form in self.forms.values()
-            if not form.is_valid()
-        ]
-
     def form_confirms(self):
         self.forms['transport_formset'].add_confirms(
             nir=self.forms['person'].cleaned_data['nir'],
             birth_date=self.forms['person'].cleaned_data['birth_date'],
         )
         return self.form_errors()
+
+
+class MRSRequestUpdateBaseView(MRSRequestFormBaseView):
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        if not self.object:
+            self.template_name = 'mrsrequest/notfound.html'
+            return generic.TemplateView.get(self, request, *args, **kwargs)
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self):
+        return MRSRequest.objects.filter(
+            pk=self.kwargs['mrsrequest_uuid'],
+            token=self.kwargs['token'],
+        ).first()
+
+
+class MRSRequestUpdateView(MRSRequestUpdateBaseView):
+    template_name = 'mrsrequest/update.html'
+
+    def get(self, request, *args, **kwargs):
+        self.mrsrequest_uuid = str(self.object.id)
+
+        self.forms = collections.OrderedDict([
+            ('mrsrequest', MRSRequestCreateForm(
+                mrsrequest_uuid=self.mrsrequest_uuid
+            )),
+            ('transport', TransportIterativeForm()),
+            ('transport_formset', TransportFormSet()),
+        ])
+
+        return super().get(request, *args, **kwargs)
+
+
+class MRSRequestCancelView(MRSRequestUpdateBaseView):
+    template_name = 'mrsrequest/cancel.html'
+
+    def post(self, request, *args, **kwargs):
+        if self.object.status != self.object.STATUS_NEW:
+            return http.HttpResponseBadRequest()
+
+        self.object.status = self.object.STATUS_CANCELED
+        self.object.status_datetime = datetime.now()
+        self.object.save()
+
+        return generic.TemplateView.get(self, request, *args, **kwargs)
