@@ -1,6 +1,7 @@
 ---
 name: env
 hook: before jobs
+help: Global environment variables
 env:
   DB_ENGINE: django.db.backends.postgresql
   DB_NAME: mrs
@@ -18,10 +19,13 @@ script: |
 
 ---
 name: dbreload
+color: red
+help: Drop and re-create the database, load test data
 requires: [dbreset, dbload]
 
 ---
 name: dbload
+help: Load test data
 script: |
   mrs migrate --noinput
   djcli delete contenttypes.ContentType
@@ -31,6 +35,7 @@ script: |
 
 ---
 name: dbdump
+help: Dump test data
 script:
 - CI=1 mrs mrsstat --refresh
 - mrs
