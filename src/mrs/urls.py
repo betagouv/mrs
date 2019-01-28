@@ -6,7 +6,11 @@ from django.views.decorators.cache import cache_page
 from django.urls import include, path
 
 from contact.views import ContactView
-from mrsrequest.views import MRSRequestCreateView
+from mrsrequest.views import (
+    MRSRequestCancelView,
+    MRSRequestCreateView,
+    MRSRequestUpdateView,
+)
 from mrs.settings import TITLE_SUFFIX
 
 from . import views
@@ -23,6 +27,16 @@ urlpatterns = [
     path('', MRSRequestCreateView.as_view(
         template_name='index.html'), name='index'),
     path('demande', MRSRequestCreateView.as_view(), name='demande'),
+    path(
+        'modifier-demande/<mrsrequest_uuid>/<token>',
+        MRSRequestUpdateView.as_view(),
+        name='demande-update'
+    ),
+    path(
+        'annuler-demande/<mrsrequest_uuid>/<token>',
+        MRSRequestCancelView.as_view(),
+        name='demande-cancel'
+    ),
     path('contact', ContactView.as_view(), name='contact'),
     path('mentions-legales', views.LegalView.as_view(), name='legal'),
     path('faq', views.FaqView.as_view(), name='faq'),

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Annuler votre demande{% endblock %}
+{% block description %}Vous pouvez annuler votre demande avant traitement par nos services.{% endblock %}
+
+{% block content %}
+<div class="mrs-std-page--wrapper">
+  <div class="mrs-std-page">
+    <h2>Votre demande n° {{ view.object.display_id }} du {{ view.object.creation_datetime.day }}/{{ view.object.creation_datetime.month }}/{{ view.object.creation_datetime.year }}</h2>
+
+    {% if view.object.status == view.object.STATUS_CANCELED %}
+      <p>
+        L'annulation a bien été prise en compte pour cette demande.
+      </p>
+    {% elif view.object.status == view.object.STATUS_NEW %}
+      <p>
+        Concernait le{% if view.object.transport_set.all|length > 1 %}s{% endif %} trajet{% if view.object.transport_set.all|length > 1 %}s{% endif %} suivant{% if view.object.transport_set.all|length > 1 %}s{% endif %}:
+      </p>
+
+      <ul>
+        {% for transport in view.object.transport_set.all %}
+        <li> {{ transport.date_depart }} - {{ transport.date_return }} </li>
+        {% endfor %}
+      </ul>
+
+      <p>
+        Pour un total de {{ view.object.distancevp }} km parcourus en tout et pour tout.
+      </p>
+
+      <p>
+        Cliquez sur le bouton suivant si vous êtes sûr(e) de vouloir annuler
+        votre demande.
+      </p>
+
+      <form method="POST" action="">
+        {% csrf_token %}
+        <input type="submit" class="btn right red" value="Oui, annuler" />
+      </form>
+    {% else %}
+      <p>Cette demande est déjà en cours de traitement.</p>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

@@ -43,3 +43,9 @@ script:
     --indent=4
     $(grep model src/mrs/tests/data.json | sort -u | sed 's/.*model". "\([^"]*\)",*/\1/')
     > src/mrs/tests/data.json
+
+---
+name: fixturereset
+help: Reset the generate fixture files
+script:
+- FIXTURE_REWRITE=1 tox -e py37-dj21 -- -s
