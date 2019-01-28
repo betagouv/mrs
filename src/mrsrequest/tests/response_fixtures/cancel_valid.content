@@ -1,11 +1,5 @@
-{% extends 'base.html' %}
-
-{% block title %}Demande introuvable{% endblock %}
-
-{% block content %}
 <div class="mrs-std-page--wrapper">
   <div class="mrs-std-page">
     Une erreur s'est glissée dans le lien vers la demande.
   </div>
 </div>
-{% endblock %}

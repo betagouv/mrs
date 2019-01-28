@@ -277,10 +277,13 @@ class MRSRequestUpdateBaseView(MRSRequestFormBaseView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_object(self):
-        return MRSRequest.objects.filter(
-            pk=self.kwargs['mrsrequest_uuid'],
-            token=self.kwargs['token'],
-        ).first()
+        try:
+            return MRSRequest.objects.filter(
+                pk=self.kwargs['pk'],
+                token=self.kwargs['token'],
+            ).first()
+        except ValidationError:  # catch invalid uuids
+            return None
 
 
 class MRSRequestUpdateView(MRSRequestUpdateBaseView):

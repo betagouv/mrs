@@ -9,7 +9,7 @@ from contact.views import ContactView
 from mrsrequest.views import (
     MRSRequestCancelView,
     MRSRequestCreateView,
-    MRSRequestUpdateView,
+    # MRSRequestUpdateView,
 )
 from mrs.settings import TITLE_SUFFIX
 
@@ -27,13 +27,14 @@ urlpatterns = [
     path('', MRSRequestCreateView.as_view(
         template_name='index.html'), name='index'),
     path('demande', MRSRequestCreateView.as_view(), name='demande'),
+    # too early for this little one
+    # path(
+    #     'modifier-demande/<pk>/<token>',
+    #     MRSRequestUpdateView.as_view(),
+    #     name='demande-update'
+    # ),
     path(
-        'modifier-demande/<mrsrequest_uuid>/<token>',
-        MRSRequestUpdateView.as_view(),
-        name='demande-update'
-    ),
-    path(
-        'annuler-demande/<mrsrequest_uuid>/<token>',
+        'annuler-demande/<pk>/<token>',
         MRSRequestCancelView.as_view(),
         name='demande-cancel'
     ),

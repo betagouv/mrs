@@ -36,8 +36,12 @@
         {% csrf_token %}
         <input type="submit" class="btn right red" value="Oui, annuler" />
       </form>
-    {% else %}
+    {% elif view.object.status == view.object.STATUS_INPROGRESS %}
       <p>Cette demande est déjà en cours de traitement.</p>
+    {% elif view.object.status == view.object.STATUS_REJECTED %}
+      <p>Cette demande est déjà rejetée.</p>
+    {% elif view.object.status == view.object.STATUS_VALIDATED %}
+      <p>Cette demande est déjà validée.</p>
     {% endif %}
 
   </div>

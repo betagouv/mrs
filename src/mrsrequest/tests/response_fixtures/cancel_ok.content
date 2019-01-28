@@ -1,0 +1,30 @@
+<div class="mrs-std-page--wrapper">
+  <div class="mrs-std-page">
+    <h2>Votre demande n° 201901290000 du 29/1/2019</h2>
+
+    
+      <p>
+        Concernait le trajet suivant:
+      </p>
+
+      <ul>
+        
+      </ul>
+
+      <p>
+        Pour un total de None km parcourus en tout et pour tout.
+      </p>
+
+      <p>
+        Cliquez sur le bouton suivant si vous êtes sûr(e) de vouloir annuler
+        votre demande.
+      </p>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input class="btn right red" type="submit" value="Oui, annuler"/>
+      </form>
+    
+
+  </div>
+</div>
