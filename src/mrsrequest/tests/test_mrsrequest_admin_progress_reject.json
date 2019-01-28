@@ -34,7 +34,8 @@
         "status_user": [
             "{'caisse': <Caisse: adminviews>}"
         ],
-        "taxi_cost": 0
+        "taxi_cost": 0,
+        "token": "wT65yC_ynAVBo2Kf7aYwmpH2L2wCw65KEZgSs9ddB7M"
     },
     "model": "mrsrequest.mrsrequest",
     "pk": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea"

@@ -33,6 +33,7 @@
         <select id="id_status" name="status">
             <option value="">---------</option>
             <option value="1">Soumise</option>
+            <option value="100">Annulée</option>
             <option selected="selected" value="999">Rejetée</option>
             <option value="1000">En cours de liquidation</option>
             <option value="2000">Validée</option>

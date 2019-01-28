@@ -2,8 +2,10 @@ import datetime
 import io
 import pytest
 import pytz
+import os
 from uuid import uuid4
 
+from dbdiff.fixture import Fixture
 from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.messages.storage import default_storage
 from django.contrib.sessions.backends.base import SessionBase
@@ -18,7 +20,11 @@ from mrsuser.models import User
 
 
 id = mrsrequest_uuid = pytest.fixture(
-    lambda: '2b88b740-3920-44e9-b086-c851f58e7ea7')
+        lambda: '2b88b740-3920-44e9-b086-c851f58e7ea7')
+
+
+Fixture.exclude = {'mrsrequest.mrsrequest': ['token']}
+
 
 
 @pytest.fixture
