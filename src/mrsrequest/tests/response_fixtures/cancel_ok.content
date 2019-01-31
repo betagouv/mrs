@@ -1,18 +1,20 @@
 <div class="mrs-std-page--wrapper">
   <div class="mrs-std-page">
-    <h2>Votre demande n° 201901290000 du 29/1/2019</h2>
+    <h2>Votre demande n° 201812190000 du 19/12/2018</h2>
 
     
       <p>
-        Concernait le trajet suivant:
+        Concernait les trajets suivants:
       </p>
 
-      <ul>
-        
-      </ul>
+      
+      <p> 1 janvier 2018 - 2 janvier 2018 </p>
+      
+      <p> 3 janvier 2018 - 4 janvier 2018 </p>
+      
 
       <p>
-        Pour un total de None km parcourus en tout et pour tout.
+        Pour un total de 42 km parcourus.
       </p>
 
       <p>
@@ -22,7 +24,7 @@
 
       <form action="" method="POST">
         {% csrf_token %}
-        <input class="btn right red" type="submit" value="Oui, annuler"/>
+        <input class="btn red" type="submit" value="Oui, annuler"/>
       </form>
     
 

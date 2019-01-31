@@ -17,14 +17,12 @@
         Concernait le{% if view.object.transport_set.all|length > 1 %}s{% endif %} trajet{% if view.object.transport_set.all|length > 1 %}s{% endif %} suivant{% if view.object.transport_set.all|length > 1 %}s{% endif %}:
       </p>
 
-      <ul>
-        {% for transport in view.object.transport_set.all %}
-        <li> {{ transport.date_depart }} - {{ transport.date_return }} </li>
-        {% endfor %}
-      </ul>
+      {% for transport in view.object.transport_set.all %}
+      <p> {{ transport.date_depart }} - {{ transport.date_return }} </p>
+      {% endfor %}
 
       <p>
-        Pour un total de {{ view.object.distancevp }} km parcourus en tout et pour tout.
+        Pour un total de {{ view.object.distancevp }} km parcourus.
       </p>
 
       <p>
@@ -34,14 +32,14 @@
 
       <form method="POST" action="">
         {% csrf_token %}
-        <input type="submit" class="btn right red" value="Oui, annuler" />
+        <input type="submit" class="btn red" value="Oui, annuler" />
       </form>
     {% elif view.object.status == view.object.STATUS_INPROGRESS %}
-      <p>Cette demande est déjà en cours de traitement.</p>
+      <p>Nous ne pouvons pas annuler cette demande car elle est déjà en cours de traitement.</p>
     {% elif view.object.status == view.object.STATUS_REJECTED %}
-      <p>Cette demande est déjà rejetée.</p>
+      <p>Nous ne pouvons pas annuler cette demande car elle est déjà rejetée.</p>
     {% elif view.object.status == view.object.STATUS_VALIDATED %}
-      <p>Cette demande est déjà validée.</p>
+      <p>Nous ne pouvons pas annuler cette demande car elle est déjà validée.</p>
     {% endif %}
 
   </div>
