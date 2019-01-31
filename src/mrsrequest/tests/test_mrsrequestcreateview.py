@@ -1,6 +1,7 @@
 from dbdiff.fixture import Fixture
 from django.urls import reverse
 from freezegun import freeze_time
+import os
 import pytest
 
 from caisse.models import Caisse, Email
@@ -181,6 +182,19 @@ def test_mrsrequestcreateview_modevp_post_save_integration(p, caisse):
         './src/mrsrequest/tests/test_mrsrequestcreateview_modevp.json',
         models=[MRSAttachment, MRSRequest, PMT, Person, Bill, Transport]
     ).assertNoDiff()
+
+
+@freeze_time('2017-12-19 05:51:11')
+@pytest.mark.django_db
+def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker):
+    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+    p.post(**data)
+    url = os.path.join(
+        'http://localhost:8000',
+        'annuler-demande',
+        'e29db065-0566-48be-822d-66bd3277d823/',
+    )
+    assert url in mailoutbox[0].body
 
 
 @freeze_time('2017-12-19 05:51:11')
