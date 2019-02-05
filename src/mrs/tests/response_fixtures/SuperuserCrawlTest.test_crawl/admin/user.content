@@ -146,6 +146,15 @@
       <ul class="dropdown-content" id="row-actions-1">
         
         <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
+        
+        <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update?_next=/admin/user" title='Utilisateur "test": modifier'>
     <i class="orange-text material-icons">edit</i>
     
@@ -216,6 +225,15 @@
       </a>
 
       <ul class="dropdown-content" id="row-actions-2">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
         
         <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/update?_next=/admin/user" title='Utilisateur "a": modifier'>
@@ -290,6 +308,15 @@
       <ul class="dropdown-content" id="row-actions-3">
         
         <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
+        
+        <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/update?_next=/admin/user" title='Utilisateur "b": modifier'>
     <i class="orange-text material-icons">edit</i>
     
@@ -360,6 +387,15 @@
       </a>
 
       <ul class="dropdown-content" id="row-actions-4">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supporta/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
         
         <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supporta/update?_next=/admin/user" title='Utilisateur "supporta": modifier'>
@@ -434,6 +470,15 @@
       <ul class="dropdown-content" id="row-actions-5">
         
         <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/stata/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
+        
+        <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/stata/update?_next=/admin/user" title='Utilisateur "stata": modifier'>
     <i class="orange-text material-icons">edit</i>
     
@@ -506,6 +551,15 @@
       <ul class="dropdown-content" id="row-actions-6">
         
         <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/statb/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
+        
+        <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/statb/update?_next=/admin/user" title='Utilisateur "statb": modifier'>
     <i class="orange-text material-icons">edit</i>
     
@@ -576,6 +630,15 @@
       </a>
 
       <ul class="dropdown-content" id="row-actions-7">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supportb/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
         
         <li>
             <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supportb/update?_next=/admin/user" title='Utilisateur "supportb": modifier'>

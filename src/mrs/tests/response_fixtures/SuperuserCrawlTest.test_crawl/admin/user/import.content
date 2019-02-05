@@ -1,0 +1,65 @@
+<div class="" id="modal-body-ajax">
+        
+<form action="/admin/user/import" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+
+          <div class="modal-content">
+          
+            
+            <h4 class="text-warning" id="modal-title-ajax">Import</h4>
+            
+          
+            
+  <p>Pour importer des utilisateurs en masse, fabriquer un fichier CSV laissant la premiere ligne intacte comme suit</p>
+  <pre>nom;prenom;numero agent;profil;numero organisme;mail
+DUPONT;Jean;07328;UPN;571;jean.dupont@assurance-maladie.fr
+DUPOND;Jean;07329;UPN,Stat;571;jean.dupond@assurance-maladie.fr
+  </pre>
+  <p>
+  Les utilisateurs nouvellement crees qui n'ont pas de mot de passe en receveront un par email. Cela permet de re-envoyer un fichier plusieurs fois moyennant correctifs. En cas d'erreur non signalee sur cette page, regarder sur le canal tech voir si l'import cause une erreur sentry, celle ci peut contenir des indices.
+  </p>
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+<div class="row">
+    <div class="input-field file-field col s12 required" id="id_csv_container">
+        <div class="btn">
+            <span>Fichier</span>
+            <input name="csv" type="file"/>
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path" placeholder="None"/>
+        </div>
+        
+
+        <ul class="files">
+            
+        </ul>
+    </div>
+</div>
+
+
+
+          </div>
+          <div class="modal-footer">
+            
+    
+    <button class="btn btn-primary" type="submit">Import</button>
+
+          </div>
+        
+  </form>
+
+
+      </div>
