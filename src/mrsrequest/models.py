@@ -452,11 +452,13 @@ class MRSRequest(models.Model):
     def duplicate_transports(self):
         if getattr(self, '_duplicate_transports', None) is None:
             self._duplicate_transports = Transport.objects.filter(
-                mrsrequest__insured=self.insured
+                mrsrequest__insured=self.insured,
+                mrsrequest__status__in=(
+                    self.STATUS_INPROGRESS,
+                    self.STATUS_VALIDATED,
+                ),
             ).exclude(
                 models.Q(mrsrequest__pk=self.pk)
-                | models.Q(mrsrequest__status=self.STATUS_REJECTED)
-                | models.Q(mrsrequest__status=self.STATUS_NEW)
             ).filter(
                 models.Q(date_depart__in=self.dates)
                 | models.Q(date_return__in=self.dates)
