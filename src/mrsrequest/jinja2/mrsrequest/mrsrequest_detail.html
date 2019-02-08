@@ -88,14 +88,14 @@
                               <a
                                  href="{{ duplicate.get_absolute_url() }}"
                                  target="_blank"
+                                 title="Ouvrir la demande {{ duplicate.get_status_display() }}"
                                  >
-                                {{ duplicate }} ({{ duplicate.get_status_display() }})
+                                {{ duplicate }}
                               </a>
-                              -
                               <a href="{{ duplicate.pmt.get_download_url() }}"
                                  target="_blank"
-                                 title="ouvrir la PMT dans un autre onglet">
-                                  PMT
+                                 title="Ouvrir la PMT dans un autre onglet ({{ duplicate.get_status_display() }})">
+                                  <i class="material-icons">picture_as_pdf</i>
                               </a>
                               {% else %}
                                 {{ duplicate.caisse }}: {{ duplicate }} ({{ duplicate.get_status_display() }})
