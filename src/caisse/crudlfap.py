@@ -63,6 +63,13 @@ class CaisseListView(crudlfap.ListView):
         )
         return qs
 
+    @classmethod
+    def reverse(cls, *args, **kwargs):
+        return ''.join([
+            str(super().reverse(*args, **kwargs)),
+            '?active=2',
+        ])
+
 
 crudlfap.Router(
     Caisse,
