@@ -31,8 +31,8 @@
     <div class="select-field col s12" id="id_active_container">
         <label for="id_active">Activé</label>
         <select id="id_active" name="active">
-            <option selected="selected" value="1">Inconnu</option>
-            <option value="2">Oui</option>
+            <option value="1">Inconnu</option>
+            <option selected="selected" value="2">Oui</option>
             <option value="3">Non</option>
         </select>
         
@@ -61,35 +61,35 @@
         <tr>
         
             
-            <th class="orderable"><a href="?sort=code">Code</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=code">Code</a></th>
             
         
             
-            <th class="orderable"><a href="?sort=name">Nom</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=name">Nom</a></th>
             
         
             
-            <th class="orderable"><a href="?sort=number">Numéro</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=number">Numéro</a></th>
             
         
             
-            <th class="orderable"><a href="?sort=active">Activé</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=active">Activé</a></th>
             
         
             
-            <th class="orderable"><a href="?sort=score">Score</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=score">Score</a></th>
             
         
             
-            <th class="orderable"><a href="?sort=conflicts_accepted">Signalements confirmés</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=conflicts_accepted">Signalements confirmés</a></th>
             
         
             
-            <th class="orderable"><a href="?sort=conflicts_resolved">Signalements resolus</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=conflicts_resolved">Signalements resolus</a></th>
             
         
             
-            <th class="orderable"><a href="?sort=import_datetime">Dernier import</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=import_datetime">Dernier import</a></th>
             
         
             
@@ -226,75 +226,6 @@
         
         <li>
             <a class="" href="/admin/caisse/2?_next=/admin/caisse" title="bbbb">
-    <i class="blue-text material-icons">search</i>
-    
-    Detail
-    
-  </a>
-        </li>
-        
-      </ul>
-    
-  
-                </td>
-            
-        </tr>
-        
-    
-        
-        <tr class="even">
-            
-                <td><a href="/admin/caisse/3">333333333</a></td>
-            
-                <td>inactive</td>
-            
-                <td>333</td>
-            
-                <td><span class="false">✘</span></td>
-            
-                <td>2</td>
-            
-                <td>
-    <a href="/admin/mrsrequest?&amp;caisse=3&amp;has_conflicts_accepted=2">None</a>
-    </td>
-            
-                <td>
-    <a href="/admin/mrsrequest?&amp;caisse=3&amp;has_conflicts_resolved=2">None</a>
-    </td>
-            
-                <td>—</td>
-            
-                <td>
-                
-                
-    
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-3" title="Actions">
-        <i class="material-icons">more_vert</i>
-        
-      </a>
-
-      <ul class="dropdown-content" id="row-actions-3">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/delete?_next=/admin/caisse" title='Caisse "inactive": supprimer'>
-    <i class="red-text material-icons">delete</i>
-    
-    Supprimer
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/caisse/3/update?_next=/admin/caisse" title='Caisse "inactive": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" href="/admin/caisse/3?_next=/admin/caisse" title="inactive">
     <i class="blue-text material-icons">search</i>
     
     Detail
