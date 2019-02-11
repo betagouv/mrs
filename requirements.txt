@@ -1,5 +1,5 @@
 clilabs
-django>=2.1,<2.2
+django>=2.1.6,<2.2
 dj-static
 django-webpack-loader
 django-threadlocals
