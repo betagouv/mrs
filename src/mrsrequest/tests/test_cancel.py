@@ -4,7 +4,9 @@ import pytest
 from freezegun import freeze_time
 from responsediff.response import Response
 
+from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
+from person.models import Person
 
 
 mrsrequest_uuid = '2b88b740-3920-44e9-b086-c851f58e7ea7'
@@ -25,6 +27,18 @@ def mrsrequest_factory(status):
     mr = MRSRequest.objects.create(
         token='abc', pk=mrsrequest_uuid, distancevp=42,
         status=getattr(MRSRequest, f'STATUS_{status.upper()}'),
+        insured=Person.objects.create(
+            email='test@example.com',
+            first_name='foo',
+            last_name='bar',
+            nir='1231231231231',
+            birth_date='2000-12-12',
+        ),
+        caisse=Caisse.objects.create(
+            name='foo',
+            liquidation_email='foo@bar.com',
+            number=123,
+        )
     )
 
     mr.transport_set.create(
