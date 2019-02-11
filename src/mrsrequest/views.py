@@ -314,4 +314,9 @@ class MRSRequestCancelView(MRSRequestUpdateBaseView):
         self.object.status_datetime = datetime.now()
         self.object.save()
 
+        self.object.logentries.create(
+            action=MRSRequest.STATUS_CANCELED,
+            comment='Annulation',
+        )
+
         return generic.TemplateView.get(self, request, *args, **kwargs)
