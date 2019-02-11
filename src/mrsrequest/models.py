@@ -835,6 +835,7 @@ class MRSRequestLogEntry(models.Model):
         (MRSRequest.STATUS_NEW, 'Soumise'),
         (ACTION_UPDATE, 'Modifiée'),
         (3, 'Effacée'),  # not used
+        (MRSRequest.STATUS_CANCELED, 'Annulée'),
         (MRSRequest.STATUS_REJECTED, 'Rejetée'),
         (MRSRequest.STATUS_INPROGRESS, 'En cours de liquidation'),
         (MRSRequest.STATUS_VALIDATED, 'Validée'),
@@ -850,6 +851,7 @@ class MRSRequestLogEntry(models.Model):
         settings.AUTH_USER_MODEL,
         models.CASCADE,
         verbose_name='Utilisateur',
+        null=True,
     )
     mrsrequest = models.ForeignKey(
         'MRSRequest',

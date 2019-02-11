@@ -245,7 +245,11 @@
 
                         {{ localtime(entry.datetime).strftime('%d/%m/%Y %H:%M') }}
                         <span class="right">
+                            {% if entry.user %}
                             {{ entry.user }}
+                            {% else %}
+                            Assuré
+                            {% endif %}
                         </span>
                 </div>
                 {% endfor %}
