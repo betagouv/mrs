@@ -119,13 +119,12 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
             for name in ('nir', 'birth_date', 'distancevp')
         }
 
-        tem = template.loader.get_template(
+        return template.loader.get_template(
             'mrsrequest/{}_validation_mail_{}.txt'.format(
                 destination, part
             )
         ).render(dict(object=mrsrequest or self.object,
                       orig=orig)).strip()
-        return tem
 
     def mail_insured(self, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
