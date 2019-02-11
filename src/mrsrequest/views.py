@@ -319,4 +319,18 @@ class MRSRequestCancelView(MRSRequestUpdateBaseView):
             comment='Annulation',
         )
 
+        body = template.loader.get_template(
+            'mrsrequest/cancelation_email.txt'
+        ).render(dict(object=self.object)).strip()
+
+        Caller(
+            callback='djcall.django.email_send',
+            kwargs=dict(
+                subject=f'MRS: Annulation demande {self.object.display_id}',
+                body=body.strip(),
+                to=[self.object.insured.email],
+                reply_to=[self.object.caisse.liquidation_email],
+            )
+        ).spool('mail')
+
         return generic.TemplateView.get(self, request, *args, **kwargs)
