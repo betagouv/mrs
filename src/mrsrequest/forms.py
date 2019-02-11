@@ -1,7 +1,11 @@
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from decimal import Decimal
+import textwrap
 
 from django import forms
 from django.core import validators
+from django.core.exceptions import ValidationError
 from django.utils.datastructures import MultiValueDict
 
 import material
@@ -295,9 +299,31 @@ class MRSRequestCreateForm(forms.ModelForm):
         return obj
 
 
+def transport_date_min_validator(value):
+    date_min = (datetime.now() - relativedelta(months=27)).date()
+    date_min_display = f'{date_min.day}/{date_min.month}/{date_min.year}'
+
+    MSG = textwrap.dedent(f'''
+    Les dates de transports ne peuvent être inférieures a 27 mois, soit le
+    {date_min_display}, merci de corriger la date.
+    Pour plus d'information reportez vous à la rubrique "Combien de temps pour
+    demander un remboursement ?"
+    '''.strip())
+    if value < date_min:
+        raise ValidationError(MSG)
+
+
 class TransportForm(forms.Form):
-    date_depart = DateFieldNative(label='Date de l\'aller', required=True)
-    date_return = DateFieldNative(label='Date de retour', required=False)
+    date_depart = DateFieldNative(
+        label='Date de l\'aller',
+        required=True,
+        validators=[transport_date_min_validator]
+    )
+    date_return = DateFieldNative(
+        label='Date de retour',
+        required=False,
+        validators=[transport_date_min_validator]
+    )
 
     layout = material.Layout(
         material.Row(
