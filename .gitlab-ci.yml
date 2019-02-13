@@ -44,6 +44,13 @@ docker:
   - docker push
         betagouv/mrs:$CI_COMMIT_REF_NAME
 
+py-sec:
+  <<: *tox
+  cache:
+    paths: [.gitlab-cache.tar.gz]
+    key: ${CI_COMMIT_REF_SLUG}-py-sec
+  script: tox -e security
+
 py-qa:
   <<: *tox
   cache:
