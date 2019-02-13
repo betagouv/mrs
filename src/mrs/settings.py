@@ -70,6 +70,7 @@ INSTALLED_APPS = [
 ] + CRUDLFAP_APPS + DJANGO_APPS + [
     'djcall',
     'crudlfap_auth', 'mrsuser',  # the second overrides the first
+    'django.contrib.admindocs',
 ]
 
 AUTH_USER_MODEL = 'mrsuser.User'
