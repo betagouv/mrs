@@ -50,3 +50,8 @@ name: fixturereset
 help: Reset the generate fixture files
 script:
 - FIXTURE_REWRITE=1 tox -e py37-dj21 -- -s
+
+---
+name: runserver
+help: Runserver on all interfaces port 8000
+script: django-admin runserver --traceback 0:8000
