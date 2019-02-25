@@ -321,7 +321,7 @@ class MRSRequestCancelView(MRSRequestUpdateBaseView):
 
         body = template.loader.get_template(
             'mrsrequest/cancelation_email.txt'
-        ).render(dict(object=self.object)).strip()
+        ).render(dict(object=self.object, base_url=settings.BASE_URL)).strip()
 
         Caller(
             callback='djcall.django.email_send',

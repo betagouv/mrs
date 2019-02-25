@@ -2,6 +2,10 @@ Bonjour,
 
 L'annulation de votre demande {{ object.display_id }} a bien été enregistrée.
 
+Cliquez sur le lien suivant pour soumettre une nouvelle demande:
+
+{{ base_url }}{% url 'demande' %}
+
 Nous vous remercions pour votre action.
 
 Cordialement
