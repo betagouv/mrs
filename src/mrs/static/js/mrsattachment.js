@@ -40,10 +40,10 @@ var formInit = function(form) {
       'gif',
       'pdf'
     ],
-    maxFileSize: Math.pow(10, 7), // 10 MB
+    maxFileSize: 4096 * 1024,
     errorMsg: {
       mimeType: 'Extension de fichier refusé',
-      fileSize: 'Fichier trop lourd (10MB max.)'
+      fileSize: 'Fichier trop lourd (4MB max.)'
     }
   }
 
