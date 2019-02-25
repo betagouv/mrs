@@ -43,6 +43,18 @@ var formInit = function (form) {
     listen = true
   }
 
+  // Preselect caisse if found in cookie
+  var caisseSelected = Cookie.get('caisse')
+  if (parseInt(caisseSelected)) {
+    $(form).find('select#id_caisse').val(caisseSelected)
+  }
+  $(form).find('select#id_caisse').on('change', function() {
+    Cookie.set('caisse', $(this).val())
+  })
+
+  // Initialize select fields
+  $(form).find('select').select()
+
   // Show/hide modes
   if (!confirming) {
     for (var mode of ['vp', 'atp']) {
@@ -83,9 +95,6 @@ var formInit = function (form) {
   }
   $caisse.change(caisseChange)
   confirming || caisseChange()
-
-  // Initialize select fields
-  $(form).find('select').select()
 
   // Show/hide iterative
   var $iterativeShow = $(form).find('[name=iterative_show]')
