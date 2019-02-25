@@ -16,16 +16,7 @@
   </p>
 </div>
 <div class="form-row">
-    <pre style="color: black">{{ view.mail_render('insured', 'body') }}</pre>
-</div>
-
-<div class="red darken-1 white-text center">
-  <p class="flow-text">
-    ATTENTION la validation entraine l'envoie du mail suivant au service du Contrôle pour archivage.
-  </p>
-</div>
-<div class="form-row">
-    <pre style="color: black">{{ view.mail_render('liquidation', 'body') }}</pre>
+    <pre style="color: black">{{ view.mail_render('body') }}</pre>
 </div>
 {% csrf_token %}
 {% endblock %}
