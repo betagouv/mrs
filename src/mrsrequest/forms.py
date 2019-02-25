@@ -243,12 +243,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         return cleaned_data
 
     def data_attachments(self, data, files, mrsrequest_uuid):
-        pmt = PMT.objects.recorded_uploads(mrsrequest_uuid).last()
-        if pmt:
-            data['pmt'] = [pmt]
-        else:
-            data['pmt'] = []
-
+        data['pmt'] = PMT.objects.recorded_uploads(mrsrequest_uuid)
         data['billvps'] = BillVP.objects.recorded_uploads(mrsrequest_uuid)
         data['billatps'] = BillATP.objects.recorded_uploads(mrsrequest_uuid)
 
