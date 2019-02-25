@@ -18,8 +18,17 @@ import { h as React, render } from 'preact'
 import Header from './components/Header.js'
 import Carousel from './components/Caroussel.js'
 
+// Font-awesome select what we need
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
+import { faStarHalf } from '@fortawesome/free-solid-svg-icons/faStarHalf'
 
 (() => {
+  // load font-awesome
+  library.add(faStar)
+  library.add(faStarHalf)
+  dom.watch()
+
   let body = document.querySelector('body')
 
   const renderHeader = isFat => render(<Header isFat={ isFat } />, document.getElementById('header'))

@@ -32,6 +32,8 @@
     ]
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.15",
+    "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@sentry/webpack-plugin": "^1.6",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

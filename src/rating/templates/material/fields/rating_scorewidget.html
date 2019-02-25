@@ -1,0 +1,43 @@
+{% load l10n material_form material_form_internal rating_tags %}
+
+{% part bound_field.field %}
+    <div class="rating-group">
+        <input
+            class="rating__input rating__input--none"
+            name="{{ bound_field.html_name }}"
+            id="id_{{ bound_field.html_name }}_0"
+            value="0"
+            type="radio"
+            checked="checked"
+        >
+        <label aria-label="0 stars" class="rating__label" for="id_{{ bound_field.html_name }}-0">&nbsp;</label>
+        {% part field prefix %}{% endpart %}
+        {% part field control %}
+        {% for group, items in bound_field|select_options %}
+            {% for choice, value, selected in items %}
+            <label
+                for="id_{{ bound_field.html_name }}_{{ value }}"
+                aria-label="{{ value }} stars"
+                class="rating__label{% if not value|is_half %} rating__label--half{% endif %}"
+            >
+                <i class="rating__icon rating__icon--star fa fa-star{% if not value|is_half %}-half{% endif %}"></i>
+            </label>
+
+            <input{% attrs bound_field 'widget' default field.widget.attrs %}
+                id="id_{{ bound_field.html_name }}_{{ value }}"
+                name="{{ bound_field.html_name }}"
+                class="rating__input"
+                type="radio"
+                value="{{ value|unlocalize }}"
+                {% if selected %}checked{% endif %}
+            {% endattrs %}/>
+        {% endfor %}{% endfor %}{% endpart %}
+    </div>
+    {% part field help_text %}{% if field.help_text %}
+        <div class="help-block">{{ bound_field.help_text|safe }}</div>
+        {% endif %}{% part field errors %}
+        {% if bound_field.errors %}
+            {% include  'material/field_errors.html' %}
+        {% endif %}{% endpart %}
+        {% endpart %}{{ hidden_initial }}
+    {% endpart %}

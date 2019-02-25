@@ -274,10 +274,11 @@ var formSubmit = function(form) {
         formInit(form)
         submitUi.hideOverlay() // hide overlay
 
+        var $header = $('.Header--wrapper')
+        var headerHeight = $header.length ? $header.outerHeight() : 60
+
         var $error = $('.has-error')
         if ($error.length) {
-          var $header = $('.Header--wrapper')
-          var headerHeight = $header.length ? $header.outerHeight() : 60
           $('html, body').animate({
             // Compensate for heading to show
             scrollTop: $error.offset().top - headerHeight + 'px'
@@ -288,6 +289,11 @@ var formSubmit = function(form) {
             $('.error').attr('class', 'warning')
           }
         } else {
+          $('html, body').animate({
+            // Compensate for heading to show
+            scrollTop: $form.offset().top - headerHeight + 'px'
+          }, 'fast')
+
           document.querySelector('html').dispatchEvent(
             new CustomEvent(
               'mrsrequest-save',
