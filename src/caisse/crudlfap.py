@@ -10,9 +10,7 @@ from .models import Caisse, Email
 
 class CaisseListView(crudlfap.ListView):
     table_sequence = (
-        'code',
         'name',
-        'number',
         'active',
         'score',
         'conflicts_accepted',
