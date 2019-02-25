@@ -11,7 +11,7 @@ def nir_validate_alphanumeric(value):
     value = str(value)
 
     # A and B are acceptable on 7th position ...
-    if value[6] in ('A', 'B'):
+    if value[6] in ('A', 'B', 'a', 'b'):
         # only if 6th position character is 2 !
         if value[5] != '2':
             raise ValidationError(_('NIR_EXPECTED_2'))
