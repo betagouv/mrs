@@ -112,7 +112,7 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
     def get_queryset(self):
         return super().get_queryset().status('inprogress')
 
-    def mail_render(self, destination, part, mrsrequest=None):
+    def mail_render(self, part, mrsrequest=None):
         mrsrequest = mrsrequest or self.object
         orig = {
             name: mrsrequest.field_changed(name)
@@ -120,9 +120,7 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
         }
 
         return template.loader.get_template(
-            'mrsrequest/{}_validation_mail_{}.txt'.format(
-                destination, part
-            )
+            f'mrsrequest/insured_validation_mail_{part}.txt'
         ).render(dict(object=mrsrequest or self.object,
                       orig=orig)).strip()
 
@@ -131,8 +129,8 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
         Caller(
             callback='djcall.django.email_send',
             kwargs=dict(
-                subject=self.mail_render('insured', 'title', mrsrequest),
-                body=self.mail_render('insured', 'body', mrsrequest),
+                subject=self.mail_render('title', mrsrequest),
+                body=self.mail_render('body', mrsrequest),
                 to=[(mrsrequest or self.object).insured.email],
                 reply_to=[settings.TEAM_EMAIL],
             )

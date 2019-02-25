@@ -76,10 +76,10 @@
     <div class="input-field file-field col s12 required" id="id_pmt_container">
         <div class="btn">
             <span>Fichier</span>
-            <input data-max-files="1" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" name="pmt" type="file"/>
+            <input data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" multiple="multiple" name="pmt" type="file"/>
         </div>
         <div class="file-path-wrapper">
-            <input class="file-path" data-max-files="1" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" name="file" placeholder="Prescription Médicale de Transport obligatoire"/>
+            <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Prescription Médicale de Transport obligatoire"/>
         </div>
         <div class="help-block">Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande accord préalable</div>
 

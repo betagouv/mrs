@@ -28,7 +28,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         PMT,
         'mrsrequest:pmt_upload',
         'mrsrequest:pmt_download',
-        1,
+        20,
         label='Prescription Médicale de Transport obligatoire',
         help_text=(
             'Joindre le volet 2 de la prescription médicale '

@@ -685,21 +685,7 @@ class MRSRequest(models.Model):
         Bill.objects.recorded_uploads(self.id).update(mrsrequest=self)
 
     def save_pmt(self):
-        new_pmt = PMT.objects.recorded_uploads(self.id).last()
-
-        try:
-            current_pmt = self.pmt
-        except PMT.DoesNotExist:
-            pass
-        else:
-            if current_pmt == new_pmt:
-                return
-            else:
-                current_pmt.delete()
-
-        if new_pmt:
-            new_pmt.mrsrequest = self
-            new_pmt.save()
+        PMT.objects.recorded_uploads(self.id).update(mrsrequest=self)
 
     def get_bills(self, mode=None):
         bills = getattr(self, '_bills', None)
@@ -721,10 +707,13 @@ class MRSRequest(models.Model):
     @property
     def total_size(self):
         if getattr(self, '_total_size', None) is None:
-            self._total_size = 0
-            if self.pmt:
-                self._total_size = len(self.pmt.binary) + sum(
-                    [len(b.binary) for b in self.bill_set.all()])
+            self._total_size = sum(
+                [
+                    len(b.binary)
+                    for b in
+                    [*self.pmt_set.all()] + [*self.bill_set.all()]
+                ]
+            )
         return self._total_size
 
     def get_admin_url(self):
@@ -933,7 +922,7 @@ signals.pre_save.connect(creation_datetime_and_display_id, sender=MRSRequest)
 
 
 class PMT(MRSAttachment):
-    mrsrequest = models.OneToOneField(
+    mrsrequest = models.ForeignKey(
         'mrsrequest.MRSRequest',
         null=True,
         on_delete=models.CASCADE,
