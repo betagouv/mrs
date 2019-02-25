@@ -61,15 +61,7 @@
         <tr>
         
             
-            <th class="orderable"><a href="?active=2&amp;sort=code">Code</a></th>
-            
-        
-            
             <th class="orderable"><a href="?active=2&amp;sort=name">Nom</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?active=2&amp;sort=number">Numéro</a></th>
             
         
             
@@ -106,11 +98,7 @@
         
         <tr class="even">
             
-                <td><a href="/admin/caisse/1">111111111</a></td>
-            
-                <td>aaaaaaa</td>
-            
-                <td>111</td>
+                <td><a href="/admin/caisse/1">aaaaaaa</a></td>
             
                 <td><span class="true">✔</span></td>
             
@@ -175,11 +163,7 @@
         
         <tr class="odd">
             
-                <td><a href="/admin/caisse/2">222222222</a></td>
-            
-                <td>bbbb</td>
-            
-                <td>222</td>
+                <td><a href="/admin/caisse/2">bbbb</a></td>
             
                 <td><span class="true">✔</span></td>
             
