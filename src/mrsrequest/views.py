@@ -13,6 +13,8 @@ from djcall.models import Caller
 from caisse.models import Caisse, Email
 from caisse.forms import CaisseVoteForm
 from person.forms import PersonForm
+from rating.forms import RatingForm
+from rating.models import Rating
 
 from mrs.settings import TITLE_SUFFIX
 
@@ -79,14 +81,18 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
         }
         return json.dumps(caisses)
 
-    def has_perm(self):
+    def has_perm(self, exists=False):
         if not self.mrsrequest_uuid:  # require mrsrequest_uuid on post
             return False
 
         # view is supposed to create a new request
         try:
-            if MRSRequest.objects.filter(id=self.mrsrequest_uuid):
-                return False
+            if exists:
+                if not MRSRequest.objects.filter(id=self.mrsrequest_uuid):
+                    return False
+            else:
+                if MRSRequest.objects.filter(id=self.mrsrequest_uuid):
+                    return False
         except ValidationError:  # badly formated uuid
             return False
 
@@ -102,8 +108,43 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
 
         if caisse == 'other':
             return self.post_caisse(request, *args, **kwargs)
+        elif 'rating-score' in request.POST:
+            return self.post_rating(request, *args, **kwargs)
         else:
             return self.post_mrsrequest(request, *args, **kwargs)
+
+    def post_rating(self, request, *args, **kwargs):
+        self.mrsrequest_uuid = self.request.POST.get(
+            'rating-mrsrequest_uuid', None)
+        if not self.has_perm(exists=True):
+            return http.HttpResponseBadRequest()
+
+        self.rating_form = RatingForm(request.POST, prefix='rating')
+        self.rating_form.instance.mrsrequest = MRSRequest.objects.get(
+            pk=self.mrsrequest_uuid
+        )
+
+        if self.rating_form.is_valid():
+            with transaction.atomic():
+                self.success_rating = self.rating_form.save()
+
+        return generic.TemplateView.get(self, request, *args, **kwargs)
+
+    def rating_show(self):
+        requests = MRSRequest.objects.filter(
+            insured=self.object.insured,
+        )
+
+        previous = Rating.objects.filter(
+            mrsrequest__in=requests,
+        ).order_by('-creation_datetime').last()
+
+        if previous:
+            requests = requests.filter(
+                creation_datetime__gte=previous.creation_datetime
+            )
+
+        return requests.count() >= 5
 
     def post_caisse(self, request, *args, **kwargs):
         # needed for rendering
@@ -156,6 +197,13 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
                 with transaction.atomic():
                     self.save_mrsrequest()
                     self.success = True
+
+                if self.rating_show():
+                    self.rating_form = RatingForm(
+                        prefix='rating',
+                        initial=dict(mrsrequest_uuid=self.mrsrequest_uuid),
+                    )
+
             else:
                 # will be needed later on by save_mrsrequest to calculate the
                 # number of conflicts that the user has resolved on their own

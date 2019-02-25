@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'mrsemail',
     'mrsstat',
     'caisse',
+    'rating',
     'denorm',
     'explorer',
 
