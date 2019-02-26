@@ -6,6 +6,8 @@
 
 <div class="form--wrapper scroll-reveal">
     <form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
+        {% csrf_token %}
+
         {% if view.rating_form %}
             {% if view.success_rating %}
                 <h2 class="scroll-reveal">Nous vous remercions d'avoir partagé votre retour d'expérience !</h2>
@@ -68,8 +70,6 @@
             }
             {% endif %}
             </style>
-
-            {% csrf_token %}
 
             {% if view.confirm %}
                 <h2 class="has-error">Attention: motif de rejet potentiel</h2>
