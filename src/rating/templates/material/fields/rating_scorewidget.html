@@ -34,7 +34,6 @@
             {% endattrs %}/>
         {% endfor %}{% endfor %}{% endpart %}
     </div>
-</div>
     {% part field help_text %}{% if field.help_text %}
         <div class="help-block">{{ bound_field.help_text|safe }}</div>
         {% endif %}{% part field errors %}
@@ -42,4 +41,5 @@
             {% include  'material/field_errors.html' %}
         {% endif %}{% endpart %}
         {% endpart %}{{ hidden_initial }}
-    {% endpart %}
+</div>
+{% endpart %}

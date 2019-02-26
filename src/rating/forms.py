@@ -11,10 +11,12 @@ class ScoreWidget(forms.RadioSelect):
         super().__init__(attrs, choices)
 
 
+class ScoreField(forms.IntegerField):
+    empty_values = (None, '', [], (), {}, 0, '0')
+
+
 class RatingForm(forms.ModelForm):
-    score = forms.IntegerField(
-        min_value=1,
-        max_value=10,
+    score = ScoreField(
         widget=ScoreWidget,
     )
     comment = forms.CharField(
