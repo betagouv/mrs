@@ -1,6 +1,7 @@
 {% load l10n material_form material_form_internal rating_tags %}
 
 {% part bound_field.field %}
+<div style="text-align: center">
     <div class="rating-group">
         <input
             class="rating__input rating__input--none"
@@ -33,6 +34,7 @@
             {% endattrs %}/>
         {% endfor %}{% endfor %}{% endpart %}
     </div>
+</div>
     {% part field help_text %}{% if field.help_text %}
         <div class="help-block">{{ bound_field.help_text|safe }}</div>
         {% endif %}{% part field errors %}
