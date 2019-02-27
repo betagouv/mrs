@@ -1,0 +1,17 @@
+{% extends 'crudlfap/detail.html' %}
+
+{% block content %}
+{{ super() }}
+<table class="table">
+    {% for subject, total in view.contact_subjects_counts.items() %}
+    <tr>
+        <th>
+            {{ subject }}
+        </th>
+        <td>
+            {{ total }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

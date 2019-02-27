@@ -2,6 +2,7 @@ import pytest
 
 from django.conf import settings
 
+from mrsrequest.models import MRSRequest
 from contact.forms import ContactForm
 
 
@@ -13,6 +14,7 @@ def data(caisse):
         nom='alice',
         email='example@example.com',
         message='J\'écris "selfalut l\'monde.".',
+        mrsrequest_display_id='201801010000',
     )
 
 
@@ -26,6 +28,18 @@ def test_contactform_email_kwargs_request(p, srf, caisse, data):
     assert caisse.liquidation_email in kwargs['to']
     assert 'Motif: J\'ai fait une erreur' in kwargs['body']
 
+    # test the form save method
+    obj = form.save()
+    assert obj.caisse == caisse
+    assert obj.email == data['email']
+    assert obj.name == data['nom']
+    assert obj.message == data['message']
+    assert obj.mrsrequest is None
+
+    # check that it attaches the request if it exists
+    mrs = MRSRequest.objects.create(display_id=data['mrsrequest_display_id'])
+    assert form.save().mrsrequest == mrs
+
 
 @pytest.mark.django_db
 def test_contactform_email_kwargs_request_other(p, srf, caisse, data):
@@ -35,6 +49,8 @@ def test_contactform_email_kwargs_request_other(p, srf, caisse, data):
     assert form.is_valid()
     kwargs = form.get_email_kwargs()
     assert settings.TEAM_EMAIL in kwargs['to']
+    obj = form.save()
+    assert obj.caisse is None
 
 
 @pytest.mark.django_db

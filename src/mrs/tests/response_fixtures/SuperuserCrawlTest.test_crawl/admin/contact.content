@@ -1,0 +1,114 @@
+<div class="" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+          
+            
+<style type="text/css">
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m3 l2">
+    <div>
+      <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+        
+        
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+        
+        
+        
+<div class="row">
+    <div class="select-field col s12" id="id_caisse_container">
+        <label for="id_caisse">Caisse</label>
+        <select id="id_caisse" name="caisse">
+            <option value="">---------</option>
+        </select>
+        
+    </div>
+</div>
+
+        
+      </form>
+    </div>
+  </div>
+  
+
+  <div class="table-responsive col s12 m9 l10" id="render-table">
+    <div>
+      
+      <div class="table-container">
+        
+
+
+<div class="table-container">
+
+<table>
+    
+    
+    <thead>
+        <tr>
+        
+            
+            <th class="orderable"><a href="?sort=creation_datetime">Creation datetime</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=caisse">Caisse</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=name">Nom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=subject">Motif</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+</div>
+
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

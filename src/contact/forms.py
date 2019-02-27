@@ -7,6 +7,9 @@ from django.core import validators
 from django.utils.translation import gettext as _
 
 from caisse.forms import ActiveCaisseChoiceField
+from mrsrequest.models import MRSRequest
+
+from .models import Contact
 
 
 MOTIF_CHOICES = (
@@ -84,3 +87,24 @@ class ContactForm(forms.Form):
             to=to,
             reply_to=[data['email']],
         )
+
+    def save(self):
+        instance = Contact(
+            subject=self.cleaned_data['motif'],
+            name=self.cleaned_data['nom'],
+            email=self.cleaned_data['email'],
+            message=self.cleaned_data['message'],
+        )
+
+        mid = self.cleaned_data['mrsrequest_display_id']
+        if mid:
+            mrs = MRSRequest.objects.filter(display_id=mid).first()
+            if mrs:
+                instance.mrsrequest = mrs
+
+        caisse = self.cleaned_data['caisse']
+        if caisse != 'other':
+            instance.caisse = self.cleaned_data['caisse']
+
+        instance.save()
+        return instance
