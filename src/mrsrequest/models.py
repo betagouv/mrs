@@ -22,6 +22,10 @@ from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 TWOPLACES = Decimal(10) ** -2
 
 
+def today():
+    return datetime_date(datetime.datetime.now())
+
+
 def to_date_datetime(date_or_datetime, hour, minute, second, microsecond):
     mytz = pytz.timezone(settings.TIME_ZONE)
     if isinstance(date_or_datetime, datetime.datetime):
