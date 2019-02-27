@@ -27,6 +27,8 @@ class StatListView(crudlfap.ListView):
         'mrsrequest_count_inprogress',
         'mrsrequest_count_validated',
         'mrsrequest_count_rejected',
+        'mrsrequest_count_conflicted',
+        'mrsrequest_count_conflicting',
         'insured_shifts',
     ]
 

@@ -25,7 +25,7 @@ from .forms import (
     TransportIterativeForm,
     UseEmailForm,
 )
-from .models import Bill, MRSRequest, Transport
+from .models import today, Bill, MRSRequest, Transport
 
 
 class MRSRequestFormBaseView(generic.TemplateView):
@@ -198,6 +198,17 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
                     self.save_mrsrequest()
                     self.success = True
 
+                if self.conflicts_count:
+                    # also increment the daily stat !
+                    Caller(
+                        callback='mrsstat.models.increment',
+                        kwargs=dict(
+                            name='mrsrequest_count_conflicting',
+                            count=1,
+                            date=today(),
+                        ),
+                    ).spool('stat')
+
                 if self.rating_show():
                     self.rating_form = RatingForm(
                         prefix='rating',
@@ -213,9 +224,18 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
                     self.conflicts_count,
                 )
 
+                # also increment the daily stat !
+                Caller(
+                    callback='mrsstat.models.increment',
+                    kwargs=dict(
+                        name='mrsrequest_count_conflicted',
+                        count=1,
+                        date=today(),
+                    ),
+                ).spool('stat')
+
                 # trigger session backend write by session middleware
                 self.request.session.modified = True
-
                 self.confirm = True
 
         return generic.TemplateView.get(self, request, *args, **kwargs)

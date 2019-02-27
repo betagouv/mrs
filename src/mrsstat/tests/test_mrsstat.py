@@ -6,6 +6,7 @@ from freezegun import freeze_time
 from person.models import Person
 from mrsrequest.models import MRSRequest
 from mrsstat.models import (
+    increment,
     update_stat_for_mrsrequest,
     stat_update_person,
     Stat,
@@ -65,3 +66,13 @@ def test_stat_update():
     )
     for stat in stats:
         assert str(stat.savings) == '12.74'
+
+
+@freeze_time('2018-05-06 13:37:42')
+@pytest.mark.django_db
+def test_stat_increment():
+    Stat.objects.filter(date='2018-05-06').delete()
+    increment(name='mrsrequest_count_conflicted', count=1)
+    assert Stat.objects.get(date='2018-05-06').mrsrequest_count_conflicted == 1
+    increment(name='mrsrequest_count_conflicted', count=2)
+    assert Stat.objects.get(date='2018-05-06').mrsrequest_count_conflicted == 3

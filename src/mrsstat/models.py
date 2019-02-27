@@ -13,7 +13,7 @@ from djcall.models import Caller
 from caisse.models import Caisse
 from institution.models import Institution
 from person.models import Person
-from mrsrequest.models import datetime_max, MRSRequest
+from mrsrequest.models import datetime_max, today, MRSRequest
 
 
 logger = logging.getLogger(__name__)
@@ -69,6 +69,14 @@ class Stat(models.Model):
         'institution.Institution',
         on_delete=models.CASCADE,
         null=True
+    )
+    mrsrequest_count_conflicted = models.IntegerField(
+        verbose_name='Nb. affichages page de confirmation',
+        default=0,
+    )
+    mrsrequest_count_conflicting = models.IntegerField(
+        verbose_name='Nb. demandes soumises avec conflit non resolu',
+        default=0,
     )
 
     objects = StatManager()
@@ -261,6 +269,18 @@ def stat_update_person(sender, instance, **kwargs):
             req.saving = None
             req.save()
             stat_update(type(req), req)
+
+
+def increment(name, count, date=None):
+    date = date or today()
+    stat = Stat.objects.filter(date=date).first()
+    if not stat:
+        stat = Stat(date=date)
+    counter = getattr(stat, name, 0)
+    result = counter + count
+    setattr(stat, name, result)
+    stat.save()
+    logger.debug(f'Incremented {name}={counter}+{count}={result}')
 
 
 if not os.getenv('CI'):
