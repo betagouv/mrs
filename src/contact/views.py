@@ -14,5 +14,6 @@ class ContactView(generic.FormView):
             callback='djcall.django.email_send',
             kwargs=form.get_email_kwargs(),
         ).spool('mail')
+        form.save()
         self.success = True
         return generic.TemplateView.get(self, self.request)

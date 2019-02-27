@@ -7,6 +7,7 @@
             
           
             
+
 <div class="">
   <table class="table">
     <thead class="thead-inverse">
@@ -113,6 +114,10 @@
     
   </thead></table>
 </div>
+
+<table class="table">
+    
+</table>
 
           </div>
           <div class="modal-footer">

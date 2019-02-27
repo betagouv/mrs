@@ -15,6 +15,7 @@ class CaisseListView(crudlfap.ListView):
         'score',
         'conflicts_accepted',
         'conflicts_resolved',
+        'contacts',
         'import_datetime',
     )
 
@@ -40,7 +41,12 @@ class CaisseListView(crudlfap.ListView):
             conflicts_resolved_template,
             accessor='mrsrequest__conflicts_resolved__sum',
             verbose_name='Signalements resolus',
-        )
+        ),
+        contacts=tables.TemplateColumn(
+            '{{ record.contacts }}',
+            accessor='contacts',
+            verbose_name='Reclamations',
+        ),
     )
 
     search_fields = (
@@ -58,6 +64,7 @@ class CaisseListView(crudlfap.ListView):
         qs = qs.annotate(
             models.Sum('mrsrequest__conflicts_accepted'),
             models.Sum('mrsrequest__conflicts_resolved'),
+            contacts=models.Count('contact', distinct=True),
         )
         return qs
 
@@ -69,6 +76,18 @@ class CaisseListView(crudlfap.ListView):
         ])
 
 
+class CaisseDetailView(crudlfap.DetailView):
+    def get_contact_subjects_counts(self):
+        choices = dict(self.object.contact_set.model.SUBJECT_CHOICES)
+        qs = self.object.contact_set.values('subject').annotate(
+            total=models.Count('subject')
+        ).order_by('total')
+        return {
+            choices[res['subject']]: res['total']
+            for res in qs
+        }
+
+
 crudlfap.Router(
     Caisse,
     allowed_groups=['Admin'],
@@ -77,7 +96,7 @@ crudlfap.Router(
         crudlfap.CreateView.clone(form_class=CaisseForm),
         crudlfap.DeleteView,
         crudlfap.UpdateView.clone(form_class=CaisseForm),
-        crudlfap.DetailView,
+        CaisseDetailView,
         CaisseListView,
     ]
 ).register()

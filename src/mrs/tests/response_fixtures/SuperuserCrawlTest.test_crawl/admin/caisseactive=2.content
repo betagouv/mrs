@@ -81,6 +81,10 @@
             
         
             
+            <th class="orderable"><a href="?active=2&amp;sort=contacts">Reclamations</a></th>
+            
+        
+            
             <th class="orderable"><a href="?active=2&amp;sort=import_datetime">Dernier import</a></th>
             
         
@@ -111,6 +115,8 @@
                 <td>
     <a href="/admin/mrsrequest?&amp;caisse=1&amp;has_conflicts_resolved=2">0</a>
     </td>
+            
+                <td>0</td>
             
                 <td>—</td>
             
@@ -176,6 +182,8 @@
                 <td>
     <a href="/admin/mrsrequest?&amp;caisse=2&amp;has_conflicts_resolved=2">1</a>
     </td>
+            
+                <td>0</td>
             
                 <td>—</td>
             
