@@ -64,25 +64,6 @@
         
     </div>
 </div>
- 
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_score_container">
-        <input id="id_score" min="0" name="score" type="number" value="0"/>
-        <label class="active" for="id_score">Score</label>
-        
-    </div>
-</div>
- 
-
-
-<div class="row">
-    <div class="input-field col s12" id="id_import_datetime_container">
-        <input data-date-format="d/m/Y H:i:s" data-form-control="datetime" data-lang="fr" id="id_import_datetime" name="import_datetime" type="text"/>
-        <label for="id_import_datetime">Dernier import</label>
-        
-    </div>
-</div>
 
 
           </div>

@@ -76,8 +76,8 @@ crudlfap.Router(
     views=[
         crudlfap.CreateView.clone(form_class=CaisseForm),
         crudlfap.DeleteView,
-        crudlfap.UpdateView,
-        crudlfap.DetailView.clone(form_class=CaisseForm),
+        crudlfap.UpdateView.clone(form_class=CaisseForm),
+        crudlfap.DetailView,
         CaisseListView,
     ]
 ).register()
