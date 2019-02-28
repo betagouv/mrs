@@ -46,27 +46,22 @@ textarea {
 </div>
     </div>
     <ul id="slide-out" class="sidenav sidenav-fixed">
-  <li class="no-padding active"><a href="/admin/">Accueil</a></li>
+  <li class="no-padding active"><a href="/admin/"><i class="material-icons">home</i>Accueil</a></li>
   <li class="no-padding">
     <ul class="collapsible collapsible-accordion">
       
         
-          <li class="">
-            <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">insert_drive_file</i> Demandes</a>
-            <div class="collapsible-body">
-              <ul>
-                
-                  <li>
-                    <a
-                      class="waves-effect"
-                      href="/admin/mrsrequest"
-                      title="Demandes: liste"
-                    ><i class="material-icons">list</i>Liste</a>
-                  </li>
-                
-              </ul>
-            </div>
-          </li>
+          
+          
+            
+            <li class="">
+              <a
+                class="waves-effect"
+                href="/admin/mrsrequest"
+                title="Demandes: liste"
+              ><i class="material-icons">insert_drive_file</i>Demandes</a>
+            </li>
+          
         
       
     </ul>
