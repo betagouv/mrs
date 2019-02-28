@@ -7,6 +7,13 @@
 <div class="form--wrapper scroll-reveal">
     <form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
         {% csrf_token %}
+        {% if view.success %}
+            {% if INSTANCE == 'production' %}
+            <script type="text/javascript">
+            _paq.push(['trackEvent', 'request_created']);
+            </script>
+            {% endif %}
+        {% endif %}
 
         {% if view.rating_form %}
             {% if view.success_rating %}
