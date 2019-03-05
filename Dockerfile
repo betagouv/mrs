@@ -56,7 +56,6 @@ EXPOSE 6789
 CMD /usr/bin/dumb-init bash -euxc "mrs migrate --noinput && uwsgi \
   --spooler=${UWSGI_SPOOLER_MOUNT}/mail \
   --spooler=${UWSGI_SPOOLER_MOUNT}/stat \
-  --spooler-processes 8 \
   --socket=0.0.0.0:6789 \
   --chdir=/app \
   --plugin=python3,http,router_static,router_cache \
