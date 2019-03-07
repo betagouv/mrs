@@ -1,0 +1,42 @@
+<div class="container" id="modal-body-ajax">
+        
+<form action="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1/suspend" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-mrsrequest" method="post">
+
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default" id="modal-title-ajax">Demande "201810310000": en cours d'étude</h4>
+            
+          
+            
+    <div class="card-panel orange lighten-4">
+        Vous allez <b>suspendre</b> la demande 201810310000, confirmez-vous ?
+    </div>
+    
+  
+
+  
+
+  
+<div class="row">
+    <div class="input-field col s12 required" id="id_comment_container">
+        <textarea class="materialize-textarea" cols="40" id="id_comment" name="comment" rows="10"></textarea>
+        <label for="id_comment">Justification</label>
+        <div class="help-block">Merci d'indiquer le motif de mise en suspend du dossier</div>
+    </div>
+</div>
+
+
+
+          </div>
+          <div class="modal-footer">
+            
+    
+    <button class="btn btn-primary" type="submit">Oui</button>
+
+          </div>
+        
+  </form>
+
+
+      </div>

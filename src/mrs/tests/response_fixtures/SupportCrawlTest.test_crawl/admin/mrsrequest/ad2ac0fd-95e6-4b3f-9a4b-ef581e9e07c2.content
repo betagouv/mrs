@@ -105,7 +105,19 @@
                     Suivi du dossier
                 </div>
                 
-                <div class="odd"><div class="yellow-text text-darken-3">
+                <div class="odd"><div class="orange-text" title="Suspendue">
+                                <i class="material-icons right tiny"> pause</i>
+                            
+                            fraude potentielle
+                        </div>
+
+                        08/03/2019 09:25
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
+                <div class="even"><div class="green-text" title="En cours de liquidation">
                                 <i class="material-icons right tiny"> playlist_add_check</i>
                             
                             En cours de liquidation

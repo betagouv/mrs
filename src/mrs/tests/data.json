@@ -41,7 +41,8 @@
         "liquidation_email": "aaa@example.com",
         "active": true,
         "parking_enable": true,
-        "score": 0
+        "score": 0,
+        "import_datetime": null
     }
 },
 {
@@ -54,7 +55,8 @@
         "liquidation_email": "bbb@example.com",
         "active": true,
         "parking_enable": true,
-        "score": 0
+        "score": 0,
+        "import_datetime": null
     }
 },
 {
@@ -67,7 +69,8 @@
         "liquidation_email": null,
         "active": false,
         "parking_enable": true,
-        "score": 2
+        "score": 2,
+        "import_datetime": null
     }
 },
 {
@@ -580,7 +583,9 @@
         "email": "aoeu@example.com",
         "use_email": false,
         "nir": "1111111111111",
-        "shifted": null
+        "shifted": null,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0
     }
 },
 {
@@ -593,7 +598,9 @@
         "email": "aoeaoeuu@example.com",
         "use_email": false,
         "nir": "2333333333333",
-        "shifted": null
+        "shifted": null,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0
     }
 },
 {
@@ -606,7 +613,9 @@
         "email": "jpic@example.com",
         "use_email": false,
         "nir": "3212312312312",
-        "shifted": null
+        "shifted": null,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0
     }
 },
 {
@@ -616,12 +625,12 @@
         "first_name": "oaeu",
         "last_name": "oaeuoaeuao",
         "birth_date": "2000-05-29",
-        "conflicts_accepted": 2,
-        "conflicts_resolved": 1,
         "email": "test@test.com",
         "use_email": false,
         "nir": "1223123123123",
-        "shifted": true
+        "shifted": true,
+        "conflicts_accepted": 2,
+        "conflicts_resolved": 1
     }
 },
 {
@@ -634,7 +643,9 @@
         "email": "jim@example.com",
         "use_email": true,
         "nir": "1223123123122",
-        "shifted": null
+        "shifted": null,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0
     }
 },
 {
@@ -647,7 +658,9 @@
         "email": "jim@example.com",
         "use_email": true,
         "nir": "1223123123129",
-        "shifted": null
+        "shifted": null,
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0
     }
 },
 {
@@ -828,6 +841,18 @@
     }
 },
 {
+    "model": "mrsrequest.mrsrequestlogentry",
+    "pk": 24,
+    "fields": {
+        "datetime": "2019-03-08T08:25:50.265Z",
+        "user": 1,
+        "mrsrequest": "ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2",
+        "comment": "fraude potentielle",
+        "data": null,
+        "action": 900
+    }
+},
+{
     "model": "mrsrequest.mrsrequest",
     "pk": "13751dc2-18bb-4925-a8b4-84383a042bae",
     "fields": {
@@ -844,8 +869,10 @@
         "status": 999,
         "status_datetime": "2018-05-01T17:13:27Z",
         "status_user": 2,
+        "suspended": false,
         "institution": null,
         "mandate_datevp": null,
+        "mandate_dateatp": null,
         "payment_base": null,
         "payment_amount": null,
         "adeli": null,
@@ -856,6 +883,8 @@
             "birth_date": "2000-04-30",
             "first_name": "aoeu"
         },
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "taxi_cost": "188.24",
         "saving": "0.00",
         "delay": null
@@ -868,8 +897,6 @@
         "creation_datetime": "2018-05-03T08:32:58.790Z",
         "display_id": 201805030001,
         "caisse": 2,
-        "conflicts_accepted": 1,
-        "conflicts_resolved": 1,
         "insured": 4,
         "insured_shift": null,
         "modevp": true,
@@ -880,8 +907,10 @@
         "status": 2000,
         "status_datetime": "2018-05-03T14:21:01.400Z",
         "status_user": 1,
+        "suspended": false,
         "institution": null,
         "mandate_datevp": null,
+        "mandate_dateatp": null,
         "payment_base": null,
         "payment_amount": null,
         "adeli": null,
@@ -892,7 +921,9 @@
             "birth_date": "2000-05-29",
             "first_name": "oaeu"
         },
-        "taxi_cost": "3.20",
+        "conflicts_accepted": 1,
+        "conflicts_resolved": 1,
+        "taxi_cost": "4.93",
         "saving": null,
         "delay": null
     }
@@ -914,8 +945,10 @@
         "status": 1,
         "status_datetime": null,
         "status_user": null,
+        "suspended": false,
         "institution": null,
         "mandate_datevp": null,
+        "mandate_dateatp": null,
         "payment_base": null,
         "payment_amount": null,
         "adeli": null,
@@ -926,6 +959,8 @@
             "birth_date": "01/01/2001",
             "first_name": "titi"
         },
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "taxi_cost": "16.47",
         "saving": "0.00",
         "delay": null
@@ -948,8 +983,10 @@
         "status": 2000,
         "status_datetime": "2018-07-30T18:06:03Z",
         "status_user": 3,
+        "suspended": false,
         "institution": null,
         "mandate_datevp": null,
+        "mandate_dateatp": null,
         "payment_base": null,
         "payment_amount": null,
         "adeli": null,
@@ -960,6 +997,8 @@
             "birth_date": "2000-04-30",
             "first_name": "uea"
         },
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "taxi_cost": "21.15",
         "saving": "0.00",
         "delay": null
@@ -971,8 +1010,6 @@
     "fields": {
         "creation_datetime": "2018-05-02T15:17:03Z",
         "display_id": 201805020001,
-        "conflicts_accepted": 0,
-        "conflicts_resolved": 0,
         "caisse": 1,
         "insured": 4,
         "insured_shift": null,
@@ -984,8 +1021,10 @@
         "status": 1000,
         "status_datetime": "2018-05-05T15:17:19Z",
         "status_user": 1,
+        "suspended": true,
         "institution": null,
         "mandate_datevp": null,
+        "mandate_dateatp": null,
         "payment_base": null,
         "payment_amount": null,
         "adeli": null,
@@ -996,6 +1035,8 @@
             "birth_date": "2000-05-29",
             "first_name": "oaeu"
         },
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "taxi_cost": "7.88",
         "saving": null,
         "delay": null
@@ -1007,8 +1048,6 @@
     "fields": {
         "creation_datetime": "2018-05-03T08:31:36.603Z",
         "display_id": 201805030000,
-        "conflicts_accepted": 1,
-        "conflicts_resolved": 0,
         "caisse": 2,
         "insured": 4,
         "insured_shift": null,
@@ -1020,8 +1059,10 @@
         "status": 2000,
         "status_datetime": "2018-05-03T14:20:46.198Z",
         "status_user": 1,
+        "suspended": false,
         "institution": null,
         "mandate_datevp": null,
+        "mandate_dateatp": null,
         "payment_base": null,
         "payment_amount": null,
         "adeli": null,
@@ -1032,6 +1073,8 @@
             "birth_date": "2000-05-29",
             "first_name": "oaeu"
         },
+        "conflicts_accepted": 1,
+        "conflicts_resolved": 0,
         "taxi_cost": "3.46",
         "saving": null,
         "delay": null
@@ -1054,8 +1097,10 @@
         "status": 2000,
         "status_datetime": "2018-05-04T15:16:35Z",
         "status_user": 1,
+        "suspended": false,
         "institution": null,
         "mandate_datevp": null,
+        "mandate_dateatp": null,
         "payment_base": null,
         "payment_amount": null,
         "adeli": null,
@@ -1066,6 +1111,8 @@
             "birth_date": "2000-05-06",
             "first_name": "\u00e0\u00f4\u00e9\u00fb"
         },
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "taxi_cost": "10.83",
         "saving": "0.00",
         "delay": null
@@ -1088,8 +1135,10 @@
         "status": 2000,
         "status_datetime": "2018-05-04T15:16:35Z",
         "status_user": 1,
+        "suspended": false,
         "institution": null,
         "mandate_datevp": "2018-05-03",
+        "mandate_dateatp": null,
         "payment_base": "2.00",
         "payment_amount": "2.00",
         "adeli": null,
@@ -1100,9 +1149,11 @@
             "birth_date": "2000-05-29",
             "first_name": "oaeu"
         },
+        "conflicts_accepted": 0,
+        "conflicts_resolved": 0,
         "taxi_cost": "7.37",
         "saving": "5.37",
-        "delay": "14.36"
+        "delay": "0.36"
     }
 }
 ]

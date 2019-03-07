@@ -56,7 +56,7 @@ blabla</p>
                             <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
                         </div>
                     </div>
-                    <div class="red-text">
+                    <div class="red-text" title="Rejetée">
                                 <i class="material-icons right tiny"> do_not_disturb_on</i>
                             
                             Rejet pour autre motif
@@ -68,7 +68,7 @@ blabla</p>
                         </span>
                 </div>
                 
-                <div class="even"><div class="yellow-text text-darken-3">
+                <div class="even"><div class="green-text" title="En cours de liquidation">
                                 <i class="material-icons right tiny"> playlist_add_check</i>
                             
                             En cours de liquidation

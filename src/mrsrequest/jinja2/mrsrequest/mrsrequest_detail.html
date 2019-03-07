@@ -237,7 +237,8 @@
                     {% endif -%}
 
                         <div
-                                class="{% if entry.action == 999 %}red-text{% endif %}{% if entry.action == 1000 %}yellow-text text-darken-3{% endif %}{% if entry.action == 2000 %}green-text{% endif %}"
+                                class="{% if entry.action == 999 %}red-text{% elif entry.action in (1000, 2000) %}green-text{% elif entry.action == 900 %}orange-text{% endif %}"
+                                title="{{ entry.get_action_display() }}"
                         >
                             {%- if entry.get_icons() %}
                                 <i class="material-icons right tiny"> {{ entry.get_icons() }}</i>

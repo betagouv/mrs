@@ -55,6 +55,7 @@
         "status": 1,
         "status_datetime": null,
         "status_user": null,
+        "suspended": false,
         "taxi_cost": "147.42",
         "token": "ZDwdwFn8lrq2nSEgdUMTpkNmBEnYQvvQ_6o4PN8468s"
     },
