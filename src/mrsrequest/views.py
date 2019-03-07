@@ -137,7 +137,7 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
 
         previous = Rating.objects.filter(
             mrsrequest__in=requests,
-        ).order_by('-creation_datetime').last()
+        ).order_by('-creation_datetime').first()
 
         if previous:
             requests = requests.filter(
