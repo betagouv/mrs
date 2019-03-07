@@ -371,6 +371,11 @@ class MRSRequest(models.Model):
         on_delete=models.SET_NULL,
         verbose_name='Auteur du changement de statut',
     )
+    suspended = models.BooleanField(
+        db_index=True,
+        blank=True,
+        default=False
+    )
     institution = models.ForeignKey(
         'institution.Institution',
         null=True,
@@ -822,6 +827,7 @@ class MRSRequestLogEntryManager(models.Manager):
 
 class MRSRequestLogEntry(models.Model):
     ACTION_UPDATE = 2  # same ids as for django.contrib.admin.LogEntry
+    ACTION_SUSPEND = 900
     ACTION_CONTACT = 800
 
     ACTION_CHOICES = (
@@ -829,6 +835,7 @@ class MRSRequestLogEntry(models.Model):
         (ACTION_UPDATE, 'Modifiée'),
         (3, 'Effacée'),  # not used
         (MRSRequest.STATUS_CANCELED, 'Annulée'),
+        (ACTION_SUSPEND, 'Suspendue'),
         (MRSRequest.STATUS_REJECTED, 'Rejetée'),
         (MRSRequest.STATUS_INPROGRESS, 'En cours de liquidation'),
         (MRSRequest.STATUS_VALIDATED, 'Validée'),
@@ -884,6 +891,7 @@ class MRSRequestLogEntry(models.Model):
         icons = []
         action_icons = {
             self.ACTION_CONTACT: 'email',
+            MRSRequestLogEntry.ACTION_SUSPEND: 'pause',
             MRSRequest.STATUS_REJECTED: 'do_not_disturb_on',
             MRSRequest.STATUS_CANCELED: 'do_not_disturb_on',
             MRSRequest.STATUS_INPROGRESS: 'playlist_add_check',

@@ -187,15 +187,68 @@ class MRSRequestRejectView(EmailViewMixin,
     def has_perm(self):
         if super().has_perm():
             return self.object.status in (
-                self.model.STATUS_NEW, self.model.STATUS_INPROGRESS
+                self.model.STATUS_NEW,
+                self.model.STATUS_INPROGRESS
             )
-
-    def form_valid(self):
-        self.object.save()
-        return super().form_valid()
 
     def get_form_valid_message(self):
         return 'Demande n°{} rejetée'.format(self.object.display_id)
+
+
+class MRSRequestSuspendView(crudlfap.ObjectFormView):
+    fields = []
+    view_label = 'En cours d\'étude'
+    title_submit = 'Oui'
+    material_icon = 'pause'
+    color = 'orange'
+    action_flag = MRSRequestLogEntry.ACTION_SUSPEND
+    short_permission_code = 'suspend'
+    menus = ['object_detail']
+    allowed_groups = ['Admin', 'UPN']
+    controller = 'modal'
+    action = 'click->modal#open'
+
+    class form_class(forms.Form):
+        comment = forms.CharField(
+            label='Justification',
+            help_text=(
+                'Merci d\'indiquer le motif de mise'
+                ' en suspend du dossier'
+            ),
+            widget=forms.Textarea
+        )
+
+    def form_valid(self):
+        self.object.suspended = True
+        self.object.save()
+        return super().form_valid()
+
+    def log_insert(self):
+        self.object.logentries.create(
+            user=self.request.user,
+            comment=self.log_message,
+            action=self.object.logentries.model.ACTION_SUSPEND,
+        )
+
+    def get_log_message(self):
+        return self.form.cleaned_data['comment']
+
+    def get_form_valid_message(self):
+        return 'Demande n°{} suspendue'.format(
+            self.object.display_id
+        )
+
+    def has_perm(self):
+        if super().has_perm():
+            return self.object.status in (
+                self.model.STATUS_NEW,
+                self.model.STATUS_INPROGRESS,
+            ) and not self.object.suspended
+
+    def get_queryset(self):
+        return super().get_queryset().exclude(suspended=True).filter(
+            status__in=(self.model.STATUS_NEW, self.model.STATUS_INPROGRESS)
+        )
 
 
 class MRSRequestProgressView(MRSRequestStatusMixin, crudlfap.ObjectFormView):
@@ -805,6 +858,7 @@ class MRSRequestRouter(crudlfap.Router):
         MRSRequestDetailView,
         MRSRequestContactView,
         MRSRequestValidateView,
+        MRSRequestSuspendView,
         MRSRequestRejectView,
         MRSRequestProgressView,
         MRSRequestUpdateView,

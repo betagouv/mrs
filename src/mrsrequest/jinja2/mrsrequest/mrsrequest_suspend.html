@@ -1,0 +1,8 @@
+{% extends 'crudlfap/update.html' %}
+
+{% block content %}
+    <div class="card-panel orange lighten-4">
+        Vous allez <b>suspendre</b> la demande {{ view.object.display_id }}, confirmez-vous ?
+    </div>
+    {{ super() }}
+{% endblock %}

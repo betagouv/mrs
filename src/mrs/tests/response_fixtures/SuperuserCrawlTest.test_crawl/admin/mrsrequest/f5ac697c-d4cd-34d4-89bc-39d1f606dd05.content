@@ -39,7 +39,7 @@
                             Délai de paiement
                         </span>
                         <span class="right">
-                            14.36
+                            0.36
                         </span>
                     </p>
                     </div>
@@ -61,7 +61,7 @@
                     Suivi du dossier
                 </div>
                 
-                <div class="odd"><div class="green-text">
+                <div class="odd"><div class="green-text" title="Validée">
                                 <i class="material-icons right tiny"> check_circle</i>
                             
                             Validée
@@ -73,7 +73,7 @@
                         </span>
                 </div>
                 
-                <div class="even"><div class="yellow-text text-darken-3">
+                <div class="even"><div class="green-text" title="En cours de liquidation">
                                 <i class="material-icons right tiny"> playlist_add_check</i>
                             
                             En cours de liquidation

@@ -34,6 +34,7 @@
         "status_user": [
             "{'caisse': <Caisse: adminviews>}"
         ],
+        "suspended": false,
         "taxi_cost": 0,
         "token": "wT65yC_ynAVBo2Kf7aYwmpH2L2wCw65KEZgSs9ddB7M"
     },

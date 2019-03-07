@@ -45,11 +45,14 @@ class StatManager(models.Manager):
             institutions = list(Institution.objects.all()) + [None]
 
         for caisse, institution in itertools.product(caisses, institutions):
-            existing = self.filter(
+            base = self.filter(
                 date=date, caisse=caisse, institution=institution
-            ).first()
+            )
+            existing = base.first()
 
             if existing:
+                # delete potential duplicates
+                base.exclude(pk=existing.pk).delete()
                 existing.denorm_reset()
                 existing.save()
             else:
@@ -132,7 +135,9 @@ class Stat(models.Model):
         verbose_name='Délai moyen de paiement (en jours)',
     )
     def validation_average_delay(self):
-        return self.mrsrequest_set.status_changed(
+        return self.mrsrequest_set.exclude(
+            suspended=True
+        ).status_changed(
             'validated',
             self.date,
         ).aggregate(result=models.Avg('delay'))['result']
