@@ -219,6 +219,7 @@ demande avec votre :term:`FINESS`, par exemple::
 Les codes de statut sont:
 
 - 0: Soumise
+- 100: Annulée par l'assuré
 - 999: Rejetée
 - 1000: En cours
 - 2000: Validée
