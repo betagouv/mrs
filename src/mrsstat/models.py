@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 def date_range(min_date, max_date=None):
     max_date = max_date or datetime.date.today()
     date = min_date
-    while max_date > date:
+    while max_date >= date:
         yield date
         date += datetime.timedelta(days=1)
 

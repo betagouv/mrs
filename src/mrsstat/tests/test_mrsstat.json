@@ -343,5 +343,74 @@
     },
     "model": "mrsstat.stat",
     "pk": 15
+},
+{
+    "fields": {
+        "caisse": 1,
+        "date": "2018-05-06",
+        "institution": null,
+        "insured_shifts": 0,
+        "insured_shifts_total": 1,
+        "mrsrequest_count_conflicted": 0,
+        "mrsrequest_count_conflicting": 0,
+        "mrsrequest_count_inprogress": 0,
+        "mrsrequest_count_new": 0,
+        "mrsrequest_count_rejected": 0,
+        "mrsrequest_count_validated": 0,
+        "mrsrequest_total_inprogress": 4,
+        "mrsrequest_total_new": 5,
+        "mrsrequest_total_rejected": 1,
+        "mrsrequest_total_validated": 2,
+        "savings": null,
+        "validation_average_delay": null
+    },
+    "model": "mrsstat.stat",
+    "pk": 16
+},
+{
+    "fields": {
+        "caisse": 2,
+        "date": "2018-05-06",
+        "institution": null,
+        "insured_shifts": 0,
+        "insured_shifts_total": 0,
+        "mrsrequest_count_conflicted": 0,
+        "mrsrequest_count_conflicting": 0,
+        "mrsrequest_count_inprogress": 0,
+        "mrsrequest_count_new": 0,
+        "mrsrequest_count_rejected": 0,
+        "mrsrequest_count_validated": 0,
+        "mrsrequest_total_inprogress": 2,
+        "mrsrequest_total_new": 3,
+        "mrsrequest_total_rejected": 0,
+        "mrsrequest_total_validated": 2,
+        "savings": null,
+        "validation_average_delay": null
+    },
+    "model": "mrsstat.stat",
+    "pk": 17
+},
+{
+    "fields": {
+        "caisse": null,
+        "date": "2018-05-06",
+        "institution": null,
+        "insured_shifts": 0,
+        "insured_shifts_total": 1,
+        "mrsrequest_count_conflicted": 0,
+        "mrsrequest_count_conflicting": 0,
+        "mrsrequest_count_inprogress": 0,
+        "mrsrequest_count_new": 0,
+        "mrsrequest_count_rejected": 0,
+        "mrsrequest_count_validated": 0,
+        "mrsrequest_total_inprogress": 6,
+        "mrsrequest_total_new": 8,
+        "mrsrequest_total_rejected": 1,
+        "mrsrequest_total_validated": 4,
+        "savings": null,
+        "validation_average_delay": null
+    },
+    "model": "mrsstat.stat",
+    "pk": 18
 }
 ]
