@@ -1,0 +1,82 @@
+<div class="" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default" id="modal-title-ajax">Reject stat</h4>
+            
+          
+            
+<table>
+    <thead>
+        <tr>
+            <th>Commentaire</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td>
+                En cours de liquidation
+            </td>
+            <td>
+                6
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                Validée
+            </td>
+            <td>
+                4
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                fraude potentielle
+            </td>
+            <td>
+                1
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                Rejet pour autre motif
+            </td>
+            <td>
+                1
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                Modification de NIR et Date de naissance
+            </td>
+            <td>
+                1
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                Possibilité de trajets itératifs
+            </td>
+            <td>
+                1
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

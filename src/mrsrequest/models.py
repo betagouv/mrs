@@ -381,6 +381,7 @@ class MRSRequest(models.Model):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        verbose_name='Établissement',
     )
     mandate_datevp = models.DateField(
         null=True,
