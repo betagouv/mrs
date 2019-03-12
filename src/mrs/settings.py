@@ -88,6 +88,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'threadlocals.middleware.ThreadLocalMiddleware',
 ]
 
 ROOT_URLCONF = 'mrs.urls'

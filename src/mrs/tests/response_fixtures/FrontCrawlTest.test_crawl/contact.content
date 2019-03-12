@@ -103,6 +103,13 @@
     </div>
 </div>
 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_captcha_container">
+        <input id="id_captcha" name="captcha" type="text"/>        <div class="help-block">Merci de résoudre cette équation pour verifier que vous n'êtes pas un robot !</div>
+    </div>
+</div>
+
     </div>
 </div>
 

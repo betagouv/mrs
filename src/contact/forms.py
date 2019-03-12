@@ -9,6 +9,7 @@ from django.utils.translation import gettext as _
 from caisse.forms import ActiveCaisseChoiceField
 from mrsrequest.models import MRSRequest
 
+from .captcha import CaptchaField
 from .models import Contact
 
 
@@ -43,6 +44,7 @@ class ContactForm(forms.Form):
         ]
     )
     message = forms.CharField(widget=forms.Textarea)
+    captcha = CaptchaField()
 
     layout = material.Layout(
         material.Fieldset(
@@ -57,6 +59,7 @@ class ContactForm(forms.Form):
                 'email',
             ),
             'message',
+            'captcha',
         )
     )
 
