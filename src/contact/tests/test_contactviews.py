@@ -1,9 +1,20 @@
+import bunch
 import pytest
 
 from django.conf import settings
 
 from mrsrequest.models import MRSRequest
 from contact.forms import ContactForm
+from contact import captcha
+
+
+@pytest.fixture(autouse=True)
+def no_requests(monkeypatch):
+    monkeypatch.setattr(
+        captcha,
+        'get_current_request',
+        lambda: bunch.Bunch(session=bunch.Bunch(captcha=[1, 2]))
+    )
 
 
 @pytest.fixture
@@ -13,8 +24,9 @@ def data(caisse):
         caisse=caisse.pk,
         nom='alice',
         email='example@example.com',
-        message='J\'écris "selfalut l\'monde.".',
+        message='J\'écris "salut l\'monde.".',
         mrsrequest_display_id='201801010000',
+        captcha=3,
     )
 
 
