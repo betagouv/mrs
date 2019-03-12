@@ -44,7 +44,7 @@
  
 <div class="row">
     <div class="select-field col s12" id="id_institution_container">
-        <label for="id_institution">Institution</label>
+        <label for="id_institution">Établissement</label>
         <select id="id_institution" name="institution">
             <option value="">---------</option>
         </select>
@@ -166,7 +166,7 @@
             
         
             
-            <th class="orderable"><a href="?status=999&amp;sort=institution">Établissement</a></th>
+            <th class="orderable"><a href="?status=999&amp;sort=delay">Delay</a></th>
             
         
             

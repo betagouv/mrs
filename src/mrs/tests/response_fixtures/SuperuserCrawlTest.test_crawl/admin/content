@@ -90,7 +90,7 @@
             
         
             
-            <th class="orderable"><a href="?sort=institution">Établissement</a></th>
+            <th class="orderable"><a href="?sort=delay">Delay</a></th>
             
         
             
