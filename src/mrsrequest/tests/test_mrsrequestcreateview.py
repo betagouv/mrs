@@ -245,7 +245,7 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
     assert stat.mrsrequest_count_conflicting == 0
 
     # Resolve one conflict and confirm it's fine
-    data['transport-1-date_return'] = '03/02/2018'
+    data['transport-1-date_return'] = '03/02/2017'
     data['confirm'] = '1'
     p.post(**data)
     assert not p.view.form_errors()
@@ -275,8 +275,8 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
 
     # Resolve that conflicts with new dates for first  transport
     data['confirm'] = '1'
-    data['transport-0-date_depart'] = '03/01/2018'
-    data['transport-0-date_return'] = '03/01/2018'
+    data['transport-0-date_depart'] = '03/01/2017'
+    data['transport-0-date_return'] = '03/01/2017'
     p.post(**data)
     assert not p.view.form_errors()
     assert p.view.conflicts_count == 0
@@ -305,8 +305,8 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
     assert stat.mrsrequest_count_conflicting == 1
 
     # ... and fixing only the second one
-    data['transport-1-date_depart'] = '01/01/2018'
-    data['transport-1-date_return'] = '01/01/2018'
+    data['transport-1-date_depart'] = '01/01/2017'
+    data['transport-1-date_return'] = '01/01/2017'
     data['confirm'] = '1'
     p.post(**data)
     assert not p.view.form_errors()
