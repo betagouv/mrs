@@ -240,9 +240,12 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
     assert p.view.conflicts_count == 2
 
     # should touch the daily conflicted counter only
-    stat = Stat.objects.get(date='2017-12-19')
-    assert stat.mrsrequest_count_conflicted == 1
-    assert stat.mrsrequest_count_conflicting == 0
+    for _caisse in [caisse, None]:
+        stat = Stat.objects.get(date='2017-12-19', caisse=_caisse)
+        assert stat.mrsrequest_count_conflicted == 1
+        assert stat.mrsrequest_count_conflicting == 0
+        # well, until the user actually posts request, it's counted as resolved
+        assert stat.mrsrequest_count_resolved == 1
 
     # Resolve one conflict and confirm it's fine
     data['transport-1-date_return'] = '03/02/2017'
@@ -251,10 +254,13 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
     assert not p.view.form_errors()
     assert p.view.conflicts_count == 1
 
-    # conflicting counter should increment now
-    stat = Stat.objects.get(date='2017-12-19')
-    assert stat.mrsrequest_count_conflicted == 1
-    assert stat.mrsrequest_count_conflicting == 1
+    # conflicting counter should increment now .....
+    for _caisse in [caisse, None]:
+        stat = Stat.objects.get(date='2017-12-19', caisse=_caisse)
+        assert stat.mrsrequest_count_conflicted == 1
+        assert stat.mrsrequest_count_conflicting == 1
+        # .... which decreases the number of resolved conflicts to 0 !
+        assert stat.mrsrequest_count_resolved == 0
 
     # View should see one resolved and one accepted conflict
     assert p.view.forms['mrsrequest'].instance.insured.conflicts_resolved == 1
@@ -268,10 +274,14 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
     p.post(**data)
     assert p.view.conflicts_count == 1
 
-    # conflicted counter should not move
-    stat = Stat.objects.get(date='2017-12-19')
-    assert stat.mrsrequest_count_conflicted == 2
-    assert stat.mrsrequest_count_conflicting == 1
+    # conflicted counter should increase, resolved too (temporarily) and
+    # conflicting should stall
+    for _caisse in [caisse, None]:
+        stat = Stat.objects.get(date='2017-12-19', caisse=_caisse)
+        assert stat.mrsrequest_count_conflicted == 2
+        assert stat.mrsrequest_count_conflicting == 1
+        # increase again, temporary
+        assert stat.mrsrequest_count_resolved == 1
 
     # Resolve that conflicts with new dates for first  transport
     data['confirm'] = '1'
@@ -288,9 +298,12 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
     assert p.view.forms['mrsrequest'].instance.conflicts_accepted == 0
 
     # conflicted counter should not move (conflict_count = 0)
-    stat = Stat.objects.get(date='2017-12-19')
-    assert stat.mrsrequest_count_conflicted == 2
-    assert stat.mrsrequest_count_conflicting == 1
+    for _caisse in [caisse, None]:
+        stat = Stat.objects.get(date='2017-12-19', caisse=_caisse)
+        assert stat.mrsrequest_count_conflicted == 2
+        assert stat.mrsrequest_count_conflicting == 1
+        # user did post with all conflicts resolved, maintain the number
+        assert stat.mrsrequest_count_resolved == 1
 
     # While we're at it try just to increment accepted conflicts
     p.mrsrequest = MRSRequest()
@@ -300,9 +313,12 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
     assert p.view.conflicts_count == 2
 
     # conflicting counter should increment
-    stat = Stat.objects.get(date='2017-12-19')
-    assert stat.mrsrequest_count_conflicted == 3
-    assert stat.mrsrequest_count_conflicting == 1
+    for _caisse in [caisse, None]:
+        stat = Stat.objects.get(date='2017-12-19', caisse=_caisse)
+        assert stat.mrsrequest_count_conflicted == 3
+        assert stat.mrsrequest_count_conflicting == 1
+        # so far not submitted: temporary increase
+        assert stat.mrsrequest_count_resolved == 2
 
     # ... and fixing only the second one
     data['transport-1-date_depart'] = '01/01/2017'
@@ -319,9 +335,12 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
     assert p.view.forms['mrsrequest'].instance.conflicts_accepted == 1
 
     # conflicted counter should increment
-    stat = Stat.objects.get(date='2017-12-19')
-    assert stat.mrsrequest_count_conflicted == 3
-    assert stat.mrsrequest_count_conflicting == 2
+    for _caisse in [caisse, None]:
+        stat = Stat.objects.get(date='2017-12-19', caisse=_caisse)
+        assert stat.mrsrequest_count_conflicted == 3
+        assert stat.mrsrequest_count_conflicting == 2
+        # request was posted with a conflict which decreases that number
+        assert stat.mrsrequest_count_resolved == 1
 
 
 @pytest.mark.dbdiff(models=[Caisse, Email])

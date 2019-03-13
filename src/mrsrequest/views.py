@@ -206,6 +206,9 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
                             name='mrsrequest_count_conflicting',
                             count=1,
                             date=today(),
+                            caisse=self.forms['mrsrequest'].cleaned_data.get(
+                                'caisse').pk,
+                            recalculate=['mrsrequest_count_resolved'],
                         ),
                     ).spool('stat')
 
@@ -232,6 +235,9 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
                             name='mrsrequest_count_conflicted',
                             count=1,
                             date=today(),
+                            caisse=self.forms['mrsrequest'].cleaned_data.get(
+                                'caisse').pk,
+                            recalculate=['mrsrequest_count_resolved'],
                         ),
                     ).spool('stat')
                     self.session['conflicts_initial_incremented'] = True

@@ -239,6 +239,17 @@ class Stat(models.Model):
             insured_shift=True
         ).count()
 
+    @denormalized(
+        models.IntegerField,
+        default=0,
+        verbose_name='Nb. demandes en conflit resolu (non-soumise inclues)',
+    )
+    def mrsrequest_count_resolved(self):
+        return (
+            self.mrsrequest_count_conflicted
+            - self.mrsrequest_count_conflicting
+        )
+
     def __str__(self):
         return 'Stat for {}, caisse: {}, etab: {}'.format(
             self.date, self.caisse, self.institution)
@@ -276,16 +287,28 @@ def stat_update_person(sender, instance, **kwargs):
             stat_update(type(req), req)
 
 
-def increment(name, count, date=None):
+def increment(name, count, date=None, caisse=None, recalculate=None):
     date = date or today()
-    stat = Stat.objects.filter(date=date).first()
-    if not stat:
-        stat = Stat(date=date)
-    counter = getattr(stat, name, 0)
-    result = counter + count
-    setattr(stat, name, result)
-    stat.save()
-    logger.debug(f'Incremented {name}={counter}+{count}={result}')
+
+    if caisse:
+        caisses = [None, Caisse.objects.get(pk=caisse)]
+    else:
+        caisses = [None]
+
+    for caisse in caisses:
+        stat = Stat.objects.filter(date=date, caisse=caisse).first()
+        if not stat:
+            stat = Stat(date=date, caisse=caisse)
+
+        counter = getattr(stat, name, 0)
+        result = counter + count
+        setattr(stat, name, result)
+
+        for field in recalculate or []:
+            setattr(stat, field, None)
+
+        stat.save()
+        logger.debug(f'Incremented {name}={counter}+{count}={result}')
 
 
 if not os.getenv('CI'):

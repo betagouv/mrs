@@ -13,34 +13,25 @@ class CaisseListView(crudlfap.ListView):
         'name',
         'active',
         'score',
-        'conflicts_accepted',
-        'conflicts_resolved',
+        'conflicting',
+        'conflicted',
+        'resolved',
         'contacts',
         'import_datetime',
     )
 
-    conflicts_accepted_template = '''
-    <a
-        href="{{ record.get_conflicts_accepted_url }}"
-    >{{ record.mrsrequest__conflicts_accepted__sum }}</a>
-    '''
-
-    conflicts_resolved_template = '''
-    <a
-        href="{{ record.get_conflicts_resolved_url }}"
-    >{{ record.mrsrequest__conflicts_resolved__sum }}</a>
-    '''
-
     table_columns = dict(
-        conflicts_accepted=tables.TemplateColumn(
-            conflicts_accepted_template,
-            accessor='mrsrequest__conflicts_accepted__sum',
-            verbose_name='Signalements confirmés',
+        conflicting=tables.Column(
+            accessor='conflicting',
+            verbose_name='Signalements liquidateurs',
         ),
-        conflicts_resolved=tables.TemplateColumn(
-            conflicts_resolved_template,
-            accessor='mrsrequest__conflicts_resolved__sum',
-            verbose_name='Signalements resolus',
+        conflicted=tables.Column(
+            accessor='conflicted',
+            verbose_name='Signalements assurés',
+        ),
+        resolved=tables.Column(
+            accessor='resolved',
+            verbose_name='Signalements traités',
         ),
         contacts=tables.TemplateColumn(
             '{{ record.contacts }}',
@@ -62,8 +53,9 @@ class CaisseListView(crudlfap.ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.annotate(
-            models.Sum('mrsrequest__conflicts_accepted'),
-            models.Sum('mrsrequest__conflicts_resolved'),
+            conflicted=models.Sum('stat__mrsrequest_count_conflicting'),
+            conflicting=models.Sum('stat__mrsrequest_count_conflicted'),
+            resolved=models.Sum('stat__mrsrequest_count_resolved'),
             contacts=models.Count('contact', distinct=True),
         )
         return qs
