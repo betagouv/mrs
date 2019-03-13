@@ -73,11 +73,15 @@
             
         
             
-            <th class="orderable"><a href="?active=2&amp;sort=conflicts_accepted">Signalements confirmés</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=conflicting">Signalements liquidateurs</a></th>
             
         
             
-            <th class="orderable"><a href="?active=2&amp;sort=conflicts_resolved">Signalements resolus</a></th>
+            <th class="orderable"><a href="?active=2&amp;sort=conflicted">Signalements assurés</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?active=2&amp;sort=resolved">Signalements traités</a></th>
             
         
             
@@ -108,13 +112,11 @@
             
                 <td>0</td>
             
-                <td>
-    <a href="/admin/mrsrequest?&amp;caisse=1&amp;has_conflicts_accepted=2">0</a>
-    </td>
+                <td>0</td>
             
-                <td>
-    <a href="/admin/mrsrequest?&amp;caisse=1&amp;has_conflicts_resolved=2">0</a>
-    </td>
+                <td>0</td>
+            
+                <td>0</td>
             
                 <td>0</td>
             
@@ -175,13 +177,11 @@
             
                 <td>0</td>
             
-                <td>
-    <a href="/admin/mrsrequest?&amp;caisse=2&amp;has_conflicts_accepted=2">2</a>
-    </td>
+                <td>0</td>
             
-                <td>
-    <a href="/admin/mrsrequest?&amp;caisse=2&amp;has_conflicts_resolved=2">1</a>
-    </td>
+                <td>0</td>
+            
+                <td>0</td>
             
                 <td>0</td>
             

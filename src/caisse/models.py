@@ -62,14 +62,14 @@ class Caisse(models.Model):
     def short_code(self):
         return self.code[:5]
 
-    def get_conflicts_accepted_url(self):
+    def get_conflicting_url(self):
         return '&'.join([
             crudlfap.site['mrsrequest.mrsrequest']['list'].url + '?',
             f'caisse={self.pk}',
             f'has_conflicts_accepted=2',
         ])
 
-    def get_conflicts_resolved_url(self):
+    def get_conflicted_url(self):
         return '&'.join([
             crudlfap.site['mrsrequest.mrsrequest']['list'].url + '?',
             f'caisse={self.pk}',
