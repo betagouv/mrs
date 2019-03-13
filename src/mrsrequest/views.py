@@ -224,15 +224,17 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
                     self.conflicts_count,
                 )
 
-                # also increment the daily stat !
-                Caller(
-                    callback='mrsstat.models.increment',
-                    kwargs=dict(
-                        name='mrsrequest_count_conflicted',
-                        count=1,
-                        date=today(),
-                    ),
-                ).spool('stat')
+                # also increment the daily stat if not done already !
+                if 'conflicts_initial_incremented' not in self.session:
+                    Caller(
+                        callback='mrsstat.models.increment',
+                        kwargs=dict(
+                            name='mrsrequest_count_conflicted',
+                            count=1,
+                            date=today(),
+                        ),
+                    ).spool('stat')
+                    self.session['conflicts_initial_incremented'] = True
 
                 # trigger session backend write by session middleware
                 self.request.session.modified = True
