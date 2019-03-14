@@ -59,6 +59,15 @@
         <tr>
         
             
+            <th>
+            <label>
+                <input data-action="change-&gt;listaction#selectAllChange" data-controller="listaction" data-master="1" type="checkbox"/>
+                <span></span>
+            </label>
+        </th>
+            
+        
+            
             <th class="orderable"><a href="?sort=creation_datetime">Creation datetime</a></th>
             
         

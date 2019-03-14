@@ -8,6 +8,8 @@ class ContactRouter(crudlfap.Router):
     allowed_groups = ['Admin']
     material_icon = 'contact_mail'
     views = [
+        crudlfap.DeleteObjectsView,
+        crudlfap.DeleteView,
         crudlfap.ListView.clone(
             filter_fields=(
                 'caisse',
