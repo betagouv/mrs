@@ -53,8 +53,8 @@ class CaisseListView(crudlfap.ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.annotate(
-            conflicted=models.Sum('stat__mrsrequest_count_conflicting'),
-            conflicting=models.Sum('stat__mrsrequest_count_conflicted'),
+            conflicted=models.Sum('stat__mrsrequest_count_conflicted'),
+            conflicting=models.Sum('stat__mrsrequest_count_conflicting'),
             resolved=models.Sum('stat__mrsrequest_count_resolved'),
             contacts=models.Count('contact', distinct=True),
         )
