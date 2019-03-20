@@ -74,4 +74,5 @@ import { faStarHalf } from '@fortawesome/free-solid-svg-icons/faStarHalf'
   }
   resizeIframe()
   window.addEventListener('resize', resizeIframe)
+  M.updateTextFields()
 })()

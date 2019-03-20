@@ -11,6 +11,13 @@ var contactForm = function(form) {
 }
 
 var initForm = function (form) {
+  for (let element of form.querySelectorAll('textarea')) {
+    M.textareaAutoResize(element)
+  }
+
+  for (let element of form.querySelectorAll('input')) {
+    M.updateTextFields()
+  }
   form.addEventListener('submit', function (e) {
     e.preventDefault()
     submitForm(e.target)

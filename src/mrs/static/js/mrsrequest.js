@@ -52,6 +52,14 @@ var formInit = function (form) {
     Cookie.set('caisse', $(this).val())
   })
 
+  for (let element of form.querySelectorAll('textarea')) {
+    M.textareaAutoResize(element)
+  }
+
+  for (let element of form.querySelectorAll('input')) {
+    M.updateTextFields()
+  }
+
   // Initialize select fields
   $(form).find('select').select()
 
