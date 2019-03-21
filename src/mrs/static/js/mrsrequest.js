@@ -128,6 +128,10 @@ var formInit = function (form) {
     if (isNaN(i) || i < 1) {
       return
     }
+    if (i > 150) {
+      i = 150
+      $iterativeNumber.val('150')
+    }
     i--  // compensate for first form that starts at 0
 
     // remove all transport lines that have a form number above the i var
