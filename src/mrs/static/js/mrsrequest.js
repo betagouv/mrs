@@ -109,7 +109,7 @@ var formInit = function (form) {
     if ($iterativeShow.is(':checked')) {
       $iterativeNumberContainer.slideDown()
     } else {
-      $iterativeNumberContainer.hide()
+      $iterativeNumberContainer.slideUp()
       $iterativeNumberContainer.find(':input').val('1')
       $(form).find('[name*=-date_depart]:not(:first)').each(function() {
         $(this).parents('div.layout-row.row').remove()
@@ -179,9 +179,9 @@ var formInit = function (form) {
       return field.length && parseFloat(field.val().replace(',', '.')) > 0
     }
     if (active($expensevp) || active($parking)) {
-      $billvps.show()
+      $billvps.slideDown()
     } else {
-      $billvps.hide()
+      $billvps.slideUp()
     }
   }
   $expensevp.on('input', expensevpChange)
@@ -208,10 +208,10 @@ var formInit = function (form) {
     if ($('[name=trip_kind]:checked').val() == 'simple') {
       $('[name*=date_return]').val('')
       $('[name*=date_return]').prop('disabled', true)
-      $('[name*=date_return]').parent().parent().hide()
+      $('[name*=date_return]').parent().parent().fadeOut()
     } else {
       $('[name*=date_return]').prop('disabled', false)
-      $('[name*=date_return]').parent().parent().show()
+      $('[name*=date_return]').parent().parent().fadeIn()
     }
   })
   confirming || $('[name=trip_kind]').trigger('change')
