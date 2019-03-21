@@ -56,9 +56,7 @@ var formInit = function (form) {
     M.textareaAutoResize(element)
   }
 
-  for (let element of form.querySelectorAll('input')) {
-    M.updateTextFields()
-  }
+  M.updateTextFields()
 
   // Initialize select fields
   $(form).find('select').select()
