@@ -15,9 +15,8 @@ var initForm = function (form) {
     M.textareaAutoResize(element)
   }
 
-  for (let element of form.querySelectorAll('input')) {
-    M.updateTextFields()
-  }
+  M.updateTextFields()
+
   form.addEventListener('submit', function (e) {
     e.preventDefault()
     submitForm(e.target)
