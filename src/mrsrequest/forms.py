@@ -77,12 +77,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             'Somme totale des frais de transport en commun (en € TTC)'
         ),
         required=False,
-        widget=forms.NumberInput(
-            attrs=dict(
-                min='0',
-                step='0.01',
-            )
-        )
+        widget=forms.TextInput,
     )
 
     expensevp = forms.DecimalField(
@@ -94,12 +89,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             'Somme totale des frais de péage (en € TTC)'
         ),
         required=False,
-        widget=forms.NumberInput(
-            attrs=dict(
-                min='0',
-                step='0.01',
-            )
-        )
+        widget=forms.TextInput,
     )
 
     parking_expensevp = forms.DecimalField(
@@ -109,12 +99,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Frais de parking',
         help_text='Somme totale des frais de parking (en € TTC)',
         required=False,
-        widget=forms.NumberInput(
-            attrs=dict(
-                min='0',
-                step='0.01',
-            )
-        )
+        widget=forms.TextInput,
     )
 
     layouts = dict(
@@ -162,6 +147,9 @@ class MRSRequestCreateForm(forms.ModelForm):
             'modevp',
             'modeatp',
         ]
+        widgets = dict(
+            distancevp=forms.TextInput
+        )
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('initial', {})
