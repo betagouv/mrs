@@ -243,7 +243,7 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_distancevp_container">
-        <input id="id_distancevp" min="0" name="distancevp" type="number"/>
+        <input id="id_distancevp" name="distancevp" type="text"/>
         <label for="id_distancevp">Distance (km)</label>
         <div class="help-block">Total des kilomètres parcourus: en cas de transports aller retour, ou de transports itératifs indiquer le nombre total de km parcours. (ex.pour 2 trajets de 40 km, indiquer 80 km)</div>
     </div>
@@ -256,7 +256,7 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_expensevp_container">
-        <input id="id_expensevp" min="0" name="expensevp" step="0.01" type="number" value="0"/>
+        <input id="id_expensevp" name="expensevp" type="text" value="0"/>
         <label class="active" for="id_expensevp">Frais de péage</label>
         <div class="help-block">Somme totale des frais de péage (en € TTC)</div>
     </div>
@@ -265,7 +265,7 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_parking_expensevp_container">
-        <input id="id_parking_expensevp" min="0" name="parking_expensevp" step="0.01" type="number" value="0"/>
+        <input id="id_parking_expensevp" name="parking_expensevp" type="text" value="0"/>
         <label class="active" for="id_parking_expensevp">Frais de parking</label>
         <div class="help-block">Somme totale des frais de parking (en € TTC)</div>
     </div>
@@ -308,7 +308,7 @@
                     <div id="atp-form" style="display: none">
                           <div class="row">
     <div class="input-field col s12" id="id_expenseatp_container">
-        <input id="id_expenseatp" min="0" name="expenseatp" step="0.01" type="number" value="0"/>
+        <input id="id_expenseatp" name="expenseatp" type="text" value="0"/>
         <label class="active" for="id_expenseatp">Frais de transports</label>
         <div class="help-block">Somme totale des frais de transport en commun (en € TTC)</div>
     </div>
