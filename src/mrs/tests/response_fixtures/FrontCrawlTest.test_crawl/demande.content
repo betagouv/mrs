@@ -71,10 +71,32 @@
     <div class="col s12">
         <h5>Votre prescription médicale</h5>
         
+<div class="row radio-field">
+    <div class="col s12">
+        <label class="" for="id_pmt_pel_0">Avez-vous une ...</label>
+    </div>
+    <div class="col s12 required" id="id_pmt_pel_container">
+        <div class="radio" id="id_pmt_pel"><label>
+            <input checked="" class="with-gap" id="id_pmt_pel_0" name="pmt_pel" type="radio" value="pmt"/>
+            <span class="item-label" for="id_pmt_pel_0">PMT (Préscription Papier)</span>
+        </label></div>
+        <div class="radio" id="id_pmt_pel"><label>
+            <input class="with-gap" id="id_pmt_pel_1" name="pmt_pel" type="radio" value="pel"/>
+            <span class="item-label" for="id_pmt_pel_1">PEL (Préscription Électronique)</span>
+        </label></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    
+<div class="layout-row row"><div class="col s12 m12">
 
 
 <div class="row">
-    <div class="input-field file-field col s12 required" id="id_pmt_container">
+    <div class="input-field file-field col s12" id="id_pmt_container">
         <div class="btn">
             <span>Fichier</span>
             <input data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" multiple="multiple" name="pmt" type="file"/>
@@ -89,9 +111,20 @@
         </ul>
     </div>
 </div>
+</div></div>
 
+
+    
+<div class="layout-row row"><div class="col s12 m12">
+
+<div class="row">
+    <div class="input-field col s12" id="id_pel_container">
+        <input id="id_pel" name="pel" type="text"/>
+        <label for="id_pel">Numéro de préscription éléctronique</label>
+        <div class="help-block">Vous trouverez le numéro de PEL quelque part</div>
     </div>
 </div>
+</div></div>
 
                     </div>
                     

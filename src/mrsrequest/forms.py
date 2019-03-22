@@ -34,7 +34,24 @@ class MRSRequestCreateForm(forms.ModelForm):
         help_text=(
             'Joindre le volet 2 de la prescription médicale '
             'ou le volet 3 de la demande accord préalable'
-        )
+        ),
+        required=False,
+    )
+
+    pmt_pel = forms.ChoiceField(
+        choices=(
+            ('pmt', 'PMT (Préscription Papier)'),
+            ('pel', 'PEL (Préscription Électronique)'),
+        ),
+        initial='pmt',
+        label='Avez-vous une ...',
+        widget=forms.RadioSelect,
+    )
+
+    pel = forms.CharField(
+        label='Numéro de préscription éléctronique',
+        help_text='Vous trouverez le numéro de PEL quelque part',
+        required=False,
     )
 
     billvps = MRSAttachmentField(
@@ -112,7 +129,13 @@ class MRSRequestCreateForm(forms.ModelForm):
         top=material.Layout(
             material.Fieldset(
                 'Votre prescription médicale',
+                'pmt_pel',
+            ),
+            material.Row(
                 'pmt',
+            ),
+            material.Row(
+                'pel',
             ),
         ),
         modevp=material.Layout(
@@ -181,6 +204,12 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+
+        pmt_pel = cleaned_data.get('pmt_pel', 'pmt')
+        if pmt_pel == 'pmt' and not cleaned_data.get('pmt'):
+            self.add_error('pmt', 'Merci de sélectionner votre PMT')
+        elif pmt_pel == 'pel' and not cleaned_data.get('pel'):
+            self.add_error('pel', 'Merci de saisir votre numéro de PEL')
 
         vp = cleaned_data.get('modevp')
         atp = cleaned_data.get('modeatp')

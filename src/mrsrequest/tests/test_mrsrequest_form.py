@@ -32,6 +32,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
         data = dict()
         data['caisse'] = [caisse.pk]
         data['distancevp'] = ['100']
+        data['pmt_pel'] = ['pmt']
 
         for mode in ['atp', 'vp']:
             if f'expense{mode}' in extra:
