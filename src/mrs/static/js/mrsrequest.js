@@ -226,6 +226,19 @@ var formInit = function (form) {
   })
   confirming || $('[name=trip_kind]').trigger('change')
 
+  $(form).on('change', '[name=pmt_pel]', function() {
+    if ($('[name=pmt_pel]:checked').val() == 'pel') {
+      $('#id_pmt_container').parents('.layout-row.row').fadeOut(() => {
+        $('#id_pel_container').parents('.layout-row.row').fadeIn()
+      })
+    } else {
+      $('#id_pel_container').parents('.layout-row.row').fadeOut(() => {
+        $('#id_pmt_container').parents('.layout-row.row').fadeIn()
+      })
+    }
+  })
+  confirming || $('[name=pmt_pel]:first').trigger('change')
+
   M.AutoInit(form)
   $(form).is(':visible') || $(form).fadeIn()
   if (confirming) {

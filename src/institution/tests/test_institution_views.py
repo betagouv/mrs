@@ -83,6 +83,7 @@ def test_mrsrequestcreateview_post_save_integration(
     data['email'] = 'jpic@yourlabs.org'
     data['use_email'] = False
     data['nir'] = '1234567890123'
+    data['pmt_pel'] = 'pmt'
 
     # da key
     data['certify'] = True
