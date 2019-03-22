@@ -72,8 +72,9 @@ def test_mrsrequestcreateview_post_responds_with_new_and_allowed_uuid(srf):
 
 
 @pytest.mark.django_db
-def test_mrsrequestcreateview_requires_pmt(p):
+def test_mrsrequestcreateview_requires_pmt_by_default(p):
     p.post(mrsrequest_uuid=p.mrsrequest.id)
+    assert 'pel' not in p.view.forms['mrsrequest'].errors
     assert 'pmt' in p.view.forms['mrsrequest'].errors
 
     p.mrsrequest.pmt = PMT.objects.create(
@@ -83,6 +84,44 @@ def test_mrsrequestcreateview_requires_pmt(p):
     )
     p.post(mrsrequest_uuid=p.mrsrequest.id)
     assert 'pmt' not in p.view.forms['mrsrequest'].errors
+
+
+@pytest.mark.django_db
+def test_mrsrequestcreateview_requires_pel(p):
+    p.post(mrsrequest_uuid=p.mrsrequest.id, pmt_pel='pel')
+    assert 'pel' in p.view.forms['mrsrequest'].errors
+    assert 'pmt' not in p.view.forms['mrsrequest'].errors
+
+
+@pytest.mark.django_db
+def test_mrsrequestcreateview_pel_validation(p):
+    p.post(
+        mrsrequest_uuid=p.mrsrequest.id,
+        pmt_pel='pel',
+        pel='aoeuaoeua$e123'
+    )
+    assert 'pel' in p.view.forms['mrsrequest'].errors
+    assert 'pmt' not in p.view.forms['mrsrequest'].errors
+
+    p.post(
+        mrsrequest_uuid=p.mrsrequest.id,
+        pmt_pel='pel',
+        pel='aoeuaoeuaoe123'
+    )
+    assert 'pel' not in p.view.forms['mrsrequest'].errors
+    assert 'pmt' not in p.view.forms['mrsrequest'].errors
+
+
+@pytest.mark.django_db
+def test_mrsrequestcreateview_pel_integration(p, caisse):
+    data = form_data(
+        mrsrequest_uuid=p.mrsrequest.id,
+        pmt_pel='pel',
+        caisse=caisse.pk,
+        pel='aoeuaoeuaoe123',
+    )
+    p.post(**data)
+    assert MRSRequest.objects.get(pk=p.mrsrequest.id).pel == 'aoeuaoeuaoe123'
 
 
 @pytest.mark.django_db
@@ -98,6 +137,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     data['modevp'] = 'modevp'
     data['distancevp'] = '100'
     data['expensevp'] = '0'
+    data['pmt_pel'] = 'pmt'
     p.mrsrequest.pmt = PMT.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
@@ -158,6 +198,7 @@ def form_data(**data):
     data['use_email'] = False
     data['nir'] = '1234567890123'
     data['certify'] = True
+    data['pmt_pel'] = 'pmt'
 
     PMT.objects.create(
         mrsrequest_uuid=data['mrsrequest_uuid'],
