@@ -44,7 +44,7 @@ class ContactForm(forms.Form):
         ]
     )
     message = forms.CharField(widget=forms.Textarea)
-    captcha = CaptchaField()
+    captcha = CaptchaField(required=True)
 
     layout = material.Layout(
         material.Fieldset(
