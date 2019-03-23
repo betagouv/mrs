@@ -16,8 +16,16 @@ class FrontCrawlTest(ResponseDiffTestMixin, test.TestCase):
     def get_content_replace_patterns(self, response):
         return super().get_content_replace_patterns(response) + [
             ('\n.*id_mrsrequest_uuid.*\n', ''),
-            ('\n.*label.*id_captcha.*\n', ''),
+            (
+                '\n.*<(a|img|input).*'
+                '(name|id|href|class)='
+                '"[^"]*captcha[^"]*"[^>]*>[^\n]*',
+                ''
+            ),
         ]
+
+    def skip_url(self, url):
+        return '.wav' in url or super().skip_url(url)
 
 
 class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):

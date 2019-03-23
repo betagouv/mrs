@@ -103,11 +103,20 @@
     </div>
 </div>
 
-
 <div class="row">
-    <div class="input-field col s12 required" id="id_captcha_container">
-        <input id="id_captcha" name="captcha" type="text"/>        <div class="help-block">Merci de résoudre cette équation pour verifier que vous n'êtes pas un robot !</div>
-    </div>
+  <div class="col s12" style="display: flex; align-items: space-evenly">
+
+<div class="input-field id_captcha_container required has-error" style="margin-left: 1rem; width: 100%">
+
+
+  <label for="id_captcha_1">Recopier le texte l'image</label>
+      
+      <span class="helper-text">
+          Merci de recopier le texte de l'image pour prouver que vous n'êtes pas un robot à spam. <br/>
+          <span class="link captcha-refresh">Cliquez ici</span> pour obtenir une nouvelle image si elle est illisible.
+      </span>
+    </div> 
+  </div>
 </div>
 
     </div>

@@ -1,0 +1,14 @@
+{% load i18n %}
+<div class="row">
+  <div class="col s12" style="display: flex; align-items: space-evenly">
+    {{ bound_field }}
+      {% if bound_field.errors %}
+          {% include  'material/field_errors.html' %}
+      {% endif %}
+      <span class="helper-text">
+          Merci de recopier le texte de l'image pour prouver que vous n'êtes pas un robot à spam. <br />
+          <span class="link captcha-refresh">Cliquez ici</span> pour obtenir une nouvelle image si elle est illisible.
+      </span>
+    </div> {# this div is opened by bound_field #}
+  </div>
+</div>
