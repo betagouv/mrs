@@ -532,16 +532,16 @@ class MRSRequest(models.Model):
         )
 
     @classmethod
-    def get_status_label(self, number):
-        for flag, label in self.STATUS_CHOICES:
+    def get_status_label(cls, number):
+        for flag, label in cls.STATUS_CHOICES:
             if flag == number:
                 return label
 
     @classmethod
-    def get_status_id(self, name):
+    def get_status_id(cls, name):
         if isinstance(name, int):
             return name
-        return getattr(self, 'STATUS_{}'.format(name.upper()))
+        return getattr(cls, 'STATUS_{}'.format(name.upper()))
 
     def denorm_reset(self):
         self.delay = self.cost = self.saving = None
@@ -876,11 +876,11 @@ class MRSRequestLogEntry(models.Model):
         return f'{self.mrsrequest}: {self.comment}'
 
     @classmethod
-    def get_action_id(self, name):
+    def get_action_id(cls, name):
         if isinstance(name, int):
             return name
 
-        for value, name in self.ACTION_CHOICES:
+        for value, name in cls.ACTION_CHOICES:
             if name == name:
                 return value
 

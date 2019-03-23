@@ -10,3 +10,17 @@ mccabe==0.6
 ipdb
 django-debug-toolbar
 django-extensions
+
+codecov>=1.4.0
+freezegun
+django-responsediff>=0.8,<0.9
+bunch
+pytest
+pytest-cov
+pytest-django
+pytest-mock
+pytest-watch
+mock
+sqlparse
+django-dbdiff>=0.9.5
+psycopg2

@@ -13,7 +13,7 @@ ENV LOG=/app/log
 ENV VIRTUAL_PROTO=uwsgi
 EXPOSE 6789
 
-RUN apk update && apk --no-cache upgrade && apk --no-cache add ca-certificates gettext shadow python3 py3-psycopg2 dumb-init bash git curl uwsgi-python3 uwsgi-http uwsgi-spooler uwsgi-cache uwsgi-router_cache uwsgi-router_static && pip3 install --upgrade pip
+RUN apk update && apk --no-cache upgrade && apk --no-cache add ca-certificates gettext shadow python3 py3-pillow py3-psycopg2 dumb-init bash git curl uwsgi-python3 uwsgi-http uwsgi-spooler uwsgi-cache uwsgi-router_cache uwsgi-router_static && pip3 install --upgrade pip
 RUN mkdir -p /app && usermod -d /app -l app node && groupmod -n app node && chown -R app:app /app
 RUN curl -sL https://sentry.io/get-cli/ | bash
 WORKDIR /app
@@ -53,7 +53,8 @@ RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}
 
 EXPOSE 6789
 
-CMD /usr/bin/dumb-init bash -euxc "mrs migrate --noinput && uwsgi \
+CMD /usr/bin/dumb-init bash -euxc "mrs migrate --noinput \
+  && uwsgi \
   --spooler=${UWSGI_SPOOLER_MOUNT}/mail \
   --spooler=${UWSGI_SPOOLER_MOUNT}/stat \
   --socket=0.0.0.0:6789 \

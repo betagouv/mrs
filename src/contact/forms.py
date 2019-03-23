@@ -7,9 +7,9 @@ from django.core import validators
 from django.utils.translation import gettext as _
 
 from caisse.forms import ActiveCaisseChoiceField
+from captcha.fields import CaptchaField
 from mrsrequest.models import MRSRequest
 
-from .captcha import CaptchaField
 from .models import Contact
 
 
@@ -44,7 +44,7 @@ class ContactForm(forms.Form):
         ]
     )
     message = forms.CharField(widget=forms.Textarea)
-    captcha = CaptchaField()
+    captcha = CaptchaField(required=True)
 
     layout = material.Layout(
         material.Fieldset(

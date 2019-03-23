@@ -19,7 +19,7 @@ variables:
 
 .tox: &tox
   stage: test
-  image: jpic/tox
+  image: yourlabs/python
   before_script:
   - tar -xzf .gitlab-cache.tar.gz -C / || true
   after_script:
@@ -53,11 +53,8 @@ py-sec-safety:
   script: safety check
 
 py-qa:
-  <<: *tox
-  cache:
-    paths: [.gitlab-cache.tar.gz]
-    key: ${CI_COMMIT_REF_SLUG}-qa
-  script: tox -e qa
+  image: yourlabs/python
+  script: ./sh.yml py.qa
 
 py-test:
   <<: *tox
@@ -69,10 +66,7 @@ py-test:
   script:
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
     DB_USER=postgres
-    tox --sitepackages -e py36-dj21 -- --cov src src
-  - PATH=.tox/py36-dj21/bin:$PATH
-    codecov --token $CODECOV_TOKEN
-    -e $TOXENV
+    cov='--cov src src' ./sh.yml py.test
 
 js-qa:
   stage: test
@@ -97,7 +91,7 @@ docs-qa:
   cache:
     paths: [.gitlab-cache.tar.gz]
     key: ${CI_COMMIT_REF_SLUG}-docs
-  script: tox -e docs
+  script: tox --sitepackages -e docs
 
 js-acceptance:
   stage: release
