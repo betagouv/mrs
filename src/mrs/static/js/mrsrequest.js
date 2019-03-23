@@ -82,21 +82,27 @@ var formInit = function (form) {
   var $parkingEnable = $(form).find('[data-parking-enable]')
   var caisseChange = function() {
     if ($caisse.val() == 'other') {
-      $caisseForm.show()
-      $mrsrequestForm.hide()
+      $mrsrequestForm.hide('slide')
+      $caisseForm.show('slide')
     } else if ($caisse.val()) {
-      $caisseForm.hide()
-      $mrsrequestForm.show()
+      $caisseForm.hide('slide')
+      $mrsrequestForm.show('slide')
+      var $header = $('.Header--wrapper')
+      var headerHeight = $header.length ? $header.outerHeight() : 60
+      $('html, body').animate({
+        // Compensate for heading to show
+        scrollTop: $('#pmt-form').offset().top - headerHeight + 'px'
+      }, 'fast')
       if (document.caisses[$caisse.val()].parking_enable) {
-        $parking.parents('.col').show()
-        $parkingEnable.show()
+        $parking.parents('.col').show('slide')
+        $parkingEnable.show('slide')
       } else {
-        $parking.parents('.col').hide()
-        $parkingEnable.hide()
+        $parking.parents('.col').hide('slide')
+        $parkingEnable.hide('slide')
       }
     } else {
-      $mrsrequestForm.hide()
-      $caisseForm.hide()
+      $mrsrequestForm.hide('slide')
+      $caisseForm.hide('slide')
     }
   }
   $caisse.change(caisseChange)
