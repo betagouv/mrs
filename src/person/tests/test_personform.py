@@ -41,6 +41,15 @@ def test_personform_clean_nir(d):
     form.full_clean()
     assert 'nir' not in form.errors
 
+    for i in range(0, 12):
+        d['nir'] = 'a' * i
+        form.full_clean()
+        assert 'nir' in form.errors
+
+    d['nir'] = 'aoeu'
+    form.full_clean()
+    assert 'nir' in form.errors
+
     d['nir'] = '123456789012a'
     form.full_clean()
     assert 'nir' in form.errors
