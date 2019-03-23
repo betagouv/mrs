@@ -8,7 +8,13 @@ from django.utils.translation import gettext as _
 
 def nir_validate_alphanumeric(value):
     """Validate NIR number with Corsican letters support."""
+    if not value:
+        raise ValidationError(_('NIR_EXPECTED_NUMBER'))
+
     value = str(value)
+
+    if len(value) < 7:
+        raise ValidationError(_('NIR_EXPECTED_NUMBER'))
 
     # A and B are acceptable on 7th position ...
     if value[6] in ('A', 'B', 'a', 'b'):
@@ -23,7 +29,7 @@ def nir_validate_alphanumeric(value):
         value = value[:6] + '0' + value[7:]
 
     if not value.isdigit():
-        raise ValidationError(_('NIR_UNEXPECTED_LETTER'))
+        raise ValidationError(_('NIR_EXPECTED_NUMBER'))
 
 
 class Person(models.Model):
