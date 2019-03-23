@@ -47,6 +47,7 @@ urlpatterns = [
         stream=False,
     )),
     path('explorer/', include('explorer.urls')),
+    path('captcha/', include('captcha.urls')),
     path('stats/', views.generic.RedirectView.as_view(
         url='/stats', permanent=True)),
     path(

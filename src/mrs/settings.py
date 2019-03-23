@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'rating',
     'denorm',
     'explorer',
+    'captcha',
 
     os.getenv('WEBPACK_LOADER', 'webpack_loader'),
     'django_humanize',
