@@ -57,7 +57,7 @@ py-qa:
   cache:
     paths: [.gitlab-cache.tar.gz]
     key: ${CI_COMMIT_REF_SLUG}-qa
-  script: tox -e qa
+  script: tox --sitepackages -e qa
 
 py-test:
   <<: *tox
@@ -97,7 +97,7 @@ docs-qa:
   cache:
     paths: [.gitlab-cache.tar.gz]
     key: ${CI_COMMIT_REF_SLUG}-docs
-  script: tox -e docs
+  script: tox --sitepackages -e docs
 
 js-acceptance:
   stage: release
