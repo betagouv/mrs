@@ -301,12 +301,12 @@ def transport_date_max_validator(value):
     date_max = today()
     date_max_display = f'{date_max.day}/{date_max.month}/{date_max.year}'
 
-    MSG = textwrap.dedent(f'''
+    msg = textwrap.dedent(f'''
     Les dates de transports ne peuvent être supérieures à la date du jour, soit
     le {date_max_display}, merci de corriger la date.
     '''.strip())
     if value > date_max:
-        raise ValidationError(MSG)
+        raise ValidationError(msg)
 
 
 class TransportForm(forms.Form):
