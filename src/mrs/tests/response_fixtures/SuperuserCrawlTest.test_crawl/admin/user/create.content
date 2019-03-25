@@ -54,7 +54,7 @@
 <div class="row">
     <div class="select-field col s12 multiselect" id="id_groups_container">
         <label for="id_groups">Groups</label>
-        <select id="id_groups" multiple="True" name="groups">
+        <select id="id_groups" multiple="multiple" name="groups">
             <option disabled="" value="">Choisissez votre option</option>
             <option value="1">Admin</option>
             <option value="2">UPN</option>
@@ -71,7 +71,7 @@
 <div class="row">
     <div class="select-field col s12 multiselect" id="id_caisses_container">
         <label for="id_caisses">Caisses</label>
-        <select id="id_caisses" multiple="True" name="caisses">
+        <select id="id_caisses" multiple="multiple" name="caisses">
             <option disabled="" value="">Choisissez votre option</option>
             <option value="1">aaaaaaa</option>
             <option value="2">bbbb</option>

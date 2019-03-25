@@ -3,22 +3,19 @@ import pytest
 
 from django.conf import settings
 
-from mrsrequest.models import MRSRequest
+from captcha.models import CaptchaStore
 from contact.forms import ContactForm
-from contact import captcha
-
-
-@pytest.fixture(autouse=True)
-def no_requests(monkeypatch):
-    monkeypatch.setattr(
-        captcha,
-        'get_current_request',
-        lambda: bunch.Bunch(session=bunch.Bunch(captcha=[1, 2]))
-    )
+from mrsrequest.models import MRSRequest
 
 
 @pytest.fixture
-def data(caisse):
+@pytest.mark.django_db
+def captcha():
+    return CaptchaStore.objects.get_or_create(response='3', hashkey='3')[0]
+
+
+@pytest.fixture
+def data(caisse, captcha):
     return dict(
         motif='request_error',
         caisse=caisse.pk,
@@ -26,7 +23,8 @@ def data(caisse):
         email='example@example.com',
         message='J\'écris "salut l\'monde.".',
         mrsrequest_display_id='201801010000',
-        captcha=3,
+        captcha_0=captcha.hashkey,
+        captcha_1=captcha.response,
     )
 
 
