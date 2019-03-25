@@ -287,14 +287,14 @@ def transport_date_min_validator(value):
     date_min = (datetime.now() - relativedelta(months=27)).date()
     date_min_display = f'{date_min.day}/{date_min.month}/{date_min.year}'
 
-    MSG = textwrap.dedent(f'''
+    msg = textwrap.dedent(f'''
     Les dates de transports ne peuvent être inférieures à 27 mois, soit le
     {date_min_display}, merci de corriger la date.
     Pour plus d'information reportez vous à la rubrique "Combien de temps pour
     demander un remboursement ?"
     '''.strip())
     if value < date_min:
-        raise ValidationError(MSG)
+        raise ValidationError(msg)
 
 
 def transport_date_max_validator(value):

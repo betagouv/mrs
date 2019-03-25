@@ -532,13 +532,13 @@ class MRSRequest(models.Model):
         )
 
     @classmethod
-    def get_status_label(self, number):
+    def get_status_label(cls, number):
         for flag, label in self.STATUS_CHOICES:
             if flag == number:
                 return label
 
     @classmethod
-    def get_status_id(self, name):
+    def get_status_id(cls, name):
         if isinstance(name, int):
             return name
         return getattr(self, 'STATUS_{}'.format(name.upper()))
@@ -876,7 +876,7 @@ class MRSRequestLogEntry(models.Model):
         return f'{self.mrsrequest}: {self.comment}'
 
     @classmethod
-    def get_action_id(self, name):
+    def get_action_id(cls, name):
         if isinstance(name, int):
             return name
 

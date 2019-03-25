@@ -57,7 +57,7 @@ py-qa:
   cache:
     paths: [.gitlab-cache.tar.gz]
     key: ${CI_COMMIT_REF_SLUG}-qa
-  script: flake8 --show-source --exclude migrations,settings --max-complexity=8 --ignore=E305,W503 src
+  script: flake8 --show-source --exclude migrations,settings --max-complexity=8 --ignore=E305,W503,N801 src
 
 py-test:
   <<: *tox
