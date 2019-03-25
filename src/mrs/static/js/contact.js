@@ -29,9 +29,9 @@ var initForm = function (form) {
     var $img = $(this).parents('.row').find('img.captcha')
     var $key = $(this).parents('.row').find('[type=hidden]')
 
-    $.getJSON("/captcha/refresh/", function (result) {
-        $img.attr('src', result['image_url']);
-        $key.val(result['key'])
+    $.getJSON('/captcha/refresh/', function (result) {
+      $img.attr('src', result['image_url'])
+      $key.val(result['key'])
     })
   })
 }
