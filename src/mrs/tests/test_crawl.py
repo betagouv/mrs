@@ -16,7 +16,7 @@ class FrontCrawlTest(ResponseDiffTestMixin, test.TestCase):
     def get_content_replace_patterns(self, response):
         return super().get_content_replace_patterns(response) + [
             ('\n.*id_mrsrequest_uuid.*\n', ''),
-            ('\n.*id_captcha.*\n', ''),
+            ('\n.*(name|id|calss)=".*captcha.*"', ''),
         ]
 
 
