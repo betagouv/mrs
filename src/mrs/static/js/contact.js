@@ -24,6 +24,16 @@ var initForm = function (form) {
       $(this).attr('disabled', 'disabled')
     })
   }, false)
+
+  $('.captcha-refresh').click(function() {
+    var $img = $(this).parents('.row').find('img.captcha')
+    var $key = $(this).parents('.row').find('[type=hidden]')
+
+    $.getJSON("/captcha/refresh/", function (result) {
+        $img.attr('src', result['image_url']);
+        $key.val(result['key'])
+    })
+  })
 }
 
 var submitForm = function(form) {
@@ -79,4 +89,3 @@ var submitForm = function(form) {
 })(window.jQuery)
 
 export default contactForm
-
