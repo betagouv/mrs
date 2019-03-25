@@ -430,3 +430,5 @@ DATE_FORMAT_FR = '%d/%m/%Y'
 
 CAPTCHA_IMAGE_SIZE = (250, 100)
 CAPTCHA_FONT_SIZE = 52
+CAPTCHA_FLITE_PATH = '/usr/bin/flite'
+CAPTCHA_SOX_PATH = '/usr/bin/sox'
