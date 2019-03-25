@@ -19,7 +19,7 @@ variables:
 
 .tox: &tox
   stage: test
-  image: jpic/tox
+  image: yourlabs/python
   before_script:
   - tar -xzf .gitlab-cache.tar.gz -C / || true
   after_script:
