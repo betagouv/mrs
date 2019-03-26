@@ -13,7 +13,7 @@ script:
 - test -n "${CI_COMMIT_SHA-}"
   || export CI_COMMIT_SHA=$(git rev-parse --short HEAD)
 - export img=betagouv/mrs:$CI_COMMIT_SHA
-- sudo chown -R ${USER}. .
+- test -z "${USER-}" || sudo chown -R ${USER}. .
 
 ---
 name: db.start
@@ -132,8 +132,12 @@ env:
 script: |
   export FIXTURE_REWRITE=${rewrite-}
   py.test -x -s -vv --strict -r fEsxXw ${args-src}
-  if [ "${arg-}" == *"--cov"* ]
-    then codecov --token $CODECOV_TOKEN
+  if [ -n "${FIXTURE_REWRITE-}" ]; then
+    py.test -x -s -vv --strict -r fEsxXw ${args-src}
+  else
+    if [ "${arg-}" == *"--cov"* ]
+      then codecov --token $CODECOV_TOKEN
+    fi
   fi
 
 ---
@@ -151,6 +155,7 @@ script:
     -w /app
     -e DB_HOST=$DB_HOST
     -e DB_USER=$USER
+    -e rewrite=${rewrite-}
     --user root
     ${img-yourlabs/python} ./sh.yml py.test
 

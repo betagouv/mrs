@@ -105,14 +105,10 @@
 
 <div class="row">
   <div class="col s12" style="display: flex; align-items: space-evenly">
-     captcha
-
 
 <div class="input-field id_captcha_container required has-error" style="margin-left: 1rem; width: 100%">
-   captcha
 
 
-   captcha
   <label for="id_captcha_1">Recopier le texte l'image</label>
       
       <span class="helper-text">

@@ -1,8 +1,9 @@
+{% spaceless %}
 {% if audio %}
-  <a title="Lire la captcha en audio" href="{{ audio }}">
-{% endif %}
+  <a title="Lire la captcha en audio" href="{{ audio }}">{% endif %}
 <img src="{{ image }}" alt="captcha" class="captcha" />
 {% if audio %}</a>{% endif %}
+{% endspaceless %}
 
 <div class="input-field id_captcha_container required has-error" style="margin-left: 1rem; width: 100%">
   {% include widget.subwidgets.0.template_name with widget=widget.subwidgets.0 %}
