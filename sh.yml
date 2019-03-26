@@ -1,14 +1,19 @@
 #!/usr/bin/env shyml
 ---
-name: env.global
+name: env.setup
 hook: before
-help: Global environment variables
+help: Global environment variables and fs perms setup
 env:
   DB_ENGINE: django.db.backends.postgresql
   DB_NAME: mrs
   DEBUG: 1
   DJANGO_SETTINGS_MODULE: mrs.settings
   ALLOWED_HOSTS: '*'
+script:
+- test -n "${CI_COMMIT_SHA-}"
+  || export CI_COMMIT_SHA=$(git rev-parse --short HEAD)
+- export img=betagouv/mrs:$CI_COMMIT_SHA
+- sudo chown -R ${USER}. .
 
 ---
 name: db.start
@@ -125,14 +130,45 @@ env:
   DB_NAME: mrs_test
   CI: true
 script: |
-  FIXTURE_REWRITE=${rewrite-} py.test -x -s -vv --strict -r fEsxXw src
-  if [ -n "${rewrite-}" ]
-    then py.test -x -s -vv --strict -r fEsxXw ${args-src}
-    if [ ${arg-} == *"--cov"* ]
-      then codecov --token $CODECOV_TOKEN
-    fi
+  export FIXTURE_REWRITE=${rewrite-}
+  py.test -x -s -vv --strict -r fEsxXw ${args-src}
+  if [ "${arg-}" == *"--cov"* ]
+    then codecov --token $CODECOV_TOKEN
   fi
 
 ---
 name: py.qa
 script: flake8 --show-source --exclude migrations,settings --max-complexity=8 --ignore=E305,W503,N801 src
+
+---
+name: docker.test
+help: Run tests in docker containers
+requires:
+- db.start
+script:
+- docker run -t
+    -v $(pwd):/app
+    -w /app
+    -e DB_HOST=$DB_HOST
+    -e DB_USER=$USER
+    --user root
+    ${img-yourlabs/python} ./sh.yml py.test
+
+---
+name: docker.build
+help: Build a docker container
+script:
+- docker build
+    --shm-size 512M
+    -t ${img-betagouv/mrs:$CI_COMMIT_SHA}
+    --build-arg GIT_COMMIT=$CI_COMMIT_SHA
+    .
+
+---
+name: docker.testbuild
+help: Build a docker container and test in it
+requires:
+- db.start
+script: |
+  ./sh.yml docker.build
+  ./sh.yml docker.test

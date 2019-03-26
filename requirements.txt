@@ -19,3 +19,4 @@ django-denorm
 djcall>=0.3,<0.4
 django-sql-explorer
 xlsxwriter
+shyml
