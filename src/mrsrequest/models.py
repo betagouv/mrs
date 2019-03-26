@@ -352,6 +352,19 @@ class MRSRequest(models.Model):
             ' transport en commun (en € TTC)'
         )
     )
+    pel = models.CharField(
+        max_length=14,
+        verbose_name='Numéro de PEL',
+        null=True,
+        blank=True,
+        validators=[
+            validators.RegexValidator(
+                '[a-zA-Z0-9]{14}',
+                message='Le numéro de PEL doit comporter'
+                ' 14 caractères alpha numériques',
+            )
+        ],
+    )
     status = models.IntegerField(
         choices=STATUS_CHOICES,
         verbose_name='Statut',

@@ -72,17 +72,6 @@ def test_mrsrequestcreateview_post_responds_with_new_and_allowed_uuid(srf):
 
 
 @pytest.mark.django_db
-def test_mrsrequestcreateview_requires_pel(p):
-    p.post(mrsrequest_uuid=p.mrsrequest.id, pmt_pel='pel')
-    assert 'pmt' not in p.view.forms['mrsrequest'].errors
-    assert 'pel' in p.view.forms['mrsrequest'].errors
-
-    p.post(mrsrequest_uuid=p.mrsrequest.id, pmt_pel='pel', pel='123')
-    assert 'pmt' not in p.view.forms['mrsrequest'].errors
-    assert 'pel' not in p.view.forms['mrsrequest'].errors
-
-
-@pytest.mark.django_db
 def test_mrsrequestcreateview_requires_pmt_by_default(p):
     p.post(mrsrequest_uuid=p.mrsrequest.id)
     assert 'pel' not in p.view.forms['mrsrequest'].errors
@@ -103,9 +92,36 @@ def test_mrsrequestcreateview_requires_pel(p):
     assert 'pel' in p.view.forms['mrsrequest'].errors
     assert 'pmt' not in p.view.forms['mrsrequest'].errors
 
-    p.post(mrsrequest_uuid=p.mrsrequest.id, pmt_pel='pel', pel='123123123')
+
+@pytest.mark.django_db
+def test_mrsrequestcreateview_pel_validation(p):
+    p.post(
+        mrsrequest_uuid=p.mrsrequest.id,
+        pmt_pel='pel',
+        pel='aoeuaoeua$e123'
+    )
+    assert 'pel' in p.view.forms['mrsrequest'].errors
+    assert 'pmt' not in p.view.forms['mrsrequest'].errors
+
+    p.post(
+        mrsrequest_uuid=p.mrsrequest.id,
+        pmt_pel='pel',
+        pel='aoeuaoeuaoe123'
+    )
     assert 'pel' not in p.view.forms['mrsrequest'].errors
     assert 'pmt' not in p.view.forms['mrsrequest'].errors
+
+
+@pytest.mark.django_db
+def test_mrsrequestcreateview_pel_integration(p, caisse):
+    data = form_data(
+        mrsrequest_uuid=p.mrsrequest.id,
+        pmt_pel='pel',
+        caisse=caisse.pk,
+        pel='aoeuaoeuaoe123',
+    )
+    p.post(**data)
+    assert MRSRequest.objects.get(pk=p.mrsrequest.id).pel == 'aoeuaoeuaoe123'
 
 
 @pytest.mark.django_db

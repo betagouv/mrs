@@ -169,6 +169,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             'distancevp',
             'modevp',
             'modeatp',
+            'pel',
         ]
         widgets = dict(
             distancevp=forms.TextInput
