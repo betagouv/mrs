@@ -90,7 +90,7 @@ script: |
   if [ -n "${venv-}" ]
     then path=.venv.$venv
     test -d $path || virtualenv --python=$venv $path
-    set +eu; source $path/bin/activate; set -eu
+    set +eux; echo activating $path; source $path/bin/activate; set -eux
   fi
 
 ---
