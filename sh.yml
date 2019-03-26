@@ -19,10 +19,10 @@ script:
 name: db.start
 help: Start a postgres database
 script: |
-  if which postgres &> /dev/null
-    then sudo systemctl start postgresql
-  elif which docker &> /dev/null
-    then docker inspect mrs_pg || docker run -d -e POSTGRES_USER=$USER --name mrs_pg postgres
+  if which postgres &> /dev/null; then
+    sudo systemctl start postgresql
+  elif which docker &> /dev/null; then
+    docker inspect mrs_pg || docker run -d -e POSTGRES_USER=$USER --name mrs_pg postgres
     docker start mrs_pg
     export DB_HOST=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mrs_pg)
   fi
@@ -87,8 +87,8 @@ help: |
   .venv.python3 and activate the venv, so that it will be activated whenever a
   job requires venv.start and is given a venv variable.
 script: |
-  if [ -n "${venv-}" ]
-    then path=.venv.$venv
+  if [ -n "${venv-}" ]; then
+    path=.venv.$venv
     test -d $path || virtualenv --python=$venv $path
     set +eux; echo activating $path; source $path/bin/activate; set -eux
   fi
@@ -97,8 +97,8 @@ script: |
 name: venv.rm
 help: Removes all virtualenv or the one matching $venv executable
 script: |
-  if [ -n "${venv-}" ]
-    then rm -rf .venv.$venv
+  if [ -n "${venv-}" ]; then
+    rm -rf .venv.$venv
   else
     rm -rf .venv.*
   fi
@@ -135,7 +135,7 @@ script: |
   if [ -n "${FIXTURE_REWRITE-}" ]; then
     py.test -x -s -vv --strict -r fEsxXw ${args-src}
   elif [ -n "${cov-}" ]; then
-    then codecov --token $CODECOV_TOKEN
+    codecov --token $CODECOV_TOKEN
   fi
 
 ---

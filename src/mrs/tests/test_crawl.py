@@ -17,7 +17,9 @@ class FrontCrawlTest(ResponseDiffTestMixin, test.TestCase):
         return super().get_content_replace_patterns(response) + [
             ('\n.*id_mrsrequest_uuid.*\n', ''),
             (
-                '\n.*<(a|img|input).*(name|id|href|class)="[^"]*captcha[^"]*"[^>]*>[^\n]*',
+                '\n.*<(a|img|input).*'
+                '(name|id|href|class)='
+                '"[^"]*captcha[^"]*"[^>]*>[^\n]*',
                 ''
             ),
         ]
