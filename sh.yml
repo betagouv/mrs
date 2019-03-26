@@ -131,13 +131,11 @@ env:
   CI: true
 script: |
   export FIXTURE_REWRITE=${rewrite-}
-  py.test -x -s -vv --strict -r fEsxXw ${args-src}
+  py.test -x -s -vv --strict -r fEsxXw ${cov-} ${args-src}
   if [ -n "${FIXTURE_REWRITE-}" ]; then
     py.test -x -s -vv --strict -r fEsxXw ${args-src}
-  else
-    if [ "${args-}" == *"--cov"* ]
-      then codecov --token $CODECOV_TOKEN
-    fi
+  elif [ -n "${cov-}" ]; then
+    then codecov --token $CODECOV_TOKEN
   fi
 
 ---
