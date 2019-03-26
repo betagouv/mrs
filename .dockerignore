@@ -1,0 +1,5 @@
+.venv.*
+.tox
+src/mrs/static/webpack_bundles/*
+node_modules
+collected
