@@ -269,6 +269,20 @@
                 <div class="card-title">
                     Personne transportée
                 </div>
+                {%- if object.pel %}
+                <p>
+                    <span class="grey-text text-darken-2">
+                        PEL
+                    </span>
+                    <span class="right">
+                        <a
+                            href="http://troc.cnamts.fr:20022/IhmBQ/rechercherPrescription.go?action=rechercher&menuCourant=rechercherPrescription&beneficiairePO.nir={{ object.insured.nir }}&prescriptionPO.numPrescription=FR{{ object.pel }}&prescriptionPO.statut=Prescrit-VP-ATP"
+                            title="Cliquez le lien puis le bouton Rechercher sur Troc pour ouvrir la PEL"
+                            target="_blank"
+                        >{{ object.pel }}</a>
+                    </span>
+                </p>
+                {%- endif %}
                 {%- for pmt in object.pmt_set.all() %}
                 <p>
                     <span class="grey-text text-darken-2">

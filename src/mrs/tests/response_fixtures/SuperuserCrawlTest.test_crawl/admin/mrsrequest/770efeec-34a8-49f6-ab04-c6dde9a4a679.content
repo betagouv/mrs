@@ -29,7 +29,7 @@
                     </div>
             </div>
             <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">95 Bytes <i class="material-icons right">close</i></span>
+                <span class="card-title grey-text text-darken-4"> <i class="material-icons right">close</i></span>
                 <div class="section">
                     bbbb
                 </div>
@@ -49,10 +49,10 @@
                 </div>
                 <p>
                     <span class="grey-text text-darken-2">
-                        PMT
+                        PEL
                     </span>
                     <span class="right">
-                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/pmt/4/download/" title="1x1.png">1x1.png (95 Bytes)</a>
+                        <a href="http://troc.cnamts.fr:20022/IhmBQ/rechercherPrescription.go?action=rechercher&amp;menuCourant=rechercherPrescription&amp;beneficiairePO.nir=2333333333333&amp;prescriptionPO.numPrescription=FRd34db33f1337af&amp;prescriptionPO.statut=Prescrit-VP-ATP" target="_blank" title="Cliquez le lien puis le bouton Rechercher sur Troc pour ouvrir la PEL">d34db33f1337af</a>
                     </span>
                 </p>
                 <p>
