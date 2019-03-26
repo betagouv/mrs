@@ -121,7 +121,7 @@
     <div class="input-field col s12" id="id_pel_container">
         <input id="id_pel" name="pel" type="text"/>
         <label for="id_pel">Numéro de préscription éléctronique</label>
-        <div class="help-block">Vous trouverez le numéro de PEL quelque part</div>
+        <div class="help-block">Le numéro de votre prescription médicale électronique est indiqué sur l exemplaire patient remis par votre médecin</div>
     </div>
 </div>
 </div></div>

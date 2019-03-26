@@ -50,7 +50,8 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     pel = forms.CharField(
         label='Numéro de préscription éléctronique',
-        help_text='Vous trouverez le numéro de PEL quelque part',
+        help_text='Le numéro de votre prescription médicale électronique est'
+                  ' indiqué sur l exemplaire patient remis par votre médecin',
         required=False,
     )
 
@@ -203,15 +204,14 @@ class MRSRequestCreateForm(forms.ModelForm):
         kwargs['files'] = files
         super().__init__(*args, **kwargs)
 
-    def clean(self):
-        cleaned_data = super().clean()
-
+    def cleaned_pmt_pel(self, cleaned_data):
         pmt_pel = cleaned_data.get('pmt_pel', 'pmt')
         if pmt_pel == 'pmt' and not cleaned_data.get('pmt'):
             self.add_error('pmt', 'Merci de sélectionner votre PMT')
         elif pmt_pel == 'pel' and not cleaned_data.get('pel'):
             self.add_error('pel', 'Merci de saisir votre numéro de PEL')
 
+    def cleaned_vp_atp(self, cleaned_data):
         vp = cleaned_data.get('modevp')
         atp = cleaned_data.get('modeatp')
 
@@ -258,6 +258,12 @@ class MRSRequestCreateForm(forms.ModelForm):
                     'expenseatp',
                     'Merci de saisir le total du coût de transports en commun',
                 )
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        self.cleaned_pmt_pel(cleaned_data)
+        self.cleaned_vp_atp(cleaned_data)
 
         return cleaned_data
 
