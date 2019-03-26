@@ -53,11 +53,8 @@ py-sec-safety:
   script: safety check
 
 py-qa:
-  <<: *tox
-  cache:
-    paths: [.gitlab-cache.tar.gz]
-    key: ${CI_COMMIT_REF_SLUG}-qa
-  script: flake8 --show-source --exclude migrations,settings --max-complexity=8 --ignore=E305,W503,N801 src
+  image: yourlabs/python
+  script: ./sh.yml py.qa
 
 py-test:
   <<: *tox
@@ -69,10 +66,7 @@ py-test:
   script:
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
     DB_USER=postgres
-    tox --sitepackages -e py36-dj21 -- --cov src src
-  - PATH=.tox/py36-dj21/bin:$PATH
-    codecov --token $CODECOV_TOKEN
-    -e $TOXENV
+    ./sh.yml py.test args='--cov src src'
 
 js-qa:
   stage: test
