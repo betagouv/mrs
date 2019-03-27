@@ -428,8 +428,15 @@ if DEBUG:
 
 DATE_FORMAT_FR = '%d/%m/%Y'
 
-CAPTCHA_IMAGE_SIZE = (250, 100)
-CAPTCHA_FONT_SIZE = 52
+CAPTCHA_IMAGE_SIZE = (188, 60)
+CAPTCHA_FONT_SIZE = 32
+CAPTCHA_LENGTH = 6
+CAPTCHA_NOISE_FUNCTIONS = (
+    'contact.captcha.noise_arcs',
+    'contact.captcha.noise_dots',
+)
+CAPTCHA_FOREGROUND_COLOR = '#507886'
+CAPTCHA_LETTER_ROTATION = (-35, 35)
 
 '''
 # works, but lacks french support for now, see
