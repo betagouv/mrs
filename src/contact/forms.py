@@ -1,4 +1,5 @@
 import material
+import re
 
 from django import forms
 from django import template
@@ -62,6 +63,21 @@ class ContactForm(forms.Form):
             'captcha',
         )
     )
+
+    def clean_message(self):
+        message = self.cleaned_data['message']
+
+        if re.findall('https?://', message):
+            raise forms.ValidationError(
+                'Votre message ne doit pas contenir de lien.'
+            )
+
+        if '<' in message:
+            raise forms.ValidationError(
+                'Votre message ne doit pas contenir de chevrons.'
+            )
+
+        return message
 
     def get_email_kwargs(self):
         data = self.cleaned_data
