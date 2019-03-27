@@ -1,8 +1,10 @@
 {% spaceless %}
+<div class="input-field image">
 {% if audio %}
   <a title="Lire la captcha en audio" href="{{ audio }}">{% endif %}
-<img src="{{ image }}" alt="captcha" class="captcha" />
+<img src="{{ image }}" alt="captcha" class="captcha captcha-refresh pointer" />
 {% if audio %}</a>{% endif %}
+</div>
 {% endspaceless %}
 
 <div class="input-field id_captcha_container required has-error" style="margin-left: 1rem; width: 100%">
