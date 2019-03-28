@@ -700,12 +700,11 @@ class MRSRequest(models.Model):
         # trigger session save unless we do the following
         request.session.modified = True
 
-    def save_attachments(self):
-        self.save_bills()
-        self.save_pmt()
-
     def save_bills(self):
         Bill.objects.recorded_uploads(self.id).update(mrsrequest=self)
+
+    def delete_pmt(self):
+        PMT.objects.recorded_uploads(self.id).delete()
 
     def save_pmt(self):
         PMT.objects.recorded_uploads(self.id).update(mrsrequest=self)

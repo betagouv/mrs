@@ -198,7 +198,7 @@ def form_data(**data):
     data['use_email'] = False
     data['nir'] = '1234567890123'
     data['certify'] = True
-    data['pmt_pel'] = 'pmt'
+    data.setdefault('pmt_pel', 'pmt')
 
     PMT.objects.create(
         mrsrequest_uuid=data['mrsrequest_uuid'],

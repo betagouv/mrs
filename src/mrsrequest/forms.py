@@ -206,10 +206,15 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     def cleaned_pmt_pel(self, cleaned_data):
         pmt_pel = cleaned_data.get('pmt_pel', 'pmt')
-        if pmt_pel == 'pmt' and not cleaned_data.get('pmt'):
-            self.add_error('pmt', 'Merci de sélectionner votre PMT')
-        elif pmt_pel == 'pel' and not cleaned_data.get('pel'):
-            self.add_error('pel', 'Merci de saisir votre numéro de PEL')
+
+        if pmt_pel == 'pmt':
+            cleaned_data.pop('pel', None)
+            if not cleaned_data.get('pmt'):
+                self.add_error('pmt', 'Merci de sélectionner votre PMT')
+
+        elif pmt_pel == 'pel':
+            if not cleaned_data.get('pel'):
+                self.add_error('pel', 'Merci de saisir votre numéro de PEL')
 
     def cleaned_vp_atp(self, cleaned_data):
         vp = cleaned_data.get('modevp')
@@ -308,14 +313,22 @@ class MRSRequestCreateForm(forms.ModelForm):
                 'parking_expensevp')
 
         obj = super().save(commit=commit)
+
+        def save_attachments(form, obj):
+            if form.cleaned_data.get('pmt_pel') == 'pmt':
+                obj.save_pmt()
+            else:
+                obj.delete_pmt()
+            obj.save_bills()
+
         save_m2m = getattr(self, 'save_m2m', None)
         if save_m2m:
             def _save_m2m():
-                obj.save_attachments()
+                save_attachments(self, obj)
                 save_m2m()
             self.save_m2m = _save_m2m
         else:
-            obj.save_attachments()
+            save_attachments(self, obj)
         return obj
 
 
