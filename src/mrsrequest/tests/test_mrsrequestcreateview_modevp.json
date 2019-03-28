@@ -48,7 +48,7 @@
         "modevp": true,
         "payment_amount": null,
         "payment_base": null,
-        "pel": "",
+        "pel": null,
         "saving": 0,
         "status": 1,
         "status_datetime": null,
