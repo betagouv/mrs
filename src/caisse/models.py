@@ -5,6 +5,7 @@ from datetime import date
 from django import template
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.mail import EmailMessage
 from django.db import models
 from djcall.models import Caller
 
@@ -114,6 +115,49 @@ def daily_mail(force=False):
                 content_subtype='html'
             )
         ).spool('mail')
+
+
+def monthly_mail(force=False):
+    from mrsrequest.models import today
+
+    today = today()
+
+    for caisse in Caisse.objects.filter(active=True):
+        objects = caisse.mrsrequest_set.all().status(
+            'validated'
+        ).created(
+            date__gte=date(
+                today.year,
+                today.month - 1,
+                1,
+            ),
+            date__lte=date(
+                today.year,
+                today.month,
+                1,
+            )
+        ).order_by('creation_datetime')
+
+        content = objects.csv()
+
+        message = EmailMessage(
+            subject=template.loader.get_template(
+                'caisse/liquidation_monthly_mail_title.txt',
+            ).render().strip(),
+            body=template.loader.get_template(
+                'caisse/liquidation_monthly_mail_body.txt',
+            ).render().strip(),
+            to=[caisse.liquidation_email],
+            reply_to=[settings.DEFAULT_FROM_EMAIL],
+            attachments=[
+                (
+                    f'{today.year}-{today.month}-stats.csv',
+                    content,
+                    'text/csv',
+                ),
+            ]
+        )
+        message.send()
 
 
 class Email(models.Model):

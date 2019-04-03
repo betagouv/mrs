@@ -1,0 +1,11 @@
+Bonjour,
+
+Veuillez trouver ci joint l'extraction mensuelle des demandes n'ayant pas fait l'objet d'une remonté stat.
+
+Pour rappel, lors d’une demande d’un assuré via MRS, il y a parfois des erreurs de saisie du NIR, de la date de naissance ou de la date du trajet. Les techniciens font la plupart du temps la correction sous Progrès au regard de la BDO mais oublient parfois de modifier les données sous MRS. A cause du décalage entre la saisie MRS et la saisie Progrès , certaines données ne remontent pas.
+
+Afin de qualifier ces données et avoir vos métriques à jour, nous vous invitons à corriger les données soit directement sur les demandes MRS lorsqu'il s'agit d'erreur de NIR ou de dates de naissance ou en nous renvoyant le fichier ci joint complété.
+
+Bien cordialement,
+
+L'Equipe MRS

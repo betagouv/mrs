@@ -2,7 +2,6 @@ from chardet.universaldetector import UniversalDetector
 import copy
 import csv
 import datetime
-import io
 import logging
 
 from crudlfap import shortcuts as crudlfap
@@ -31,23 +30,9 @@ from person.models import Person
 from .forms import (
     MRSRequestForm,
 )
-from .models import MRSRequest, MRSRequestLogEntry
+from .models import CSV_COLUMNS, MRSRequest, MRSRequestLogEntry
 
 logger = logging.getLogger(__name__)
-
-CSV_COLUMNS = (
-    'caisse',
-    'id',
-    'nir',
-    'naissance',
-    'transport',
-    'mandatement',
-    'base',
-    'montant',
-    'bascule',
-    'finess',
-    'adeli',
-)
 
 
 class MRSRequestContactView(EmailViewMixin,
@@ -442,40 +427,16 @@ class MRSRequestExport(crudlfap.ObjectsView):
         return self.objects
 
     def get(self, request, *args, **kwargs):
-        f = io.TextIOWrapper(io.BytesIO(), encoding='utf8')
-        w = csv.writer(f, delimiter=';')
-        w.writerow(CSV_COLUMNS)
-        for obj in self.objects:
-            date_depart = None
-            for transport in obj.transport_set.all():
-                if not date_depart or transport.date_depart < date_depart:
-                    date_depart = transport.date_depart
+        content = self.objects.csv()
 
-            if date_depart is None:
-                continue  # manually imported from old database
-
-            w.writerow((
-                str(obj.caisse.number),
-                obj.display_id,
-                obj.insured.nir,
-                obj.insured.birth_date.strftime(DATE_FORMAT_FR),
-                date_depart.strftime(DATE_FORMAT_FR),
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-            ))
-
-        if len(self.objects):
-            f.seek(0)
-            response = http.HttpResponse(f.read(), content_type='text/csv')
+        if content:
+            response = http.HttpResponse(content, content_type='text/csv')
             response['Content-Disposition'] = (
                 f'attachment; filename="{self.filename}.csv"'
             )
         else:
             response = self.render_to_response()
+
         return response
 
     def get_filename(self):
