@@ -21,6 +21,20 @@ from mrsattachment.models import MRSAttachment, MRSAttachmentManager
 
 TWOPLACES = Decimal(10) ** -2
 
+CSV_COLUMNS = (
+    'caisse',
+    'id',
+    'nir',
+    'naissance',
+    'transport',
+    'mandatement',
+    'base',
+    'montant',
+    'bascule',
+    'finess',
+    'adeli',
+)
+
 
 def today():
     return datetime_date(datetime.datetime.now())
@@ -249,6 +263,34 @@ class MRSRequestQuerySet(models.QuerySet):
                 MRSRequest.STATUS_REJECTED,
             ),
         )
+
+    def csv(self):
+        content = [';'.join(CSV_COLUMNS)]
+        qs = self.select_related('insured').prefetch_related('transport_set')
+        for obj in qs:
+            date_depart = None
+            for transport in obj.transport_set.all():
+                if not date_depart or transport.date_depart < date_depart:
+                    date_depart = transport.date_depart
+
+            if date_depart is None:
+                continue  # manually imported from old database
+
+            content.append(';'.join([
+                str(obj.caisse.number),
+                str(obj.display_id),
+                str(obj.insured.nir),
+                obj.insured.birth_date.strftime(DATE_FORMAT_FR),
+                date_depart.strftime(DATE_FORMAT_FR),
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+            ]))
+
+        return '\n'.join(content)
 
 
 class MRSRequestManager(models.Manager):

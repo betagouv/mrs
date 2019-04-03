@@ -23,3 +23,16 @@ class DefaultAppConfig(apps.AppConfig):
                 weekday='1-5',
             )
         )
+
+        caller, created = Caller.objects.get_or_create(
+            callback='caisse.models.monthly_mail'
+        )
+
+        Cron.objects.update_or_create(
+            caller=caller,
+            defaults=dict(
+                hour=8,
+                minute=0,
+                day=1,
+            )
+        )
