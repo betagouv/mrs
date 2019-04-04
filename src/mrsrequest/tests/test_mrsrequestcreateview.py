@@ -112,6 +112,7 @@ def test_mrsrequestcreateview_pel_validation(p):
     assert 'pmt' not in p.view.forms['mrsrequest'].errors
 
 
+@freeze_time('2017-12-19 05:51:11')
 @pytest.mark.django_db
 def test_mrsrequestcreateview_pel_integration(p, caisse):
     data = form_data(
