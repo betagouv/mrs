@@ -7,6 +7,7 @@ from django import http
 from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
@@ -42,6 +43,13 @@ class Dashboard(crudlfap.TemplateView):
 
     def get_queryset(self):
         return crudlfap.site[self.model].get_queryset(self)
+
+    def get(self, *args, **kwargs):
+        if self.request.user.profile == 'support':
+            return http.HttpResponseRedirect(
+                reverse('crudlfap:mrsrequest:list')
+            )
+        return super().get(*args, **kwargs)
 
 
 class LegalView(generic.TemplateView):
