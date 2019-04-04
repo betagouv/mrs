@@ -122,7 +122,7 @@ def monthly_mail(force=False):
 
     today = today()
 
-    for caisse in Caisse.objects.filter(active=True):
+    for caisse in Caisse.objects.filter(active=True).order_by('pk'):
         objects = caisse.mrsrequest_set.all().status(
             'validated'
         ).created(
@@ -139,6 +139,8 @@ def monthly_mail(force=False):
         ).order_by('creation_datetime')
 
         content = objects.csv()
+        if not content.count('\n'):
+            continue
 
         message = EmailMessage(
             subject=template.loader.get_template(
