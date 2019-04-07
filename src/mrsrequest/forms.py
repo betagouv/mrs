@@ -41,7 +41,7 @@ class MRSRequestCreateForm(forms.ModelForm):
     pmt_pel = forms.ChoiceField(
         choices=(
             ('pmt', 'PMT (Préscription Papier)'),
-            ('pel', 'PEL (Préscription Électronique)'),
+            ('pel', 'PMET (Préscription Électronique)'),
         ),
         initial='pmt',
         label='Avez-vous une ...',
@@ -51,7 +51,7 @@ class MRSRequestCreateForm(forms.ModelForm):
     pel = forms.CharField(
         label='Numéro de préscription éléctronique',
         help_text='Le numéro de votre prescription médicale électronique est'
-                  ' indiqué sur l exemplaire patient remis par votre médecin',
+                  ' indiqué sur l\'exemplaire patient remis par votre médecin',
         required=False,
     )
 
@@ -214,7 +214,7 @@ class MRSRequestCreateForm(forms.ModelForm):
 
         elif pmt_pel == 'pel':
             if not cleaned_data.get('pel'):
-                self.add_error('pel', 'Merci de saisir votre numéro de PEL')
+                self.add_error('pel', 'Merci de saisir votre numéro de PMET')
 
     def cleaned_vp_atp(self, cleaned_data):
         vp = cleaned_data.get('modevp')

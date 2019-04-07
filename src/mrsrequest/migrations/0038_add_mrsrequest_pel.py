@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='mrsrequest',
             name='pel',
-            field=models.CharField(blank=True, max_length=14, null=True, validators=[django.core.validators.RegexValidator('[a-zA-Z0-9]{14}', message='Le numéro de PEL doit comporter 14 caractères alpha numériques')], verbose_name='Numéro de PEL'),
+            field=models.CharField(blank=True, max_length=14, null=True, validators=[django.core.validators.RegexValidator('[a-zA-Z0-9]{14}', message='Le numéro de PMET doit comporter 14 caractères alpha numériques')], verbose_name='Numéro de PMET'),
         ),
         migrations.AlterField(
             model_name='mrsrequest',

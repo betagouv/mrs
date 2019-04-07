@@ -82,7 +82,7 @@
         </label></div>
         <div class="radio" id="id_pmt_pel"><label>
             <input class="with-gap" id="id_pmt_pel_1" name="pmt_pel" type="radio" value="pel"/>
-            <span class="item-label" for="id_pmt_pel_1">PEL (Préscription Électronique)</span>
+            <span class="item-label" for="id_pmt_pel_1">PMET (Préscription Électronique)</span>
         </label></div>
     </div>
 </div>
