@@ -114,53 +114,40 @@
         top: calc(100% + 1rem)
         color: white
 
-        @media (min-width: $desktop-min-width)
-          align-self: flex-start
-          transform: translateY(-20px)!important
-          position: absolute
-          display: flex
-          left: $padding-left
-
   #intro-bg-img
     background-size: cover
     height: 60vw
     max-height: 30rem
 
   #intro-descr--wrapper
-    .thumb
-      +flex-column()
-      +wrapper()
-      transform: translateY(-100%)
-      background-color: $primary-green
-      color: white
-      padding-right: 3rem
-      width: 85vw
-      max-width: 50rem
+    background-color: $primary-green
+    color: white
+    margin-top: 1rem
+    width: 100%
 
-      @media screen and (min-width: $desktop-min-width)
-        width: calc(#{$desktop-page-margin-left} + 30rem)
-        max-width: 100rem
+    #intro-descr
+      text-align: center
+      padding: 2rem 3rem
 
+    h3
+      +faustina-bold-italic()
+      font-weight: bold
+      font-style: italic
+      margin: 0
+      margin-bottom: 0.5rem
+      font-size: 0.9rem
 
-      h3
-        +faustina-bold-italic()
-        font-weight: bold
-        font-style: italic
-        margin: 0
-        margin-bottom: 0.5rem
+      @media screen and (min-width: 415px)
+        font-size: 1.2rem
+
+    p
+      +barlow-regular()
+      line-height: 0.9rem
+      margin: 0
+      font-size: 0.7rem
+
+      @media screen and (min-width: 415px)
         font-size: 0.9rem
-
-        @media screen and (min-width: 415px)
-          font-size: 1.2rem
-
-      p
-        +barlow-regular()
-        line-height: 0.9rem
-        margin: 0
-        font-size: 0.7rem
-
-        @media screen and (min-width: 415px)
-          font-size: 0.9rem
 
   #hier-ajd--wrapper
     +flex-column()

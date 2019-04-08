@@ -32,6 +32,7 @@
     ]
   },
   "dependencies": {
+    "@beyonk/google-fonts-webpack-plugin": "^1.2.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@sentry/webpack-plugin": "^1.6",

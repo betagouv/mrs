@@ -2,6 +2,7 @@ var path = require('path')
 var BundleTracker = require('webpack-bundle-tracker')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
 
 const extractSass = new ExtractTextPlugin({
     filename: '[name].[hash].css',
@@ -44,6 +45,13 @@ var cfg = {
 
   plugins: [
     new BundleTracker({filename: './webpack-stats.json'}),
+    new GoogleFontsPlugin({
+        fonts: [
+            { family: 'Faustina', variants: [ '700' ] },
+            { family: 'Barlow', variants: [ '700', '800' ] },
+            { family: 'Barlow Condensed', variants: [ '400', '700' ] }
+        ]
+    }),
     extractSass
   ],
 
