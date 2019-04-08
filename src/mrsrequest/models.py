@@ -920,6 +920,12 @@ class MRSRequestLogEntry(models.Model):
         encoder=DjangoJSONEncoder,
     )
     action = models.SmallIntegerField(choices=ACTION_CHOICES)
+    emailtemplate = models.ForeignKey(
+        'mrsemail.EmailTemplate',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     objects = MRSRequestLogEntryManager()
 
