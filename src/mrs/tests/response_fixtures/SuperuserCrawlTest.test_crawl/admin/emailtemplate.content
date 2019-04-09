@@ -27,7 +27,49 @@
         
         
         
+<div class="row">
+    <div class="input-field col s12" id="id_datemin_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_datemin" name="datemin" type="text"/>
+        <label for="id_datemin">Date minimale</label>
+        
+    </div>
+</div>
+ 
 
+<div class="row">
+    <div class="input-field col s12" id="id_datemax_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_datemax" name="datemax" type="text"/>
+        <label for="id_datemax">Date maximale</label>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="select-field col s12" id="id_menu_container">
+        <label for="id_menu">Menu</label>
+        <select id="id_menu" name="menu">
+            <option value="">---------</option>
+            <option value="reject">Rejet</option>
+            <option value="contact">Contact</option>
+        </select>
+        
+    </div>
+</div>
+ 
+
+
+<div class="row">
+    <div class="select-field col s12 multiselect" id="id_caisse_container">
+        <label for="id_caisse">Caisses</label>
+        <select id="id_caisse" multiple="multiple" name="caisse">
+            <option disabled="" value="">Choisissez votre option</option>
+            <option value="1">aaaaaaa</option>
+            <option value="2">bbbb</option>
+            <option value="3">inactive</option>
+        </select>
+        
+    </div>
+</div>
 
         
       </form>
@@ -51,6 +93,10 @@
         <tr>
         
             
+            <th class="orderable"><a href="?sort=id">ID</a></th>
+            
+        
+            
             <th class="orderable"><a href="?sort=name">Nom</a></th>
             
         
@@ -59,11 +105,23 @@
             
         
             
-            <th class="orderable"><a href="?sort=counter">Counter</a></th>
+            <th class="orderable"><a href="?sort=body">Contenu du mail</a></th>
             
         
             
             <th class="orderable"><a href="?sort=active">Activé</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=menu">Menu</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=counter">Counter</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=new_counter">Utilisations</a></th>
             
         
             
@@ -80,13 +138,21 @@
         
         <tr class="even">
             
+                <td>1</td>
+            
                 <td>PMT: manquante</td>
             
                 <td>PMT manquante sur {{ display_id }}</td>
             
-                <td>1</td>
+                <td>PMT manquante sur {{ display_id }}: Contenu de mail</td>
             
                 <td><span class="true">✔</span></td>
+            
+                <td>Rejet</td>
+            
+                <td>1</td>
+            
+                <td>0</td>
             
                 <td>
                 
@@ -110,13 +176,21 @@
         
         <tr class="odd">
             
+                <td>2</td>
+            
                 <td>Possibilité de trajets itératifs</td>
             
                 <td>Nous avons un super conseil pour vous !</td>
             
-                <td>1</td>
+                <td>les trajets iteratifs c'est super chouetos !</td>
             
                 <td><span class="true">✔</span></td>
+            
+                <td>Contact</td>
+            
+                <td>1</td>
+            
+                <td>0</td>
             
                 <td>
                 
