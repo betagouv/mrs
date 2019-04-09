@@ -71,6 +71,24 @@
     </div>
 </div>
 
+ 
+<div class="row">
+    <div class="select-field col s12" id="id_user_container">
+        <label for="id_user">Utilisateur</label>
+        <select id="id_user" name="user">
+            <option value="">---------</option>
+            <option value="2">a</option>
+            <option value="3">b</option>
+            <option value="4">supporta</option>
+            <option value="5">stata</option>
+            <option value="6">statb</option>
+            <option value="7">supportb</option>
+            <option value="1">test</option>
+        </select>
+        
+    </div>
+</div>
+
         
       </form>
     </div>
