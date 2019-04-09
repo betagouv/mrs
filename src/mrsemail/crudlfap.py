@@ -13,6 +13,7 @@ import django_filters
 
 from mrs.settings import DATE_FORMAT_FR
 from mrsrequest.models import datetime_max, datetime_min
+from mrsuser.models import User
 
 from .forms import EmailForm
 from .models import EmailTemplate
@@ -82,7 +83,7 @@ class EmailViewMixin:
         return super().form_valid()
 
 
-class CaissesFilter(django_filters.ModelMultipleChoiceFilter):
+class NoopFilter:
     def filter(self, qs, value):
         return qs
 
@@ -116,18 +117,19 @@ class EmailTemplateListView(crudlfap.ListView):
         'body',
     ]
 
-    def get_filterset(self):
-        filterset = super().get_filterset() or self.filterset
-        form = filterset.form
-        if 'caisse' in form.fields and self.request.user.profile != 'admin':
-            form.fields['caisse'].queryset = self.request.user.caisses.all()
-        return filterset
+    def get_caisses(self):
+        if self.request.user.profile == 'admin':
+            return Caisse.objects.all()
+        return self.request.user.caisses.all()
 
     def get_show_caisse_filter(self):
         self.show_caisse_filter = (
             self.request.user.caisses.count() > 1
             or self.request.user.profile == 'admin'
         )
+
+    def get_show_user_filter(self):
+        self.show_user_filter = self.request.user.profile == 'admin'
 
     def get_filterset_extra_class_attributes(self):
         ret = dict(
@@ -137,11 +139,31 @@ class EmailTemplateListView(crudlfap.ListView):
                 choices=EmailTemplate.MENU_CHOICES
             )
         )
+
         if self.show_caisse_filter:
-            ret['caisse'] = CaissesFilter(
+            ret['caisse'] = type(
+                'CaissesFilter',
+                (NoopFilter, django_filters.ModelMultipleChoiceFilter),
+                dict()
+            )(
                 label='Caisses',
-                queryset=Caisse.objects.all()
+                queryset=self.caisses
             )
+
+        if self.show_user_filter:
+            qs = User.objects.all()
+            if self.request.user.profile != 'admin':
+                qs = qs.filter(caisses__in=self.caisses)
+
+            ret['user'] = type(
+                'UserFilter',
+                (NoopFilter, django_filters.ModelChoiceFilter),
+                dict()
+            )(
+                label='Utilisateur',
+                queryset=qs
+            )
+
         return ret
 
     def get_object_list(self):
@@ -152,19 +174,25 @@ class EmailTemplateListView(crudlfap.ListView):
             caisses = self.filterset.form.cleaned_data.get('caisse', None)
             datemin = self.filterset.form.cleaned_data.get('datemin', None)
             datemax = self.filterset.form.cleaned_data.get('datemax', None)
+            user = self.filterset.form.cleaned_data.get('user', None)
 
             if caisses:
                 filtr = filtr & models.Q(
                     mrsrequestlogentry__mrsrequest__caisse__in=caisses
                 )
+
             if datemin:
                 filtr = filtr & models.Q(
                     mrsrequestlogentry__datetime__gte=datetime_min(datemin)
                 )
+
             if datemax:
                 filtr = filtr & models.Q(
                     mrsrequestlogentry__datetime__lte=datetime_max(datemax)
                 )
+
+            if user:
+                filtr = filtr & models.Q(mrsrequestlogentry__user=user)
 
         self.object_list = self.object_list.annotate(
             new_counter=models.Count(
