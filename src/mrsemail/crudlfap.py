@@ -12,6 +12,7 @@ import django_tables2 as tables
 import django_filters
 
 from mrs.settings import DATE_FORMAT_FR
+from mrsrequest.models import datetime_max, datetime_min
 
 from .forms import EmailForm
 from .models import EmailTemplate
@@ -34,6 +35,7 @@ class EmailViewMixin:
                 comment=self.log_message,
                 data=self.log_data,
                 action=self.action_flag,
+                emailtemplate=self.form.cleaned_data['template'],
             )
 
     def get_log_data(self):
@@ -105,7 +107,7 @@ class EmailTemplateListView(crudlfap.ListView):
     table_columns = dict(
         new_counter=tables.Column(
             accessor='new_counter',
-            verbose_name='Nouveau compte',
+            verbose_name='Utilisations',
         ),
     )
     search_fields = [
@@ -113,12 +115,6 @@ class EmailTemplateListView(crudlfap.ListView):
         'subject',
         'body',
     ]
-
-    filterset_extra_class_attributes = dict(
-        caisse=CaissesFilter(queryset=Caisse.objects.all()),
-        datemin=DateFilter(lookup_expr='gte', label='Date minimale'),
-        datemax=DateFilter(lookup_expr='lte', label='Date maximale'),
-    )
 
     def get_filterset(self):
         filterset = super().get_filterset() or self.filterset
@@ -133,14 +129,23 @@ class EmailTemplateListView(crudlfap.ListView):
             or self.request.user.profile == 'admin'
         )
 
-    def get_filter_fields(self):
-        filter_fields = []
+    def get_filterset_extra_class_attributes(self):
+        ret = dict(
+            datemin=DateFilter(lookup_expr='gte', label='Date minimale'),
+            datemax=DateFilter(lookup_expr='lte', label='Date maximale'),
+            menu=django_filters.ChoiceFilter(
+                choices=EmailTemplate.MENU_CHOICES
+            )
+        )
         if self.show_caisse_filter:
-            filter_fields.append('caisse')
-        return filter_fields
+            ret['caisse'] = CaissesFilter(
+                label='Caisses',
+                queryset=Caisse.objects.all()
+            )
+        return ret
 
     def get_object_list(self):
-        qs = self.search_form.get_queryset()
+        self.object_list = super().get_object_list()
 
         filtr = models.Q()
         if self.filterset.form.is_valid():
@@ -152,8 +157,16 @@ class EmailTemplateListView(crudlfap.ListView):
                 filtr = filtr & models.Q(
                     mrsrequestlogentry__mrsrequest__caisse__in=caisses
                 )
+            if datemin:
+                filtr = filtr & models.Q(
+                    mrsrequestlogentry__datetime__gte=datetime_min(datemin)
+                )
+            if datemax:
+                filtr = filtr & models.Q(
+                    mrsrequestlogentry__datetime__lte=datetime_max(datemax)
+                )
 
-        qs = qs.annotate(
+        self.object_list = self.object_list.annotate(
             new_counter=models.Count(
                 'mrsrequestlogentry',
                 distinct=True,
@@ -161,24 +174,7 @@ class EmailTemplateListView(crudlfap.ListView):
             ),
         )
 
-        return qs
-
-        return super().get_object_list()
-        if value:
-            qs = qs.annotate(
-                new_counter=models.Count(
-                    'mrsrequestlogentry',
-                    distinct=True,
-                    filter=models.Q(mrsrequestlogentry__mrsrequest__caisse__in=value)
-                ),
-            )
-        else:
-            qs = qs.annotate(
-                new_counter=models.Count(
-                    'mrsrequestlogentry',
-                    distinct=True,
-                ),
-            )
+        return self.object_list
 
 
 crudlfap.Router(

@@ -48,6 +48,7 @@
         "comment": "En cours de liquidation",
         "data": {},
         "datetime": "3000-12-31T13:37:42Z",
+        "emailtemplate": null,
         "mrsrequest": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
         "user": [
             "{'caisse': <Caisse: adminviews>}"
@@ -62,6 +63,7 @@
         "comment": "Valid\u00e9e",
         "data": {},
         "datetime": "3000-12-31T13:37:42Z",
+        "emailtemplate": null,
         "mrsrequest": "4255e33f-88c0-4dbf-b8ee-69cb283a7cea",
         "user": [
             "{'caisse': <Caisse: adminviews>}"
