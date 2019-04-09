@@ -9,16 +9,26 @@ def provision_emailtemplate(apps, schema_editor):
     MRSRequestLogEntry = apps.get_model('mrsrequest', 'MRSRequestLogEntry')
 
     templates = {
-        et.subject: et for et in EmailTemplate.objects.all()
+        et.subject.replace(
+            '{{ display_id }}',
+            '\d+',
+        ).replace(
+            '******** A renseigner ********',
+            '.*',
+        ): et for et in EmailTemplate.objects.all()
     }
 
-    logentries = MRSRequestLogEntry.objects.filter(
-        data__subject__in=templates.keys()
-    )
+    for logentry in MRSRequestLogEntry.objects.exclude(data=None):
+        title = logentry.data.get('subject', None)
 
-    for logentry in logentries:
-        logentry.emailtemplate = templates[logentry.data['subject']]
-        logentry.save()
+        if title is None:
+            continue
+
+        for subject, template in templates.items():
+            if re.match(subject, title):
+                logentry.emailtemplate = template
+                logentry.save()
+                break
 
 
 class Migration(migrations.Migration):
