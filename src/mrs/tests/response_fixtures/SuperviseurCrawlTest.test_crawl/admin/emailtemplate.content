@@ -89,22 +89,6 @@
         <tr>
         
             
-            <th class="orderable"><a href="?sort=id">ID</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?sort=name">Nom</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?sort=subject">Sujet du mail</a></th>
-            
-        
-            
-            <th class="orderable"><a href="?sort=body">Contenu du mail</a></th>
-            
-        
-            
             <th class="orderable"><a href="?sort=active">Activé</a></th>
             
         
@@ -113,7 +97,7 @@
             
         
             
-            <th class="orderable"><a href="?sort=counter">Counter</a></th>
+            <th class="orderable"><a href="?sort=name">Nom</a></th>
             
         
             
@@ -134,19 +118,11 @@
         
         <tr class="even">
             
-                <td>1</td>
-            
-                <td>PMT: manquante</td>
-            
-                <td>PMT manquante sur {{ display_id }}</td>
-            
-                <td>PMT manquante sur {{ display_id }}: Contenu de mail</td>
-            
                 <td><span class="true">✔</span></td>
             
                 <td>Rejet</td>
             
-                <td>1</td>
+                <td>PMT: manquante</td>
             
                 <td>0</td>
             
@@ -161,19 +137,11 @@
         
         <tr class="odd">
             
-                <td>2</td>
-            
-                <td>Possibilité de trajets itératifs</td>
-            
-                <td>Nous avons un super conseil pour vous !</td>
-            
-                <td>les trajets iteratifs c'est super chouetos !</td>
-            
                 <td><span class="true">✔</span></td>
             
                 <td>Contact</td>
             
-                <td>1</td>
+                <td>Possibilité de trajets itératifs</td>
             
                 <td>0</td>
             
