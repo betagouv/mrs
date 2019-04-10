@@ -117,6 +117,7 @@ class EmailTemplateListView(crudlfap.ListView):
         'subject',
         'body',
     ]
+    paginate_by = 100
 
     def get_caisses(self):
         if self.request.user.profile == 'admin':
