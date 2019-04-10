@@ -875,11 +875,6 @@ def initial_data(sender, instance, **kwargs):
 signals.pre_save.connect(initial_data, sender=MRSRequest)
 
 
-class MRSRequestLogEntryManager(models.Manager):
-    def get_queryset(self):
-        return MRSRequestLogEntryQuerySet(self.model, using=self._db)
-
-
 class MRSRequestLogEntry(models.Model):
     ACTION_UPDATE = 2  # same ids as for django.contrib.admin.LogEntry
     ACTION_SUSPEND = 900
@@ -927,7 +922,7 @@ class MRSRequestLogEntry(models.Model):
         on_delete=models.SET_NULL,
     )
 
-    objects = MRSRequestLogEntryManager()
+    objects = MRSRequestLogEntryQuerySet.as_manager()
 
     class Meta:
         ordering = ('-datetime',)
