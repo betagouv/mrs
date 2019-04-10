@@ -23,7 +23,7 @@ class Dashboard(crudlfap.TemplateView):
     template_name = 'crudlfap/home.html'
     model = MRSRequest
     body_class = 'full-width'
-    allowed_groups = ['Admin', 'UPN', 'Support', 'Stat']
+    allowed_groups = ['Admin', 'UPN', 'Support', 'Stat', 'Superviseur']
     material_icon = 'home'
 
     def get_listview(self):

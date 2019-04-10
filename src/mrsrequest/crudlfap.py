@@ -268,7 +268,7 @@ def boolean_gte_filter(qs, name, value):
 
 
 class MRSRequestListView(crudlfap.ListView):
-    allowed_groups = ['Admin', 'UPN', 'Support']
+    allowed_groups = ['Admin', 'UPN', 'Support', 'Superviseur']
 
     def get_show_caisse_filter(self):
         self.show_caisse_filter = (
@@ -787,7 +787,7 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
 class MRSRequestDetailView(crudlfap.DetailView):
     locks = True
     title_heading = None
-    allowed_groups = ['Admin', 'UPN', 'Support']
+    allowed_groups = ['Admin', 'UPN', 'Support', 'Superviseur']
 
     def get_queryset(self):
         qs = super().get_queryset()

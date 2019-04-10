@@ -60,6 +60,7 @@
             <option value="2">UPN</option>
             <option value="3">Stat</option>
             <option value="4">Support</option>
+            <option value="5">Superviseur</option>
         </select>
         
     </div>

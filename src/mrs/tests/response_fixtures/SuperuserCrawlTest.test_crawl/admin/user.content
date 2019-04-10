@@ -36,6 +36,7 @@
             <option value="2">UPN</option>
             <option value="3">Stat</option>
             <option value="4">Support</option>
+            <option value="5">Superviseur</option>
         </select>
         
     </div>
@@ -669,6 +670,87 @@
         
         <li>
             <a class="" href="/admin/user/supportb?_next=/admin/user" title="supportb">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>aaaaaaa</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/superviseura">superviseura@example.com</a></td>
+            
+                <td>Superviseur A Prenom</td>
+            
+                <td>Superviseur A Nom</td>
+            
+                <td>Superviseur</td>
+            
+                <td>0</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-8" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-8">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/superviseura/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/superviseura/update?_next=/admin/user" title='Utilisateur "superviseura": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/superviseura/password?_next=/admin/user" title='Utilisateur "superviseura": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/superviseura/su?_next=/admin/user" title='Utilisateur "superviseura": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Devenir
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/superviseura?_next=/admin/user" title="superviseura">
     <i class="blue-text material-icons">search</i>
     
     Detail
