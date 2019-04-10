@@ -40,7 +40,7 @@ script: |
 name: db.reload
 color: red
 help: Drop and re-create the database, load test data
-requires: [dbreset, dbload]
+requires: [db.reset, db.load]
 
 ---
 name: db.load
