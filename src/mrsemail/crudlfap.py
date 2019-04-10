@@ -105,6 +105,7 @@ class DateFilter(django_filters.DateFilter):
 
 
 class EmailTemplateListView(crudlfap.ListView):
+    allowed_groups = ['Admin', 'UPN']
     table_columns = dict(
         new_counter=tables.Column(
             accessor='new_counter',
@@ -193,6 +194,11 @@ class EmailTemplateListView(crudlfap.ListView):
 
             if user:
                 filtr = filtr & models.Q(mrsrequestlogentry__user=user)
+
+        if self.request.user.profile == 'upn':
+            filtr = filtr & models.Q(
+                mrsrequestlogentry__user=self.request.user
+            )
 
         self.object_list = self.object_list.annotate(
             new_counter=models.Count(

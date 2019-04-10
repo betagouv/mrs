@@ -57,6 +57,20 @@ textarea {
             <li class="">
               <a
                 class="waves-effect"
+                href="/admin/emailtemplate"
+                title="Modèles d&#39;emails: liste"
+              ><i class="material-icons">mail</i>Modèles d&#39;emails</a>
+            </li>
+          
+        
+      
+        
+          
+          
+            
+            <li class="">
+              <a
+                class="waves-effect"
                 href="/admin/mrsrequest"
                 title="Demandes: liste"
               ><i class="material-icons">insert_drive_file</i>Demandes</a>
