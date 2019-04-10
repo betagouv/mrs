@@ -120,7 +120,7 @@ class EmailTemplateListView(crudlfap.ListView):
 
     def get_caisses(self):
         if self.request.user.profile == 'admin':
-            return Caisse.objects.all()
+            return Caisse.objects.filter(active=True)
         return self.request.user.caisses.all()
 
     def get_show_caisse_filter(self):
@@ -152,7 +152,7 @@ class EmailTemplateListView(crudlfap.ListView):
             )
 
         if self.show_user_filter:
-            qs = User.objects.all()
+            qs = User.objects.filter(groups__name='UPN')
             if self.request.user.profile != 'admin':
                 qs = qs.filter(caisses__in=self.caisses)
 
