@@ -1,0 +1,220 @@
+<div class="" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+          
+            
+<style type="text/css">
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m3 l2">
+    <div>
+      <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+        
+        
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+        
+        
+        
+<div class="row">
+    <div class="input-field col s12" id="id_datemin_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_datemin" name="datemin" type="text"/>
+        <label for="id_datemin">Date minimale</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12" id="id_datemax_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_datemax" name="datemax" type="text"/>
+        <label for="id_datemax">Date maximale</label>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="select-field col s12" id="id_menu_container">
+        <label for="id_menu">Menu</label>
+        <select id="id_menu" name="menu">
+            <option value="">---------</option>
+            <option value="reject">Rejet</option>
+            <option value="contact">Contact</option>
+        </select>
+        
+    </div>
+</div>
+
+        
+      </form>
+    </div>
+  </div>
+  
+
+  <div class="table-responsive col s12 m9 l10" id="render-table">
+    <div>
+      
+      <div class="table-container">
+        
+
+
+<div class="table-container">
+
+<table>
+    
+    
+    <thead>
+        <tr>
+        
+            
+            <th class="orderable"><a href="?sort=id">ID</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=name">Nom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=subject">Sujet du mail</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=body">Contenu du mail</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=active">Activé</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=menu">Menu</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=counter">Counter</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=new_counter">Utilisations</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+        <tr class="even">
+            
+                <td>1</td>
+            
+                <td>PMT: manquante</td>
+            
+                <td>PMT manquante sur {{ display_id }}</td>
+            
+                <td>PMT manquante sur {{ display_id }}: Contenu de mail</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td>Rejet</td>
+            
+                <td>1</td>
+            
+                <td>0</td>
+            
+                <td>
+                
+                
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>2</td>
+            
+                <td>Possibilité de trajets itératifs</td>
+            
+                <td>Nous avons un super conseil pour vous !</td>
+            
+                <td>les trajets iteratifs c'est super chouetos !</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td>Contact</td>
+            
+                <td>1</td>
+            
+                <td>0</td>
+            
+                <td>
+                
+                
+                </td>
+            
+        </tr>
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+
+<ul class="pagination">
+    
+
+    
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
+
+
+</div>
+
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>
