@@ -65,7 +65,6 @@
             <option disabled="" value="">Choisissez votre option</option>
             <option value="1">aaaaaaa</option>
             <option value="2">bbbb</option>
-            <option value="3">inactive</option>
         </select>
         
     </div>
@@ -79,12 +78,6 @@
             <option value="">---------</option>
             <option value="2">a</option>
             <option value="3">b</option>
-            <option value="4">supporta</option>
-            <option value="5">stata</option>
-            <option value="6">statb</option>
-            <option value="7">supportb</option>
-            <option value="8">superviseura</option>
-            <option value="1">test</option>
         </select>
         
     </div>
