@@ -931,6 +931,8 @@ class MRSRequestLogEntry(models.Model):
 
     class Meta:
         ordering = ('-datetime',)
+        verbose_name = 'Historique'
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return f'{self.mrsrequest}: {self.comment}'
@@ -943,6 +945,10 @@ class MRSRequestLogEntry(models.Model):
         for value, name in cls.ACTION_CHOICES:
             if name == name:
                 return value
+
+    @property
+    def date(self):
+        return datetime_date(self.datetime)
 
     def get_icons(self):
         """

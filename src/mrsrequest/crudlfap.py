@@ -2,6 +2,7 @@ from chardet.universaldetector import UniversalDetector
 import copy
 import csv
 import datetime
+import json
 import logging
 
 from crudlfap import shortcuts as crudlfap
@@ -15,10 +16,9 @@ from django.db import transaction
 from django.utils import timezone
 
 import django_filters
-
 import django_tables2 as tables
-
 from djcall.models import Caller
+import material
 
 from institution.models import Institution
 
@@ -839,3 +839,97 @@ class MRSRequestRouter(crudlfap.Router):
 
 
 MRSRequestRouter(namespace='mrsrequestrouter').register()
+
+
+class MRSRequestLogEntryListView(crudlfap.ListView):
+    material_icon = 'insert_chart'
+
+    filter_fields = ['mrsrequest__caisse', 'user']
+    date_args = ['date__gte', 'date__lte']
+    filterset_form_layout = material.Row(
+        'mrsrequest__caisse',
+        'user',
+        'date__gte',
+        'date__lte'
+    )
+
+    filterset_extra_class_attributes = dict(
+        date__gte=django_filters.DateFilter(
+            field_name='date',
+            lookup_expr='gte',
+            input_formats=['%d/%m/%Y'],
+            label='Date minimale',
+            widget=forms.TextInput(
+                attrs={
+                    'class': 'crudlfap-datepicker',
+                    'data-clearable': 'true',
+                    'data-format': 'dd/mm/yyyy',
+                },
+            )
+        ),
+        date__lte=django_filters.DateFilter(
+            field_name='date',
+            lookup_expr='lte',
+            input_formats=['%d/%m/%Y'],
+            label='Date maximale',
+            widget=forms.TextInput(
+                attrs={
+                    'class': 'crudlfap-datepicker',
+                    'data-clearable': 'true',
+                    'data-format': 'dd/mm/yyyy',
+                },
+            ),
+        ),
+    )
+
+    body_class = 'full-width'
+
+    def has_perm(self):
+        return self.request.user.is_superuser
+
+    def get_chart_json(self):
+        from mrsemail.models import EmailTemplate
+
+        templates = list(EmailTemplate.objects.all())
+        columns = [['x']] + [[str(t)] for t in templates]
+        dates = dict()
+        for obj in self.object_list.exclude(emailtemplate=None):
+            if obj.date not in dates:
+                dates[obj.date] = [0] * len(templates)
+            dates[obj.date][templates.index(obj.emailtemplate)] += 1
+
+        for date, row in dates.items():
+            columns[0].append(date.strftime('%Y-%m-%d'))
+            for i, et in enumerate(templates):
+                columns[i + 1].append(row[i])
+
+        return json.dumps(dict(
+            bindto='#chart',
+            data=dict(
+                x='x',
+                columns=columns,
+            ),
+            axis=dict(
+                x=dict(
+                    type='timeseries',
+                    tick=dict(
+                        format='%d/%m/%Y',
+                    )
+                ),
+                y=dict(
+                    min=0,
+                    padding=dict(bottom=0),
+                ),
+            ),
+            point=dict(
+                show=len(dates.keys()) < 32,
+            )
+        ))
+
+crudlfap.Router(
+    model=MRSRequestLogEntry,
+    material_icon='insert_chart',
+    views=[
+        MRSRequestLogEntryListView,
+    ],
+).register()

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if view.filterset.form.fields %}
+  <form method="get" action="" data-controller="autosubmit" data-target="render-chart" data-action="input->autosubmit#input change->autosubmit#input">
+    {{ render_form(view.filterset.form) }}
+  </form>
+{% endif %}
+
+<div id="render-chart">
+  <script
+    type="text/json"
+    data-stats="#chart"
+    data-controller="mrsstat"
+  >{{ view.get_chart_json()|safe }}</script>
+
+  <div id="chart">
+  </div>
+</div>
+
+<div class="table-responsive col s12" id="render-table">
+  <div>
+    {% if view.table %}
+    <div class="table-container">
+      {{ view.table.as_html(request) }}
+    </div>
+    {% else %}
+      {{ _('That page contains no results') }}
+    {% endif %}
+    {% include 'crudlfap/_pagination.html' %}
+  </div>
+</div>
+{% endblock %}
