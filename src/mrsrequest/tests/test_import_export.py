@@ -21,7 +21,7 @@ class ExportTest(ResponseDiffTestMixin, test.TestCase):
     @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
     def test_export(self):
         fixture_path = os.path.join(os.path.dirname(__file__), 'test_export')
-        url = reverse('crudlfap:mrsrequest:export')
+        url = reverse('crudlfap:mrsrequestrouter:export')
         client = test.Client()
         client.force_login(User.objects.get(username='test'))
         response = client.get(url)
@@ -64,7 +64,7 @@ aaaaaaa;201805010000;1111111111111;30/04/2000;29/04/2018;11/06/2018;2;3; ;310123
         fixture.seek(0)
 
         request = self.srf.post(
-            reverse('crudlfap:mrsrequest:import'),
+            reverse('crudlfap:mrsrequestrouter:import'),
             dict(csv=fixture)
         )
         request.user = User.objects.get(username='test')
