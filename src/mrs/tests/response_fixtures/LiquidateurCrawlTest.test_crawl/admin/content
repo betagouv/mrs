@@ -58,8 +58,8 @@ textarea {
               <a
                 class="waves-effect"
                 href="/admin/emailtemplate"
-                title="Modèles d&#39;emails: liste"
-              ><i class="material-icons">mail</i>Modèles d&#39;emails</a>
+                title="Gabarits: liste"
+              ><i class="material-icons">mail</i>Gabarits</a>
             </li>
           
         

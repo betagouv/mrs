@@ -30,8 +30,7 @@ class EmailTemplate(models.Model):
 
     class Meta:
         ordering = ('name',)
-        verbose_name = 'Modèle d\'email'
-        verbose_name_plural = 'Modèles d\'emails'
+        verbose_name = 'Gabarit'
 
     def __str__(self):
         return self.name
