@@ -79,3 +79,7 @@ class StatCrawlTest(LiquidateurCrawlTest):
 
 class SupportCrawlTest(LiquidateurCrawlTest):
     username = 'supporta'
+
+
+class SuperviseurCrawlTest(LiquidateurCrawlTest):
+    username = 'superviseura'

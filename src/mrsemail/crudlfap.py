@@ -105,7 +105,7 @@ class DateFilter(django_filters.DateFilter):
 
 
 class EmailTemplateListView(crudlfap.ListView):
-    allowed_groups = ['Admin', 'UPN']
+    allowed_groups = ['Admin', 'UPN', 'Superviseur']
     table_columns = dict(
         new_counter=tables.Column(
             accessor='new_counter',
@@ -130,7 +130,7 @@ class EmailTemplateListView(crudlfap.ListView):
         )
 
     def get_show_user_filter(self):
-        self.show_user_filter = self.request.user.profile == 'admin'
+        self.show_user_filter = self.request.user.profile != 'upn'
 
     def get_filterset_extra_class_attributes(self):
         ret = dict(

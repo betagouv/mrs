@@ -32,6 +32,14 @@
     }
 },
 {
+    "model": "auth.group",
+    "pk": 5,
+    "fields": {
+        "name": "Superviseur",
+        "permissions": []
+    }
+},
+{
     "model": "caisse.caisse",
     "pk": 1,
     "fields": {
@@ -563,6 +571,28 @@
         "user_permissions": [],
         "caisses": [
             2
+        ]
+    }
+},
+{
+    "model": "mrsuser.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$UFg967PHT26y$FbgutuXw8aKNbKdcNFBmGkw8v6UFaU/RlxVA3BjaPmo=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "superviseura",
+        "first_name": "Superviseur A Prenom",
+        "last_name": "Superviseur A Nom",
+        "email": "superviseura@example.com",
+        "is_active": true,
+        "date_joined": "2018-07-29T19:52:58Z",
+        "groups": [
+            5
+        ],
+        "user_permissions": [],
+        "caisses": [
+            1
         ]
     }
 },

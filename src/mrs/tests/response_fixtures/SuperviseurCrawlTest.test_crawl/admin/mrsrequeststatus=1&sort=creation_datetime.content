@@ -1,0 +1,192 @@
+<div class="" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+          
+            
+<style type="text/css">
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m3 l2">
+    <div>
+      <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+        
+        
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+        
+        
+        
+<div class="row">
+    <div class="select-field col s12" id="id_status_container">
+        <label for="id_status">Statut</label>
+        <select id="id_status" name="status">
+            <option value="">---------</option>
+            <option selected="selected" value="1">Soumise</option>
+            <option value="100">Annulée</option>
+            <option value="999">Rejetée</option>
+            <option value="1000">En cours de liquidation</option>
+            <option value="2000">Validée</option>
+        </select>
+        
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="select-field col s12" id="id_institution_container">
+        <label for="id_institution">Établissement</label>
+        <select id="id_institution" name="institution">
+            <option value="">---------</option>
+        </select>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12" id="id_creation_date__gte_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_creation_date__gte" name="creation_date__gte" type="text"/>
+        <label for="id_creation_date__gte">Date minimale</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12" id="id_creation_date__lte_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_creation_date__lte" name="creation_date__lte" type="text"/>
+        <label for="id_creation_date__lte">Date maximale</label>
+        
+    </div>
+</div>
+ 
+
+
+<div class="row">
+    <div class="select-field col s12" id="id_has_conflicts_accepted_container">
+        <label for="id_has_conflicts_accepted">Signalements acceptés</label>
+        <select id="id_has_conflicts_accepted" name="has_conflicts_accepted">
+            <option selected="selected" value="1">Inconnu</option>
+            <option value="2">Oui</option>
+            <option value="3">Non</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+
+
+<div class="row">
+    <div class="select-field col s12" id="id_has_conflicts_resolved_container">
+        <label for="id_has_conflicts_resolved">Signalements résolus</label>
+        <select id="id_has_conflicts_resolved" name="has_conflicts_resolved">
+            <option selected="selected" value="1">Inconnu</option>
+            <option value="2">Oui</option>
+            <option value="3">Non</option>
+        </select>
+        
+    </div>
+</div>
+
+        
+      </form>
+    </div>
+  </div>
+  
+
+  <div class="table-responsive col s12 m9 l10" id="render-table">
+    <div>
+      
+      <div class="table-container">
+        
+
+
+<div class="table-container">
+
+<table>
+    
+    
+    <thead>
+        <tr>
+        
+            
+            <th class="asc orderable"><a href="?status=1&amp;sort=-creation_datetime">Date et heure de la demande</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1&amp;sort=display_id">Numéro de demande</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1&amp;sort=first_name">Prénom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1&amp;sort=last_name">Nom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1&amp;sort=nir">NIR</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1&amp;sort=status">Statut</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1&amp;sort=delay">Delay</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?status=1&amp;sort=caisse">Caisse</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+</div>
+
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>
