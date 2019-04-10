@@ -1,5 +1,5 @@
 {
-    "Location": "/admin/mrsrequest",
+    "Location": "/admin/mrsrequestlogentry",
     "query_count": 4,
     "status_code": 302
 }

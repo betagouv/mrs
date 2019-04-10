@@ -119,6 +119,17 @@ class EmailTemplateListView(crudlfap.ListView):
     ]
     paginate_by = 100
 
+    def get_table_sequence(self):
+        sequence = [
+            'active',
+        ]
+        if 'menu' not in self.request.GET:
+            sequence.append('menu')
+        sequence += ['name', 'new_counter']
+        if self.request.user.profile == 'admin':
+            sequence.append('counter')
+        return sequence
+
     def get_caisses(self):
         if self.request.user.profile == 'admin':
             return Caisse.objects.filter(active=True)
