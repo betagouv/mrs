@@ -82,7 +82,7 @@
         </label></div>
         <div class="radio" id="id_pmt_pel"><label>
             <input class="with-gap" id="id_pmt_pel_1" name="pmt_pel" type="radio" value="pel"/>
-            <span class="item-label" for="id_pmt_pel_1">PEL (Préscription Électronique)</span>
+            <span class="item-label" for="id_pmt_pel_1">PMET (Préscription Électronique)</span>
         </label></div>
     </div>
 </div>
@@ -104,7 +104,10 @@
         <div class="file-path-wrapper">
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Prescription Médicale de Transport obligatoire"/>
         </div>
-        <div class="help-block">Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande accord préalable</div>
+        <div class="help-block">
+Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande
+accord préalable.
+</div>
 
         <ul class="files">
             
@@ -120,8 +123,12 @@
 <div class="row">
     <div class="input-field col s12" id="id_pel_container">
         <input id="id_pel" name="pel" type="text"/>
-        <label for="id_pel">Numéro de préscription éléctronique</label>
-        <div class="help-block">Le numéro de votre prescription médicale électronique est indiqué sur l exemplaire patient remis par votre médecin</div>
+        <label for="id_pel">Numéro de Préscription Électronique</label>
+        <div class="help-block">
+Le numéro de votre Prescription Médicale Electronique de Transport est indiqué
+sur l'exemplaire patient remis par votre médecin.
+<a href="/faq#pmt" title="Accèdez à la FAQ">Où trouver votre numero de PMET ?</a>
+</div>
     </div>
 </div>
 </div></div>
