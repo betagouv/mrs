@@ -18,6 +18,21 @@ from .models import today
 from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
 
+PMT_HELP = '''
+Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande
+accord préalable.
+'''
+
+PEL_HELP = '''
+Le numéro de votre Prescription Médicale Electronique de Transport est indiqué
+sur l'exemplaire patient remis par votre médecin.
+<a
+    href="/faq#pmt"
+    title="Accèdez à la FAQ"
+>Où trouver votre numero de PMET ?</a>
+'''
+
+
 class MRSRequestCreateForm(forms.ModelForm):
     # do not trust this field, it's used for javascript and checked
     # by the view for permission against the request session, but is
@@ -31,17 +46,14 @@ class MRSRequestCreateForm(forms.ModelForm):
         'mrsrequest:pmt_download',
         20,
         label='Prescription Médicale de Transport obligatoire',
-        help_text=(
-            'Joindre le volet 2 de la prescription médicale '
-            'ou le volet 3 de la demande accord préalable'
-        ),
+        help_text=PMT_HELP,
         required=False,
     )
 
     pmt_pel = forms.ChoiceField(
         choices=(
             ('pmt', 'PMT (Préscription Papier)'),
-            ('pel', 'PEL (Préscription Électronique)'),
+            ('pel', 'PMET (Préscription Électronique)'),
         ),
         initial='pmt',
         label='Avez-vous une ...',
@@ -49,9 +61,8 @@ class MRSRequestCreateForm(forms.ModelForm):
     )
 
     pel = forms.CharField(
-        label='Numéro de préscription éléctronique',
-        help_text='Le numéro de votre prescription médicale électronique est'
-                  ' indiqué sur l exemplaire patient remis par votre médecin',
+        label='Numéro de Préscription Électronique',
+        help_text=PEL_HELP,
         required=False,
     )
 
@@ -214,7 +225,7 @@ class MRSRequestCreateForm(forms.ModelForm):
 
         elif pmt_pel == 'pel':
             if not cleaned_data.get('pel'):
-                self.add_error('pel', 'Merci de saisir votre numéro de PEL')
+                self.add_error('pel', 'Merci de saisir votre numéro de PMET')
 
     def cleaned_vp_atp(self, cleaned_data):
         vp = cleaned_data.get('modevp')

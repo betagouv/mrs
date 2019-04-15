@@ -396,13 +396,13 @@ class MRSRequest(models.Model):
     )
     pel = models.CharField(
         max_length=14,
-        verbose_name='Numéro de PEL',
+        verbose_name='Numéro de PMET',
         null=True,
         blank=True,
         validators=[
             validators.RegexValidator(
                 '[a-zA-Z0-9]{14}',
-                message='Le numéro de PEL doit comporter'
+                message='Le numéro de PMET doit comporter'
                 ' 14 caractères alpha numériques',
             )
         ],
