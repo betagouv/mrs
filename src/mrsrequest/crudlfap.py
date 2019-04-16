@@ -788,6 +788,7 @@ class MRSRequestDetailView(crudlfap.DetailView):
     locks = True
     title_heading = None
     allowed_groups = ['Admin', 'UPN', 'Support', 'Superviseur']
+    body_class = 'full-width'
 
     def get_queryset(self):
         qs = super().get_queryset()
