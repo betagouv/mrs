@@ -1,4 +1,4 @@
-<div class="container" id="modal-body-ajax">
+<div class="" id="modal-body-ajax">
         
 <form action="/admin/mrsrequest/ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2/update" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-mrsrequest" method="post">
 
@@ -8,7 +8,7 @@
             <h4 class="text-default" id="modal-title-ajax">Demande "201805020001": modifier</h4>
             
           
-            
+          
     
   
 

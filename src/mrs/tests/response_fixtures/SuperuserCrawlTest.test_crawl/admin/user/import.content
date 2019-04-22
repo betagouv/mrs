@@ -1,4 +1,4 @@
-<div class="" id="modal-body-ajax">
+<div class="full-width" id="modal-body-ajax">
         
 <form action="/admin/user/import" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
 
@@ -8,7 +8,7 @@
             <h4 class="text-warning" id="modal-title-ajax">Import</h4>
             
           
-            
+          
   <p>Pour importer des utilisateurs en masse, fabriquer un fichier CSV laissant la premiere ligne intacte comme suit</p>
   <pre>nom;prenom;numero agent;profil;numero organisme;mail
 DUPONT;Jean;07328;UPN;571;jean.dupont@assurance-maladie.fr

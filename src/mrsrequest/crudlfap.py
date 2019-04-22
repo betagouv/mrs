@@ -39,8 +39,12 @@ class MRSRequestContactView(EmailViewMixin,
                             crudlfap.ObjectFormView):
 
     allowed_groups = ['Admin', 'UPN']
-    controller = 'modal'
-    action = 'click->modal#open'
+    link_attributes = {
+        'data-modal-init': 'show',
+        'data-modal-class': 'modal-bottom',
+        'data-controller': 'modal',
+        'data-action': 'click->modal#open',
+    }
     template_name = 'mrsemail/form.html'
     view_label = 'Contacter'
     material_icon = 'email'
