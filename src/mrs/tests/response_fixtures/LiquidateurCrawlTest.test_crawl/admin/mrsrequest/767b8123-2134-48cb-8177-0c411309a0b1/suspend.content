@@ -1,4 +1,4 @@
-<div class="container" id="modal-body-ajax">
+<div class="" id="modal-body-ajax">
         
 <form action="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1/suspend" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-mrsrequest" method="post">
 
@@ -8,7 +8,7 @@
             <h4 class="text-default" id="modal-title-ajax">Demande "201810310000": en cours d'étude</h4>
             
           
-            
+          
     <div class="card-panel orange lighten-4">
         Vous allez <b>suspendre</b> la demande 201810310000, confirmez-vous ?
     </div>

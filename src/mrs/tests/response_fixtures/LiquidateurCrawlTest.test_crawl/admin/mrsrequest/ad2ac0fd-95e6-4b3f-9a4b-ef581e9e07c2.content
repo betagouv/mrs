@@ -1,10 +1,10 @@
-<div class="" id="modal-body-ajax">
+<div class="full-width" id="modal-body-ajax">
         
           <div class="modal-content">
           
             
           
-            
+          
 <style type="text/css">
 .card-content p { clear: both; }
 .underline-dotted-red { text-decoration: underline dotted red; }

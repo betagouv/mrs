@@ -1,4 +1,4 @@
-<div class="container" id="modal-body-ajax">
+<div class="" id="modal-body-ajax">
         
 <form action="/admin/contact/deleteobjects" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
 
@@ -8,7 +8,7 @@
             <h4 class="text-danger" id="modal-title-ajax">Contacts: delete objects</h4>
             
           
-            
+          
   
 
   

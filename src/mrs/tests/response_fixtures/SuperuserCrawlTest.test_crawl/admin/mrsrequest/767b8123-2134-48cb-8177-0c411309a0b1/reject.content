@@ -1,4 +1,4 @@
-<div class="container" id="modal-body-ajax">
+<div class="modal-fixed-footer" id="modal-body-ajax">
         
 <form action="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1/reject" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-mrsrequest" method="post">
 
@@ -8,7 +8,7 @@
             <h4 class="text-default" id="modal-title-ajax">Demande "201810310000": rejeter</h4>
             
           
-            
+          
 <script id="emailtemplates" type="text/json">
 {"1": {"subject": "PMT manquante sur 201810310000", "body": "PMT manquante sur 201810310000: Contenu de mail"}}
 </script>

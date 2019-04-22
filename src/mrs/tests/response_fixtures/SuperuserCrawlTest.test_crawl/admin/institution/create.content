@@ -1,4 +1,4 @@
-<div class="container" id="modal-body-ajax">
+<div class="" id="modal-body-ajax">
         
 <form action="/admin/institution/create" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-institution" method="post">
 
@@ -8,7 +8,7 @@
             <h4 class="text-success" id="modal-title-ajax">Établissement: création</h4>
             
           
-            
+          
   
 
   

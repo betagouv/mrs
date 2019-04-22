@@ -1,4 +1,4 @@
-<div class="container" id="modal-body-ajax">
+<div class="" id="modal-body-ajax">
         
 <form action="/admin/caisse/create" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-caisse" method="post">
 
@@ -8,7 +8,7 @@
             <h4 class="text-success" id="modal-title-ajax">Caisse: création</h4>
             
           
-            
+          
   
 
   
