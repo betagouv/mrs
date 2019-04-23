@@ -35,16 +35,19 @@ from .models import CSV_COLUMNS, MRSRequest, MRSRequestLogEntry
 logger = logging.getLogger(__name__)
 
 
+BOTTOM_MODAL = {
+    'data-modal-init': 'show',
+    'data-modal-class': 'modal-bottom',
+    'data-controller': 'modal',
+    'data-action': 'click->modal#open',
+}
+
+
 class MRSRequestContactView(EmailViewMixin,
                             crudlfap.ObjectFormView):
 
     allowed_groups = ['Admin', 'UPN']
-    link_attributes = {
-        'data-modal-init': 'show',
-        'data-modal-class': 'modal-bottom',
-        'data-controller': 'modal',
-        'data-action': 'click->modal#open',
-    }
+    link_attributes = BOTTOM_MODAL
     template_name = 'mrsemail/form.html'
     view_label = 'Contacter'
     material_icon = 'email'
@@ -167,6 +170,7 @@ class MRSRequestRejectView(EmailViewMixin,
     action_flag = MRSRequest.STATUS_REJECTED
     menus = ['object_detail']
     emailtemplates_menu = 'reject'
+    link_attributes = BOTTOM_MODAL
 
     def get_queryset(self):
         return super().get_queryset().filter(status__in=(
