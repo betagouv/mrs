@@ -24,12 +24,12 @@ accord préalable.
 '''
 
 PEL_HELP = '''
-Le numéro de votre Prescription Médicale Electronique de Transport est indiqué
-sur l'exemplaire patient remis par votre médecin.
+Le numéro de votre Prescription Médicale Electronique de Transport (PMET) est
+indiqué sur l'exemplaire patient remis par votre médecin.
 <a
     href="/faq#pmt"
     title="Accèdez à la FAQ"
->Où trouver votre numero de PMET ?</a>
+>Où trouver votre numéro de PMET ?</a>
 '''
 
 
@@ -52,8 +52,8 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     pmt_pel = forms.ChoiceField(
         choices=(
-            ('pmt', 'PMT (Préscription Papier)'),
-            ('pel', 'PMET (Préscription Électronique)'),
+            ('pmt', 'PMT (Prescription Papier)'),
+            ('pel', 'PMET (Prescription Électronique)'),
         ),
         initial='pmt',
         label='Avez-vous une ...',
@@ -61,7 +61,7 @@ class MRSRequestCreateForm(forms.ModelForm):
     )
 
     pel = forms.CharField(
-        label='Numéro de Préscription Électronique',
+        label='Numéro de Prescription Électronique',
         help_text=PEL_HELP,
         required=False,
     )
