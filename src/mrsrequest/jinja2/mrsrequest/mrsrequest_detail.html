@@ -471,6 +471,26 @@
                         </td>
                     </tr>
                     {% endif %}
+                    {%- if object.expensevp_toll %}
+                    <tr>
+                        <td>
+                        Frais VP Péage
+                        </td>
+                        <td>
+                        {{ object.expensevp_toll }}€ TTC
+                        </td>
+                    </tr>
+                    {% endif -%}
+                    {%- if object.expensevp_parking %}
+                    <tr>
+                        <td>
+                        Frais VP Parking
+                        </td>
+                        <td>
+                        {{ object.expensevp_parking }}€ TTC
+                        </td>
+                    </tr>
+                    {% endif -%}
                     <tr>
                         <td>
                         Montant total des frais VP

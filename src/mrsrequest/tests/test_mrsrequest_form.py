@@ -34,9 +34,11 @@ def test_form_save_m2m(monkeypatch, person, caisse):
         data['distancevp'] = ['100']
         data['pmt_pel'] = ['pmt']
 
-        for mode in ['atp', 'vp']:
-            if f'expense{mode}' in extra:
-                data[f'mode{mode}'] = [f'mode{mode}']
+        if 'expenseatp' in extra:
+            data['modeatp'] = ['modeatp']
+
+        if 'expensevp_toll' in extra or 'expensevp_parking' in extra:
+            data['modevp'] = ['modevp']
 
         for k, v in extra.items():
             data[k] = [str(v)]
@@ -54,13 +56,13 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     )
 
     # PMT is only missing attachement at 0 expensevp
-    form = _form(expensevp=0)
+    form = _form(expensevp_toll=0)
     assert not form.non_field_errors()
     assert not form.is_valid()
     assert list(form.errors.keys()) == ['pmt']
 
     # Bills become required with expensevp
-    form = _form(expensevp=10)
+    form = _form(expensevp_toll=10)
     assert not form.non_field_errors()
     assert not form.is_valid()
     assert list(form.errors.keys()) == ['pmt', 'billvps']
@@ -71,7 +73,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
         PMT.objects.record_upload(mrsrequest_uuid, f)
 
     # Only Bills is missing now
-    form = _form(expensevp=10)
+    form = _form(expensevp_toll=10)
     assert not form.non_field_errors()
     assert not form.is_valid()
     assert list(form.errors.keys()) == ['billvps']
@@ -84,7 +86,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
 
     # Is the form's save_m2m method going to relate the above uploads by
     # uuid ?
-    form = _form(expensevp=10, expenseatp=10)
+    form = _form(expensevp_toll=10, expenseatp=10)
     assert not form.non_field_errors()
     assert not form.errors
     assert form.is_valid()

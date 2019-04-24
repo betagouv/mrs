@@ -75,7 +75,7 @@ def test_mrsrequestcreateview_post_save_integration(
     data['transport-1-date_depart'] = '2017-01-02'
     data['transport-1-date_return'] = '2017-01-02'
     data['distancevp'] = '100'
-    data['expensevp'] = '10'
+    data['expensevp_toll'] = '10'
     data['modevp'] = 'modevp'
     data['first_name'] = 'jamesy'
     data['last_name'] = 'wuzere'
@@ -104,6 +104,7 @@ def test_mrsrequestcreateview_post_save_integration(
     p.view_kwargs = {'finess': finess}
     p.url = reverse('institution:mrsrequest_iframe', args=[finess])
     p.post(**data)
+    assert not p.view.form_errors()
 
     Fixture(
         './src/institution/tests/test_mrsrequest_iframe.json',  # noqa
