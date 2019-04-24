@@ -78,7 +78,7 @@ aaaaaaa;201805010000;1111111111111;30/04/2000;29/04/2018;11/06/2018;2;3; ;310123
         request, view = self.upload(self.upload0)
 
         assert view.form.is_valid()
-        assert list(view.success.keys()) == [1, 2]
+        assert list(view.success.keys()) == [1, 2], view.errors[1:2]
         assert view.errors[3]['message'] == 'FINESS invalide aoeu'
         assert view.errors[4]['message'] == 'Demande introuvable en base de données'  # noqa
         assert view.errors[5]['message'] == 'payment_base: La valeur « a » doit être un nombre décimal.'  # noqa

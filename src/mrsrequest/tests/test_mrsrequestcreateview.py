@@ -137,7 +137,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     data['trip_kind'] = 'return'
     data['modevp'] = 'modevp'
     data['distancevp'] = '100'
-    data['expensevp'] = '0'
+    data['expensevp_toll'] = '0'
     data['pmt_pel'] = 'pmt'
     p.mrsrequest.pmt = PMT.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
@@ -148,7 +148,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     assert not p.view.forms['mrsrequest'].errors
     assert p.view.forms['mrsrequest'].is_valid()
 
-    data['expensevp'] = '10'
+    data['expensevp_toll'] = '10'
     p.post(**data)
     assert list(p.view.forms['mrsrequest'].errors) == ['billvps']
     assert not p.view.forms['mrsrequest'].is_valid()
@@ -190,7 +190,7 @@ def form_data(**data):
     data['transport-1-date_depart'] = '2017-01-02'
     data['transport-1-date_return'] = '2017-01-02'
     data['distancevp'] = '100'
-    data['expensevp'] = '10'
+    data['expensevp_toll'] = '10'
     data['modevp'] = 'modevp'
     data['first_name'] = 'jamesy'
     data['last_name'] = 'wuzere'
@@ -244,7 +244,7 @@ def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker):
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
 def test_mrsrequestcreateview_modeatp_post_save_integration(p, caisse):
     data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
-    data['expensevp'] = ''
+    data['expensevp_toll'] = ''
     data['expenseatp'] = '10'
     data['modevp'] = ''
     data['modeatp'] = 'modeatp'

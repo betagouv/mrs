@@ -78,7 +78,7 @@ var formInit = function (form) {
   var $caisse = $(form).find('#id_caisse')
   var $mrsrequestForm = $(form).find('#mrsrequest-form')
   var $caisseForm = $(form).find('#caisse-form')
-  var $parking = $(form).find('#id_parking_expensevp')
+  var $parking = $(form).find('#id_expensevp_parking')
   var $parkingEnable = $(form).find('[data-parking-enable]')
   var caisseChange = function() {
     if ($caisse.val() == 'other') {
@@ -182,20 +182,20 @@ var formInit = function (form) {
   confirming || iterativeNumberChange()
 
   // Expense billvps field
-  var $expensevp = $(form).find('[name=expensevp]')
   var $billvps = $(form).find('#id_billvps_container')
+  var $toll = $(form).find('[name=expensevp_toll]')
   var expensevpChange = function() {
     function active(field) {
       return field.length && parseFloat(field.val().replace(',', '.')) > 0
     }
-    if (active($expensevp) || active($parking)) {
+    if (active($toll) || active($parking)) {
       $billvps.slideDown()
     } else {
       $billvps.slideUp()
     }
   }
-  $expensevp.on('input', expensevpChange)
-  $expensevp.on('change', expensevpChange)
+  $toll.on('input', expensevpChange)
+  $toll.on('change', expensevpChange)
   $parking.on('input', expensevpChange)
   $parking.on('change', expensevpChange)
   confirming || expensevpChange()
@@ -273,8 +273,10 @@ var formSubmit = function(form) {
     }
     return setTimeout($.proxy(formSubmit, this, form), 1000)
   }
-  var $expensevp = $(form).find('[name=expensevp]')
-  if ($expensevp.val() == '') $expensevp.val('0')
+  for (var name of ['expensevp_toll', 'expensevp_parking']) {
+    var $field = $(form).find('[name=' + name + ']')
+    if ($field.val() == '') $field.val('0')
+  }
   $form.find('.wait').remove()
 
   // For postMessage in success callback

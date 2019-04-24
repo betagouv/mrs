@@ -109,28 +109,6 @@ class MRSRequestCreateForm(forms.ModelForm):
         widget=forms.TextInput,
     )
 
-    expensevp = forms.DecimalField(
-        decimal_places=2,
-        max_digits=6,
-        validators=[validators.MinValueValidator(Decimal('0.00'))],
-        label='Frais de péage',
-        help_text=(
-            'Somme totale des frais de péage (en € TTC)'
-        ),
-        required=False,
-        widget=forms.TextInput,
-    )
-
-    parking_expensevp = forms.DecimalField(
-        decimal_places=2,
-        max_digits=6,
-        validators=[validators.MinValueValidator(Decimal('0.00'))],
-        label='Frais de parking',
-        help_text='Somme totale des frais de parking (en € TTC)',
-        required=False,
-        widget=forms.TextInput,
-    )
-
     layouts = dict(
         above=material.Layout(
             material.Fieldset(
@@ -158,8 +136,8 @@ class MRSRequestCreateForm(forms.ModelForm):
                 'distancevp',
             ),
             material.Row(
-                'expensevp',
-                'parking_expensevp',
+                'expensevp_toll',
+                'expensevp_parking',
             ),
             'billvps',
         ),
@@ -177,21 +155,25 @@ class MRSRequestCreateForm(forms.ModelForm):
         fields = [
             'caisse',
             'expenseatp',
-            'expensevp',
+            'expensevp_parking',
+            'expensevp_toll',
             'distancevp',
             'modevp',
             'modeatp',
             'pel',
         ]
         widgets = dict(
-            distancevp=forms.TextInput
+            distancevp=forms.TextInput,
+            expensevp_toll=forms.TextInput,
+            expensevp_parking=forms.TextInput,
         )
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('initial', {})
         initial = kwargs['initial']
 
-        kwargs['initial'].setdefault('parking_expensevp', 0)
+        kwargs['initial'].setdefault('expensevp_parking', 0)
+        kwargs['initial'].setdefault('expensevp_toll', 0)
 
         if 'mrsrequest_uuid' in kwargs:
             mrsrequest_uuid = kwargs.pop('mrsrequest_uuid')
@@ -251,10 +233,10 @@ class MRSRequestCreateForm(forms.ModelForm):
                     'Merci de saisir la distance du trajet',
                 )
 
-            expensevp = cleaned_data.get('expensevp')
-            parking_expensevp = cleaned_data.get('parking_expensevp')
+            expensevp_toll = cleaned_data.get('expensevp_toll')
+            expensevp_parking = cleaned_data.get('expensevp_parking')
             billvps = cleaned_data.get('billvps')
-            if (expensevp or parking_expensevp) and not billvps:
+            if (expensevp_toll or expensevp_parking) and not billvps:
                 self.add_error(
                     'billvps',
                     'Merci de soumettre vos justificatifs de transport'
