@@ -364,18 +364,39 @@ class MRSRequest(models.Model):
         null=True,
         blank=True,
     )
-    expensevp = models.DecimalField(
+    expensevp_toll = models.DecimalField(
+        null=True,
+        blank=True,
+        decimal_places=2,
+        max_digits=6,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        verbose_name='Frais de péage',
+        help_text='Somme totale des frais de péage (en € TTC)',
+    )
+    expensevp_parking = models.DecimalField(
+        null=True,
+        blank=True,
+        decimal_places=2,
+        max_digits=6,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        verbose_name='Frais de stationnement',
+        help_text='Somme totale des frais de stationnement (en € TTC)',
+    )
+
+    @denormalized(
+        models.DecimalField,
         blank=True,
         null=True,
-        decimal_places=2, max_digits=6,
-        default=0,
+        decimal_places=2,
+        max_digits=6,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
-        verbose_name='Frais de péage et/ou transports',
-        help_text=(
-            'Somme totale des frais de péage'
-            ' et/ou de transport en commun (en € TTC)'
-        )
+        verbose_name='Total des frais',
+        help_text='Somme des frais de péage et stationnement (en € TTC)'
     )
+    def expensevp(self):
+        if self.expensevp_parking or self.expensevp_toll:
+            return (self.expensevp_parking or 0) + (self.expensevp_toll or 0)
+
     modeatp = models.BooleanField(
         blank=True,
         default=False,

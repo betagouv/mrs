@@ -49,6 +49,8 @@
         "distancevp": 100,
         "expenseatp": 10,
         "expensevp": null,
+        "expensevp_parking": null,
+        "expensevp_toll": null,
         "institution": null,
         "insured": 1,
         "insured_shift": null,

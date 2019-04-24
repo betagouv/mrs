@@ -199,7 +199,7 @@ blabla</p>
                             Montant total (Base de remboursement)
                         </td>
                         <td>
-                            37.90€ TTC
+                            39.90€ TTC
                         </td>
                     </tr>
                     <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
@@ -222,10 +222,27 @@ blabla</p>
                     
                     <tr>
                         <td>
-                        Montant total des frais VP
+                        Frais VP Péage
+                        </td>
+                        <td>
+                        2.00€ TTC
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                        Frais VP Parking
                         </td>
                         <td>
                         1.00€ TTC
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        Montant total des frais VP
+                        </td>
+                        <td>
+                        3.00€ TTC
                         </td>
                     </tr>
                     

@@ -295,19 +295,19 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 <div class="layout-row row"><div class="col s12 m6">
 
 <div class="row">
-    <div class="input-field col s12" id="id_expensevp_container">
-        <input id="id_expensevp" name="expensevp" type="text" value="0"/>
-        <label class="active" for="id_expensevp">Frais de péage</label>
+    <div class="input-field col s12" id="id_expensevp_toll_container">
+        <input id="id_expensevp_toll" name="expensevp_toll" type="text" value="0"/>
+        <label class="active" for="id_expensevp_toll">Frais de péage</label>
         <div class="help-block">Somme totale des frais de péage (en € TTC)</div>
     </div>
 </div>
 </div><div class="col s12 m6">
 
 <div class="row">
-    <div class="input-field col s12" id="id_parking_expensevp_container">
-        <input id="id_parking_expensevp" name="parking_expensevp" type="text" value="0"/>
-        <label class="active" for="id_parking_expensevp">Frais de parking</label>
-        <div class="help-block">Somme totale des frais de parking (en € TTC)</div>
+    <div class="input-field col s12" id="id_expensevp_parking_container">
+        <input id="id_expensevp_parking" name="expensevp_parking" type="text" value="0"/>
+        <label class="active" for="id_expensevp_parking">Frais de stationnement</label>
+        <div class="help-block">Somme totale des frais de stationnement (en € TTC)</div>
     </div>
 </div>
 </div></div>
