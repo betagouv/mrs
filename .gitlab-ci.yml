@@ -66,7 +66,7 @@ py-test:
   script:
   - DB_HOST=$POSTGRES_PORT_5432_TCP_ADDR
     DB_USER=postgres
-    cov='--cov src src' ./sh.yml py.test
+    venv=none ./sh.yml py.test
 
 js-qa:
   stage: test
