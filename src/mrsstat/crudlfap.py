@@ -78,18 +78,30 @@ class StatListView(crudlfap.ListView):
         ),
     )
 
+    def get_filterset(self):
+        filterset = super().get_filterset() or self.filterset
+        form = filterset.form
+        if 'caisse' in form.fields and self.request.user.profile != 'admin':
+            form.fields['caisse'].queryset = self.request.user.caisses.all()
+        return filterset
+
     body_class = 'full-width'
 
     @classmethod
     def reverse(cls, *args, **kwargs):
+        params = {
+            str(k): str(v)
+            for k, v in cls.date_default_filters.items()
+        }
+
+        if cls.request.user.profile != 'admin':
+            params['caisse'] = cls.request.user.caisses.first().pk
+
         return ''.join([
             str(super().reverse(*args, **kwargs)),
             '?',
             # pure abuse of Factory below
-            urllib.parse.urlencode({
-                str(k): str(v)
-                for k, v in cls.date_default_filters.items()
-            })
+            urllib.parse.urlencode(params)
         ])
 
     def get_date_default_filters(self):
@@ -234,10 +246,11 @@ class StatListTotalsView(StatListView):
 class StatImportExport(crudlfap.ModelView):
     material_icon = 'compare_arrows'
     title_link = 'Importer et exporter des fichiers CSV'
+    allowed_groups = ['Admin', 'Stat']
 
 
 class StatRouter(crudlfap.Router):
-    allowed_groups = ['Admin', 'Stat']
+    allowed_groups = ['Admin', 'Stat', 'Superviseur']
     model = Stat
     material_icon = 'multiline_chart'
     views = [
@@ -245,5 +258,17 @@ class StatRouter(crudlfap.Router):
         StatListView,
         StatListTotalsView,
     ]
+
+    def get_queryset(self, view):
+        user = view.request.user
+
+        if user.is_superuser or user.profile == 'admin':
+            return self.model.objects.all()
+        elif user.profile in ('stat', 'superviseur'):
+            return self.model.objects.filter(
+                caisse__in=view.request.user.caisses.all()
+            )
+
+        return self.model.objects.none()
 
 StatRouter().register()

@@ -1,0 +1,104 @@
+<div class="full-width" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+          
+          
+
+  <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-chart" method="get">
+    
+<div class="layout-row row"><div class="col s12 m3">
+<div class="row">
+    <div class="select-field col s12" id="id_caisse_container">
+        <label for="id_caisse">Caisse</label>
+        <select id="id_caisse" name="caisse">
+            <option value="">---------</option>
+            <option selected="selected" value="1">aaaaaaa</option>
+        </select>
+        
+    </div>
+</div>
+</div><div class="col s12 m3">
+<div class="row">
+    <div class="select-field col s12" id="id_institution_container">
+        <label for="id_institution">Institution</label>
+        <select id="id_institution" name="institution">
+            <option value="">---------</option>
+        </select>
+        
+    </div>
+</div>
+</div><div class="col s12 m3">
+
+<div class="row">
+    <div class="input-field col s12" id="id_date__gte_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__gte" name="date__gte" type="text" value="01/05/2018"/>
+        <label class="active" for="id_date__gte">Date minimale</label>
+        
+    </div>
+</div>
+</div><div class="col s12 m3">
+
+<div class="row">
+    <div class="input-field col s12" id="id_date__lte_container">
+        <input class="crudlfap-datepicker" data-clearable="true" data-format="dd/mm/yyyy" id="id_date__lte" name="date__lte" type="text" value="31/05/2018"/>
+        <label class="active" for="id_date__lte">Date maximale</label>
+        
+    </div>
+</div>
+</div></div>
+
+  </form>
+
+
+<div id="render-chart">
+  <script data-controller="mrsstat" data-stats="#chart" type="text/json">{"bindto": "#chart", "data": {"x": "x", "columns": [["x", "2018-05-01", "2018-05-02", "2018-05-03", "2018-05-04", "2018-05-05", "2018-05-06"], ["Nombre de demandes soumises", 1, 3, 1, 0, 0, 0], ["Nombre de demandes en cours", 1, 0, 2, 0, 1, 0], ["Nombre de demandes valid\u00e9es", 0, 0, 0, 2, 0, 0], ["Nombre de demandes rejett\u00e9es", 1, 0, 0, 0, 0, 0], ["Nb. affichages page de confirmation", 0, 0, 0, 0, 0, 0], ["Nb. demandes soumises avec conflit non resolu", 0, 0, 0, 0, 0, 0], ["Nb. demandes en conflit resolu (non-soumise inclues)", 0, 0, 0, 0, 0, 0], ["Nombre de bascules", 0, 1, 0, 0, 0, 0]]}, "axis": {"x": {"type": "timeseries", "tick": {"format": "%d/%m/%Y"}}, "y": {"min": 0, "padding": {"bottom": 0}}}, "point": {"show": true}}</script>
+
+  <div class="row">
+    <div class="col s4">
+      <p>
+      Moyenne des délais quotidiens de traitement: 0.36 jours
+      </p>
+    </div>
+    <div class="col s4">
+      <p>
+        Nombre de demandes soumises: 5
+      </p>
+      <p>
+        Nombre de demandes en cours: 4
+      </p>
+      <p>
+        Nombre de demandes validées: 2
+      </p>
+      <p>
+        Nombre de demandes rejetées: 1
+      </p>
+    </div>
+    <div class="col s4">
+      <p>
+        Econnomies réalisées: 5.37€
+      </p>
+      <p>
+        Nombre d'assurés ayant basculés pendant la période: 1
+      </p>
+      <p>
+        Nombre d'assurés avec un dossier traité durant la période: 0
+      </p>
+      <p>
+        Nombre de dossiers traités durant la période d'assurés ayant basculés même en dehors de la période: 0
+      </p>
+    </div>
+  </div>
+
+  <div id="chart">
+  </div>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>
