@@ -176,35 +176,27 @@
                 <table>
                     <tbody><tr class="red-text">
                         <td>
-                            Montant total (Base de remboursement)
+                            Montant total de la dépense VP
                         </td>
                         <td>
-                            1.50€ TTC
+                            
+                                0.00 €TTC
+                            
                         </td>
                     </tr>
                     <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
                         <td>
-                            Distance km parcourus
+                            Distance parcourue
                         </td>
                         <td>
-                            5
+                            5 km
                         </td>
-                    </tr>
-                    
-                    <tr>
+                    </tr><tr>
                         <td>
-                            Montant des km parcourus
+                        Total des frais VP
                         </td>
                         <td>
-                            1.50€ TTC
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        Montant total des frais VP
-                        </td>
-                        <td>
-                        0.00€ TTC
+                        0.00 €TTC
                         </td>
                     </tr>
                     
@@ -213,7 +205,7 @@
                             Coût théorique du trajet en taxi
                         </td>
                         <td>
-                            10.83€
+                            10.83 €
                         </td>
                     </tr>
                     </tbody></table>

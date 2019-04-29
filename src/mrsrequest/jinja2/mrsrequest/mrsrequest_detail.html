@@ -442,10 +442,14 @@
                 <table>
                     <tr class="red-text">
                         <td>
-                            Montant total (Base de remboursement)
+                            Montant total de la dépense VP
                         </td>
                         <td>
-                            {{ object.estimate }}€ TTC
+                            {% if object.expensevp_toll or object.expensevp_parking %}
+                                {{ object.expensevp_toll + object.expensevp_parking }} €TTC
+                            {% else %}
+                                {{ object.expensevp }} €TTC
+                            {% endif %}
                         </td>
                     </tr>
                     <tr
@@ -455,29 +459,19 @@
                         class="{% if object.distancevp != object.data.distancevp %}underline-dotted-red{% endif %}"
                     >
                         <td>
-                            Distance km parcourus
+                            Distance parcourue
                         </td>
                         <td>
-                            {{ object.distancevp }}
+                            {{ object.distancevp }} km
                         </td>
                     </tr>
-                    {% if object.distancevp %}
-                    <tr>
-                        <td>
-                            Montant des km parcourus
-                        </td>
-                        <td>
-                            {{ '%.2f'|format(object.distancevp * 0.3) }}€ TTC
-                        </td>
-                    </tr>
-                    {% endif %}
                     {%- if object.expensevp_toll %}
                     <tr>
                         <td>
                         Frais VP Péage
                         </td>
                         <td>
-                        {{ object.expensevp_toll }}€ TTC
+                        {{ object.expensevp_toll }} €TTC
                         </td>
                     </tr>
                     {% endif -%}
@@ -487,16 +481,16 @@
                         Frais VP Parking
                         </td>
                         <td>
-                        {{ object.expensevp_parking }}€ TTC
+                        {{ object.expensevp_parking }} €TTC
                         </td>
                     </tr>
                     {% endif -%}
                     <tr>
                         <td>
-                        Montant total des frais VP
+                        Total des frais VP
                         </td>
                         <td>
-                        {{ object.expensevp }}€ TTC
+                        {{ object.expensevp }} €TTC
                         </td>
                     </tr>
                     {% if object.payment_base -%}
@@ -505,7 +499,7 @@
                         Base de remboursement
                         </td>
                         <td>
-                        {{ object.payment_base }}€
+                        {{ object.payment_base }} €
                         </td>
                     </tr>
                     {% endif %}
@@ -515,7 +509,7 @@
                             Montant remboursé
                         </td>
                         <td>
-                            {{ object.payment_amount }}€
+                            {{ object.payment_amount }} €
                         </td>
                     </tr>
                     {% endif -%}
@@ -525,7 +519,7 @@
                             Coût théorique du trajet en taxi
                         </td>
                         <td>
-                            {{ object.taxi_cost }}€
+                            {{ object.taxi_cost }} €
                         </td>
                     </tr>
                     {% endif -%}
@@ -535,7 +529,7 @@
                             Economie calculée
                         </td>
                         <td>
-                            {{ object.saving }}€
+                            {{ object.saving }} €
                         </td>
                     </tr>
                     {% endif -%}
@@ -558,7 +552,7 @@
                             Montant total des frais ATP
                         </td>
                         <td>
-                            {{ object.expenseatp }}€ TTC
+                            {{ object.expenseatp }} €TTC
                         </td>
                     </tr>
                 </table>
@@ -566,6 +560,6 @@
             </div>
         </div>
     </div>
-{% endif %}
+    {% endif %}
 </div>
 {% endblock %}
