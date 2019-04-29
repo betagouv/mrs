@@ -12,6 +12,7 @@
 .row:first { padding-top: 12px; }
 </style>
 
+
 <div class="row">
     <div class="col s12">
         <div class="card">
@@ -82,6 +83,7 @@
     </div>
 </div>
 
+
 <div class="row">
     <div class="col m6 s12">
         <div class="card">
@@ -105,70 +107,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Suivi du dossier
-                </div>
-                
-                <div class="clickable odd" data-action="click-&gt;modal#childmodal" data-controller="modal">
-                    <div class="childmodal" style="display: none">
-                        <div class="modal-content">
-                            <h4 class="modal-title">Nous avons un super conseil pour vous !</h4>
-                            <p>les trajets iteratifs c'est super chouetos !</p>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
-                        </div>
-                    </div>
-                    <div class="" title="Contacté">
-                                <i class="material-icons right tiny"> email</i>
-                            
-                            Possibilité de trajets itératifs
-                        </div>
 
-                        24/05/2018 02:43
-                        <span class="right">
-                            test
-                        </span>
-                </div>
-                
-                <div class="even"><div class="green-text" title="Validée">
-                                <i class="material-icons right tiny"> check_circle</i>
-                            
-                            Validée
-                        </div>
 
-                        03/05/2018 16:21
-                        <span class="right">
-                            test
-                        </span>
-                </div>
-                
-                <div class="odd"><div class="green-text" title="En cours de liquidation">
-                                <i class="material-icons right tiny"> playlist_add_check</i>
-                            
-                            En cours de liquidation
-                        </div>
-
-                        03/05/2018 16:20
-                        <span class="right">
-                            test
-                        </span>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    
-    
-</div>
-<div class="row">
-    <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -225,68 +165,42 @@
                 </p>
             </div>
         </div>
-    </div>
-    <div class="col m6 s12">
+
+
+        
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Dates de Transports
+                    ATP
                 </div>
-                <p title="Nombre de signalements que l'assuré a accepté dans cette demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a accepté sur cette demande
-                    </span>
-                    <span class="right">
-                        1
-                        signalements
-                    </span>
-                </p>
-                <p title="Nombre de signalements que l'assuré a résolu dans cette demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a résolu sur cette demande
-                    </span>
-                    <span class="right">
-                        1
-                        signalements
-                    </span>
-                </p>
-                <table class="centered highlight">
-                    <thead>
-                        <tr>
-                            <th>Num.</th>
-                            <th>Aller</th>
-                            <th>Retour</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd">
-                            <td>1</td>
-                            <td>
-                                01/04/2018
-                            </td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        <tr class="even">
-                            <td>2</td>
-                            <td>
-                                01/05/2018
-                            </td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+                <table>
+                    <tbody><tr>
+                        <td>
+                            Montant total des frais ATP
+                        </td>
+                        <td>
+                            3.00 €TTC
+                        </td>
+                    </tr>
+                </tbody></table>
+                
+
+<p>
+    Justificatif attaché:
+</p>
+<ul style="margin: 0">
+    
+    <li>
+        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/12/download/">1x1.png (95 Bytes)</a>
+    </li>
+
+</ul>
+
+
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    
-    <div class="col m6 s12">
+        
+        
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -344,43 +258,140 @@
 
             </div>
         </div>
+        
+
+
     </div>
-    
-    
     <div class="col m6 s12">
+        
+        
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    ATP
+                    Suivi du dossier
                 </div>
-                <table>
-                    <tbody><tr>
-                        <td>
-                            Montant total des frais ATP
-                        </td>
-                        <td>
-                            3.00 €TTC
-                        </td>
-                    </tr>
-                </tbody></table>
                 
+                <div class="clickable odd" data-action="click-&gt;modal#childmodal" data-controller="modal">
+                    <div class="childmodal" style="display: none">
+                        <div class="modal-content">
+                            <h4 class="modal-title">Nous avons un super conseil pour vous !</h4>
+                            <p>les trajets iteratifs c'est super chouetos !</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
+                        </div>
+                    </div>
+                    <div class="" title="Contacté">
+                                <i class="material-icons right tiny"> email</i>
+                            
+                            Possibilité de trajets itératifs
+                        </div>
 
-<p>
-    Justificatif attaché:
-</p>
-<ul style="margin: 0">
-    
-    <li>
-        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/12/download/">1x1.png (95 Bytes)</a>
-    </li>
+                        24/05/2018 02:43
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
+                <div class="even"><div class="green-text" title="Validée">
+                                <i class="material-icons right tiny"> check_circle</i>
+                            
+                            Validée
+                        </div>
 
-</ul>
+                        03/05/2018 16:21
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
+                <div class="odd"><div class="green-text" title="En cours de liquidation">
+                                <i class="material-icons right tiny"> playlist_add_check</i>
+                            
+                            En cours de liquidation
+                        </div>
 
-
+                        03/05/2018 16:20
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
             </div>
         </div>
+        
+        
+
+
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Dates de Transports
+                </div>
+                <p title="Nombre de signalements que l'assuré a accepté dans cette demandes">
+                    <span class="grey-text text-darken-2">
+                        Assuré a accepté sur cette demande
+                    </span>
+                    <span class="right">
+                        1
+                        signalements
+                    </span>
+                </p>
+                <p title="Nombre de signalements que l'assuré a résolu dans cette demandes">
+                    <span class="grey-text text-darken-2">
+                        Assuré a résolu sur cette demande
+                    </span>
+                    <span class="right">
+                        1
+                        signalements
+                    </span>
+                </p>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>1</td>
+                            <td>
+                                01/04/2018
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>2</td>
+                            <td>
+                                01/05/2018
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
-    
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
+    </div>
+</div>
+<div class="row">
+    <div class="col m6 s12">
+    </div>
 </div>
 
           </div>

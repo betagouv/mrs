@@ -62,6 +62,7 @@
 .duplicates th, .duplicates td, .duplicates ul { margin: 0; padding: 2px; }
 .row:first { padding-top: 12px; }
 </style>
+
 {% if object.duplicates_by_transport %}
 <div class="row">
     <div class="col s12">
@@ -121,6 +122,7 @@
     </div>
 </div>
 {% endif %}
+
 <div class="row">
     <div class="col m6 s12">
         <div class="card">
@@ -168,102 +170,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    {% with entries = list(object.logentries.order_by('-datetime')) %}
-    {% if entries %}
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Suivi du dossier
-                </div>
-                {% for entry in entries %}
-                <div
-                    {% if entry.data %}
-                    data-controller="modal"
-                    data-action="click->modal#childmodal"
-                    {% endif %}
-                    class="{% if entry.data %}clickable {% endif %}{{ loop.cycle("odd", "even") }}"
-                >
-                    {%- if entry.data and 'subject' in entry.data %}
-                    <div class="childmodal" style="display: none">
-                        <div class="modal-content">
-                            <h4 class="modal-title">{{ entry.data.subject }}</h4>
-                            <p>{{ entry.data.body }}</p>
-                        </div>
-                        <div class="modal-footer">
-                            <a
-                                class="modal-close waves-effect waves-green btn-flat"
-                            >Merci</a>
-                        </div>
-                    </div>
-                    {% endif -%}
-                    {%- if entry.action == entry.ACTION_UPDATE %}
-                    <div class="childmodal" style="display: none">
-                        <div class="modal-content">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Champs</th>
-                                        <td>Original</td>
-                                        <td>Modification</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for key, values in entry.data.changed.items() %}
-                                    {% if key in view.labels %}
-                                        {% if key != 'pk' or request.user.is_superuser %}
-                                        <tr>
-                                            <th>{{ view.labels[key] }}</th>
-                                            <td>
-                                                {{ view.object.data.get(key, values[0]) }}
-                                            </td>
-                                            <td>
-                                              {{ values[1] }}
-                                            </td>
-                                        </tr>
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <a
-                                class="modal-close waves-effect waves-green btn-flat"
-                            >Merci</a>
-                        </div>
-                    </div>
-                    {% endif -%}
 
-                        <div
-                                class="{% if entry.action == 999 %}red-text{% elif entry.action in (1000, 2000) %}green-text{% elif entry.action == 900 %}orange-text{% endif %}"
-                                title="{{ entry.get_action_display() }}"
-                        >
-                            {%- if entry.get_icons() %}
-                                <i class="material-icons right tiny"> {{ entry.get_icons() }}</i>
-                            {% endif %}
-                            {{ entry.comment }}
-                        </div>
 
-                        {{ localtime(entry.datetime).strftime('%d/%m/%Y %H:%M') }}
-                        <span class="right">
-                            {%- if entry.user %}
-                            {{ entry.user }}
-                            {%- else %}
-                            Assuré
-                            {% endif %}
-                        </span>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    {% endwith %}
-</div>
-<div class="row">
-    <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -367,73 +275,29 @@
                 </p>
             </div>
         </div>
-    </div>
-    <div class="col m6 s12">
+
+
+        {% if object.modeatp %}
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Date{% if object.transport_set.all()|length %}s{% endif %} de Transport{% if object.transport_set.all()|length %}s{% endif %}
+                    ATP
                 </div>
-                {%- if object.conflicts_accepted %}
-                <p title="Nombre de signalements que l'assuré a accepté dans cette demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a accepté sur cette demande
-                    </span>
-                    <span class="right">
-                        {{ object.conflicts_accepted }}
-                        signalements
-                    </span>
-                </p>
-                {%- endif %}
-                {%- if object.conflicts_resolved %}
-                <p title="Nombre de signalements que l'assuré a résolu dans cette demandes">
-                    <span class="grey-text text-darken-2">
-                        Assuré a résolu sur cette demande
-                    </span>
-                    <span class="right">
-                        {{ object.conflicts_resolved }}
-                        signalements
-                    </span>
-                </p>
-                {%- endif %}
-                <table class="centered highlight">
-                    <thead>
-                        <tr>
-                            <th>Num.</th>
-                            <th>Aller</th>
-                            <th>Retour</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for transport in object.transport_set.all().annotate_duplicates() -%}
-                        <tr class="{{ loop.cycle('odd', 'even') }}">
-                            <td>{{ loop.index }}</td>
-                            <td
-                                {%- if transport.date_depart_is_duplicate %}
-                                class="underline-dotted-red red-text"
-                                title="Cette date apparait dans un autre trajet de cette demande"
-                                {% endif %}
-                            >
-                                {% if transport.date_depart %}{{ transport.date_depart.strftime('%d/%m/%Y') }}{% endif %}
-                            </td>
-                            <td {% if transport.date_return_is_duplicate %}
-                                class="underline-dotted-red red-text"
-                                title="Cette date apparait dans un autre trajet de cette demande"
-                                {% endif %}
-                            >
-                                {% if transport.date_return %}{{ transport.date_return.strftime('%d/%m/%Y') }}{% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
+                <table>
+                    <tr>
+                        <td>
+                            Montant total des frais ATP
+                        </td>
+                        <td>
+                            {{ object.expenseatp }} €TTC
+                        </td>
+                    </tr>
                 </table>
+                {{ show_bills('atp') }}
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    {% if object.modevp %}
-    <div class="col m6 s12">
+        {% endif %}
+        {% if object.modevp %}
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -537,29 +401,176 @@
                 {{ show_bills('vp') }}
             </div>
         </div>
+        {% endif %}
+
+
     </div>
-    {% endif %}
-    {% if object.modeatp %}
     <div class="col m6 s12">
+        {% with entries = list(object.logentries.order_by('-datetime')) %}
+        {% if entries %}
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    ATP
+                    Suivi du dossier
                 </div>
-                <table>
-                    <tr>
-                        <td>
-                            Montant total des frais ATP
-                        </td>
-                        <td>
-                            {{ object.expenseatp }} €TTC
-                        </td>
-                    </tr>
-                </table>
-                {{ show_bills('atp') }}
+                {% for entry in entries %}
+                <div
+                    {% if entry.data %}
+                    data-controller="modal"
+                    data-action="click->modal#childmodal"
+                    {% endif %}
+                    class="{% if entry.data %}clickable {% endif %}{{ loop.cycle("odd", "even") }}"
+                >
+                    {%- if entry.data and 'subject' in entry.data %}
+                    <div class="childmodal" style="display: none">
+                        <div class="modal-content">
+                            <h4 class="modal-title">{{ entry.data.subject }}</h4>
+                            <p>{{ entry.data.body }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a
+                                class="modal-close waves-effect waves-green btn-flat"
+                            >Merci</a>
+                        </div>
+                    </div>
+                    {% endif -%}
+                    {%- if entry.action == entry.ACTION_UPDATE %}
+                    <div class="childmodal" style="display: none">
+                        <div class="modal-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Champs</th>
+                                        <td>Original</td>
+                                        <td>Modification</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, values in entry.data.changed.items() %}
+                                    {% if key in view.labels %}
+                                        {% if key != 'pk' or request.user.is_superuser %}
+                                        <tr>
+                                            <th>{{ view.labels[key] }}</th>
+                                            <td>
+                                                {{ view.object.data.get(key, values[0]) }}
+                                            </td>
+                                            <td>
+                                              {{ values[1] }}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <a
+                                class="modal-close waves-effect waves-green btn-flat"
+                            >Merci</a>
+                        </div>
+                    </div>
+                    {% endif -%}
+
+                        <div
+                                class="{% if entry.action == 999 %}red-text{% elif entry.action in (1000, 2000) %}green-text{% elif entry.action == 900 %}orange-text{% endif %}"
+                                title="{{ entry.get_action_display() }}"
+                        >
+                            {%- if entry.get_icons() %}
+                                <i class="material-icons right tiny"> {{ entry.get_icons() }}</i>
+                            {% endif %}
+                            {{ entry.comment }}
+                        </div>
+
+                        {{ localtime(entry.datetime).strftime('%d/%m/%Y %H:%M') }}
+                        <span class="right">
+                            {%- if entry.user %}
+                            {{ entry.user }}
+                            {%- else %}
+                            Assuré
+                            {% endif %}
+                        </span>
+                </div>
+                {% endfor %}
             </div>
         </div>
+        {% endif %}
+        {% endwith %}
+
+
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Date{% if object.transport_set.all()|length %}s{% endif %} de Transport{% if object.transport_set.all()|length %}s{% endif %}
+                </div>
+                {%- if object.conflicts_accepted %}
+                <p title="Nombre de signalements que l'assuré a accepté dans cette demandes">
+                    <span class="grey-text text-darken-2">
+                        Assuré a accepté sur cette demande
+                    </span>
+                    <span class="right">
+                        {{ object.conflicts_accepted }}
+                        signalements
+                    </span>
+                </p>
+                {%- endif %}
+                {%- if object.conflicts_resolved %}
+                <p title="Nombre de signalements que l'assuré a résolu dans cette demandes">
+                    <span class="grey-text text-darken-2">
+                        Assuré a résolu sur cette demande
+                    </span>
+                    <span class="right">
+                        {{ object.conflicts_resolved }}
+                        signalements
+                    </span>
+                </p>
+                {%- endif %}
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transport in object.transport_set.all().annotate_duplicates() -%}
+                        <tr class="{{ loop.cycle('odd', 'even') }}">
+                            <td>{{ loop.index }}</td>
+                            <td
+                                {%- if transport.date_depart_is_duplicate %}
+                                class="underline-dotted-red red-text"
+                                title="Cette date apparait dans un autre trajet de cette demande"
+                                {% endif %}
+                            >
+                                {% if transport.date_depart %}{{ transport.date_depart.strftime('%d/%m/%Y') }}{% endif %}
+                            </td>
+                            <td {% if transport.date_return_is_duplicate %}
+                                class="underline-dotted-red red-text"
+                                title="Cette date apparait dans un autre trajet de cette demande"
+                                {% endif %}
+                            >
+                                {% if transport.date_return %}{{ transport.date_return.strftime('%d/%m/%Y') }}{% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
-    {% endif %}
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
+    </div>
+</div>
+<div class="row">
+    <div class="col m6 s12">
+    </div>
 </div>
 {% endblock %}

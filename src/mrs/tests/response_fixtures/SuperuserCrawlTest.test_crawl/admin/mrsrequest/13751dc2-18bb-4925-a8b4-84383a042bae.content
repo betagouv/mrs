@@ -12,6 +12,8 @@
 .row:first { padding-top: 12px; }
 </style>
 
+
+
 <div class="row">
     <div class="col m6 s12">
         <div class="card">
@@ -35,59 +37,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Suivi du dossier
-                </div>
-                
-                <div class="clickable odd" data-action="click-&gt;modal#childmodal" data-controller="modal">
-                    <div class="childmodal" style="display: none">
-                        <div class="modal-content">
-                            <h4 class="modal-title">Rejet pour autre motif</h4>
-                            <p>corps
-blabla</p>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
-                        </div>
-                    </div>
-                    <div class="red-text" title="Rejetée">
-                                <i class="material-icons right tiny"> do_not_disturb_on</i>
-                            
-                            Rejet pour autre motif
-                        </div>
 
-                        01/05/2018 19:13
-                        <span class="right">
-                            a
-                        </span>
-                </div>
-                
-                <div class="even"><div class="green-text" title="En cours de liquidation">
-                                <i class="material-icons right tiny"> playlist_add_check</i>
-                            
-                            En cours de liquidation
-                        </div>
 
-                        01/05/2018 17:13
-                        <span class="right">
-                            a
-                        </span>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    
-    
-</div>
-<div class="row">
-    <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -144,50 +95,10 @@ blabla</p>
                 </p>
             </div>
         </div>
-    </div>
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Dates de Transports
-                </div>
-                <table class="centered highlight">
-                    <thead>
-                        <tr>
-                            <th>Num.</th>
-                            <th>Aller</th>
-                            <th>Retour</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd">
-                            <td>1</td>
-                            <td>
-                                29/04/2018
-                            </td>
-                            <td>
-                                29/04/2018
-                            </td>
-                        </tr>
-                        <tr class="even">
-                            <td>2</td>
-                            <td>
-                                30/04/2018
-                            </td>
-                            <td>
-                                30/04/2018
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    
-    <div class="col m6 s12">
+
+
+        
+        
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -267,9 +178,111 @@ blabla</p>
 
             </div>
         </div>
+        
+
+
     </div>
-    
-    
+    <div class="col m6 s12">
+        
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Suivi du dossier
+                </div>
+                
+                <div class="clickable odd" data-action="click-&gt;modal#childmodal" data-controller="modal">
+                    <div class="childmodal" style="display: none">
+                        <div class="modal-content">
+                            <h4 class="modal-title">Rejet pour autre motif</h4>
+                            <p>corps
+blabla</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
+                        </div>
+                    </div>
+                    <div class="red-text" title="Rejetée">
+                                <i class="material-icons right tiny"> do_not_disturb_on</i>
+                            
+                            Rejet pour autre motif
+                        </div>
+
+                        01/05/2018 19:13
+                        <span class="right">
+                            a
+                        </span>
+                </div>
+                
+                <div class="even"><div class="green-text" title="En cours de liquidation">
+                                <i class="material-icons right tiny"> playlist_add_check</i>
+                            
+                            En cours de liquidation
+                        </div>
+
+                        01/05/2018 17:13
+                        <span class="right">
+                            a
+                        </span>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Dates de Transports
+                </div>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>1</td>
+                            <td>
+                                29/04/2018
+                            </td>
+                            <td>
+                                29/04/2018
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>2</td>
+                            <td>
+                                30/04/2018
+                            </td>
+                            <td>
+                                30/04/2018
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
+    </div>
+</div>
+<div class="row">
+    <div class="col m6 s12">
+    </div>
 </div>
 
           </div>

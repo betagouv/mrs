@@ -12,6 +12,8 @@
 .row:first { padding-top: 12px; }
 </style>
 
+
+
 <div class="row">
     <div class="col m6 s12">
         <div class="card">
@@ -35,13 +37,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    
-    
-</div>
-<div class="row">
-    <div class="col m6 s12">
+
+
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -98,41 +95,10 @@
                 </p>
             </div>
         </div>
-    </div>
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Dates de Transports
-                </div>
-                <table class="centered highlight">
-                    <thead>
-                        <tr>
-                            <th>Num.</th>
-                            <th>Aller</th>
-                            <th>Retour</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd">
-                            <td>1</td>
-                            <td>
-                                29/04/2018
-                            </td>
-                            <td>
-                                29/04/2018
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    
-    <div class="col m6 s12">
+
+
+        
+        
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -179,9 +145,58 @@
 
             </div>
         </div>
+        
+
+
     </div>
-    
-    
+    <div class="col m6 s12">
+        
+        
+        
+
+
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Dates de Transports
+                </div>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>1</td>
+                            <td>
+                                29/04/2018
+                            </td>
+                            <td>
+                                29/04/2018
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
+    </div>
+</div>
+<div class="row">
+    <div class="col m6 s12">
+    </div>
 </div>
 
           </div>

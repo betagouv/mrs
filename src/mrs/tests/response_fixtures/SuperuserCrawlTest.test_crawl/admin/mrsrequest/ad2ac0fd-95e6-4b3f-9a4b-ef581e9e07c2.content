@@ -12,6 +12,7 @@
 .row:first { padding-top: 12px; }
 </style>
 
+
 <div class="row">
     <div class="col s12">
         <div class="card">
@@ -82,6 +83,7 @@
     </div>
 </div>
 
+
 <div class="row">
     <div class="col m6 s12">
         <div class="card">
@@ -105,48 +107,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Suivi du dossier
-                </div>
-                
-                <div class="odd"><div class="orange-text" title="Suspendue">
-                                <i class="material-icons right tiny"> pause</i>
-                            
-                            fraude potentielle
-                        </div>
 
-                        08/03/2019 09:25
-                        <span class="right">
-                            test
-                        </span>
-                </div>
-                
-                <div class="even"><div class="green-text" title="En cours de liquidation">
-                                <i class="material-icons right tiny"> playlist_add_check</i>
-                            
-                            En cours de liquidation
-                        </div>
 
-                        05/05/2018 17:17
-                        <span class="right">
-                            test
-                        </span>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    
-    
-</div>
-<div class="row">
-    <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -203,41 +165,10 @@
                 </p>
             </div>
         </div>
-    </div>
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Dates de Transports
-                </div>
-                <table class="centered highlight">
-                    <thead>
-                        <tr>
-                            <th>Num.</th>
-                            <th>Aller</th>
-                            <th>Retour</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd">
-                            <td>1</td>
-                            <td>
-                                01/05/2018
-                            </td>
-                            <td>
-                                01/05/2018
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    
-    <div class="col m6 s12">
+
+
+        
+        
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -284,9 +215,91 @@
 
             </div>
         </div>
+        
+
+
     </div>
-    
-    
+    <div class="col m6 s12">
+        
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Suivi du dossier
+                </div>
+                
+                <div class="odd"><div class="orange-text" title="Suspendue">
+                                <i class="material-icons right tiny"> pause</i>
+                            
+                            fraude potentielle
+                        </div>
+
+                        08/03/2019 09:25
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
+                <div class="even"><div class="green-text" title="En cours de liquidation">
+                                <i class="material-icons right tiny"> playlist_add_check</i>
+                            
+                            En cours de liquidation
+                        </div>
+
+                        05/05/2018 17:17
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Dates de Transports
+                </div>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>1</td>
+                            <td>
+                                01/05/2018
+                            </td>
+                            <td>
+                                01/05/2018
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
+    </div>
+</div>
+<div class="row">
+    <div class="col m6 s12">
+    </div>
 </div>
 
           </div>
