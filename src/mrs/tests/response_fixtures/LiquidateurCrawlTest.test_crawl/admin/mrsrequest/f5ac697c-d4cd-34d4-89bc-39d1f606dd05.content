@@ -12,6 +12,8 @@
 .row:first { padding-top: 12px; }
 </style>
 
+
+
 <div class="row">
     <div class="col m6 s12">
         <div class="card">
@@ -51,48 +53,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Suivi du dossier
-                </div>
-                
-                <div class="odd"><div class="green-text" title="Validée">
-                                <i class="material-icons right tiny"> check_circle</i>
-                            
-                            Validée
-                        </div>
 
-                        04/05/2018 20:06
-                        <span class="right">
-                            b
-                        </span>
-                </div>
-                
-                <div class="even"><div class="green-text" title="En cours de liquidation">
-                                <i class="material-icons right tiny"> playlist_add_check</i>
-                            
-                            En cours de liquidation
-                        </div>
 
-                        03/05/2018 20:05
-                        <span class="right">
-                            b
-                        </span>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    
-    
-</div>
-<div class="row">
-    <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -149,32 +111,10 @@
                 </p>
             </div>
         </div>
-    </div>
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Date de Transport
-                </div>
-                <table class="centered highlight">
-                    <thead>
-                        <tr>
-                            <th>Num.</th>
-                            <th>Aller</th>
-                            <th>Retour</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    
-    <div class="col m6 s12">
+
+
+        
+        
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -245,9 +185,82 @@
 
             </div>
         </div>
+        
+
+
     </div>
-    
-    
+    <div class="col m6 s12">
+        
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Suivi du dossier
+                </div>
+                
+                <div class="odd"><div class="green-text" title="Validée">
+                                <i class="material-icons right tiny"> check_circle</i>
+                            
+                            Validée
+                        </div>
+
+                        04/05/2018 20:06
+                        <span class="right">
+                            b
+                        </span>
+                </div>
+                
+                <div class="even"><div class="green-text" title="En cours de liquidation">
+                                <i class="material-icons right tiny"> playlist_add_check</i>
+                            
+                            En cours de liquidation
+                        </div>
+
+                        03/05/2018 20:05
+                        <span class="right">
+                            b
+                        </span>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Date de Transport
+                </div>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
+    </div>
+</div>
+<div class="row">
+    <div class="col m6 s12">
+    </div>
 </div>
 
           </div>

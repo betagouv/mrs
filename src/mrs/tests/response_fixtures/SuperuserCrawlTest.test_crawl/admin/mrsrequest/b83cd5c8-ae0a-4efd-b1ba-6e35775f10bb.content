@@ -12,6 +12,7 @@
 .row:first { padding-top: 12px; }
 </style>
 
+
 <div class="row">
     <div class="col s12">
         <div class="card">
@@ -82,6 +83,7 @@
     </div>
 </div>
 
+
 <div class="row">
     <div class="col m6 s12">
         <div class="card">
@@ -105,48 +107,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Suivi du dossier
-                </div>
-                
-                <div class="odd"><div class="green-text" title="Validée">
-                                <i class="material-icons right tiny"> check_circle</i>
-                            
-                            Validée
-                        </div>
 
-                        03/05/2018 16:20
-                        <span class="right">
-                            test
-                        </span>
-                </div>
-                
-                <div class="even"><div class="green-text" title="En cours de liquidation">
-                                <i class="material-icons right tiny"> playlist_add_check</i>
-                            
-                            En cours de liquidation
-                        </div>
 
-                        03/05/2018 16:20
-                        <span class="right">
-                            test
-                        </span>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    
-    
-</div>
-<div class="row">
-    <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -203,8 +165,85 @@
                 </p>
             </div>
         </div>
+
+
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    ATP
+                </div>
+                <table>
+                    <tbody><tr>
+                        <td>
+                            Montant total des frais ATP
+                        </td>
+                        <td>
+                            4.00 €TTC
+                        </td>
+                    </tr>
+                </tbody></table>
+                
+
+<p>
+    Justificatif attaché:
+</p>
+<ul style="margin: 0">
+    
+    <li>
+        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/9/download/">1x1.png (95 Bytes)</a>
+    </li>
+
+</ul>
+
+
+            </div>
+        </div>
+        
+        
+
+
     </div>
     <div class="col m6 s12">
+        
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Suivi du dossier
+                </div>
+                
+                <div class="odd"><div class="green-text" title="Validée">
+                                <i class="material-icons right tiny"> check_circle</i>
+                            
+                            Validée
+                        </div>
+
+                        03/05/2018 16:20
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
+                <div class="even"><div class="green-text" title="En cours de liquidation">
+                                <i class="material-icons right tiny"> playlist_add_check</i>
+                            
+                            En cours de liquidation
+                        </div>
+
+                        03/05/2018 16:20
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -251,45 +290,19 @@
                 </table>
             </div>
         </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
     </div>
 </div>
 <div class="row">
-    
-    
     <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    ATP
-                </div>
-                <table>
-                    <tbody><tr>
-                        <td>
-                            Montant total des frais ATP
-                        </td>
-                        <td>
-                            4.00 €TTC
-                        </td>
-                    </tr>
-                </tbody></table>
-                
-
-<p>
-    Justificatif attaché:
-</p>
-<ul style="margin: 0">
-    
-    <li>
-        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/9/download/">1x1.png (95 Bytes)</a>
-    </li>
-
-</ul>
-
-
-            </div>
-        </div>
     </div>
-    
 </div>
 
           </div>
