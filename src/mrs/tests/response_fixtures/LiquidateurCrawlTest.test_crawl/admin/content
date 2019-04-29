@@ -47,8 +47,6 @@ textarea {
     </div>
     <ul id="slide-out" class="sidenav sidenav-fixed">
   <li class="no-padding active"><a href="/admin/"><i class="material-icons">home</i>Accueil</a></li>
-  <li class="no-padding">
-    <ul class="collapsible collapsible-accordion">
       
         
           
@@ -78,8 +76,6 @@ textarea {
           
         
       
-    </ul>
-  </li>
 
   
   

@@ -47,8 +47,6 @@ textarea {
     </div>
     <ul id="slide-out" class="sidenav sidenav-fixed">
   <li class="no-padding active"><a href="/admin/"><i class="material-icons">home</i>Accueil</a></li>
-  <li class="no-padding">
-    <ul class="collapsible collapsible-accordion">
       
         
           
@@ -95,30 +93,34 @@ textarea {
         
           
           
-            <li class="">
-              <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">multiline_chart</i> Stats</a>
-              <div class="collapsible-body">
-                <ul>
-                  
-                    <li>
-                      <a
-                        class="waves-effect"
-                        href="/admin/stat?date__gte=01%2F05%2F2018&amp;date__lte=31%2F05%2F2018&amp;caisse=1"
-                        title="Graphique de statistiques quotidiennes"
-                      ><i class="material-icons">insert_chart</i>Quotidiennes</a>
-                    </li>
-                  
-                    <li>
-                      <a
-                        class="waves-effect"
-                        href="/admin/stat/total?date__gte=01%2F05%2F2018&amp;date__lte=31%2F05%2F2018&amp;caisse=1"
-                        title="Graphique de statistiques cumulatives"
-                      ><i class="material-icons">show_chart</i>Cumulatives</a>
-                    </li>
-                  
-                </ul>
-              </div>
-            </li>
+          <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+              <li class="">
+                <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">multiline_chart</i> Stats</a>
+                <div class="collapsible-body">
+                  <ul>
+                    
+                      <li>
+                        <a
+                          class="waves-effect"
+                          href="/admin/stat?date__gte=01%2F05%2F2018&amp;date__lte=31%2F05%2F2018&amp;caisse=1"
+                          title="Graphique de statistiques quotidiennes"
+                        ><i class="material-icons">insert_chart</i>Quotidiennes</a>
+                      </li>
+                    
+                      <li>
+                        <a
+                          class="waves-effect"
+                          href="/admin/stat/total?date__gte=01%2F05%2F2018&amp;date__lte=31%2F05%2F2018&amp;caisse=1"
+                          title="Graphique de statistiques cumulatives"
+                        ><i class="material-icons">show_chart</i>Cumulatives</a>
+                      </li>
+                    
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </li>
           
         
       
@@ -136,8 +138,6 @@ textarea {
           
         
       
-    </ul>
-  </li>
 
   
   
