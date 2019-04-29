@@ -45,7 +45,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "blueimp-file-upload": "^9.21.0",
     "c3": "^0.6.2",
-    "crudlfap": "0.7.31",
+    "crudlfap": "0.7.32",
     "css-loader": "^0.28.7",
     "eslint": "^4.18.2",
     "eslint-plugin-react": "^7.8.2",
