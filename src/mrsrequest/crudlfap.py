@@ -935,6 +935,7 @@ class MRSRequestLogEntryListView(crudlfap.ListView):
             )
         ))
 
+'''
 crudlfap.Router(
     model=MRSRequestLogEntry,
     material_icon='insert_chart',
@@ -942,3 +943,4 @@ crudlfap.Router(
         MRSRequestLogEntryListView,
     ],
 ).register()
+'''
