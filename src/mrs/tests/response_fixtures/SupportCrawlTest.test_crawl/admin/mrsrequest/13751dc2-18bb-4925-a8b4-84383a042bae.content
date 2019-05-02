@@ -1,16 +1,18 @@
-<div class="container" id="modal-body-ajax">
+<div class="full-width" id="modal-body-ajax">
         
           <div class="modal-content">
           
             
           
-            
+          
 <style type="text/css">
 .card-content p { clear: both; }
 .underline-dotted-red { text-decoration: underline dotted red; }
 .duplicates th, .duplicates td, .duplicates ul { margin: 0; padding: 2px; }
 .row:first { padding-top: 12px; }
 </style>
+
+
 
 <div class="row">
     <div class="col m6 s12">
@@ -35,59 +37,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Suivi du dossier
-                </div>
-                
-                <div class="clickable odd" data-action="click-&gt;modal#childmodal" data-controller="modal">
-                    <div class="childmodal" style="display: none">
-                        <div class="modal-content">
-                            <h4 class="modal-title">Rejet pour autre motif</h4>
-                            <p>corps
-blabla</p>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
-                        </div>
-                    </div>
-                    <div class="red-text" title="Rejetée">
-                                <i class="material-icons right tiny"> do_not_disturb_on</i>
-                            
-                            Rejet pour autre motif
-                        </div>
 
-                        01/05/2018 19:13
-                        <span class="right">
-                            a
-                        </span>
-                </div>
-                
-                <div class="even"><div class="green-text" title="En cours de liquidation">
-                                <i class="material-icons right tiny"> playlist_add_check</i>
-                            
-                            En cours de liquidation
-                        </div>
 
-                        01/05/2018 17:13
-                        <span class="right">
-                            a
-                        </span>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    
-    
-</div>
-<div class="row">
-    <div class="col m6 s12">
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -144,8 +95,125 @@ blabla</p>
                 </p>
             </div>
         </div>
+
+
+        
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    VP
+                </div>
+                <table>
+                    <tbody><tr class="red-text">
+                        <td>
+                            Montant total de la dépense VP
+                        </td>
+                        <td>
+                            39.90 €TTC
+                        </td>
+                    </tr>
+                    <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
+                        <td>
+                            Distance parcourue
+                        </td>
+                        <td>
+                            123 km
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        Total des frais VP
+                        </td>
+                        <td>
+                            3.00 €TTC
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            Coût théorique du trajet en taxi
+                        </td>
+                        <td>
+                            188.24 €
+                        </td>
+                    </tr>
+                    </tbody></table>
+                
+
+<p>
+    Justificatifs attachés:
+</p>
+<ul style="margin: 0">
+    
+    <li>
+        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/2/download/">1x1.png (95 Bytes)</a>
+    </li>
+
+    <li>
+        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/3/download/">1x1.png (95 Bytes)</a>
+    </li>
+
+</ul>
+
+
+            </div>
+        </div>
+        
+
+
     </div>
     <div class="col m6 s12">
+        
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Suivi du dossier
+                </div>
+                
+                <div class="clickable odd" data-action="click-&gt;modal#childmodal" data-controller="modal">
+                    <div class="childmodal" style="display: none">
+                        <div class="modal-content">
+                            <h4 class="modal-title">Rejet pour autre motif</h4>
+                            <p>corps
+blabla</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="modal-close waves-effect waves-green btn-flat">Merci</a>
+                        </div>
+                    </div>
+                    <div class="red-text" title="Rejetée">
+                                <i class="material-icons right tiny"> do_not_disturb_on</i>
+                            
+                            Rejet pour autre motif
+                        </div>
+
+                        01/05/2018 19:13
+                        <span class="right">
+                            a
+                        </span>
+                </div>
+                
+                <div class="even"><div class="green-text" title="En cours de liquidation">
+                                <i class="material-icons right tiny"> playlist_add_check</i>
+                            
+                            En cours de liquidation
+                        </div>
+
+                        01/05/2018 17:13
+                        <span class="right">
+                            a
+                        </span>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -183,84 +251,19 @@ blabla</p>
                 </table>
             </div>
         </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
     </div>
 </div>
 <div class="row">
-    
     <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    VP
-                </div>
-                <table>
-                    <tbody><tr class="red-text">
-                        <td>
-                            Montant total (Base de remboursement)
-                        </td>
-                        <td>
-                            37.90€ TTC
-                        </td>
-                    </tr>
-                    <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
-                        <td>
-                            Distance km parcourus
-                        </td>
-                        <td>
-                            123
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                            Montant des km parcourus
-                        </td>
-                        <td>
-                            36.90€ TTC
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                        Montant total des frais VP
-                        </td>
-                        <td>
-                        1.00€ TTC
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                            Coût théorique du trajet en taxi
-                        </td>
-                        <td>
-                            188.24€
-                        </td>
-                    </tr>
-                    </tbody></table>
-                
-
-<p>
-    Justificatifs attachés:
-</p>
-<ul style="margin: 0">
-    
-    <li>
-        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/2/download/">1x1.png (95 Bytes)</a>
-    </li>
-
-    <li>
-        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/bill/3/download/">1x1.png (95 Bytes)</a>
-    </li>
-
-</ul>
-
-
-            </div>
-        </div>
     </div>
-    
-    
 </div>
 
           </div>

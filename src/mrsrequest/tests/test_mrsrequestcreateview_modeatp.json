@@ -48,7 +48,7 @@
         "display_id": 201712190000,
         "distancevp": 100,
         "expenseatp": 10,
-        "expensevp": null,
+        "expensevp": 0,
         "expensevp_parking": null,
         "expensevp_toll": null,
         "institution": null,

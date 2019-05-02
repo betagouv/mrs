@@ -394,8 +394,9 @@ class MRSRequest(models.Model):
         help_text='Somme des frais de péage et stationnement (en € TTC)'
     )
     def expensevp(self):
-        if self.expensevp_parking or self.expensevp_toll:
-            return (self.expensevp_parking or 0) + (self.expensevp_toll or 0)
+        expensevp_parking = self.expensevp_parking or 0
+        expensevp_toll = self.expensevp_toll or 0
+        return expensevp_parking + expensevp_toll
 
     modeatp = models.BooleanField(
         blank=True,

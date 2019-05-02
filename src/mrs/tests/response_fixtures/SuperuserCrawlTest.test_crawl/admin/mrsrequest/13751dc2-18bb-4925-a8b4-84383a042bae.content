@@ -110,9 +110,7 @@
                             Montant total de la dépense VP
                         </td>
                         <td>
-                            
-                                3.00 €TTC
-                            
+                            39.90 €TTC
                         </td>
                     </tr>
                     <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
@@ -125,27 +123,10 @@
                     </tr>
                     <tr>
                         <td>
-                        Frais VP Péage
-                        </td>
-                        <td>
-                        2.00 €TTC
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                        Frais VP Parking
-                        </td>
-                        <td>
-                        1.00 €TTC
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                         Total des frais VP
                         </td>
                         <td>
-                        3.00 €TTC
+                            3.00 €TTC
                         </td>
                     </tr>
                     

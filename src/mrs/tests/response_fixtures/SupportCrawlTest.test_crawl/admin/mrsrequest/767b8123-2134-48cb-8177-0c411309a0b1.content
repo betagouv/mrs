@@ -1,16 +1,18 @@
-<div class="container" id="modal-body-ajax">
+<div class="full-width" id="modal-body-ajax">
         
           <div class="modal-content">
           
             
           
-            
+          
 <style type="text/css">
 .card-content p { clear: both; }
 .underline-dotted-red { text-decoration: underline dotted red; }
 .duplicates th, .duplicates td, .duplicates ul { margin: 0; padding: 2px; }
 .row:first { padding-top: 12px; }
 </style>
+
+
 
 <div class="row">
     <div class="col m6 s12">
@@ -35,10 +37,120 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Personne transportée
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        PMT
+                    </span>
+                    <span class="right">
+                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/pmt/13/download/" title="utterances.png">utterances.png (95 Bytes)</a>
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Prénom
+                    </span>
+                    <span class="right">titi</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Nom
+                    </span>
+                    <span class="right">rominet</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Date de naissance
+                    </span>
+                    <span class="right underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: 31/12/2000">31/12/2000</span>
+                </p>
+                <div class="card-title">
+                    Assuré-e
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        NIR
+                    </span>
+                    <span class="right underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: 1223123123122">1223123123129</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Email
+                    </span>
+                    <span class="right">jim@example.com</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Assuré a basculé
+                    </span>
+                    <span class="right">
+                            Non
+                    </span>
+                </p>
+            </div>
+        </div>
+
+
+        
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    VP
+                </div>
+                <table>
+                    <tbody><tr class="red-text">
+                        <td>
+                            Montant total de la dépense VP
+                        </td>
+                        <td>
+                            3.00 €TTC
+                        </td>
+                    </tr>
+                    <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
+                        <td>
+                            Distance parcourue
+                        </td>
+                        <td>
+                            10 km
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        Total des frais VP
+                        </td>
+                        <td>
+                            0.00 €TTC
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            Coût théorique du trajet en taxi
+                        </td>
+                        <td>
+                            16.47 €
+                        </td>
+                    </tr>
+                    </tbody></table>
+                
+
+
+            </div>
+        </div>
+        
+
+
     </div>
-    
-    
     <div class="col m6 s12">
+        
+        
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -121,70 +233,11 @@
                 
             </div>
         </div>
-    </div>
-    
-    
-</div>
-<div class="row">
-    <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    Personne transportée
-                </div>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        PMT
-                    </span>
-                    <span class="right">
-                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/pmt/13/download/" title="utterances.png">utterances.png (95 Bytes)</a>
-                    </span>
-                </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Prénom
-                    </span>
-                    <span class="right">titi</span>
-                </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Nom
-                    </span>
-                    <span class="right">rominet</span>
-                </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Date de naissance
-                    </span>
-                    <span class="right underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: 31/12/2000">31/12/2000</span>
-                </p>
-                <div class="card-title">
-                    Assuré-e
-                </div>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        NIR
-                    </span>
-                    <span class="right underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: 1223123123122">1223123123129</span>
-                </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Email
-                    </span>
-                    <span class="right">jim@example.com</span>
-                </p>
-                <p>
-                    <span class="grey-text text-darken-2">
-                        Assuré a basculé
-                    </span>
-                    <span class="right">
-                            Non
-                    </span>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col m6 s12">
+        
+        
+
+
+
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
@@ -213,69 +266,19 @@
                 </table>
             </div>
         </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
     </div>
 </div>
 <div class="row">
-    
     <div class="col m6 s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">
-                    VP
-                </div>
-                <table>
-                    <tbody><tr class="red-text">
-                        <td>
-                            Montant total (Base de remboursement)
-                        </td>
-                        <td>
-                            3.00€ TTC
-                        </td>
-                    </tr>
-                    <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
-                        <td>
-                            Distance km parcourus
-                        </td>
-                        <td>
-                            10
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                            Montant des km parcourus
-                        </td>
-                        <td>
-                            3.00€ TTC
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                        Montant total des frais VP
-                        </td>
-                        <td>
-                        0.00€ TTC
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                            Coût théorique du trajet en taxi
-                        </td>
-                        <td>
-                            16.47€
-                        </td>
-                    </tr>
-                    </tbody></table>
-                
-
-
-            </div>
-        </div>
     </div>
-    
-    
 </div>
 
           </div>
