@@ -126,9 +126,7 @@
                             Montant total de la dépense VP
                         </td>
                         <td>
-                            
-                                0.00 €TTC
-                            
+                            1.50 €TTC
                         </td>
                     </tr>
                     <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
@@ -138,12 +136,13 @@
                         <td>
                             5 km
                         </td>
-                    </tr><tr>
+                    </tr>
+                    <tr>
                         <td>
                         Total des frais VP
                         </td>
                         <td>
-                        0.00 €TTC
+                            0.00 €TTC
                         </td>
                     </tr>
                     <tr>
