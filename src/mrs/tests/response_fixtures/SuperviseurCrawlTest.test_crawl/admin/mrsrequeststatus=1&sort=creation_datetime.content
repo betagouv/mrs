@@ -164,6 +164,44 @@
     <tbody>
     
         
+        <tr class="even">
+            
+                <td>3 mai 2018 17:41</td>
+            
+                <td>
+    <a class="-text tooltipped" data-position="bottom" data-tooltip="En attente de traitement depuis 1 jours" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1">201810310000</a>
+    </td>
+            
+                <td>titi</td>
+            
+                <td>rominet</td>
+            
+                <td>1223123123129</td>
+            
+                <td>Soumise</td>
+            
+                <td>—</td>
+            
+                <td>aaaaaaa</td>
+            
+                <td>
+                
+                
+    
+      
+        <a class="btn-floating red blue" href="/admin/mrsrequest/767b8123-2134-48cb-8177-0c411309a0b1?_next=/admin/mrsrequest" title="201810310000">
+    <i class="material-icons">search</i>
+    
+    Detail
+    
+  </a>
+      
+    
+  
+                </td>
+            
+        </tr>
+        
     
     </tbody>
     
@@ -172,6 +210,25 @@
     
 </table>
 
+
+
+
+<ul class="pagination">
+    
+
+    
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
 
 
 </div>

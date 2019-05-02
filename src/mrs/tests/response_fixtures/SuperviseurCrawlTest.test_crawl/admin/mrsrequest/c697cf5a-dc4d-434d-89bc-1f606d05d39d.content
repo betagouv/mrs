@@ -1,0 +1,240 @@
+<div class="full-width" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+          
+          
+<style type="text/css">
+.card-content p { clear: both; }
+.underline-dotted-red { text-decoration: underline dotted red; }
+.duplicates th, .duplicates td, .duplicates ul { margin: 0; padding: 2px; }
+.row:first { padding-top: 12px; }
+</style>
+
+
+
+<div class="row">
+    <div class="col m6 s12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title tooltipped activator -text" data-position="bottom" data-tooltip="Traité">201805020000<i class="material-icons right">more_vert</i></span>
+                <div class="section">
+                    <p>
+                        <span class="grey-text text-darken-2">
+                            Soumise
+                        </span>
+                        <span class="right">
+                            02/05/2018 17:16
+                        </span>
+                    </p>
+                    </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">95 Bytes <i class="material-icons right">close</i></span>
+                <div class="section">
+                    aaaaaaa
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Personne transportée
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        PMT
+                    </span>
+                    <span class="right">
+                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/pmt/5/download/" title="FF4D00-0.8.png">FF4D00-0.8.png (95 Bytes)</a>
+                    </span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Prénom
+                    </span>
+                    <span class="right">àôéû</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Nom
+                    </span>
+                    <span class="right">àôéûoaeu</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Date de naissance
+                    </span>
+                    <span class="right">06/05/2000</span>
+                </p>
+                <div class="card-title">
+                    Assuré-e
+                </div>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        NIR
+                    </span>
+                    <span class="right">3212312312312</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Email
+                    </span>
+                    <span class="right">jpic@example.com</span>
+                </p>
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Assuré a basculé
+                    </span>
+                    <span class="right">
+                            Non
+                    </span>
+                </p>
+            </div>
+        </div>
+
+
+        
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    VP
+                </div>
+                <table>
+                    <tbody><tr class="red-text">
+                        <td>
+                            Montant total de la dépense VP
+                        </td>
+                        <td>
+                            1.50 €TTC
+                        </td>
+                    </tr>
+                    <tr class="underline-dotted-red" title="Ce champ a été modifié de sa valeur initiale qui était: ">
+                        <td>
+                            Distance parcourue
+                        </td>
+                        <td>
+                            5 km
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        Total des frais VP
+                        </td>
+                        <td>
+                            0.00 €TTC
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            Coût théorique du trajet en taxi
+                        </td>
+                        <td>
+                            10.83 €
+                        </td>
+                    </tr>
+                    </tbody></table>
+                
+
+
+            </div>
+        </div>
+        
+
+
+    </div>
+    <div class="col m6 s12">
+        
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Suivi du dossier
+                </div>
+                
+                <div class="odd"><div class="green-text" title="Validée">
+                                <i class="material-icons right tiny"> check_circle</i>
+                            
+                            Validée
+                        </div>
+
+                        04/05/2018 17:16
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
+                <div class="even"><div class="green-text" title="En cours de liquidation">
+                                <i class="material-icons right tiny"> playlist_add_check</i>
+                            
+                            En cours de liquidation
+                        </div>
+
+                        03/05/2018 17:16
+                        <span class="right">
+                            test
+                        </span>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">
+                    Dates de Transports
+                </div>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Num.</th>
+                            <th>Aller</th>
+                            <th>Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>1</td>
+                            <td>
+                                26/03/2018
+                            </td>
+                            <td>
+                                26/03/2018
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+    <div class="col m6 s12">
+    </div>
+</div>
+<div class="row">
+    <div class="col m6 s12">
+    </div>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

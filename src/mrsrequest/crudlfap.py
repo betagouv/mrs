@@ -839,7 +839,7 @@ class MRSRequestRouter(crudlfap.Router):
 
         if user.is_superuser or user.profile == 'admin':
             return self.model.objects.all()
-        elif user.profile in ('stat', 'upn', 'support'):
+        elif user.profile in ('stat', 'upn', 'support', 'superviseur'):
             return self.model.objects.filter(
                 caisse__in=view.request.user.caisses.all()
             )
