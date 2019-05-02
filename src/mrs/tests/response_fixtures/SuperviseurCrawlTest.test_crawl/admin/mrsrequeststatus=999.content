@@ -164,6 +164,44 @@
     <tbody>
     
         
+        <tr class="even">
+            
+                <td>1 mai 2018 19:10</td>
+            
+                <td>
+    <a class="-text tooltipped" data-position="bottom" data-tooltip="Traité" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae">201805010000</a>
+    </td>
+            
+                <td>aoeu</td>
+            
+                <td>aoeu</td>
+            
+                <td>1111111111111</td>
+            
+                <td>Rejetée</td>
+            
+                <td>—</td>
+            
+                <td>aaaaaaa</td>
+            
+                <td>
+                
+                
+    
+      
+        <a class="btn-floating red blue" href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae?_next=/admin/mrsrequest" title="201805010000">
+    <i class="material-icons">search</i>
+    
+    Detail
+    
+  </a>
+      
+    
+  
+                </td>
+            
+        </tr>
+        
     
     </tbody>
     
@@ -172,6 +210,25 @@
     
 </table>
 
+
+
+
+<ul class="pagination">
+    
+
+    
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
 
 
 </div>
