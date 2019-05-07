@@ -45,7 +45,8 @@ def mrsrequest():
                 mrsrequest_uuid=uuid,
                 filename='test_mrsrequest_admin_views.jpg',
                 binary=b'test_mrsrequest_admin_views',
-            )
+            ),
+            expensevp=2.23,
         )
         mrsrequest.pmt.mrsrequest = mrsrequest
         mrsrequest.pmt.save()
