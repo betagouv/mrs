@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  django:
+    build:
+      dockerfile: Dockerfile
+      context: ./
+      shm_size: 512mb
+    depends_on:
+    - postgres
+    logging:
+      driver: journald
+    environment:
+    - POSTGRES_PASSWORD=django
+    - POSTGRES_USER=django
+    - POSTGRES_DB=mrs
+    volumes:
+    - ./:/app
+
+  postgres:
+    image: postgres:10
+    restart: unless-stopped
+    logging:
+      driver: journald
+    environment:
+    - POSTGRES_PASSWORD=django
+    - POSTGRES_USER=django
+    - POSTGRES_DB=mrs
+    volumes:
+    - /var/lib/postgresql
