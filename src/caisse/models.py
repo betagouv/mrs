@@ -91,8 +91,7 @@ def daily_mail(force=False):
         mrsrequests = caisse.mrsrequest_set.all().status('new').order_by(
             'creation_datetime')
 
-        num = len(mrsrequests)
-        if not num:
+        if not len(mrsrequests):
             continue
 
         context = dict(
