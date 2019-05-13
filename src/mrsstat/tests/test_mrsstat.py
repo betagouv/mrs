@@ -43,19 +43,19 @@ def test_stat_update():
 
     stat_update_person(Person, instance=req.insured)
     req.refresh_from_db()
-    assert f'{req.saving}' == '5.37'
+    assert f'{req.saving}' == '8.83'
 
     stats = Stat.objects.filter(
         date=req.status_datetime.date(),
         caisse__in=(req.caisse, None),
     )
     for stat in stats:
-        assert str(stat.savings) == '5.37'
+        assert str(stat.savings) == '8.83'
 
     req.distancevp *= 2
     req.save()
     req.refresh_from_db()
-    assert f'{req.saving}' == '12.74'
+    assert f'{req.saving}' == '16.20'
 
     # test that it refreshed stats !
     update_stat_for_mrsrequest(pk=req.pk)
@@ -65,7 +65,7 @@ def test_stat_update():
         caisse__in=(req.caisse, None),
     )
     for stat in stats:
-        assert str(stat.savings) == '12.74'
+        assert str(stat.savings) == '16.20'
 
 
 @freeze_time('2018-05-06 13:37:42')

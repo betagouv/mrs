@@ -49,3 +49,5 @@ def test_monthly_mail(mailoutbox, django_assert_num_queries):
     assert mailoutbox[1].attachments[0][0] == '2018-6-stats.csv'
     assert mailoutbox[1].attachments[0][1] == 'caisse;id;nir;naissance;transport;mandatement;base;montant;bascule;finess;adeli\n222;201805010001;2333333333333;30/04/2000;29/04/2018;;;;;;\n222;201805030000;1223123123123;29/05/2000;01/05/2018;;;;;;\n222;201805030001;1223123123123;29/05/2000;01/04/2018;;;;;;'  # noqa
     assert mailoutbox[1].attachments[0][2] == 'text/csv'
+
+    assert len(mailoutbox) == 2
