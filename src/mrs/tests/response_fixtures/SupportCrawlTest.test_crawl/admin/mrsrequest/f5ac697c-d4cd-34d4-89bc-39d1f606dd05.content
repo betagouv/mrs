@@ -167,7 +167,7 @@
                             Coût théorique du trajet en taxi
                         </td>
                         <td>
-                            7.37 €
+                            10.83 €
                         </td>
                     </tr>
                     <tr>
@@ -175,7 +175,7 @@
                             Economie calculée
                         </td>
                         <td>
-                            5.37 €
+                            8.83 €
                         </td>
                     </tr>
                     </tbody></table>
@@ -231,7 +231,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title">
-                    Date de Transport
+                    Dates de Transports
                 </div>
                 <table class="centered highlight">
                     <thead>
@@ -242,6 +242,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="odd">
+                            <td>1</td>
+                            <td>
+                                27/04/2018
+                            </td>
+                            <td>
+                                28/04/2018
+                            </td>
+                        </tr>
                         
                     </tbody>
                 </table>

@@ -122,7 +122,10 @@ def monthly_mail(force=False):
     today = today()
 
     for caisse in Caisse.objects.filter(active=True).order_by('pk'):
-        objects = caisse.mrsrequest_set.all().status(
+        objects = caisse.mrsrequest_set.filter(
+            mandate_datevp=None,
+            mandate_dateatp=None,
+        ).status(
             'validated'
         ).created(
             date__gte=date(

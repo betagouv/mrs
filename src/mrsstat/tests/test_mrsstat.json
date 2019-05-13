@@ -233,7 +233,7 @@
         "mrsrequest_total_new": 5,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 2,
-        "savings": "5.37",
+        "savings": "8.83",
         "validation_average_delay": "0.36"
     },
     "model": "mrsstat.stat",
@@ -281,7 +281,7 @@
         "mrsrequest_total_new": 8,
         "mrsrequest_total_rejected": 1,
         "mrsrequest_total_validated": 4,
-        "savings": "5.37",
+        "savings": "8.83",
         "validation_average_delay": "0.36"
     },
     "model": "mrsstat.stat",

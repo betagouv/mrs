@@ -423,6 +423,15 @@
     }
 },
 {
+    "model": "mrsrequest.transport",
+    "pk": 11,
+    "fields": {
+        "mrsrequest": "f5ac697c-d4cd-34d4-89bc-39d1f606dd05",
+        "date_depart": "2018-04-27",
+        "date_return": "2018-04-28"
+    }
+},
+{
     "model": "mrsuser.user",
     "pk": 1,
     "fields": {
@@ -1177,8 +1186,8 @@
         },
         "conflicts_accepted": 0,
         "conflicts_resolved": 0,
-        "taxi_cost": "7.37",
-        "saving": "5.37",
+        "taxi_cost": "10.83",
+        "saving": "8.83",
         "delay": "0.36"
     }
 }
