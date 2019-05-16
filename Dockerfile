@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM docker.io/node:10-alpine
 
 ENV DJANGO_SETTINGS_MODULE=mrs.settings
 ENV UWSGI_MODULE=mrs.wsgi:application
@@ -22,17 +22,17 @@ ARG GIT_COMMIT
 ENV GIT_COMMIT=$GIT_COMMIT
 
 COPY yarn.lock .babelrc package.json /app/
-RUN cd /app && yarn install --cache-folder /dev/shm/yarn --frozen-lockfile
+RUN cd /app && yarn install --frozen-lockfile
 RUN mkdir -p src/mrs
-COPY src/mrs/static /app/src/mrs/static
-COPY webpack.config.js /app/
+COPY webpack.config.js .
+COPY src/mrs/static .
 RUN yarn prepare
 
 COPY requirements.txt /app/requirements.txt
 RUN pip3 install --upgrade -r /app/requirements.txt
 
-COPY setup.py /app/
-COPY src /app/src
+COPY setup.py .
+COPY src .
 RUN pip3 install --editable /app
 
 RUN mkdir -p ${LOG}
