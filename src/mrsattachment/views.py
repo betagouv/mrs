@@ -15,17 +15,6 @@ class MRSFileDetailViewMixin(object):
 
         This sets the base queryset which get_object() will use.
         '''
-        user = getattr(self.request, 'user', None)
-        profile = getattr(user, 'profile', None)
-
-        if profile in ('admin', 'upn', 'support'):
-            obj = self.model.objects.get(pk=self.kwargs['pk'])
-            if (
-                profile == 'admin'
-                or obj.mrsrequest.caisse in user.caisses.all()
-            ):
-                return obj
-
         try:
             return self.model.objects.allowed_objects(self.request).get(
                 pk=self.kwargs['pk'])
@@ -34,6 +23,18 @@ class MRSFileDetailViewMixin(object):
 
 
 class MRSFileDownloadView(MRSFileDetailViewMixin, generic.DetailView):
+    def get_object(self):
+        if self.request.user.is_authenticated:
+            obj = self.model.objects.filter(pk=self.kwargs['pk']).first()
+            if obj:
+                has_perm = self.request.user.has_perm(
+                    'mrsrequest.mrsrequest_detail',
+                    obj.mrsrequest
+                )
+                if has_perm:
+                    return obj
+        return super().get_object()
+
     def get(self, request, *args, **kwargs):
         if 'wsgi.file_wrapper' in request.environ:
             del request.environ['wsgi.file_wrapper']
