@@ -25,11 +25,14 @@ variables:
   after_script:
   - tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true
 
-docker:
+buildah:
   stage: test
-  image: docker:dind
-  before_script:
-  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+  image: yourlabs/buildah
+  cache:
+    paths: [.cache]
+    key: buildah
+#  before_script:
+#  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
   script:
   - ./sh.yml buildah
 #

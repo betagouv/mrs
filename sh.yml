@@ -43,7 +43,8 @@ script:
     $buildcntr1
 - mkdir -p .cache/apk
 - buildah run -v $(pwd)/.cache/apk:/root/.cache/apk $buildcntr1
-    apk add --update
+    apk add
+    --update
     --cache-dir /root/.cache/apk
     ca-certificates
     gettext
@@ -62,7 +63,7 @@ script:
     uwsgi-router_cache
     uwsgi-router_static
 - mkdir -p .cache/pip
-- buildah -v .cache/pip:/root/.cache/pip run $buildcntr1
+- buildah -v $(pwd)/.cache/pip:/root/.cache/pip run $buildcntr1
     pip3 install --upgrade pip
 - buildah run $buildcntr1
     bash -c 'curl -sL https://sentry.io/get-cli/ | bash'
