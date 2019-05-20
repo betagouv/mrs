@@ -41,8 +41,10 @@ script:
     --env VIRTUAL_PROTO=uwsgi
     --env GIT_COMMIT=$CI_COMMIT_SHA
     $buildcntr1
-- buildah run $buildcntr1
-    apk add --update --no-cache
+- mkdir -p .cache/apk
+- buildah run -v $(pwd)/.cache/apk:/root/.cache/apk $buildcntr1
+    apk add --update
+    --cache-dir /root/.cache/apk
     ca-certificates
     gettext
     shadow
@@ -59,7 +61,8 @@ script:
     uwsgi-cache
     uwsgi-router_cache
     uwsgi-router_static
-- buildah run $buildcntr1
+- mkdir -p .cache/pip
+- buildah -v .cache/pip:/root/.cache/pip run $buildcntr1
     pip3 install --upgrade pip
 - buildah run $buildcntr1
     bash -c 'curl -sL https://sentry.io/get-cli/ | bash'
@@ -79,12 +82,14 @@ script:
 
 - buildah copy $buildcntr1
     requirements.txt /app/
-- buildah run $buildcntr1
+- buildah run -v $(pwd)/.cache/pip:/root/.cache/pip $buildcntr1
     pip3 install --upgrade -r /app/requirements.txt
 
+- buildah run $buildcntr1 bash
 - buildah copy $buildcntr1
-    setup.py src /app
-- buildah run $buildcntr1
+    setup.py src /app/
+- buildah run $buildcntr1 bash
+- buildah run -v $(pwd)/.cache/pip:/root/.cache/pip $buildcntr1
     pip3 install --editable /app
 
 - buildah run $buildcntr1
@@ -97,6 +102,7 @@ script:
     mrs compilemessages -l fr
 - buildah run $buildcntr1
     'find $STATIC_ROOT -type f | xargs gzip -f -k -9'
+
 ---
 name: env.setup
 hook: before
