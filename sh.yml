@@ -41,7 +41,7 @@ script:
     --env VIRTUAL_PROTO=uwsgi
     --env GIT_COMMIT=$CI_COMMIT_SHA
     $buildcntr1
-- mkdir -p .cache/apk
+- mkdir -p .cache/{apk,pip,npm}
 - buildah run -v $(pwd)/.cache/apk:/root/.cache/apk $buildcntr1
     apk add
     --update
@@ -62,7 +62,6 @@ script:
     uwsgi-cache
     uwsgi-router_cache
     uwsgi-router_static
-- mkdir -p .cache/pip
 - buildah -v $(pwd)/.cache/pip:/root/.cache/pip run $buildcntr1
     pip3 install --upgrade pip
 - buildah run $buildcntr1
@@ -78,8 +77,8 @@ script:
     yarn install --frozen-lockfile
 - buildah copy $buildcntr1
     src/mrs/static /app/src/mrs/static
-- buildah run $buildcntr1
-    yarn prepare
+- buildah run $(pwd)/.cache/npm:/npm $buildcntr1
+    yarn --cache-folder /npm prepare
 
 - buildah copy $buildcntr1
     requirements.txt /app/
