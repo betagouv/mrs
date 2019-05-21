@@ -73,11 +73,11 @@ script:
 
 - buildah copy $buildcntr1
     yarn.lock .babelrc package.json webpack.config.js /app/
-- buildah run $buildcntr1
-    yarn install --frozen-lockfile
+- buildah run -v $(pwd)/.cache/npm:/npm $buildcntr1
+    yarn install --cache-folder /npm --frozen-lockfile
 - buildah copy $buildcntr1
     src/mrs/static /app/src/mrs/static
-- buildah run $(pwd)/.cache/npm:/npm $buildcntr1
+- buildah run -v $(pwd)/.cache/npm:/npm $buildcntr1
     yarn --cache-folder /npm prepare
 
 - buildah copy $buildcntr1
