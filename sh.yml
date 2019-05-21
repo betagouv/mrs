@@ -86,8 +86,8 @@ script:
     pip3 install --upgrade -r /app/requirements.txt
 
 - buildah run $buildcntr1 bash
-- buildah copy $buildcntr1
-    setup.py src /app/
+- buildah copy $buildcntr1 setup.py /app/
+- buildah copy $buildcntr1 src /app/src
 - buildah run $buildcntr1 bash
 - buildah run -v $(pwd)/.cache/pip:/root/.cache/pip $buildcntr1
     pip3 install --editable /app
