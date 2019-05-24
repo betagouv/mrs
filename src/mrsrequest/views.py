@@ -130,6 +130,13 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
 
         return generic.TemplateView.get(self, request, *args, **kwargs)
 
+    def is_primo(self):
+        requests = MRSRequest.objects.filter(
+            insured=self.object.insured,
+        ).exclude(pk=self.object.pk)
+        if not requests.count():
+            return True
+
     def rating_show(self):
         requests = MRSRequest.objects.filter(
             insured=self.object.insured,
