@@ -15,7 +15,25 @@
             {% endif %}
         {% endif %}
 
-        {% if view.rating_form %}
+        {% if view.success and view.is_primo %}
+        <p>
+            Nous vous remercions de l'utilisation de MRS. Afin d'améliorer la
+            qualité de notre service et vous garantir un traitement dans les
+            meilleurs, nous vous proposons de répondre à quelques questions,
+            cela nous vous prendra que 3 minutes maximum. Merci par avance !
+        </p>
+        <p>
+            L'équipe MRS
+        </p>
+
+        <div style="text-align: center">
+            <a
+                href="https://saas2.vocaza.net/cgi-bin/HE/SF?P=73z7z4z-1z-1z53DA1E7B4F"
+                class="btn btn-success"
+            >JE REMPLIS LE QUESTIONNAIRE</a>
+        </div>
+
+        {% elif view.rating_form %}
             {% if view.success_rating %}
                 <h2 class="scroll-reveal">Nous vous remercions d'avoir partagé votre retour d'expérience !</h2>
                 <div>
