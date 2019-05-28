@@ -13,20 +13,22 @@
             _paq.push(['trackEvent', 'request_created']);
             </script>
             {% endif %}
+            <h2 class="scroll-reveal" style="margin-bottom: 2em">Nous avons bien reçu votre demande de remboursement !</h2>
         {% endif %}
 
         {% if view.success and view.is_primo %}
         <p>
             Nous vous remercions de l'utilisation de MRS. Afin d'améliorer la
             qualité de notre service et vous garantir un traitement dans les
-            meilleurs, nous vous proposons de répondre à quelques questions,
-            cela nous vous prendra que 3 minutes maximum. Merci par avance !
+            meilleurs délais, nous vous proposons de répondre à quelques
+            questions, cela ne vous prendra que 3 minutes maximum. Merci par
+            avance !
         </p>
         <p>
             L'équipe MRS
         </p>
 
-        <div style="text-align: center">
+        <div style="text-align: center; margin: 2em">
             <a
                 href="https://saas2.vocaza.net/cgi-bin/HE/SF?P=73z7z4z-1z-1z53DA1E7B4F"
                 class="btn btn-success"
@@ -57,7 +59,6 @@
                 </div>
             {% endif %}
         {% elif view.success %}
-        <h2 class="scroll-reveal">Formulaire envoyé avec succès !</h2>
         <div>
             <a
                 class="right btn"
