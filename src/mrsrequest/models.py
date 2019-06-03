@@ -359,7 +359,7 @@ class MRSRequest(models.Model):
         verbose_name='Distance (km)',
         help_text='Indiquez le nombre total de kilomètres parcourus:'
         ' nombre de dates multiplié par le nombre de kilomètres.'
-        ' Par exemple, vous réalisez 2 aller/retour a 10km de chez vous soit'
+        ' Par exemple, vous réalisez 2 aller/retour à 10km de chez vous soit'
         ' 4 dates multipliées par 10 kilomètres: déclarez 80 kilomètres'
         ' parcourus.',
         null=True,
