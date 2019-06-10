@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  django:
+    environment:
+    - HOST
+    - EMAIL_HOST=mail
+    - EMAIL_PORT=25
+    - ALLOWED_HOSTS=${HOST}
+    - SECRET_KEY
+    - SENTRY_AUTH_TOKEN
+    - SENTRY_DSN
+    - SENTRY_ORG=sentry
+    - SENTRY_PROJECT
+    - SENTRY_URL
+    - TEAM_EMAIL
+    labels:
+    - "traefik.enable=true"
+    - "traefik.frontend.rule=Host: ${HOST}"
+    - "traefik.port=8000"
+    - "traefik.frontend.auth.basic.usersFile=/htpasswd/root"
+    - "traefik.frontend.auth.basic.removeHeader=true"
+    - "io.yourlabs.compose.mkdir=./log:1000:1000:0750"
+    - "io.yourlabs.compose.mkdir=./spooler:1000:1000:0750"
+    - "io.yourlabs.compose.mkdir=./spooler/mail:1000:1000:0750"
+    - "io.yourlabs.compose.mkdir=./spooler/stat:1000:1000:0750"
+    networks:
+    - default
+    - web
+
+  mail:
+    image: djfarrelly/maildev
+    labels:
+    - "traefik.enable=true"
+    - "traefik.frontend.rule=Host: mail.${HOST}"
+    - "traefik.port=80"
+    - "traefik.frontend.auth.basic.usersFile=/htpasswd/root"
+    networks:
+    - default
+    - web
+
+  postgres:
+    networks:
+    - default
+
+networks:
+  web:
+    external: true

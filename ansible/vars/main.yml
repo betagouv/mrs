@@ -1,0 +1,34 @@
+---
+home: /home/mrs-test
+image: betagouv/mrs:master
+project_variable: 'mrs_{{ instance|default("test") }}'
+project_instance: 'mrs-{{ instance|default("test") }}'
+image: betagouv/mrs:master
+home: '/home/mrs-{{ project_instance }}'
+log_home: '{{ home }}/log'
+log_mount: '/app/log'
+
+backup_home: '{{ home }}/backup'
+backup_mount: '/backup'
+backup_repo: '{{ home }}/restic'
+backup_password:
+backup_lftp_dsn:
+
+dns: '{{ ansible_default_ipv4.address }}'
+dns_redirect:
+secure:
+letsencrypt_email:
+letsencrypt_uri:
+htaccess: true
+email_from: webmaster@{{ dns }}
+
+env_base:
+  ACME_CA_URI: '{{ letsencrypt_uri|default("") }}'
+  DEFAULT_FROM_EMAIL: '{{ email_from }}'
+  ALLOWED_HOSTS: '{{ dns }}'
+  VIRTUAL_HOST: '{{ dns }}{% if dns_redirect %},{{ dns_redirect|join(",") }}{% endif %}'
+  LOG: '{{ log_mount }}'
+
+slack_token:
+slack_channel:
+slack_icon: https://yourlabs.io/uploads/-/system/project/avatar/2/ansible-pink.png
