@@ -1,0 +1,38 @@
+---
+
+- name: Installation idempotente du load balancer si necessaire
+  include_role: name=yourlabs.traefik
+  when: ansible_facts['ansible_local']['yourlabs_traefik']['state']|default('') != 'success'
+
+- name: Notification de pré-déploiement sur slack
+  when: lookup("env", "SLACK_TOKEN")
+  tags: update
+  slack:
+    token: '{{ lookup("env", "SLACK_TOKEN") }}'
+    username: Django
+    color: warning
+    channel: tech
+    parse: full
+    msg: |
+      DEBUT du Deploiement de {{ lookup("env", "DRONE_COMMIT_MESSAGE") }}
+      par {{ lookup("env", "DRONE_COMMIT_AUTHOR_NAME") }}
+      sur {{ lookup("env", "HOST") }}
+
+- name: Déploiement du pod docker-compose
+  include_role: name=yourlabs.compose
+  vars:
+    compose: docker-compose.yml,docker-compose.staging.yml
+
+- name: Notification de pré-déploiement sur slack
+  when: lookup("env", "SLACK_TOKEN")
+  tags: update
+  slack:
+    token: '{{ lookup("env", "SLACK_TOKEN") }}'
+    username: Django
+    color: warning
+    channel: tech
+    parse: full
+    msg: |
+      DEBUT du Deploiement de {{ lookup("env", "DRONE_COMMIT_MESSAGE") }}
+      par {{ lookup("env", "DRONE_COMMIT_AUTHOR_NAME") }}
+      sur {{ lookup("env", "HOST") }}

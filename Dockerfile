@@ -10,8 +10,8 @@ ENV STATIC_URL=/static/ STATIC_ROOT=/app/static
 ENV UWSGI_SPOOLER_NAMES=mail,stat UWSGI_SPOOLER_MOUNT=/app/spooler
 ENV VIRTUAL_PROTO=uwsgi
 ENV LOG=/app/log
-ENV VIRTUAL_PROTO=uwsgi
-EXPOSE 6789
+ENV MEDIA_ROOT=/media
+EXPOSE 8000
 
 RUN apk update && apk --no-cache upgrade && apk --no-cache add ca-certificates gettext shadow python3 py3-pillow py3-psycopg2 dumb-init bash git curl uwsgi-python3 uwsgi-http uwsgi-spooler uwsgi-cache uwsgi-router_cache uwsgi-router_static && pip3 install --upgrade pip
 RUN mkdir -p /app && usermod -d /app -l app node && groupmod -n app node && chown -R app:app /app
@@ -48,10 +48,11 @@ RUN find $STATIC_ROOT -type f | xargs gzip -f -k -9
 
 COPY do /app/
 
+RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/mail ${UWSGI_SPOOLER_MOUNT}/stat
+
 # Let user write to log
-RUN chown -R app. ${LOG}
+RUN chown -R app. ${LOG} ${UWSGI_SPOOLER_MOUNT}/mail ${UWSGI_SPOOLER_MOUNT}/stat
 USER app
-RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}
 
 EXPOSE 6789
 
@@ -59,7 +60,7 @@ CMD /usr/bin/dumb-init bash -euxc "mrs migrate --noinput \
   && uwsgi \
   --spooler=${UWSGI_SPOOLER_MOUNT}/mail \
   --spooler=${UWSGI_SPOOLER_MOUNT}/stat \
-  --socket=0.0.0.0:6789 \
+  --http-socket=0.0.0.0:8000 \
   --chdir=/app \
   --plugin=python3,http,router_static,router_cache \
   --module=$UWSGI_MODULE \

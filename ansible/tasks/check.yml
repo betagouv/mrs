@@ -1,0 +1,74 @@
+---
+
+- name: Set test id
+  set_fact: test_id={{ ansible_date_time|to_uuid }}
+  tags: check,update
+
+- name: Set URL
+  set_fact: url='{{ "https" if letsencrypt_email else "http" }}://{{ dns }}/?test={{ test_id }}'
+  tags: check,update
+
+- block:
+  - name: Verify URL
+    register: url_verify
+    retries: '{{ timeout|default(60) }}'
+    delay: 1
+    until: url_verify.failed == false
+    tags: check,update
+    changed_when: false
+    shell: curl {% if htaccess %}-I {% endif %} {% if lookup("env", "ACME_CA_URI") == "https://acme-v01.api.letsencrypt.org/directory" %} -k {% endif %} {{ url }}
+    # future version when ansible fixes validate_certs feature for healthchecking purpose
+    # more than for security
+    #get_url:
+    #  url: '{{ url }}'
+    #  validate_certs: '{{ "yes" if lookup("env", "ACME_CA_URI", "") == "https://acme-v01.api.letsencrypt.org/directory" else "no" }}'
+    #  dest: /dev/null
+    #  tmp_dest: /tmp
+  - name: Send checks success slack message
+    when: slack_token is defined and slack_channel
+    tags: update
+    slack:
+      token: '{{ slack_token }}'
+      parse: full
+      username: Playlabs
+      icon_url: '{{ slack_icon }}'
+      color: good
+      channel: '{{ slack_channel }}'
+      msg: |
+        {{ project_instance }}: Checks are happy with {{ dns }}
+        {{ lookup("env", "CI_JOB_URL") }}
+
+  rescue:
+  - name: Send checks failed slack message
+    when: slack_token is defined and slack_channel
+    tags: update
+    slack:
+      token: '{{ slack_token }}'
+      username: Playlabs
+      icon_url: '{{ slack_icon }}'
+      color: danger
+      channel: '{{ slack_channel }}'
+      parse: full
+      msg: |
+        {{ project_instance }}: Checks say {{ dns }} is not behaving
+        Click the following for all relevant logs {{ lookup("env", "CI_JOB_URL") }}
+
+  always:
+  - name: nginx-letsencrypt application logs relevant to DNS
+    shell: /usr/bin/docker logs --since=2m nginx-letsencrypt 2>&1 | grep {{ dns }} | tail -n 10
+    tags: check,update
+    changed_when: false
+    failed_when: false
+    when: letsencrypt_email|default(false)
+
+  - name: nginx-proxy application logs relevant to current deploy
+    shell: /usr/bin/docker logs --since=2m nginx-proxy 2>&1 | grep -C1 "{{ test_id }}"
+    tags: check,update
+    failed_when: false
+    changed_when: false
+
+  - name: project application logs
+    shell: /usr/bin/docker logs --since=2m {{ project_instance }}
+    tags: check,update
+    failed_when: false
+    changed_when: false
