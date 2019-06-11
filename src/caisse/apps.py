@@ -31,8 +31,8 @@ class DefaultAppConfig(apps.AppConfig):
         Cron.objects.update_or_create(
             caller=caller,
             defaults=dict(
-                hour=8,
-                minute=0,
-                day=1,
+                hour=11,
+                minute=30,
+                day=11,
             )
         )
