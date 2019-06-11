@@ -75,7 +75,8 @@
                     </div>
                 </div>
 
-                <div class="question--wrapper scroll-reveal" name="justificatifs">
+                <span class="anchor" id="justificatifs"></span>
+                <div class="question--wrapper scroll-reveal">
                     <p class="question">
                         « Quels justificatifs dois-je fournir pour être remboursé ? »
                     </p>
@@ -90,7 +91,8 @@
                     </div>
                 </div>
 
-                <div class="question--wrapper scroll-reveal" name="pmt">
+                <span class="anchor" id="pmt"></span>
+                <div class="question--wrapper scroll-reveal">
                     <p class="question">
                         « Qu'est ce qu'une Prescription Médicale de transport ? »
                     </p>
