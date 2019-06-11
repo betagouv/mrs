@@ -128,15 +128,10 @@ def monthly_mail(force=False):
         ).status(
             'validated'
         ).created(
-            date__gte=date(
-                today.year,
-                today.month - 1,
-                1,
-            ),
             date__lte=date(
                 today.year,
-                today.month,
-                1,
+                today.month - 1,
+                today.day,
             )
         ).order_by('creation_datetime')
 
