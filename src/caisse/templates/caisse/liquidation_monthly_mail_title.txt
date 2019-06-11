@@ -1,1 +1,1 @@
-monthly
+Données des assurés à qualifier pour import dans MRS
