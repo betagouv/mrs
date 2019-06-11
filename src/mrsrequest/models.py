@@ -358,10 +358,8 @@ class MRSRequest(models.Model):
     distancevp = models.PositiveIntegerField(
         verbose_name='Distance (km)',
         help_text='Indiquez le nombre total de kilomètres parcourus :'
-        ' nombre de dates multiplié par le nombre de kilomètres.'
-        ' Par exemple, vous réalisez 2 aller/retour à 10km de chez vous soit'
-        ' 4 dates multipliées par 10 kilomètres : déclarez 40 kilomètres'
-        ' parcourus.',
+        ' Par exemple, vous réalisez 2 trajets de 40 kilomètres'
+        ' aller/retour : déclarez 80 kilomètres parcourus.',
         null=True,
         blank=True,
     )
