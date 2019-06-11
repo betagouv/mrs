@@ -88,8 +88,9 @@ def daily_mail(force=False):
         return
 
     for caisse in Caisse.objects.filter(active=True):
-        mrsrequests = caisse.mrsrequest_set.all().status('new').order_by(
-            'creation_datetime')
+        mrsrequests = caisse.mrsrequest_set.filter(
+            payment_base=None,
+        ).order_by('creation_datetime')
 
         if not len(mrsrequests):
             continue
