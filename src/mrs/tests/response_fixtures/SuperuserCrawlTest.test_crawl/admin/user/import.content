@@ -54,8 +54,8 @@ DUPOND;Jean;07329;UPN,Stat;571;jean.dupond@assurance-maladie.fr
           </div>
           <div class="modal-footer">
             
-    
     <button class="btn btn-primary" type="submit">Import</button>
+    
 
           </div>
         
