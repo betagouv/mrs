@@ -1,4 +1,4 @@
-<div class="modal-fixed-footer" id="modal-body-ajax">
+<div class="" id="modal-body-ajax">
         
 <form action="/admin/user/create" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-user" method="post">
 
@@ -111,8 +111,8 @@
           </div>
           <div class="modal-footer">
             
-    
     <button class="btn btn-primary" type="submit">Création</button>
+    
 
           </div>
         
