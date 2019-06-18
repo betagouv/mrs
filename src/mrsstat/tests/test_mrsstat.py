@@ -83,26 +83,34 @@ def test_stat_increment():
 @freeze_time('2018-05-06 13:37:42')
 @pytest.mark.django_db
 def test_stat_include_suspended():
-    # On charge les données de test en base
-    req = MRSRequest.objects.create(creation_datetime=datetime.datetime(2018, 5, 3, tzinfo=timezone.get_current_timezone()), mandate_datevp=datetime.datetime(2018, 5, 5, tzinfo=timezone.get_current_timezone()))
+    # On crée une demande
+    req = MRSRequest.objects.create(creation_datetime=datetime.datetime(2018,
+                                    5, 3,
+                                    tzinfo=timezone.get_current_timezone()),
+                                    mandate_datevp=datetime.datetime(
+                                    2018, 5, 5,
+                                    tzinfo=timezone.get_current_timezone()))
 
-    # # On actualise les stats pour cette demande
-    # update_stat_for_mrsrequest(pk=req.pk)
+    # On valide cette demande et on actualise les stats pour cette demande
     req.update_status(user=None, status='validated', log_datetime=None,
                       create_logentry=True)
     update_stat_for_mrsrequest(pk=req.pk)
 
-    # Récupère le delay initial
-    old_delay = Stat.objects.filter(date='2018-05-06', caisse=None, institution=None).first().validation_average_delay
-    # On crée une demande il y a un mois, et on la suspend, et on l'active et on la sauve
-    # req = MRSRequest.objects.get(display_id=201805020002)
+    # On récupère le delay initial
+    old_delay = Stat.objects.filter(
+        date='2018-05-06', caisse=None,
+        institution=None).first().validation_average_delay
+
+    # On suspend la demande
     req.suspended = True
     req.save()
 
     # On actualise les stats pour cette demande
     update_stat_for_mrsrequest(pk=req.pk)
 
-    # On vérifie que le delay a augmenté
-    new_delay = Stat.objects.filter(date='2018-05-06', caisse=None, institution=None).first().validation_average_delay
+    # On vérifie que le delay est resté le même malgré la suspension
+    new_delay = Stat.objects.filter(
+        date='2018-05-06', caisse=None,
+        institution=None).first().validation_average_delay
 
     assert new_delay == old_delay
