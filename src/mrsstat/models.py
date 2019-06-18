@@ -135,9 +135,7 @@ class Stat(models.Model):
         verbose_name='Délai moyen de paiement (en jours)',
     )
     def validation_average_delay(self):
-        return self.mrsrequest_set.exclude(
-            suspended=True
-        ).status_changed(
+        return self.mrsrequest_set.status_changed(
             'validated',
             self.date,
         ).aggregate(result=models.Avg('delay'))['result']
