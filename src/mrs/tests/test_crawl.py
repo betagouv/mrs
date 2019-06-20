@@ -56,6 +56,11 @@ class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):
 class SuperuserCrawlTest(LiquidateurCrawlTest):
     username = 'test'
 
+    fixtures = [
+        'src/mrs/tests/data.json',
+        'src/mrsstat/tests/test_mrsstat.json',
+    ]
+
     def setUp(self):
         super().setUp()
         self.covered = []
