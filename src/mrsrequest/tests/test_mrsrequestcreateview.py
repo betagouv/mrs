@@ -230,7 +230,11 @@ def test_mrsrequestcreateview_modevp_post_save_integration(p, caisse):
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.django_db
 def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker):
-    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+    data = form_data(
+        mrsrequest_uuid=p.mrsrequest.id,
+        caisse=caisse.pk,
+        distancevp=p.mrsrequest.distancevp
+    )
     p.post(**data)
     url = os.path.join(
         'http://localhost:8000',
@@ -238,6 +242,12 @@ def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker):
         'e29db065-0566-48be-822d-66bd3277d823/',
     )
     assert url in mailoutbox[0].body
+
+    texte_km_declares = "L'Assurance Maladie va analyser votre demande de " \
+                        "remboursement sur la base du nombre total de " \
+                        "kilomètres déclarés, soit {}."\
+        .format("100")
+    assert texte_km_declares in mailoutbox[0].body
 
 
 @freeze_time('2017-12-19 05:51:11')

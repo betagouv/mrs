@@ -4,16 +4,15 @@ Nous avons bien reçu votre demande de remboursement de vos frais de transport e
 {% for transport in view.object.transport_set.all %}
 - du {{ transport.date_depart }}{% if transport.date_return %} au {{ transport.date_return }}{% endif %}{% endfor %}
 
-L'Assurance Maladie va analyser votre demande et la traiter.
-
-Si l'ensemble de votre demande est complète et exploitable, votre remboursement sera effectif sous 7 jours.
+L'Assurance Maladie va analyser votre demande de remboursement sur la base du nombre total de kilomètres déclarés, soit {{ view.object.distancevp }}.
 
 Vous avez la possibilité d'annuler votre demande tant qu'elle n'est pas traitée par nos services en cliquant sur le lien ci-dessous:
 
 {{ base_url }}{{ view.object.get_cancel_url }}
 
+Si l'ensemble de votre demande est complète et exploitable, votre remboursement sera effectif sous 7 jours.
+
 Cordialement,
 L'équipe MRS - Assurance Maladie
-Il vous appartient de conserver 33 mois les originaux des pièces justificatives (prescription médicale de transport,
-justificatif de paiement de transports en commun et ou péage) . Ces documents pourraient vous être demandés dans
-le cadre d'un contrôle de l'Assurance Maladie.
+
+Il vous appartient de conserver 33 mois les originaux des pièces justificatives (prescription médicale de transport, justificatif de paiement de transports en commun et ou péage). Ces documents pourraient vous être demandés dans le cadre d'un contrôle de l'Assurance Maladie.
