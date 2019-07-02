@@ -513,6 +513,8 @@ class BaseTransportFormSet(forms.BaseFormSet):
             except ValueError:
                 number = 1
 
+            number = number if number > 0 else 1
+
             data = data.copy()
             for i in ['total', 'initial', 'min_num', 'max_num']:
                 data[f'{prefix}-{i.upper()}_FORMS'] = number
@@ -560,7 +562,9 @@ class BaseTransportFormSet(forms.BaseFormSet):
 
 TransportFormSet = forms.formset_factory(
     TransportForm,
-    formset=BaseTransportFormSet
+    formset=BaseTransportFormSet,
+    min_num=1,
+    validate_min=True,
 )
 
 

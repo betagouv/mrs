@@ -125,6 +125,12 @@ def test_mrsrequestcreateview_requires_iterative_number_gt_0(p):
     assert 'iterative_number' in form.errors
 
 
+@pytest.mark.django_db
+def test_mrsrequestcreateview_requires_transport_date(p):
+    p.post(mrsrequest_uuid=p.mrsrequest.id, iterative_number=0)
+    assert not p.view.forms['transport_formset'].is_valid()
+
+
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.django_db
 def test_mrsrequestcreateview_pel_integration(p, caisse):
