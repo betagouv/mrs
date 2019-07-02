@@ -40,6 +40,24 @@
     }
 },
 {
+    "fields": {
+        "cheflieu_code": "31555",
+        "insee_id": "76",
+        "name": "Occitanie"
+    },
+    "model": "caisse.region",
+    "pk": 16
+},
+{
+    "fields": {
+        "cheflieu_code": "XXXXX",
+        "insee_id": "XX",
+        "name": "Régimes Spéciaux"
+    },
+    "model": "caisse.region",
+    "pk": 19
+},
+{
     "model": "caisse.caisse",
     "pk": 1,
     "fields": {

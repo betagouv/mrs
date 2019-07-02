@@ -9,8 +9,9 @@ from .models import Caisse, Email
 
 
 class CaisseListView(crudlfap.ListView):
-    table_sequence = (
+    table_fields = (
         'name',
+        'regions',
         'active',
         'score',
         'conflicting',
@@ -48,10 +49,11 @@ class CaisseListView(crudlfap.ListView):
 
     filter_fields = (
         'active',
+        'regions'
     )
 
     def get_queryset(self):
-        qs = super().get_queryset()
+        qs = super().get_queryset().prefetch_related('regions')
         qs = qs.annotate(
             conflicted=models.Sum('stat__mrsrequest_count_conflicted'),
             conflicting=models.Sum('stat__mrsrequest_count_conflicting'),

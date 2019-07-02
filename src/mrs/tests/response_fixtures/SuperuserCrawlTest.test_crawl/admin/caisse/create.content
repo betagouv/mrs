@@ -41,6 +41,21 @@
 </div>
  
 
+
+<div class="row">
+    <div class="select-field col s12 required multiselect" id="id_regions_container">
+        <label for="id_regions">Regions</label>
+        <select id="id_regions" multiple="multiple" name="regions">
+            <option disabled="" value="">Choisissez votre option</option>
+            <option value="16">Occitanie</option>
+            <option value="19">Régimes Spéciaux</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+
 <div class="row">
     <div class="input-field col s12" id="id_liquidation_email_container">
         <input id="id_liquidation_email" maxlength="254" name="liquidation_email" type="email"/>

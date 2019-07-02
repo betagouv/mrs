@@ -13,7 +13,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.test.client import RequestFactory as drf
 from django.urls import reverse
 
-from caisse.models import Caisse
+from caisse.models import Caisse, Region
 from mrsrequest.models import MRSRequest
 from mrsrequest.views import MRSRequestCreateView
 from mrsuser.models import User
@@ -24,7 +24,6 @@ id = mrsrequest_uuid = pytest.fixture(
 
 
 Fixture.exclude = {'mrsrequest.mrsrequest': ['token']}
-
 
 
 @pytest.fixture
@@ -163,7 +162,9 @@ class Payload(object):
 
     def post(self, **data):
         self.request = self.srf.post(self.url, data)
-        self.session = self.request.session = self.session or self.request.session
+        self.session = self.request.session = (
+            self.session or self.request.session
+        )
         self.mrsrequest.allow(self.request)
         self.view = self.view_class(request=self.request, **self.view_kwargs)
         self.response = self.view.dispatch(self.request, **self.view_kwargs)

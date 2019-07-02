@@ -22,6 +22,27 @@ def validate_caisse_number(value):
         raise ValidationError('Doit etre entre 0 et 999')
 
 
+class Region(models.Model):
+    name = models.CharField(
+        verbose_name='nom de la région',
+        max_length=30,
+    )
+    insee_id = models.CharField(
+        verbose_name='code INSEE de la région',
+        max_length=2
+    )
+    cheflieu_code = models.CharField(
+        verbose_name='code commune INSEE du chef lieu de la région',
+        max_length=5
+    )
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class Caisse(models.Model):
     code = models.CharField(max_length=9)
     name = models.CharField(
@@ -52,6 +73,10 @@ class Caisse(models.Model):
         blank=True,
         verbose_name='Dernier import'
     )
+
+    # Une région englobe aucune ou plusieurs caisses
+    # Une caisse peut appartenir à aucune ou plusieurs régions
+    regions = models.ManyToManyField(Region)
 
     class Meta:
         ordering = ['name']

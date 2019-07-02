@@ -8,6 +8,7 @@
         "name": "test",
         "number": "311",
         "parking_enable": true,
+        "regions": [],
         "score": 0
     },
     "model": "caisse.caisse",
@@ -22,6 +23,7 @@
         "name": "test inactive",
         "number": "333",
         "parking_enable": true,
+        "regions": [],
         "score": 1
     },
     "model": "caisse.caisse",
