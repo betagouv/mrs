@@ -578,6 +578,7 @@ class TransportIterativeForm(forms.Form):
         initial=1,
         required=False,
         widget=forms.TextInput,
+        min_value=1,
     )
     trip_kind = forms.ChoiceField(
         label='',

@@ -112,6 +112,19 @@ def test_mrsrequestcreateview_pel_validation(p):
     assert 'pmt' not in p.view.forms['mrsrequest'].errors
 
 
+@pytest.mark.django_db
+def test_mrsrequestcreateview_requires_iterative_number_gt_0(p):
+    p.post(
+        mrsrequest_uuid=p.mrsrequest.id,
+        iterative_show=1,
+        iterative_number=0,
+        trip_kind='simple',
+    )
+    form = p.view.forms['transport']
+    assert not form.is_valid()
+    assert 'iterative_number' in form.errors
+
+
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.django_db
 def test_mrsrequestcreateview_pel_integration(p, caisse):
