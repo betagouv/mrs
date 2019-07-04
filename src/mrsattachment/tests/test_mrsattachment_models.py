@@ -3,6 +3,7 @@ import pytest
 from mrsattachment.models import MRSAttachment
 from mrsrequest.models import MRSRequest
 
+# TODO : jbm tout revoir
 
 @pytest.mark.django_db
 def test_mrsattachmentmanager_upload_records(attachment):

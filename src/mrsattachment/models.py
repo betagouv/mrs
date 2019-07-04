@@ -1,7 +1,12 @@
 import io
 import mimetypes
+import uuid
 
 from django.db import models
+from django.core.files.storage import FileSystemStorage
+from django.dispatch import receiver
+
+from mrs.settings import ATTACHMENT_ROOT
 
 
 class MRSAttachmentManager(models.Manager):
@@ -24,7 +29,9 @@ class MRSAttachmentManager(models.Manager):
         return self.model.objects.create(
             mrsrequest_uuid=mrsrequest_uuid,
             filename=upload.name,
-            binary=MRSAttachment.get_upload_body(upload),
+            # TODO : jbm supprimer
+            # binary=MRSAttachment.get_upload_body(upload),
+            attachment_file=upload,
             **kwargs
         )
 
@@ -33,11 +40,33 @@ class MRSAttachment(models.Model):
     # This field is used when the document is uploaded
     mrsrequest_uuid = models.UUIDField()
 
+    # TODO : jbm à tester
+    upload_storage = FileSystemStorage(
+        location=ATTACHMENT_ROOT,
+    )
+
+    def attachment_file_path(instance, filename):
+        # file will be uploaded to ATTACHMENT_UPLOAD_ROOT/
+        # <mrsrequest_uuid>-<uuid>-<filename>
+        return '{0}-{1}-{2}'.format(
+            instance.mrsrequest_uuid,
+            uuid.uuid4(),
+            filename
+        )
+
     filename = models.CharField(max_length=255)
     creation_datetime = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Heure d\'enregistrement du fichier')
-    binary = models.BinaryField(verbose_name='Attachement')
+    # TODO : jbm supprimer et vérifier les usages
+    # binary = models.BinaryField(verbose_name='Attachement')
+    binary = models.BinaryField(null=True)
+    attachment_file = models.FileField(
+        upload_to=attachment_file_path,
+        storage=upload_storage,
+        verbose_name='Attachement',
+        default=""
+    )
 
     objects = MRSAttachmentManager()
 
@@ -52,10 +81,13 @@ class MRSAttachment(models.Model):
     def tuple(self):
         return (
             self.filename,
-            self.binary,
+            # TODO : jbm supprimer et vérifier les usages
+            # self.binary,
+            self.attachment_file.name,
             self.mimetype,
         )
 
+    # TODO : jbm supprimer et modifier tests
     @classmethod
     def get_upload_body(cls, upload):
         body = io.BytesIO()
@@ -63,3 +95,13 @@ class MRSAttachment(models.Model):
             body.write(chunk)
         body.seek(0)  # rewind read point to beginning of registry
         return body.read()
+
+
+@receiver(models.signals.post_delete, sender=MRSAttachment)
+def auto_delete_attachment_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `MRSAttachment` object is deleted.
+    """
+    if instance.attachment_file:
+        instance.attachment_file.delete()

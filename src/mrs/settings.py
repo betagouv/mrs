@@ -192,7 +192,10 @@ if not STATIC_URL.endswith('/'):
     STATIC_URL += '/'
 STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(BASE_DIR, 'collected'))
 
-DEFAULT_FILE_STORAGE = 'db_file_storage.storage.DatabaseFileStorage'
+ATTACHMENT_ROOT = os.getenv(
+    'ATTACHMENT_ROOT',
+    os.path.join(BASE_DIR, 'dev_mrsattachment')
+)
 
 EMAIL_HOST = os.getenv('EMAIL_HOST', None)
 EMAIL_PORT = os.getenv('EMAIL_PORT', None)
