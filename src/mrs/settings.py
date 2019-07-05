@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'mrsstat',
     'caisse',
     'rating',
+    'pro',
     'denorm',
     'explorer',
     'captcha',
