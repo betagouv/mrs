@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Professionnels de santé, connaissez-vous Mes Remboursements Simplifés ?</title>
+    {% include '_piwik.html' %}
+    <meta name="description" content="">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Professionnels de santé, connaissez-vous Mes Remboursements Simplifés ?"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="{% static 'img/logos/mrs.png' %}"/>
+    <meta property="og:description" content="{% block description %}En 3 clics, mon transport personnel remboursé en moins d'une semaine. Sur prescription de votre médecin, l'Assurance Maladie rembourse les frais d'utilisation de votre véhicule personnel ou des transports en commun.{% endblock %}"/>
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
+    <link rel="icon" sizes="48x48" href="/static/img/logos/launcher-icon-1x.png">
+    <link rel="icon" sizes="96x96" href="/static/img/logos/launcher-icon-2x.png">
+    <link rel="manifest" href="{% static '/manifest.json' %}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/pro.css' %}"/>
+</head>
+
+<body>
+
+    <div id="header">
+        <img src="{% static 'img/logos/cnam2.png' %}" alt="L'assurance Maladie">
+        <img src="{% static 'img/logos/mrs.png' %}" alt="Mes remboursements simplifiés">
+    </div>
+
+    <section id="main" class="container-fluid">
+
+        <div id="main-title" class="col-lg-10 offset-lg-1 pb-5">
+            <h1>
+                Le véhicule particulier :<br>
+                facteur d'autonomie<br>
+                pour vos patients !
+            </h1>
+        </div>
+
+        <div class="main-text col-lg-10 offset-lg-1 pb-5">
+            <p>
+                Le recours au véhicule particulier est le mode de transport le <b>moins prescrit</b>  alors qu’il est le <b>moins cher</b> pour tous et le <b>plus pratique</b> pour le patient.
+            <p>
+                Pour simplifier les démarches administratives, l'Assurance maladie lance un nouveau service en ligne : <b>Mes Remboursements Simplifiés</b>.
+            </p>
+            <p>
+                <b>1500</b> médecins en Occitanie ont déjà parlé de MRS à leur patient... et vous ?
+            </p>
+        </div>
+
+        <div class="text-center pb-5">
+            <a href="https://www.mrs.beta.gouv.fr/?utm_source=linkedin&utm_medium=quiz&utm_campaign=quiz_linkedin" target="_blank" id="cta" class="btn btn-primary">Je découvre MRS</a>
+        </div>
+
+        <div class="secondary-title col-lg-10 offset-lg-1 pt-4 pb-4">
+            <h2>MRS en 3 chiffres</h2>
+            <div class="separator"></div>
+        </div>
+
+        <div class="col-lg-10 offset-lg-1 pb-5">
+            <div class="row">
+                <div class="col-sm-10 offset-sm-1 col-md-4 offset-md-0 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ view.users_count }}</h5>
+                        </div>
+                        <div class="card-footer">
+                            Nombre d'utilisateurs
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10 offset-sm-1 col-md-4 offset-md-0 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ view.mrsrequests_count }}</h5>
+                        </div>
+                        <div class="card-footer">
+                            Nombre de demandes
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10 offset-sm-1 col-md-4 offset-md-0 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ view.average_payment_delay }} jours</h5>
+                        </div>
+                        <div class="card-footer">
+                            Délai de paiement
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="secondary-title col-lg-10 offset-lg-1 pb-4">
+            <h2>MRS vu par les patients</h2>
+            <div class="separator"></div>
+        </div>
+
+        <div id="testimonies" class="col-lg-10 offset-lg-1 pb-5">
+            <div class="row">
+                <div class="col-lg-4 pb-3">
+                    <p>
+                        "Toujours aussi satisfait de ce service proposé par la CPAM - simplification de la démarche et remboursement rapide."
+                    </p>
+                </div>
+                <div class="col-lg-4 pb-3">
+                    <p>
+                        "Depuis l'apparition de MRS, il y a une très nette amélioration de ce service rendu aux patients."
+                    </p>
+                </div>
+                <div class="col-lg-4 pb-3">
+                    <p>
+                        "Simple, rapide et les frais sont remboursés la semaine suivante ce qui est très appréciable. Merci."
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div id="footer">
+        <a href="https://beta.gouv.fr/" target="_blank">
+            <img class="footer-logo" src="{% static 'img/logos/beta-gouv-marianne.png' %}" alt="Beta.gouv.fr">
+        </a>
+        <a href="https://www.ameli.fr" target="_blank">
+            <img class="footer-logo" src="{% static 'img/logos/ameli.png' %}" alt="Ameli.fr">
+        </a>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

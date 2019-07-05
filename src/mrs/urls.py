@@ -60,6 +60,7 @@ urlpatterns = [
     path('institution/', include('institution.urls', namespace='institution')),
     path('oldadmin/', admin.site.urls),
     path('doc/', include('django.contrib.admindocs.urls')),
+    path('pro/', include('pro.urls', namespace='pro')),
 ]
 
 if 'debug_toolbar' in settings.INSTALLED_APPS and settings.DEBUG:  # noqa pragma: no cover
