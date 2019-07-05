@@ -15,4 +15,3 @@ class ProView(generic.TemplateView):
             result=Avg('delay')
         )['result'] or 0
     ).replace('.', ',')
-
