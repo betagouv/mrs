@@ -43,8 +43,6 @@ RUN mrs collectstatic --noinput --clear
 COPY locale /app/locale
 RUN mrs compilemessages -l fr
 
-COPY robots.txt /app/
-
 # Pre-compress for uWSGI
 RUN find $STATIC_ROOT -type f | xargs gzip -f -k -9
 
@@ -84,7 +82,6 @@ CMD /usr/bin/dumb-init bash -euxc "mrs migrate --noinput \
   --file-serve-mode x-accel-redirect \
   --route '^/static/.* addheader:Cache-Control: public, max-age=7776000' \
   --static-map $STATIC_ROOT=$STATIC_URL \
-  --static-map /robots.txt=/app/robots.txt \
   --static-gzip-all \
   --cache2 'name=statcalls,items=100' \
   --static-cache-paths 86400 \
