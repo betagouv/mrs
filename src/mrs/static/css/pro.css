@@ -122,9 +122,9 @@ body {
 }
 
 .card-title {
-    font-size: 3em;
+    font-size: 3.2em;
     margin: 0.5em auto 0em;
-    color: #004391;
+    color: #0064D9;
 }
 
 @media (max-width: 576px) {
@@ -141,7 +141,7 @@ body {
 }
 
 #testimonies {
-    font-size: 1.2em;
+    font-size: 1.3em;
     font-weight: 500;
     font-style: italic;
 }
