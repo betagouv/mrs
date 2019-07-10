@@ -40,9 +40,12 @@ class PersonForm(forms.ModelForm):
 
     def get_or_create(self):
         # Return existing person untouched if possible
+        # Case of twins : we added a unicity check
+        # with the person's first name
         person = Person.objects.filter(
             birth_date=self.cleaned_data['birth_date'],
             nir=self.cleaned_data['nir'],
+            first_name=self.cleaned_data['first_name']
         ).first()
 
         if person:
