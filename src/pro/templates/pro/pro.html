@@ -10,6 +10,7 @@
     {% include '_piwik.html' %}
     <meta name="description" content="Sous réserve d'une prescription médicale, l'utilisation du véhicule particulier est remboursé en 3 clics et en moins d'une semaine.">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
     <meta property="og:title" content="Professionnels de santé, connaissez-vous Mes Remboursements Simplifés ?"/>
     <meta property="og:type" content="website"/>
     <meta property="og:image" content="{% static 'img/logos/mrs.png' %}"/>
@@ -137,13 +138,47 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js" integrity="sha256-65R1G5irU1VT+k8L4coqgd3saSvO/Wufson/w+v2Idw=" crossorigin="anonymous"></script>
+<script src="{% static "js/odometer.min.js" %}"></script>
 
 <script>
     $(document).ready(function() {
-        $("#users_count").html({{ view.users_count }});
-        $("#mrsrequests_count").html({{ view.mrsrequests_count }});
-        $("#average_payment_delay").html("{{ view.average_payment_delay }}".replace(",", "."));
+        var users_count_shown = false;
+        var mrsrequests_count_shown = false;
+        var average_payment_delay_shown = false;
+
+        $.fn.isInViewport = function() {
+            var elementTop = $(this).offset().top;
+            var elementBottom = elementTop + $(this).outerHeight();
+            var viewportTop = $(window).scrollTop();
+            var viewportBottom = viewportTop + $(window).height();
+            return elementBottom > viewportTop && elementTop < viewportBottom;
+        };
+
+        var compute_shown = function () {
+            if (
+                !users_count_shown || !mrsrequests_count_shown || !average_payment_delay_shown
+            ) {
+                var users_count_in_viewport = $("#users_count").isInViewport();
+                var mrsrequests_count_in_viewport = $("#mrsrequests_count").isInViewport();
+                var average_payment_delay_in_viewport = $("#average_payment_delay").isInViewport();
+
+                if (users_count_in_viewport) {
+                    $("#users_count").html({{ view.users_count }});
+                }
+                if (mrsrequests_count_in_viewport) {
+                    $("#mrsrequests_count").html({{ view.mrsrequests_count }});
+                }
+                if (average_payment_delay_in_viewport) {
+                    $("#average_payment_delay").html(parseFloat("{{ view.average_payment_delay }}".replace(",", ".")));
+                }
+            }
+        };
+
+        $(window).on("resize scroll", function() {
+            compute_shown();
+        });
+
+        compute_shown();
     })
 </script>
 

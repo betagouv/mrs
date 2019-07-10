@@ -122,7 +122,8 @@ body {
 }
 
 .card-title {
-    font-size: 3.2em;
+    font-family: "Anton";
+    font-size: 4em;
     margin: 0.5em auto 0em;
     color: #0064D9;
 }
