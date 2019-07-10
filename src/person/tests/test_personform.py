@@ -16,6 +16,37 @@ def d():
     )
 
 
+@pytest.fixture
+def s():
+    return dict(
+        nir='1234567890123',
+        birth_date='1990-01-01',
+        first_name='seb',
+        last_name='lebowski',
+        email='example@example.com',
+    )
+
+
+# Twins case : two persons linked to the same nir and born at the same date
+@pytest.mark.dbdiff(models=[Person])
+def test_personform_twins_get_or_create(d, s):
+    # We first make a call for jamesy
+    form = PersonForm(d)
+    form.full_clean()
+    result0 = form.get_or_create()
+
+    # Second call should create a new instance,
+    # since seb is another person
+    form = PersonForm(s)
+    form.full_clean()
+    result1 = form.get_or_create()
+    assert result0 != result1
+    Fixture(
+        'person/tests/test_personform_twins.json',
+        models=[Person]
+    ).assertNoDiff()
+
+
 @pytest.mark.dbdiff(models=[Person])
 def test_personform_get_or_create(d):
     form = PersonForm(d)
