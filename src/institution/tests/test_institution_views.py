@@ -64,7 +64,7 @@ def test_mrsrequest_status_view(
 @freeze_time('2017-12-19 13:33:37')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
 def test_mrsrequestcreateview_post_save_integration(
-        p, finess, institution_uuid, caisse):
+        p, finess, institution_uuid, caisse, upload):
 
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
     data['caisse'] = caisse.pk
@@ -92,12 +92,12 @@ def test_mrsrequestcreateview_post_save_integration(
     PMT.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_institutionmrsrequestcreateview_story.jpg',
-        binary=b'test_institutionmrsrequestcreateview_story',
+        attachment_file=upload
     )
     Bill.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_institutionmrsrequestcreateview_story.jpg',
-        binary=b'test_institutionmrsrequestcreateview_story',
+        attachment_file=upload
     )
 
     Institution.objects.create(finess=finess, id=institution_uuid, origin='o')

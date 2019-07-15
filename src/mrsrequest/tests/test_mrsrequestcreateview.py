@@ -72,7 +72,7 @@ def test_mrsrequestcreateview_post_responds_with_new_and_allowed_uuid(srf):
 
 
 @pytest.mark.django_db
-def test_mrsrequestcreateview_requires_pmt_by_default(p):
+def test_mrsrequestcreateview_requires_pmt_by_default(p, upload):
     p.post(mrsrequest_uuid=p.mrsrequest.id)
     assert 'pel' not in p.view.forms['mrsrequest'].errors
     assert 'pmt' in p.view.forms['mrsrequest'].errors
@@ -80,7 +80,7 @@ def test_mrsrequestcreateview_requires_pmt_by_default(p):
     p.mrsrequest.pmt = PMT.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
-        binary=b'test_mrsrequestcreateview_story',
+        attachment_file=upload
     )
     p.post(mrsrequest_uuid=p.mrsrequest.id)
     assert 'pmt' not in p.view.forms['mrsrequest'].errors
@@ -133,8 +133,9 @@ def test_mrsrequestcreateview_requires_transport_date(p):
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.django_db
-def test_mrsrequestcreateview_pel_integration(p, caisse):
+def test_mrsrequestcreateview_pel_integration(p, caisse, upload):
     data = form_data(
+        upload=upload,
         mrsrequest_uuid=p.mrsrequest.id,
         pmt_pel='pel',
         caisse=caisse.pk,
@@ -146,7 +147,7 @@ def test_mrsrequestcreateview_pel_integration(p, caisse):
 
 
 @pytest.mark.django_db
-def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
+def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse, upload):
     data = dict(mrsrequest_uuid=p.mrsrequest.id)
     p.post(**data)
     assert not p.view.forms['mrsrequest'].is_valid()
@@ -163,7 +164,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     p.mrsrequest.pmt = PMT.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
-        binary=b'test_mrsrequestcreateview_story',
+        attachment_file=upload
     )
     p.post(**data)
     assert not p.view.forms['mrsrequest'].errors
@@ -177,7 +178,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     BillVP.objects.create(
         mrsrequest_uuid=p.mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
-        binary=b'test_mrsrequestcreateview_story',
+        attachment_file=upload
     )
     p.post(**data)
     assert not p.view.forms['mrsrequest'].errors
@@ -203,7 +204,7 @@ def test_mrsrequestcreateview_hydrate_person(p):
     assert p.view.forms['person'].is_valid()
 
 
-def form_data(**data):
+def form_data(upload, **data):
     data['trip_kind'] = 'return'
     data['iterative_number'] = 2
     data['transport-0-date_depart'] = '2017-02-02'
@@ -225,21 +226,21 @@ def form_data(**data):
     PMT.objects.create(
         mrsrequest_uuid=data['mrsrequest_uuid'],
         filename='test_mrsrequestcreateview_story.jpg',
-        binary=b'test_mrsrequestcreateview_story',
+        attachment_file=upload
     )
     BillVP.objects.create(
         mrsrequest_uuid=data['mrsrequest_uuid'],
         filename='test_mrsrequestcreateview_story.jpg',
-        binary=b'test_mrsrequestcreateview_story',
+        attachment_file=upload
     )
     return data
 
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_mrsrequestcreateview_modevp_post_save_integration(p,
-                                                           caisse):
+def test_mrsrequestcreateview_modevp_post_save_integration(p, caisse, upload):
     data = form_data(
+        upload=upload,
         mrsrequest_uuid=p.mrsrequest.id,
         caisse=caisse.pk,
         region=caisse.regions.first().pk
@@ -255,8 +256,9 @@ def test_mrsrequestcreateview_modevp_post_save_integration(p,
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.django_db
-def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker):
+def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker, upload):
     data = form_data(
+        upload=upload,
         mrsrequest_uuid=p.mrsrequest.id,
         caisse=caisse.pk,
         region=caisse.regions.first().pk,
@@ -279,11 +281,9 @@ def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker):
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_mrsrequestcreateview_modeatp_post_save_integration(
-    p,
-    caisse
-):
+def test_mrsrequestcreateview_modeatp_post_save_integration(p, caisse, upload):
     data = form_data(
+        upload=upload,
         mrsrequest_uuid=p.mrsrequest.id,
         caisse=caisse.pk,
         region=caisse.regions.first().pk
@@ -295,7 +295,7 @@ def test_mrsrequestcreateview_modeatp_post_save_integration(
     BillATP.objects.create(
         mrsrequest_uuid=data['mrsrequest_uuid'],
         filename='test_mrsrequestcreateview_story.jpg',
-        binary=b'test_mrsrequestcreateview_story',
+        attachment_file=upload
     )
 
     p.post(**data)
@@ -308,19 +308,22 @@ def test_mrsrequestcreateview_modeatp_post_save_integration(
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_mrsrequestcreateview_empty_expenseatp(p, caisse):
-    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+def test_mrsrequestcreateview_empty_expenseatp(p, caisse, upload):
+    data = form_data(
+        upload=upload,
+        mrsrequest_uuid=p.mrsrequest.id,
+        caisse=caisse.pk
+    )
     data['expenseatp'] = ''
     p.post(**data)
 
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.django_db
-def test_mrsrequestcreateview_post_save_integration_confirms_count(
-    p,
-    caisse
-):
+def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse,
+                                                                   upload):
     data = form_data(
+        upload=upload,
         mrsrequest_uuid=p.mrsrequest.id,
         caisse=caisse.pk,
         region=caisse.regions.first().pk
@@ -364,9 +367,10 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(
     # Let's duplicate this request, only first trip should be conflicting
     p.mrsrequest = MRSRequest()
     data = form_data(
+        upload=upload,
         mrsrequest_uuid=p.mrsrequest.id,
         caisse=caisse.pk,
-        region=caisse.regions.first().pk
+        region = caisse.regions.first().pk
     )
     p.post(**data)
     assert p.view.conflicts_count == 1
@@ -405,6 +409,7 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(
     # While we're at it try just to increment accepted conflicts
     p.mrsrequest = MRSRequest()
     data = form_data(
+        upload=upload,
         mrsrequest_uuid=p.mrsrequest.id,
         caisse=caisse.pk,
         region=caisse.regions.first().pk

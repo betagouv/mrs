@@ -16,3 +16,5 @@ coverage/
 .npm-watch.pid
 .env
 docs/_build
+.venv*
+dev_mrsattachment/*

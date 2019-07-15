@@ -42,9 +42,6 @@ class MRSFileDownloadView(MRSFileDetailViewMixin, generic.DetailView):
             del request.environ['wsgi.file_wrapper']
 
         self.object = self.get_object()
-        # TODO : jbm supprimer
-        print(self.object.attachment_file.name)
-        print(self.object.attachment_file.size)
         f = io.BytesIO(self.object.attachment_file.read())
         content_type = self.object.mimetype or 'application/octet-stream'
         response = http.FileResponse(f, content_type=content_type)
@@ -120,8 +117,6 @@ class MRSFileUploadView(generic.View):
 
         # need to reverse engineer some action now to finish specs because our
         # mock object doesn't simulate all attributes
-        # todo: validate filesize
-        # todo: validate mimetype
 
         files = []
         for key, upload in request.FILES.items():

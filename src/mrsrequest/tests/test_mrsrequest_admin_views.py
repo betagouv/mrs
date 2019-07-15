@@ -28,7 +28,7 @@ def view(v):
 
 @pytest.mark.dbdiff(models=[MRSRequestLogEntry, Caisse, Person])
 @pytest.fixture
-def mrsrequest():
+def mrsrequest(upload):
     uuid = '4255e33f-88c0-4dbf-b8ee-69cb283a7cea'
     with freeze_time('3000-12-31 13:37:42'):
         mrsrequest = MRSRequest.objects.create(
@@ -44,7 +44,7 @@ def mrsrequest():
             pmt=PMT.objects.create(
                 mrsrequest_uuid=uuid,
                 filename='test_mrsrequest_admin_views.jpg',
-                binary=b'test_mrsrequest_admin_views',
+                attachment_file=upload
             ),
             expensevp=2.23,
         )

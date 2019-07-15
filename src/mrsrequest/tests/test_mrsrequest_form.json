@@ -1,7 +1,7 @@
 [
 {
     "fields": {
-        "binary": "dGVzdF9tcnNhdHRhY2htZW50Zm9ybTA=",
+        "attachment_file": "6bf490e6-4521-458a-adfe-8d4ef5a64687-3e5091cb-05d1-435e-8ed3-8e90158615c3.jpg",
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsattachmentform0.jpg",
         "mrsrequest_uuid": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
@@ -11,7 +11,7 @@
 },
 {
     "fields": {
-        "binary": "dGVzdF9tcnNhdHRhY2htZW50Zm9ybTE=",
+        "attachment_file": "6bf490e6-4521-458a-adfe-8d4ef5a64687-3d9708f4-0f8e-4e40-9a77-6f92569f75d9.jpg",
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsattachmentform1_vp.jpg",
         "mrsrequest_uuid": "6bf490e6-4521-458a-adfe-8d4ef5a64687"
@@ -21,7 +21,7 @@
 },
 {
     "fields": {
-        "binary": "dGVzdF9tcnNhdHRhY2htZW50Zm9ybTE=",
+        "attachment_file": "6bf490e6-4521-458a-adfe-8d4ef5a64687-fa8091f8-e520-4407-bbc0-913b9e256094.jpg",
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsattachmentform1_atp.jpg",
         "mrsrequest_uuid": "6bf490e6-4521-458a-adfe-8d4ef5a64687"

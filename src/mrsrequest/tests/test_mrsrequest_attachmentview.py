@@ -16,14 +16,14 @@ from mrsrequest.models import MRSRequest, PMT
     ['upn'],
     ['stat', 'upn'],
 ])
-def test_mrsfiledownloadview_admins(groups, request_factory, caisse):
+def test_mrsfiledownloadview_admins(groups, request_factory, caisse, upload):
     Fixture('./src/mrs/tests/data.json').load()
 
     mrsrequest = MRSRequest(caisse=caisse)
     mrsrequest.pmt = PMT.objects.create(
         mrsrequest_uuid=mrsrequest.id,
         filename='test_mrsrequestcreateview_story.jpg',
-        binary=b'test_mrsrequestcreateview_story',
+        attachment_file=upload
     )
     mrsrequest.save()
     mrsrequest.save_pmt()
