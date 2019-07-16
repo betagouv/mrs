@@ -39,7 +39,8 @@ var cfg = {
   },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
-    filename: '[name].[hash].js'
+    filename: '[name].[hash].js',
+    pathinfo: false
   },
 
   plugins: [
@@ -47,11 +48,12 @@ var cfg = {
     extractSass
   ],
 
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
         test: /\.js$/,
+        include: path.resolve(__dirname, 'src'),
         exclude: /(turbolinks)/,
         use: {
           loader: 'babel-loader',
@@ -77,6 +79,12 @@ var cfg = {
         })
       }
     ]
+  },
+
+  optimization: {
+    removeAvailableModules: false,
+    removeEmptyChunks: false,
+    splitChunks: false,
   }
 }
 
