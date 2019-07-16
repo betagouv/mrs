@@ -1,10 +1,12 @@
 import csv
 from chardet.universaldetector import UniversalDetector
 from crudlfap import shortcuts as crudlfap
+from crudlfap_auth.views import BecomeUser
 
 from django import forms
 from django.contrib.auth.models import Group
 from django.db.models import Case, Count, When, IntegerField
+from django.utils.text import slugify
 
 import django_tables2 as tables
 
@@ -42,6 +44,10 @@ class UserForm(forms.ModelForm):
             'is_active',
         ]
 
+    def __init__(self, request, *args, **kwargs):
+        self.request = request
+        super().__init__(*args, **kwargs)
+
     def clean(self):
         data = super().clean()
         groups = data.get('groups', [])
@@ -72,44 +78,141 @@ class UserForm(forms.ModelForm):
         return super().save(commit=commit)
 
 
-crudlfap.site[User]['update'].form_class = UserForm
-crudlfap.site[User]['update'].fields.append('is_active')
-crudlfap.site[User]['create'].form_class = UserForm
-crudlfap.site[User]['list'].filter_fields = [
-    'groups',
-    'caisses',
-]
-
-crudlfap.site[User]['list'].table_fields = [
-    'caisses',
-    'is_active',
-    'email',
-    'first_name',
-    'last_name',
-    'groups',
-]
-
-crudlfap.site[User]['list'].table_columns = dict(
-    modifications=tables.Column(
-        accessor='count_updates',
-        verbose_name='Modifications',
+class SupervisorUserForm(forms.ModelForm):
+    number = forms.IntegerField(
+        label='Numéro d\'agent',
     )
-)
-
-
-def get_queryset(self):
-    return super(type(self), self).get_queryset().annotate(
-        count_updates=Count(Case(
-            When(
-                mrsrequestlogentry__action=MRSRequestLogEntry.ACTION_UPDATE,
-                then=1
-            ),
-            output_field=IntegerField(),
-        ))
+    groups = forms.ModelMultipleChoiceField(
+        Group.objects.filter(
+            name__in=['UPN', 'Support', 'Stat']
+        ),
+        label='Groupes',
+    )
+    caisses = forms.ModelMultipleChoiceField(
+        Caisse.objects.filter(active=True),
     )
 
+    class Meta:
+        model = User
+        fields = [
+            'first_name',
+            'last_name',
+            'email',
+            'caisses',
+            'groups',
+        ]
 
-crudlfap.site[User].views['list'].get_queryset = get_queryset
+    def __init__(self, request, *args, **kwargs):
+        self.request = request
+        super().__init__(*args, **kwargs)
+        self.fields['caisses'].queryset = request.user.caisses.all()
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['email'].required = True
+        self.old_username = self.instance.username
+        self.old_email = self.instance.email
+
+    def clean_groups(self):
+        groups = self.cleaned_data.get('groups')
+        if not groups:
+            raise forms.ValidationError(
+                'Merci de choisir au moins un groupe'
+            )
+        return groups
+
+    def clean_caisses(self):
+        caisses = self.cleaned_data.get('caisses')
+        if not caisses:
+            raise forms.ValidationError(
+                'Merci de choisir au moins une caisse'
+            )
+        return caisses
+
+    def save(self, commit=True):
+        clean_last_name = slugify(
+            self.cleaned_data['last_name'].strip().replace('/', '')
+        ).replace('-', '_').upper()
+        new_username = '_'.join([
+            clean_last_name,
+            str(self.cleaned_data['number'])
+        ])
+
+        reset_password = (
+            new_username != self.old_username
+            or self.cleaned_data['email'] != self.old_email
+        )
+        self.instance.username = new_username
+
+        super().save(commit=commit)
+
+        if reset_password:
+            self.instance.password_reset()
+
+        return self.instance
+
+
+class UserFormMixin:
+    def get_form_class(self):
+        if self.request.user.profile == 'admin':
+            return UserForm
+        else:
+            return SupervisorUserForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+
+class UserUpdateView(UserFormMixin, crudlfap.UpdateView):
+    pass
+
+
+class UserCreateView(UserFormMixin, crudlfap.CreateView):
+    pass
+
+
+class UserListView(crudlfap.ListView):
+    search_fields = [
+        'username',
+        'email',
+        'first_name',
+        'last_name'
+    ]
+
+    table_fields = [
+        'caisses',
+        'is_active',
+        'email',
+        'first_name',
+        'last_name',
+        'groups',
+    ]
+
+    filter_fields = [
+        'groups',
+        'caisses',
+    ]
+
+    table_columns = dict(
+        modifications=tables.Column(
+            accessor='count_updates',
+            verbose_name='Modifications',
+        )
+    )
+
+
+    def get_queryset(self):
+        update = MRSRequestLogEntry.ACTION_UPDATE
+        return super().get_queryset().annotate(
+            count_updates=Count(Case(
+                When(
+                    mrsrequestlogentry__action=update,
+                    then=1
+                ),
+                output_field=IntegerField(),
+            ))
+        )
 
 
 CSV_COLUMNS = (
@@ -239,20 +342,37 @@ class PasswordResetView(crudlfap.ObjectFormView):
         resp = super().form_valid()
         self.object.password_reset()
         return resp
-        return self.render_to_response()
 
 
-del crudlfap.site[User].views['delete']
-del crudlfap.site[User].views['deleteobjects']
+class UserRouter(crudlfap.Router):
+    views = [
+        ImportView,
+        PasswordResetView,
+        UserUpdateView,
+        UserCreateView,
+        BecomeUser,
+        crudlfap.DetailView.clone(exclude=['password']),
+        UserListView,
+    ]
+    allowed_groups = ['Admin', 'Superviseur']
+    urlfield = 'username'
+    material_icon = 'person'
+    model = User
 
-# todo add lublic api to patch router
-ImportView.router = crudlfap.site[User]
-ImportView.model = User
-crudlfap.site[User].views.insert(0, ImportView)
+    def get_queryset(self, view):
+        user = view.request.user
 
-PasswordResetView.model = User
-PasswordResetView.router = crudlfap.site[User]
-crudlfap.site[User].views.insert(0, PasswordResetView)
+        if user.profile == 'admin':
+            return self.model.objects.all()
+        elif user.profile == 'superviseur':
+            return self.model.objects.filter(
+                caisses__in=view.request.user.caisses.all()
+            )
 
-crudlfap.site[User].allowed_groups = ['Admin']
+        return self.model.objects.none()
+
+
+UserRouter().register()
+
+
 crudlfap.site[Group].allowed_groups = ['Admin']
