@@ -1,6 +1,6 @@
 clilabs
 docutils
-django==2.2.4
+django==2.2.3
 dj-static
 django-simple-captcha
 django-webpack-loader
