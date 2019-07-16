@@ -366,7 +366,7 @@ class UserRouter(crudlfap.Router):
         elif user.profile == 'superviseur':
             return self.model.objects.filter(
                 caisses__in=view.request.user.caisses.all()
-            )
+            ).exclude(groups__name__in=('Superviseur', 'Admin'))
 
         return self.model.objects.none()
 
