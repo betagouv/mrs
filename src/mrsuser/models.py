@@ -26,6 +26,12 @@ class User(AbstractUser):
         'caisse.caisse',
         null=True,
     )
+    number = models.CharField(
+        blank=False,
+        null=True,
+        max_length=30,
+        verbose_name="Numéro d'agent",
+    )
 
     objects = UserManager()
 

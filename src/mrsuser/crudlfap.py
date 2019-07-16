@@ -42,6 +42,7 @@ class UserForm(forms.ModelForm):
             'caisses',
             'is_superuser',
             'is_active',
+            'number',
         ]
 
     def __init__(self, request, *args, **kwargs):
@@ -79,9 +80,6 @@ class UserForm(forms.ModelForm):
 
 
 class SupervisorUserForm(forms.ModelForm):
-    number = forms.IntegerField(
-        label='Numéro d\'agent',
-    )
     groups = forms.ModelMultipleChoiceField(
         Group.objects.filter(
             name__in=['UPN', 'Support', 'Stat']
@@ -95,6 +93,7 @@ class SupervisorUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
+            'number',
             'first_name',
             'last_name',
             'email',
