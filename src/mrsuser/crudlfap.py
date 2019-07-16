@@ -359,7 +359,12 @@ class UserRouter(crudlfap.Router):
         UserUpdateView,
         UserCreateView,
         BecomeUser,
-        crudlfap.DetailView.clone(exclude=['password']),
+        crudlfap.DetailView.clone(
+            exclude=[
+                'password',
+                'permissions',
+            ]
+        ),
         UserListView,
     ]
     allowed_groups = ['Admin', 'Superviseur']
@@ -375,7 +380,9 @@ class UserRouter(crudlfap.Router):
         elif user.profile == 'superviseur':
             return self.model.objects.filter(
                 caisses__in=view.request.user.caisses.all()
-            ).exclude(groups__name__in=('Superviseur', 'Admin'))
+            ).exclude(
+                groups__name__in=('Superviseur', 'Admin')
+            ).distinct()
 
         return self.model.objects.none()
 
