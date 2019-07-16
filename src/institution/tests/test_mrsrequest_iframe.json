@@ -2,6 +2,7 @@
 {
     "fields": {
         "attachment_file": "e29db065-0566-48be-822d-66bd3277d823-761d1d1d-effc-4d8c-8151-7f2e82b996dc.png",
+        "binary": null,
         "creation_datetime": "2017-12-19T13:33:37Z",
         "filename": "test_institutionmrsrequestcreateview_story.jpg",
         "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
@@ -12,6 +13,7 @@
 {
     "fields": {
         "attachment_file": "e29db065-0566-48be-822d-66bd3277d823-043aa0b4-2471-46c0-961d-9fb094450daf.png",
+        "binary": null,
         "creation_datetime": "2017-12-19T13:33:37Z",
         "filename": "test_institutionmrsrequestcreateview_story.jpg",
         "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"

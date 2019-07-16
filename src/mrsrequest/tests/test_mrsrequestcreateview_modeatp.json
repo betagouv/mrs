@@ -2,6 +2,7 @@
 {
     "fields": {
         "attachment_file": "e29db065-0566-48be-822d-66bd3277d823-a36b26fe-935b-4c53-9d3a-f44a9220dd3e.png",
+        "binary": null,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsrequestcreateview_story.jpg",
         "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
@@ -12,6 +13,7 @@
 {
     "fields": {
         "attachment_file": "e29db065-0566-48be-822d-66bd3277d823-51a82157-5ecf-4903-bad9-087847df0e51.png",
+        "binary": null,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsrequestcreateview_story.jpg",
         "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
@@ -22,6 +24,7 @@
 {
     "fields": {
         "attachment_file": "e29db065-0566-48be-822d-66bd3277d823-8cb0a8a2-242c-455c-a26c-05ced13d3120.png",
+        "binary": null,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsrequestcreateview_story.jpg",
         "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
