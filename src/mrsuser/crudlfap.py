@@ -355,9 +355,9 @@ class UserRouter(crudlfap.Router):
         UserListView,
     ]
     allowed_groups = ['Admin', 'Superviseur']
-    urlfield = 'username'
     material_icon = 'person'
     model = User
+    urlfield = 'pk'
 
     def get_queryset(self, view):
         user = view.request.user
