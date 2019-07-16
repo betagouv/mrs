@@ -35,10 +35,13 @@ class User(AbstractUser):
 
     @property
     def profile(self):
+        if self.is_superuser:
+            return 'admin'
+
         try:
             return self.groups.all()[0].name.lower()
         except IndexError:
-            return 'admin' if self.is_superuser else False
+            return False
 
     class Meta(AbstractUser.Meta):
         db_table = 'auth_user'
