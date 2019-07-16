@@ -200,7 +200,6 @@ class UserListView(crudlfap.ListView):
         )
     )
 
-
     def get_queryset(self):
         update = MRSRequestLogEntry.ACTION_UPDATE
         return super().get_queryset().annotate(
@@ -212,6 +211,16 @@ class UserListView(crudlfap.ListView):
                 output_field=IntegerField(),
             ))
         )
+
+    def get_filterset(self):
+        filterset = super().get_filterset() or self.filterset
+        form = filterset.form
+        if self.request.user.profile != 'admin':
+            form.fields['caisses'].queryset = self.request.user.caisses.all()
+            form.fields['groups'].queryset = Group.objects.filter(
+                name__in=['UPN', 'Support', 'Stat'],
+            )
+        return filterset
 
 
 CSV_COLUMNS = (
