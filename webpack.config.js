@@ -21,7 +21,6 @@ var cfg = {
       - FAQ (/faq)
       - legal (/legal)
       - statistics (/stats)
-
     base.html:
       - header
       - footer

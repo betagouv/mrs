@@ -14,6 +14,8 @@ from django.views import generic
 from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
 from person.models import Person
+from django.http import HttpResponseNotFound
+from sentry_sdk import capture_message
 
 
 class Dashboard(crudlfap.TemplateView):
@@ -142,3 +144,13 @@ class StaticView(generic.View):
             response['Access-Control-Allow-Origin'] = self.allow_origin
 
         return response
+
+
+class NotFoundView(generic.View):
+
+    def get(self, request, *args, **kwargs):
+        capture_message("Page not found",
+                        level="error")
+
+        # We'll soon get a cool custom 404 page to render, but meanwhile
+        return HttpResponseNotFound("Page non trouvée")
