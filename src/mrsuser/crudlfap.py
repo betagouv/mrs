@@ -7,6 +7,7 @@ from django import forms
 from django.contrib.auth.models import Group
 from django.db.models import Case, Count, When, IntegerField
 from django.utils.text import slugify
+from django.core.validators import validate_email
 
 import django_tables2 as tables
 
@@ -14,6 +15,12 @@ from caisse.models import Caisse
 from mrsrequest.models import MRSRequestLogEntry
 
 from .models import User
+
+
+def clean_user_input(input_to_clean):
+    return slugify(
+        input_to_clean.strip().replace('/', '')
+    ).replace('-', '_').upper()
 
 
 class UserForm(forms.ModelForm):
@@ -131,9 +138,7 @@ class SupervisorUserForm(forms.ModelForm):
         username = []
         for field in ('last_name', 'number'):
             username.append(
-                slugify(
-                    self.cleaned_data[field].strip().replace('/', '')
-                ).replace('-', '_').upper()
+                clean_user_input(self.cleaned_data[field])
             )
         new_username = '_'.join(username)
 
@@ -296,6 +301,7 @@ class ImportView(crudlfap.FormView):
             obj = '?'
             try:
                 obj = self.add_user(row)
+                validate_email(row["mail"])
             except Exception as e:
                 self.errors[i + 1] = dict(
                     row=row,
@@ -308,8 +314,9 @@ class ImportView(crudlfap.FormView):
         return self.render_to_response()
 
     def add_user(self, row):
-        agent_nb = row['numero agent'].strip()
-        last_name = row['nom'].strip().upper()
+
+        agent_nb = clean_user_input(row['numero agent'])
+        last_name = clean_user_input(row['nom'])
         username = "{}_{}".format(last_name, agent_nb)
 
         user, created = User.objects.get_or_create(
