@@ -128,13 +128,14 @@ class SupervisorUserForm(forms.ModelForm):
         return caisses
 
     def save(self, commit=True):
-        clean_last_name = slugify(
-            self.cleaned_data['last_name'].strip().replace('/', '')
-        ).replace('-', '_').upper()
-        new_username = '_'.join([
-            clean_last_name,
-            str(self.cleaned_data['number'])
-        ])
+        username = []
+        for field in ('last_name', 'number'):
+            username.append(
+                slugify(
+                    self.cleaned_data[field].strip().replace('/', '')
+                ).replace('-', '_').upper()
+            )
+        new_username = '_'.join(username)
 
         reset_password = (
             new_username != self.old_username
