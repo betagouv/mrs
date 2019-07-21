@@ -1,0 +1,139 @@
+---
+kind: pipeline
+name: python
+#platform: {os: linux, arch: amd64}
+
+services:
+- name: postgres
+  image: postgres:10-alpine
+  ports:
+  - 5432
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_DB: mrs
+
+steps:
+- name: test
+  image: yourlabs/python
+  environment:
+    DB_HOST: postgres
+    DB_USER: postgres
+    DB_NAME: test
+    XDG_CACHE_HOME: /drone/.cache
+    venv: none
+  cache:
+    mount:
+    - .cache
+  commands:
+  - ./do pip.dev
+  - ./do py.test
+
+- name: qa
+  image: yourlabs/python
+  commands:
+  - HOME=$(pwd) venv=none ./do py.qa
+
+- name: safety
+  image: yourlabs/python
+  commands:
+  - safety check
+
+- name: bandit
+  image: yourlabs/python
+  commands:
+  - bandit -v -x commands,tests -r src
+
+---
+kind: pipeline
+name: docker
+
+steps:
+- name: prepare
+  image: busybox
+  commands:
+    - mkdir -p /cache/${DRONE_REPO}/docker
+  volumes:
+    - name: cache
+      path: /cache
+
+- name: build
+  image: yourlabsopensource/drone-docker
+  privileged: true
+  settings:
+    username:
+      from_secret: DOCKER_USER
+    password:
+      from_secret: DOCKER_PASS
+    repo: betagouv/mrs
+    shm_size: 512M
+    use_cache: true
+    build_args:
+    - "GIT_COMMIT=$DRONE_COMMIT"
+    tags:
+    - "${DRONE_BRANCH}"
+    - "${DRONE_COMMIT}"
+    cache_from:
+    - "betagouv/mrs:master"
+    - "betagouv/mrs:${DRONE_BRANCH}"
+
+---
+kind: pipeline
+name: js
+steps:
+- name: js-test
+  image: node:10
+  commands:
+  - yarn install
+  - yarn run test
+  - npm install -g codecov
+  - codecov --token $CODECOV_TOKEN -e $TOXENV
+# Commented until: https://github.com/betagouv/mrs/issues/1060
+#- name: js-qa
+#  image: node:10
+#  commands:
+#  - yarn install
+#  - yarn run lint
+
+---
+kind: pipeline
+name: docs
+steps:
+- name: docs-qa
+  image: yourlabs/python
+  commands:
+  - "tar -xzf .gitlab-cache.tar.gz -C / || true"
+  - tox --sitepackages -e docs
+  - "tar -czf .gitlab-cache.tar.gz /root/.cache/pip /root/.local || true"
+
+---
+kind: pipeline
+name: acceptance
+
+depends_on:
+- docker
+
+steps:
+- name: webpack-acceptance
+  image: "betagouv/mrs:${DRONE_COMMIT}"
+  commands:
+  - export HOST=localhost:8000
+  - DEBUG=1 mrs migrate
+  - "echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin=\"http://$HOST\")' | DEBUG=1 mrs shell"
+  - "cd /app && DEBUG=1 mrs runserver $HOST &"
+  - until curl $HOST; do sleep 1; done
+  - "cd /app && node_modules/.bin/jest src/mrs/static/js/smoke.test.js"
+
+---
+kind: pipeline
+name: deploy
+depends_on:
+- docker
+
+steps:
+- name: publish
+  image: docker:dind
+- name: deploy
+  image: yourlabs/playlabs:master
+  commands:
+  - playlabs git clone $INVENTORY_REPOSITORY
+  - "playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$DRONE_COMMIT deploy@ --tags=update"
