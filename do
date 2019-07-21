@@ -79,7 +79,10 @@ runserver() {
 
 # clean.pyc         Find all __pycache__ and delete them recursively
 clean.pyc() {
-    find . -type d -name __pycache__ | xargs rm -rf
+    if ! find . -type d -name __pycache__ | xargs rm -rf; then
+        sudo chown -R $USER. .
+        find . -type d -name __pycache__ | xargs rm -rf
+    fi
 }
 
 # venv              Setup and activate a venv for a python executable
@@ -110,6 +113,7 @@ pip.dev() {
 py.test() {
     export WEBPACK_LOADER=webpack_mock
     export CI=true
+    export DEBUG=true
     clean.pyc
     venv
     pip.install
