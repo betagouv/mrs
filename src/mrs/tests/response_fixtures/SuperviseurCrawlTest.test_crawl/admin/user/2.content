@@ -1,0 +1,177 @@
+<div class="" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default" id="modal-title-ajax">a</h4>
+            
+          
+          
+<div class="">
+  <table class="table">
+    <thead class="thead-inverse">
+      
+      <tr>
+        <th>
+          Id
+        </th>
+        <td>
+          
+              2
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Dernière connexion
+        </th>
+        <td>
+          
+              2018-05-01 17:12:17+00:00
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Statut super-utilisateur
+        </th>
+        <td>
+          
+              False
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Nom d'utilisateur
+        </th>
+        <td>
+          
+              a
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Prénom
+        </th>
+        <td>
+          
+              
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Nom
+        </th>
+        <td>
+          
+              
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Adresse électronique
+        </th>
+        <td>
+          
+              a@aa.aa
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Actif
+        </th>
+        <td>
+          
+              True
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Date d'inscription
+        </th>
+        <td>
+          
+              2018-05-01 17:11:24+00:00
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Numéro d'agent
+        </th>
+        <td>
+          
+              None
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Groupes
+        </th>
+        <td>
+          
+            <ul class="collection">
+              
+                <li class="collection-item">UPN</li>
+              
+            </ul>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Permissions de l'utilisateur
+        </th>
+        <td>
+          
+            <ul class="collection">
+              
+            </ul>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Caisses
+        </th>
+        <td>
+          
+            <ul class="collection">
+              
+                <li class="collection-item">aaaaaaa</li>
+              
+            </ul>
+          
+        </td>
+      </tr>
+      
+    
+  </thead></table>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>
