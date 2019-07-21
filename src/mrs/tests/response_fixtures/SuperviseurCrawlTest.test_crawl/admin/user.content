@@ -1,0 +1,403 @@
+<div class="full-width" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+          
+          
+<style type="text/css">
+#render-table .btn-floating { margin-left: 6px; }
+</style>
+
+<div class="row">
+  
+  <div class="col s12 m3 l2">
+    <div>
+      <form action="" data-action="input-&gt;autosubmit#input change-&gt;autosubmit#input" data-controller="autosubmit" data-target="render-table" method="get">
+        
+        
+<div class="row">
+    <div class="input-field col s12" id="id_q_container">
+        <input id="id_q" name="q" type="text"/>
+        <label for="id_q">Rechercher</label>
+        
+    </div>
+</div>
+
+        
+        
+        
+<div class="row">
+    <div class="select-field col s12 multiselect" id="id_groups_container">
+        <label for="id_groups">Groupes</label>
+        <select id="id_groups" multiple="multiple" name="groups">
+            <option disabled="" value="">Choisissez votre option</option>
+            <option value="2">UPN</option>
+            <option value="3">Stat</option>
+            <option value="4">Support</option>
+        </select>
+        
+    </div>
+</div>
+
+ 
+
+
+<div class="row">
+    <div class="select-field col s12 multiselect" id="id_caisses_container">
+        <label for="id_caisses">Caisses</label>
+        <select id="id_caisses" multiple="multiple" name="caisses">
+            <option disabled="" value="">Choisissez votre option</option>
+            <option value="1">aaaaaaa</option>
+        </select>
+        
+    </div>
+</div>
+
+        
+      </form>
+    </div>
+  </div>
+  
+
+  <div class="table-responsive col s12 m9 l10" id="render-table">
+    <div>
+      
+      <div class="table-container">
+        
+
+
+<div class="table-container">
+
+<table>
+    
+    
+    <thead>
+        <tr>
+        
+            
+            <th>Caisses</th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=is_active">Actif</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=email">Adresse électronique</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=first_name">Prénom</a></th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=last_name">Nom</a></th>
+            
+        
+            
+            <th>Groupes</th>
+            
+        
+            
+            <th class="orderable"><a href="?sort=modifications">Modifications</a></th>
+            
+        
+            
+            <th>Actions</th>
+            
+        
+        </tr>
+    </thead>
+    
+    
+    
+    <tbody>
+    
+        
+        <tr class="even">
+            
+                <td>aaaaaaa</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/2">a@aa.aa</a></td>
+            
+                <td>—</td>
+            
+                <td>—</td>
+            
+                <td>UPN</td>
+            
+                <td>0</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-2" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-2">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/2/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/2/password?_next=/admin/user" title='Utilisateur "a": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/2/update?_next=/admin/user" title='Utilisateur "a": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/2/su?_next=/admin/user" title='Utilisateur "a": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Devenir
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/2?_next=/admin/user" title="a">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="odd">
+            
+                <td>aaaaaaa</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/4">supporta@example.com</a></td>
+            
+                <td>SupportA Prenom</td>
+            
+                <td>Suport A Nom</td>
+            
+                <td>Support</td>
+            
+                <td>0</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-4" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-4">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/4/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/4/password?_next=/admin/user" title='Utilisateur "supporta": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/4/update?_next=/admin/user" title='Utilisateur "supporta": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/4/su?_next=/admin/user" title='Utilisateur "supporta": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Devenir
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/4?_next=/admin/user" title="supporta">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+        
+        <tr class="even">
+            
+                <td>aaaaaaa</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/5">stata@example.com</a></td>
+            
+                <td>Stat prenom</td>
+            
+                <td>Stat nom</td>
+            
+                <td>Stat</td>
+            
+                <td>0</td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-5" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-5">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/5/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+    <i class="orange-text material-icons">vpn_key</i>
+    
+    Password reset
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/5/password?_next=/admin/user" title='Utilisateur "stata": mot de passe'>
+    <i class="purple-text darken-4-text material-icons">vpn_key</i>
+    
+    Mot de passe
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/5/update?_next=/admin/user" title='Utilisateur "stata": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/5/su?_next=/admin/user" title='Utilisateur "stata": become user'>
+    <i class="pink-text darken-4-text material-icons">attach_money</i>
+    
+    Devenir
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" href="/admin/user/5?_next=/admin/user" title="stata">
+    <i class="blue-text material-icons">search</i>
+    
+    Detail
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
+    
+    </tbody>
+    
+    
+    
+    
+</table>
+
+
+
+
+<ul class="pagination">
+    
+
+    
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
+
+
+</div>
+
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>

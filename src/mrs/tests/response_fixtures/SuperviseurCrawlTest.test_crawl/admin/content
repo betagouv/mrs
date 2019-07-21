@@ -138,6 +138,40 @@ textarea {
           
         
       
+        
+          
+          
+          <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+              <li class="">
+                <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">person</i> Utilisateurs</a>
+                <div class="collapsible-body">
+                  <ul>
+                    
+                      <li>
+                        <a
+                          class="waves-effect"
+                          href="/admin/user/create"
+                          title="Utilisateur: création"
+                        ><i class="material-icons">add</i>Création</a>
+                      </li>
+                    
+                      <li>
+                        <a
+                          class="waves-effect"
+                          href="/admin/user"
+                          title="Utilisateurs: liste"
+                        ><i class="material-icons">list</i>Liste</a>
+                      </li>
+                    
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </li>
+          
+        
+      
 
   
   

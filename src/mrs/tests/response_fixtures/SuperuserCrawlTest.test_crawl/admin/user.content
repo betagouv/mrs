@@ -125,7 +125,7 @@
             
                 <td><span class="true">✔</span></td>
             
-                <td><a href="/admin/user/test">t@tt.tt</a></td>
+                <td><a href="/admin/user/1">t@tt.tt</a></td>
             
                 <td>—</td>
             
@@ -147,7 +147,7 @@
       <ul class="dropdown-content" id="row-actions-1">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/1/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
     <i class="orange-text material-icons">vpn_key</i>
     
     Password reset
@@ -156,16 +156,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/update?_next=/admin/user" title='Utilisateur "test": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/test/password?_next=/admin/user" title='Utilisateur "test": mot de passe'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/1/password?_next=/admin/user" title='Utilisateur "test": mot de passe'>
     <i class="purple-text darken-4-text material-icons">vpn_key</i>
     
     Mot de passe
@@ -174,7 +165,16 @@
         </li>
         
         <li>
-            <a class="" data-noprefetch="true" href="/admin/user/test/su?_next=/admin/user" title='Utilisateur "test": become user'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/1/update?_next=/admin/user" title='Utilisateur "test": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/1/su?_next=/admin/user" title='Utilisateur "test": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Devenir
@@ -183,7 +183,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/test?_next=/admin/user" title="test">
+            <a class="" href="/admin/user/1?_next=/admin/user" title="test">
     <i class="blue-text material-icons">search</i>
     
     Detail
@@ -206,7 +206,7 @@
             
                 <td><span class="true">✔</span></td>
             
-                <td><a href="/admin/user/a">a@aa.aa</a></td>
+                <td><a href="/admin/user/2">a@aa.aa</a></td>
             
                 <td>—</td>
             
@@ -228,7 +228,7 @@
       <ul class="dropdown-content" id="row-actions-2">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/2/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
     <i class="orange-text material-icons">vpn_key</i>
     
     Password reset
@@ -237,16 +237,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/update?_next=/admin/user" title='Utilisateur "a": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/a/password?_next=/admin/user" title='Utilisateur "a": mot de passe'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/2/password?_next=/admin/user" title='Utilisateur "a": mot de passe'>
     <i class="purple-text darken-4-text material-icons">vpn_key</i>
     
     Mot de passe
@@ -255,7 +246,16 @@
         </li>
         
         <li>
-            <a class="" data-noprefetch="true" href="/admin/user/a/su?_next=/admin/user" title='Utilisateur "a": become user'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/2/update?_next=/admin/user" title='Utilisateur "a": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/2/su?_next=/admin/user" title='Utilisateur "a": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Devenir
@@ -264,7 +264,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/a?_next=/admin/user" title="a">
+            <a class="" href="/admin/user/2?_next=/admin/user" title="a">
     <i class="blue-text material-icons">search</i>
     
     Detail
@@ -287,7 +287,7 @@
             
                 <td><span class="true">✔</span></td>
             
-                <td><a href="/admin/user/b">b@example.com</a></td>
+                <td><a href="/admin/user/3">b@example.com</a></td>
             
                 <td>—</td>
             
@@ -309,7 +309,7 @@
       <ul class="dropdown-content" id="row-actions-3">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/3/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
     <i class="orange-text material-icons">vpn_key</i>
     
     Password reset
@@ -318,16 +318,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/update?_next=/admin/user" title='Utilisateur "b": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/b/password?_next=/admin/user" title='Utilisateur "b": mot de passe'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/3/password?_next=/admin/user" title='Utilisateur "b": mot de passe'>
     <i class="purple-text darken-4-text material-icons">vpn_key</i>
     
     Mot de passe
@@ -336,7 +327,16 @@
         </li>
         
         <li>
-            <a class="" data-noprefetch="true" href="/admin/user/b/su?_next=/admin/user" title='Utilisateur "b": become user'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/3/update?_next=/admin/user" title='Utilisateur "b": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/3/su?_next=/admin/user" title='Utilisateur "b": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Devenir
@@ -345,7 +345,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/b?_next=/admin/user" title="b">
+            <a class="" href="/admin/user/3?_next=/admin/user" title="b">
     <i class="blue-text material-icons">search</i>
     
     Detail
@@ -368,7 +368,7 @@
             
                 <td><span class="true">✔</span></td>
             
-                <td><a href="/admin/user/supporta">supporta@example.com</a></td>
+                <td><a href="/admin/user/4">supporta@example.com</a></td>
             
                 <td>SupportA Prenom</td>
             
@@ -390,7 +390,7 @@
       <ul class="dropdown-content" id="row-actions-4">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supporta/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/4/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
     <i class="orange-text material-icons">vpn_key</i>
     
     Password reset
@@ -399,16 +399,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supporta/update?_next=/admin/user" title='Utilisateur "supporta": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supporta/password?_next=/admin/user" title='Utilisateur "supporta": mot de passe'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/4/password?_next=/admin/user" title='Utilisateur "supporta": mot de passe'>
     <i class="purple-text darken-4-text material-icons">vpn_key</i>
     
     Mot de passe
@@ -417,7 +408,16 @@
         </li>
         
         <li>
-            <a class="" data-noprefetch="true" href="/admin/user/supporta/su?_next=/admin/user" title='Utilisateur "supporta": become user'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/4/update?_next=/admin/user" title='Utilisateur "supporta": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/4/su?_next=/admin/user" title='Utilisateur "supporta": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Devenir
@@ -426,7 +426,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/supporta?_next=/admin/user" title="supporta">
+            <a class="" href="/admin/user/4?_next=/admin/user" title="supporta">
     <i class="blue-text material-icons">search</i>
     
     Detail
@@ -449,7 +449,7 @@
             
                 <td><span class="true">✔</span></td>
             
-                <td><a href="/admin/user/stata">stata@example.com</a></td>
+                <td><a href="/admin/user/5">stata@example.com</a></td>
             
                 <td>Stat prenom</td>
             
@@ -471,7 +471,7 @@
       <ul class="dropdown-content" id="row-actions-5">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/stata/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/5/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
     <i class="orange-text material-icons">vpn_key</i>
     
     Password reset
@@ -480,16 +480,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/stata/update?_next=/admin/user" title='Utilisateur "stata": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/stata/password?_next=/admin/user" title='Utilisateur "stata": mot de passe'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/5/password?_next=/admin/user" title='Utilisateur "stata": mot de passe'>
     <i class="purple-text darken-4-text material-icons">vpn_key</i>
     
     Mot de passe
@@ -498,7 +489,16 @@
         </li>
         
         <li>
-            <a class="" data-noprefetch="true" href="/admin/user/stata/su?_next=/admin/user" title='Utilisateur "stata": become user'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/5/update?_next=/admin/user" title='Utilisateur "stata": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/5/su?_next=/admin/user" title='Utilisateur "stata": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Devenir
@@ -507,7 +507,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/stata?_next=/admin/user" title="stata">
+            <a class="" href="/admin/user/5?_next=/admin/user" title="stata">
     <i class="blue-text material-icons">search</i>
     
     Detail
@@ -530,7 +530,7 @@
             
                 <td><span class="true">✔</span></td>
             
-                <td><a href="/admin/user/statb">statb@examplec.mo</a></td>
+                <td><a href="/admin/user/6">statb@examplec.mo</a></td>
             
                 <td>Statbprenom</td>
             
@@ -552,7 +552,7 @@
       <ul class="dropdown-content" id="row-actions-6">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/statb/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/6/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
     <i class="orange-text material-icons">vpn_key</i>
     
     Password reset
@@ -561,16 +561,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/statb/update?_next=/admin/user" title='Utilisateur "statb": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/statb/password?_next=/admin/user" title='Utilisateur "statb": mot de passe'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/6/password?_next=/admin/user" title='Utilisateur "statb": mot de passe'>
     <i class="purple-text darken-4-text material-icons">vpn_key</i>
     
     Mot de passe
@@ -579,7 +570,16 @@
         </li>
         
         <li>
-            <a class="" data-noprefetch="true" href="/admin/user/statb/su?_next=/admin/user" title='Utilisateur "statb": become user'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/6/update?_next=/admin/user" title='Utilisateur "statb": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/6/su?_next=/admin/user" title='Utilisateur "statb": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Devenir
@@ -588,7 +588,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/statb?_next=/admin/user" title="statb">
+            <a class="" href="/admin/user/6?_next=/admin/user" title="statb">
     <i class="blue-text material-icons">search</i>
     
     Detail
@@ -611,7 +611,7 @@
             
                 <td><span class="true">✔</span></td>
             
-                <td><a href="/admin/user/supportb">supportb@example.com</a></td>
+                <td><a href="/admin/user/7">supportb@example.com</a></td>
             
                 <td>Support B Prenom</td>
             
@@ -633,7 +633,7 @@
       <ul class="dropdown-content" id="row-actions-7">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supportb/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/7/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
     <i class="orange-text material-icons">vpn_key</i>
     
     Password reset
@@ -642,16 +642,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supportb/update?_next=/admin/user" title='Utilisateur "supportb": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/supportb/password?_next=/admin/user" title='Utilisateur "supportb": mot de passe'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/7/password?_next=/admin/user" title='Utilisateur "supportb": mot de passe'>
     <i class="purple-text darken-4-text material-icons">vpn_key</i>
     
     Mot de passe
@@ -660,7 +651,16 @@
         </li>
         
         <li>
-            <a class="" data-noprefetch="true" href="/admin/user/supportb/su?_next=/admin/user" title='Utilisateur "supportb": become user'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/7/update?_next=/admin/user" title='Utilisateur "supportb": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/7/su?_next=/admin/user" title='Utilisateur "supportb": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Devenir
@@ -669,7 +669,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/supportb?_next=/admin/user" title="supportb">
+            <a class="" href="/admin/user/7?_next=/admin/user" title="supportb">
     <i class="blue-text material-icons">search</i>
     
     Detail
@@ -692,7 +692,7 @@
             
                 <td><span class="true">✔</span></td>
             
-                <td><a href="/admin/user/superviseura">superviseura@example.com</a></td>
+                <td><a href="/admin/user/8">superviseura@example.com</a></td>
             
                 <td>Superviseur A Prenom</td>
             
@@ -714,7 +714,7 @@
       <ul class="dropdown-content" id="row-actions-8">
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/superviseura/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/8/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
     <i class="orange-text material-icons">vpn_key</i>
     
     Password reset
@@ -723,16 +723,7 @@
         </li>
         
         <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/superviseura/update?_next=/admin/user" title='Utilisateur "superviseura": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/superviseura/password?_next=/admin/user" title='Utilisateur "superviseura": mot de passe'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/8/password?_next=/admin/user" title='Utilisateur "superviseura": mot de passe'>
     <i class="purple-text darken-4-text material-icons">vpn_key</i>
     
     Mot de passe
@@ -741,7 +732,16 @@
         </li>
         
         <li>
-            <a class="" data-noprefetch="true" href="/admin/user/superviseura/su?_next=/admin/user" title='Utilisateur "superviseura": become user'>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/8/update?_next=/admin/user" title='Utilisateur "superviseura": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-noprefetch="true" href="/admin/user/8/su?_next=/admin/user" title='Utilisateur "superviseura": become user'>
     <i class="pink-text darken-4-text material-icons">attach_money</i>
     
     Devenir
@@ -750,7 +750,7 @@
         </li>
         
         <li>
-            <a class="" href="/admin/user/superviseura?_next=/admin/user" title="superviseura">
+            <a class="" href="/admin/user/8?_next=/admin/user" title="superviseura">
     <i class="blue-text material-icons">search</i>
     
     Detail
