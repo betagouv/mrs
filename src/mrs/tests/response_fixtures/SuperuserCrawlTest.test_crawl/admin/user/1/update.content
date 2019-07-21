@@ -1,11 +1,11 @@
 <div class="" id="modal-body-ajax">
         
-<form action="/admin/user/create" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-user" method="post">
+<form action="/admin/user/1/update" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="form-object-user" method="post">
 
           <div class="modal-content">
           
             
-            <h4 class="text-success" id="modal-title-ajax">Utilisateur: création</h4>
+            <h4 class="text-default" id="modal-title-ajax">Utilisateur "test": modifier</h4>
             
           
           
@@ -16,7 +16,7 @@
   
 <div class="row">
     <div class="input-field col s12" id="id_first_name_container">
-        <input id="id_first_name" maxlength="30" name="first_name" type="text"/>
+        <input id="id_first_name" maxlength="30" name="first_name" type="text" value=""/>
         <label for="id_first_name">Prénom</label>
         
     </div>
@@ -25,7 +25,7 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_last_name_container">
-        <input id="id_last_name" maxlength="150" name="last_name" type="text"/>
+        <input id="id_last_name" maxlength="150" name="last_name" type="text" value=""/>
         <label for="id_last_name">Nom</label>
         
     </div>
@@ -34,8 +34,8 @@
 
 <div class="row">
     <div class="input-field col s12 required" id="id_username_container">
-        <input id="id_username" maxlength="150" name="username" type="text"/>
-        <label for="id_username">Nom d'utilisateur</label>
+        <input id="id_username" maxlength="150" name="username" type="text" value="test"/>
+        <label class="active" for="id_username">Nom d'utilisateur</label>
         <div class="help-block">Requis. 150 caractères maximum. Uniquement des lettres, nombres et les caractères « @ », « . », « + », « - » et « _ ».</div>
     </div>
 </div>
@@ -43,8 +43,8 @@
 
 <div class="row">
     <div class="input-field col s12" id="id_email_container">
-        <input id="id_email" maxlength="254" name="email" type="email"/>
-        <label for="id_email">Adresse électronique</label>
+        <input id="id_email" maxlength="254" name="email" type="email" value="t@tt.tt"/>
+        <label class="active" for="id_email">Adresse électronique</label>
         
     </div>
 </div>
@@ -56,7 +56,7 @@
         <label for="id_groups">Groups</label>
         <select id="id_groups" multiple="multiple" name="groups">
             <option disabled="" value="">Choisissez votre option</option>
-            <option value="1">Admin</option>
+            <option selected="selected" value="1">Admin</option>
             <option value="2">UPN</option>
             <option value="3">Stat</option>
             <option value="4">Support</option>
@@ -120,7 +120,7 @@
           </div>
           <div class="modal-footer">
             
-    <button class="btn btn-primary" type="submit">Création</button>
+    <button class="btn btn-primary" type="submit">Modifier</button>
     
 
           </div>
