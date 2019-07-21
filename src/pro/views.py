@@ -8,10 +8,18 @@ from person.models import Person
 class ProView(generic.TemplateView):
     template_name = 'pro/pro.html'
 
-    users_count = Person.objects.count()
-    mrsrequests_count = MRSRequest.objects.count()
-    average_payment_delay = '{:0.2f}'.format(
-        MRSRequest.objects.aggregate(
-            result=Avg('delay')
-        )['result'] or 0
-    ).replace('.', ',')
+    @property
+    def users_count(self):
+        return Person.objects.count()
+
+    @property
+    def mrsrequests_count(self):
+        return MRSRequest.objects.count()
+
+    @property
+    def average_payment_delay(self):
+        return '{:0.2f}'.format(
+            MRSRequest.objects.aggregate(
+                result=Avg('delay')
+            )['result'] or 0
+        ).replace('.', ',')
