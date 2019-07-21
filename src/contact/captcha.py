@@ -2,7 +2,7 @@ import random
 from django.conf import settings
 
 
-def noise_arcs(draw, image):
+def noise_arcs(draw, image):  # nosec
     size = image.size
 
     draw.arc([
@@ -33,7 +33,7 @@ def noise_arcs(draw, image):
     return draw
 
 
-def noise_dots(draw, image):
+def noise_dots(draw, image):  # nosec
     size = image.size
     for p in range(int(size[0] * size[1] * 0.2)):
         draw.point(
