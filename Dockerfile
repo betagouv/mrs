@@ -46,7 +46,7 @@ RUN mrs compilemessages -l fr
 # Pre-compress for uWSGI
 RUN find $STATIC_ROOT -type f | xargs gzip -f -k -9
 
-COPY sh.yml /app/
+COPY do /app/
 
 # Let user write to log
 RUN chown -R app. ${LOG}
