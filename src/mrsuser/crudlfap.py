@@ -1,7 +1,7 @@
 import csv
 from chardet.universaldetector import UniversalDetector
 from crudlfap import shortcuts as crudlfap
-from crudlfap_auth.views import BecomeUser
+from crudlfap_auth.views import BecomeUser, PasswordView
 
 from django import forms
 from django.contrib.auth.models import Group
@@ -357,6 +357,7 @@ class UserRouter(crudlfap.Router):
     views = [
         ImportView,
         PasswordResetView,
+        PasswordView,
         UserUpdateView,
         UserCreateView,
         BecomeUser,
