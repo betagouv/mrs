@@ -123,17 +123,17 @@ steps:
   - until curl $HOST; do sleep 1; done
   - "cd /app && node_modules/.bin/jest src/mrs/static/js/smoke.test.js"
 
----
-kind: pipeline
-name: deploy
-depends_on:
-- docker
-
-steps:
-- name: publish
-  image: docker:dind
-- name: deploy
-  image: yourlabs/playlabs:master
-  commands:
-  - playlabs git clone $INVENTORY_REPOSITORY
-  - "playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$DRONE_COMMIT deploy@ --tags=update"
+#---
+#kind: pipeline
+#name: deploy
+#depends_on:
+#- docker
+#
+#steps:
+#- name: publish
+#  image: docker:dind
+#- name: deploy
+#  image: yourlabs/playlabs:master
+#  commands:
+#  - playlabs git clone $INVENTORY_REPOSITORY
+#  - "playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$DRONE_COMMIT deploy@ --tags=update"
