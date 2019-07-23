@@ -43,7 +43,7 @@ class Command(BaseCommand):
             help='Login for Basic Auth (use only with --env staging)',
         )
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options):   # noqa
         # self.stdout.write(
         #     self.style.NOTICE(options)
         # )
