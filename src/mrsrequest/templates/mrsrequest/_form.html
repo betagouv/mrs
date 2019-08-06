@@ -16,26 +16,7 @@
             <h2 class="scroll-reveal" style="margin-bottom: 2em">Nous avons bien reçu votre demande de remboursement !</h2>
         {% endif %}
 
-        {% if view.success and view.is_primo %}
-        <p>
-            Nous vous remercions de l'utilisation de MRS. Afin d'améliorer la
-            qualité de notre service et vous garantir un traitement dans les
-            meilleurs délais, nous vous proposons de répondre à quelques
-            questions, cela ne vous prendra que 3 minutes maximum. Merci par
-            avance !
-        </p>
-        <p>
-            L'équipe MRS
-        </p>
-
-        <div style="text-align: center; margin: 2em">
-            <a
-                href="https://saas2.vocaza.net/cgi-bin/HE/SF?P=73z12z8z-1z-1zFBD49B6498"
-                class="btn btn-success"
-            >JE REMPLIS LE QUESTIONNAIRE</a>
-        </div>
-
-        {% elif view.rating_form %}
+        {% if view.rating_form %}
             {% if view.success_rating %}
                 <h2 class="scroll-reveal">Nous vous remercions d'avoir partagé votre retour d'expérience !</h2>
                 <div>
