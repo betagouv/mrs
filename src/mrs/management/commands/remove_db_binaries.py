@@ -13,8 +13,7 @@ class Command(BaseCommand):
             filename = obj.filename.lower()
             extension = splitext(filename)[-1]
 
-            if extension in ['', '.odt', '.txt', '.docx', '.doc', '.zip',
-                             '.tiff', '.bmp']:
+            if extension in ['', '.tiff', '.bmp']:
                 # Keep some binaries depending on extension
                 return
 
