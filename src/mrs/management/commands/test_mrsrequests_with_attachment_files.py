@@ -110,9 +110,16 @@ class Command(BaseCommand):
                 self.style.SUCCESS("Login request OK")
             )
 
-        reqs = MRSRequest.objects.all()
+        reqs = MRSRequest.objects.all().order_by("-creation_datetime")
 
+        count = 0
         for req in reqs:
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f'{count} - {req.creation_datetime}'
+                )
+            )
+            count += 1
             req_id = req.id
             r_test = sess.get(
                 "{}/admin/mrsrequest/{}".format(base_url, req_id),

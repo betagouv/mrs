@@ -1,5 +1,7 @@
 import io
 
+from os.path import splitext
+
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.management.base import BaseCommand
 
@@ -11,19 +13,36 @@ class Command(BaseCommand):
 
     def save_binary_to_file(self, obj):
         if not obj.attachment_file:
-            self.stdout.write(
-                self.style.ERROR('{} has no attachment_file')
-                    .format(obj)
-            )
-
             try:
+                filename = obj.filename.lower()
+                extension = splitext(filename)[-1]
+                binary_to_store = obj.binary
+
+                if extension == '.png':
+                    mimetype = 'image/png'
+                elif extension == '.gif':
+                    mimetype = 'image/gif'
+                elif extension == '.jpeg' or extension == '.jpg':
+                    mimetype = 'image/jpeg'
+                elif extension == '.pdf':
+                    mimetype = 'application/pdf'
+                else:
+                    self.stdout.write(
+                        self.style.ERROR('   Error : filename = {} -- id = {}'
+                                         .format(filename, obj.id))
+                    )
+                    # Store dummy empty file
+                    binary_to_store = b''
+                    extension = '.png'
+                    mimetype = 'image/png'
+
                 # Stream binary to in-memory Django file
                 f = InMemoryUploadedFile(
-                    io.BytesIO(obj.binary),
+                    io.BytesIO(binary_to_store),
                     'field_name',
-                    'test_file.png',
-                    'image/png',
-                    len(obj.binary),
+                    'test_file{}'.format(extension),
+                    mimetype,
+                    len(binary_to_store),
                     None,
                 )
 
@@ -31,9 +50,6 @@ class Command(BaseCommand):
                 obj.attachment_file = f
                 obj.save()
 
-                self.stdout.write(
-                    self.style.SUCCESS('   OK !')
-                )
             except Exception as e:
                 self.stdout.write(
                     self.style.ERROR('   Error : {}'.format(e))
@@ -41,9 +57,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Scan all PMTs / Bills for ones with no 'attachment_file'
-        for pmt in PMT.objects.all():
+        for pmt in PMT.objects.filter(attachment_file__isnull=True):
             self.save_binary_to_file(pmt)
-        for bill in Bill.objects.all():
+        for bill in Bill.objects.filter(attachment_file__isnull=True):
             self.save_binary_to_file(bill)
 
         self.stdout.write(

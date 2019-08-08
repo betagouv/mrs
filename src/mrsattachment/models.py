@@ -49,7 +49,7 @@ class MRSAttachment(models.Model):
         return '{0}-{1}{2}'.format(
             instance.mrsrequest_uuid,
             uuid4(),
-            splitext(filename)[1]
+            splitext(filename)[-1]
         )
 
     filename = models.CharField(max_length=255)
