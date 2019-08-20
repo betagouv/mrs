@@ -135,14 +135,12 @@ steps:
 - name: deploy
   image: yourlabs/ansible
   commands:
+  - mkdir -p ~/.ssh; echo "$STAGING_KEY" > ~/.ssh/id_rsa; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $STAGING_ENV | xargs)
   - HOST=staging.mrs.beta.gouv.fr
     bigsudo
-    yourlabs.compose
-    compose=docker-compose.yml,docker-compose.staging.yml
-    compose_django_image=betagouv/mrs:$DRONE_COMMIT
-    compose_django_build=
-    home=/home/staging
+    ./ansible
+    home=/home/mrs-$DRONE_BRANCH
     deploy@staging.mrs.beta.gouv.fr
     -v | tee out
   - grep unreachable=0 out
