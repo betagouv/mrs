@@ -54,11 +54,11 @@ class BasicAuthMiddleware:
         self.get_response = get_response
 
     def authorize(self, request):
-        if request.session.get('authorized', False):
+        if not os.getenv('BASICAUTH_ENABLE', False):
+            # Not to use this env
             return True
 
-        if os.getenv('BASICAUTH_ENABLE'):
-            # Not to use this env
+        if request.session.get('authorized', False):
             return True
 
         if 'HTTP_AUTHORIZATION' not in request.META:
