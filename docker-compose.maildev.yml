@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  django:
+    environment:
+    - EMAIL_HOST=mail
+    - EMAIL_PORT=25
+
+  mail:
+    image: djfarrelly/maildev
+    labels:
+    - "traefik.enable=true"
+    - "traefik.frontend.rule=Host: mail.${HOST}"
+    - "traefik.port=80"
+    - "traefik.frontend.auth.basic.usersFile=/htpasswd/root"
+    networks:
+    - default
+    - web
+
+networks:
+  web:
+    external: true

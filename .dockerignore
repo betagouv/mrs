@@ -3,3 +3,6 @@
 src/mrs/static/webpack_bundles/*
 node_modules
 collected
+.drone*
+.docker-compose*
+Dockerfile

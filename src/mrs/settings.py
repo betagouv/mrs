@@ -91,6 +91,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'threadlocals.middleware.ThreadLocalMiddleware',
+    'mrs.middleware.BasicAuthMiddleware',
 ]
 
 ROOT_URLCONF = 'mrs.urls'

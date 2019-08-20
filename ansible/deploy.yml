@@ -1,0 +1,45 @@
+---
+- hosts: '*'
+  tasks:
+  - name: Installation idempotente du load balancer si necessaire
+    include_role: name=yourlabs.traefik
+    when: ansible_facts['ansible_local']['yourlabs_traefik']['state']|default('') != 'success'
+
+  - name: Notification de pré-déploiement sur slack
+    when: lookup("env", "SLACK_TOKEN")
+    tags: update
+    slack:
+      token: '{{ lookup("env", "SLACK_TOKEN") }}'
+      username: Django
+      color: warning
+      channel: tech
+      msg: |
+        DEBUT du déploiement
+        sur {{ lookup("env", "HOST") }}
+        pour le commit {{ lookup("env", "DRONE_COMMIT_MESSAGE") }}
+        par {{ lookup("env", "DRONE_COMMIT_AUTHOR_NAME") }}
+        dans {{ lookup("env", "DRONE_BUILD_LINK") }}
+
+# en cours:
+#  - name: Executer la backup de la setup actuelle
+#    include_tasks: backup_execute.yml
+#    when: home is defined
+
+  - name: Déploiement du pod docker-compose
+    include_role: name=yourlabs.compose
+    vars:
+      postdeploy: >
+        {% if project is defined %}
+        docker-compose exec django djcli dbcheck;
+        docker-compose exec django mrs loaddata src/mrs/tests/data.json;
+        docker-compose exec django djcli save settings.AUTH_USER_MODEL +username=dev is_superuser=True;
+        docker-compose exec django djcli chpasswd username=dev dev;
+        {% endif %}
+
+# en cours:
+#  - name: Preparer la prochaine backup
+#    include_tasks: backup_prepare.yml
+#    when: home is defined
+
+  - name: Execution du healthcheck
+    include_tasks: check.yml
