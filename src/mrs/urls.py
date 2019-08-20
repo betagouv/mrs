@@ -23,6 +23,11 @@ crudlfap.site.title = 'MRS Admin' + TITLE_SUFFIX
 crudlfap.site.urlpath = 'admin'
 crudlfap.site.views['home'] = views.Dashboard
 
+handler400 = 'mrs.views.bad_request_view'
+handler403 = 'mrs.views.forbidden_view'
+handler404 = 'mrs.views.not_found_view'
+handler500 = 'mrs.views.internal_server_error_view'
+
 urlpatterns = [
     crudlfap.site.get_urlpattern(),
     path('', MRSRequestCreateView.as_view(

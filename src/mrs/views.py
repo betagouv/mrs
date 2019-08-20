@@ -1,4 +1,5 @@
 import pytz
+import traceback
 
 from crudlfap import shortcuts as crudlfap
 
@@ -7,6 +8,7 @@ from django import http
 from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.db import models
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
@@ -14,6 +16,7 @@ from django.views import generic
 from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
 from person.models import Person
+from sentry_sdk import capture_message, capture_exception
 
 
 class Dashboard(crudlfap.TemplateView):
@@ -154,6 +157,36 @@ class StaticView(generic.View):
 
         return response
 
+
+class ErrorView:
+    def __init__(self, status, message):
+        self.status = status
+        self.message = message
+
+    def __call__(self, request, *args, **kwargs):
+        traceback.print_exc()
+
+        if 'exception' in kwargs:
+            capture_exception(kwargs['exception'])
+        else:
+            capture_message(self.message, level='error')
+
+        return http.HttpResponse(
+            status=self.status,
+            content=render_to_string(
+                context=dict(
+                    status=self.status,
+                    message=self.message,
+                ),
+                template_name=f'error.html'
+            )
+        )
+
+
+bad_request_view = ErrorView(400, 'Requête inacceptable (mauvais hostname?)')
+forbidden_view = ErrorView(403, 'Page interdite')
+not_found_view = ErrorView(404, 'Page introuvable')
+internal_server_error_view = ErrorView(500, 'Erreur interne')
 
 class MaintenanceView(generic.TemplateView):
     template_name = '503.html'

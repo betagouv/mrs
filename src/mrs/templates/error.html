@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row error-wrapper valign-wrapper">
+    <div class="col s12">
+        <h5 class="header">
+            Erreur {{ status }}
+            <br>
+            <br>
+            {{ message }}
+        </h5>
+
+        <div class="error-link">
+            <a href="/">Retourner à l'accueil</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
