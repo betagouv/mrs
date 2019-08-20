@@ -1,5 +1,6 @@
 import base64
 import binascii
+import os
 from urllib.parse import unquote_plus
 
 from django import http
