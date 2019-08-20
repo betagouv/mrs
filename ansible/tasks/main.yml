@@ -1,38 +1,33 @@
 ---
 
-- name: Require nginx for this config
-  include_role: name=yourlabs.roleonce
-  vars:
-    rolenames: [yourlabs.nginx]
-    nginx_home: /home/nginx/
+- name: Installation idempotente du load balancer si necessaire
+  include_role: name=yourlabs.traefik
+  when: ansible_facts['ansible_local']['yourlabs_traefik']['state']|default('') != 'success'
 
-- name: Configure nginx domain
-  include_role: name=yourlabs.nginx tasks_from=domain
-  vars:
-    domain: '{{ dns }}'
-    content: |
-      client_max_body_size 10M;
-      client_body_buffer_size 10M;
-      uwsgi_buffering off;
-
-- name: Send deployment start slack message
-  when: slack_token is defined and slack_channel
+- name: Notification de pré-déploiement sur slack
+  when: lookup("env", "SLACK_TOKEN")
   tags: update
   slack:
-    token: '{{ slack_token }}'
-    username: Playlabs
-    icon_url: '{{ slack_icon }}'
+    token: '{{ lookup("env", "SLACK_TOKEN") }}'
+    username: Django
     color: warning
-    channel: '{{ slack_channel }}'
+    channel: tech
     parse: full
     msg: |
-      {{ project_instance }}: {{ lookup("env", "GITLAB_USER_LOGIN") }} deploying {{ image }} on {{ dns }}
-      {{ lookup("env", "CI_JOB_URL") }}
-      {{ lookup("env", "CI_COMMIT_SHA") }}
-      {{ lookup("env", "CI_COMMIT_MESSAGE") }}
+      Deploiement de
+      {{ lookup("env", "DRONE_COMMIT_MESSAGE") }}
+      par
+      {{ lookup("env", "DRONE_COMMIT_AUTHOR_NAME") }}
+      sur
+      {{ lookup("env", "HOST") }}
 
-- name: Pull docker image
-  include_role: name=yourlabs.docker tasks_from=pull
+- name: Déploiement du pod docker-compose
+  include_role: name=yourlabs.compose
+  vars:
+    compose: docker-compose.yml,docker-compose.staging.yml
+    compose_django_image: betagouv/mrs:$DRONE_COMMIT
+    compose_django_build:
+    home: /home/staging
 
 - name: Make home directory
   file: path={{ home }} state=directory owner=root group=root mode=0771
@@ -91,7 +86,7 @@
   include_role: name=yourlabs.timer
   vars:
     name: '{{ project_instance }}-backup'
-    cmd: '{{ home }}/sh.yml backup'
+    cmd: '{{ home }}/do backup'
     chdir: '{{ home }}'
     oncalendar: '*-*-* 23:00:00'
 
