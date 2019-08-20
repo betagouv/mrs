@@ -27,7 +27,3 @@ services:
     - POSTGRES_PASSWORD=django
     - POSTGRES_USER=django
     - POSTGRES_DB=mrs
-    volumes:
-    - ./postgres/data:/var/lib/postgresql/data
-    - ./postgres/run:/var/run/postgresql
-    - ./dump:/dump

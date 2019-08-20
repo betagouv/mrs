@@ -1,0 +1,57 @@
+---
+
+- name: Generation d'un identifiant unique de test
+  set_fact: test_id={{ ansible_date_time|to_uuid }}
+  tags: check,update
+
+- name: Generation de l'URL de test à l'aide de l'identifiant unique
+  set_fact: url="{{ lookup('env', 'PROTO') or 'http' }}://{{ lookup('env', 'HOST') }}/?test={{ test_id }}"
+  tags: check,update
+
+- block:
+  - name: Boucle curl d'une minute dans l'attente que le service démarre
+    register: url_verify
+    retries: '{{ timeout|default(60) }}'
+    delay: 1
+    until: url_verify.failed == false
+    tags: check,update
+    changed_when: false
+    shell: curl --fail -I {{ url }}
+
+  - name: Notification Slack du succès de la vérification
+    when: lookup("env", "SLACK_TOKEN")
+    tags: update
+    slack:
+      token: '{{ lookup("env", "SLACK_TOKEN") }}'
+      color: good
+      channel: tech
+      msg: Déploiement verifié sur {{ lookup("env", "HOST") }}
+
+  rescue:
+  - name: Notification Slack de l'échec de la vérification
+    when: lookup("env", "SLACK_TOKEN")
+    tags: update
+    slack:
+      token: '{{ lookup("env", "SLACK_TOKEN") }}'
+      color: danger
+      channel: tech
+      msg: |
+        {{ lookup('env', 'HOST' }} en échec !
+        {% if lookup("env", "DRONE_BUILD_LINK") %}
+        Les logs sont disponnibles sur {{ lookup("env", "DRONE_BUILD_LINK") }}
+        {% endif %}
+
+  always:
+  - name: Logs du load balancer
+    shell: docker logs --since=5m traefik 2>&1 | grep -C1 "{{ test_id }}"
+    tags: check,update
+    failed_when: false
+    changed_when: false
+
+  - name: Logs du pod docker
+    shell: docker-compose logs --tail=200
+    tags: check,update
+    failed_when: false
+    changed_when: false
+    args:
+      chdir: '{{ home }}'

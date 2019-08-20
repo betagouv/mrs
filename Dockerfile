@@ -51,7 +51,7 @@ COPY do /app/
 RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/mail ${UWSGI_SPOOLER_MOUNT}/stat
 
 # Let user write to log
-RUN chown -R app. ${LOG} ${UWSGI_SPOOLER_MOUNT}/mail ${UWSGI_SPOOLER_MOUNT}/stat
+RUN chown -R app. ${LOG} ${UWSGI_SPOOLER_MOUNT}
 USER app
 
 EXPOSE 6789
@@ -74,7 +74,6 @@ CMD /usr/bin/dumb-init bash -euxc "mrs migrate --noinput \
   --log-5xx \
   --vacuum \
   --enable-threads \
-  --reload-os-env \
   --post-buffering=8192 \
   --ignore-sigpipe \
   --ignore-write-errors \

@@ -168,7 +168,7 @@ docker.test() {
         -e DB_USER=$USER
         -e rewrite=${rewrite-}
         --user root
-        ${img-yourlabs/python} ./sh.yml py.test
+        ${img-yourlabs/python} ./do py.test
 }
 
 # docker.testbuild  Build a docker container and test in it
@@ -185,7 +185,7 @@ docker.dump() {
         mv dump dump.previous || echo Could not move ./dump out of the way
     fi
     mkdir -p dump
-    cp sh.yml dump
+    cp do dump
 
     getcommit="docker inspect --format='{{.Config.Env}}' betagouv/mrs:master | grep -o 'GIT_COMMIT=[a-z0-9]*'"
     if $getcommit; then
@@ -361,6 +361,31 @@ docker.logs() {
 # docker.shell      Shell on docker process
 docker.shell() {
     docker exec -it mrs-$instance bash
+}
+
+# waituntil             Wait for a statement until 150 tries elapsed
+waituntil() {
+    set +x
+    printf "$*"
+    i=${i-150}
+    success=false
+    until [ $i = 0 ]; do
+        i=$((i-1))
+        printf "\e[31m.\e[0m"
+        if $* &> ".waituntil.outerr"; then
+            printf "\e[32mSUCCESS\e[0m:\n"
+            success=true
+            break
+        else
+            sleep 1
+        fi
+    done
+    cat ".waituntil.outerr"
+    if ! $success; then
+        printf "\e[31mFAILED\e[0m:\n"
+        exit 1
+    fi
+    set -x
 }
 
 if [ -z "${1-}" ]; then
