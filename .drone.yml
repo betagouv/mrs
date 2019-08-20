@@ -123,17 +123,31 @@ steps:
   - until curl $HOST; do sleep 1; done
   - "cd /app && node_modules/.bin/jest src/mrs/static/js/smoke.test.js"
 
-#---
-#kind: pipeline
-#name: deploy
-#depends_on:
-#- docker
-#
-#steps:
-#- name: publish
-#  image: docker:dind
-#- name: deploy
-#  image: yourlabs/playlabs:master
-#  commands:
-#  - playlabs git clone $INVENTORY_REPOSITORY
-#  - "playlabs deploy prefix=mrs instance=$CI_ENVIRONMENT_SLUG image=betagouv/mrs:$DRONE_COMMIT deploy@ --tags=update"
+---
+kind: pipeline
+name: staging
+depends_on:
+- python
+- docker
+- js
+- acceptance
+steps:
+- name: deploy
+  image: yourlabs/ansible:master
+  commands:
+  - HOST=staging.mrs.beta.gouv.fr
+    bigsudo
+    yourlabs.compose
+    compose=docker-compose.yml,docker-compose.staging.yml
+    compose_django_image=betagouv/mrs:$DRONE_COMMIT
+    compose_django_build=
+    home=/home/staging
+    deploy@staging.mrs.beta.gouv.fr
+    -v | tee out
+  - grep unreachable=0 out
+  - grep failed=0 out
+  - ./do waituntil curl --fail $CI_ENVIRONMENT_URL
+  when:
+    branch:
+    - master
+    - staging

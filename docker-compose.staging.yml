@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  backend:
+    environment:
+    - HOST
+    - EMAIL_HOST=mail
+    - EMAIL_PORT=25
+    labels:
+    - "traefik.enable=true"
+    - "traefik.frontend.rule=Host: ${HOST}"
+    - "traefik.port=8000"
+    - "traefik.frontend.auth.basic.users=traefik.frontend.auth.basic.usersFile=/htpasswd/root"
+    - "traefik.frontend.auth.basic.removeHeader=true"
+    networks:
+    - default
+    - web
+
+  mail:
+    image: djfarrelly/maildev
+    labels:
+    - "traefik.enable=true"
+    - "traefik.frontend.rule=Host: mail.${HOST}"
+    - "traefik.port=80"
+    - "traefik.frontend.auth.basic.users=traefik.frontend.auth.basic.usersFile=/htpasswd/root"
+    networks:
+    - default
+    - web
+
+  postgres:
+    networks:
+    - default
+
+networks:
+  web:
+    external: true
