@@ -43,11 +43,11 @@ class MRSAttachment(models.Model):
         location=ATTACHMENT_ROOT,
     )
 
-    def attachment_file_path(instance, filename):
+    def attachment_file_path(self, filename):
         # file will be uploaded to ATTACHMENT_UPLOAD_ROOT/
         # <mrsrequest_uuid>-<uuid>-<filename>
         return '{0}-{1}{2}'.format(
-            instance.mrsrequest_uuid,
+            self.mrsrequest_uuid,
             uuid4(),
             splitext(filename)[-1]
         )
