@@ -147,7 +147,7 @@ steps:
   - export $(echo $STAGING_ENV | xargs)
   - bigsudo
     ./ansible
-    home=/home/mrs-$DRONE_BRANCH
+    home=/home/mrs-staging
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
     deploy@staging.mrs.beta.gouv.fr
