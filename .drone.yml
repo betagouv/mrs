@@ -135,7 +135,7 @@ steps:
 - name: deploy
   image: yourlabs/ansible
   commands:
-  - mkdir -p ~/.ssh; echo "$STAGING_KEY" > ~/.ssh/id_rsa; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  - mkdir -p ~/.ssh; echo "$STAGING_KEY" > ~/.ssh/id_rsa; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; cat ~/.ssh/id_rsa; cat ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $STAGING_ENV | xargs)
   - HOST=staging.mrs.beta.gouv.fr
     bigsudo
