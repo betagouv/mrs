@@ -129,6 +129,34 @@ name: deploy
 depends_on:
 - docker
 steps:
+- name: test
+  image: yourlabs/ansible
+  environment:
+    HOST: $DRONE_BRANCH.test.staging.mrs.beta.gouv.fr
+    ANSIBLE_FORCE_COLOR: "1"
+    SLACK_TOKEN:
+      from_secret: SLACK_TOKEN
+    SSH_KEY:
+      from_secret: SSH_KEY
+    SSH_FINGERPRINTS:
+      from_secret: SSH_FINGERPRINTS
+  commands:
+  - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  - bigsudo
+    ./ansible
+    project=test-$DRONE_BRANCH
+    compose_django_image=betagouv/mrs:$DRONE_COMMIT
+    compose_django_build=
+    deploy@staging.mrs.beta.gouv.fr
+    -v | tee out
+  - grep unreachable=0 out
+  - grep failed=0 out
+  when:
+    branch:
+      exclude:
+      - master
+      - staging
+
 - name: staging
   image: yourlabs/ansible
   environment:
