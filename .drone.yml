@@ -135,6 +135,7 @@ steps:
 - name: deploy
   image: yourlabs/ansible:master
   commands:
+  - export $(echo $STAGING_ENV | xargs)
   - HOST=staging.mrs.beta.gouv.fr
     bigsudo
     yourlabs.compose
