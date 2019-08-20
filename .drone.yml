@@ -133,7 +133,7 @@ depends_on:
 - acceptance
 steps:
 - name: deploy
-  image: yourlabs/ansible:master
+  image: yourlabs/ansible
   commands:
   - export $(echo $STAGING_ENV | xargs)
   - HOST=staging.mrs.beta.gouv.fr
