@@ -363,6 +363,31 @@ docker.shell() {
     docker exec -it mrs-$instance bash
 }
 
+# waituntil             Wait for a statement until 150 tries elapsed
+waituntil() {
+    set +x
+    printf "$*"
+    i=${i-150}
+    success=false
+    until [ $i = 0 ]; do
+        i=$((i-1))
+        printf "\e[31m.\e[0m"
+        if $* &> ".waituntil.outerr"; then
+            printf "\e[32mSUCCESS\e[0m:\n"
+            success=true
+            break
+        else
+            sleep 1
+        fi
+    done
+    cat ".waituntil.outerr"
+    if ! $success; then
+        printf "\e[31mFAILED\e[0m:\n"
+        exit 1
+    fi
+    set -x
+}
+
 if [ -z "${1-}" ]; then
     grep '^# ' $0
 else
