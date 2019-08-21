@@ -132,7 +132,7 @@ steps:
 - name: test
   image: yourlabs/ansible
   environment:
-    HOST: $DRONE_BRANCH.test.staging.mrs.beta.gouv.fr
+    HOST: ${DRONE_BRANCH}.test.staging.mrs.beta.gouv.fr
     SECRET_KEY: notsecret
     ANSIBLE_FORCE_COLOR: "1"
     SLACK_TOKEN:
