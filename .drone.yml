@@ -133,6 +133,7 @@ steps:
   image: yourlabs/ansible
   environment:
     HOST: $DRONE_BRANCH.test.staging.mrs.beta.gouv.fr
+    SECRET_KEY: notsecret
     ANSIBLE_FORCE_COLOR: "1"
     SLACK_TOKEN:
       from_secret: SLACK_TOKEN
@@ -147,6 +148,7 @@ steps:
     project=test-$DRONE_BRANCH
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
+    compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml
     deploy@staging.mrs.beta.gouv.fr
     -v | tee out
   - grep unreachable=0 out
@@ -178,6 +180,7 @@ steps:
     home=/home/mrs-staging
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
+    compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml,docker-compose.persist.yml
     deploy@staging.mrs.beta.gouv.fr
     -v | tee out
   - grep unreachable=0 out

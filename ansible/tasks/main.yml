@@ -20,8 +20,6 @@
 
 - name: Déploiement du pod docker-compose
   include_role: name=yourlabs.compose
-  vars:
-    compose: docker-compose.yml,docker-compose.staging.yml
 
 - name: Notification de pré-déploiement sur slack
   when: lookup("env", "SLACK_TOKEN")

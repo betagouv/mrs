@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  django:
+    restart: always
+    environment:
+    - SECRET_KEY
+
+  postgres:
+    restart: always
+    volumes:
+    - ./postgres/data:/var/lib/postgresql/data
+    - ./postgres/run:/var/run/postgresql
+    - ./dump:/dump

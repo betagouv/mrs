@@ -3,10 +3,7 @@ services:
   django:
     environment:
     - HOST
-    - EMAIL_HOST=mail
-    - EMAIL_PORT=25
     - ALLOWED_HOSTS=${HOST}
-    - SECRET_KEY
     - SENTRY_AUTH_TOKEN
     - SENTRY_DSN
     - SENTRY_ORG=sentry
@@ -23,17 +20,6 @@ services:
     - "io.yourlabs.compose.mkdir=./spooler:1000:1000:0750"
     - "io.yourlabs.compose.mkdir=./spooler/mail:1000:1000:0750"
     - "io.yourlabs.compose.mkdir=./spooler/stat:1000:1000:0750"
-    networks:
-    - default
-    - web
-
-  mail:
-    image: djfarrelly/maildev
-    labels:
-    - "traefik.enable=true"
-    - "traefik.frontend.rule=Host: mail.${HOST}"
-    - "traefik.port=80"
-    - "traefik.frontend.auth.basic.usersFile=/htpasswd/root"
     networks:
     - default
     - web
