@@ -173,6 +173,7 @@ steps:
     STAGING_ENV:
       from_secret: STAGING_ENV
   commands:
+  - echo LOL $DRONE_BRANCH
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $STAGING_ENV | xargs)
   - bigsudo
