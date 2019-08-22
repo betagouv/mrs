@@ -21,7 +21,7 @@ def data(caisse, captcha):
         nom='alice',
         email='example@example.com',
         message='J\'écris "salut l\'monde.".',
-        mrsrequest_display_id='201801010000',
+        mrsrequest_display_id=201801010000,
         captcha_0=captcha.hashkey,
         captcha_1=captcha.response,
     )
