@@ -13,7 +13,6 @@ def adduser(apps, schema_editor):
 
     user, created = User.objects.get_or_create(
         username='test',
-        is_staff=True,
         is_superuser=True,
         is_active=True,
     )
