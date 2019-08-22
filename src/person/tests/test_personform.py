@@ -58,7 +58,7 @@ def test_personform_clean_nir(d):
     form.full_clean()
     assert 'nir' in form.errors
 
-    d['nir'] = '123456789012'
+    d['nir'] = 123456789012
     form.full_clean()
     assert 'nir' in form.errors
 

@@ -11,7 +11,7 @@ from django.contrib.postgres.fields import JSONField
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import models
+from django.db import models, transaction, IntegrityError
 from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
@@ -867,6 +867,58 @@ class MRSRequest(models.Model):
             if date:
                 return date
 
+    def make_display_id(self):
+        normalized = pytz.timezone(settings.TIME_ZONE).normalize(
+            self.creation_datetime)
+        prefix = normalized.strftime('%Y%m%d')
+        last = MRSRequest.objects.filter(
+            display_id__startswith=prefix,
+        ).order_by('display_id').last()
+
+        number = 0
+        last_display_id = getattr(last, 'display_id', None)
+        if last_display_id and len(str(last_display_id)) == 12:
+            number = int(str(last_display_id)[-4:]) + 1
+
+        return int('{}{:04d}'.format(prefix, number))
+
+    def save(self, *args, **kwargs):
+        """
+        Unfortunate display_id conflict handling.
+
+        Despite our recommendations, product owner decided to generate ids
+        according to rules which are victim of conflicts. At the beginning it
+        was not a problem, but now that there are concurrent users on the
+        platform it's of course a problem.
+
+        Please forgive the horrible palliative fix that you are about to
+        witness.
+        """
+
+        duplicate_display_id = 'duplicate key value violates unique constraint "mrsrequest_mrsrequest_display_id_key"'  # noqa
+
+        if not self.creation_datetime:
+            self.creation_datetime = timezone.now()
+
+        if not self.display_id:
+            self.display_id = self.make_display_id()
+
+        tries = 100
+        while tries:
+            try:
+                with transaction.atomic():
+                    return super().save(*args, **kwargs)
+            except IntegrityError as exc:
+                # swallow duplicate "insane id" generation
+                if not exc.args[0].startswith(duplicate_display_id):
+                    raise
+
+                if not tries:
+                    raise
+
+            self.display_id = self.display_id + 1
+            tries -= 1
+
 
 class MRSRequestLogEntryQuerySet(models.QuerySet):
     def filter(self, **kwargs):
@@ -994,29 +1046,6 @@ class MRSRequestLogEntry(models.Model):
         elif self.action in action_icons:
             icons.append(action_icons[self.action])
         return ' '.join(icons)
-
-
-def creation_datetime_and_display_id(sender, instance, **kwargs):
-    """Signal receiver executed at the beginning of MRSRequest.save()"""
-    if instance.display_id:
-        return
-
-    if not instance.creation_datetime:
-        instance.creation_datetime = timezone.now()
-
-    normalized = pytz.timezone(settings.TIME_ZONE).normalize(
-        instance.creation_datetime)
-    prefix = normalized.strftime('%Y%m%d')
-    last = MRSRequest.objects.filter(
-        display_id__startswith=prefix,
-    ).order_by('display_id').last()
-
-    number = 0
-    if getattr(last, 'display_id', None) and len(str(last.display_id)) == 12:
-        number = int(str(last.display_id)[-4:]) + 1
-
-    instance.display_id = '{}{:04d}'.format(prefix, number)
-signals.pre_save.connect(creation_datetime_and_display_id, sender=MRSRequest)
 
 
 class PMT(MRSAttachment):

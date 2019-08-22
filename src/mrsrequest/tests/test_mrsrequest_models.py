@@ -184,8 +184,23 @@ def test_display_id():
         creation_datetime=timezone.now() - datetime.timedelta(days=1),
     ).display_id == 300012301111
 
-    assert MRSRequest.objects.create().display_id == '300012310000'
-    assert MRSRequest.objects.create().display_id == '300012310001'
+    assert MRSRequest.objects.create().display_id == 300012310000
+    assert MRSRequest.objects.create().display_id == 300012310001
+
+
+@freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
+@pytest.mark.django_db
+def test_display_id_recovers():
+    assert MRSRequest.objects.create(
+        display_id=300012301111,
+        creation_datetime=timezone.now() - datetime.timedelta(days=1),
+    ).display_id == 300012301111
+
+    # Assert that display_id fixes itself
+    assert MRSRequest.objects.create(
+        display_id=300012301111,
+        creation_datetime=timezone.now() - datetime.timedelta(days=1),
+    ).display_id == 300012301112
 
 
 @freeze_time('3000-12-31 13:37:42')  # forward compat and bichon <3
@@ -195,18 +210,18 @@ def test_mrsrequest_str():
 
 @pytest.mark.django_db
 @pytest.mark.parametrize('dt,expected', [
-    ('yesterday_min_paris', '199912310000'),
-    ('yesterday_min_utc', '199912310000'),
-    ('yesterday_max_paris', '199912310000'),
-    ('yesterday_max_utc', '200001010000'),
-    ('today_min_paris', '200001010000'),
-    ('today_min_utc', '200001010000'),
-    ('today_max_paris', '200001010000'),
-    ('today_max_utc', '200001020000'),
-    ('tomorrow_min_paris', '200001020000'),
-    ('tomorrow_min_utc', '200001020000'),
-    ('tomorrow_max_paris', '200001020000'),
-    ('tomorrow_max_utc', '200001030000'),
+    ('yesterday_min_paris', 199912310000),
+    ('yesterday_min_utc', 199912310000),
+    ('yesterday_max_paris', 199912310000),
+    ('yesterday_max_utc', 200001010000),
+    ('today_min_paris', 200001010000),
+    ('today_min_utc', 200001010000),
+    ('today_max_paris', 200001010000),
+    ('today_max_utc', 200001020000),
+    ('tomorrow_min_paris', 200001020000),
+    ('tomorrow_min_utc', 200001020000),
+    ('tomorrow_max_paris', 200001020000),
+    ('tomorrow_max_utc', 200001030000),
 ])
 def test_mrsrequest_increments_at_minute_zero(dt, expected):
     assert MRSRequest.objects.create(
@@ -306,19 +321,19 @@ def test_mrsrequest_mandate_date():
 @pytest.mark.django_db
 def test_mrsrequest_duplicate_transports():
     Fixture('./src/mrs/tests/data.json').load()
-    req = MRSRequest.objects.get(display_id='201805030001')
+    req = MRSRequest.objects.get(display_id=201805030001)
     assert len(req.duplicate_transports) == 2
 
 
 @pytest.mark.django_db
 def test_mrsrequest_duplicates_transport():
     Fixture('./src/mrs/tests/data.json').load()
-    req = MRSRequest.objects.get(display_id='201805030001')
+    req = MRSRequest.objects.get(display_id=201805030001)
     assert req.duplicates_by_transport == {
-        MRSRequest.objects.get(display_id='201805020001'): [
+        MRSRequest.objects.get(display_id=201805020001): [
             datetime.date(2018, 5, 1)
         ],
-        MRSRequest.objects.get(display_id='201805030000'): [
+        MRSRequest.objects.get(display_id=201805030000): [
             datetime.date(2018, 5, 1)
         ]
     }
