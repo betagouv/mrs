@@ -129,6 +129,42 @@ name: deploy
 depends_on:
 - docker
 steps:
+
+
+- name: ecole
+  image: yourlabs/ansible
+  environment:
+    HOST: ecole.mrs.beta.gouv.fr
+    ANSIBLE_FORCE_COLOR: "1"
+    SSH_KEY:
+      from_secret: SSH_KEY
+    SSH_FINGERPRINTS:
+      from_secret: SSH_FINGERPRINTS
+    STAGING_ENV:
+      from_secret: STAGING_ENV
+  commands:
+  - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  - echo $STAGING_ENV
+  - export $(echo $STAGING_ENV | xargs)
+  - bigsudo
+    ./ansible
+    home=/home/mrs-
+    compose_django_image=betagouv/mrs:$DRONE_COMMIT
+    compose_django_build=
+    deploy@staging.mrs.beta.gouv.fr
+    -v | tee out
+  - grep unreachable=0 out
+  - grep failed=0 out
+  when:
+    branch:
+    - ecole
+#    event:
+#    - promote
+#    target:
+#    - staging
+
+
+
 - name: staging
   image: yourlabs/ansible
   environment:
