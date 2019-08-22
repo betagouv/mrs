@@ -6,7 +6,6 @@ from urllib.parse import unquote_plus
 from django import http
 from django.conf import settings
 from django.contrib.auth import authenticate
-from django.utils.crypto import constant_time_compare
 
 
 class HttpResponseUnauthorized(http.HttpResponse):
@@ -17,7 +16,7 @@ class HttpResponseUnauthorized(http.HttpResponse):
             """<html><head><title>Basic auth required</title></head>
                <body><h1>Authorization Required</h1></body></html>""",
         )
-        realm = getattr(settings, 'BASICAUTH_REALM', 'Secure resource')
+        realm = getattr(settings, 'BASICAUTH_REALM', 'Sécurité MRS')
         self['WWW-Authenticate'] = 'Basic realm="{}"'.format(realm)
 
 
@@ -54,8 +53,14 @@ class BasicAuthMiddleware:
         self.get_response = get_response
 
     def authorize(self, request):
-        if os.getenv('CI', False) or not os.getenv('BASICAUTH_ENABLE', False):
+        if not os.getenv('BASICAUTH_ENABLE', False):
             # Not to use this env
+            return True
+
+        if request.session.get('authorized', False):
+            return True
+
+        if request.user.is_authenticated:
             return True
 
         if request.session.get('authorized', False):
@@ -74,10 +79,10 @@ class BasicAuthMiddleware:
         user = authenticate(username=username, password=password)
 
         if user:
+            request.session['authorized'] = True
             return True
 
     def __call__(self, request):
-        if request.user.is_authenticated or self.authorize(request):
-            request.session['authorized'] = True
-            return self.get_response(request)
-        return HttpResponseUnauthorized()
+        if not self.authorize(request):
+            return HttpResponseUnauthorized()
+        return self.get_response(request)

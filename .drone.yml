@@ -134,6 +134,7 @@ steps:
   environment:
     HOST: ${DRONE_BRANCH}.test.staging.mrs.beta.gouv.fr
     SECRET_KEY: notsecret
+    BASICAUTH_ENABLE: "1"
     ANSIBLE_FORCE_COLOR: "1"
     SLACK_TOKEN:
       from_secret: SLACK_TOKEN
@@ -164,6 +165,7 @@ steps:
   environment:
     HOST: staging.mrs.beta.gouv.fr
     ANSIBLE_FORCE_COLOR: "1"
+    BASICAUTH_ENABLE: "1"
     SLACK_TOKEN:
       from_secret: SLACK_TOKEN
     SSH_KEY:
@@ -173,7 +175,6 @@ steps:
     STAGING_ENV:
       from_secret: STAGING_ENV
   commands:
-  - echo LOL $DRONE_BRANCH
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $STAGING_ENV | xargs)
   - echo $STAGING_ENV
