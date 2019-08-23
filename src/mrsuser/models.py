@@ -23,8 +23,7 @@ class UserManager(UserManager):
 
 class User(AbstractUser):
     caisses = models.ManyToManyField(
-        'caisse.caisse',
-        null=True,
+        'caisse.caisse'
     )
     number = models.CharField(
         blank=False,
