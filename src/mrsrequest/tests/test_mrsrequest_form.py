@@ -86,7 +86,10 @@ def test_form_save_m2m(monkeypatch, person, caisse):
 
     # Is the form's save_m2m method going to relate the above uploads by
     # uuid ?
-    form = _form(expensevp_toll=10, expenseatp=10)
+    # We also check integer values, decimal values with dots and decimal values
+    # with commas are valid
+    form = _form(expensevp_toll="10", expensevp_parking="21,3",
+                 expenseatp="10.6")
     assert not form.non_field_errors()
     assert not form.errors
     assert form.is_valid()

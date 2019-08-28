@@ -33,6 +33,37 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 '''
 
 
+# Custom form field allowing decimal inputs with commas instead of dots
+# Quite a useful method in France, since we mainly use commas for decimal
+# numbers
+class AllowedCommaDecimalField(forms.DecimalField):
+
+    # We override the to_python method to look for a comma inside the input
+    # value and if found, to replace it with a standard decimal dot before
+    # passing the value to the standard DecimalField.
+    def to_python(self, value):
+
+        comma_index = 0
+
+        if value:
+
+            # First we check if there is a comma inside the decimal input, and
+            # store its position
+            try:
+                comma_index = value.index(',')
+            except ValueError:
+                pass
+
+            # If we found a comma inside the input value, we replace it with a
+            # regular dot
+            if comma_index:
+                value = value.replace(',', '.')
+
+        # We finally pass the value (modified or not) to the standard
+        # DecimalField
+        return super(AllowedCommaDecimalField, self).to_python(value)
+
+
 class MRSRequestCreateForm(forms.ModelForm):
     # do not trust this field, it's used for javascript and checked
     # by the view for permission against the request session, but is
@@ -97,13 +128,37 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Votre caisse de rattachement',
     )
 
-    expenseatp = forms.DecimalField(
+    expenseatp = AllowedCommaDecimalField(
         decimal_places=2,
         max_digits=6,
         validators=[validators.MinValueValidator(Decimal('0.00'))],
         label='Frais de transports',
         help_text=(
             'Somme totale des frais de transport en commun (en € TTC)'
+        ),
+        required=False,
+        widget=forms.TextInput,
+    )
+
+    expensevp_toll = AllowedCommaDecimalField(
+        decimal_places=2,
+        max_digits=6,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        label='Frais de péage',
+        help_text=(
+            'Somme totale des frais de péage (en € TTC)'
+        ),
+        required=False,
+        widget=forms.TextInput,
+    )
+
+    expensevp_parking = AllowedCommaDecimalField(
+        decimal_places=2,
+        max_digits=6,
+        validators=[validators.MinValueValidator(Decimal('0.00'))],
+        label='Frais de stationnement',
+        help_text=(
+            'Somme totale des frais de stationnement (en € TTC)'
         ),
         required=False,
         widget=forms.TextInput,
@@ -163,9 +218,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             'pel',
         ]
         widgets = dict(
-            distancevp=forms.TextInput,
-            expensevp_toll=forms.TextInput,
-            expensevp_parking=forms.TextInput,
+            distancevp=forms.TextInput
         )
 
     def __init__(self, *args, **kwargs):
