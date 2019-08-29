@@ -148,9 +148,10 @@ steps:
   - bigsudo
     ./ansible
     stack=test-$DRONE_BRANCH
+    seconds=30
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
-    compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml,docker-compose.ephemeral.yml
+    compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml
     deploy@staging.mrs.beta.gouv.fr
     -v | tee out
   - grep unreachable=0 out
