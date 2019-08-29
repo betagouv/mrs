@@ -2,6 +2,6 @@ version: '3.7'
 services:
   destroy:
     image: yourlabs/docker
-    command: docker stack rm $stack
+    command: bash -euxc "sleep 60 && docker stack rm $stack"
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
