@@ -129,7 +129,7 @@ name: deploy
 depends_on:
 - docker
 steps:
-- name: test
+- name: test deploy
   image: yourlabs/ansible
   environment:
     HOST: ${DRONE_BRANCH}.test.staging.mrs.beta.gouv.fr
