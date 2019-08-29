@@ -1,0 +1,30 @@
+---
+
+- name: Notification de debut de backup
+  when: lookup("env", "SLACK_TOKEN")
+  tags: update
+  slack:
+    token: '{{ lookup("env", "SLACK_TOKEN") }}'
+    username: Django
+    color: warning
+    channel: tech
+    parse: full
+    msg: |
+      DEBUT de la backup de {{ lookup("env", "HOST") }}
+
+- name: Executer la commande de dump et backup
+  shell: ./do docker.dumpbackup
+  args:
+    chdir: '{{ home }}'
+
+- name: Notification de fin de backup
+  when: lookup("env", "SLACK_TOKEN")
+  tags: update
+  slack:
+    token: '{{ lookup("env", "SLACK_TOKEN") }}'
+    username: Django
+    color: green
+    channel: tech
+    parse: full
+    msg: |
+      Fin de la backup de {{ lookup("env", "HOST") }}

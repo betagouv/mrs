@@ -18,10 +18,18 @@
       par {{ lookup("env", "DRONE_COMMIT_AUTHOR_NAME") }}
       sur {{ lookup("env", "HOST") }}
 
+- name: Executer la backup de la setup actuelle
+  include_tasks: backup_execute.yml
+  when: home is defined
+
 - name: Déploiement du pod docker-compose
   include_role: name=yourlabs.compose
 
-- name: Notification de pré-déploiement sur slack
+- name: Preparer la prochaine backup
+  include_tasks: backup_prepare.yml
+  when: home is defined
+
+- name: Notification de post-déploiement sur slack
   when: lookup("env", "SLACK_TOKEN")
   tags: update
   slack:

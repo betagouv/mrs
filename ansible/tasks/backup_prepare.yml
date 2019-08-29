@@ -1,0 +1,7 @@
+---
+
+- name: Mettre a jour le fichier de commandes
+  copy:
+    src: do
+    dest: '{{ home }}/do'
+    mode: '0750'
