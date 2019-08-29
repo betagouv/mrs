@@ -147,8 +147,7 @@ steps:
   - bigsudo roleup yourlabs.compose
   - bigsudo
     ./ansible
-    stack=test-$DRONE_BRANCH
-    seconds=30
+    project=test-$DRONE_BRANCH
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
     compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml
