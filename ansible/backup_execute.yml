@@ -13,9 +13,7 @@
       DEBUT de la backup de {{ lookup("env", "HOST") }}
 
 - name: Executer la commande de dump et backup
-  shell: if test -f do; then ./do docker.dumpbackup; fi
-  args:
-    chdir: '{{ home }}'
+  shell: if test -f {{ home }}/do; then cd {{ home }} && ./do docker.dumpbackup; fi
 
 - name: Notification de fin de backup
   when: lookup("env", "SLACK_TOKEN")
