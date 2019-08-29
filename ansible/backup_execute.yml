@@ -13,7 +13,7 @@
       DEBUT de la backup de {{ lookup("env", "HOST") }}
 
 - name: Executer la commande de dump et backup
-  shell: ./do docker.dumpbackup
+  shell: if test -f do; then ./do docker.dumpbackup; fi
   args:
     chdir: '{{ home }}'
 

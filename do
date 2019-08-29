@@ -168,7 +168,7 @@ docker.test() {
         -e DB_USER=$USER
         -e rewrite=${rewrite-}
         --user root
-        ${img-yourlabs/python} ./sh.yml py.test
+        ${img-yourlabs/python} ./do py.test
 }
 
 # docker.testbuild  Build a docker container and test in it
@@ -185,7 +185,7 @@ docker.dump() {
         mv dump dump.previous || echo Could not move ./dump out of the way
     fi
     mkdir -p dump
-    cp sh.yml dump
+    cp do dump
 
     getcommit="docker inspect --format='{{.Config.Env}}' betagouv/mrs:master | grep -o 'GIT_COMMIT=[a-z0-9]*'"
     if $getcommit; then
