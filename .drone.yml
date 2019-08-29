@@ -144,9 +144,10 @@ steps:
       from_secret: SSH_FINGERPRINTS
   commands:
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  - bigsudo roleup yourlabs.compose
   - bigsudo
     ./ansible
-    project=test-$DRONE_BRANCH
+    stack=test-$DRONE_BRANCH
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
     compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml,docker-compose.ephemeral.yml
