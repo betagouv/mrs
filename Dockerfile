@@ -74,7 +74,6 @@ CMD /usr/bin/dumb-init bash -euxc "mrs migrate --noinput \
   --log-5xx \
   --vacuum \
   --enable-threads \
-  --reload-os-env \
   --post-buffering=8192 \
   --ignore-sigpipe \
   --ignore-write-errors \

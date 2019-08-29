@@ -19,12 +19,6 @@
         par {{ lookup("env", "DRONE_COMMIT_AUTHOR_NAME") }}
         sur {{ lookup("env", "HOST") }}
 
-  - name: Creer le dossier du deploiement
-    file:
-      path: '{{ home }}'
-      state: directory
-    when: home is defined
-
   - name: Executer la backup de la setup actuelle
     include_tasks: backup_execute.yml
     when: home is defined
