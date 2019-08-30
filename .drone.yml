@@ -146,7 +146,7 @@ steps:
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - bigsudo roleup yourlabs.compose
   - bigsudo
-    ./ansible
+    ./ansible/deploy.yml
     project=test-$DRONE_BRANCH
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
@@ -177,9 +177,8 @@ steps:
       from_secret: STAGING_ENV
   commands:
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
-  - export $(echo $STAGING_ENV | xargs)
   - bigsudo
-    ./ansible
+    ./ansible/deploy.yml
     home=/home/mrs-staging
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
