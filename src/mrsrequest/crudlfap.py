@@ -656,7 +656,7 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
         person=forms.modelform_factory(
             Person,
             form=PersonForm,
-            fields=['nir', 'birth_date']
+            fields=['nir', 'birth_date', 'first_name']
         )
     )
     extra_form_classes['person'].layout = None  # cancel out material layout
