@@ -53,7 +53,6 @@ var cfg = {
     rules: [
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, 'src'),
         exclude: /(turbolinks)/,
         use: {
           loader: 'babel-loader',
