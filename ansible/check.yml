@@ -5,7 +5,7 @@
   tags: check,update
 
 - name: Generation de l'URL de test à l'aide de l'identifiant unique
-  set_fact: url="{{ lookup('env', 'PROTO') or 'http' }}://{{ lookup('env', 'HOST') }}/?test={{ test_id }}"
+  set_fact: url="{{ lookup('env', 'PROTO') or 'http' }}://dev:dev@{{ lookup('env', 'HOST') }}/?test={{ test_id }}"
   tags: check,update
 
 - block:
