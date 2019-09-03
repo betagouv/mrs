@@ -1,0 +1,3 @@
+N°demande;libellé de la CPAM;date de naissance bénéficiaire;statut de la demande;demande "en cours d'étude" (Y/N);date de demande;signalement assuré (Y/N);signalement technicien (Y/N);Nombre de trajet;VP (Y/N);ATP (Y/N);Assurée a basculé;nombre Km;montant frais de parking;montant total des frais de VP;montant total remboursement VP;montant total ATP;cout théorique taxi;motif de rejet;motif de contact
+201805020002;aaaaaaa;29/05/2000;Validée;N;02/05/2018;N;N;1;Y;N;Y;5;;0.00;2.00;0.00;10.83;;
+201805020000;aaaaaaa;06/05/2000;Validée;N;02/05/2018;N;N;1;Y;N;N;5;;0.00;;0.00;10.83;;

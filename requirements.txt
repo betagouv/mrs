@@ -11,7 +11,7 @@ djcli
 raven
 requests
 django-humanize==0.1.2
-crudlfap==0.7.36
+crudlfap==0.7.39
 sqlparse
 holidays
 chardet

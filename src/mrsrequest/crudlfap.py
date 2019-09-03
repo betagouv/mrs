@@ -411,6 +411,97 @@ class MRSRequestListView(crudlfap.ListView):
         return self.queryset
 
 
+class MRSRequestCSVListView(MRSRequestListView):
+    turbolinks = False
+    urlpath = 'csv'
+    material_icon = 'cloud_download'
+    allowed_groups = ['Admin', 'Superviseur']
+    link_attributes = {'data-noprefetch': 'true'}
+    menus = []
+
+    def get(self, request, *args, **kwargs):
+        qs = self.object_list.select_related(
+            'insured',
+        ).prefetch_related(
+            'logentries',
+        ).distinct()
+
+        content = [
+            ';'.join([
+                'N°demande',
+                'libellé de la CPAM',
+                # commented until region model arrives
+                # 'région de la CPAM',
+                'date de naissance bénéficiaire',
+                'statut de la demande',
+                'demande "en cours d\'étude" (Y/N)',
+                'date de demande',
+                'signalement assuré (Y/N)',
+                'signalement technicien (Y/N)',
+                'Nombre de trajet',
+                'VP (Y/N)',
+                'ATP (Y/N)',
+                'Assurée a basculé',
+                'nombre Km',
+                'montant frais de parking',
+                'montant total des frais de VP',
+                'montant total remboursement VP',
+                'montant total ATP',
+                'cout théorique taxi',
+                'motif de rejet',
+                'motif de contact',
+            ])
+        ]
+
+        def yn(val):
+            return 'Y' if val else 'N'
+
+        def mystr(val):
+            return '' if val is None else str(val)
+
+        for obj in qs:
+            contact_reason = ''
+            reject_reason = ''
+
+            for entry in obj.logentries.all():
+                if entry.action == entry.ACTION_CONTACT:
+                    contact_reason = entry.emailtemplate
+                if entry.action == obj.STATUS_REJECTED:
+                    reject_reason = entry.emailtemplate
+
+            content.append(';'.join(map(mystr, [
+                obj.display_id,
+                obj.caisse,
+                obj.insured.birth_date.strftime(DATE_FORMAT_FR),
+                obj.get_status_display(),
+                yn(obj.suspended),
+                obj.creation_day.strftime(DATE_FORMAT_FR),
+                yn(obj.conflicts_resolved or obj.conflicts_accepted),
+                yn(obj.conflicts_accepted),
+                obj.transport_set.count(),
+                yn(obj.modevp),
+                yn(obj.modeatp),
+                yn(obj.insured.shifted),
+                obj.distancevp,
+                obj.expensevp_parking,
+                obj.expensevp,
+                obj.payment_amount,
+                obj.expenseatp,
+                obj.taxi_cost,
+                reject_reason,
+                contact_reason,
+            ])))
+
+        response = http.HttpResponse(
+            '\n'.join(content),
+            content_type='text/csv'
+        )
+        response['Content-Disposition'] = (
+            f'attachment; filename="MRS.csv"'
+        )
+        return response
+
+
 class MRSRequestExport(crudlfap.ObjectsView):
     allowed_groups = ['Admin', 'Stat']
     material_icon = 'cloud_download'
@@ -819,6 +910,7 @@ class MRSRequestRouter(crudlfap.Router):
     model = MRSRequest
     material_icon = 'insert_drive_file'
     views = [
+        MRSRequestCSVListView,
         MRSRequestExport,
         MRSRequestExportCaisse,
         MRSRequestImport,

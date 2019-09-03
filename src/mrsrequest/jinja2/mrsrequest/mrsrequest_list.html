@@ -1,0 +1,14 @@
+{% extends 'crudlfap/list.html' %}
+
+{% block after_table %}
+    {% if request.user.profile in ('admin', 'superviseur') %}
+    <a
+        class="waves-effect waves-light btn"
+        data-turbolinks="false"
+        target="_blank"
+        href="{{ url('crudlfap:mrsrequest:csvlist') }}?{% for k, v in request.GET.items() %}&{{ k }}={{ v }}{% endfor %}"
+    >
+        <i class="material-icons left">cloud_download</i>Export CSV
+    </a>
+    {% endif %}
+{% endblock %}
