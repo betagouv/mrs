@@ -35,6 +35,8 @@
             <option value="2">UPN</option>
             <option value="3">Stat</option>
             <option value="4">Support</option>
+            <option value="5">Superviseur</option>
+            <option value="6">Admin local</option>
         </select>
         
     </div>
@@ -135,59 +137,14 @@
                 
                 
     
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-2" title="Actions">
-        <i class="material-icons">more_vert</i>
-        
-      </a>
-
-      <ul class="dropdown-content" id="row-actions-2">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/2/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
-    <i class="orange-text material-icons">vpn_key</i>
-    
-    Password reset
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/2/password?_next=/admin/user" title='Utilisateur "a": mot de passe'>
-    <i class="purple-text darken-4-text material-icons">vpn_key</i>
-    
-    Mot de passe
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/2/update?_next=/admin/user" title='Utilisateur "a": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-noprefetch="true" href="/admin/user/2/su?_next=/admin/user" title='Utilisateur "a": become user'>
-    <i class="pink-text darken-4-text material-icons">attach_money</i>
-    
-    Devenir
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" href="/admin/user/2?_next=/admin/user" title="a">
-    <i class="blue-text material-icons">search</i>
+      
+        <a class="btn-floating red blue" href="/admin/user/2?_next=/admin/user" title="a">
+    <i class="material-icons">search</i>
     
     Detail
     
   </a>
-        </li>
-        
-      </ul>
+      
     
   
                 </td>
@@ -216,59 +173,14 @@
                 
                 
     
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-4" title="Actions">
-        <i class="material-icons">more_vert</i>
-        
-      </a>
-
-      <ul class="dropdown-content" id="row-actions-4">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/4/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
-    <i class="orange-text material-icons">vpn_key</i>
-    
-    Password reset
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/4/password?_next=/admin/user" title='Utilisateur "supporta": mot de passe'>
-    <i class="purple-text darken-4-text material-icons">vpn_key</i>
-    
-    Mot de passe
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/4/update?_next=/admin/user" title='Utilisateur "supporta": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-noprefetch="true" href="/admin/user/4/su?_next=/admin/user" title='Utilisateur "supporta": become user'>
-    <i class="pink-text darken-4-text material-icons">attach_money</i>
-    
-    Devenir
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" href="/admin/user/4?_next=/admin/user" title="supporta">
-    <i class="blue-text material-icons">search</i>
+      
+        <a class="btn-floating red blue" href="/admin/user/4?_next=/admin/user" title="supporta">
+    <i class="material-icons">search</i>
     
     Detail
     
   </a>
-        </li>
-        
-      </ul>
+      
     
   
                 </td>
@@ -297,59 +209,14 @@
                 
                 
     
-      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-5" title="Actions">
-        <i class="material-icons">more_vert</i>
-        
-      </a>
-
-      <ul class="dropdown-content" id="row-actions-5">
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/5/passwordreset?_next=/admin/user" title="Envoyer un nouveau mot de passe">
-    <i class="orange-text material-icons">vpn_key</i>
-    
-    Password reset
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/5/password?_next=/admin/user" title='Utilisateur "stata": mot de passe'>
-    <i class="purple-text darken-4-text material-icons">vpn_key</i>
-    
-    Mot de passe
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/user/5/update?_next=/admin/user" title='Utilisateur "stata": modifier'>
-    <i class="orange-text material-icons">edit</i>
-    
-    Modifier
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" data-noprefetch="true" href="/admin/user/5/su?_next=/admin/user" title='Utilisateur "stata": become user'>
-    <i class="pink-text darken-4-text material-icons">attach_money</i>
-    
-    Devenir
-    
-  </a>
-        </li>
-        
-        <li>
-            <a class="" href="/admin/user/5?_next=/admin/user" title="stata">
-    <i class="blue-text material-icons">search</i>
+      
+        <a class="btn-floating red blue" href="/admin/user/5?_next=/admin/user" title="stata">
+    <i class="material-icons">search</i>
     
     Detail
     
   </a>
-        </li>
-        
-      </ul>
+      
     
   
                 </td>

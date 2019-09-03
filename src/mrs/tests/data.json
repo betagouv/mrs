@@ -40,6 +40,14 @@
     }
 },
 {
+    "model": "auth.group",
+    "pk": 6,
+    "fields": {
+        "name": "Admin local",
+        "permissions": []
+    }
+},
+{
     "fields": {
         "cheflieu_code": "31555",
         "insee_id": "76",
