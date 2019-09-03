@@ -23,7 +23,14 @@ class Dashboard(crudlfap.TemplateView):
     template_name = 'crudlfap/home.html'
     model = MRSRequest
     body_class = 'full-width'
-    allowed_groups = ['Admin', 'UPN', 'Support', 'Stat', 'Superviseur']
+    allowed_groups = [
+        'Admin',
+        'UPN',
+        'Support',
+        'Stat',
+        'Superviseur',
+        'Admin local'
+    ]
     material_icon = 'home'
 
     def get_listview(self):
@@ -48,6 +55,10 @@ class Dashboard(crudlfap.TemplateView):
         if self.request.user.profile == 'support':
             return http.HttpResponseRedirect(
                 reverse('crudlfap:mrsrequest:list')
+            )
+        elif self.request.user.profile == 'admin local':
+            return http.HttpResponseRedirect(
+                reverse('crudlfap:user:list')
             )
         return super().get(*args, **kwargs)
 

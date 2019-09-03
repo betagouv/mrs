@@ -86,10 +86,10 @@ class UserForm(forms.ModelForm):
         return super().save(commit=commit)
 
 
-class SupervisorUserForm(forms.ModelForm):
+class AdminUserForm(forms.ModelForm):
     groups = forms.ModelMultipleChoiceField(
         Group.objects.filter(
-            name__in=['UPN', 'Support', 'Stat']
+            name__in=['UPN', 'Support', 'Stat', 'Superviseur', 'Admin local']
         ),
         label='Groupes',
     )
@@ -161,7 +161,7 @@ class UserFormMixin:
         if self.request.user.profile == 'admin':
             return UserForm
         else:
-            return SupervisorUserForm
+            return AdminUserForm
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -170,11 +170,11 @@ class UserFormMixin:
 
 
 class UserUpdateView(UserFormMixin, crudlfap.UpdateView):
-    pass
+    allowed_groups = ['Admin', 'Admin local']
 
 
 class UserCreateView(UserFormMixin, crudlfap.CreateView):
-    pass
+    allowed_groups = ['Admin', 'Admin local']
 
 
 class UserListView(crudlfap.ListView):
@@ -223,8 +223,8 @@ class UserListView(crudlfap.ListView):
         form = filterset.form
         if self.request.user.profile != 'admin':
             form.fields['caisses'].queryset = self.request.user.caisses.all()
-            form.fields['groups'].queryset = Group.objects.filter(
-                name__in=['UPN', 'Support', 'Stat'],
+            form.fields['groups'].queryset = Group.objects.exclude(
+                name='Admin',
             )
         return filterset
 
@@ -363,11 +363,17 @@ class PasswordResetView(crudlfap.ObjectFormView):
 class UserRouter(crudlfap.Router):
     views = [
         ImportView,
-        PasswordResetView,
-        PasswordView,
+        PasswordResetView.clone(
+            allowed_groups=['Admin', 'Admin local']
+        ),
+        PasswordView.clone(
+            allowed_groups=['Admin', 'Admin local']
+        ),
         UserUpdateView,
         UserCreateView,
-        BecomeUser,
+        BecomeUser.clone(
+            allowed_groups=['Admin'],
+        ),
         crudlfap.DetailView.clone(
             exclude=[
                 'password',
@@ -376,7 +382,7 @@ class UserRouter(crudlfap.Router):
         ),
         UserListView,
     ]
-    allowed_groups = ['Admin', 'Superviseur']
+    allowed_groups = ['Admin', 'Superviseur', 'Admin local']
     material_icon = 'person'
     model = User
     urlfield = 'pk'
@@ -391,6 +397,12 @@ class UserRouter(crudlfap.Router):
                 caisses__in=view.request.user.caisses.all()
             ).exclude(
                 groups__name__in=('Superviseur', 'Admin')
+            ).distinct()
+        elif user.profile == 'admin local':
+            return self.model.objects.filter(
+                caisses__in=view.request.user.caisses.all()
+            ).exclude(
+                groups__name='Admin'
             ).distinct()
 
         return self.model.objects.none()
