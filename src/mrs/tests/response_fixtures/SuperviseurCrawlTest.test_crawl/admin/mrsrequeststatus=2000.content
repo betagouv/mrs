@@ -108,6 +108,7 @@
   <div class="table-responsive col s12 m9 l10" id="render-table">
     <div>
       
+      
       <div class="table-container">
         
 
@@ -275,6 +276,13 @@
 
       </div>
       
+      
+    
+    <a class="waves-effect waves-light btn" data-turbolinks="false" href="/admin/mrsrequest/csv?&amp;status=2000" target="_blank">
+        <i class="material-icons left">cloud_download</i>Export CSV
+    </a>
+    
+
       
     </div>
   </div>
