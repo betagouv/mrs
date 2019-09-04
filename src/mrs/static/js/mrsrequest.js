@@ -239,6 +239,75 @@ var formInit = function (form) {
   })
   confirming || $('[name=pmt_pel]:first').trigger('change')
 
+  var distancevp_help = function() {
+    // use 2 by default for the sake of the example
+    var count = parseInt($('#id_iterative_number').val()) || 2
+    var single = ! $('[name=trip_kind][value=return]').is(':checked')
+
+    if (count == 1) {
+      if (single) {
+        $('#id_distancevp_container label').html(
+          'Indiquez le nombre de km parcourus lors de votre aller simple'
+        )
+        $('#id_distancevp_container .help-block').slideUp()
+      } else {
+        $('#id_distancevp_container label').html(
+          'Indiquez le nombre de km parcourus lors de votre aller + retour'
+        )
+        $('#id_distancevp_container .help-block').slideDown()
+      }
+    } else {
+      var exemple = count * 10
+      if (single) {
+        $('#id_distancevp_container label').html(
+          `Indiquez le nombre de km parcourus lors de vos ${count} allers simples.<br />`
+        )
+        $('#id_distancevp_container .help-block').html(
+          `Par exemple pour 10 km par aller simple, déclarez ${exemple} km parcourus`
+          + '<div id="distancevp_preview"></div>'
+        )
+        $('#id_distancevp_container .help-block').slideDown()
+      } else {
+        $('#id_distancevp_container label').html(
+          `Indiquez le nombre de km parcourus lors de vos ${count} allers retours.<br />`
+        )
+        $('#id_distancevp_container .help-block').html(
+          `Par exemple pour 10 km par aller + retour, déclarez ${exemple} km parcourus`
+          + '<div id="distancevp_preview"></div>'
+        )
+        $('#id_distancevp_container .help-block').slideDown()
+      }
+    }
+  }
+  $(form).on('input', '#id_iterative_number', distancevp_help)
+  $(form).on('change', '#id_iterative_show', distancevp_help)
+  $(form).on('change', '#id_trip_kind', distancevp_help)
+  distancevp_help()
+
+  var distancevp_preview = function() {
+    if (!$('#distancevp_preview').length) return
+    if (!parseInt($('#id_distancevp').val())) return
+
+    var count = parseFloat($('#id_iterative_number').val()) || 2
+    var distancevp = parseFloat($('#id_distancevp').val().replace(',', '.'))
+    var average = distancevp / count
+    if (distancevp % count) {
+      average = average.toFixed(1)
+    }
+
+    var single = ! $('[name=trip_kind][value=return]').is(':checked')
+    $('#distancevp_preview').html(
+      `Votre déclaration correspond à une moyenne de <b>${average}km</b>`
+      + ' par trajet ' + (single ? '(aller simple)' : '(aller retour)')
+    )
+
+    $('#distancevp_preview').fadeIn()
+  }
+  $(form).on('input', '#id_distancevp', distancevp_preview)
+  $(form).on('input', '#id_iterative_number', distancevp_preview)
+  $(form).on('change', '#id_trip_kind', distancevp_preview)
+  distancevp_preview()
+
   M.AutoInit(form)
   $(form).is(':visible') || $(form).fadeIn()
   if (confirming) {
