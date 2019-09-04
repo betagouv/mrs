@@ -24,8 +24,12 @@
     slack:
       token: '{{ lookup("env", "SLACK_TOKEN") }}'
       color: good
-      channel: tech
-      msg: Déploiement verifié sur {{ lookup("env", "HOST") }}
+      channel: tech-discussion
+      msg: |
+        Déploiement verifié sur {{ lookup("env", "HOST") }}
+        pour le commit {{ lookup("env", "DRONE_COMMIT_MESSAGE") }}
+        par {{ lookup("env", "DRONE_COMMIT_AUTHOR_NAME") }}
+        dans {{ lookup("env", "DRONE_BUILD_LINK") }}
 
   rescue:
   - name: Notification Slack de l'échec de la vérification
