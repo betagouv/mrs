@@ -41,6 +41,10 @@
             <label for="id_caisse">Caisse :</label><select id="id_caisse" name="caisse" required="">
   <option selected="" value="">---------</option>
 
+  <option value="1">aaaaaaa</option>
+
+  <option value="2">bbbb</option>
+
 </select>
           </form>
         </div>
@@ -56,27 +60,27 @@
             <tbody>
             <tr>
                 <td>Nombre d'assurés</td>
-                <td>0</td>
+                <td>5</td>
             </tr>
             <tr>
                 <td>Nombre d'assurés ayant basculé vers le véhicule personnel<sup>*</sup></td>
-                <td>0</td>
+                <td>1</td>
             </tr>
             <tr>
                 <td>Nombre de demandes traitées (Validées/Rejetées)</td>
-                <td>0</td>
+                <td>6</td>
             </tr>
             <tr>
                 <td>Nombre de demandes d'assurés ayant basculés</td>
-                <td>0</td>
+                <td>4</td>
             </tr>
             <tr>
                 <td>Délai moyen de traitement en jour(s)</td>
-                <td>0,00</td>
+                <td>0,36</td>
             </tr>
             <tr>
                 <td>Economies réalisées<sup>**</sup></td>
-                <td>0,00€</td>
+                <td>8,83€</td>
             </tr>
             </tbody>
         </table>

@@ -11,3 +11,12 @@
         </div>
     </div>
 {% endblock %}
+
+{% block extra_js %}
+    <script>
+	    $( document ).ready(function() {
+	  		$('#caisse-selector .help-block').hide();
+	  		$('#caisse-form').hide();
+	    });
+    </script>
+{% endblock %}

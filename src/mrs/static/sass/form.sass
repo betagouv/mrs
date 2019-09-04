@@ -3,7 +3,10 @@
 ::-webkit-progress-value, ::-moz-progress-bar
   background: #0dc5b9
 
-#id_distancevp_container .help-block
+.help-block
+  font-size: 0.9em
+
+#id_distancevp_container .help-block, #id_region_container .help-block, #id_caisse_container .help-block,
   background-color: #ffff99
   border: 1px solid #ff0000
   padding: 6px
@@ -77,6 +80,7 @@ form
   .error
     color: #F44336
     display: block
+    cursor: default !important
 
   small.error
     /* cancel out small */
@@ -86,3 +90,11 @@ form
   .warning
     color: DarkOrange
     display: block
+
+#caisse-selector
+  position: relative
+  .help-button
+    border-radius: 50%
+    position: absolute
+    top: 3em
+    right: 1em

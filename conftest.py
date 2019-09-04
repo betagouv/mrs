@@ -177,7 +177,7 @@ def p(srf):
 
 @pytest.fixture
 def caisse():
-    return Caisse.objects.update_or_create(
+    caisse = Caisse.objects.update_or_create(
         pk=9,
         defaults=dict(
             code='010000000',
@@ -187,6 +187,13 @@ def caisse():
             liquidation_email='taoeu@aoeu.com',
         )
     )[0]
+    region = Region.objects.update_or_create(
+        pk=16,
+        name="Occitanie",
+        cheflieu_code="31555",
+        insee_id="76")
+    caisse.regions.add(16)
+    return caisse
 
 
 @pytest.fixture

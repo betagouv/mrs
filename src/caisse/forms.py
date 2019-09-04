@@ -1,7 +1,8 @@
 from django import forms
 from django.forms.models import ModelChoiceIterator
+from django.db.models import Q
 
-from .models import Caisse, Email
+from .models import Caisse, Email, Region
 
 
 class OtherModelChoiceIterator(ModelChoiceIterator):
@@ -27,15 +28,38 @@ class ActiveCaisseChoiceField(forms.ModelChoiceField):
         return True if value == 'other' else super().validate(value)
 
 
+class ActiveRegionChoiceField(forms.ModelChoiceField):
+    iterator = OtherModelChoiceIterator
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            Region.objects.filter(caisse__active=True).distinct(),
+            *args,
+            **kwargs
+        )
+
+    def to_python(self, value):
+        return value if value == 'other' else super().to_python(value)
+
+    def validate(self, value):
+        return True if value == 'other' else super().validate(value)
+
+
 class CaisseVoteForm(forms.Form):
+    region = forms.ModelChoiceField(
+        Region.objects.filter(
+            Q(caisse__active=False) | Q(caisse=None)).distinct(),
+        label='Sélectionnez votre région dans la liste',
+        required=False,
+    )
     caisse = forms.ModelChoiceField(
         Caisse.objects.filter(active=False),
-        label='Votre régime d\'Assurance Maladie',
+        label='Sélectionnez votre caisse ou votre régime d\'Assurance Maladie',
         required=True,
     )
     email = forms.EmailField(
         label='Votre email',
-        help_text='Nous vous informerons quand cette caisse ouvrira',
+        help_text='Nous vous informerons quand cette caisse ouvrira.',
         required=False,
     )
 

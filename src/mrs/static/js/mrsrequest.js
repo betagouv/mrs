@@ -17,6 +17,19 @@ import M from 'mrsmaterialize'
   window.CustomEvent = CustomEvent
 })()
 
+$(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+    Raven.captureMessage(thrownError || jqXHR.statusText, {
+        extra: {
+            type: ajaxSettings.type,
+            url: ajaxSettings.url,
+            data: ajaxSettings.data,
+            status: jqXHR.status,
+            error: thrownError || jqXHR.statusText,
+            response: jqXHR.responseText.substring(0, 100)
+        }
+    });
+});
+
 var listen = false
 
 var submitUi = new SubmitUi(document.querySelector('body'))
@@ -43,14 +56,81 @@ var formInit = function (form) {
     listen = true
   }
 
+  // On récupère les caisses et leurs attributs au format json
+  document.caisses = JSON.parse(
+  document.getElementById('caissesJson').innerHTML)
+
+  // On récupère l'id de la région des régimes spéciaux
+  document.regimesspeciauxId = JSON.parse(
+  document.getElementById('regimesspeciauxId').innerHTML).id
+
+  // Bloc contenant la liste déroulante de sélection de caisse
+  var $caisseSelector = $(form).find('#caisse-selector')
+  // Liste déroulante de sélection de caisse
+  var $caisse = $(form).find('#id_caisse')
+
+  // Bloc contenant la liste déroulante de sélection d'une caisse inactive
+  var $othercaisseContainer = $(form).find('#id_other-caisse_container')
+  // Liste déroulante de sélection d'une caisse inactive
+  var $othercaisse = $(form).find('#id_other-caisse')
+
+  // Liste déroulante de sélection de région
+  var $region = $(form).find('#id_region')
+
+  // Bloc contenant la liste déroulante de sélection d'une région inactive
+  var $otherregionContainer = $(form).find('#id_other-region_container')
+  // Liste déroulante de sélection d'une région inactive
+  var $otherregion = $(form).find('#id_other-region')
+
+  // Formulaire de saisie de la demande MRS
+  var $mrsrequestForm = $(form).find('#mrsrequest-form')
+
+  // Formulaire "Me prévenir quand la caisse sera activée"
+  var $caisseForm = $(form).find('#caisse-form')
+
+  var $parking = $(form).find('#id_expensevp_parking')
+  var $parkingEnable = $(form).find('[data-parking-enable]')
+
+  // Preselect region if found in cookie
+  var regionSelected = Cookie.get('region')
+
+  if (parseInt(regionSelected)) {
+
+    $region.val(regionSelected)
+    $caisse.val('')
+    adjustMaterializeOptions('caisse', $region.val())
+    $caisseSelector.show('slide')
+    Cookie.set('otherregion', '')
+
+  } else if (regionSelected=='other'){
+
+    $region.val('other')
+    hideRequestShowCaisseVoteForm(form, true)
+    Cookie.set('caisse', '')
+
+  }
+
   // Preselect caisse if found in cookie
   var caisseSelected = Cookie.get('caisse')
+
   if (parseInt(caisseSelected)) {
-    $(form).find('select#id_caisse').val(caisseSelected)
+
+    $caisse.val(caisseSelected)
+    adjustMaterializeOptions('caisse', $region.val())
+
+
+  } else if (caisseSelected=='other'){
+
+    $caisse.val(caisseSelected)
+    adjustMaterializeOptions('caisse', $region.val())
+    hideRequestShowCaisseVoteForm(form, false)
+    Cookie.set('otherregion', '')
+
+  } else {
+
+    $caisseForm.hide()
+
   }
-  $(form).find('select#id_caisse').on('change', function() {
-    Cookie.set('caisse', $(this).val())
-  })
 
   for (let element of form.querySelectorAll('textarea')) {
     M.textareaAutoResize(element)
@@ -73,20 +153,141 @@ var formInit = function (form) {
     mrsattachment(form)
   }
 
-  // Show/hide mrsrequest or vote form
-  document.caisses = JSON.parse(document.getElementById('caissesJson').innerHTML)
-  var $caisse = $(form).find('#id_caisse')
-  var $mrsrequestForm = $(form).find('#mrsrequest-form')
-  var $caisseForm = $(form).find('#caisse-form')
-  var $parking = $(form).find('#id_expensevp_parking')
-  var $parkingEnable = $(form).find('[data-parking-enable]')
+// Fonction permettant d'ajuster (afficher et/ou masquer) les options dans
+// le select fourni par Materialize, selon la région sélectionnée
+function adjustMaterializeOptions(select_name, region_id, with_regimes_speciaux){
+
+  if(document.getElementById('id_' + select_name) != null){
+
+    // On commence par créer/mettre à jour l'instance Materialize select
+    $('[name=' + select_name + ']').formSelect()
+
+    // Pour chaque option du select Materialize construit à partir du select id_caisse
+    $.each(M.FormSelect.getInstance(
+      document.getElementById('id_' + select_name))._valueDict,
+      function(index, value) {
+
+      // On affiche les options dont la caisse associée a bien region_id parmi
+      // les régions indiquées dans l'attribut data-regions
+      if (['other', ''].indexOf(value.el.value)==-1){
+
+        if(value.el.dataset.regions.indexOf(region_id)!=-1){
+
+          $('#' + index).show()
+
+        // On affiche les options relatives aux régimes spéciaux si demandé
+        } else if (
+          value.el.dataset.regions.indexOf(document.regimesspeciauxId)!=-1 
+            && with_regimes_speciaux){
+
+          $('#' + index).show()
+
+        // On masque les autres options
+        } else {
+
+          $('#' + index).hide()
+
+        }
+      }
+
+      if(value.el.value==$caisse.val()){
+
+        $('#' + index).addClass('selected')
+
+      }
+
+    })
+  }
+  
+  
+}
+
+// Fonction permettant d'afficher le formulaire "Me prévenir quand la caisse
+// sera disponible" et de masquer le formulaire classique de demande, avec la
+// possibilité ou non d'afficher le sélecteur de caisse
+function hideRequestShowCaisseVoteForm(form, caisse_selector_hidden){
+
+    caisse_selector_hidden ? $(form).find('#caisse-selector').hide('slide') : $(form).find('#caisse-selector').show('slide')
+
+    $(form).find('#mrsrequest-form').hide('slide')
+    $(form).find('#caisse-form').show('slide')
+}
+
+// Fonction permettant de masquer le formulaire "Me prévenir quand la caisse
+// sera disponible" et d'afficher ou masquer le formulaire classique de demande,
+// avec la possibilité ou non d'afficher le sélecteur de caisse
+function showRequestHideCaisseVoteForm(
+  form, caisse_selector_hidden, request_form_hidden){
+
+    caisse_selector_hidden ? $(form).find('#caisse-selector').hide('slide') : $(form).find('#caisse-selector').show('slide')
+
+    request_form_hidden ? $(form).find('#mrsrequest-form').hide('slide') : $(form).find('#mrsrequest-form').show('slide')
+    
+    $(form).find('#caisse-form').hide('slide')
+
+}
+
+  // Fonction appelée lorsqu'un changement est détecté sur le select des régions
+  var regionChange = function() {
+
+    // Si l'utilisateur sélectionne "Autres" dans la liste des régions
+    if ($region.val() == 'other') {
+
+      // On masque le formulaire demande et le sélecteur classique de caisse
+      // pour afficher le formulaire "Me prévenir quand ma caisse sera
+      // disponible"
+      $otherregionContainer.show()
+      hideRequestShowCaisseVoteForm(form, true)
+      $caisse.val('other')
+
+    // Si l'utilisateur sélectionne une région dans la liste des régions (c'est
+    // à dire une région avec au moins une caisse active)
+    } else if ($region.val()) {
+
+      $caisse.val('')
+      adjustMaterializeOptions('caisse', $region.val(), false)
+
+      showRequestHideCaisseVoteForm(form, false, true)
+
+      Cookie.set('region', $region.val())
+
+    // Si aucune région n'est sélectionnée, on masque tout sauf le select
+    } else {
+
+      showRequestHideCaisseVoteForm(form, true, true)
+
+    }
+  }
+
+  var otherregionChange = function() {
+
+    if($otherregion.val()!=document.regimesspeciauxId){
+
+      $othercaisse.val('')
+      adjustMaterializeOptions('other-caisse', $otherregion.val(), true)
+
+    } else {
+
+      $othercaisse.val('')
+      adjustMaterializeOptions('other-caisse', $otherregion.val(), false)
+
+    }
+
+  }
+
   var caisseChange = function() {
+
     if ($caisse.val() == 'other') {
-      $mrsrequestForm.hide('slide')
-      $caisseForm.show('slide')
+
+      hideRequestShowCaisseVoteForm(form, false)
+      $otherregionContainer.hide()
+      $othercaisse.val('')
+      adjustMaterializeOptions('other-caisse', $region.val(), true)
+
     } else if ($caisse.val()) {
-      $caisseForm.hide('slide')
-      $mrsrequestForm.show('slide')
+
+      showRequestHideCaisseVoteForm(form, false)
+
       var $header = $('.Header--wrapper')
       var headerHeight = $header.length ? $header.outerHeight() : 60
       $('html, body').animate({
@@ -100,12 +301,19 @@ var formInit = function (form) {
         $parking.parents('.col').hide('slide')
         $parkingEnable.hide('slide')
       }
+
+      Cookie.set('caisse', $caisse.val())
+
     } else {
-      $mrsrequestForm.hide('slide')
-      $caisseForm.hide('slide')
+
+      hideRequestShowCaisseVoteForm(form, true)
+
     }
   }
+
   $caisse.change(caisseChange)
+  $region.change(regionChange)
+  $otherregion.change(otherregionChange)
   confirming || caisseChange()
 
   // Show/hide iterative
@@ -356,7 +564,7 @@ var formSubmit = function(form) {
       url: document.location.href,
       type: 'POST',
       data: $form.serialize(),
-      error: function() {
+      error: function(err) {
         submitUi.showSubmitError(
           'Une erreur inconnue est survenue. Veuillez reessayer dans quelques minutes, merci.',
           () => {
