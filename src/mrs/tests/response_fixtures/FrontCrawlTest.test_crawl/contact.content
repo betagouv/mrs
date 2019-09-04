@@ -59,6 +59,8 @@
         <label for="id_caisse">Votre caisse de rattachement</label>
         <select id="id_caisse" name="caisse">
             <option value="">---------</option>
+            <option value="1">aaaaaaa</option>
+            <option value="2">bbbb</option>
             <option value="other">Autre</option>
         </select>
         

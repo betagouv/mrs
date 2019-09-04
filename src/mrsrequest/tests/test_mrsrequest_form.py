@@ -31,6 +31,7 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     def _form(**extra):
         data = dict()
         data['caisse'] = [caisse.pk]
+        data['region'] = [caisse.regions.first().pk]
         data['distancevp'] = ['100']
         data['pmt_pel'] = ['pmt']
 

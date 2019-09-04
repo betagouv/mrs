@@ -48,6 +48,7 @@
         <select id="id_regions" multiple="multiple" name="regions">
             <option disabled="" value="">Choisissez votre option</option>
             <option value="16">Occitanie</option>
+            <option value="17">Pays de la Loire</option>
             <option value="19">Régimes Spéciaux</option>
         </select>
         
@@ -127,7 +128,7 @@
             
                 <td><a href="/admin/caisse/1">aaaaaaa</a></td>
             
-                <td>-</td>
+                <td>Occitanie</td>
             
                 <td><span class="true">✔</span></td>
             
@@ -194,7 +195,7 @@
             
                 <td><a href="/admin/caisse/2">bbbb</a></td>
             
-                <td>-</td>
+                <td>Occitanie</td>
             
                 <td><span class="true">✔</span></td>
             

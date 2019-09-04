@@ -138,6 +138,7 @@ def test_mrsrequestcreateview_pel_integration(p, caisse):
         mrsrequest_uuid=p.mrsrequest.id,
         pmt_pel='pel',
         caisse=caisse.pk,
+        region=caisse.regions.first().pk,
         pel='aoeuaoeuaoe123',
     )
     p.post(**data)
@@ -151,6 +152,7 @@ def test_mrsrequestcreateview_hydrate_mrsrequest(p, caisse):
     assert not p.view.forms['mrsrequest'].is_valid()
 
     data['caisse'] = caisse.pk
+    data['region'] = caisse.regions.first().pk
     data['transport-1-date_depart'] = '2017-02-02'
     data['transport-1-date_return'] = '2017-02-02'
     data['trip_kind'] = 'return'
@@ -235,8 +237,13 @@ def form_data(**data):
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_mrsrequestcreateview_modevp_post_save_integration(p, caisse):
-    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+def test_mrsrequestcreateview_modevp_post_save_integration(p,
+                                                           caisse):
+    data = form_data(
+        mrsrequest_uuid=p.mrsrequest.id,
+        caisse=caisse.pk,
+        region=caisse.regions.first().pk
+    )
 
     p.post(**data)
 
@@ -252,6 +259,7 @@ def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker):
     data = form_data(
         mrsrequest_uuid=p.mrsrequest.id,
         caisse=caisse.pk,
+        region=caisse.regions.first().pk,
         distancevp=p.mrsrequest.distancevp
     )
     p.post(**data)
@@ -271,8 +279,15 @@ def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker):
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_mrsrequestcreateview_modeatp_post_save_integration(p, caisse):
-    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+def test_mrsrequestcreateview_modeatp_post_save_integration(
+    p,
+    caisse
+):
+    data = form_data(
+        mrsrequest_uuid=p.mrsrequest.id,
+        caisse=caisse.pk,
+        region=caisse.regions.first().pk
+    )
     data['expensevp_toll'] = ''
     data['expenseatp'] = '10'
     data['modevp'] = ''
@@ -301,8 +316,15 @@ def test_mrsrequestcreateview_empty_expenseatp(p, caisse):
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.django_db
-def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
-    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+def test_mrsrequestcreateview_post_save_integration_confirms_count(
+    p,
+    caisse
+):
+    data = form_data(
+        mrsrequest_uuid=p.mrsrequest.id,
+        caisse=caisse.pk,
+        region=caisse.regions.first().pk
+    )
 
     # Let's get started with two conflicts from inside the same request
     data['transport-1-date_depart'] = data['transport-0-date_depart']
@@ -341,7 +363,11 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
 
     # Let's duplicate this request, only first trip should be conflicting
     p.mrsrequest = MRSRequest()
-    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+    data = form_data(
+        mrsrequest_uuid=p.mrsrequest.id,
+        caisse=caisse.pk,
+        region=caisse.regions.first().pk
+    )
     p.post(**data)
     assert p.view.conflicts_count == 1
 
@@ -378,7 +404,11 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse):
 
     # While we're at it try just to increment accepted conflicts
     p.mrsrequest = MRSRequest()
-    data = form_data(mrsrequest_uuid=p.mrsrequest.id, caisse=caisse.pk)
+    data = form_data(
+        mrsrequest_uuid=p.mrsrequest.id,
+        caisse=caisse.pk,
+        region=caisse.regions.first().pk
+    )
     p.post(**data)
     # We're duplicating both Transport dates ...
     assert p.view.conflicts_count == 2

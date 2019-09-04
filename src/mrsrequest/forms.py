@@ -10,7 +10,7 @@ from django.utils.datastructures import MultiValueDict
 
 import material
 
-from caisse.forms import ActiveCaisseChoiceField
+from caisse.forms import ActiveCaisseChoiceField, ActiveRegionChoiceField
 from mrs.forms import DateFieldNative
 from mrsattachment.forms import MRSAttachmentField
 
@@ -126,6 +126,14 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     caisse = ActiveCaisseChoiceField(
         label='Votre caisse de rattachement',
+        help_text='Votre caisse n\'apparaît pas dans la liste ? Elle n\'a pas '
+                  'encore rejoint le dispositif MRS. Cliquez sur "Autre" pour '
+                  'la sélectionner et recevoir un e-mail dès que celle-ci '
+                  'sera disponible !'
+    )
+
+    region = ActiveRegionChoiceField(
+        label='Votre région',
     )
 
     expenseatp = AllowedCommaDecimalField(
@@ -165,6 +173,12 @@ class MRSRequestCreateForm(forms.ModelForm):
     )
 
     layouts = dict(
+        start=material.Layout(
+            material.Fieldset(
+                'Votre région',
+                'region',
+            ),
+        ),
         above=material.Layout(
             material.Fieldset(
                 'Votre caisse d\'assurance maladie',
@@ -218,7 +232,9 @@ class MRSRequestCreateForm(forms.ModelForm):
             'pel',
         ]
         widgets = dict(
-            distancevp=forms.TextInput
+            distancevp=forms.TextInput,
+            expensevp_toll=forms.TextInput,
+            expensevp_parking=forms.TextInput,
         )
 
     def __init__(self, *args, **kwargs):
