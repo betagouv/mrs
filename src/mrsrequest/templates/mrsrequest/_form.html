@@ -1,7 +1,6 @@
 {% load material_form %}
-
-<script type="text/json" id="caissesJson">
-{{ view.caisses_json|safe }}
+<script type="text/json" id="regionsJson">
+{{ view.regions_json|safe }}
 </script>
 
 <div class="form--wrapper scroll-reveal">
@@ -99,9 +98,15 @@
                 <p id="subtitle" class="scroll-reveal">
                   Réalisez votre demande de remboursement en ligne dès maintenant.
                 </p>
-
-                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.above %}
+                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.start %}
                 {% endform %}
+                <div id="caisse-selector" style="display:none;">
+                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.above %}
+
+                {% endform %}
+                <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
+
+                </div>
             {% endif %}
 
             <div id="mrsrequest-form" style="display: none">
@@ -168,7 +173,7 @@
                 {% endif %}
             </div>
 
-            <div id="caisse-form" style="display: none">
+            <div id="caisse-form" style="display:none">
                 {% form form=view.caisse_form %}{% endform %}
             </div>
 

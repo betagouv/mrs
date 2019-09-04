@@ -200,3 +200,23 @@ def other_caisse():
             active=False,
         )
     )[0]
+
+
+@pytest.fixture
+def caisse_with_region():
+    caisse = Caisse.objects.update_or_create(
+        pk=11,
+        defaults=dict(
+            code='210000000',
+            number=444,
+            name='test active avec région',
+            active=True,
+        )
+    )[0]
+    region = Region.objects.update_or_create(
+        pk=16,
+        name="Occitanie",
+        cheflieu_code="31555",
+        insee_id= "76")
+    caisse.regions.add(16)
+    return caisse

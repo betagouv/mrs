@@ -47,7 +47,8 @@
         <label for="id_regions">Regions</label>
         <select id="id_regions" multiple="multiple" name="regions">
             <option disabled="" value="">Choisissez votre option</option>
-            <option value="16">Occitanie</option>
+            <option selected="selected" value="16">Occitanie</option>
+            <option value="17">Pays de la Loire</option>
             <option value="19">Régimes Spéciaux</option>
         </select>
         

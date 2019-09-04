@@ -27,10 +27,11 @@ def person():
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_form_save_m2m(monkeypatch, person, caisse):
+def test_form_save_m2m(monkeypatch, person, caisse_with_region):
     def _form(**extra):
         data = dict()
-        data['caisse'] = [caisse.pk]
+        data['caisse'] = [caisse_with_region.pk]
+        data['region'] = [caisse_with_region.regions.first().pk]
         data['distancevp'] = ['100']
         data['pmt_pel'] = ['pmt']
 

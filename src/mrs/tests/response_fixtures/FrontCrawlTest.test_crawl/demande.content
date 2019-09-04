@@ -21,9 +21,8 @@
     <div class="mrs-std-page--wrapper">
         <div class="mrs-std-page">
             
-
-<script id="caissesJson" type="text/json">
-{}
+<script id="regionsJson" type="text/json">
+{"16": {"1": {"name": "aaaaaaa", "parking_enable": true, "active": true}, "2": {"name": "bbbb", "parking_enable": true, "active": true}}, "17": {"3": {"name": "inactive", "parking_enable": true, "active": false}}, "19": {"4": {"name": "regimespecial", "parking_enable": true, "active": false}}}
 </script>
 
 <div class="form--wrapper scroll-reveal">
@@ -43,16 +42,16 @@
                 <p class="scroll-reveal" id="subtitle">
                   Réalisez votre demande de remboursement en ligne dès maintenant.
                 </p>
-
                     <div class="section row">
     <div class="col s12">
-        <h5>Votre caisse d'assurance maladie</h5>
+        <h5>Votre région</h5>
         
 <div class="row">
-    <div class="select-field col s12 required" id="id_caisse_container">
-        <label for="id_caisse">Votre caisse de rattachement</label>
-        <select id="id_caisse" name="caisse">
+    <div class="select-field col s12 required" id="id_region_container">
+        <label for="id_region">Votre région</label>
+        <select id="id_region" name="region">
             <option value="">---------</option>
+            <option value="16">Occitanie</option>
             <option value="other">Autre</option>
         </select>
         
@@ -62,6 +61,30 @@
     </div>
 </div>
 
+                <div id="caisse-selector" style="display:none;">
+                    <div class="section row">
+    <div class="col s12">
+        <h5>Votre caisse d'assurance maladie</h5>
+        
+<div class="row">
+    <div class="select-field col s12 required" id="id_caisse_container">
+        <label for="id_caisse">Votre caisse de rattachement</label>
+        <select id="id_caisse" name="caisse">
+            <option value="">---------</option>
+            <option value="1">aaaaaaa</option>
+            <option value="2">bbbb</option>
+            <option value="other">Autre</option>
+        </select>
+        <div class="help-block">Votre caisse n'apparaît pas dans la liste ? Elle n'a pas encore rejoint le dispositif MRS. Cliquez sur "Autre" pour la sélectionner et recevoir un e-mail dès que celle-ci sera disponible !</div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+                <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
+
+                </div>
             
 
             <div id="mrsrequest-form" style="display: none">
@@ -427,13 +450,27 @@ indiqué sur l'exemplaire patient remis par votre médecin.
                 
             </div>
 
-            <div id="caisse-form" style="display: none">
+            <div id="caisse-form" style="display:none">
                 
 <div class="row">
+    <div class="select-field col s12" id="id_other-region_container">
+        <label for="id_other-region">Sélectionnez votre région dans la liste</label>
+        <select id="id_other-region" name="other-region">
+            <option value="">---------</option>
+            <option value="17">Pays de la Loire</option>
+            <option value="19">Régimes Spéciaux</option>
+        </select>
+        
+    </div>
+</div>
+ 
+<div class="row">
     <div class="select-field col s12 required" id="id_other-caisse_container">
-        <label for="id_other-caisse">Votre régime d'Assurance Maladie</label>
+        <label for="id_other-caisse">Sélectionnez votre caisse ou votre régime d'Assurance Maladie</label>
         <select id="id_other-caisse" name="other-caisse">
             <option value="">---------</option>
+            <option value="3">inactive</option>
+            <option value="4">regimespecial</option>
         </select>
         
     </div>
@@ -444,7 +481,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     <div class="input-field col s12" id="id_other-email_container">
         <input id="id_other-email" name="other-email" type="email"/>
         <label for="id_other-email">Votre email</label>
-        <div class="help-block">Nous vous informerons quand cette caisse ouvrira</div>
+        <div class="help-block">Nous vous informerons quand cette caisse ouvrira.</div>
     </div>
 </div>
 

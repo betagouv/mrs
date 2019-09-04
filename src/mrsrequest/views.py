@@ -10,7 +10,7 @@ from django.db import transaction
 from django.views import generic
 from djcall.models import Caller
 
-from caisse.models import Caisse, Email
+from caisse.models import Email, Region
 from caisse.forms import CaisseVoteForm
 from person.forms import PersonForm
 from rating.forms import RatingForm
@@ -61,7 +61,6 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
         self.forms = collections.OrderedDict([
             ('mrsrequest', MRSRequestCreateForm(
                 instance=self.object,
-                initial=dict(caisse=request.GET.get('caisse', None)),
             )),
             ('person', PersonForm(
                 initial={k: v for k, v in request.GET.items()})),
@@ -73,13 +72,18 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
 
         return super().get(request, *args, **kwargs)
 
-    def caisses_json(self):
-        caisses = {
-            i.pk: dict(
-                parking_enable=i.parking_enable,
-            ) for i in Caisse.objects.all()
+    def regions_json(self):
+        regions = {
+            i.pk: {
+                j.id: dict(
+                    name=j.name,
+                    parking_enable=j.parking_enable,
+                    active=j.active,
+                ) for j in i.caisse_set.all()
+            }
+            for i in Region.objects.prefetch_related('caisse_set').all()
         }
-        return json.dumps(caisses)
+        return json.dumps(regions)
 
     def has_perm(self, exists=False):
         if not self.mrsrequest_uuid:  # require mrsrequest_uuid on post

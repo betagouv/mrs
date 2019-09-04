@@ -2,6 +2,8 @@ from crudlfap import shortcuts as crudlfap
 
 from django import test
 
+from dbdiff.fixture import Fixture
+
 from freezegun import freeze_time
 
 from mrsuser.models import User
@@ -11,6 +13,7 @@ from responsediff.test import ResponseDiffTestMixin
 class FrontCrawlTest(ResponseDiffTestMixin, test.TestCase):
     @freeze_time('2018-05-05 13:37:42')
     def test_crawl(self):
+        Fixture('./src/mrs/tests/data.json').load()
         self.assertWebsiteSame(selector='#app--wrapper')
 
     def get_content_replace_patterns(self, response):
