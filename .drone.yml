@@ -132,7 +132,6 @@ steps:
 - name: test deploy
   image: yourlabs/ansible
   environment:
-    HOST: ${DRONE_BRANCH}.test.staging.mrs.beta.gouv.fr
     SECRET_KEY: notsecret
     BASICAUTH_ENABLE: "1"
     ANSIBLE_FORCE_COLOR: "1"
@@ -143,6 +142,7 @@ steps:
     SSH_FINGERPRINTS:
       from_secret: SSH_FINGERPRINTS
   commands:
+  - export HOST="$(echo $DRONE_BRANCH | sed 's/[_/]/-/g').test.staging.mrs.beta.gouv.fr"
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - bigsudo roleup yourlabs.compose
   - bigsudo
