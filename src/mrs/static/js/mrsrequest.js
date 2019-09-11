@@ -47,21 +47,27 @@ function checkedEnables(form, mode) {
 function getCaissesSelect(caisses_dict, others_included, empty_value, active){
   var new_select_data = []
   $.each(caisses_dict, function(caisse_key) {
-    new_select_data.push({id: caisse_key, name: caisses_dict[caisse_key].name, active: caisses_dict[caisse_key].active})
+    new_select_data.push({id: caisse_key, name: caisses_dict[caisse_key].name,
+      active: caisses_dict[caisse_key].active})
   })
 
   if(empty_value){
-    var caisse_select_options = '<option value="" disabled selected>---------</option>'
+    var caisse_select_options =
+    '<option value="" disabled selected>---------</option>'
   } else {
     var caisse_select_options = ''
   }
   $.each(new_select_data, function(select_option) {
-    if(new_select_data[select_option].active==active || new_select_data[select_option].active==null){
-      caisse_select_options = caisse_select_options + '<option value="' + new_select_data[select_option].id + '">' + new_select_data[select_option].name + '</option>'
+    if(new_select_data[select_option].active==active ||
+      new_select_data[select_option].active==null){
+      caisse_select_options = caisse_select_options +
+       '<option value="' + new_select_data[select_option].id +
+       '">' + new_select_data[select_option].name + '</option>'
     }
   })
   if(others_included){
-    caisse_select_options =  caisse_select_options + '<option value="other">Autre</option>'
+    caisse_select_options =  caisse_select_options +
+     '<option value="other">Autre</option>'
   }
 
   return caisse_select_options
@@ -102,7 +108,8 @@ var formInit = function (form) {
   }
 
   // On récupère les régions, les caisses et leurs attributs au format json
-  document.regions = JSON.parse(document.getElementById('regionsJson').innerHTML)
+  document.regions = JSON.parse(
+    document.getElementById('regionsJson').innerHTML)
 
   // Bloc contenant la liste déroulante de sélection de caisse
   var $caisseSelector = $(form).find('#caisse-selector')
@@ -148,7 +155,8 @@ var formInit = function (form) {
   if (parseInt(caisseSelected)) {
     // On récupère les caisses (actives et inactives de la région sélectionnée)
     document.caisses = document.regions[$region.val()]
-    // On insère dans le Select de la liste des caisses les caisses actives récupérées
+    // On insère dans le Select de la liste des caisses les caisses actives
+    // récupérées
     $caisse.html(getCaissesSelect(document.caisses, true, true, true))
     $('select').formSelect()
     $caisse.val(caisseSelected)
@@ -156,7 +164,8 @@ var formInit = function (form) {
   } else if (caisseSelected=='other'){
     // On récupère les caisses (actives et inactives de la région sélectionnée)
     document.caisses = document.regions[$region.val()]
-    // On insère dans le Select de la liste des caisses les caisses actives récupérées
+    // On insère dans le Select de la liste des caisses les caisses actives
+    // récupérées
     $caisse.html(getCaissesSelect(document.caisses, true, true, true))
     $('select').formSelect()
     $caisse.val('other')
@@ -193,18 +202,23 @@ var formInit = function (form) {
     // Si l'utilisateur sélectionne "Autres" dans la liste des régions
     if ($region.val() == 'other') {
 
-      // On masque le formulaire demande et le sélecteur classique de caisse pour afficher le formulaire "Me prévenir quand ma caisse sera disponible"
+      // On masque le formulaire demande et le sélecteur classique de caisse
+      // pour afficher le formulaire "Me prévenir quand ma caisse sera
+      // disponible"
       $otherregionContainer.show()
       hideRequestShowCaisseVoteForm(form, true)
       $caisse.val('other')
 
-    // Si l'utilisateur sélectionne une région dans la liste des régions (c'est à dire une région avec au moins une caisse active)
+    // Si l'utilisateur sélectionne une région dans la liste des régions (c'est
+    // à dire une région avec au moins une caisse active)
     } else if ($region.val()) {
 
-      // On récupère les caisses (actives et inactives de la région sélectionnée)
+      // On récupère les caisses (actives et inactives de la région
+      // sélectionnée)
       document.caisses = document.regions[$region.val()]
 
-      // On insère dans le Select de la liste des caisses les caisses actives récupérées
+      // On insère dans le Select de la liste des caisses les caisses actives
+      // récupérées
       $caisse.html(getCaissesSelect(document.caisses, true, true, true))
       $('select').formSelect()
 
@@ -215,10 +229,15 @@ var formInit = function (form) {
   }
 
   var otherregionChange = function() {
-    if($otherregion.val()!="19"){
-      $othercaisse.html(getCaissesSelect(document.regions[$otherregion.val()], false, true, false) + getCaissesSelect(document.regions["19"], false, false, false))
+    if($otherregion.val()!='19'){
+      $othercaisse.html(
+        getCaissesSelect(
+          document.regions[$otherregion.val()], false, true, false) +
+        getCaissesSelect(document.regions['19'], false, false, false))
     } else {
-      $othercaisse.html(getCaissesSelect(document.regions[$otherregion.val()], false, true, false))
+      $othercaisse.html(
+        getCaissesSelect(
+          document.regions[$otherregion.val()], false, true, false))
     }
     $('select').formSelect()
   }
@@ -227,7 +246,10 @@ var formInit = function (form) {
     if ($caisse.val() == 'other') {
       hideRequestShowCaisseVoteForm(form, false)
       $otherregionContainer.hide()
-      $othercaisse.html(getCaissesSelect(document.regions[$region.val()], false, true, false) + getCaissesSelect(document.regions["19"], false, false, false))
+      $othercaisse.html(
+        getCaissesSelect(
+          document.regions[$region.val()], false, true, false) +
+        getCaissesSelect(document.regions['19'], false, false, false))
       $('select').formSelect()
 
     } else if ($caisse.val()) {
