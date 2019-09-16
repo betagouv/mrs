@@ -102,11 +102,7 @@
                 {% endform %}
                 <div id="caisse-selector" style="display:none;">
                 {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.above %}
-                    {% part form.caisse options %}
-                      {% for caisse in form.caisse.field.queryset %}
-                        <option value='{{ caisse.pk }}' data-regions='{% for r in caisse.regions.all %} {{ r.pk }}{% endfor %}'>{{ caisse }}</option>
-                      {% endfor %}
-                    {% endpart %}
+
                 {% endform %}
                 <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
 
