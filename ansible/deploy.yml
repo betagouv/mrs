@@ -30,10 +30,10 @@
     vars:
       postdeploy: >
         {% if project is defined %}
-        docker-compose exec django djcli dbcheck;
-        docker-compose exec django mrs loaddata src/mrs/tests/data.json;
-        docker-compose exec django djcli save settings.AUTH_USER_MODEL +username=dev is_superuser=True;
-        docker-compose exec django djcli chpasswd username=dev dev;
+        docker-compose exec -T django djcli dbcheck;
+        docker-compose exec -T --env CI=1 django mrs loaddata src/mrs/tests/data.json;
+        docker-compose exec -T django djcli save settings.AUTH_USER_MODEL +username=dev is_superuser=True;
+        docker-compose exec -T django djcli chpasswd username=dev dev;
         {% endif %}
 
 # en cours:
