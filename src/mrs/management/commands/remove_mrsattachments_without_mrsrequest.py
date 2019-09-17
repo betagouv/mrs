@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.management.base import BaseCommand
 
 from mrsrequest.models import PMT, Bill
@@ -11,7 +13,14 @@ class Command(BaseCommand):
         try:
             pmts = PMT.objects.filter(
                 pk__in=PMT.objects
-                .filter(mrsrequest__isnull=True)
+                .filter(
+                    mrsrequest__isnull=True,
+                    creation_datetime__lt=(
+                        datetime.datetime.now() - datetime.timedelta(
+                            days=8
+                        )
+                    )
+                )
                 .values_list('pk', flat=True)
             )
             pmts_count = pmts.count()
@@ -27,7 +36,14 @@ class Command(BaseCommand):
         try:
             bills = Bill.objects.filter(
                 pk__in=Bill.objects
-                .filter(mrsrequest__isnull=True)
+                .filter(
+                    mrsrequest__isnull=True,
+                    creation_datetime__lt=(
+                        datetime.datetime.now() - datetime.timedelta(
+                            days=8
+                        )
+                    )
+                )
                 .values_list('pk', flat=True)
             )
             bills_count = bills.count()
