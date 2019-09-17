@@ -2,9 +2,8 @@
 
 import django.core.files.storage
 from django.db import migrations, models
+from mrs.settings import ATTACHMENT_ROOT
 import mrsattachment.models
-
-# TODO : jbm tester
 
 class Migration(migrations.Migration):
 
@@ -16,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='mrsattachment',
             name='attachment_file',
-            field=models.FileField(default='', null=True, storage=django.core.files.storage.FileSystemStorage(location='/home/jeb/workspace/mrs/dev_mrsattachment'), upload_to=mrsattachment.models.MRSAttachment.attachment_file_path, verbose_name='Attachement'),
+            field=models.FileField(default='', null=True, storage=django.core.files.storage.FileSystemStorage(location=ATTACHMENT_ROOT), upload_to=mrsattachment.models.MRSAttachment.attachment_file_path, verbose_name='Attachement'),
         ),
         migrations.AlterField(
             model_name='mrsattachment',

@@ -12,7 +12,7 @@ from mrsrequest.models import PMT, Bill
 def save_binary_to_file(id):
     obj = PMT.objects.get(id=id)
 
-    if not obj.attachment_file and obj.binary is not None:
+    if obj.binary is not None:
         try:
             filename = obj.filename.lower()
             extension = splitext(filename)[-1]
