@@ -21,6 +21,20 @@ class UserManager(UserManager):
         return super()._create_user(*args, **kwargs)
 
 
+class ProfileDescriptor:
+    class Eq:
+        def __init__(self, names):
+            self.names = names
+
+        def __eq__(self, value):
+            return value.lower() in self.names
+
+    def __get__(self, obj, type=None):
+        return ProfileDescriptor.Eq(
+            [g.name.lower() for g in obj.groups.all()]
+        )
+
+
 class User(AbstractUser):
     caisses = models.ManyToManyField(
         'caisse.caisse',
@@ -35,19 +49,11 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    profile = ProfileDescriptor()
+
     @property
     def is_staff(self):
         return True
-
-    @property
-    def profile(self):
-        if self.is_superuser:
-            return 'admin'
-
-        try:
-            return self.groups.all()[0].name.lower()
-        except IndexError:
-            return False
 
     class Meta(AbstractUser.Meta):
         db_table = 'auth_user'
