@@ -2,8 +2,6 @@
 {
     "fields": {
         "birth_date": "1990-01-01",
-        "conflicts_accepted": 0,
-        "conflicts_resolved": 0,
         "email": "example@example.com",
         "first_name": "jamesy",
         "last_name": "lebowski",
@@ -17,8 +15,6 @@
 {
     "fields": {
         "birth_date": "1990-01-01",
-        "conflicts_accepted": 0,
-        "conflicts_resolved": 0,
         "email": "example@example.com",
         "first_name": "seb",
         "last_name": "lebowski",
