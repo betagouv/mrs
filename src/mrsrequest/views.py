@@ -318,8 +318,6 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
         if self.forms['use_email'].cleaned_data['use_email']:
             person.use_email = True
 
-        person.conflicts_accepted += self.conflicts_count
-        person.conflicts_resolved += conflicts_resolved
         person.save()
 
         mail_context = dict(view=self, base_url=settings.BASE_URL)

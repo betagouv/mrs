@@ -359,8 +359,6 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse,
         assert stat.mrsrequest_count_resolved == 0
 
     # View should see one resolved and one accepted conflict
-    assert p.view.forms['mrsrequest'].instance.insured.conflicts_resolved == 1
-    assert p.view.forms['mrsrequest'].instance.insured.conflicts_accepted == 1
     assert p.view.forms['mrsrequest'].instance.conflicts_resolved == 1
     assert p.view.forms['mrsrequest'].instance.conflicts_accepted == 1
 
@@ -393,8 +391,6 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse,
     assert p.view.conflicts_count == 0
 
     # Insured has resolved a new conflict and not accepted any new one
-    assert p.view.forms['mrsrequest'].instance.insured.conflicts_resolved == 2
-    assert p.view.forms['mrsrequest'].instance.insured.conflicts_accepted == 1
     assert p.view.forms['mrsrequest'].instance.conflicts_resolved == 1
     assert p.view.forms['mrsrequest'].instance.conflicts_accepted == 0
 
@@ -435,8 +431,6 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse,
     assert p.view.conflicts_count == 1
 
     # We so have resolved one conflict and accepted one conflict
-    assert p.view.forms['mrsrequest'].instance.insured.conflicts_resolved == 3
-    assert p.view.forms['mrsrequest'].instance.insured.conflicts_accepted == 2
     assert p.view.forms['mrsrequest'].instance.conflicts_resolved == 1
     assert p.view.forms['mrsrequest'].instance.conflicts_accepted == 1
 

@@ -20,7 +20,10 @@ def insured_shift(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    replaces = [('person', '0002_insured_shift_move_to_person'), ('person', '0003_fix_y2k'), ('person', '0004_auto_20181029_1134'), ('person', '0005_person_use_email'), ('person', '0006_person_confirms'), ('person', '0007_nir_charfield'), ('person', '0008_conflicts_counter_rewrite')]
+    replaces = [('person', '0002_insured_shift_move_to_person'), ('person', '0003_fix_y2k'), ('person', '0004_auto_20181029_1134'),
+                ('person', '0005_person_use_email'), ('person', '0006_person_confirms'), ('person', '0007_nir_charfield'),
+                ('person', '0008_conflicts_counter_rewrite'), ('person', '0009_remove_conflicts_counters')
+                ]
 
     dependencies = [
         ('person', '0001_initial'),
@@ -48,15 +51,5 @@ class Migration(migrations.Migration):
             model_name='person',
             name='use_email',
             field=models.BooleanField(blank=True, default=False, null=True, verbose_name="L'assuré autorise à utiliser son email."),
-        ),
-        migrations.AddField(
-            model_name='person',
-            name='conflicts_accepted',
-            field=models.PositiveIntegerField(default=0, help_text="Nombre de signalements acceptés par l'utilisateur", verbose_name='Nb. signalements acceptés'),
-        ),
-        migrations.AddField(
-            model_name='person',
-            name='conflicts_resolved',
-            field=models.PositiveIntegerField(default=0, help_text="Nombre de signalements résolus par l'utilisateur", verbose_name='Nb. signalements résolus'),
         ),
     ]

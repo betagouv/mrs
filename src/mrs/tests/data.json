@@ -668,9 +668,7 @@
         "email": "aoeu@example.com",
         "use_email": false,
         "nir": "1111111111111",
-        "shifted": null,
-        "conflicts_accepted": 0,
-        "conflicts_resolved": 0
+        "shifted": null
     }
 },
 {
@@ -683,9 +681,7 @@
         "email": "aoeaoeuu@example.com",
         "use_email": false,
         "nir": "2333333333333",
-        "shifted": null,
-        "conflicts_accepted": 0,
-        "conflicts_resolved": 0
+        "shifted": null
     }
 },
 {
@@ -698,9 +694,7 @@
         "email": "jpic@example.com",
         "use_email": false,
         "nir": "3212312312312",
-        "shifted": null,
-        "conflicts_accepted": 0,
-        "conflicts_resolved": 0
+        "shifted": null
     }
 },
 {
@@ -713,9 +707,7 @@
         "email": "test@test.com",
         "use_email": false,
         "nir": "1223123123123",
-        "shifted": true,
-        "conflicts_accepted": 2,
-        "conflicts_resolved": 1
+        "shifted": true
     }
 },
 {
@@ -728,9 +720,7 @@
         "email": "jim@example.com",
         "use_email": true,
         "nir": "1223123123122",
-        "shifted": null,
-        "conflicts_accepted": 0,
-        "conflicts_resolved": 0
+        "shifted": null
     }
 },
 {
@@ -743,9 +733,7 @@
         "email": "jim@example.com",
         "use_email": true,
         "nir": "1223123123129",
-        "shifted": null,
-        "conflicts_accepted": 0,
-        "conflicts_resolved": 0
+        "shifted": null
     }
 },
 {
