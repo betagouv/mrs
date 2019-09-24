@@ -370,7 +370,7 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse,
         upload=upload,
         mrsrequest_uuid=p.mrsrequest.id,
         caisse=caisse.pk,
-        region = caisse.regions.first().pk
+        region=caisse.regions.first().pk
     )
     p.post(**data)
     assert p.view.conflicts_count == 1
