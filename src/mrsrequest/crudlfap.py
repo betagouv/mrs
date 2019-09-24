@@ -434,13 +434,13 @@ class MRSRequestCSVListView(MRSRequestListView):
                 # 'région de la CPAM',
                 'date de naissance bénéficiaire',
                 'statut de la demande',
-                'demande "en cours d\'étude" (Y/N)',
+                'demande "en cours d\'étude"',
                 'date de demande',
-                'signalement assuré (Y/N)',
-                'signalement technicien (Y/N)',
+                'signalement assuré',
+                'signalement technicien',
                 'Nombre de trajet',
-                'VP (Y/N)',
-                'ATP (Y/N)',
+                'VP',
+                'ATP',
                 'Assurée a basculé',
                 'nombre Km',
                 'montant frais de parking',
@@ -494,7 +494,7 @@ class MRSRequestCSVListView(MRSRequestListView):
 
         response = http.HttpResponse(
             '\n'.join(content),
-            content_type='text/csv'
+            content_type='text/csv; charset=utf-8-sig'
         )
         response['Content-Disposition'] = (
             f'attachment; filename="MRS.csv"'
