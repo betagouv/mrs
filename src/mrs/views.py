@@ -16,7 +16,7 @@ from django.views import generic
 from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
 from person.models import Person
-from sentry_sdk import capture_message, capture_exception
+from raven import Client
 
 
 class Dashboard(crudlfap.TemplateView):
@@ -159,17 +159,19 @@ class StaticView(generic.View):
 
 
 class ErrorView:
+
     def __init__(self, status, message):
         self.status = status
         self.message = message
 
     def __call__(self, request, *args, **kwargs):
+        client = Client(settings.RAVEN_CONFIG['dsn'])
         traceback.print_exc()
 
         if 'exception' in kwargs:
-            capture_exception(kwargs['exception'])
+            client.captureException(kwargs['exception'])
         else:
-            capture_message(self.message, level='error')
+            client.captureMessage(self.message, level='error')
 
         return http.HttpResponse(
             status=self.status,
