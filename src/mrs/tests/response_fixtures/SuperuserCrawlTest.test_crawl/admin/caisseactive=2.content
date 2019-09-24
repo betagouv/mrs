@@ -31,9 +31,9 @@
     <div class="select-field col s12" id="id_active_container">
         <label for="id_active">Activé</label>
         <select id="id_active" name="active">
-            <option value="unknown">Inconnu</option>
-            <option value="true">Oui</option>
-            <option value="false">Non</option>
+            <option value="1">Inconnu</option>
+            <option selected="selected" value="2">Oui</option>
+            <option value="3">Non</option>
         </select>
         
     </div>
