@@ -263,8 +263,8 @@ CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
 ))
 
 BASE_URL = 'http://localhost:8000'
-if 'LETSENCRYPT_HOST' in os.environ:
-    SITE_DOMAIN = os.environ.get('LETSENCRYPT_HOST').split(',')[0]
+if ALLOWED_HOSTS != ['*']:
+    SITE_DOMAIN = ALLOWED_HOSTS[0]
     BASE_URL = 'https://{}'.format(SITE_DOMAIN)
 
 
