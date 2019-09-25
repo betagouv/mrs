@@ -46,6 +46,9 @@ if not DEBUG and 'SECRET_KEY' not in os.environ:
 if 'ALLOWED_HOSTS' in os.environ:
     ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
+if 'HOST' in os.environ and os.getenv('HOST') not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(os.getenv('HOST'))
+
 if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
     raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
@@ -263,8 +266,8 @@ CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
 ))
 
 BASE_URL = 'http://localhost:8000'
-if ALLOWED_HOSTS != ['*']:
-    SITE_DOMAIN = ALLOWED_HOSTS[0]
+if 'HOST' in os.environ:
+    SITE_DOMAIN = os.getenv('HOST')
     BASE_URL = 'https://{}'.format(SITE_DOMAIN)
 
 
