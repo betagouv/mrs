@@ -188,6 +188,7 @@ def caisse():
             name='test',
             active=True,
             liquidation_email='taoeu@aoeu.com',
+            habilitation_email='habilitation@aoeu.com',
         )
     )[0]
     region = Region.objects.update_or_create(

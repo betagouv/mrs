@@ -222,7 +222,12 @@ class UserListView(crudlfap.ListView):
         filterset = super().get_filterset() or self.filterset
         form = filterset.form
         if self.request.user.profile != 'admin':
-            form.fields['caisses'].queryset = self.request.user.caisses.all()
+
+            if self.request.user.profile != 'admin local':
+                form.fields['caisses'].queryset = (
+                    self.request.user.caisses.all()
+                )
+
             form.fields['groups'].queryset = Group.objects.exclude(
                 name='Admin',
             )
@@ -399,9 +404,7 @@ class UserRouter(crudlfap.Router):
                 groups__name__in=('Superviseur', 'Admin')
             ).distinct()
         elif user.profile == 'admin local':
-            return self.model.objects.filter(
-                caisses__in=view.request.user.caisses.all()
-            ).exclude(
+            return self.model.objects.exclude(
                 groups__name='Admin'
             ).distinct()
 

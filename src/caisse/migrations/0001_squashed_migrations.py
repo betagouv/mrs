@@ -189,7 +189,7 @@ def insert_regions(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    replaces = [('caisse', '0001_initial'), ('caisse', '0002_caisse_meta_option_change'), ('caisse', '0003_caisse_parking_enable'), ('caisse', '0004_caisse_import_datetime'), ('caisse', '0005_caisse_ajout_regions'), ('caisse', '0006_caisse_load_regions')]
+    replaces = [('caisse', '0001_initial'), ('caisse', '0002_caisse_meta_option_change'), ('caisse', '0003_caisse_parking_enable'), ('caisse', '0004_caisse_import_datetime'), ('caisse', '0005_caisse_ajout_regions'), ('caisse', '0006_caisse_load_regions'), ('caisse', '0007_caisse_habilitation_email')]
 
     initial = True
 
@@ -205,6 +205,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=50, verbose_name='nom')),
                 ('number', models.CharField(max_length=3, validators=[caisse.models.validate_caisse_number], verbose_name='numéro')),
                 ('liquidation_email', models.EmailField(blank=True, max_length=254, null=True, verbose_name='email du service de liquidation')),
+                ('habilitation_email', models.EmailField(blank=True, max_length=254, null=True, verbose_name='email du service d\'habilitation')),
                 ('active', models.BooleanField(default=False, verbose_name='activé')),
                 ('score', models.PositiveIntegerField(default=0)),
                 ('parking_enable', models.BooleanField(default=True, verbose_name='active la saisie de frais de parking')),
