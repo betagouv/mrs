@@ -952,19 +952,24 @@ signals.pre_save.connect(initial_data, sender=MRSRequest)
 
 
 class MRSRequestLogEntry(models.Model):
+    ACTION_NEW = 1  # same as MRSRequest.STATUS_NEW
     ACTION_UPDATE = 2  # same ids as for django.contrib.admin.LogEntry
-    ACTION_SUSPEND = 900
+    ACTION_CANCELED = 100
     ACTION_CONTACT = 800
+    ACTION_SUSPEND = 900
+    ACTION_REJECTED = 999
+    ACTION_INPROGRESS = 1000
+    ACTION_VALIDATED = 2000
 
     ACTION_CHOICES = (
-        (MRSRequest.STATUS_NEW, 'Soumise'),
+        (ACTION_NEW, 'Soumise'),
         (ACTION_UPDATE, 'Modifiée'),
         (3, 'Effacée'),  # not used
-        (MRSRequest.STATUS_CANCELED, 'Annulée'),
+        (ACTION_CANCELED, 'Annulée'),
         (ACTION_SUSPEND, 'Suspendue'),
-        (MRSRequest.STATUS_REJECTED, 'Rejetée'),
-        (MRSRequest.STATUS_INPROGRESS, 'En cours de liquidation'),
-        (MRSRequest.STATUS_VALIDATED, 'Validée'),
+        (ACTION_REJECTED, 'Rejetée'),
+        (ACTION_INPROGRESS, 'En cours de liquidation'),
+        (ACTION_VALIDATED, 'Validée'),
         (ACTION_CONTACT, 'Contacté'),
     )
 
