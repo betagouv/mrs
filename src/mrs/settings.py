@@ -43,6 +43,7 @@ DEBUG = os.getenv('DEBUG', False)
 if not DEBUG and 'SECRET_KEY' not in os.environ:
     raise Exception('$SECRET_KEY is required if DEBUG is False')
 
+ALLOWED_HOSTS = []
 if 'ALLOWED_HOSTS' in os.environ:
     ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
