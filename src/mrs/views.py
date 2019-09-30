@@ -1,4 +1,5 @@
 import pytz
+import traceback
 
 from crudlfap import shortcuts as crudlfap
 
@@ -15,6 +16,7 @@ from django.views import generic
 from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
 from person.models import Person
+from sentry_sdk import capture_message, capture_exception
 
 
 class Dashboard(crudlfap.TemplateView):
@@ -162,6 +164,14 @@ class ErrorView:
         self.message = message
 
     def __call__(self, request, *args, **kwargs):
+
+        traceback.print_exc()
+
+        if 'exception' in kwargs:
+            capture_exception(kwargs['exception'])
+        else:
+            capture_message(self.message, level='error')
+
         return http.HttpResponse(
             status=self.status,
             content=render_to_string(

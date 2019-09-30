@@ -21,7 +21,6 @@ def settings(request):
         PREFIX=s.PREFIX,
         RELEASE=s.RELEASE,
         SENTRY_DSN=s.SENTRY_PUBLIC_DSN,
-        SENTRY_CONFIG=s.RAVEN_PUBLIC_CONFIG,
     )
 
 
