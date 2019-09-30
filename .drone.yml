@@ -119,7 +119,7 @@ steps:
   - export HOST=localhost:8000
   - DEBUG=1 mrs migrate
   - "echo 'from institution.models import Institution; Institution.objects.create(finess=310000000, origin=\"http://$HOST\")' | DEBUG=1 mrs shell"
-  - "cd /app && DEBUG=1 mrs runserver $HOST &"
+  - "cd /app && DEBUG=1 ALLOWED_HOSTS='*' mrs runserver $HOST &"
   - until curl $HOST; do sleep 1; done
   - "cd /app && node_modules/.bin/jest src/mrs/static/js/smoke.test.js"
 
