@@ -6,6 +6,7 @@ from django.views.decorators.cache import cache_page
 from django.urls import include, path
 
 from contact.views import ContactView
+from mrs.views import MaintenanceView
 from mrsrequest.views import (
     MRSRequestCancelView,
     MRSRequestCreateView,
@@ -61,6 +62,7 @@ urlpatterns = [
     path('oldadmin/', admin.site.urls),
     path('doc/', include('django.contrib.admindocs.urls')),
     path('pro/', include('pro.urls', namespace='pro')),
+    path('maintenance/', MaintenanceView.as_view(), name='maintenance'),
 ]
 
 if 'debug_toolbar' in settings.INSTALLED_APPS and settings.DEBUG:  # noqa pragma: no cover

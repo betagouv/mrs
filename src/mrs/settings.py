@@ -49,6 +49,8 @@ if 'ALLOWED_HOSTS' in os.environ:
 if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
     raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
+MAINTENANCE_ENABLE = os.getenv('MAINTENANCE_ENABLE', False)
+
 LOGIN_REDIRECT_URL = '/admin/'
 
 CRUDLFAP_APPS.pop(CRUDLFAP_APPS.index('crudlfap_auth'))
@@ -92,6 +94,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'threadlocals.middleware.ThreadLocalMiddleware',
     'mrs.middleware.BasicAuthMiddleware',
+    'mrs.middleware.MaintenanceMiddleware',
 ]
 
 ROOT_URLCONF = 'mrs.urls'

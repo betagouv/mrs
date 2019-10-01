@@ -71,13 +71,13 @@ class Command(BaseCommand):
         # Scan all PMTs / Bills for ones with no 'attachment_file'
         if type == "pmt":
             pmts_ids = PMT.objects\
-                .filter(attachment_file__in=['',None])\
+                .filter(attachment_file__in=['', None])\
                 .values_list('id', flat=True)
             with multiprocessing.Pool() as pool:
                 pool.map(save_binary_to_file, pmts_ids)
         elif type == "bill":
             bills_ids = Bill.objects\
-                .filter(attachment_file__in=['',None])\
+                .filter(attachment_file__in=['', None])\
                 .values_list('id', flat=True)
             with multiprocessing.Pool() as pool:
                 pool.map(save_binary_to_file, bills_ids)
