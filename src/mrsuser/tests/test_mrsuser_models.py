@@ -10,3 +10,6 @@ def test_multi_profile_eq():
     user.groups.create(name='bar')
     assert user.profile == 'foo'
     assert user.profile == 'bar'
+
+    user.is_superuser = True
+    assert user.profile == 'admin'

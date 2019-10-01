@@ -23,15 +23,18 @@ class UserManager(UserManager):
 
 class ProfileDescriptor:
     class Eq:
-        def __init__(self, names):
+        def __init__(self, names, is_superuser):
             self.names = names
+            if is_superuser:
+                self.names.append('admin')
 
         def __eq__(self, value):
             return value.lower() in self.names
 
     def __get__(self, obj, type=None):
         return ProfileDescriptor.Eq(
-            [g.name.lower() for g in obj.groups.all()]
+            [g.name.lower() for g in obj.groups.all()],
+            obj.is_superuser
         )
 
 
