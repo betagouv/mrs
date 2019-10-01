@@ -13,6 +13,7 @@ from django import template
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models import Count
 from django.utils import timezone
 
 import django_filters
@@ -420,10 +421,12 @@ class MRSRequestCSVListView(MRSRequestListView):
     menus = []
 
     def get(self, request, *args, **kwargs):
-        qs = self.object_list.select_related(
+        qs = self.object_list.annotate(
+            transport_count=Count('transport'),
+        ).select_related(
             'insured',
         ).prefetch_related(
-            'logentries',
+            'logentries__emailtemplate',
         ).distinct()
 
         content = [
@@ -478,7 +481,7 @@ class MRSRequestCSVListView(MRSRequestListView):
                 obj.creation_day.strftime(DATE_FORMAT_FR),
                 yn(obj.conflicts_resolved or obj.conflicts_accepted),
                 yn(obj.conflicts_accepted),
-                obj.transport_set.count(),
+                obj.transport_count,
                 yn(obj.modevp),
                 yn(obj.modeatp),
                 yn(obj.insured.shifted),

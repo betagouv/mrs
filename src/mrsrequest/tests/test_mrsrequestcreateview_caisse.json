@@ -8,7 +8,9 @@
         "name": "test",
         "number": "311",
         "parking_enable": true,
-        "regions": [16],
+        "regions": [
+            16
+        ],
         "score": 0
     },
     "model": "caisse.caisse",
