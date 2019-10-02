@@ -101,7 +101,10 @@ class MaintenanceMiddleware:
 
         current_url = resolve(request.path_info).url_name
 
-        if current_url in ['home', 'login', 'logout', 'maintenance']:
+        if current_url in [
+            'home', 'login', 'logout', 'maintenance', 'list',
+            'detail', 'bill_download', 'pmt_download'
+        ]:
             if request.user.is_authenticated:
                 if request.user.is_superuser:
                     return True
