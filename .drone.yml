@@ -1,6 +1,10 @@
 ---
 kind: pipeline
 name: python
+when:
+  event:
+    exclude:
+    - promote
 #platform: {os: linux, arch: amd64}
 
 services:
@@ -46,6 +50,10 @@ steps:
 ---
 kind: pipeline
 name: docker
+when:
+  event:
+    exclude:
+    - promote
 
 steps:
 - name: prepare
@@ -79,6 +87,10 @@ steps:
 ---
 kind: pipeline
 name: js
+when:
+  event:
+    exclude:
+    - promote
 steps:
 - name: js-test
   image: node:10
@@ -97,6 +109,10 @@ steps:
 ---
 kind: pipeline
 name: docs
+when:
+  event:
+    exclude:
+    - promote
 steps:
 - name: docs-qa
   image: yourlabs/python
@@ -108,6 +124,10 @@ steps:
 ---
 kind: pipeline
 name: acceptance
+when:
+  event:
+    exclude:
+    - promote
 
 depends_on:
 - docker
@@ -155,6 +175,9 @@ steps:
   - grep unreachable=0 out
   - grep failed=0 out
   when:
+    event:
+      exclude:
+      - promote
     branch:
       exclude:
       - master
@@ -191,6 +214,9 @@ steps:
   - grep unreachable=0 out
   - grep failed=0 out
   when:
+    event:
+      exclude:
+      - promote
     branch:
     - master
     - staging
@@ -229,6 +255,3 @@ steps:
     -v | tee out
   - grep unreachable=0 out
   - grep failed=0 out
-  when:
-    branch:
-    - production
