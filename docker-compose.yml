@@ -6,8 +6,6 @@ services:
       dockerfile: Dockerfile
       context: ./
       shm_size: 512mb
-    depends_on:
-    - postgres
     logging:
       driver: journald
     environment:

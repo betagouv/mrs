@@ -57,7 +57,7 @@ USER app
 
 EXPOSE 6789
 
-CMD /usr/bin/dumb-init bash -euxc "mrs migrate --noinput \
+CMD /usr/bin/dumb-init bash -euxc "djcli dbcheck && mrs migrate --noinput \
   && uwsgi \
   --spooler=${UWSGI_SPOOLER_MOUNT}/mail \
   --spooler=${UWSGI_SPOOLER_MOUNT}/stat \
