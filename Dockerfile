@@ -48,10 +48,10 @@ RUN find $STATIC_ROOT -type f | xargs gzip -f -k -9
 
 COPY do /app/
 
-RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/mail ${UWSGI_SPOOLER_MOUNT}/stat
+RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/mail ${UWSGI_SPOOLER_MOUNT}/stat /mrsattachments
 
 # Let user write to log
-RUN chown -R app. ${LOG} ${UWSGI_SPOOLER_MOUNT}
+RUN chown -R app. ${LOG} ${UWSGI_SPOOLER_MOUNT} /mrsattachments
 USER app
 
 EXPOSE 6789
