@@ -6,7 +6,7 @@ services:
     - SECRET_KEY
     volumes:
     - ./mrsattachments:/mrsattachments
-  labels:
+    labels:
     - "io.yourlabs.compose.mkdir=./mrsattachments:1000:1000:0750"
 
   postgres:
