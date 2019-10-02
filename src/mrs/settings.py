@@ -360,6 +360,16 @@ if os.getenv('LOG'):
             },
         },
         'loggers': {
+            'django': {
+                'handlers': [
+                    'file.debug',
+                    'file.info',
+                    'file.error',
+                    'console',
+                ],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
             'django.request': {
                 'handlers': [
                     'file.request',
