@@ -160,6 +160,7 @@ steps:
       exclude:
       - master
       - staging
+      - production
 
 - name: staging
   image: yourlabs/ansible
