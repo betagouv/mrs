@@ -40,7 +40,7 @@
       color: danger
       channel: tech
       msg: |
-        {{ lookup('env', 'HOST' }} en échec !
+        {{ lookup('env', 'HOST') }} en échec !
         {% if lookup("env", "DRONE_BUILD_LINK") %}
         Les logs sont disponnibles sur {{ lookup("env", "DRONE_BUILD_LINK") }}
         {% endif %}
