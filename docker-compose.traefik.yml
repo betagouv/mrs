@@ -10,7 +10,7 @@ services:
     - SENTRY_PROJECT
     - SENTRY_URL
     - TEAM_EMAIL
-    - BASICAUTH_ENABLE
+    - BASICAUTH_DISABLE
     labels:
     - "traefik.enable=true"
     - "traefik.frontend.rule=Host: ${HOST}"

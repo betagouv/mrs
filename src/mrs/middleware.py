@@ -4,10 +4,10 @@ import os
 from urllib.parse import unquote_plus
 
 from django import http
-from django.shortcuts import redirect
-from django.urls import resolve
 from django.conf import settings
 from django.contrib.auth import authenticate, logout
+from django.shortcuts import redirect
+from django.urls import resolve
 
 
 class HttpResponseUnauthorized(http.HttpResponse):
@@ -55,7 +55,7 @@ class BasicAuthMiddleware:
         self.get_response = get_response
 
     def authorize(self, request):
-        if not os.getenv('BASICAUTH_ENABLE', False):
+        if os.getenv('BASICAUTH_DISABLE', False) or settings.DEBUG:
             # Not to use this env
             return True
 

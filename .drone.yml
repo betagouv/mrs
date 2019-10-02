@@ -133,7 +133,6 @@ steps:
   image: yourlabs/ansible
   environment:
     SECRET_KEY: notsecret
-    BASICAUTH_ENABLE: "1"
     ANSIBLE_FORCE_COLOR: "1"
     SLACK_TOKEN:
       from_secret: SLACK_TOKEN
@@ -168,7 +167,6 @@ steps:
     HOST: staging.mrs.beta.gouv.fr
     PROTO: https
     ANSIBLE_FORCE_COLOR: "1"
-    BASICAUTH_ENABLE: "1"
 #    MAINTENANCE_ENABLE: "1"
     SLACK_TOKEN:
       from_secret: SLACK_TOKEN
@@ -207,7 +205,7 @@ steps:
   environment:
     HOST: future.prod.mrs.beta.gouv.fr
     ANSIBLE_FORCE_COLOR: "1"
-    BASICAUTH_ENABLE: "1"
+    BASICAUTH_DISABLE: "1"
     PROTO: https
     SLACK_TOKEN:
       from_secret: SLACK_TOKEN
