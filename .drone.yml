@@ -76,7 +76,7 @@ steps:
     shm_size: 512M
     use_cache: true
     build_args:
-    - "GIT_COMMIT=$DRONE_COMMIT"
+    - "GIT_COMMIT=${DRONE_COMMIT}"
     tags:
     - "${DRONE_BRANCH}"
     - "${DRONE_COMMIT}"
