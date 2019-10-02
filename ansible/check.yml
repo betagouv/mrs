@@ -16,7 +16,7 @@
     until: url_verify.failed == false
     tags: check,update
     changed_when: false
-    shell: curl --fail -I {{ url }}
+    shell: curl --fail -I {{ url }} | grep 200
 
   - name: Notification Slack du succès de la vérification
     when: lookup("env", "SLACK_TOKEN")

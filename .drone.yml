@@ -166,6 +166,7 @@ steps:
   image: yourlabs/ansible
   environment:
     HOST: staging.mrs.beta.gouv.fr
+    PROTO: https
     ANSIBLE_FORCE_COLOR: "1"
     BASICAUTH_ENABLE: "1"
 #    MAINTENANCE_ENABLE: "1"
@@ -207,6 +208,7 @@ steps:
     HOST: future.prod.mrs.beta.gouv.fr
     ANSIBLE_FORCE_COLOR: "1"
     BASICAUTH_ENABLE: "1"
+    PROTO: https
     SLACK_TOKEN:
       from_secret: SLACK_TOKEN
     SSH_KEY:
