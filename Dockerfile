@@ -11,6 +11,7 @@ ENV UWSGI_SPOOLER_NAMES=mail,stat UWSGI_SPOOLER_MOUNT=/app/spooler
 ENV VIRTUAL_PROTO=uwsgi
 ENV LOG=/app/log
 ENV MEDIA_ROOT=/media
+ENV ATTACHMENT_ROOT=/mrsattachments
 EXPOSE 8000
 
 RUN apk update && apk --no-cache upgrade && apk --no-cache add ca-certificates gettext shadow python3 py3-pillow py3-psycopg2 dumb-init bash git curl uwsgi-python3 uwsgi-http uwsgi-spooler uwsgi-cache uwsgi-router_cache uwsgi-router_static && pip3 install --upgrade pip
@@ -48,10 +49,10 @@ RUN find $STATIC_ROOT -type f | xargs gzip -f -k -9
 
 COPY do /app/
 
-RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/mail ${UWSGI_SPOOLER_MOUNT}/stat /mrsattachments
+RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/mail ${UWSGI_SPOOLER_MOUNT}/stat $ATTACHMENT_ROOT
 
 # Let user write to log
-RUN chown -R app. ${LOG} ${UWSGI_SPOOLER_MOUNT} /mrsattachments
+RUN chown -R app. ${LOG} ${UWSGI_SPOOLER_MOUNT} $ATTACHMENT_ROOT
 USER app
 
 EXPOSE 6789

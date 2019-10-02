@@ -4,9 +4,10 @@ services:
     restart: always
     environment:
     - SECRET_KEY
-    - ATTACHMENT_ROOT=/mrsattachments
     volumes:
     - ./mrsattachments:/mrsattachments
+  labels:
+    - "io.yourlabs.compose.mkdir=./mrsattachments:1000:1000:0750"
 
   postgres:
     restart: always
