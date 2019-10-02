@@ -197,6 +197,11 @@ steps:
 
 - name: production
   image: yourlabs/ansible
+  when:
+    event:
+    - promote
+    environment:
+    - production
   environment:
     HOST: future.prod.mrs.beta.gouv.fr
     ANSIBLE_FORCE_COLOR: "1"
