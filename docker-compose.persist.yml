@@ -8,7 +8,7 @@ services:
     - ./mrsattachments:/mrsattachments
     - ./log:/app/log
     labels:
-    - "io.yourlabs.compose.mkdir=log,spooler,mail,stat,mrsattachments:1000:1000:0750"
+    - "io.yourlabs.compose.mkdir=log,spooler,spooler/mail,spooler/stat,mrsattachments:1000:1000:0750"
 
   postgres:
     restart: always
