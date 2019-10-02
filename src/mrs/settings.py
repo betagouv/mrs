@@ -53,6 +53,8 @@ if 'HOST' in os.environ and os.getenv('HOST') not in ALLOWED_HOSTS:
 if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
     raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
+MAINTENANCE_ENABLE = os.getenv('MAINTENANCE_ENABLE', False)
+
 LOGIN_REDIRECT_URL = '/admin/'
 
 CRUDLFAP_APPS.pop(CRUDLFAP_APPS.index('crudlfap_auth'))
@@ -96,6 +98,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'threadlocals.middleware.ThreadLocalMiddleware',
     'mrs.middleware.BasicAuthMiddleware',
+    'mrs.middleware.MaintenanceMiddleware',
 ]
 
 ROOT_URLCONF = 'mrs.urls'
@@ -196,7 +199,10 @@ if not STATIC_URL.endswith('/'):
     STATIC_URL += '/'
 STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(BASE_DIR, 'collected'))
 
-DEFAULT_FILE_STORAGE = 'db_file_storage.storage.DatabaseFileStorage'
+ATTACHMENT_ROOT = os.getenv(
+    'ATTACHMENT_ROOT',
+    os.path.join(BASE_DIR, 'dev_mrsattachment')
+)
 
 EMAIL_HOST = os.getenv('EMAIL_HOST', None)
 EMAIL_PORT = os.getenv('EMAIL_PORT', None)

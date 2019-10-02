@@ -228,7 +228,9 @@ docker.backup() {
         export RESTIC_PASSWORD_FILE=.backup_password
     fi
 
-    restic backup dump --tag $GIT_COMMIT
+    mkdir -p mrsattachments
+
+    restic backup dump mrsattachments --tag $GIT_COMMIT
     lftp -c "set ssl:check-hostname false;connect $FTP_HOST; mkdir -p mrs-$instance; mirror -Rv $(pwd)/restic mrs-$instance/restic"
     rm -rf $(pwd)/postgres/data/data.dump
 }

@@ -4,6 +4,9 @@ services:
     restart: always
     environment:
     - SECRET_KEY
+    - ATTACHMENT_ROOT=/mrsattachments
+    volumes:
+    - ./mrsattachments:/mrsattachments
 
   postgres:
     restart: always

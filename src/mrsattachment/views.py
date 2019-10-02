@@ -1,10 +1,12 @@
 import io
+import mimetypes
 
 from django import http
 from django.views import generic
 
 from jfu.http import UploadResponse
 
+from mrsattachment.settings import DEFAULT_MIME_TYPES, MAX_FILE_SIZE
 from mrsrequest.models import MRSRequest
 
 
@@ -40,12 +42,12 @@ class MRSFileDownloadView(MRSFileDetailViewMixin, generic.DetailView):
             del request.environ['wsgi.file_wrapper']
 
         self.object = self.get_object()
-        f = io.BytesIO(self.object.binary)
+        f = io.BytesIO(self.object.attachment_file.read())
         content_type = self.object.mimetype or 'application/octet-stream'
         response = http.FileResponse(f, content_type=content_type)
         if self.object.encoding:
             response['Content-Encoding'] = self.object.encoding
-        response['Content-Length'] = len(self.object.binary)
+        response['Content-Length'] = self.object.attachment_file.size
         response['Cache-Control'] = 'public, max-age=31536000'
         return response
 
@@ -115,11 +117,19 @@ class MRSFileUploadView(generic.View):
 
         # need to reverse engineer some action now to finish specs because our
         # mock object doesn't simulate all attributes
-        # todo: validate filesize
-        # todo: validate mimetype
 
         files = []
         for key, upload in request.FILES.items():
+            mimetype = mimetypes.guess_type(upload.name)[0]
+            if mimetype not in DEFAULT_MIME_TYPES:
+                return http.HttpResponseBadRequest(
+                    'Type de fichier non accepté'
+                )
+            if upload.size > MAX_FILE_SIZE:
+                return http.HttpResponseBadRequest(
+                    'Fichier trop volumineux'
+                )
+
             record = self.model.objects.record_upload(mrsrequest_uuid, upload)
             files.append(dict(
                 name=record.filename,

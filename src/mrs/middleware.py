@@ -4,8 +4,10 @@ import os
 from urllib.parse import unquote_plus
 
 from django import http
+from django.shortcuts import redirect
+from django.urls import resolve
 from django.conf import settings
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
 
 
 class HttpResponseUnauthorized(http.HttpResponse):
@@ -85,4 +87,34 @@ class BasicAuthMiddleware:
     def __call__(self, request):
         if not self.authorize(request):
             return HttpResponseUnauthorized()
+        return self.get_response(request)
+
+
+class MaintenanceMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def authorize(self, request):
+        if not settings.MAINTENANCE_ENABLE:
+            # Not to use this env
+            return True
+
+        current_url = resolve(request.path_info).url_name
+
+        if current_url in ['home', 'login', 'logout', 'maintenance']:
+            if request.user.is_authenticated:
+                if request.user.is_superuser:
+                    return True
+                else:
+                    #  Logout all non superusers (local admins)
+                    logout(request)
+                    return True
+            else:
+                return True
+        else:
+            return False
+
+    def __call__(self, request):
+        if not self.authorize(request):
+            return redirect('maintenance')
         return self.get_response(request)

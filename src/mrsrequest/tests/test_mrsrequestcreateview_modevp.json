@@ -1,7 +1,8 @@
 [
 {
     "fields": {
-        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
+        "attachment_file": "e29db065-0566-48be-822d-66bd3277d823-ab4b40bc-848c-4abb-aae7-4aabbe9b1609.png",
+        "binary": null,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsrequestcreateview_story.jpg",
         "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"
@@ -11,7 +12,8 @@
 },
 {
     "fields": {
-        "binary": "dGVzdF9tcnNyZXF1ZXN0Y3JlYXRldmlld19zdG9yeQ==",
+        "attachment_file": "e29db065-0566-48be-822d-66bd3277d823-38e98d7a-411d-4375-af35-369841565784.png",
+        "binary": null,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "filename": "test_mrsrequestcreateview_story.jpg",
         "mrsrequest_uuid": "e29db065-0566-48be-822d-66bd3277d823"

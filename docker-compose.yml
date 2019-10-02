@@ -17,6 +17,7 @@ services:
     - DB_PASSWORD=django
     - DB_NAME=mrs
     - SECRET_KEY=notsecret
+    - MAINTENANCE_ENABLE
 
   postgres:
     image: postgres:10

@@ -31,7 +31,7 @@
                     </div>
             </div>
             <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">95 Bytes <i class="material-icons right">close</i></span>
+                <span class="card-title grey-text text-darken-4">4 Bytes <i class="material-icons right">close</i></span>
                 <div class="section">
                     aaaaaaa
                 </div>
@@ -49,7 +49,7 @@
                         PMT
                     </span>
                     <span class="right">
-                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/pmt/13/download/" title="utterances.png">utterances.png (95 Bytes)</a>
+                        <a data-action="click-&gt;viewerjs#click" data-controller="viewerjs" data-noprefetch="true" data-viewerjs="uploads" href="/mrsrequest/pmt/13/download/" title="utterances.png">utterances.png (4 Bytes)</a>
                     </span>
                 </p>
                 <p>

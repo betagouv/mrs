@@ -37,7 +37,6 @@ var formInit = function(form) {
       'jpeg',
       'jpg',
       'png',
-      'gif',
       'pdf'
     ],
     maxFileSize: 4096 * 1024,

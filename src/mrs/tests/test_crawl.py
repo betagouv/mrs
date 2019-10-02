@@ -1,6 +1,9 @@
+from pathlib import Path
+
 from crudlfap import shortcuts as crudlfap
 
 from django import test
+from django.conf import settings
 
 from dbdiff.fixture import Fixture
 
@@ -38,6 +41,10 @@ class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):
     ]
     username = 'a'
     strip_parameters = ['_next']
+
+    def setUp(self):
+        with open(Path(settings.ATTACHMENT_ROOT) / "1x1.png", "wb") as f:
+            f.write(b'aoeu')
 
     @freeze_time('2018-05-05 13:37:42')
     def test_crawl(self):

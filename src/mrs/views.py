@@ -153,3 +153,7 @@ class StaticView(generic.View):
             response['Access-Control-Allow-Origin'] = self.allow_origin
 
         return response
+
+
+class MaintenanceView(generic.TemplateView):
+    template_name = '503.html'

@@ -18,7 +18,7 @@
             data-viewerjs="uploads"
             {% endif %}
             data-noprefetch="true"
-        >{{ bill.filename }} ({{ naturalsize(bill.binary|length) }})</a>
+        >{{ bill.filename }} ({{ naturalsize(bill.attachment_file.size) }})</a>
     </li>
 {% endfor %}
 </ul>
@@ -208,7 +208,7 @@
                             data-viewerjs="uploads"
                             {% endif %}
                             data-noprefetch="true"
-                        >{{ pmt.filename }} ({{ naturalsize(pmt.binary|length) }})</a>
+                        >{{ pmt.filename }} ({{ naturalsize(pmt.attachment_file.size) }})</a>
                     </span>
                 </p>
                 {%- endfor %}

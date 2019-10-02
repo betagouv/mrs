@@ -1,5 +1,4 @@
 import copy
-import io
 
 from dbdiff.fixture import Fixture
 from freezegun import freeze_time
@@ -27,7 +26,7 @@ def person():
 
 @freeze_time('2017-12-19 05:51:11')
 @pytest.mark.dbdiff(models=[MRSAttachment, PMT, Person, Bill, Transport])
-def test_form_save_m2m(monkeypatch, person, caisse):
+def test_form_save_m2m(monkeypatch, person, caisse, upload):
     def _form(**extra):
         data = dict()
         data['caisse'] = [caisse.pk]
@@ -51,11 +50,6 @@ def test_form_save_m2m(monkeypatch, person, caisse):
 
     mrsrequest_uuid = '6bf490e6-4521-458a-adfe-8d4ef5a64687'
 
-    monkeypatch.setattr(
-        'mrsattachment.models.MRSAttachment.get_upload_body',
-        lambda upload: upload.read()
-    )
-
     # PMT is only missing attachement at 0 expensevp
     form = _form(expensevp_toll=0)
     assert not form.non_field_errors()
@@ -68,10 +62,9 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     assert not form.is_valid()
     assert list(form.errors.keys()) == ['pmt', 'billvps']
 
-    with io.BytesIO(b'test_mrsattachmentform0') as f:
-        f.name = 'test_mrsattachmentform0.jpg'
-        f.content_type = 'image/jpg'
-        PMT.objects.record_upload(mrsrequest_uuid, f)
+    upload.name = 'test_mrsattachmentform0.jpg'
+    upload.content_type = 'image/jpg'
+    PMT.objects.record_upload(mrsrequest_uuid, upload)
 
     # Only Bills is missing now
     form = _form(expensevp_toll=10)
@@ -80,10 +73,9 @@ def test_form_save_m2m(monkeypatch, person, caisse):
     assert list(form.errors.keys()) == ['billvps']
 
     for mode in ['vp', 'atp']:
-        with io.BytesIO(b'test_mrsattachmentform1') as f:
-            f.name = f'test_mrsattachmentform1_{mode}.jpg'
-            f.content_type = 'image/jpg'
-            Bill.objects.record_upload(mrsrequest_uuid, f, mode=mode)
+        upload.name = f'test_mrsattachmentform1_{mode}.jpg'
+        upload.content_type = 'image/jpg'
+        Bill.objects.record_upload(mrsrequest_uuid, upload, mode=mode)
 
     # Is the form's save_m2m method going to relate the above uploads by
     # uuid ?

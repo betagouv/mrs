@@ -797,8 +797,8 @@ class MRSRequest(models.Model):
         if getattr(self, '_total_size', None) is None:
             self._total_size = sum(
                 [
-                    len(b.binary)
-                    for b in
+                    f.attachment_file.size
+                    for f in
                     [*self.pmt_set.all()] + [*self.bill_set.all()]
                 ]
             )

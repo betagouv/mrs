@@ -20,5 +20,9 @@ def test_mrsattachmentmanager_allowed_objects(attachment, srf):
 def test_mrsattachment_tuple():
     assert MRSAttachment(
         filename='a.png',
-        binary=b'aoeu',
-    ).tuple() == ('a.png', b'aoeu', 'image/png')
+        attachment_file='d359fdfb-779b-40e0-b5cc-3829c4e8ef33-791b8911-3454-486d-88d5-9843ccd30143.png'  # noqa
+    ).tuple() == (
+        'a.png',
+        'd359fdfb-779b-40e0-b5cc-3829c4e8ef33-791b8911-3454-486d-88d5-9843ccd30143.png',  # noqa
+        'image/png'
+    )
