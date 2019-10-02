@@ -15,7 +15,15 @@ services:
     - DB_PASSWORD=django
     - DB_NAME=mrs
     - SECRET_KEY=notsecret
+    - BASICAUTH_DISABLE
     - MAINTENANCE_ENABLE
+    - EMAIL_HOST
+    - EMAIL_HOST_PASSWORD
+    - EMAIL_HOST_USER
+    - EMAIL_PORT
+    - EMAIL_USE_SSL
+    - EMAIL_USE_TLS
+    - DEFAULT_FROM_EMAIL
 
   postgres:
     image: postgres:10
