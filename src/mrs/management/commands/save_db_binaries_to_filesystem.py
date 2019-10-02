@@ -34,6 +34,13 @@ def save_binary_to_file(id, obj):
                 mimetype = 'image/jpeg'
             elif extension == '.pdf':
                 mimetype = 'application/pdf'
+            elif extension == '.tiff':
+                mimetype = 'image/tiff'
+            elif extension == '.bmp':
+                mimetype = 'image/bmp'
+            elif extension == '':
+                mimetype = 'image/png'
+                extension = '.png'
             else:
                 print(f'   Error : filename = {filename} -- id = {obj.id}')
                 # Store dummy empty file

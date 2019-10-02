@@ -56,8 +56,6 @@ class MRSAttachment(models.Model):
     creation_datetime = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Heure d\'enregistrement du fichier')
-    # TODO : Supprimer une fois les fichiers transférés sur le filesystem
-    binary = models.BinaryField(null=True)
     attachment_file = models.FileField(
         upload_to=attachment_file_path,
         storage=upload_storage,
