@@ -1,10 +1,6 @@
 ---
 - hosts: '*'
   tasks:
-  - name: Installation idempotente du load balancer si necessaire
-    include_role: name=yourlabs.traefik
-    when: ansible_facts['ansible_local']['yourlabs_traefik']['state']|default('') != 'success'
-
   - name: Notification de pré-déploiement sur slack
     when: lookup("env", "SLACK_TOKEN")
     tags: update
