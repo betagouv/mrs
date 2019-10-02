@@ -19,18 +19,19 @@ def save_bill_to_file(id):
     save_binary_to_file(id, obj)
 
 
-def save_binary_to_file(id, obj):
+def save_binary_to_file(id, obj):  # noqa
     if obj.binary is not None:
         try:
             filename = obj.filename.lower()
             extension = splitext(filename)[-1]
             binary_to_store = obj.binary
 
-            if extension == '.png':
+            if extension in ['.png', '']:
                 mimetype = 'image/png'
+                extension = '.png'
             elif extension == '.gif':
                 mimetype = 'image/gif'
-            elif extension == '.jpeg' or extension == '.jpg':
+            elif extension in ['.jpeg', '.jpg']:
                 mimetype = 'image/jpeg'
             elif extension == '.pdf':
                 mimetype = 'application/pdf'
@@ -38,9 +39,6 @@ def save_binary_to_file(id, obj):
                 mimetype = 'image/tiff'
             elif extension == '.bmp':
                 mimetype = 'image/bmp'
-            elif extension == '':
-                mimetype = 'image/png'
-                extension = '.png'
             else:
                 print(f'   Error : filename = {filename} -- id = {obj.id}')
                 # Store dummy empty file
