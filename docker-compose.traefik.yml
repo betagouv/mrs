@@ -3,7 +3,7 @@ services:
   django:
     environment:
     - HOST
-    - ALLOWED_HOSTS=${HOST}
+    - ALLOWED_HOSTS=www.${HOST}
     - SENTRY_AUTH_TOKEN
     - SENTRY_DSN
     - SENTRY_ORG=sentry
