@@ -194,3 +194,35 @@ steps:
     branch:
     - master
     - staging
+
+- name: production
+  image: yourlabs/ansible
+  environment:
+    HOST: future.prod.mrs.beta.gouv.fr
+    ANSIBLE_FORCE_COLOR: "1"
+    BASICAUTH_ENABLE: "1"
+    SLACK_TOKEN:
+      from_secret: SLACK_TOKEN
+    SSH_KEY:
+      from_secret: SSH_KEY
+    SSH_FINGERPRINTS:
+      from_secret: SSH_FINGERPRINTS
+    PRODUCTION_ENV:
+      from_secret: PRODUCTION_ENV
+  commands:
+  - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  - export $(echo $STAGING_ENV | xargs)
+  - env
+  - bigsudo
+    ./ansible/deploy.yml
+    home=/home/mrs-future
+    compose_django_image=betagouv/mrs:$DRONE_COMMIT
+    compose_django_build=
+    compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
+    deploy@mrs.beta.gouv.fr
+    -v | tee out
+  - grep unreachable=0 out
+  - grep failed=0 out
+  when:
+    branch:
+    - production
