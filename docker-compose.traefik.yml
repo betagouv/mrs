@@ -4,13 +4,6 @@ services:
     environment:
     - HOST
     - ALLOWED_HOSTS=www.${HOST}
-    - SENTRY_AUTH_TOKEN
-    - SENTRY_DSN
-    - SENTRY_ORG=sentry
-    - SENTRY_PROJECT
-    - SENTRY_URL
-    - TEAM_EMAIL
-    - BASICAUTH_DISABLE
     labels:
     - "traefik.enable=true"
     - "traefik.port=8000"

@@ -24,6 +24,12 @@ services:
     - EMAIL_USE_SSL
     - EMAIL_USE_TLS
     - DEFAULT_FROM_EMAIL
+    - TEAM_EMAIL
+    - SENTRY_AUTH_TOKEN
+    - SENTRY_DSN
+    - SENTRY_ORG=sentry
+    - SENTRY_PROJECT
+    - SENTRY_URL
 
   postgres:
     image: postgres:10
