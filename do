@@ -114,6 +114,7 @@ py.test() {
     export WEBPACK_LOADER=webpack_mock
     export CI=true
     export DEBUG=true
+    export BASICAUTH_DISABLE=1
     clean.pyc
     venv
     pip.install
