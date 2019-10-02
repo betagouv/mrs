@@ -5,7 +5,6 @@ when:
   event:
     exclude:
     - promote
-#platform: {os: linux, arch: amd64}
 
 services:
 - name: postgres
@@ -190,7 +189,6 @@ steps:
     HOST: staging.mrs.beta.gouv.fr
     PROTO: https
     ANSIBLE_FORCE_COLOR: "1"
-#    MAINTENANCE_ENABLE: "1"
     SLACK_TOKEN:
       from_secret: SLACK_TOKEN
     SSH_KEY:
@@ -202,7 +200,6 @@ steps:
   commands:
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $STAGING_ENV | xargs)
-  - env
   - bigsudo
     ./ansible/deploy.yml
     home=/home/mrs-staging
@@ -243,11 +240,10 @@ steps:
       from_secret: PRODUCTION_ENV
   commands:
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
-  - export $(echo $STAGING_ENV | xargs)
-  - env
+  - export $(echo $PRODUCTION_ENV | xargs)
   - bigsudo
     ./ansible/deploy.yml
-    home=/home/mrs-future
+    home=/home/mrs-production
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
     compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
