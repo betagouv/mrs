@@ -9,9 +9,17 @@ from django.core.management.base import BaseCommand
 from mrsrequest.models import PMT, Bill
 
 
-def save_binary_to_file(id):
+def save_pmt_to_file(id):
     obj = PMT.objects.get(id=id)
+    save_binary_to_file(id, obj)
 
+
+def save_bill_to_file(id):
+    obj = Bill.objects.get(id=id)
+    save_binary_to_file(id, obj)
+
+
+def save_binary_to_file(id, obj):
     if obj.binary is not None:
         try:
             filename = obj.filename.lower()
@@ -74,13 +82,13 @@ class Command(BaseCommand):
                 .filter(attachment_file__in=['', None])\
                 .values_list('id', flat=True)
             with multiprocessing.Pool() as pool:
-                pool.map(save_binary_to_file, pmts_ids)
+                pool.map(save_pmt_to_file, pmts_ids)
         elif type == "bill":
             bills_ids = Bill.objects\
                 .filter(attachment_file__in=['', None])\
                 .values_list('id', flat=True)
             with multiprocessing.Pool() as pool:
-                pool.map(save_binary_to_file, bills_ids)
+                pool.map(save_bill_to_file, bills_ids)
         else:
             self.stdout.write(
                 self.style.ERROR('Type unknown')
