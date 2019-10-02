@@ -15,10 +15,6 @@ services:
     - "traefik.enable=true"
     - "traefik.frontend.rule=Host: ${HOST}"
     - "traefik.port=8000"
-    - "io.yourlabs.compose.mkdir=./log:1000:1000:0750"
-    - "io.yourlabs.compose.mkdir=./spooler:1000:1000:0750"
-    - "io.yourlabs.compose.mkdir=./spooler/mail:1000:1000:0750"
-    - "io.yourlabs.compose.mkdir=./spooler/stat:1000:1000:0750"
     networks:
     - default
     - web
