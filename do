@@ -128,7 +128,7 @@ py.test() {
         cov="--cov $cov"
     fi
 
-    $(which py.test) -x -s -vvv --strict -r fEsxXw ${cov-} ${@-src}
+    $(which py.test) -s -vvv --strict -r fEsxXw ${cov-} ${@-src}
 
     if [ -n "${CODECOV_TOKEN-}" ]; then
         codecov --token $CODECOV_TOKEN
