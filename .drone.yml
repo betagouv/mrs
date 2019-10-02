@@ -203,7 +203,7 @@ steps:
     environment:
     - production
   environment:
-    HOST: future.prod.mrs.beta.gouv.fr
+    HOST: mrs.beta.gouv.fr
     ANSIBLE_FORCE_COLOR: "1"
     BASICAUTH_DISABLE: "1"
     PROTO: https
