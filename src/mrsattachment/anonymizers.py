@@ -1,5 +1,6 @@
-from hattori.base import BaseAnonymizer, faker
+from hattori.base import BaseAnonymizer
 from mrsattachment.models import MRSAttachment
+
 
 class MRSAttachmentAnonymizer(BaseAnonymizer):
     model = MRSAttachment

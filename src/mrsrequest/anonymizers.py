@@ -1,5 +1,6 @@
-from hattori.base import BaseAnonymizer, faker
+from hattori.base import BaseAnonymizer
 from mrsrequest.models import MRSRequest
+
 
 class MRSRequestAnonymizer(BaseAnonymizer):
     model = MRSRequest
