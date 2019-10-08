@@ -81,17 +81,18 @@ class ContactForm(forms.Form):
 
     def get_email_kwargs(self):
         data = self.cleaned_data
-        to = [settings.TEAM_EMAIL]
+        email = getattr(data['caisse'], 'liquidation_email', None)
+
+        if email:
+            to = [email]
+        else:
+            to = [settings.TEAM_EMAIL]
 
         if data['motif'].startswith('request'):
             subject = 'RÉCLAMATION MRS'
 
-            email = getattr(data['caisse'], 'liquidation_email', None)
-
-            if email:  # in case caisse == 'other', let TEAM_EMAIL
-                to = [email]
         else:
-            subject = 'Nouveau message envoyé depuis le site'
+            subject = 'Nouveau message envoyé depuis le site mrs.beta.gouv.fr'
 
         body = template.loader.get_template(
             'contact/contact_mail_body.txt'
