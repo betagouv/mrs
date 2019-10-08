@@ -5,9 +5,8 @@ class MRSAttachmentAnonymizer(BaseAnonymizer):
     model = MRSAttachment
 
     attributes = [
-        ('filename', "fake.png"),
-        # TODO : jbm tester une fois jbm-files-out-of-db mergée
-        # ('attachment_file', "fake.png"),
+        ('filename', "1x1.png"),
+        ('attachment_file', "1x1.png"),
     ]
 
     def get_query_set(self):
