@@ -18,17 +18,22 @@ import M from 'mrsmaterialize'
 })()
 
 $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
-    Raven.captureMessage(thrownError || jqXHR.statusText, {
+    // We don't want user Bad requests (oversized files, unaccepted file format...)
+    // to be reported to Sentry
+    if (jqXHR.status != 400){
+      Raven.captureMessage(thrownError || jqXHR.statusText, {
         extra: {
-            type: ajaxSettings.type,
-            url: ajaxSettings.url,
-            data: ajaxSettings.data,
-            status: jqXHR.status,
-            error: thrownError || jqXHR.statusText,
-            response: jqXHR.responseText.substring(0, 100)
+          type: ajaxSettings.type,
+          url: ajaxSettings.url,
+          data: ajaxSettings.data,
+          status: jqXHR.status,
+          error: thrownError || jqXHR.statusText,
+          response: (jqXHR.responseText == null) ? "" : jqXHR.responseText.substring(0, 100)
         }
-    });
-});
+      })
+    }
+  }
+)
 
 var listen = false
 
