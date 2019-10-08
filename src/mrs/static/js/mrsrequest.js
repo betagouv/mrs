@@ -171,13 +171,13 @@ function adjustMaterializeOptions(select_name, region_id, with_regimes_speciaux)
       // les régions indiquées dans l'attribut data-regions
       if (['other', ''].indexOf(value.el.value)==-1){
 
-        if(value.el.dataset.regions.indexOf(region_id)!=-1){
+        if(value.el.dataset.regions.split(' ').indexOf(region_id)!=-1){
 
           $('#' + index).show()
 
         // On affiche les options relatives aux régimes spéciaux si demandé
         } else if (
-          value.el.dataset.regions.indexOf(document.regimesspeciauxId)!=-1 
+          value.el.dataset.regions.split(' ').indexOf(document.regimesspeciauxId)!=-1
             && with_regimes_speciaux){
 
           $('#' + index).show()
