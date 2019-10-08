@@ -190,5 +190,6 @@ forbidden_view = ErrorView(403, 'Page interdite')
 not_found_view = ErrorView(404, 'Page introuvable')
 internal_server_error_view = ErrorView(500, 'Erreur interne')
 
+
 class MaintenanceView(generic.TemplateView):
     template_name = '503.html'
