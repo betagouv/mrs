@@ -61,7 +61,6 @@
             <option value="">---------</option>
             <option value="1">aaaaaaa</option>
             <option value="2">bbbb</option>
-            <option value="other">Autre</option>
         </select>
         
     </div>

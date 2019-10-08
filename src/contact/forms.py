@@ -29,6 +29,7 @@ class ContactForm(forms.Form):
         choices=MOTIF_CHOICES,
     )
     caisse = ActiveCaisseChoiceField(
+        otherchoice=False,
         label='Votre caisse de rattachement',
     )
     nom = forms.CharField()
