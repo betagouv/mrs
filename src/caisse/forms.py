@@ -19,7 +19,9 @@ class ActiveCaisseChoiceField(forms.ModelChoiceField):
     iterator = OtherModelChoiceIterator
 
     def __init__(self, *args, **kwargs):
-        super().__init__(Caisse.objects.filter(active=True), *args, **kwargs)
+        super().__init__(
+            Caisse.objects.filter(active=True).prefetch_related('regions'),
+            *args, **kwargs)
 
     def to_python(self, value):
         return value if value == 'other' else super().to_python(value)
@@ -53,7 +55,7 @@ class CaisseVoteForm(forms.Form):
         required=False,
     )
     caisse = forms.ModelChoiceField(
-        Caisse.objects.filter(active=False),
+        Caisse.objects.filter(active=False).prefetch_related('regions'),
         label='Sélectionnez votre caisse ou votre régime d\'Assurance Maladie',
         required=True,
     )
