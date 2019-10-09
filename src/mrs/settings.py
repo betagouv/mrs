@@ -228,7 +228,12 @@ else:
     INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
 PREFIX = os.getenv('PLAYLABS_PREFIX', 'mrs')
-INSTANCE = os.getenv('PLAYLABS_INSTANCE', 'dev')
+if 'staging' in os.getenv('HOST'):
+    INSTANCE = 'staging'
+elif os.getenv('HOST') == 'mrs.beta.gouv.fr':
+    INSTANCE = 'production'
+else:
+    INSTANCE = 'dev'
 
 COLORS = {
     'DEV': 'tomato',
