@@ -218,6 +218,46 @@ steps:
     - master
     - staging
 
+- name: ecole
+  image: yourlabs/ansible
+  environment:
+    HOST: ecole.mrs.beta.gouv.fr
+    PROTO: https
+    ANSIBLE_FORCE_COLOR: "1"
+    SLACK_TOKEN:
+      from_secret: SLACK_TOKEN
+    SSH_KEY:
+      from_secret: SSH_KEY
+    SSH_FINGERPRINTS:
+      from_secret: SSH_FINGERPRINTS
+    ECOLE_ENV:
+      from_secret: ECOLE_ENV
+  commands:
+  - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  - export $(echo $ECOLE_ENV | xargs)
+  - bigsudo
+    ./ansible/deploy.yml
+    home=/home/mrs-ecole
+    compose_django_image=betagouv/mrs:$DRONE_COMMIT
+    compose_django_build=
+    compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml,docker-compose.persist.yml
+    deploy@ecole.mrs.beta.gouv.fr
+    -v | tee out
+  - grep unreachable=0 out
+  - grep failed=0 out
+#  when:
+#    event:
+#      exclude:
+#      - promote
+#    branch:
+#    - master
+#    - ecole
+  when:
+    event:
+      - promote
+    environment:
+      - ecole
+
 - name: production
   image: yourlabs/ansible
   when:
