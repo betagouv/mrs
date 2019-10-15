@@ -1,7 +1,8 @@
 import csv
 from chardet.universaldetector import UniversalDetector
 from crudlfap import shortcuts as crudlfap
-from crudlfap_auth.views import BecomeUser, PasswordView
+from crudlfap_auth.views import (BecomeUser,
+                                 PasswordView as CrudlfapPasswordView)
 
 from django import forms
 from django.contrib.auth.models import Group
@@ -14,6 +15,10 @@ import django_tables2 as tables
 from caisse.models import Caisse
 from mrsrequest.models import MRSRequestLogEntry
 
+from django.contrib.auth.forms import SetPasswordForm
+
+from django.db import transaction
+
 from .models import User
 
 
@@ -21,6 +26,16 @@ def clean_user_input(input_to_clean):
     return slugify(
         input_to_clean.strip().replace('/', '')
     ).replace('-', '_').upper()
+
+
+class PasswordForm(SetPasswordForm):
+
+    def __init__(self, *args, **kwargs):
+        disabled = kwargs.pop('disabled', None)
+        super().__init__(*args, **kwargs)
+        if disabled:
+            for field in self.fields:
+                self.fields[field].disabled = True
 
 
 class UserForm(forms.ModelForm):
@@ -41,6 +56,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
+            'number',
             'first_name',
             'last_name',
             'username',
@@ -49,7 +65,6 @@ class UserForm(forms.ModelForm):
             'caisses',
             'is_superuser',
             'is_active',
-            'number',
         ]
 
     def __init__(self, request, *args, **kwargs):
@@ -103,9 +118,11 @@ class AdminUserForm(forms.ModelForm):
             'number',
             'first_name',
             'last_name',
+            'username',
             'email',
             'caisses',
             'groups',
+            'is_active',
         ]
 
     def __init__(self, request, *args, **kwargs):
@@ -117,6 +134,40 @@ class AdminUserForm(forms.ModelForm):
         self.fields['email'].required = True
         self.old_username = self.instance.username
         self.old_email = self.instance.email
+        self.old_number = self.instance.number
+
+        # Store caisses managed by the current local admin
+        self.admin_caisses = request.user.caisses.values_list(
+            'id', flat=True)
+
+        # If it's an update form, we store original caisses
+        if self.instance.pk:
+
+            self.old_caisses = list(self.instance.caisses.values_list(
+                'id', flat=True))
+
+            # We remove local admin caisses, since they will be updated without
+            # pain of getting lost
+            for caisse in self.old_caisses:
+                if caisse in self.admin_caisses:
+                    self.old_caisses.remove(caisse)
+
+            for field in self.fields:
+
+                # Case when the admin manages no caisses of the edited user
+                # We disable all fields except caisses
+                if len(list(set(self.fields['caisses'].queryset)
+                       & set(self.instance.caisses.all()))) == 0:
+                    self.fields[field].disabled = True
+
+                self.fields['caisses'].disabled = False
+
+            # We allow caisses to be emptied, since a local admin can unselect
+            # its lonely caisse for the selected user
+            self.fields['caisses'].required = False
+
+        else:
+            self.old_caisses = []
 
     def clean_groups(self):
         groups = self.cleaned_data.get('groups')
@@ -128,27 +179,38 @@ class AdminUserForm(forms.ModelForm):
 
     def clean_caisses(self):
         caisses = self.cleaned_data.get('caisses')
-        if not caisses:
+        if not caisses and not self.instance.pk:
             raise forms.ValidationError(
                 'Merci de choisir au moins une caisse'
             )
         return caisses
 
     def save(self, commit=True):
+
         username = []
         for field in ('last_name', 'number'):
             username.append(
                 clean_user_input(self.cleaned_data[field])
             )
         new_username = '_'.join(username)
-
         reset_password = (
             new_username != self.old_username
             or self.cleaned_data['email'] != self.old_email
         )
         self.instance.username = new_username
 
+        # Retrieve updates from local admin caisses
+        new_caisses = list(self.cleaned_data.get('caisses').values_list(
+            'id', flat=True))
+
+        # Create final caisse list from saved caisses and local admin caisses
+        for caisse_id in (self.old_caisses + new_caisses):
+            new_caisses.append(Caisse.objects.get(pk=caisse_id))
+
         super().save(commit=commit)
+        # After the transaction commit we update the caisses_set with our
+        # new_caisses list
+        transaction.on_commit(lambda: self.instance.caisses.set(new_caisses))
 
         if reset_password:
             self.instance.password_reset(self.request.user.caisses.first())
@@ -361,8 +423,38 @@ class PasswordResetView(crudlfap.ObjectFormView):
 
     def form_valid(self):
         resp = super().form_valid()
-        self.object.password_reset(self.request.user.caisses.first())
+        # Case when the admin manages at least one caisse of the edited user
+        if len(list(set(self.request.user.caisses.all())
+               & set(self.object.caisses.all()))) > 0:
+
+            # We actually reset password for the edited user
+            self.object.password_reset(self.request.user.caisses.first())
         return resp
+
+
+class PasswordView(CrudlfapPasswordView):
+
+    def get_form_class(self):
+
+        cls = PasswordForm
+        # This fixes the form messages feature from UpdateView
+        return type(cls.__name__, (cls,), dict(instance=self.object))
+
+    def get_form_kwargs(self):
+
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.object
+
+        kwargs['disabled'] = False
+
+        # Case when the admin manages no caisses of the edited user
+        if(len(list(set(self.request.user.caisses.all())
+           & set(self.object.caisses.all()))) == 0):
+
+            # We disable every field of the SetPasswordForm
+            kwargs['disabled'] = True
+
+        return kwargs
 
 
 class UserRouter(crudlfap.Router):
