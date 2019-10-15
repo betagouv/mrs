@@ -221,7 +221,7 @@ steps:
 - name: ecole
   image: yourlabs/ansible
   environment:
-    HOST: staging.mrs.beta.gouv.fr
+    HOST: ecole.mrs.beta.gouv.fr
     PROTO: https
     ANSIBLE_FORCE_COLOR: "1"
     SLACK_TOKEN:
