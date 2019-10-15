@@ -307,11 +307,6 @@ class Migration(migrations.Migration):
             name='modeatp',
             field=models.BooleanField(blank=True, default=False, help_text='(Avion, bus, métro, train, bateau…)', verbose_name='Avez vous voyagé en transports en commun ?'),
         ),
-        migrations.AddField(
-            model_name='mrsrequest',
-            name='mandate_dateatp',
-            field=models.DateField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(datetime.date(2000, 1, 1))], verbose_name='Date de mandatement ATP'),
-        ),
         migrations.AlterField(
             model_name='mrsrequest',
             name='mandate_datevp',
