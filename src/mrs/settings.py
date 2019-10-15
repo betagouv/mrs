@@ -452,6 +452,9 @@ if DEBUG:
         MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
         INTERNAL_IPS = ['172.17.0.1', '127.0.0.1']
 
+    INSTALLED_APPS += ('hattori',)
+    ANONYMIZE_ENABLED = True
+
 
 DATE_FORMAT_FR = '%d/%m/%Y'
 
