@@ -198,7 +198,6 @@ steps:
     STAGING_ENV:
       from_secret: STAGING_ENV
   commands:
-  - echo $${STAGING_ENV}
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $STAGING_ENV | xargs)
   - bigsudo
@@ -246,18 +245,13 @@ steps:
     -v | tee out
   - grep unreachable=0 out
   - grep failed=0 out
-#  when:
-#    event:
-#      exclude:
-#      - promote
-#    branch:
-#    - master
-#    - ecole
   when:
     event:
+      exclude:
       - promote
-    environment:
-      - ecole
+    branch:
+    - master
+    - ecole
 
 - name: production
   image: yourlabs/ansible
