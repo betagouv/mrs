@@ -89,7 +89,7 @@ class UserForm(forms.ModelForm):
 class AdminUserForm(forms.ModelForm):
     groups = forms.ModelMultipleChoiceField(
         Group.objects.filter(
-            name__in=['UPN', 'Support', 'Stat', 'Superviseur', 'Admin local']
+            name__in=['UPN', 'Support', 'Stat', 'Superviseur', 'Admin Local']
         ),
         label='Groupes',
     )
@@ -170,11 +170,11 @@ class UserFormMixin:
 
 
 class UserUpdateView(UserFormMixin, crudlfap.UpdateView):
-    allowed_groups = ['Admin', 'Admin local']
+    allowed_groups = ['Admin', 'Admin Local']
 
 
 class UserCreateView(UserFormMixin, crudlfap.CreateView):
-    allowed_groups = ['Admin', 'Admin local']
+    allowed_groups = ['Admin', 'Admin Local']
 
 
 class UserListView(crudlfap.ListView):
@@ -364,10 +364,10 @@ class UserRouter(crudlfap.Router):
     views = [
         ImportView,
         PasswordResetView.clone(
-            allowed_groups=['Admin', 'Admin local']
+            allowed_groups=['Admin', 'Admin Local']
         ),
         PasswordView.clone(
-            allowed_groups=['Admin', 'Admin local']
+            allowed_groups=['Admin', 'Admin Local']
         ),
         UserUpdateView,
         UserCreateView,
@@ -382,7 +382,7 @@ class UserRouter(crudlfap.Router):
         ),
         UserListView,
     ]
-    allowed_groups = ['Admin', 'Superviseur', 'Admin local']
+    allowed_groups = ['Admin', 'Superviseur', 'Admin Local']
     material_icon = 'person'
     model = User
     urlfield = 'pk'

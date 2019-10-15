@@ -32,7 +32,7 @@ class Dashboard(crudlfap.TemplateView):
         'Support',
         'Stat',
         'Superviseur',
-        'Admin local'
+        'Admin Local'
     ]
     material_icon = 'home'
 

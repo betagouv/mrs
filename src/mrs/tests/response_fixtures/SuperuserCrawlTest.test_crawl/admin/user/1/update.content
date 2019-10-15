@@ -61,7 +61,7 @@
             <option value="3">Stat</option>
             <option value="4">Support</option>
             <option value="5">Superviseur</option>
-            <option value="6">Admin local</option>
+            <option value="6">Admin Local</option>
         </select>
         
     </div>
