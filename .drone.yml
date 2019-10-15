@@ -198,6 +198,7 @@ steps:
     STAGING_ENV:
       from_secret: STAGING_ENV
   commands:
+  - echo $${STAGING_ENV}
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $STAGING_ENV | xargs)
   - bigsudo
@@ -221,7 +222,7 @@ steps:
 - name: ecole
   image: yourlabs/ansible
   environment:
-    HOST: ecole.mrs.beta.gouv.fr
+    HOST: staging.mrs.beta.gouv.fr
     PROTO: https
     ANSIBLE_FORCE_COLOR: "1"
     SLACK_TOKEN:
