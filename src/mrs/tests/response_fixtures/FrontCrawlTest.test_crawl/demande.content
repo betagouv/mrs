@@ -24,6 +24,9 @@
 <script id="caissesJson" type="text/json">
 {"1": {"parking_enable": true}, "2": {"parking_enable": true}, "3": {"parking_enable": true}, "4": {"parking_enable": true}}
 </script>
+<script id="regionsJson" type="text/json">
+{"16": {"1": {"name": "aaaaaaa", "parking_enable": true, "active": true}, "2": {"name": "bbbb", "parking_enable": true, "active": true}}, "17": {"3": {"name": "inactive", "parking_enable": true, "active": false}}, "19": {"4": {"name": "regimespecial", "parking_enable": true, "active": false}}}
+</script>
 <script id="regimesspeciauxId" type="text/json">
 {"id": 19}
 </script>

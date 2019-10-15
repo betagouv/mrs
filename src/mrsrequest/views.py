@@ -80,6 +80,19 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
         }
         return json.dumps(caisses)
 
+    def regions_json(self):
+        regions = {
+            i.pk: {
+                j.id: dict(
+                    name=j.name,
+                    parking_enable=j.parking_enable,
+                    active=j.active,
+                ) for j in i.caisse_set.all()
+            }
+            for i in Region.objects.prefetch_related('caisse_set').all()
+        }
+        return json.dumps(regions)
+
     def regimes_speciaux_id(self):
         id_region = Region.objects.filter(
             name='Régimes Spéciaux').values('id')[0]
