@@ -32,6 +32,9 @@ urlpatterns = [
     crudlfap.site.get_urlpattern(),
     path('', MRSRequestCreateView.as_view(
         template_name='index.html'), name='index'),
+    path('favicon.ico', views.StaticView.as_view(
+        path='img/favicon.ico',
+    )),
     path('demande', MRSRequestCreateView.as_view(), name='demande'),
     # too early for this little one
     # path(
