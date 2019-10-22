@@ -103,7 +103,7 @@ var formInit = function (form) {
 
     $region.val(regionSelected)
     $caisse.val('')
-    adjustMaterializeOptions('caisse', $region.val())
+    adjustSelectOptions('caisse', $region.val(),  false, true)
     $caisseSelector.show('slide')
     Cookie.set('otherregion', '')
 
@@ -121,13 +121,12 @@ var formInit = function (form) {
   if (parseInt(caisseSelected)) {
 
     $caisse.val(caisseSelected)
-    adjustMaterializeOptions('caisse', $region.val())
-
+    adjustSelectOptions('caisse', $region.val(),  false, true)
 
   } else if (caisseSelected=='other'){
 
     $caisse.val(caisseSelected)
-    adjustMaterializeOptions('caisse', $region.val())
+    adjustSelectOptions('caisse', $region.val(),  false, true)
     hideRequestShowCaisseVoteForm(form, false)
     Cookie.set('otherregion', '')
 
@@ -158,53 +157,44 @@ var formInit = function (form) {
     mrsattachment(form)
   }
 
+// NB : Masquer directement les options du select ne fonctionne pas sous IE11 et Safari,
+// une solution de contournement consiste à wrapper l'option dans un span afin
+// qu'elle n'apparaisse plus. Pas très élégant, mais fonctionnel.
+function hideOptions(selector){
+  $(form).find(selector).each(function() {
+    if( !($(this).parent().is('span')) ) $(this).wrap('<span>')
+  })
+}
+
+function showOptions(selector){
+  $(form).find(selector).each(function() {
+    if( ($(this).parent().is('span')) ) $(this).unwrap()
+  })
+}
+
 // Fonction permettant d'ajuster (afficher et/ou masquer) les options dans
-// le select fourni par Materialize, selon la région sélectionnée
-function adjustMaterializeOptions(select_name, region_id, with_regimes_speciaux){
+// le select natif, selon la région sélectionnée
+function adjustSelectOptions(select_name, region_id, with_regimes_speciaux, with_others){
 
-  if(document.getElementById('id_' + select_name) != null){
+  // On masque toutes les options qui n'ont pas la région sélectionnées au sein
+  // de l'attribut data-regions
+  hideOptions('[name=' + select_name +'] option:not([data-regions~=' + region_id + '])')
 
-    // On commence par créer/mettre à jour l'instance Materialize select
-    $('[name=' + select_name + ']').formSelect()
+  // On affiche toutes les options qui ont la région sélectionnée au sein
+  // de l'attribut data-regions
+  showOptions('[name=' + select_name +'] option[data-regions~=' + region_id + ']')
 
-    // Pour chaque option du select Materialize construit à partir du select id_caisse
-    $.each(M.FormSelect.getInstance(
-      document.getElementById('id_' + select_name))._valueDict,
-      function(index, value) {
-
-      // On affiche les options dont la caisse associée a bien region_id parmi
-      // les régions indiquées dans l'attribut data-regions
-      if (['other', ''].indexOf(value.el.value)==-1){
-
-        if(value.el.dataset.regions.split(' ').indexOf(region_id)!=-1){
-
-          $('#' + index).show()
-
-        // On affiche les options relatives aux régimes spéciaux si demandé
-        } else if (
-          value.el.dataset.regions.split(' ').indexOf(document.regimesspeciauxId)!=-1
-            && with_regimes_speciaux){
-
-          $('#' + index).show()
-
-        // On masque les autres options
-        } else {
-
-          $('#' + index).hide()
-
-        }
-      }
-
-      if(value.el.value==$caisse.val()){
-
-        $('#' + index).addClass('selected')
-
-      }
-
-    })
+  // Si les régimes spéciaux sont à rajouter, on affiche les options qui ont
+  // la région régimes spéciaux au sein de l'attribut data-regions
+  if(with_regimes_speciaux){
+    showOptions('[name=' + select_name +'] option[data-regions~=' + document.regimesspeciauxId + ']')
   }
-  
-  
+
+  // Si l'option autres est à afficher, on l'affiche
+  if(with_others){
+    showOptions('[name=' + select_name +'] option[value=other]')
+  }
+
 }
 
 // Fonction permettant d'afficher le formulaire "Me prévenir quand la caisse
@@ -250,7 +240,7 @@ function showRequestHideCaisseVoteForm(
     } else if ($region.val()) {
 
       $caisse.val('')
-      adjustMaterializeOptions('caisse', $region.val(), false)
+      adjustSelectOptions('caisse', $region.val(),  false, true)
 
       showRequestHideCaisseVoteForm(form, false, true)
 
@@ -269,12 +259,12 @@ function showRequestHideCaisseVoteForm(
     if($otherregion.val()!=document.regimesspeciauxId){
 
       $othercaisse.val('')
-      adjustMaterializeOptions('other-caisse', $otherregion.val(), true)
+      adjustSelectOptions('other-caisse', $otherregion.val(),  true, false)
 
     } else {
 
       $othercaisse.val('')
-      adjustMaterializeOptions('other-caisse', $otherregion.val(), false)
+      adjustSelectOptions('other-caisse', $otherregion.val(),  false, false)
 
     }
 
@@ -287,7 +277,7 @@ function showRequestHideCaisseVoteForm(
       hideRequestShowCaisseVoteForm(form, false)
       $otherregionContainer.hide()
       $othercaisse.val('')
-      adjustMaterializeOptions('other-caisse', $region.val(), true)
+      adjustSelectOptions('other-caisse', $region.val(), true, false)
 
     } else if ($caisse.val()) {
 
