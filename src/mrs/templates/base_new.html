@@ -1,0 +1,120 @@
+{% load static %}
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}Mes Remboursements Simplifiés{% endblock %} | MRS {{ title_suffix }}</title>
+    {% include '_piwik.html' %}
+    {% block extra_head %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous">
+        {% render_bundle 'mrsbootstrap' 'css' %}
+        <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Faustina"
+              rel="stylesheet"/>
+        <link rel="manifest" href="{% static '/manifest.json' %}"/>
+        <meta property="og:title" content="Mes Remboursements Simplifiés"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content="{% static 'img/logos/mrs.png' %}"/>
+        <meta property="og:description"
+              content="{% block description %}En 3 clics, mon transport personnel remboursé en moins d'une semaine. Sur prescription de votre médecin, l'Assurance Maladie rembourse les frais d'utilisation de votre véhicule personnel ou des transports en commun.{% endblock %}"/>
+        <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
+        <link rel="icon" sizes="48x48" href="/static/img/logos/launcher-icon-1x.png">
+        <link rel="icon" sizes="96x96" href="/static/img/logos/launcher-icon-2x.png">
+        <link rel="manifest" href="/manifest.json"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+    {% endblock %}
+    <style type="text/css">
+        /* doesn't seem to work when through SASS */
+        progress::-webkit-progress-value {
+            background: #0dc5b9;
+        }
+
+        progress::-moz-progress-bar {
+            background: #0dc5b9;
+        }
+    </style>
+</head>
+<body class="{% block body_class %} {% endblock %}">
+{% block before_content %}
+{% endblock %}
+
+<div id="app--wrapper">
+
+    <div id="header-big" class="d-none d-sm-none d-md-none d-lg-block">
+        <div class="header-bg"></div>
+        <div class="cnam-wrapper">
+            <img src="{% static "img/logos/cnam.png" %}" class="cnam-logo">
+        </div>
+
+        <nav class="navbar navbar-expand-lg py-0">
+            <a class="navbar-brand" href="/">
+                <img src="{% static "img/logos/mrs.png" %}" alt="mrs" class="mrs-logo">
+            </a>
+
+            <div class="d-flex justify-content-end w-100" id="mrs-navbar">
+                <ul class="navbar-nav text-center">
+                    {% for link in header_links %}
+                        <li class="nav-item">
+                            <a class="btn mrs-bouton mrs-{{ link.couleur }}-plein {% if link.active %}active{% endif %}"
+                               href="{{ link.url }}">{{ link.alias|capfirst }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <div id="footer">
+        {#            <div class="links">#}
+        {#                <a href="/mentions-legales">mentions legales</a>#}
+        {#                <a href="/stats">statistiques</a>#}
+        {#            </div>#}
+        {#            <p>#}
+        {#                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE#}
+        {#            </p>#}
+
+        {#            <a href="https://beta.gouv.fr/" target="_blank">#}
+        {#                <img class="logo" src="{% static 'img/logos/beta-gouv-marianne.png' %}" alt="Logo beta.gouv.fr" />#}
+        {#            </a>#}
+        {#            <a href="https://www.ameli.fr" target="_blank">#}
+        {#                <img class="logo" src="{% static 'img/logos/ameli.png' %}" alt="Logo ameli.fr" />#}
+        {#            </a>#}
+    </div>
+</div>
+
+{% if SENTRY_DSN %}
+    <script src="https://cdn.ravenjs.com/3.26.4/raven.min.js" crossorigin="anonymous"></script>
+    {{ SENTRY_CONFIG|json_script:'sentry-config' }}
+    <script type="text/javascript">
+        Raven.config(
+            '{{ SENTRY_DSN }}',
+            JSON.parse(document.getElementById('sentry-config').textContent)
+        ).install()
+    </script>
+{% endif %}
+
+{% block extra_body %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block extra_js %}
+    {% render_bundle 'mrsbootstrap' 'js' %}
+{% endblock %}
+
+<!-- PROJECT_INSTANCE={{ PREFIX }}-{{ INSTANCE }} -->
+</body>
+</html>

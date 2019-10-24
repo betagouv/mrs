@@ -26,11 +26,14 @@ def settings(request):
 
 
 def header_links(request):
+    url_name = request.resolver_match.url_name
     header_links = (
-        dict(url=reverse('index'), alias='fonctionnement'),
-        dict(url=reverse('demande'), alias='formulaire'),
-        dict(url=reverse('faq'), alias='faq'),
-        dict(url=reverse('contact'), alias='contact'),
+        #dict(url=reverse('index'), alias='fonctionnement'),
+        dict(url=reverse('demande'), alias='demander un remboursement',
+             active=url_name == 'demande', couleur='rose'),
+        dict(url=reverse('faq'), alias='aide',
+             active=url_name == 'faq', couleur='bleu'),
+        #dict(url=reverse('contact'), alias='contact'),
     )
 
     return dict(

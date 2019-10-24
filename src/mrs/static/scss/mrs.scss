@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap');
+
+$mrs-bleu: #005DA8;
+$mrs-rose: #E9386E;
+$mrs-noir: #454F5D;
+
+body {
+  font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+  "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: $mrs-noir;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  text-transform: uppercase;
+  color: $mrs-bleu;
+}
+
+h3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  color: $mrs-bleu;
+}
+
+.mrs-bleu {
+  color: $mrs-bleu;
+}
+
+.mrs-rose {
+  color: $mrs-rose;
+}
+
+.mrs-bouton {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 1.5rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.mrs-bleu-plein {
+  background-color: $mrs-bleu;
+  color: #fff;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.mrs-bleu-vide {
+  border: 1px solid $mrs-bleu;
+  color: $mrs-bleu;
+
+  &:hover {
+    color: $mrs-bleu;
+  }
+}
+
+.mrs-rose-plein {
+  background-color: $mrs-rose;
+  color: #fff;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.mrs-rose-vide {
+  border: 1px solid $mrs-rose;
+  color: $mrs-rose;
+
+  &:hover {
+    color: $mrs-rose;
+  }
+}
+
+#header-big {
+  padding-bottom: 5rem;
+
+  li.nav-item {
+    margin: 1rem;
+  }
+}
+
+.header-bg {
+  position: absolute;
+  background-color: #89CBC7;
+  height: 2rem;
+  width: 100%;
+}
+
+.mrs-logo {
+  max-width: 15rem;
+  position: absolute;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.cnam-wrapper {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+
+.cnam-logo {
+  display: block;
+  margin: 0 auto;
+  width: 9rem;
+}
+
+#mrs-navbar {
+  z-index: 2;
+}
+
+#hero {
+  width: 100%;
+  height: 30vw;
+  margin-bottom: 28vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  #baseline {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    color: #005DA8;
+    margin: 40vw 0 2rem;
+    width: 85vw;
+  }
+
+  #cta > a:first-child {
+    margin-right: 1rem;
+  }
+}
+
+@media (min-width: 576px) {
+  #hero {
+    margin-bottom: 20vh;
+
+    #baseline {
+      margin: 35vw 3rem 2rem;
+      width: 65vw;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #hero {
+    margin-bottom: 20vh;
+
+    #baseline {
+      margin: 24vw 3rem 3rem;
+      width: 30vw;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #hero {
+    margin-bottom: 18vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  #hero {
+    margin-bottom: 12vh;
+  }
+}
+
+#cmm {
+  padding: 5%;
+  background-color: #F0F0F0;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  > .row > div {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    > .row {
+      min-height: 7rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      > div:first-child {
+        justify-content: center;
+        align-items: flex-start;
+        display: flex;
+        padding-right: 0;
+        padding-left: 0;
+        background-repeat: repeat-y;
+        background-position: center bottom;
+
+        div {
+          background-color: white;
+          padding: 10px;
+          border: 1px solid $mrs-bleu;
+          width: 79px;
+          height: 79px;
+          background-repeat: no-repeat;
+          background-position: center;
+          border-radius: 40px;
+        }
+      }
+
+      h3 {
+        margin-bottom: .8rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  #cmm {
+    > .row > div {
+      margin-top: 0;
+    }
+  }
+}
+
+#service {
+  padding: 5%;
+
+  > .row {
+    align-items: flex-end;
+
+    :last-child {
+
+      > .row {
+        margin-top: 3rem;
+      }
+
+      :nth-child(1) {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      :nth-child(2) {
+        background-repeat: repeat-x;
+        background-size: 7px;
+        background-position: center;
+      }
+
+      :nth-child(3) {
+        display: flex;
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  #service {
+    > .row {
+      :last-child {
+        > .row {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+#temoignages {
+  padding: 5%;
+  background-color: #1CB0BA;
+
+  h2 {
+    color: #fff;
+  }
+}
