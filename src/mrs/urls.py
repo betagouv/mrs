@@ -80,7 +80,6 @@ urlpatterns = [
     path('institution/', include('institution.urls', namespace='institution')),
     path('oldadmin/', admin.site.urls),
     path('doc/', include('django.contrib.admindocs.urls')),
-    path('pro/', include('pro.urls', namespace='pro')),
     path('maintenance/', MaintenanceView.as_view(), name='maintenance'),
 ]
 
