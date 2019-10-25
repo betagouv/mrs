@@ -3,17 +3,13 @@
         <div id="header">
             <noscript>
                 
-                <a href="/" title="fonctionnement">fonctionnement</a>
+                <a href="/demande" title="demander un remboursement">demander un remboursement</a>
                 
-                <a href="/demande" title="formulaire">formulaire</a>
-                
-                <a href="/faq" title="faq">faq</a>
-                
-                <a href="/contact" title="contact">contact</a>
+                <a href="/faq" title="aide">aide</a>
                 
             </noscript>
             <script id="header-links" type="text/json">
-                [{"url": "/", "alias": "fonctionnement"}, {"url": "/demande", "alias": "formulaire"}, {"url": "/faq", "alias": "faq"}, {"url": "/contact", "alias": "contact"}]
+                [{"url": "/demande", "alias": "demander un remboursement", "active": false, "couleur": "rose"}, {"url": "/faq", "alias": "aide", "active": false, "couleur": "bleu"}]
             </script>
         </div>
 

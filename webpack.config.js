@@ -27,15 +27,15 @@ var cfg = {
       - footer
   */
   entry: {
-    // base: ['babel-polyfill', './src/mrs/static/js/base'],
-    // iframe: ['./src/mrs/static/js/iframe'],
-    // crudlfap: [
-    //   'babel-polyfill',
-    //   'whatwg-fetch',
-    //   './src/mrs/static/js/crudlfap',
-    //   './node_modules/c3/c3.css',
-    //   './node_modules/mrsmaterialize/sass/materialize.scss',
-    // ],
+    base: ['babel-polyfill', './src/mrs/static/js/base'],
+    iframe: ['./src/mrs/static/js/iframe'],
+    crudlfap: [
+      'babel-polyfill',
+      'whatwg-fetch',
+      './src/mrs/static/js/crudlfap',
+      './node_modules/c3/c3.css',
+      './node_modules/mrsmaterialize/sass/materialize.scss',
+    ],
     mrsbootstrap: [
       'countup.js', './src/mrs/static/js/mrscountup',
       './src/mrs/static/scss/mrs.scss',
