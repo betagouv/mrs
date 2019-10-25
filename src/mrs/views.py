@@ -81,7 +81,7 @@ class IndexView(generic.TemplateView):
             MRSRequest.objects.aggregate(
                 result=models.Avg('delay')
             )['result'] or 0
-        ).replace('.', ',')
+        )
 
 
 class LegalView(generic.TemplateView):
