@@ -195,15 +195,15 @@
 
         <div id="service-chiffres" class="row">
             <div class="col-12 col-md-4">
-                <div id="countup-users" class="countup"></div>
+                <div id="countup-users" class="countup">6</div>
                 <h3>Nombre d'utilisateurs</h3>
             </div>
             <div class="col-12 col-md-4">
-                <div id="countup-requests" class="countup"></div>
+                <div id="countup-requests" class="countup">8</div>
                 <h3>Nombre de demandes</h3>
             </div>
             <div class="col-12 col-md-4">
-                <div id="countup-delay" class="countup"></div>
+                <div id="countup-delay" class="countup">0.36</div>
                 <h3>Délai de remboursement</h3>
             </div>
         </div>
@@ -283,12 +283,7 @@
 
 
 
-    <script>
-        countUpActivate = true;
-        countUpUsersVal = '6';
-        countUpRequestsVal = '8';
-        countUpDelayVal = '0.36';
-    </script>
+    
     
     
 
