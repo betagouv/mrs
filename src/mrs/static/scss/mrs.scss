@@ -10,6 +10,17 @@ body {
   color: $mrs-noir;
 }
 
+textarea:focus, input:focus{
+    outline: none;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 35px;
+  text-transform: uppercase;
+  color: $mrs-bleu;
+}
+
 h2 {
   font-weight: bold;
   font-size: 24px;
@@ -81,7 +92,7 @@ h3 {
 }
 
 #header-big {
-  padding-bottom: 5rem;
+  margin-bottom: 6rem;
 
   li.nav-item {
     margin: 1rem;
@@ -127,12 +138,13 @@ h3 {
 }
 
 #header-small {
+  margin-bottom: 5rem;
+
   nav {
     flex-direction: column;
     justify-content: space-around;
     padding-top: 0;
     padding-bottom: 0;
-    margin-bottom: 5rem;
 
     .d-flex a:first-child {
       margin-right: 1rem;
@@ -225,6 +237,7 @@ h3 {
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
+  text-transform: none;
   text-align: center;
   color: #005DA8;
   display: block;
@@ -529,5 +542,72 @@ h3 {
     .footer-links {
       justify-content: flex-end;
     }
+  }
+}
+
+#recherche {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+
+  input {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 1.5rem;
+    padding: 1rem 2rem;
+    border: 1px solid $mrs-bleu;
+    color: $mrs-bleu;
+    width: 35em;
+    background-repeat: no-repeat;
+    background-position: 95% center;
+
+    &::placeholder {
+      color: $mrs-bleu;
+    }
+  }
+}
+
+#accordion-aide {
+  margin-bottom: 1rem;
+
+  .card {
+    border: none;
+  }
+
+  .card-header {
+    background-color: #fff;
+    border-width: 0 0 2px 0;
+    border-color: #89CBC7;
+    color: #003763;
+    font-weight: bold;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: 98% center;
+    padding-right: 3rem;
+
+    &[aria-expanded="true"] {
+      background-color: #1CB0BA;
+      color: #fff;
+      border-bottom: none;
+    }
+  }
+
+  .card-body {
+    background: #f3f9f9;
+    color: #000;
+    font-size: 14px;
+  }
+}
+
+#aucun-resultat {
+  display: none;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+
+  div {
+    margin-top: 1rem;
   }
 }

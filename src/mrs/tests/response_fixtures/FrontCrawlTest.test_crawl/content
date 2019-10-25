@@ -2,222 +2,298 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Découvrez MRS | MRS  (DEV)</title>
+    <title>Découvrez MRS | MRS </title>
     
 
     
-    
-    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Faustina" rel="stylesheet" />
-    <link rel="manifest" href="/static/manifest.json" />
-    <meta property="og:title" content="Mes Remboursements Simplifiés" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/static/img/logos/mrs.png" />
-    <meta property="og:description" content="Mes Remboursements Simplifiés (MRS) est un service innovant de l'Assurance Maladie pour accélérer et faciliter le remboursement des frais d’utilisation du véhicule particulier ou du transport en commun suite à une prescription médicale. MRS permet de déclarer directement en ligne et d’être remboursé en une semaine." />
-    <link rel="icon" type="image/png" href="/static/img/favicon.png" />
-    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
-    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon-precomposed" href="/static/img/apple-touch-icon-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static/img/apple-touch-icon-120x120-precomposed.png">
-    <link rel="icon" sizes="48x48" href="/static/img/logos/launcher-icon-1x.png">
-    <link rel="icon" sizes="96x96" href="/static/img/logos/launcher-icon-2x.png">
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous">
+        
+        <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Faustina"
+              rel="stylesheet"/>
+        <link rel="manifest" href="/static/manifest.json"/>
+        <meta property="og:title" content="Mes Remboursements Simplifiés"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content="/static/img/logos/mrs.png"/>
+        <meta property="og:description"
+              content="Mes Remboursements Simplifiés (MRS) est un service innovant de l'Assurance Maladie pour accélérer et faciliter le remboursement des frais d’utilisation du véhicule particulier ou du transport en commun suite à une prescription médicale. MRS permet de déclarer directement en ligne et d’être remboursé en une semaine."/>
+        <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
+        <link rel="icon" sizes="48x48" href="/static/img/logos/launcher-icon-1x.png">
+        <link rel="icon" sizes="96x96" href="/static/img/logos/launcher-icon-2x.png">
+        <link rel="manifest" href="/manifest.json"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
     
     <style type="text/css">
-    /* doesn't seem to work when through SASS */
-    progress::-webkit-progress-value {
-        background: #0dc5b9;
-    }
-    progress::-moz-progress-bar {
-        background: #0dc5b9;
-    }
+        /* doesn't seem to work when through SASS */
+        progress::-webkit-progress-value {
+            background: #0dc5b9;
+        }
+
+        progress::-moz-progress-bar {
+            background: #0dc5b9;
+        }
     </style>
-  </head>
-  <body class="index">
-    
+</head>
+<body class="index">
 
 
-    <div id="app--wrapper">
 
-        <div id="header">
-            <noscript>
-                
-                <a href="/" title="fonctionnement">fonctionnement</a>
-                
-                <a href="/demande" title="formulaire">formulaire</a>
-                
-                <a href="/faq" title="faq">faq</a>
-                
-                <a href="/contact" title="contact">contact</a>
-                
-            </noscript>
-            <script type="text/json" id="header-links">
-                [{"url": "/", "alias": "fonctionnement"}, {"url": "/demande", "alias": "formulaire"}, {"url": "/faq", "alias": "faq"}, {"url": "/contact", "alias": "contact"}]
-            </script>
+<div id="app--wrapper">
+
+    <div id="header-big" class="d-none d-lg-block">
+        <div class="header-bg"></div>
+        <div class="cnam-wrapper">
+            <img src="/static/img/logos/cnam.png" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo">
         </div>
 
-        
-    <div id="index--wrapper">
+        <nav class="navbar navbar-expand-lg py-0">
+            <a class="navbar-brand" href="/">
+                <img src="/static/img/logos/mrs.png" alt="MRS" class="mrs-logo">
+            </a>
 
-        <div class="mrs-logo--wrapper">
-            <img src=/static/img/logos/mrs.png alt="MRS" class="mrs-logo" />
-            <div id="intro--wrapper">
-                <p class="scroll-reveal">
-                    En 3 clics, mon transport personnel remboursé en moins d'une semaine.
-                </p>
-                <a class="start-button scroll-reveal" href="/demande">
-                    COMMENCER
+            <div class="d-flex justify-content-end w-100" id="mrs-navbar">
+                <ul class="navbar-nav text-center">
+                    
+                        <li class="nav-item">
+                            <a class="btn mrs-bouton mrs-rose-plein "
+                               href="/demande">Demander un remboursement</a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="btn mrs-bouton mrs-bleu-plein "
+                               href="/faq">Aide</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div id="header-small" class="d-block d-lg-none">
+        <nav class="navbar">
+            <a href="/" alt="Accueil" class="navbar-nav d-none d-sm-flex" style="background-image: url('/static/img/icones/home.svg')"></a>
+            <div class="navbar-brand">
+                <img src="/static/img/logos/mrs.png" alt="MRS" class="mrs-logo-small">
+                <img src="/static/img/logos/cnam2.png" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo-small">
+            </div>
+            <div class="d-flex d-sm-none">
+                <a href="/" alt="Accueil" class="navbar-nav" style="background-image: url('/static/img/icones/home.svg')"></a>
+                <a href="/faq" alt="Aide" class="navbar-nav" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
+            </div>
+            <a href="/faq" alt="Aide" class="navbar-nav d-none d-sm-flex" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
+        </nav>
+    </div>
+
+    
+    <div id="hero" style="background-image: url('/static/img/illu_accueil.svg')"></div>
+
+    <h1 id="baseline">
+        En 3 clics, mon transport personnel remboursé, en moins d’une semaine.
+    </h1>
+
+    <div id="cta">
+        <a class="btn mrs-bouton mrs-rose-vide" href="/demande">Demander un remboursement</a>
+        <a class="btn mrs-bouton mrs-bleu-vide" href="#cmm">Comment ca marche ?</a>
+    </div>
+
+    <div id="cmm" class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h2>
+                    Comment ca marche ?
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src="https://www.youtube.com/embed/TzrDppmF4vY"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="row">
+                    <div class="col-3" style="background-image:url('/static/img/icones/line.svg')">
+                        <div style="background-image:url('/static/img/icones/icon_prescr.svg')"></div>
+                    </div>
+                    <div class="col-9">
+                        <h3>Obtenez votre prescription</h3>
+                        <p>
+                            Vous avez reçu une prescription pour un transport chez votre médecin
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3" style="background-image:url('/static/img/icones/line.svg')">
+                        <div style="background-image:url('/static/img/icones/icon_transport.svg')"></div>
+                    </div>
+                    <div class="col-9">
+                        <h3>Faites le transport</h3>
+                        <p>
+                            Vous rejoignez l'hôpital sans taxi (transports en commun, votre voiture, la voiture d'un
+                            proche)
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3" style="background-image:url('/static/img/icones/line.svg')">
+                        <div style="background-image:url('/static/img/icones/icon_demande.svg')"></div>
+                    </div>
+                    <div class="col-9">
+                        <h3>Demandez le remboursement</h3>
+                        <p>
+                            Remplissez la demande sur ce site en ajoutant vos justificatifs (frais, prescription)
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div style="background-image:url('/static/img/icones/icon_euro.svg')"></div>
+                    </div>
+                    <div class="col-9">
+                        <h3>Obtenez le remboursement des frais !</h3>
+                        <p>
+                            Vous recevrez votre remboursement en une semaine seulement !
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="service" class="container-fluid">
+        <div id="service-header" class="row">
+            <div class="col-12 col-xl-4">
+                <h2>
+                    Le service en 3 chiffres
+                </h2>
+            </div>
+            <div class="col-12 col-xl-8">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="/static/img/voiture.svg">
+                    </div>
+                    <div class="col-6" style="background-image: url('/static/img/line.png')">
+                    </div>
+                    <div class="col-3">
+                        <img src="/static/img/bus.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="service-chiffres" class="row">
+            <div class="col-12 col-md-4">
+                <div id="countup-users" class="countup"></div>
+                <h3>Nombre d'utilisateurs</h3>
+            </div>
+            <div class="col-12 col-md-4">
+                <div id="countup-requests" class="countup"></div>
+                <h3>Nombre de demandes</h3>
+            </div>
+            <div class="col-12 col-md-4">
+                <div id="countup-delay" class="countup"></div>
+                <h3>Délai de remboursement</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="temoignages" class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h2>
+                    Ils ont utilisé notre service
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2 temoignages-images">
+                <img src="/static/img/bus2.svg">
+            </div>
+            <div class="col-12 col-md-8 temoignage">
+                <div class="row">
+                    <div class="col-1">
+                        <img src="/static/img/guillemetouvrant.svg">
+                    </div>
+                    <div class="col-10">
+                        Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière, paiement très rapide et simplifié grâce à l’envoi par internet ! Merci !
+                        <br>
+                        <b>Amelie F.</b>
+                    </div>
+                    <div class="col-1">
+                        <img src="/static/img/guillemetfermant.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 temoignages-images">
+                <img src="/static/img/voiture2.svg">
+            </div>
+        </div>
+    </div>
+
+
+    <div id="footer" class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-3 footer-images">
+                <a href="https://www.ameli.fr" target="_blank">
+                    <img class="logo" src="/static/img/logos/ameli.png" alt="Logo ameli.fr" />
                 </a>
             </div>
-        </div>
-
-
-        <div
-            style="background-image: url('/static/img/landing-intro-bg.jpg')"
-            id="intro-bg-img">
-        </div>
-
-        <div id="intro-descr--wrapper" class="thumb--wrapper">
-            <div class="thumb">
-                <h3>Une semaine pour être remboursé !</h3>
-                <p>
-                    Sur prescription de votre médecin, l'Assurance Maladie rembourse les frais d'utilisation de votre véhicule personnel ou des transports en commun.
-                </p>
+            <div class="col-12 col-md-9 footer-links">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <span>© <script>document.write(new Date().getFullYear())</script> - CNAM</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/mentions-legales">Mentions légales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
             </div>
-        </div>
-
-        <div id="hier-ajd--wrapper">
-            <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/TzrDppmF4vY?rel=0"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-            ></iframe>
-        </div>
-
-        <div id="etapes-descr--wrapper" class="thumb--wrapper">
-            <div class="thumb">
-                <p>
-                    <strong>3 étapes</strong> pour accélérer le remboursement du transport prescrit
-                </p>
-            </div>
-        </div>
-
-        <div id="processes--wrapper">
-            <div class="process--wrapper">
-                <img class="picto-bus" alt="picto" src="/static/img/3-etapes/bus.png" />
-                <div class="title--wrapper">
-                    <img
-                        src="/static/img/3-etapes/1.png"
-                        class="mobile"
-                        alt="1" />
-                    <img
-                        src="/static/img/3-etapes/1-desktop.png"
-                        class="desktop num-1"
-                        alt="1" />
-                    <h4 class="translate">Je déclare mon trajet</h4>
-                </div>
-                <p>
-                    Je saisis les informations nécessaires : nombre de kilomètres, frais de péage ...
-                </p>
-                <img
-                    src="/static/img/3-etapes/deco-1.png"
-                    class="deco"
-                    alt="deco" />
-            </div>
-            <div class="process--wrapper">
-                <div class="title--wrapper">
-                    <img
-                        src="/static/img/3-etapes/2.png"
-                        class="mobile"
-                        alt="2" />
-                    <img
-                        src="/static/img/3-etapes/2-desktop.png"
-                        class="desktop num-2"
-                        alt="2" />
-                    <h4 class="">Je transmets mes justificatifs</h4>
-                </div>
-                <p>
-                    Je photographie ou scanne ma prescription médicale de transport et mes justificatifs et les joins à ma demande (tickets de bus, de péage...).
-                </p>
-                <img
-                    src="/static/img/3-etapes/deco-2.png"
-                    class="deco"
-                    alt="deco" />
-            </div>
-            <div class="process--wrapper">
-                <img class="picto-auto" alt="picto" src="/static/img/3-etapes/auto.png" />
-                <div class="title--wrapper">
-                    <img
-                        src="/static/img/3-etapes/3.png"
-                        class="mobile"
-                        alt="3" />
-                    <img
-                        src="/static/img/3-etapes/3-desktop.png"
-                        class="desktop num-3"
-                        alt="3" />
-                    <h4 class="translate">Je valide ma demande</h4>
-                </div>
-                <p>
-                    Je vérifie les informations et j'envoie ma demande de remboursement directement en ligne. Je reçois une confirmation de traitement.
-                </p>
-                <img
-                    src="/static/img/3-etapes/deco-3.png"
-                    class="deco"
-                    alt="deco" />
-            </div>
-        </div>
-
-        <div id="control--wrapper" class="thumb--wrapper">
-            <div id="control" class="thumb">
-                <p>
-                    * Les originaux des pièces justificatives (prescription médicale de transport, justificatif de paiement de transports en commun et ou péage) doivent être conservés 33 mois. Ces documents pourraient vous être demandés dans le cadre d'un contrôle de l'Assurance Maladie.
-                </p>
-            </div>
-        </div>
-
-        <div id="caroussel">
-            <h2>Ils ont déjà utilisé notre service</h2>
-            <img src="/static/img/icones/open-quotes.png" alt="icone" />
-        </div>
-
-
-        <div id="index-footer--wrapper">
-            <a href="https://beta.gouv.fr/" target="_blank">
-                <img class="logo" src="/static/img/logos/beta-gouv-marianne.png" alt="Logo beta.gouv.fr" />
-            </a>
-            <a href="https://www.ameli.fr" target="_blank">
-                <img class="logo" src="/static/img/logos/ameli.png" alt="Logo ameli.fr" />
-            </a>
         </div>
     </div>
+</div>
 
 
-        <div id="footer">
-            <div class="links">
-                <a href="/mentions-legales">mentions legales</a>
-                <a href="/stats">statistiques</a>
-            </div>
-            <p>
-                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE
-            </p>
-        </div>
-    </div>
 
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+
+
+    <script>
+        countUpActivate = true;
+        countUpUsersVal = '6';
+        countUpRequestsVal = '8';
+        countUpDelayVal = '0.36';
+    </script>
+    
     
 
-    
-    
-    
 
-    
-    
 
-    <!-- PROJECT_INSTANCE=mrs-dev -->
-  </body>
+<!-- PROJECT_INSTANCE=mrs-dev -->
+</body>
 </html>
