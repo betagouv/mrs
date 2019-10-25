@@ -69,7 +69,6 @@ INSTALLED_APPS = [
     'mrsstat',
     'caisse',
     'rating',
-    'pro',
     'denorm',
     'explorer',
     'captcha',
@@ -452,7 +451,8 @@ if DEBUG:
         MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
         INTERNAL_IPS = ['172.17.0.1', '127.0.0.1']
 
-    INSTALLED_APPS += ('hattori',)
+    if not os.getenv('CI'):
+        INSTALLED_APPS += ('hattori',)
     ANONYMIZE_ENABLED = True
 
 

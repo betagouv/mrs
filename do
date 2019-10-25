@@ -48,7 +48,7 @@ db.reset() {
 }
 
 # db.reload         Drop and re-create the database, load test data
-db.reset() {
+db.reload() {
     db.reset && db.load
 }
 

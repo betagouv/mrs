@@ -37,9 +37,11 @@ var cfg = {
       './node_modules/mrsmaterialize/sass/materialize.scss',
     ],
     mrsbootstrap: [
-      'countup.js', './src/mrs/static/js/mrscountup',
       './src/mrs/static/scss/mrs.scss',
-    ]
+    ],
+    mrscountup: [
+      'countup.js', './src/mrs/static/js/mrscountup',
+    ],
   },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
