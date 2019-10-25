@@ -1,5 +1,6 @@
 {% extends 'base_new.html' %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 
 {% block title %}Une question sur Mes Remboursements Simplifiés{% endblock %}
 {% block description %}Découvrez les réponses à vos questions sur les modalités d’utilisation du service Mes Remboursements Simplifiés (MRS) ainsi que les différentes situations de prise en charge.{% endblock %}
@@ -190,7 +191,7 @@
                     <div id="collapse10" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-aide">
                         <div class="card-body">
                             <p>
-                                Vous devez nous envoyer le volet 2 de la prescription médicale de transport réalisée par votre médecin ou le volet 3 de la demande d'accord préalable. <b>Le volet 1 de la prescription médicale de transport (à destination du praticien conseil) est à conserver et pourra vous être demandé par le service Médical le cas échéant.</b>
+                                Vous devez nous envoyer le vovar 2 de la prescription médicale de transport réalisée par votre médecin ou le vovar 3 de la demande d'accord préalable. <b>Le vovar 1 de la prescription médicale de transport (à destination du praticien conseil) est à conserver et pourra vous être demandé par le service Médical le cas échéant.</b>
                             </p>
                         </div>
                     </div>
@@ -268,41 +269,5 @@
 
 {% block extra_js %}
     {{ block.super }}
-    <script>
-        $(document).ready(function() {
-            $("#recherche-input").on("keyup change", function () {
-                $('.collapse').collapse('hide');
-                let recherche = $(this).val().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-
-                if (recherche === "") {
-                    $('.card').show();
-                    $('#aucun-resultat').hide();
-                } else {
-                    let shown = false;
-                    $('.card-header').map(function () {
-                        if ($(this).html().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").indexOf(recherche) > 1) {
-                            $(this).parent().show();
-                            shown = true;
-                        } else {
-                            $(this).parent().hide();
-                        }
-                    });
-                    $('.card-body').map(function () {
-                        if ($(this).html().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").indexOf(recherche) > 1) {
-                            $(this).parent().parent().show();
-                            shown = true;
-                        } else {
-                            $(this).parent().parent().hide();
-                        }
-                    });
-
-                    if (!shown) {
-                        $('#aucun-resultat').show();
-                    } else {
-                        $('#aucun-resultat').hide();
-                    }
-                }
-            });
-        });
-    </script>
+    {% render_bundle 'mrsfaq' 'js' %}
 {% endblock %}

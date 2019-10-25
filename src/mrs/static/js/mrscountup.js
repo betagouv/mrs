@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import { CountUp } from 'countup.js'
 
 const countUpOptions1 = {
@@ -14,25 +13,25 @@ const countUpOptions2 = {
 }
 
 $(document).ready(function () {
-  var users_shown = false
-  var requests_shown = false
-  var delay_shown = false
+  let users_shown = false
+  let requests_shown = false
+  let delay_shown = false
 
   $.fn.isInViewport = function () {
-    var elementTop = $(this).offset().top
-    var elementBottom = elementTop + $(this).outerHeight()
-    var viewportTop = $(window).scrollTop()
-    var viewportBottom = viewportTop + $(window).height()
+    let elementTop = $(this).offset().top
+    let elementBottom = elementTop + $(this).outerHeight()
+    let viewportTop = $(window).scrollTop()
+    let viewportBottom = viewportTop + $(window).height()
     return elementBottom > viewportTop && elementTop < viewportBottom
   }
 
-  var compute_shown = function () {
+  let compute_shown = function () {
     if (
       !users_shown || !requests_shown || !delay_shown
     ) {
-      var users_in_viewport = $('#countup-users').isInViewport()
-      var requests_in_viewport = $('#countup-requests').isInViewport()
-      var delay_in_viewport = $('#countup-delay').isInViewport()
+      let users_in_viewport = $('#countup-users').isInViewport()
+      let requests_in_viewport = $('#countup-requests').isInViewport()
+      let delay_in_viewport = $('#countup-delay').isInViewport()
 
       if (users_in_viewport && !users_shown) {
         let countUpUsers = new CountUp('countup-users', $('#countup-users').html(), countUpOptions1)
