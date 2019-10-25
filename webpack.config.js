@@ -42,6 +42,9 @@ var cfg = {
     mrscountup: [
       'countup.js', './src/mrs/static/js/mrscountup',
     ],
+    mrsfaq: [
+      './src/mrs/static/js/mrsfaq',
+    ],
   },
   output: {
     path: path.resolve('./src/mrs/static/webpack_bundles/'),
