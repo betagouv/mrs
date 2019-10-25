@@ -10,16 +10,15 @@
 {% endblock %}
 
 {% block content %}
-    <div id="hero" style="background-image: url('{% static "/img/illu_accueil.svg" %}')">
+    <div id="hero" style="background-image: url('{% static "/img/illu_accueil.svg" %}')"></div>
 
-        <h1 id="baseline">
-            En 3 clics, mon transport personnel remboursé, en moins d’une semaine.
-        </h1>
+    <h1 id="baseline">
+        En 3 clics, mon transport personnel remboursé, en moins d’une semaine.
+    </h1>
 
-        <div id="cta">
-            <a class="btn mrs-bouton mrs-rose-vide" href="{% url "demande" %}">Demander un remboursement</a>
-            <a class="btn mrs-bouton mrs-bleu-vide" href="#cmm">Comment ca marche ?</a>
-        </div>
+    <div id="cta">
+        <a class="btn mrs-bouton mrs-rose-vide" href="{% url "demande" %}">Demander un remboursement</a>
+        <a class="btn mrs-bouton mrs-bleu-vide" href="#cmm">Comment ca marche ?</a>
     </div>
 
     <div id="cmm" class="container-fluid">
@@ -95,7 +94,7 @@
     </div>
 
     <div id="service" class="container-fluid">
-        <div class="row">
+        <div id="service-header" class="row">
             <div class="col-12 col-xl-4">
                 <h2>
                     Le service en 3 chiffres
@@ -115,15 +114,17 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <div id="test">3000</div>
+        <div id="service-chiffres" class="row">
+            <div class="col-12 col-md-4">
+                <div id="countup-users" class="countup"></div>
                 <h3>Nombre d'utilisateurs</h3>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-4">
+                <div id="countup-requests" class="countup"></div>
                 <h3>Nombre de demandes</h3>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-4">
+                <div id="countup-delay" class="countup"></div>
                 <h3>Délai de remboursement</h3>
             </div>
         </div>
@@ -131,7 +132,7 @@
 
     <div id="temoignages" class="container-fluid">
         <div class="row">
-            <div class="col-12 col-xl-4">
+            <div class="col">
                 <h2>
                     Ils ont utilisé notre service
                 </h2>
@@ -139,8 +140,26 @@
         </div>
 
         <div class="row">
-            <div class="col">
-
+            <div class="col-2 temoignages-images">
+                <img src="{% static "img/bus2.svg" %}">
+            </div>
+            <div class="col-12 col-md-8 temoignage">
+                <div class="row">
+                    <div class="col-1">
+                        <img src="{% static "img/guillemetouvrant.svg" %}">
+                    </div>
+                    <div class="col-10">
+                        Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière, paiement très rapide et simplifié grâce à l’envoi par internet ! Merci !
+                        <br>
+                        <b>Amelie F.</b>
+                    </div>
+                    <div class="col-1">
+                        <img src="{% static "img/guillemetfermant.svg" %}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 temoignages-images">
+                <img src="{% static "img/voiture2.svg" %}">
             </div>
         </div>
     </div>
@@ -148,7 +167,9 @@
 
 {% block extra_js %}
     <script>
-        countUpVal = ('{{ view.users_count }}');
+        countUpUsersVal = '{{ view.users_count }}';
+        countUpRequestsVal = '{{ view.mrsrequests_count }}';
+        countUpDelayVal = '{{ view.average_payment_delay }}';
     </script>
     {{ block.super }}
 {% endblock %}

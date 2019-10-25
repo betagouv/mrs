@@ -43,15 +43,15 @@
 
 <div id="app--wrapper">
 
-    <div id="header-big" class="d-none d-sm-none d-md-none d-lg-block">
+    <div id="header-big" class="d-none d-lg-block">
         <div class="header-bg"></div>
         <div class="cnam-wrapper">
-            <img src="{% static "img/logos/cnam.png" %}" class="cnam-logo">
+            <img src="{% static "img/logos/cnam.png" %}" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo">
         </div>
 
         <nav class="navbar navbar-expand-lg py-0">
             <a class="navbar-brand" href="/">
-                <img src="{% static "img/logos/mrs.png" %}" alt="mrs" class="mrs-logo">
+                <img src="{% static "img/logos/mrs.png" %}" alt="MRS" class="mrs-logo">
             </a>
 
             <div class="d-flex justify-content-end w-100" id="mrs-navbar">
@@ -67,24 +67,45 @@
         </nav>
     </div>
 
+    <div id="header-small" class="d-block d-lg-none">
+        <nav class="navbar">
+            <a href="/" alt="Accueil" class="navbar-nav d-none d-sm-flex" style="background-image: url('{% static 'img/icones/home.svg' %}')"></a>
+            <div class="navbar-brand">
+                <img src="{% static "img/logos/mrs.png" %}" alt="MRS" class="mrs-logo-small">
+                <img src="{% static "img/logos/cnam2.png" %}" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo-small">
+            </div>
+            <div class="d-flex d-sm-none">
+                <a href="/" alt="Accueil" class="navbar-nav" style="background-image: url('{% static 'img/icones/home.svg' %}')"></a>
+                <a href="{{ header_links.1.url }}" alt="{{ header_links.1.alias|capfirst }}" class="navbar-nav" style="background-image: url('{% static 'img/icones/icon_question.svg' %}')"></a>
+            </div>
+            <a href="{{ header_links.1.url }}" alt="{{ header_links.1.alias|capfirst }}" class="navbar-nav d-none d-sm-flex" style="background-image: url('{% static 'img/icones/icon_question.svg' %}')"></a>
+        </nav>
+    </div>
+
     {% block content %}
     {% endblock %}
 
-    <div id="footer">
-        {#            <div class="links">#}
-        {#                <a href="/mentions-legales">mentions legales</a>#}
-        {#                <a href="/stats">statistiques</a>#}
-        {#            </div>#}
-        {#            <p>#}
-        {#                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE#}
-        {#            </p>#}
-
-        {#            <a href="https://beta.gouv.fr/" target="_blank">#}
-        {#                <img class="logo" src="{% static 'img/logos/beta-gouv-marianne.png' %}" alt="Logo beta.gouv.fr" />#}
-        {#            </a>#}
-        {#            <a href="https://www.ameli.fr" target="_blank">#}
-        {#                <img class="logo" src="{% static 'img/logos/ameli.png' %}" alt="Logo ameli.fr" />#}
-        {#            </a>#}
+    <div id="footer" class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-3 footer-images">
+                <a href="https://www.ameli.fr" target="_blank">
+                    <img class="logo" src="{% static 'img/logos/ameli.png' %}" alt="Logo ameli.fr" />
+                </a>
+            </div>
+            <div class="col-12 col-md-9 footer-links">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <span>© <script>document.write(new Date().getFullYear())</script> - CNAM</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/mentions-legales">Mentions légales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
