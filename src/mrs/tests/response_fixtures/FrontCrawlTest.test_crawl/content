@@ -17,6 +17,10 @@
     <meta property="og:description" content="Mes Remboursements Simplifiés (MRS) est un service innovant de l'Assurance Maladie pour accélérer et faciliter le remboursement des frais d’utilisation du véhicule particulier ou du transport en commun suite à une prescription médicale. MRS permet de déclarer directement en ligne et d’être remboursé en une semaine." />
     <link rel="icon" type="image/png" href="/static/img/favicon.png" />
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/img/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static/img/apple-touch-icon-120x120-precomposed.png">
     <link rel="icon" sizes="48x48" href="/static/img/logos/launcher-icon-1x.png">
     <link rel="icon" sizes="96x96" href="/static/img/logos/launcher-icon-2x.png">
     <link rel="manifest" href="/manifest.json" />

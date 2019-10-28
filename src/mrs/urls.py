@@ -32,8 +32,21 @@ urlpatterns = [
     crudlfap.site.get_urlpattern(),
     path('', MRSRequestCreateView.as_view(
         template_name='index.html'), name='index'),
+    # TBD : move the following static files to nginx or traefik
     path('favicon.ico', views.StaticView.as_view(
         path='img/favicon.ico',
+    )),
+    path('apple-touch-icon.png', views.StaticView.as_view(
+        path='img/apple-touch-icon.png',
+    )),
+    path('apple-touch-icon-precomposed.png', views.StaticView.as_view(
+        path='img/apple-touch-icon-precomposed.png',
+    )),
+    path('apple-touch-icon-120x120.png', views.StaticView.as_view(
+        path='img/apple-touch-icon-120x120.png',
+    )),
+    path('apple-touch-icon-120x120-precomposed.png', views.StaticView.as_view(
+        path='img/apple-touch-icon-120x120-precomposed.png',
     )),
     path('demande', MRSRequestCreateView.as_view(), name='demande'),
     # too early for this little one
