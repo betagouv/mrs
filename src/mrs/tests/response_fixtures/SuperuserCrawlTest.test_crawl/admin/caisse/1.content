@@ -69,6 +69,17 @@
       
       <tr>
         <th>
+          Email du service d'habilitation
+        </th>
+        <td>
+          
+              aaa2@example.com
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
           Activé
         </th>
         <td>

@@ -59,6 +59,11 @@ class Caisse(models.Model):
         blank=True,
         null=True
     )
+    habilitation_email = models.EmailField(
+        verbose_name='email du service d\'habilitation',
+        blank=True,
+        null=True
+    )
     active = models.BooleanField(
         verbose_name='activé',
         default=False,
