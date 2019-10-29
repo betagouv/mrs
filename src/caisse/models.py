@@ -174,7 +174,7 @@ def monthly_mail(force=False):
                 'caisse/liquidation_monthly_mail_title.txt',
             ).render().strip(),
             body=template.loader.get_template(
-                'caisse/liquidation_monthly_mail_body.txt',
+                'caisse/liquidation_monthly_mail_body.html',
             ).render().strip(),
             to=[caisse.liquidation_email],
             reply_to=[settings.DEFAULT_FROM_EMAIL],
@@ -186,6 +186,7 @@ def monthly_mail(force=False):
                 ),
             ]
         )
+        message.content_subtype = 'html'
         message.send()
 
 

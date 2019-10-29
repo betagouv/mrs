@@ -80,7 +80,11 @@ def test_mrsrequest_cancel_get(name, url, status, client):
 
 
 @scenarize
-def test_mrsrequest_cancel_post(name, url, status, client):
+def test_mrsrequest_cancel_post(mailoutbox, name, url, status, client):
     mrsrequest = mrsrequest_factory(status)
     resp = client.post(cancel_url(mrsrequest, url))
     assert resp.status_code == 200 if name == 'ok' else 500
+
+    if name == 'ok':
+        assert mrsrequest.caisse.liquidation_email in mailoutbox[0].reply_to
+        assert len(mailoutbox[0].reply_to) == 1

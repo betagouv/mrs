@@ -99,7 +99,7 @@ def test_progress_post_fails_for_non_caisse_staff(ur, mrsrequest):
 
 @freeze_time('3000-12-31 13:37:42')
 @pytest.mark.dbdiff(models=[MRSRequestLogEntry, Caisse, Person])
-def test_progress_validate_success(ur, mrsrequest):
+def test_progress_validate_success(mailoutbox, ur, mrsrequest):
     request = ur('post', caisse=mrsrequest.caisse)
     view('progress')(request, pk=mrsrequest.pk)
     with pytest.raises(http.Http404):
@@ -114,6 +114,9 @@ def test_progress_validate_success(ur, mrsrequest):
     response = view('validate')(request, pk=mrsrequest.pk)
     assert response['Location'] == mrsrequest.get_absolute_url()
 
+    assert mrsrequest.caisse.liquidation_email in mailoutbox[0].reply_to
+    assert len(mailoutbox[0].reply_to) == 1
+
     Fixture(
         './src/mrsrequest/tests/test_mrsrequest_admin_progress_validate.json',  # noqa
         models=[MRSRequest, MRSRequestLogEntry]
@@ -126,7 +129,7 @@ def test_progress_validate_success(ur, mrsrequest):
 
 @freeze_time('3000-12-31 13:37:42')
 @pytest.mark.dbdiff(models=[MRSRequestLogEntry, Caisse, Person, EmailTemplate])
-def test_progress_reject_success(ur, mrsrequest, emailtemplate):
+def test_progress_reject_success(mailoutbox, ur, mrsrequest, emailtemplate):
     request = ur('post', caisse=mrsrequest.caisse)
     view('progress')(request, pk=mrsrequest.pk)
     with pytest.raises(http.Http404):
@@ -140,6 +143,9 @@ def test_progress_reject_success(ur, mrsrequest, emailtemplate):
     response = view('reject')(request, pk=mrsrequest.pk)
     assert response['Location'] == mrsrequest.get_absolute_url()
 
+    assert mrsrequest.caisse.liquidation_email in mailoutbox[0].reply_to
+    assert len(mailoutbox[0].reply_to) == 1
+
     Fixture(
         './src/mrsrequest/tests/test_mrsrequest_admin_progress_reject.json',  # noqa
         models=[MRSRequest, MRSRequestLogEntry]
@@ -152,7 +158,7 @@ def test_progress_reject_success(ur, mrsrequest, emailtemplate):
 
 @freeze_time('3000-12-31 13:37:42')
 @pytest.mark.dbdiff(models=[MRSRequestLogEntry, EmailTemplate])
-def test_contact(ur, mrsrequest):
+def test_contact(mailoutbox, ur, mrsrequest):
     emailtemplate = EmailTemplate.objects.get_or_create(
         name='Conseil Iteratif',
         subject='Demande {{ display_id }}: conseil',
@@ -169,3 +175,6 @@ def test_contact(ur, mrsrequest):
     )
     response = contact(request, pk=mrsrequest.pk)
     assert response['Location'] == mrsrequest.get_absolute_url()
+
+    assert mrsrequest.caisse.liquidation_email in mailoutbox[0].reply_to
+    assert len(mailoutbox[0].reply_to) == 1

@@ -125,7 +125,7 @@ class MRSRequestValidateMixin(MRSRequestStatusMixin):
                 subject=self.mail_render('title', mrsrequest),
                 body=self.mail_render('body', mrsrequest),
                 to=[(mrsrequest or self.object).insured.email],
-                reply_to=[settings.TEAM_EMAIL],
+                reply_to=[self.object.caisse.liquidation_email],
             )
         ).spool('mail')
 

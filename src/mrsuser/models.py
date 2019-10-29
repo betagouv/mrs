@@ -72,7 +72,7 @@ class User(AbstractUser):
         for name in groupnames:
             self.add_group(name)
 
-    def password_reset(self):
+    def password_reset(self, caisse):
         created = not self.password
         password = secrets.token_urlsafe(16)
         self.set_password(password)
@@ -80,6 +80,11 @@ class User(AbstractUser):
         password_email_template = template.loader.get_template(
             'mrsuser/user_password_email.txt',
         )
+        email = caisse.habilitation_email
+        if email:
+            reply_to = email
+        else:
+            reply_to = settings.TEAM_EMAIL
         Caller(
             callback='djcall.django.email_send',
             kwargs=dict(
@@ -95,6 +100,6 @@ class User(AbstractUser):
                     BASE_URL=settings.BASE_URL,
                 )),
                 to=[self.email],
-                reply_to=[settings.TEAM_EMAIL],
+                reply_to=[reply_to],
             )
         ).spool('mail')

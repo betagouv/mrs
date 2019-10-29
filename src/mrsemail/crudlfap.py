@@ -3,7 +3,6 @@ import json
 from crudlfap import shortcuts as crudlfap
 from django import template
 from django import forms
-from django.conf import settings
 from django.db import models
 
 from caisse.models import Caisse
@@ -75,7 +74,7 @@ class EmailViewMixin:
                 subject=self.form.cleaned_data['subject'],
                 body=self.form.cleaned_data['body'],
                 to=[self.object.insured.email],
-                reply_to=[settings.TEAM_EMAIL],
+                reply_to=[self.object.caisse.liquidation_email],
             )
         ).spool('mail')
         self.form.cleaned_data['template'].counter += 1

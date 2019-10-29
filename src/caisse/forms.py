@@ -85,6 +85,7 @@ class CaisseForm(forms.ModelForm):
             'number',
             'regions',
             'liquidation_email',
+            'habilitation_email',
             'active',
             'parking_enable',
         )

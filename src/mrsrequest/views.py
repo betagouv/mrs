@@ -331,7 +331,7 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
                     'mrsrequest/success_mail_body.txt'
                 ).render(mail_context).strip(),
                 to=[self.object.insured.email],
-                reply_to=[settings.TEAM_EMAIL],
+                reply_to=[self.object.caisse.liquidation_email],
             )
         ).spool('mail')
 
