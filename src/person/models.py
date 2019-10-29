@@ -3,6 +3,7 @@ import datetime
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext as _
 
 
@@ -74,6 +75,11 @@ class Person(models.Model):
         null=True,
         blank=True,
         verbose_name='Assuré a basculé',
+    )
+    creation_datetime = models.DateTimeField(
+        default=timezone.now,
+        db_index=True,
+        verbose_name='Date et heure de création',
     )
 
     class Meta:

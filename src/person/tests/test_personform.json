@@ -2,6 +2,7 @@
 {
     "fields": {
         "birth_date": "1990-01-01",
+        "creation_datetime": "2019-10-30T11:23:58Z",
         "email": "example@example.com",
         "first_name": "jamesy",
         "last_name": "lebowski",
