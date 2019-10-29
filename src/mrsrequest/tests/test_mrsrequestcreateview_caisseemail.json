@@ -3,9 +3,9 @@
     "fields": {
         "active": true,
         "code": "010000000",
+        "habilitation_email": "habilitation@aoeu.com",
         "import_datetime": null,
         "liquidation_email": "taoeu@aoeu.com",
-        "habilitation_email": "habilitation@aoeu.com",
         "name": "test",
         "number": "311",
         "parking_enable": true,
@@ -21,9 +21,9 @@
     "fields": {
         "active": false,
         "code": "110000000",
+        "habilitation_email": null,
         "import_datetime": null,
         "liquidation_email": null,
-        "habilitation_email": null,
         "name": "test inactive",
         "number": "333",
         "parking_enable": true,

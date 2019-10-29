@@ -25,6 +25,7 @@ id = mrsrequest_uuid = pytest.fixture(
 
 Fixture.exclude = {
     'mrsrequest.mrsrequest': ['token'],
+    'person.person': ['creation_datetime'],
     'mrsattachment.mrsattachment': ['attachment_file'],
 }
 
