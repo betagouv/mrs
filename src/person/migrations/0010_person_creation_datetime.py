@@ -8,8 +8,9 @@ def update_person_creation_datetime(apps, schema_editor):
     Person = apps.get_model('person', 'person')
     for p in Person.objects.all():
         m = p.mrsrequest_set.order_by('creation_datetime').first()
-        p.creation_datetime = m.creation_datetime
-        p.save()
+        if m:
+            p.creation_datetime = m.creation_datetime
+            p.save()
 
 
 class Migration(migrations.Migration):
