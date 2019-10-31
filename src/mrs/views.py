@@ -168,9 +168,9 @@ class ErrorView:
         client = Client(settings.RAVEN_CONFIG['dsn'])
         traceback.print_exc()
 
-        if 'exception' in kwargs:
+        if isinstance(kwargs.get('exception', None), Exception):
             client.captureException(kwargs['exception'])
-        else:
+        elif self.status in (500, 400):
             client.captureMessage(self.message, level='error')
 
         return http.HttpResponse(
