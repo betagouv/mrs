@@ -195,6 +195,9 @@ function adjustSelectOptions(select_name, region_id, with_regimes_speciaux, with
     showOptions('[name=' + select_name +'] option[value=other]')
   }
 
+  // On affiche un item vide par défaut
+  showOptions('[name=' + select_name +'] option[value=""]')
+
 }
 
 // Fonction permettant d'afficher le formulaire "Me prévenir quand la caisse
