@@ -125,6 +125,7 @@ class MRSRequestCreateForm(forms.ModelForm):
     )
 
     caisse = ActiveCaisseChoiceField(
+        otherchoice=True,
         label='Votre caisse de rattachement',
         help_text='Votre caisse n\'apparaît pas dans la liste ? Elle n\'a pas '
                   'encore rejoint le dispositif MRS. Cliquez sur "Autre" pour '

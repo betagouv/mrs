@@ -16,12 +16,14 @@ class OtherModelChoiceIterator(ModelChoiceIterator):
 
 
 class ActiveCaisseChoiceField(forms.ModelChoiceField):
-    iterator = OtherModelChoiceIterator
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, otherchoice, *args, **kwargs):
+        if otherchoice:
+            self.iterator = OtherModelChoiceIterator
         super().__init__(
             Caisse.objects.filter(active=True).prefetch_related('regions'),
-            *args, **kwargs)
+            *args,
+            **kwargs)
 
     def to_python(self, value):
         return value if value == 'other' else super().to_python(value)

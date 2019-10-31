@@ -1,7 +1,5 @@
 import pytest
 
-from django.conf import settings
-
 from captcha.models import CaptchaStore
 from contact.forms import ContactForm
 from mrsrequest.models import MRSRequest
@@ -51,22 +49,10 @@ def test_contactform_email_kwargs_request(p, srf, caisse, data):
 
 
 @pytest.mark.django_db
-def test_contactform_email_kwargs_request_other(p, srf, caisse, data):
-    # fixes regression #851
-    data['caisse'] = 'other'
-    form = ContactForm(data)
-    assert form.is_valid()
-    kwargs = form.get_email_kwargs()
-    assert settings.TEAM_EMAIL in kwargs['to']
-    obj = form.save()
-    assert obj.caisse is None
-
-
-@pytest.mark.django_db
 @pytest.mark.parametrize('motif', ['website_question', 'other'])
 def test_contactform_email_kwargs_suggestion(p, srf, caisse, data, motif):
     data['motif'] = motif
     form = ContactForm(data)
     assert form.is_valid()
     kwargs = form.get_email_kwargs()
-    assert settings.TEAM_EMAIL in kwargs['to']
+    assert caisse.liquidation_email in kwargs['to']
