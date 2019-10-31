@@ -1,3 +1,4 @@
+/* global Raven */
 import $ from 'jquery'
 import Cookie from 'js-cookie'
 import mrsattachment from './mrsattachment'
@@ -17,23 +18,22 @@ import M from 'mrsmaterialize'
   window.CustomEvent = CustomEvent
 })()
 
-$(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
-    // We don't want user Bad requests (oversized files, unaccepted file format...)
-    // to be reported to Sentry
-    if (jqXHR.status != 400){
-      Raven.captureMessage(jqXHR.statusText, {
-        extra: {
-          type: ajaxSettings.type,
-          url: ajaxSettings.url,
-          data: ajaxSettings.data,
-          status: jqXHR.status,
-          error: jqXHR.statusText,
-          response: (jqXHR.responseText == null) ? "" : jqXHR.responseText.substring(0, 100)
-        }
-      })
-    }
+$(document).ajaxError(function(event, jqXHR, ajaxSettings) {
+  // We don't want user Bad requests (oversized files, unaccepted file format...)
+  // to be reported to Sentry
+  if (jqXHR.status != 400){
+    Raven.captureMessage(jqXHR.statusText, {
+      extra: {
+        type: ajaxSettings.type,
+        url: ajaxSettings.url,
+        data: ajaxSettings.data,
+        status: jqXHR.status,
+        error: jqXHR.statusText,
+        response: (jqXHR.responseText == null) ? '' : jqXHR.responseText.substring(0, 100)
+      }
+    })
   }
-)
+})
 
 var listen = false
 
@@ -63,19 +63,17 @@ var formInit = function (form) {
 
   // On récupère les caisses et leurs attributs au format json
   document.caisses = JSON.parse(
-  document.getElementById('caissesJson').innerHTML)
+    document.getElementById('caissesJson').innerHTML)
 
   // On récupère l'id de la région des régimes spéciaux
   document.regimesspeciauxId = JSON.parse(
-  document.getElementById('regimesspeciauxId').innerHTML).id
+    document.getElementById('regimesspeciauxId').innerHTML).id
 
   // Bloc contenant la liste déroulante de sélection de caisse
   var $caisseSelector = $(form).find('#caisse-selector')
   // Liste déroulante de sélection de caisse
   var $caisse = $(form).find('#id_caisse')
 
-  // Bloc contenant la liste déroulante de sélection d'une caisse inactive
-  var $othercaisseContainer = $(form).find('#id_other-caisse_container')
   // Liste déroulante de sélection d'une caisse inactive
   var $othercaisse = $(form).find('#id_other-caisse')
 
@@ -105,7 +103,6 @@ var formInit = function (form) {
     $caisse.val('')
     adjustSelectOptions('caisse', $region.val(),  false, true)
     $caisseSelector.show('slide')
-    Cookie.set('otherregion', '')
 
   } else if (regionSelected=='other'){
 
@@ -128,7 +125,6 @@ var formInit = function (form) {
     $caisse.val(caisseSelected)
     adjustSelectOptions('caisse', $region.val(),  false, true)
     hideRequestShowCaisseVoteForm(form, false)
-    Cookie.set('otherregion', '')
 
   } else {
 
@@ -157,73 +153,73 @@ var formInit = function (form) {
     mrsattachment(form)
   }
 
-// NB : Masquer directement les options du select ne fonctionne pas sous IE11 et Safari,
-// une solution de contournement consiste à wrapper l'option dans un span afin
-// qu'elle n'apparaisse plus. Pas très élégant, mais fonctionnel.
-function hideOptions(selector){
-  $(form).find(selector).each(function() {
-    if( !($(this).parent().is('span')) ) $(this).wrap('<span>')
-  })
-}
-
-function showOptions(selector){
-  $(form).find(selector).each(function() {
-    if( ($(this).parent().is('span')) ) $(this).unwrap()
-  })
-}
-
-// Fonction permettant d'ajuster (afficher et/ou masquer) les options dans
-// le select natif, selon la région sélectionnée
-function adjustSelectOptions(select_name, region_id, with_regimes_speciaux, with_others){
-
-  // On masque toutes les options qui n'ont pas la région sélectionnées au sein
-  // de l'attribut data-regions
-  hideOptions('[name=' + select_name +'] option:not([data-regions~=' + region_id + '])')
-
-  // On affiche toutes les options qui ont la région sélectionnée au sein
-  // de l'attribut data-regions
-  showOptions('[name=' + select_name +'] option[data-regions~=' + region_id + ']')
-
-  // Si les régimes spéciaux sont à rajouter, on affiche les options qui ont
-  // la région régimes spéciaux au sein de l'attribut data-regions
-  if(with_regimes_speciaux){
-    showOptions('[name=' + select_name +'] option[data-regions~=' + document.regimesspeciauxId + ']')
+  // NB : Masquer directement les options du select ne fonctionne pas sous IE11 et Safari,
+  // une solution de contournement consiste à wrapper l'option dans un span afin
+  // qu'elle n'apparaisse plus. Pas très élégant, mais fonctionnel.
+  function hideOptions(selector){
+    $(form).find(selector).each(function() {
+      if( !($(this).parent().is('span')) ) $(this).wrap('<span>')
+    })
   }
 
-  // Si l'option autres est à afficher, on l'affiche
-  if(with_others){
-    showOptions('[name=' + select_name +'] option[value=other]')
+  function showOptions(selector){
+    $(form).find(selector).each(function() {
+      if( ($(this).parent().is('span')) ) $(this).unwrap()
+    })
   }
 
-  // On affiche un item vide par défaut
-  showOptions('[name=' + select_name +'] option[value=""]')
+  // Fonction permettant d'ajuster (afficher et/ou masquer) les options dans
+  // le select natif, selon la région sélectionnée
+  function adjustSelectOptions(select_name, region_id, with_regimes_speciaux, with_others){
 
-}
+    // On masque toutes les options qui n'ont pas la région sélectionnées au sein
+    // de l'attribut data-regions
+    hideOptions('[name=' + select_name +'] option:not([data-regions~=' + region_id + '])')
 
-// Fonction permettant d'afficher le formulaire "Me prévenir quand la caisse
-// sera disponible" et de masquer le formulaire classique de demande, avec la
-// possibilité ou non d'afficher le sélecteur de caisse
-function hideRequestShowCaisseVoteForm(form, caisse_selector_hidden){
+    // On affiche toutes les options qui ont la région sélectionnée au sein
+    // de l'attribut data-regions
+    showOptions('[name=' + select_name +'] option[data-regions~=' + region_id + ']')
 
-    caisse_selector_hidden ? $(form).find('#caisse-selector').hide('slide') : $(form).find('#caisse-selector').show('slide')
+    // Si les régimes spéciaux sont à rajouter, on affiche les options qui ont
+    // la région régimes spéciaux au sein de l'attribut data-regions
+    if(with_regimes_speciaux){
+      showOptions('[name=' + select_name +'] option[data-regions~=' + document.regimesspeciauxId + ']')
+    }
 
-    $(form).find('#mrsrequest-form').hide('slide')
-    $(form).find('#caisse-form').show('slide')
-}
+    // Si l'option autres est à afficher, on l'affiche
+    if(with_others){
+      showOptions('[name=' + select_name +'] option[value=other]')
+    }
 
-// Fonction permettant de masquer le formulaire "Me prévenir quand la caisse
-// sera disponible" et d'afficher ou masquer le formulaire classique de demande,
-// avec la possibilité ou non d'afficher le sélecteur de caisse
-function showRequestHideCaisseVoteForm(
-  form, caisse_selector_hidden, request_form_hidden){
+    // On affiche un item vide par défaut
+    showOptions('[name=' + select_name +'] option[value=""]')
 
-    caisse_selector_hidden ? $(form).find('#caisse-selector').hide('slide') : $(form).find('#caisse-selector').show('slide')
+  }
 
-    request_form_hidden ? $(form).find('#mrsrequest-form').hide('slide') : $(form).find('#mrsrequest-form').show('slide')
+  // Fonction permettant d'afficher le formulaire "Me prévenir quand la caisse
+  // sera disponible" et de masquer le formulaire classique de demande, avec la
+  // possibilité ou non d'afficher le sélecteur de caisse
+  function hideRequestShowCaisseVoteForm(form, caisse_selector_hidden){
+
+    caisse_selector_hidden ? $caisseSelector.hide('slide') : $caisseSelector.show('slide')
+
+    $mrsrequestForm.hide('slide')
+    $caisseForm.show('slide')
+  }
+
+  // Fonction permettant de masquer le formulaire "Me prévenir quand la caisse
+  // sera disponible" et d'afficher ou masquer le formulaire classique de demande,
+  // avec la possibilité ou non d'afficher le sélecteur de caisse
+  function showRequestHideCaisseVoteForm(
+    form, caisse_selector_hidden, request_form_hidden){
+
+    caisse_selector_hidden ? $caisseSelector.hide('slide') : $caisseSelector.show('slide')
+
+    request_form_hidden ? $mrsrequestForm.hide('slide') : $mrsrequestForm.show('slide')
     
-    $(form).find('#caisse-form').hide('slide')
+    $caisseForm.hide('slide')
 
-}
+  }
 
   // Fonction appelée lorsqu'un changement est détecté sur le select des régions
   var regionChange = function() {
@@ -236,7 +232,9 @@ function showRequestHideCaisseVoteForm(
       // disponible"
       $otherregionContainer.show()
       hideRequestShowCaisseVoteForm(form, true)
-      $caisse.val('other')
+      $caisse.val('')
+      Cookie.set('region', 'other')
+      Cookie.set('caisse', '')
 
     // Si l'utilisateur sélectionne une région dans la liste des régions (c'est
     // à dire une région avec au moins une caisse active)
@@ -248,6 +246,7 @@ function showRequestHideCaisseVoteForm(
       showRequestHideCaisseVoteForm(form, false, true)
 
       Cookie.set('region', $region.val())
+      Cookie.set('caisse', '')
 
     // Si aucune région n'est sélectionnée, on masque tout sauf le select
     } else {
@@ -281,6 +280,7 @@ function showRequestHideCaisseVoteForm(
       $otherregionContainer.hide()
       $othercaisse.val('')
       adjustSelectOptions('other-caisse', $region.val(), true, false)
+      Cookie.set('caisse', 'other')
 
     } else if ($caisse.val()) {
 
@@ -299,7 +299,6 @@ function showRequestHideCaisseVoteForm(
         $parking.parents('.col').hide('slide')
         $parkingEnable.hide('slide')
       }
-
       Cookie.set('caisse', $caisse.val())
 
     } else {
@@ -517,8 +516,7 @@ function showRequestHideCaisseVoteForm(
   M.AutoInit(form)
   $(form).is(':visible') || $(form).fadeIn()
   if (confirming) {
-    var f = $(form).find('#mrsrequest-form')
-    f.is(':visible') || f.fadeIn()
+    $mrsrequestForm.is(':visible') || $mrsrequestForm.fadeIn()
   }
 
   // compensate for https://github.com/Dogfalo/materialize/issues/6049
@@ -562,7 +560,7 @@ var formSubmit = function(form) {
       url: document.location.href,
       type: 'POST',
       data: $form.serialize(),
-      error: function(err) {
+      error: function() {
         submitUi.showSubmitError(
           'Une erreur inconnue est survenue. Veuillez reessayer dans quelques minutes, merci.',
           () => {
