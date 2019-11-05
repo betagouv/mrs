@@ -1,0 +1,31 @@
+<div class="" id="modal-body-ajax">
+        
+<form action="/admin/institution/00000000-0000-0000-0000-000000000002/delete" class="form-invalid" data-action="submit-&gt;form#submit" data-controller="form" enctype="multipart/form-data" id="main-form" method="post">
+
+          <div class="modal-content">
+          
+            
+            <h4 class="text-danger" id="modal-title-ajax">Établissement "2222": supprimer</h4>
+            
+          
+          
+  
+
+  
+
+  
+
+
+
+          </div>
+          <div class="modal-footer">
+            
+    <button class="btn btn-primary" type="submit">Supprimer</button>
+    
+
+          </div>
+        
+  </form>
+
+
+      </div>

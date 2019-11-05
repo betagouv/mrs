@@ -433,12 +433,13 @@ class MRSRequestCSVListView(MRSRequestListView):
             ';'.join([
                 'N°demande',
                 'libellé de la CPAM',
-                # commented until region model arrives
-                # 'région de la CPAM',
                 'date de naissance bénéficiaire',
                 'statut de la demande',
                 'demande "en cours d\'étude"',
                 'date de demande',
+                'délai de traitement',
+                'n° finess',
+                'n° adeli',
                 'signalement assuré',
                 'signalement technicien',
                 'Nombre de trajet',
@@ -462,6 +463,9 @@ class MRSRequestCSVListView(MRSRequestListView):
         def mystr(val):
             return '' if val is None else str(val)
 
+        def excel_number(val):
+            return mystr(val).replace('.', ',')
+
         for obj in qs:
             contact_reason = ''
             reject_reason = ''
@@ -479,18 +483,21 @@ class MRSRequestCSVListView(MRSRequestListView):
                 obj.get_status_display(),
                 yn(obj.suspended),
                 obj.creation_day.strftime(DATE_FORMAT_FR),
+                excel_number(obj.delay),
+                obj.institution.finess if obj.institution else '',
+                mystr(obj.adeli),
                 yn(obj.conflicts_resolved or obj.conflicts_accepted),
                 yn(obj.conflicts_accepted),
                 obj.transport_count,
                 yn(obj.modevp),
                 yn(obj.modeatp),
                 yn(obj.insured.shifted),
-                obj.distancevp,
-                obj.expensevp_parking,
-                obj.expensevp,
-                obj.payment_amount,
-                obj.expenseatp,
-                obj.taxi_cost,
+                excel_number(obj.distancevp),
+                excel_number(obj.expensevp_parking),
+                excel_number(obj.expensevp),
+                excel_number(obj.payment_amount),
+                excel_number(obj.expenseatp),
+                excel_number(obj.taxi_cost),
                 reject_reason,
                 contact_reason,
             ])))
@@ -1029,6 +1036,7 @@ class MRSRequestLogEntryListView(crudlfap.ListView):
                 show=len(dates.keys()) < 32,
             )
         ))
+
 
 '''
 crudlfap.Router(

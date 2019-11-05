@@ -79,6 +79,52 @@
     <tbody>
     
         
+        <tr class="even">
+            
+                <td>00000000-0000-0000-0000-000000000457</td>
+            
+                <td>1111</td>
+            
+                <td>urisitepatient.org</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td>
+                
+                
+    
+      <a class="dropdown-trigger no-autoinit btn-floating red" data-target="row-actions-00000000-0000-0000-0000-000000000457" title="Actions">
+        <i class="material-icons">more_vert</i>
+        
+      </a>
+
+      <ul class="dropdown-content" id="row-actions-00000000-0000-0000-0000-000000000457">
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/institution/00000000-0000-0000-0000-000000000457/update?_next=/admin/institution" title='Établissement "1111": modifier'>
+    <i class="orange-text material-icons">edit</i>
+    
+    Modifier
+    
+  </a>
+        </li>
+        
+        <li>
+            <a class="" data-action="click-&gt;modal#open" data-controller="modal" href="/admin/institution/00000000-0000-0000-0000-000000000457/delete?_next=/admin/institution" title='Établissement "1111": supprimer'>
+    <i class="red-text material-icons">delete</i>
+    
+    Supprimer
+    
+  </a>
+        </li>
+        
+      </ul>
+    
+  
+                </td>
+            
+        </tr>
+        
     
     </tbody>
     
@@ -87,6 +133,25 @@
     
 </table>
 
+
+
+
+<ul class="pagination">
+    
+
+    
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
 
 
 </div>
