@@ -75,17 +75,15 @@
 
     <div id="header-small" class="d-block d-lg-none">
         <nav class="navbar">
-            <a href="/" alt="Accueil" class="navbar-nav d-none d-sm-flex" style="background-image: url('/static/img/icones/home.svg')"></a>
+            <a href="/" alt="Accueil" class="navbar-nav" style="background-image: url('/static/img/icones/home.svg')"></a>
             <div class="navbar-brand">
-                <img src="/static/img/logos/mrs.png" alt="MRS" class="mrs-logo-small">
-                <img src="/static/img/logos/cnam2.png" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo-small">
+                <img src="/static/img/logos/cnam.png" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo">
             </div>
-            <div class="d-flex d-sm-none">
-                <a href="/" alt="Accueil" class="navbar-nav" style="background-image: url('/static/img/icones/home.svg')"></a>
-                <a href="/faq" alt="Aide" class="navbar-nav" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
-            </div>
-            <a href="/faq" alt="Aide" class="navbar-nav d-none d-sm-flex" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
+            <a href="/faq" alt="Aide" class="navbar-nav" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
         </nav>
+        <a class="navbar-brand" href="/">
+                <img src="/static/img/logos/mrs.png" alt="MRS" class="mrs-logo">
+            </a>
     </div>
 
     
@@ -96,15 +94,14 @@
     </h1>
 
     <div id="cta">
-        <a class="btn mrs-bouton mrs-rose-vide" href="/demande">Demander un remboursement</a>
-        <a class="btn mrs-bouton mrs-bleu-vide" href="#cmm">Comment ca marche ?</a>
+        <a class="btn mrs-bouton mrs-rose-plein" href="/demande">Demander un remboursement</a>
     </div>
 
     <div id="cmm" class="container-fluid">
         <div class="row">
             <div class="col">
                 <h2>
-                    Comment ca marche ?
+                    Comment ça marche ?
                 </h2>
             </div>
         </div>
@@ -128,9 +125,9 @@
                         <div style="background-image:url('/static/img/icones/icon_prescr.svg')"></div>
                     </div>
                     <div class="col-9">
-                        <h3>Obtenez votre prescription</h3>
+                        <h3>Recevez votre prescription médicale</h3>
                         <p>
-                            Vous avez reçu une prescription pour un transport chez votre médecin
+                            Votre médecin vous prescrit un transport médical de transport en fonction de votre situation.
                         </p>
                     </div>
                 </div>
@@ -139,10 +136,9 @@
                         <div style="background-image:url('/static/img/icones/icon_transport.svg')"></div>
                     </div>
                     <div class="col-9">
-                        <h3>Faites le transport</h3>
+                        <h3>Réalisez le transport</h3>
                         <p>
-                            Vous rejoignez l'hôpital sans taxi (transports en commun, votre voiture, la voiture d'un
-                            proche)
+                            Vous vous rendez à vos soins en voiture ou en transport en commun.
                         </p>
                     </div>
                 </div>
@@ -153,7 +149,7 @@
                     <div class="col-9">
                         <h3>Demandez le remboursement</h3>
                         <p>
-                            Remplissez la demande sur ce site en ajoutant vos justificatifs (frais, prescription)
+                            Remplissez votre demande en joignant vos documents (prescription médicale et justificatifs de transport).
                         </p>
                     </div>
                 </div>
@@ -162,9 +158,9 @@
                         <div style="background-image:url('/static/img/icones/icon_euro.svg')"></div>
                     </div>
                     <div class="col-9">
-                        <h3>Obtenez le remboursement des frais !</h3>
+                        <h3>Obtenez le remboursement</h3>
                         <p>
-                            Vous recevrez votre remboursement en une semaine seulement !
+                            Sous réserve de validité, vous êtes remboursé en moins d’une semaine !
                         </p>
                     </div>
                 </div>
@@ -178,18 +174,6 @@
                 <h2>
                     Le service en 3 chiffres
                 </h2>
-            </div>
-            <div class="col-12 col-xl-8">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="/static/img/voiture.svg">
-                    </div>
-                    <div class="col-6" style="background-image: url('/static/img/line.png')">
-                    </div>
-                    <div class="col-3">
-                        <img src="/static/img/bus.svg">
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -246,12 +230,15 @@
 
     <div id="footer" class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-3 footer-images">
+            <div class="col-12 col-lg-5 footer-images">
                 <a href="https://www.ameli.fr" target="_blank">
                     <img class="logo" src="/static/img/logos/ameli.png" alt="Logo ameli.fr" />
                 </a>
+                <a href="https://www.oups.gouv.fr/" target="_blank">
+                    <img class="logo" src="/static/img/logos/logo_oups.svg" alt="Logo oups.gouv.fr" />
+                </a>
             </div>
-            <div class="col-12 col-md-9 footer-links">
+            <div class="col-12 col-lg-7 footer-links">
                 <ul class="nav">
                     <li class="nav-item">
                         <span>© <script>document.write(new Date().getFullYear())</script> - CNAM</span>

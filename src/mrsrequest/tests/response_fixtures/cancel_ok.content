@@ -1,32 +1,38 @@
 <div class="mrs-std-page--wrapper">
-  <div class="mrs-std-page">
-    <h2>Votre demande n° 201812190000 du 19/12/2018</h2>
+        <div class="container-fluid mb-4">
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 col-lg-8 text-center mb-4">
+                    <h2 class="mb-4">Votre demande n° 201812190000
+                        du 19/12/2018</h2>
 
-    
-      <p>
-        Concernait les trajets suivants:
-      </p>
+                    
+                        <p>
+                            Concernait les trajet
+                            s suivant
+                            s:
+                        </p>
 
-      
-      <p> 1 janvier 2018 - 2 janvier 2018 </p>
-      
-      <p> 3 janvier 2018 - 4 janvier 2018 </p>
-      
+                        
+                            <p> 1 janvier 2018 - 2 janvier 2018 </p>
+                        
+                            <p> 3 janvier 2018 - 4 janvier 2018 </p>
+                        
 
-      <p>
-        Pour un total de 42 km parcourus.
-      </p>
+                        <p>
+                            Pour un total de 42 km parcourus.
+                        </p>
 
-      <p>
-        Cliquez sur le bouton suivant si vous êtes sûr(e) de vouloir annuler
-        votre demande.
-      </p>
+                        <p>
+                            Cliquez sur le bouton suivant si vous êtes sûr(e) de vouloir annuler
+                            votre demande.
+                        </p>
 
-      <form action="" method="POST">
-        {% csrf_token %}
-        <input class="btn red" type="submit" value="Oui, annuler"/>
-      </form>
-    
-
-  </div>
-</div>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input class="btn mrs-bouton mrs-bleu-plein" type="submit" value="Oui, annuler"/>
+                        </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
