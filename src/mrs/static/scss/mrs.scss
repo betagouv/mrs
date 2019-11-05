@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700|Roboto+Slab:400,700&display=swap');
 
 $mrs-bleu: #005DA8;
+$mrs-bleu-sombre: #003763;
 $mrs-rose: #E9386E;
+$mrs-rose-sombre: #B82E58;
 $mrs-noir: #454F5D;
 
 body {
@@ -60,6 +62,7 @@ h3 {
   color: #fff;
 
   &:hover {
+    background-color: $mrs-bleu-sombre;
     color: #fff;
   }
 }
@@ -69,7 +72,7 @@ h3 {
   color: $mrs-bleu;
 
   &:hover {
-    color: $mrs-bleu;
+    color: $mrs-bleu-sombre;
   }
 }
 
@@ -78,6 +81,7 @@ h3 {
   color: #fff;
 
   &:hover {
+    background-color: $mrs-rose-sombre;
     color: #fff;
   }
 }
@@ -87,26 +91,26 @@ h3 {
   color: $mrs-rose;
 
   &:hover {
-    color: $mrs-rose;
+    color: $mrs-rose-sombre;
   }
 }
 
 #header-big {
-  margin-bottom: 6rem;
+  margin-bottom: 5rem;
 
   li.nav-item {
-    margin: 1rem;
+    margin: 1rem 0.3rem;
   }
 
   .header-bg {
     position: absolute;
     background-color: #89CBC7;
-    height: 2rem;
+    height: 2.3rem;
     width: 100%;
   }
 
   .mrs-logo {
-    max-width: 15rem;
+    max-width: 13rem;
     position: absolute;
     margin-top: 1rem;
     margin-left: 1rem;
@@ -121,7 +125,11 @@ h3 {
   .cnam-logo {
     display: block;
     margin: 0 35%;
-    width: 9rem;
+    width: 14rem;
+  }
+
+  .navbar-brand {
+    z-index: 100;
   }
 
   #mrs-navbar {
@@ -131,24 +139,26 @@ h3 {
 
 @media (min-width: 1200px) {
   #header-big {
+    margin-bottom: 6rem;
+
+    li.nav-item {
+      margin: 1rem;
+    }
+
     .cnam-logo {
       margin: 0 auto;
+      width: 16rem;
     }
   }
 }
 
 #header-small {
-  margin-bottom: 5rem;
+  margin-bottom: 7rem;
 
   nav {
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: baseline;
     padding-top: 0;
     padding-bottom: 0;
-
-    .d-flex a:first-child {
-      margin-right: 1rem;
-    }
   }
 
   .navbar-nav {
@@ -168,25 +178,27 @@ h3 {
   }
 
   .navbar-brand {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 0px 0px 5px 5px;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    padding: 0;
+    margin: 0;
   }
 
-  .mrs-logo-small {
-    max-width: 8rem;
+  .mrs-logo {
+    max-width: 13rem;
+    position: absolute;
+    margin-top: 1rem;
+    margin-left: 1rem;
   }
 
-  .cnam-logo-small {
-    width: 8rem;
+  .cnam-logo {
+    display: block;
+    width: 14rem;
   }
 }
 
 @media (min-width: 576px) {
   #header-small {
     nav {
-      flex-direction: row;
+      justify-content: space-evenly;
     }
 
     .navbar-nav {
@@ -201,26 +213,6 @@ h3 {
       &:last-child {
         background-size: 25px;
       }
-    }
-
-    .mrs-logo-small {
-      max-width: 10rem;
-    }
-
-    .cnam-logo-small {
-      width: 10rem;
-    }
-  }
-}
-
-@media (min-width: 768px) {
-  #header-small {
-    .mrs-logo-small {
-      max-width: 15rem;
-    }
-
-    .cnam-logo-small {
-      width: 14rem;
     }
   }
 }
@@ -247,25 +239,9 @@ h3 {
 
 #cta {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
   margin-bottom: 3rem;
-
-  > a:first-child {
-    margin-bottom: 1rem;
-  }
-}
-
-@media (min-width: 576px) {
-  #cta {
-    flex-direction: row;
-    justify-content: center;
-
-    > a:first-child {
-      margin-bottom: 0;
-      margin-right: 1rem;
-    }
-  }
 }
 
 @media (min-width: 768px) {
@@ -286,6 +262,10 @@ h3 {
   padding: 5%;
   background-color: #F0F0F0;
 
+  p {
+    margin-bottom: 0;
+  }
+
   h2 {
     margin-bottom: 1rem;
   }
@@ -299,8 +279,16 @@ h3 {
     > .row {
       min-height: 7rem;
 
+      .col-9 {
+        margin: 25px 0;
+      }
+
       &:last-child {
         margin-bottom: 0;
+
+        .col-9 {
+          margin-bottom: 0;
+        }
       }
 
       > div:first-child {
@@ -345,51 +333,6 @@ h3 {
 
 #service-header {
   margin-bottom: 2rem;
-
-  :last-child {
-
-    > .row {
-      margin-top: 3rem;
-    }
-
-    :nth-child(1) {
-      display: none;
-    }
-
-    :nth-child(2) {
-      background-repeat: repeat-x;
-      background-size: 7px;
-      background-position: center;
-    }
-
-    :nth-child(3) {
-      display: flex;
-      justify-content: flex-start;
-    }
-  }
-}
-
-@media (min-width: 576px) {
-  #service-header {
-    margin-bottom: 5rem;
-
-    :last-child {
-      :nth-child(1) {
-        display: flex;
-        justify-content: flex-end;
-      }
-    }
-  }
-}
-
-@media (min-width: 1200px) {
-  #service-header {
-    :last-child {
-      > .row {
-        margin-top: 0;
-      }
-    }
-  }
 }
 
 #service-chiffres {
@@ -448,7 +391,7 @@ h3 {
   }
 
   .temoignage {
-    font-family: 'Roboto Slab', Serif;
+    font-family: 'Roboto Slab', serif;
     font-size: 18px;
     line-height: 29px;
     text-align: center;
@@ -492,7 +435,27 @@ h3 {
   }
 
   .footer-images {
-    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    > a {
+      background: #fefefe;
+      width: 150px;
+      height: 100%;
+      padding: 12px;
+      border-radius: 5px;
+      display: flex;
+
+      &:first-child {
+        margin-right: .5rem;
+      }
+
+      .logo {
+        width: 100%;
+      }
+    }
   }
 
   .footer-links {
@@ -509,20 +472,6 @@ h3 {
 
 @media (min-width: 576px) {
   #footer {
-    .footer-images {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 2rem;
-
-      > a {
-        background: #fefefe;
-        width: 240px;
-        padding: 12px;
-        border-radius: 5px;
-        display: flex;
-      }
-    }
-
     .footer-links {
       .nav {
         flex-direction: row;
@@ -532,10 +481,9 @@ h3 {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #footer {
     .footer-images {
-      justify-content: flex-start;
       margin-bottom: 0;
     }
 
@@ -581,6 +529,7 @@ h3 {
     border-width: 0 0 2px 0;
     border-color: #89CBC7;
     color: #003763;
+    font-size: 1.1em;
     font-weight: bold;
     cursor: pointer;
     background-repeat: no-repeat;
@@ -597,7 +546,7 @@ h3 {
   .card-body {
     background: #f3f9f9;
     color: #000;
-    font-size: 14px;
+    font-size: 1em;
   }
 }
 
@@ -609,5 +558,13 @@ h3 {
 
   div {
     margin-top: 1rem;
+  }
+}
+
+#legals--wrapper {
+  margin-bottom: 4rem;
+
+  h2 {
+    margin-top: 4rem;
   }
 }

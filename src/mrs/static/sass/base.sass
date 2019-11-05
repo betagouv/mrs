@@ -1,6 +1,5 @@
 @import './mixins'
 @import './UI'
-@import './Header'
 @import './rating'
 
 $desktop-min-width: 992px
@@ -32,50 +31,3 @@ body
   .btn[type="submit"]
     +flex-center()
     margin: auto
-    width: 8rem
-
-  #footer
-    +barlow-regular()
-    background-color: white
-    color: rgba(0, 0, 0, 0.6)
-    font-size: 0.8rem
-
-    @media (min-width: $desktop-min-width)
-      display: flex
-      flex-direction: row-reverse
-      justify-content: center
-      background-color: #f3efef
-      color: #838282
-
-    .links
-      display: flex
-      background-color: #f3efef
-      text-transform: uppercase
-      height: 3rem
-      white-space: nowrap
-      @media (min-width: $desktop-min-width)
-        min-width: 20rem // ie11 hack
-
-      a
-        display: flex
-        flex: 1
-        align-items: center
-        justify-content: center
-        color: #838282
-        border: none
-
-        &:first-child
-          border-right: 2px solid #bfbfbf
-
-          @media (min-width: $desktop-min-width)
-            margin: 0 3rem
-            border: none
-
-    p
-      text-align: center
-      display: flex
-      align-items: center
-      justify-content: center
-
-      @media (min-width: $desktop-min-width)
-        width: inherit

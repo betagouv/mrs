@@ -216,7 +216,6 @@ var formInit = function (form) {
     caisse_selector_hidden ? $caisseSelector.hide('slide') : $caisseSelector.show('slide')
 
     request_form_hidden ? $mrsrequestForm.hide('slide') : $mrsrequestForm.show('slide')
-    
     $caisseForm.hide('slide')
 
   }
@@ -286,11 +285,8 @@ var formInit = function (form) {
 
       showRequestHideCaisseVoteForm(form, false)
 
-      var $header = $('.Header--wrapper')
-      var headerHeight = $header.length ? $header.outerHeight() : 60
       $('html, body').animate({
-        // Compensate for heading to show
-        scrollTop: $('#pmt-form').offset().top - headerHeight + 'px'
+        scrollTop: $('#mrsrequest-form').offset().top - 5
       }, 'fast')
       if (document.caisses[$caisse.val()].parking_enable) {
         $parking.parents('.col').show('slide')
@@ -578,14 +574,11 @@ var formSubmit = function(form) {
         formInit(form)
         submitUi.hideOverlay() // hide overlay
 
-        var $header = $('.Header--wrapper')
-        var headerHeight = $header.length ? $header.outerHeight() : 60
-
         var $error = $('.has-error')
         if ($error.length) {
           $('html, body').animate({
             // Compensate for heading to show
-            scrollTop: $error.offset().top - headerHeight + 'px'
+            scrollTop: $error.offset().top
           }, 'fast')
 
           // Change error class to warning.
@@ -595,7 +588,7 @@ var formSubmit = function(form) {
         } else {
           $('html, body').animate({
             // Compensate for heading to show
-            scrollTop: $form.offset().top - headerHeight + 'px'
+            scrollTop: $form.offset().top
           }, 'fast')
 
           document.querySelector('html').dispatchEvent(

@@ -69,17 +69,15 @@
 
     <div id="header-small" class="d-block d-lg-none">
         <nav class="navbar">
-            <a href="/" alt="Accueil" class="navbar-nav d-none d-sm-flex" style="background-image: url('{% static 'img/icones/home.svg' %}')"></a>
+            <a href="/" alt="Accueil" class="navbar-nav" style="background-image: url('{% static 'img/icones/home.svg' %}')"></a>
             <div class="navbar-brand">
-                <img src="{% static "img/logos/mrs.png" %}" alt="MRS" class="mrs-logo-small">
-                <img src="{% static "img/logos/cnam2.png" %}" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo-small">
+                <img src="{% static "img/logos/cnam.png" %}" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo">
             </div>
-            <div class="d-flex d-sm-none">
-                <a href="/" alt="Accueil" class="navbar-nav" style="background-image: url('{% static 'img/icones/home.svg' %}')"></a>
-                <a href="{{ header_links.1.url }}" alt="{{ header_links.1.alias|capfirst }}" class="navbar-nav" style="background-image: url('{% static 'img/icones/icon_question.svg' %}')"></a>
-            </div>
-            <a href="{{ header_links.1.url }}" alt="{{ header_links.1.alias|capfirst }}" class="navbar-nav d-none d-sm-flex" style="background-image: url('{% static 'img/icones/icon_question.svg' %}')"></a>
+            <a href="{{ header_links.1.url }}" alt="{{ header_links.1.alias|capfirst }}" class="navbar-nav" style="background-image: url('{% static 'img/icones/icon_question.svg' %}')"></a>
         </nav>
+        <a class="navbar-brand" href="/">
+                <img src="{% static "img/logos/mrs.png" %}" alt="MRS" class="mrs-logo">
+            </a>
     </div>
 
     {% block content %}
@@ -87,12 +85,15 @@
 
     <div id="footer" class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-3 footer-images">
+            <div class="col-12 col-lg-5 footer-images">
                 <a href="https://www.ameli.fr" target="_blank">
                     <img class="logo" src="{% static 'img/logos/ameli.png' %}" alt="Logo ameli.fr" />
                 </a>
+                <a href="https://www.oups.gouv.fr/" target="_blank">
+                    <img class="logo" src="{% static 'img/logos/logo_oups.svg' %}" alt="Logo oups.gouv.fr" />
+                </a>
             </div>
-            <div class="col-12 col-md-9 footer-links">
+            <div class="col-12 col-lg-7 footer-links">
                 <ul class="nav">
                     <li class="nav-item">
                         <span>© <script>document.write(new Date().getFullYear())</script> - CNAM</span>

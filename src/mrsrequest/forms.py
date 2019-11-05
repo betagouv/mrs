@@ -20,7 +20,8 @@ from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
 PMT_HELP = '''
 Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande
-accord préalable.
+accord préalable, au format <b>jpeg</b>, <b>png</b> ou <b>pdf</b>.<br>
+<b>4Mo maximum</b> par fichier.
 '''
 
 PEL_HELP = '''
@@ -684,7 +685,7 @@ class CertifyForm(forms.Form):
 
     certify = forms.ChoiceField(
         choices=[(True, CERTIFY_LABEL)],
-        label='Validation de la demande de remboursement',
+        label='',
         widget=forms.RadioSelect(),
         required=True,
     )
