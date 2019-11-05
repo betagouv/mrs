@@ -45,8 +45,8 @@ var formInit = function(form) {
     ],
     maxFileSize: 4096 * 1024,
     errorMsg: {
-      mimeType: 'Extension de fichier refusé',
-      fileSize: 'Fichier trop lourd (4MB max.)'
+      mimeType: 'Extension de fichier refusé ',
+      fileSize: 'Fichier trop lourd (4Mo max.) '
     }
   }
 
@@ -79,7 +79,7 @@ var formInit = function(form) {
     }
 
     if (!fileSizeValidate(file.size)) {
-      throw `${constants.errorMsg.fileSize}: ${file.size} / ${constants.maxFileSize}`
+      throw `${constants.errorMsg.fileSize}: ` + (file.size/1024/1024).toFixed(2) + 'Mo'
     }
   }
 
@@ -150,7 +150,7 @@ var formInit = function(form) {
           var file = result[i]
           var $li = data.context[i]
           $(`
-            <a data-delete-url="${file.deleteUrl}" class="delete-file">
+            <a data-delete-url="${file.deleteUrl}" class="btn delete-file">
               Effacer
             </a>
           `).appendTo($li)

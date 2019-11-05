@@ -7,17 +7,10 @@ import '../sass/base.sass'
 import '../sass/form.sass'
 import '../sass/animations.sass'
 import '../sass/index.sass'
-import '../sass/faq.sass'
-import '../sass/caroussel.sass'
 import '../sass/errors.sass'
 import './mrsrequest'
 import './contact'
 import M from 'mrsmaterialize'
-
-// Preact imports
-import { h as React, render } from 'preact'
-import Header from './components/Header.js'
-import Carousel from './components/Caroussel.js'
 
 // Font-awesome select what we need
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
@@ -32,17 +25,10 @@ import { faStarHalf } from '@fortawesome/free-solid-svg-icons/faStarHalf'
 
   let body = document.querySelector('body')
 
-  const renderHeader = isFat => render(<Header isFat={ isFat } />, document.getElementById('header'))
-  const renderCarousel = () => render(<Carousel />, document.getElementById('caroussel'))
-
   // show correct header based on path
   if(body.classList.contains('index')) {
     const sr = ScrollReveal()
     sr.reveal('.scroll-reveal')
-    renderHeader(false)
-    renderCarousel()
-  } else {
-    renderHeader(true)
   }
 
   M.AutoInit()

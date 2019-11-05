@@ -41,30 +41,8 @@
     {% endblock %}
 
     <div id="app--wrapper">
-
-        <div id="header">
-            <noscript>
-                {% for link in header_links %}
-                <a href="{{ link.url }}" title="{{ link.alias }}">{{ link.alias }}</a>
-                {% endfor %}
-            </noscript>
-            <script type="text/json" id="header-links">
-                {{ header_links_json|safe }}
-            </script>
-        </div>
-
         {% block content %}
         {% endblock %}
-
-        <div id="footer">
-            <div class="links">
-                <a href="/mentions-legales">mentions legales</a>
-                <a href="/stats">statistiques</a>
-            </div>
-            <p>
-                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE
-            </p>
-        </div>
     </div>
 
     {% if SENTRY_DSN %}

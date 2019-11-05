@@ -1,47 +1,53 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 
 {% block title %}Annuler votre demande{% endblock %}
 {% block description %}Vous pouvez annuler votre demande avant traitement par nos services.{% endblock %}
 
 {% block content %}
-<div class="mrs-std-page--wrapper">
-  <div class="mrs-std-page">
-    <h2>Votre demande n° {{ view.object.display_id }} du {{ view.object.creation_datetime.day }}/{{ view.object.creation_datetime.month }}/{{ view.object.creation_datetime.year }}</h2>
+    <div class="mrs-std-page--wrapper">
+        <div class="container-fluid mb-4">
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 col-lg-8 text-center mb-4">
+                    <h2 class="mb-4">Votre demande n° {{ view.object.display_id }}
+                        du {{ view.object.creation_datetime.day }}/{{ view.object.creation_datetime.month }}/{{ view.object.creation_datetime.year }}</h2>
 
-    {% if view.object.status == view.object.STATUS_CANCELED %}
-      <p>
-        L'annulation a bien été prise en compte pour cette demande.
-      </p>
-    {% elif view.object.status == view.object.STATUS_NEW %}
-      <p>
-        Concernait le{% if view.object.transport_set.all|length > 1 %}s{% endif %} trajet{% if view.object.transport_set.all|length > 1 %}s{% endif %} suivant{% if view.object.transport_set.all|length > 1 %}s{% endif %}:
-      </p>
+                    {% if view.object.status == view.object.STATUS_CANCELED %}
+                        <p>
+                            L'annulation a bien été prise en compte pour cette demande.
+                        </p>
+                    {% elif view.object.status == view.object.STATUS_NEW %}
+                        <p>
+                            Concernait le{% if view.object.transport_set.all|length > 1 %}s{% endif %} trajet
+                            {% if view.object.transport_set.all|length > 1 %}s{% endif %} suivant
+                            {% if view.object.transport_set.all|length > 1 %}s{% endif %}:
+                        </p>
 
-      {% for transport in view.object.transport_set.all %}
-      <p> {{ transport.date_depart }} - {{ transport.date_return }} </p>
-      {% endfor %}
+                        {% for transport in view.object.transport_set.all %}
+                            <p> {{ transport.date_depart }} - {{ transport.date_return }} </p>
+                        {% endfor %}
 
-      <p>
-        Pour un total de {{ view.object.distancevp }} km parcourus.
-      </p>
+                        <p>
+                            Pour un total de {{ view.object.distancevp }} km parcourus.
+                        </p>
 
-      <p>
-        Cliquez sur le bouton suivant si vous êtes sûr(e) de vouloir annuler
-        votre demande.
-      </p>
+                        <p>
+                            Cliquez sur le bouton suivant si vous êtes sûr(e) de vouloir annuler
+                            votre demande.
+                        </p>
 
-      <form method="POST" action="">
-        {% csrf_token %}
-        <input type="submit" class="btn red" value="Oui, annuler" />
-      </form>
-    {% elif view.object.status == view.object.STATUS_INPROGRESS %}
-      <p>Nous ne pouvons pas annuler cette demande car elle est déjà en cours de traitement.</p>
-    {% elif view.object.status == view.object.STATUS_REJECTED %}
-      <p>Nous ne pouvons pas annuler cette demande car elle est déjà rejetée.</p>
-    {% elif view.object.status == view.object.STATUS_VALIDATED %}
-      <p>Nous ne pouvons pas annuler cette demande car elle est déjà validée.</p>
-    {% endif %}
-
-  </div>
-</div>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <input type="submit" class="btn mrs-bouton mrs-bleu-plein" value="Oui, annuler"/>
+                        </form>
+                    {% elif view.object.status == view.object.STATUS_INPROGRESS %}
+                        <p>Nous ne pouvons pas annuler cette demande car elle est déjà en cours de traitement.</p>
+                    {% elif view.object.status == view.object.STATUS_REJECTED %}
+                        <p>Nous ne pouvons pas annuler cette demande car elle est déjà rejetée.</p>
+                    {% elif view.object.status == view.object.STATUS_VALIDATED %}
+                        <p>Nous ne pouvons pas annuler cette demande car elle est déjà validée.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

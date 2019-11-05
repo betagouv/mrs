@@ -18,15 +18,14 @@
     </h1>
 
     <div id="cta">
-        <a class="btn mrs-bouton mrs-rose-vide" href="{% url "demande" %}">Demander un remboursement</a>
-        <a class="btn mrs-bouton mrs-bleu-vide" href="#cmm">Comment ca marche ?</a>
+        <a class="btn mrs-bouton mrs-rose-plein" href="{% url "demande" %}">Demander un remboursement</a>
     </div>
 
     <div id="cmm" class="container-fluid">
         <div class="row">
             <div class="col">
                 <h2>
-                    Comment ca marche ?
+                    Comment ça marche ?
                 </h2>
             </div>
         </div>
@@ -50,9 +49,9 @@
                         <div style="background-image:url('{% static "img/icones/icon_prescr.svg" %}')"></div>
                     </div>
                     <div class="col-9">
-                        <h3>Obtenez votre prescription</h3>
+                        <h3>Recevez votre prescription médicale</h3>
                         <p>
-                            Vous avez reçu une prescription pour un transport chez votre médecin
+                            Votre médecin vous prescrit un transport médical de transport en fonction de votre situation.
                         </p>
                     </div>
                 </div>
@@ -61,10 +60,9 @@
                         <div style="background-image:url('{% static "img/icones/icon_transport.svg" %}')"></div>
                     </div>
                     <div class="col-9">
-                        <h3>Faites le transport</h3>
+                        <h3>Réalisez le transport</h3>
                         <p>
-                            Vous rejoignez l'hôpital sans taxi (transports en commun, votre voiture, la voiture d'un
-                            proche)
+                            Vous vous rendez à vos soins en voiture ou en transport en commun.
                         </p>
                     </div>
                 </div>
@@ -75,7 +73,7 @@
                     <div class="col-9">
                         <h3>Demandez le remboursement</h3>
                         <p>
-                            Remplissez la demande sur ce site en ajoutant vos justificatifs (frais, prescription)
+                            Remplissez votre demande en joignant vos documents (prescription médicale et justificatifs de transport).
                         </p>
                     </div>
                 </div>
@@ -84,9 +82,9 @@
                         <div style="background-image:url('{% static "img/icones/icon_euro.svg" %}')"></div>
                     </div>
                     <div class="col-9">
-                        <h3>Obtenez le remboursement des frais !</h3>
+                        <h3>Obtenez le remboursement</h3>
                         <p>
-                            Vous recevrez votre remboursement en une semaine seulement !
+                            Sous réserve de validité, vous êtes remboursé en moins d’une semaine !
                         </p>
                     </div>
                 </div>
@@ -100,18 +98,6 @@
                 <h2>
                     Le service en 3 chiffres
                 </h2>
-            </div>
-            <div class="col-12 col-xl-8">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="{% static "img/voiture.svg" %}">
-                    </div>
-                    <div class="col-6" style="background-image: url('{% static "img/line.png" %}')">
-                    </div>
-                    <div class="col-3">
-                        <img src="{% static "img/bus.svg" %}">
-                    </div>
-                </div>
             </div>
         </div>
 

@@ -11,9 +11,9 @@
         {% csrf_token %}
         {% if view.success %}
             {% if INSTANCE == 'production' %}
-            <script type="text/javascript">
-            _paq.push(['trackEvent', 'request_created']);
-            </script>
+                <script type="text/javascript">
+                _paq.push(['trackEvent', 'request_created']);
+                </script>
             {% endif %}
             <h2 class="scroll-reveal" style="margin-bottom: 2em">Nous avons bien reçu votre demande de remboursement !</h2>
         {% endif %}
@@ -21,47 +21,35 @@
         {% if view.rating_form %}
             {% if view.success_rating %}
                 <h2 class="scroll-reveal">Nous vous remercions d'avoir partagé votre retour d'expérience !</h2>
-                <div>
-                    <a
-                        class="right btn"
-                        data-load-in-form="{{ path_info }}?caisse={{ request.POST.caisse }}"
-                    >Nouvelle demande</a>
-                </div>
             {% else %}
                 <h2 class="scroll-reveal">Merci d'évaluer votre expérience</h2>
                 {% form form=view.rating_form %}
                 {% endform %}
                 <div>
-                    <a
-                        class="left teal-text"
-                        href="/"
-                        title="Retour a l'accueil"
-                    >Retour</a>
-
-                    <button type="submit" name="_submit" class="right btn">Soumettre</button>
+                    <button type="submit" name="_submit" class="btn">Soumettre</button>
                 </div>
             {% endif %}
         {% elif view.success %}
-        <div>
-            <a
-                class="right btn"
-                data-load-in-form="{{ path_info }}?caisse={{ request.POST.caisse }}"
-            >Nouvelle demande</a>
-            </a>
+            <div class="d-flex justify-content-center">
+                <a
+                    class="btn"
+                    data-load-in-form="{{ path_info }}?caisse={{ request.POST.caisse }}"
+                >Nouvelle demande</a>
+            </div>
             {% if request.user.is_staff %}
-            <a
-                class="left teal-text"
-                data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
+                <div class="d-flex justify-content-center mt-4">
+                    <a
+                        class="btn"
+                        data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
 
-            >Nouvelle demande: même assuré</a>
-            </a>
+                    >Nouvelle demande: même assuré</a>
+                </div>
             {% endif %}
-        </div>
 
         {% elif view.success_caisse %}
-        <div class="card-panel teal lighten-4" id="submitui-message">
-            Merci pour votre intérêt ! Nous reviendrons vers vous dès que votre caisse entrera dans le dispositif MRS
-        </div>
+            <div id="submitui-message">
+                Merci pour votre intérêt ! Nous reviendrons vers vous dès que votre caisse entrera dans le dispositif MRS
+            </div>
 
         {% else %}
             {% comment %}
@@ -89,100 +77,127 @@
                     Cela peut pénaliser votre remboursement.
                     <br/>
                     Nous vous invitons à vérifier chaque date soulignée et à :
-                    <ul style="margin-left: 7em">
-                      <li> corriger votre saisie s'il s'agit d'une erreur de date puis cliquer sur le bouton CONTINUER. </li>
-                      <li> annuler votre saisie si la demande a déjà été faite précédemment en cliquant sur le bouton RETOUR</li>
-                      <li> confirmer votre saisie s'il s'agit d'une nouvelle demande en cliquant sur CONTINUER. </li>
-                    </ul>
+
+                    <div class="d-flex justify-content-center">
+                        <ul>
+                          <li> corriger votre saisie s'il s'agit d'une erreur de date puis cliquer sur le bouton CONTINUER. </li>
+                          <li> annuler votre saisie si la demande a déjà été faite précédemment en cliquant sur le bouton ANNULER</li>
+                          <li> confirmer votre saisie s'il s'agit d'une nouvelle demande en cliquant sur CONTINUER. </li>
+                        </ul>
+                    </div>
                   </p>
                 </div>
             {% else %}
-                <h2>Formulaire de remboursement de transports</h2>
-                <p id="subtitle" class="scroll-reveal">
-                  Réalisez votre demande de remboursement en ligne dès maintenant.
-                </p>
-                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.start %}
-                {% endform %}
-                <div id="caisse-selector" style="display:none;">
-                {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.above %}
-                    {% part form.caisse options %}
-                    <option value>---------</option>
-                    {% for caisse in form.caisse.field.queryset %}
-                    <option value="{{ caisse.pk }}" data-regions="{% for r in caisse.regions.all %}{{ r.pk }} {% endfor %}">{{ caisse }}</option>
-                    {% endfor %}
-                    <option value="other">Autre</option>
-                    {% endpart %}
-                {% endform %}
-                <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
+                <h2 class="mb-5">Demander un remboursement</h2>
 
+                <h3 class="demande-section-header"><span class="numero">1</span> Caisse d'assurance maladie</h3>
+
+                <div class="demande-section">
+                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.start %}
+                    {% endform %}
+                    <div id="caisse-selector" style="display:none;">
+                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.above %}
+                        {% part form.caisse options %}
+                        <option value>---------</option>
+                        {% for caisse in form.caisse.field.queryset %}
+                        <option value='{{ caisse.pk }}' data-regions='{% for r in caisse.regions.all %}{{ r.pk }} {% endfor %}'>{{ caisse }}</option>
+                        {% endfor %}
+                        <option value='other'>Autre</option>
+                        {% endpart %}
+                    {% endform %}
+                    <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
+
+                    </div>
                 </div>
             {% endif %}
 
+
+
             <div id="mrsrequest-form" style="display: none">
                 {% if view.confirm %}
-                    {% for name, value in request.POST.items %}
-                        {% if 'transport-' not in name and 'csrfmiddlewaretoken' not in name %}
-                        <input type="hidden" name="{{ name }}" value="{{ value }}" />
-                        {% endif %}
-                    {% endfor %}
-                    <input type="hidden" name="confirm" value="1" />
+                    <div class="demande-section">
+                        {% for name, value in request.POST.items %}
+                            {% if 'transport-' not in name and 'csrfmiddlewaretoken' not in name %}
+                            <input type="hidden" name="{{ name }}" value="{{ value }}" />
+                            {% endif %}
+                        {% endfor %}
+                        <input type="hidden" name="confirm" value="1" />
 
-                    {{ view.forms.transport_formset.management_form }}
-                    {% for subform in view.forms.transport_formset %}
-                        {% form form=subform layout=subform.layout %}
+                        {{ view.forms.transport_formset.management_form }}
+                        {% for subform in view.forms.transport_formset %}
+                            {% form form=subform layout=subform.layout %}
+                            {% endform %}
+                        {% endfor %}
+
+                        {% form form=view.forms.certify %}
                         {% endform %}
-                    {% endfor %}
-
-                    {% form form=view.forms.certify %}
-                    {% endform %}
-
+                    </div>
                 {% else %}
-                    <div id="pmt-form">
-                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.top %}
-                    {% endform %}
-                    </div>
-                    {% form form=view.forms.person layout=view.forms.person.layout %}
-                    {% endform %}
-                    {% form form=view.forms.transport layout=view.forms.transport.layout %}
-                    {% endform %}
+                    <h3 class="demande-section-header"><span class="numero">2</span> Prescription médicale pour un transport</h3>
 
-                    {{ view.forms.transport_formset.management_form }}
-                    {% for subform in view.forms.transport_formset %}
-                        {% form form=subform layout=subform.layout %}
+                    <div class="demande-section">
+                        <div id="pmt-form">
+                        {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.top %}
                         {% endform %}
-                    {% endfor %}
-
-                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modevp %}{% endform %}
-                    <div id="vp-form" style="display: none">
-                      {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.vp_form %}{% endform %}
+                        </div>
                     </div>
 
-                    {% comment %}
-                    Please forgive the paste of the same 4 lines as above, below
-                    this comment. This is what we could do to refactor it in Jinja2:
+                    <h3 class="demande-section-header"><span class="numero">3</span> Identité</h3>
 
-                    {% for i in ['vp', 'tc'] %}
- '_enable'] %}       endform %}
-                    <div class="#{{ i }}-form">
- '_form'] %}{%      ndform %}
-                    </div>
-                    {% endfor %}
-                    {% endcomment %}
-
-                    {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modeatp %}{% endform %}
-                    <div id="atp-form" style="display: none">
-                      {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.atp_form %}{% endform %}
+                    <div class="demande-section">
+                        {% form form=view.forms.person layout=view.forms.person.layout %}
+                        {% endform %}
                     </div>
 
-                    {% form form=view.forms.certify %}
-                    {% endform %}
+                    <h3 class="demande-section-header"><span class="numero">4</span> Transport effectué</h3>
 
-                    {% form form=view.forms.use_email %}
-                    {% endform %}
+                    <div class="demande-section">
+                        {% form form=view.forms.transport layout=view.forms.transport.layout %}
+                        {% endform %}
+
+
+                        {{ view.forms.transport_formset.management_form }}
+                        {% for subform in view.forms.transport_formset %}
+                            {% form form=subform layout=subform.layout %}
+                            {% endform %}
+                        {% endfor %}
+
+                        {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modevp %}{% endform %}
+                        <div id="vp-form" style="display: none">
+                          {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.vp_form %}{% endform %}
+                        </div>
+
+                        {% comment %}
+                        Please forgive the paste of the same 4 lines as above, below
+                        this comment. This is what we could do to refactor it in Jinja2:
+
+                        {% for i in ['vp', 'tc'] %}
+     '_enable'] %}       endform %}
+                        <div class="#{{ i }}-form">
+     '_form'] %}{%      ndform %}
+                        </div>
+                        {% endfor %}
+                        {% endcomment %}
+
+                        {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.modeatp %}{% endform %}
+                        <div id="atp-form" style="display: none">
+                          {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.atp_form %}{% endform %}
+                        </div>
+                    </div>
+
+                    <h3 class="demande-section-header"><span class="numero">5</span> Validation</h3>
+
+                    <div class="demande-section">
+                        {% form form=view.forms.certify %}
+                        {% endform %}
+
+                        {% form form=view.forms.use_email %}
+                        {% endform %}
+                    </div>
                 {% endif %}
             </div>
 
-            <div id="caisse-form" style="display:none">
+            <div id="caisse-form" class="demande-section" style="display:none">
                 {% form form=view.caisse_form %}
 
                     {% part form.caisse options %}
@@ -198,19 +213,20 @@
             <br />
 
             {% if view.confirm %}
-            <div>
-                <a
-                    class="left red-text"
-                    data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
-                >Annuler</a>
-                </a>
-                <button
-                    type="submit"
-                    class="btn right"
-                    value="Continuer"
-                >Continuer</button>
+                <div>
+                    <a
+                        class="left btn mb-4"
+                        data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
+                    >Annuler</a>
+                    </a>
+                    <button
+                        type="submit"
+                        class="btn right"
+                        value="Continuer"
+                    >Continuer</button>
+                </div>
             {% else %}
-            <button type="submit" name="_submit" class="btn">Soumettre</button>
+                <button type="submit" name="_submit" class="btn mrs-bouton mrs-rose-plein mb-5">Valider ma demande</button>
             {% endif %}
         {% endif %}
     </form>
