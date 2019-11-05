@@ -1,10 +1,14 @@
 <div class="mrs-std-page--wrapper">
-  <div class="mrs-std-page">
-    <h2>Votre demande n° 201812190000 du 19/12/2018</h2>
+        <div class="container-fluid mb-4">
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 col-lg-8 text-center mb-4">
+                    <h2 class="mb-4">Votre demande n° 201812190000
+                        du 19/12/2018</h2>
 
-    
-      <p>Nous ne pouvons pas annuler cette demande car elle est déjà rejetée.</p>
-    
-
-  </div>
-</div>
+                    
+                        <p>Nous ne pouvons pas annuler cette demande car elle est déjà rejetée.</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>

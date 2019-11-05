@@ -1,19 +1,47 @@
 <div id="app--wrapper">
-
-        <div id="header">
-            <noscript>
-                
-                <a href="/demande" title="demander un remboursement">demander un remboursement</a>
-                
-                <a href="/faq" title="aide">aide</a>
-                
-            </noscript>
-            <script id="header-links" type="text/json">
-                [{"url": "/demande", "alias": "demander un remboursement", "active": true, "couleur": "rose"}, {"url": "/faq", "alias": "aide", "active": false, "couleur": "bleu"}]
-            </script>
-        </div>
-
         
+    
+<div class="d-none d-lg-block" id="header-big">
+    <div class="header-bg"></div>
+    <div class="cnam-wrapper">
+        <img alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo" src="/static/img/logos/cnam.png"/>
+    </div>
+
+    <nav class="navbar navbar-expand-lg py-0">
+        <a class="navbar-brand" href="/">
+            <img alt="MRS" class="mrs-logo" src="/static/img/logos/mrs.png"/>
+        </a>
+
+        <div class="d-flex justify-content-end w-100" id="mrs-navbar">
+            <ul class="navbar-nav text-center">
+                
+                    <li class="nav-item">
+                        <a class="btn mrs-bouton mrs-rose-plein active" href="/demande">Demander un remboursement</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="btn mrs-bouton mrs-bleu-plein" href="/faq">Aide</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="d-block d-lg-none" id="header-small">
+    <nav class="navbar">
+        <a alt="Accueil" class="navbar-nav" href="/" style="background-image: url('/static/img/icones/home.svg')"></a>
+        <div class="navbar-brand">
+            <img alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo" src="/static/img/logos/cnam.png"/>
+        </div>
+        <a alt="Aide" class="navbar-nav" href="/faq" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
+    </nav>
+    <a class="navbar-brand" href="/">
+            <img alt="MRS" class="mrs-logo" src="/static/img/logos/mrs.png"/>
+        </a>
+</div>
+
+
     <div class="mrs-std-page--wrapper">
         <div class="mrs-std-page">
             
@@ -37,11 +65,12 @@
             </style>
 
             
-                <h2>Formulaire de remboursement de transports</h2>
-                <p class="scroll-reveal" id="subtitle">
-                  Réalisez votre demande de remboursement en ligne dès maintenant.
-                </p>
-                    <div class="section row">
+                <h2 class="mb-5">Demander un remboursement</h2>
+
+                <h3 class="demande-section-header"><span class="numero">1</span> Caisse d'assurance maladie</h3>
+
+                <div class="demande-section">
+                        <div class="section row">
     <div class="col s12">
         <h5>Votre région</h5>
         
@@ -60,8 +89,8 @@
     </div>
 </div>
 
-                <div id="caisse-selector" style="display:none;">
-                    <div class="section row">
+                    <div id="caisse-selector" style="display:none;">
+                        <div class="section row">
     <div class="col s12">
         <h5>Votre caisse d'assurance maladie</h5>
         
@@ -70,12 +99,12 @@
         <label for="id_caisse">Votre caisse de rattachement</label>
         <select id="id_caisse" name="caisse">
             <option value="">---------</option>
-                    
-                    <option data-regions="16 " value="1">aaaaaaa</option>
-                    
-                    <option data-regions="16 " value="2">bbbb</option>
-                    
-                    <option value="other">Autre</option>
+                        
+                        <option data-regions="16 " value="1">aaaaaaa</option>
+                        
+                        <option data-regions="16 " value="2">bbbb</option>
+                        
+                        <option value="other">Autre</option>
         </select>
         <div class="help-block">Votre caisse n'apparaît pas dans la liste ? Elle n'a pas encore rejoint le dispositif MRS. Cliquez sur "Autre" pour la sélectionner et recevoir un e-mail dès que celle-ci sera disponible !</div>
     </div>
@@ -84,15 +113,21 @@
     </div>
 </div>
 
-                <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
+                    <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
 
+                    </div>
                 </div>
             
 
+
+
             <div id="mrsrequest-form" style="display: none">
                 
-                    <div id="pmt-form">
-                        <div class="section row">
+                    <h3 class="demande-section-header"><span class="numero">2</span> Prescription médicale pour un transport</h3>
+
+                    <div class="demande-section">
+                        <div id="pmt-form">
+                            <div class="section row">
     <div class="col s12">
         <h5>Votre prescription médicale</h5>
         
@@ -131,7 +166,8 @@
         </div>
         <div class="help-block">
 Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande
-accord préalable.
+accord préalable, au format <b>jpeg</b>, <b>png</b> ou <b>pdf</b>.<br/>
+<b>4Mo maximum</b> par fichier.
 </div>
 
         <ul class="files">
@@ -158,8 +194,13 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 </div></div>
 
+                        </div>
                     </div>
-                    
+
+                    <h3 class="demande-section-header"><span class="numero">3</span> Identité</h3>
+
+                    <div class="demande-section">
+                        
 <div class="section row">
     <div class="col s12">
         <h5>Identité de la personne transportée</h5>
@@ -226,7 +267,12 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
-                    
+                    </div>
+
+                    <h3 class="demande-section-header"><span class="numero">4</span> Transport effectué</h3>
+
+                    <div class="demande-section">
+                        
 <div class="section row">
     <div class="col s12">
         <h5>Informations sur le transport</h5>
@@ -268,9 +314,10 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 
 
-                    <input id="id_transport-TOTAL_FORMS" name="transport-TOTAL_FORMS" type="hidden" value="2"/><input id="id_transport-INITIAL_FORMS" name="transport-INITIAL_FORMS" type="hidden" value="0"/><input id="id_transport-MIN_NUM_FORMS" name="transport-MIN_NUM_FORMS" type="hidden" value="1"/><input id="id_transport-MAX_NUM_FORMS" name="transport-MAX_NUM_FORMS" type="hidden" value="1000"/>
-                    
+
+                        <input id="id_transport-TOTAL_FORMS" name="transport-TOTAL_FORMS" type="hidden" value="2"/><input id="id_transport-INITIAL_FORMS" name="transport-INITIAL_FORMS" type="hidden" value="0"/><input id="id_transport-MIN_NUM_FORMS" name="transport-MIN_NUM_FORMS" type="hidden" value="1"/><input id="id_transport-MAX_NUM_FORMS" name="transport-MAX_NUM_FORMS" type="hidden" value="1000"/>
                         
+                            
 <div class="layout-row row"><div class="col s12 m6">
 
 
@@ -293,8 +340,8 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 </div></div>
 
-                    
                         
+                            
 <div class="layout-row row"><div class="col s12 m6">
 
 
@@ -317,9 +364,9 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 </div></div>
 
-                    
+                        
 
-                        <div class="row">
+                            <div class="row">
     <div class="checkbox-field col s12" id="id_modevp_container">
         <label>
         <input class="filled-in" id="id_modevp" name="modevp" type="checkbox"/><span for="id_modevp">Avez vous voyagé en véhicule personnel ?</span></label>
@@ -327,14 +374,14 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
-                    <div id="vp-form" style="display: none">
-                          <div class="layout-row row"><div class="col s12 m12">
+                        <div id="vp-form" style="display: none">
+                              <div class="layout-row row"><div class="col s12 m12">
 
 <div class="row">
     <div class="input-field col s12" id="id_distancevp_container">
         <input id="id_distancevp" name="distancevp" type="text"/>
         <label for="id_distancevp">Distance (km)</label>
-        <div class="help-block">Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets de 40 kilomètres aller/retour : déclarez 80 kilomètres parcourus.</div>
+        <div class="help-block">Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets de 40 kilomètres aller/retour, déclarez 80 kilomètres parcourus.</div>
     </div>
 </div>
 </div></div>
@@ -382,11 +429,11 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
-                    </div>
+                        </div>
 
-                    
+                        
 
-                        <div class="row">
+                            <div class="row">
     <div class="checkbox-field col s12" id="id_modeatp_container">
         <label>
         <input class="filled-in" id="id_modeatp" name="modeatp" type="checkbox"/><span for="id_modeatp">Avez vous voyagé en transports en commun ?</span></label>
@@ -394,8 +441,8 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
-                    <div id="atp-form" style="display: none">
-                          <div class="row">
+                        <div id="atp-form" style="display: none">
+                              <div class="row">
     <div class="input-field col s12" id="id_expenseatp_container">
         <input id="id_expenseatp" name="expenseatp" type="text" value="0"/>
         <label class="active" for="id_expenseatp">Frais de transports</label>
@@ -424,12 +471,16 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
+                        </div>
                     </div>
 
-                    
+                    <h3 class="demande-section-header"><span class="numero">5</span> Validation</h3>
+
+                    <div class="demande-section">
+                        
 <div class="row radio-field">
     <div class="col s12">
-        <label class="" for="id_certify_0">Validation de la demande de remboursement</label>
+        <label class="" for="id_certify_0"></label>
     </div>
     <div class="col s12 required" id="id_certify_container">
         <div class="radio" id="id_certify"><label>
@@ -440,7 +491,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 
 
-                    
+                        
 <div class="row">
     <div class="checkbox-field col s12" id="id_use_email_container">
         <label>
@@ -449,10 +500,11 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
+                    </div>
                 
             </div>
 
-            <div id="caisse-form" style="display:none">
+            <div class="demande-section" id="caisse-form" style="display:none">
                 
 <div class="row">
     <div class="select-field col s12" id="id_other-region_container">
@@ -494,7 +546,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
             <br/>
 
             
-            <button class="btn" name="_submit" type="submit">Soumettre</button>
+                <button class="btn mrs-bouton mrs-rose-plein mb-5" name="_submit" type="submit">Valider ma demande</button>
             
         
     </form>
@@ -520,14 +572,32 @@ indiqué sur l'exemplaire patient remis par votre médecin.
         </div>
     </div>
 
-
-        <div id="footer">
-            <div class="links">
-                <a href="/mentions-legales">mentions legales</a>
-                <a href="/stats">statistiques</a>
-            </div>
-            <p>
-                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE
-            </p>
+    
+<div class="container-fluid" id="footer">
+    <div class="row">
+        <div class="col-12 col-lg-5 footer-images">
+            <a href="https://www.ameli.fr" target="_blank">
+                <img alt="Logo ameli.fr" class="logo" src="/static/img/logos/ameli.png"/>
+            </a>
+            <a href="https://www.oups.gouv.fr/" target="_blank">
+                <img alt="Logo oups.gouv.fr" class="logo" src="/static/img/logos/logo_oups.svg"/>
+            </a>
         </div>
+        <div class="col-12 col-lg-7 footer-links">
+            <ul class="nav">
+                <li class="nav-item">
+                    <span>© <script>document.write(new Date().getFullYear())</script> - CNAM</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/mentions-legales">Mentions légales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
     </div>

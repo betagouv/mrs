@@ -1,5 +1,11 @@
 <div class="mrs-std-page--wrapper">
-  <div class="mrs-std-page">
-    Une erreur s'est glissée dans le lien vers la demande.
-  </div>
-</div>
+        <div class="container-fluid mb-4">
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 col-lg-8 text-center mb-4">
+                    <h2>
+                        Une erreur s'est glissée dans le lien vers la demande.
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>

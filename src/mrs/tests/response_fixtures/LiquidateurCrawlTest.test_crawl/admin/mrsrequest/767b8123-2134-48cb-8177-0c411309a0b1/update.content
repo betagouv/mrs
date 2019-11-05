@@ -19,7 +19,7 @@
     <div class="input-field col s12" id="id_distancevp_container">
         <input id="id_distancevp" min="0" name="distancevp" type="number" value="10"/>
         <label class="active" for="id_distancevp">Distance (km)</label>
-        <div class="help-block">Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets de 40 kilomètres aller/retour : déclarez 80 kilomètres parcourus.</div>
+        <div class="help-block">Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets de 40 kilomètres aller/retour, déclarez 80 kilomètres parcourus.</div>
     </div>
 </div>
 
