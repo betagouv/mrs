@@ -4,21 +4,59 @@
 <html>
   <head>
     {% render_bundle 'iframe' 'css' %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    {% render_bundle 'mrsbootstrap' 'css' %}
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:100,100i,200,200i,300,300i,400,400i,
+        500,500i,600,600i,700,700i,800,800i,900,900i|Faustina" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mes Remboursements Simplifiés</title>
     {% include '_piwik.html' %}
-    <style type="text/css">
-    body {
-      /* compensate for form .row margins of -0.75rem */
-      padding: 0 0.75rem;
-    }
+    <style>
+        html {
+            font-size: inherit;
+        }
+
+        .row {
+            display: block;
+        }
+
+        nav {
+            background-color: inherit;
+            height: inherit;
+            width: inherit;
+            line-height: inherit;
+            box-shadow: inherit;
+        }
+
+        nav ul a.btn {
+            margin: 0;
+        }
+
+        .btn {
+            height: inherit;
+            letter-spacing: inherit;
+            outline: inherit;
+            margin: 0;
+        }
+
+        #footer .row {
+            display: flex;
+            margin-bottom: 0;
+        }
     </style>
   </head>
   <body>
     <div id="app--wrapper">
-        {% include 'mrsrequest/_form.html' %}
+        <div class="mrs-std-page--wrapper">
+            <div class="mrs-std-page">
+                {% include 'mrsrequest/_form.html' %}
+            </div>
+        </div>
     </div>
 
+    {% render_bundle 'mrsbootstrap' 'js' %}
     <script type="text/javascript">
         window.allowOrigin = '{{ view.allow_origin }}'
         window.allowInsecure = {% if view.ALLOW_INSECURE %}true{% else %}false{% endif %}

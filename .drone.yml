@@ -98,12 +98,11 @@ steps:
   - yarn run test
   - npm install -g codecov
   - codecov --token $CODECOV_TOKEN -e $TOXENV
-# Commented until: https://github.com/betagouv/mrs/issues/1060
-#- name: js-qa
-#  image: node:10
-#  commands:
-#  - yarn install
-#  - yarn run lint
+- name: js-qa
+  image: node:10
+  commands:
+  - yarn install
+  - yarn run lint
 
 ---
 kind: pipeline
