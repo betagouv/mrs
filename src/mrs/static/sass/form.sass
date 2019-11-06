@@ -6,7 +6,10 @@
 .help-block
   font-size: 0.9em
 
-#id_distancevp_container .help-block, #id_region_container .help-block, #id_caisse_container .help-block,
+#id_caisse
+  margin-bottom: 8px
+
+#id_distancevp_container .help-block, #id_region_container .help-block, #id_caisse_container .help-block
   background-color: #ffff99
   border: 1px solid #ff0000
   padding: 6px
@@ -109,10 +112,10 @@ select
   display: none !important
 
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea
-  background-color: #ffffff
+  background-color: #ffffff !important
 
 .input-field > label:not(.label-icon).active
-    transform: translateY(-20px) scale(0.8)
+    transform: translateY(-20px) scale(0.8) !important
 
 input::placeholder,
 .input-field > label
@@ -145,27 +148,28 @@ input::placeholder,
     @media (min-width: 992px)
       margin-left: -70px
 
+
 .demande-section
   background-color: #e7f5f4
   padding: 20px
   margin-bottom: 4rem
 
 [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after
-  border-color: #005DA8
+  border-color: #005DA8 !important
 
 [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after
-  background-color: #005DA8
-  border-color: #005DA8
+  background-color: #005DA8 !important
+  border-color: #005DA8 !important
 
 input:not([type]):focus:not([readonly]) + label, input[type=text]:not(.browser-default):focus:not([readonly]) + label, input[type=password]:not(.browser-default):focus:not([readonly]) + label, input[type=email]:not(.browser-default):focus:not([readonly]) + label, input[type=url]:not(.browser-default):focus:not([readonly]) + label, input[type=time]:not(.browser-default):focus:not([readonly]) + label, input[type=date]:not(.browser-default):focus:not([readonly]) + label, input[type=datetime]:not(.browser-default):focus:not([readonly]) + label, input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label, input[type=tel]:not(.browser-default):focus:not([readonly]) + label, input[type=number]:not(.browser-default):focus:not([readonly]) + label, input[type=search]:not(.browser-default):focus:not([readonly]) + label, textarea.materialize-textarea:focus:not([readonly]) + label
-  color: #005DA8
+  color: #005DA8 !important
 
 input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
-  border-bottom: 1px solid #005DA8
-  box-shadow: 0 1px 0 0 #005DA8
+  border-bottom: 1px solid #005DA8 !important
+  box-shadow: 0 1px 0 0 #005DA8 !important
 
 label
-  color: #6d6d6d
+  color: #6d6d6d !important
 
 .item-label
   color: initial
@@ -174,8 +178,8 @@ label
 #id_billatps_container .btn,
 #mrsrequest-wizard .btn,
 #contact .btn
-  background-color: #005DA8
-  color: #ffffff
+  background-color: #005DA8 !important
+  color: #ffffff !important
   display: flex
   flex-direction: column
   justify-content: center
@@ -188,25 +192,26 @@ label
 
 [type="checkbox"].filled-in:checked + span:not(.lever):after,
 [type="checkbox"].filled-in.tabbed:checked:focus + span:not(.lever):after
-  border: 2px solid #005DA8
-  background-color: #005DA8
+  border: 2px solid #005DA8 !important
+  background-color: #005DA8 !important
 
 .checkbox-field
   label
-    color: #000000
+    color: #000000 !important
 
   .help-block
-    color: #6d6d6d
+    color: #6d6d6d !important
 
 input[data-form-control="date"],
 #id_iterative_number_container input,
+#id_distancevp_container input,
 #id_expensevp_toll_container input,
 #id_expensevp_parking_container input,
 #id_expenseatp_container input
   padding-left: 8px !important
 
 .input-field > input[type]:-webkit-autofill:not(.browser-default):not([type="search"]) + label, .input-field > input[type=date]:not(.browser-default) + label, .input-field > input[type=time]:not(.browser-default) + label
-  transform: translateY(-20px) scale(0.8)
+  transform: translateY(-20px) scale(0.8) !important
 
 .file-field
   .files
@@ -230,7 +235,9 @@ input[data-form-control="date"],
         &:last-child
           display: none
 
-input[name="pmt"]
+input[name="pmt"],
+input[name="billvps"],
+input[name="billatps"]
   height: 3rem
 
 #caisse-form
