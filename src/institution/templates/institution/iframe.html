@@ -56,7 +56,6 @@
         </div>
     </div>
 
-    {% render_bundle 'mrsbootstrap' 'js' %}
     <script type="text/javascript">
         window.allowOrigin = '{{ view.allow_origin }}'
         window.allowInsecure = {% if view.ALLOW_INSECURE %}true{% else %}false{% endif %}

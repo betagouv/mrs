@@ -110,10 +110,9 @@ var formInit = function (form) {
     hideRequestShowCaisseVoteForm(form, true)
     Cookie.set('caisse', '')
 
-  } else{
-
-    Cookie.set('caisse', '')
-
+  } else {
+    $('#btnCommencer').hide()
+    $('#collapseCommencer').show()
   }
 
   // Preselect caisse if found in cookie
@@ -122,9 +121,7 @@ var formInit = function (form) {
   if (parseInt(caisseSelected)) {
 
     $caisse.val(caisseSelected)
-    if($region.val()){
-      adjustSelectOptions('caisse', $region.val(),  false, true)
-    }
+    adjustSelectOptions('caisse', $region.val(),  false, true)
 
   } else if (caisseSelected=='other'){
 
@@ -656,6 +653,16 @@ $('body').on('click', '[data-load-in-form]', function() {
       submitUi.hideOverlay() // hide overlay
     },
   })
+})
+
+$('body').on('click', '#btnCommencer', function() {
+  $('#collapseCommencer').show()
+  $(this).hide()
+})
+
+$('body').on('click', '#fermerCommencer', function() {
+  $('#collapseCommencer').hide()
+  $('#btnCommencer').show()
 })
 
 export default formInit

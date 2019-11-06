@@ -94,13 +94,18 @@ form
   .help-button
     border-radius: 50%
     position: absolute
-    top: 1.5em
-    right: 1em
-    padding: .5em 1em
+    top: 2.5em
+    right: 0em
+    padding: .10em 0.6em
+
     background-color: #005DA8
     color: #fff
     font-weight: bold
 
+    @media (min-width: 576px)
+      top: 1.5em
+      right: 1em
+      padding: .5em 1em
 select
   opacity: 1 !important
   display: block !important
@@ -176,7 +181,7 @@ label
 
 #id_pmt_container .btn,
 #id_billatps_container .btn,
-#mrsrequest-wizard .btn,
+#mrsrequest-wizard .btn:not([data-btn-exclude="1"]),
 #contact .btn
   background-color: #005DA8 !important
   color: #ffffff !important
@@ -256,3 +261,6 @@ input[name="billatps"]
   justify-content: center
   align-items: center
   margin: auto
+
+label[for="id_distancevp"]
+  white-space: nowrap

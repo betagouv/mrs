@@ -45,6 +45,7 @@
     <div class="mrs-std-page--wrapper">
         <div class="mrs-std-page">
             
+
 <script id="caissesJson" type="text/json">
 {"1": {"parking_enable": true, "nopmt_enable": true}, "2": {"parking_enable": true, "nopmt_enable": true}, "3": {"parking_enable": true, "nopmt_enable": true}, "4": {"parking_enable": true, "nopmt_enable": true}}
 </script>
@@ -67,7 +68,34 @@
             
                 <h2 class="mb-5">Demander un remboursement</h2>
 
-                <h3 class="demande-section-header"><span class="numero">1</span> Caisse d'assurance maladie</h3>
+                <div id="commencer">
+                    <div>
+                        <button class="btn mrs-bouton mrs-bleu-plein" id="btnCommencer" style="background-image:url('/static/img/icones/clip.svg')" type="button">
+                            Avant de commencer
+                        </button>
+                    </div>
+
+                    <div class="collapse" id="collapseCommencer">
+                        <div id="fermerCommencer">
+                            X
+                        </div>
+                        <div id="txtCommencer" style="background-image:url('/static/img/icones/clip.svg')">
+                            Pour remplir la demande, vous aurez besoin de :
+                            <ul>
+                                <li>- vos justifications de frais de transport (tickets de transport, facture etc.)</li>
+                                <li>- votre prescription de transport papier ou électronique</li>
+                            </ul>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <a class="btn mrs-bouton mrs-rose-plein" data-btn-exclude="1" href="#cam">
+                                Commencer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="demande-section-header" id="cam"><span class="numero">1</span> Caisse d'assurance maladie</h3>
 
                 <div class="demande-section">
                         <div class="section row">
