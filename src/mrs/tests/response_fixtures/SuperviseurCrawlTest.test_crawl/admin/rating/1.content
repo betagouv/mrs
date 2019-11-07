@@ -1,0 +1,68 @@
+<div class="" id="modal-body-ajax">
+        
+          <div class="modal-content">
+          
+            
+            <h4 class="text-default" id="modal-title-ajax">Rating object (1)</h4>
+            
+          
+          
+<div class="">
+  <table class="table">
+    <thead class="thead-inverse">
+      
+      <tr>
+        <th>
+          Id
+        </th>
+        <td>
+          
+              1
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Mrsrequest
+        </th>
+        <td>
+          
+              <a href="/admin/mrsrequest/13751dc2-18bb-4925-a8b4-84383a042bae">201805010000</a>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Score
+        </th>
+        <td>
+          
+              4
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          Commentaire
+        </th>
+        <td>
+          
+              Here is a nice comment to you.
+          
+        </td>
+      </tr>
+      
+    
+  </thead></table>
+</div>
+
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        
+
+      </div>
