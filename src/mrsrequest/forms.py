@@ -430,7 +430,7 @@ def transport_date_min_validator(value):
     Pour plus d'information reportez vous à la rubrique <a href="{faq_url}"
     target="_blank">"Combien de temps après mon transport, puis je demander
     mon remboursement ?"</a>
-    '''.strip()))
+    '''.strip()))  # nosec
     if value < date_min:
         raise ValidationError(msg)
 
