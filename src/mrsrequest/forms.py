@@ -428,7 +428,7 @@ def transport_date_min_validator(value):
     Les dates de transports ne peuvent être inférieures à 27 mois, soit le
     {date_min_display}, merci de corriger la date.
     Pour plus d'information reportez vous à la rubrique <a href="{faq_url}"
-    target="_blank">"Combien de temps après mon transport, puis je demander 
+    target="_blank">"Combien de temps après mon transport, puis je demander
     mon remboursement ?"</a>
     '''.strip()))
     if value < date_min:
