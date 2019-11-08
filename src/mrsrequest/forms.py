@@ -424,13 +424,14 @@ def transport_date_min_validator(value):
     date_min_display = f'{date_min.day}/{date_min.month}/{date_min.year}'
     faq_url = f'{reverse("faq")}?collapse5=1'
 
-    msg = mark_safe(textwrap.dedent(f'''
+    msg = textwrap.dedent(f'''
     Les dates de transports ne peuvent être inférieures à 27 mois, soit le
     {date_min_display}, merci de corriger la date.
     Pour plus d'information reportez vous à la rubrique <a href="{faq_url}"
     target="_blank">"Combien de temps après mon transport, puis je demander
     mon remboursement ?"</a>
-    '''.strip()))  # nosec
+    '''.strip())
+    msg = mark_safe(msg)  # nosec
     if value < date_min:
         raise ValidationError(msg)
 
