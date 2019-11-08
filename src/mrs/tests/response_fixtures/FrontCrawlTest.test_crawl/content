@@ -19,7 +19,9 @@
         <meta property="og:type" content="website"/>
         <meta property="og:image" content="/static/img/logos/mrs.png"/>
         <meta property="og:description"
-              content="Mes Remboursements Simplifiés (MRS) est un service innovant de l'Assurance Maladie pour accélérer et faciliter le remboursement des frais d’utilisation du véhicule particulier ou du transport en commun suite à une prescription médicale. MRS permet de déclarer directement en ligne et d’être remboursé en une semaine."/>
+              content="Mes Remboursements Simplifiés (MRS) est un service innovant de l'Assurance Maladie pour accélérer
+    et faciliter le remboursement des frais d’utilisation du véhicule particulier ou du transport en commun suite à une
+    prescription médicale. MRS permet de déclarer directement en ligne et d’être remboursé en une semaine."/>
         <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
         <link rel="icon" sizes="48x48" href="/static/img/logos/launcher-icon-1x.png">
         <link rel="icon" sizes="96x96" href="/static/img/logos/launcher-icon-2x.png">
@@ -110,11 +112,12 @@
             <div class="col-lg-7">
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe
-                        width="100%"
-                        height="100%"
-                        src="https://www.youtube.com/embed/TzrDppmF4vY"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                            width="100%"
+                            height="100%"
+                            src="https://www.youtube.com/embed/TzrDppmF4vY"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
                     ></iframe>
                 </div>
             </div>
@@ -127,7 +130,7 @@
                     <div class="col-9">
                         <h3>Recevez votre prescription médicale</h3>
                         <p>
-                            Votre médecin vous prescrit un transport médical de transport en fonction de votre situation.
+                            Votre médecin vous prescrit un transport médical en fonction de votre situation.
                         </p>
                     </div>
                 </div>
@@ -138,7 +141,7 @@
                     <div class="col-9">
                         <h3>Réalisez le transport</h3>
                         <p>
-                            Vous vous rendez à vos soins en voiture ou en transport en commun.
+                            Vous vous rendez à vos soins en voiture ou en transport en commun, seul(e) ou accompagné(e)
                         </p>
                     </div>
                 </div>
@@ -149,7 +152,8 @@
                     <div class="col-9">
                         <h3>Demandez le remboursement</h3>
                         <p>
-                            Remplissez votre demande en joignant vos documents (prescription médicale et justificatifs de transport).
+                            Remplissez votre demande en joignant vos documents (prescription médicale de transport et
+                            justificatifs de déplacement).
                         </p>
                     </div>
                 </div>
@@ -212,7 +216,8 @@
                         <img src="/static/img/guillemetouvrant.svg">
                     </div>
                     <div class="col-10">
-                        Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière, paiement très rapide et simplifié grâce à l’envoi par internet ! Merci !
+                        Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière,
+                        paiement très rapide et simplifié grâce à l’envoi par internet ! Merci !
                         <br>
                         <b>Amelie F.</b>
                     </div>

@@ -134,7 +134,7 @@
 
 <div class="row captcha">
 
-<div class="input-field id_captcha_container required has-error" style="margin-left: 1rem; width: 100%">
+<div class="input-field id_captcha_container required has-error" style="margin-left: 1rem">
 
 
   <label for="id_captcha_1">Recopier le texte l'image</label>

@@ -117,7 +117,7 @@
                     </div>
                     <div class="card">
                         <div aria-controls="collapse3" aria-expanded="false" class="card-header" data-target="#collapse3" data-toggle="collapse" id="headingOne" role="button">
-                            « Est-ce que je dois conserver mes pièces justificatives ? »
+                            Est-ce que je dois conserver mes pièces justificatives ?
                         </div>
                         <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse3">
                             <div class="card-body">
@@ -179,9 +179,11 @@
         </div>
 
         <div class="row justify-content-center my-5">
-            <a class="btn mrs-bouton mrs-bleu-vide" href="https://www.ameli.fr/assure/remboursements/rembourse/frais-transport/frais-transport#text_73837" target="_blank">
-                Retrouvez plus d’informations sur ameli.fr
-            </a>
+            <div class="col-12 col-lg-10 col-xl-8" id="recherche">
+                <a class="btn mrs-bouton mrs-bleu-vide" href="https://www.ameli.fr/assure/remboursements/rembourse/frais-transport/frais-transport#text_73837" target="_blank">
+                    Retrouvez plus d’informations sur ameli.fr
+                </a>
+            </div>
         </div>
 
     </div>

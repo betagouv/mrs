@@ -16,7 +16,24 @@
                 _paq.push(['trackEvent', 'request_created']);
                 </script>
             {% endif %}
-            <h2 class="scroll-reveal" style="margin-bottom: 2em">Nous avons bien reçu votre demande de remboursement !</h2>
+            <h2 class="scroll-reveal" style="margin-bottom: 1em">Nous avons bien reçu votre demande de remboursement !</h2>
+
+            <div id="validation-detail">
+                <p>
+                    Vous allez recevoir un email confirmant la réception et le traitement de votre demande.
+                </p>
+                <p>
+                    Vous recevrez un deuxième email indiquant :
+                </p>
+                <ul>
+                    <li>
+                        - soit la validation de votre demande et le remboursement de vos frais de transport
+                    </li>
+                    <li>
+                        - ou bien le rejet de votre demande de remboursement avec l’explication du motif.
+                    </li>
+                </ul>
+            </div>
         {% endif %}
 
         {% if view.rating_form %}
@@ -106,8 +123,8 @@
                         <div id="txtCommencer" style="background-image:url('{% static "img/icones/clip.svg" %}')">
                             Pour remplir la demande, vous aurez besoin de :
                             <ul>
-                                <li>- vos justifications de frais de transport (tickets de transport, facture etc.)</li>
-                                <li>- votre prescription de transport papier ou électronique</li>
+                                <li>- votre prescription médicale de transport papier ou électronique</li>
+                                <li>- vos justificatifs de frais de déplacement (ticket de parking, de péage, ...)</li>
                             </ul>
                         </div>
 
@@ -119,7 +136,9 @@
                     </div>
                 </div>
 
-                <h3 id="cam" class="demande-section-header"><span class="numero">1</span> Caisse d'assurance maladie</h3>
+                <h3 id="cam" class="demande-section-header">
+                    <span class="numero">1</span> Caisse d'assurance maladie
+                </h3>
 
                 <div class="demande-section">
                     {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.start %}
@@ -261,17 +280,49 @@
     </form>
 </div>
 
-<div class="disclaimer--wrapper scroll-reveal">
-    <p>
-        La loi rend passible d'amende et/ ou d'emprisonnement quiconque sera rend coupable de fraude ou de fausse déclaration en vue d'obtenir ou de tenter d'obtenir des avantages indus (articles 313-1 à 313-3, 433-19, 441-1 et suivants du Code pénal).
-    </p>
-    <p>
-        En outre, l'inexactitude, le caractère incomplet des déclarations ou l'absence de déclaration d'un changement de situation dans le but d'obtenir le versement de prestations indues, peuvent faire l'objet d'une pénalité financière en application de l'article L.162-1-14 du Code de la sécurité sociale.
-    </p>
-    <p>
-      Les informations recueillies sont traitées pour gérer votre demande de remboursement de transport sous la responsabilité du Directeur de votre CPAM de rattachement. Elles sont conservées pendant 33 mois et sont adressées à votre CPAM de rattachement.
-      Votre email sera utilisé dans le but de vous envoyer occasionnellement des emails de confirmation.
-      Conformément aux dispositions relatives à la protection des données personnelles, vous pouvez exercer les droit d'accès, de rectification et de limitation des données vous concernant en adressant une demande écrite au directeur de votre caisse d’assurance maladie de rattachement en contactant le ou la délégué(e) à la protection des données.
-      Les réclamations au titre de la protection des données personnelles peuvent être introduites auprès de la CNIL (Commission Nationale Informatique et Libertés - TSA 80715 - 75334 PARIS CEDEX 07).
-    </p>
+<div class="text-center">
+    <a href="#" data-toggle="modal" data-target="#modal-conditions">
+      Conditions d'utilisation
+    </a>
+</div>
+
+<div class="modal2" tabindex="-1" role="dialog" id="modal-conditions">
+    <div class="modal2-dialog" role="document">
+        <div class="modal2-content">
+            <div class="modal2-header">
+                <h5 class="modal2-title">Conditions d'utilisation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal2-body">
+                <p>
+                    La loi rend passible d'amende et/ ou d'emprisonnement quiconque sera rend coupable de fraude ou de
+                    fausse déclaration en vue d'obtenir ou de tenter d'obtenir des avantages indus (articles 313-1 à
+                    313-3, 433-19, 441-1 et suivants du Code pénal).
+                </p>
+                <p>
+                    En outre, l'inexactitude, le caractère incomplet des déclarations ou l'absence de déclaration d'un
+                    changement de situation dans le but d'obtenir le versement de prestations indues, peuvent faire
+                    l'objet d'une pénalité financière en application de l'article L.162-1-14 du Code de la sécurité
+                    sociale.
+                </p>
+                <p>
+                    Les informations recueillies sont traitées pour gérer votre demande de remboursement de transport
+                    sous la responsabilité du Directeur de votre CPAM de rattachement. Elles sont conservées pendant 33
+                    mois et sont adressées à votre CPAM de rattachement.
+                    Votre email sera utilisé dans le but de vous envoyer occasionnellement des emails de confirmation.
+                    Conformément aux dispositions relatives à la protection des données personnelles, vous pouvez
+                    exercer les droit d'accès, de rectification et de limitation des données vous concernant en
+                    adressant une demande écrite au directeur de votre caisse d’assurance maladie de rattachement en
+                    contactant le ou la délégué(e) à la protection des données.
+                    Les réclamations au titre de la protection des données personnelles peuvent être introduites auprès
+                    de la CNIL (Commission Nationale Informatique et Libertés - TSA 80715 - 75334 PARIS CEDEX 07).
+                </p>
+            </div>
+            <div class="modal2-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
 </div>

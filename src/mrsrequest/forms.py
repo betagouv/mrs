@@ -6,9 +6,11 @@ import textwrap
 from django import forms
 from django.core import validators
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 from django.utils.datastructures import MultiValueDict
 
 import material
+from django.utils.safestring import mark_safe
 
 from caisse.forms import ActiveCaisseChoiceField, ActiveRegionChoiceField
 from mrs.forms import DateFieldNative
@@ -16,7 +18,6 @@ from mrsattachment.forms import MRSAttachmentField
 
 from .models import today
 from .models import BillATP, BillVP, MRSRequest, PMT, Transport
-
 
 PMT_HELP = '''
 Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande
@@ -84,8 +85,8 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     pmt_pel = forms.ChoiceField(
         choices=(
-            ('pmt', 'PMT (Prescription Papier)'),
-            ('pel', 'PMET (Prescription Électronique)'),
+            ('pmt', 'PMT (Prescription papier)'),
+            ('pel', 'PMET (Prescription électronique)'),
             ('convocation', 'Convocation Service Médical'),
         ),
         initial='pmt',
@@ -137,7 +138,7 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     caisse = ActiveCaisseChoiceField(
         otherchoice=True,
-        label='Votre caisse de rattachement',
+        label='',
         help_text='Votre caisse n\'apparaît pas dans la liste ? Elle n\'a pas '
                   'encore rejoint le dispositif MRS. Cliquez sur "Autre" pour '
                   'la sélectionner et recevoir un e-mail dès que celle-ci '
@@ -145,7 +146,7 @@ class MRSRequestCreateForm(forms.ModelForm):
     )
 
     region = ActiveRegionChoiceField(
-        label='Votre région',
+        label='',
     )
 
     expenseatp = AllowedCommaDecimalField(
@@ -411,6 +412,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             def _save_m2m():
                 save_attachments(self, obj)
                 save_m2m()
+
             self.save_m2m = _save_m2m
         else:
             save_attachments(self, obj)
@@ -420,13 +422,15 @@ class MRSRequestCreateForm(forms.ModelForm):
 def transport_date_min_validator(value):
     date_min = (datetime.now() - relativedelta(months=27)).date()
     date_min_display = f'{date_min.day}/{date_min.month}/{date_min.year}'
+    faq_url = f'{reverse("faq")}?collapse5=1'
 
-    msg = textwrap.dedent(f'''
+    msg = mark_safe(textwrap.dedent(f'''
     Les dates de transports ne peuvent être inférieures à 27 mois, soit le
     {date_min_display}, merci de corriger la date.
-    Pour plus d'information reportez vous à la rubrique "Combien de temps pour
-    demander un remboursement ?"
-    '''.strip())
+    Pour plus d'information reportez vous à la rubrique <a href="{faq_url}"
+    target="_blank">"Combien de temps après mon transport, puis je demander 
+    mon remboursement ?"</a>
+    '''.strip()))
     if value < date_min:
         raise ValidationError(msg)
 

@@ -465,34 +465,33 @@ var formInit = function (form) {
     var single = ! $('[name=trip_kind][value=return]').is(':checked')
 
     if (count == 1) {
+      $('#id_distancevp_container label').html(
+        'Nombre total de kilomètres'
+      )
       if (single) {
-        $('#id_distancevp_container label').html(
-          'Indiquez le nombre de km parcourus lors de votre aller simple'
-        )
         $('#id_distancevp_container .help-block').slideUp()
       } else {
-        $('#id_distancevp_container label').html(
-          'Indiquez le nombre de km parcourus lors de votre aller + retour'
-        )
         $('#id_distancevp_container .help-block').slideDown()
       }
     } else {
       var exemple = count * 10
       if (single) {
         $('#id_distancevp_container label').html(
-          `Indiquez le nombre de km parcourus lors de vos ${count} allers simples.<br />`
+          'Nombre total de kilomètres'
         )
         $('#id_distancevp_container .help-block').html(
-          `Par exemple pour 10 km par aller simple, déclarez ${exemple} km parcourus`
+          `Indiquez le nombre de km parcourus lors de vos ${count} allers simples.<br />`
+          + `Par exemple pour 10 km par aller simple, déclarez ${exemple} km parcourus`
           + '<div id="distancevp_preview"></div>'
         )
         $('#id_distancevp_container .help-block').slideDown()
       } else {
         $('#id_distancevp_container label').html(
-          `Indiquez le nombre de km parcourus lors de vos ${count} allers retours.<br />`
+          'Nombre total de kilomètres'
         )
         $('#id_distancevp_container .help-block').html(
-          `Par exemple pour 10 km par aller + retour, déclarez ${exemple} km parcourus`
+          `Indiquez le nombre de km parcourus lors de vos ${count} allers retours.<br />`
+          + `Par exemple pour 10 km par aller + retour, déclarez ${exemple} km parcourus`
           + '<div id="distancevp_preview"></div>'
         )
         $('#id_distancevp_container .help-block').slideDown()

@@ -7,7 +7,7 @@
 </div>
 {% endspaceless %}
 
-<div class="input-field id_captcha_container required has-error" style="margin-left: 1rem; width: 100%">
+<div class="input-field id_captcha_container required has-error" style="margin-left: 1rem">
   {% include widget.subwidgets.0.template_name with widget=widget.subwidgets.0 %}
   <input type="text" validate="invalid" id="{{ widget.subwidgets.1.attrs.id }}" name="{{ widget.subwidgets.1.name }}" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" />
   <label for="{{ widget.subwidgets.1.attrs.id }}">Recopier le texte l'image</label>

@@ -40,10 +40,10 @@
                 <div class="accordion" id="accordion-aide">
                     <div class="card">
                         <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapse1"
-                             aria-expanded="false" aria-controls="collapse1" role="button">
+                             aria-expanded="{% if request.GET.collapse1 %}true{% else %}false{% endif %}" aria-controls="collapse1" role="button">
                             Quels sont les transports pris en charge sur le site ?
                         </div>
-                        <div id="collapse1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse1" class="collapse {% if request.GET.collapse1 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Lorsque vous pouvez vous déplacer sans assistance particulière, seul ou accompagné
@@ -58,10 +58,10 @@
                     </div>
                     <div class="card">
                         <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapse2"
-                             aria-expanded="false" aria-controls="collapse2" role="button">
+                             aria-expanded="{% if request.GET.collapse2 %}true{% else %}false{% endif %}" aria-controls="collapse2" role="button">
                             Quels sont les justificatifs à fournir pour être remboursé ?
                         </div>
-                        <div id="collapse2" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse2" class="collapse {% if request.GET.collapse2 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Pour que votre transport soit pris en charge par l’Assurance Maladie, vous devez
@@ -86,10 +86,10 @@
                     </div>
                     <div class="card">
                         <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapse3"
-                             aria-expanded="false" aria-controls="collapse3" role="button">
-                            « Est-ce que je dois conserver mes pièces justificatives ? »
+                             aria-expanded="{% if request.GET.collapse3 %}true{% else %}false{% endif %}" aria-controls="collapse3" role="button">
+                            Est-ce que je dois conserver mes pièces justificatives ?
                         </div>
-                        <div id="collapse3" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse3" class="collapse {% if request.GET.collapse3 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Oui, vous devez conserver vos pièces justificatives (prescription médicale de
@@ -102,10 +102,10 @@
                     </div>
                     <div class="card">
                         <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapse4"
-                             aria-expanded="false" aria-controls="collapse4" role="button">
+                             aria-expanded="{% if request.GET.collapse4 %}true{% else %}false{% endif %}" aria-controls="collapse4" role="button">
                             Si ma demande est refusée, que dois-je faire ?
                         </div>
-                        <div id="collapse4" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse4" class="collapse {% if request.GET.collapse4 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Si votre demande est refusée, vous recevrez un email vous informant des raisons du
@@ -120,10 +120,10 @@
                     </div>
                     <div class="card">
                         <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapse5"
-                             aria-expanded="false" aria-controls="collapse5" role="button">
+                             aria-expanded="{% if request.GET.collapse5 %}true{% else %}false{% endif %}" aria-controls="collapse5" role="button">
                             Combien de temps après mon transport, puis je demander mon remboursement ?
                         </div>
-                        <div id="collapse5" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse5" class="collapse {% if request.GET.collapse5 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Vous avez un délai de deux ans pour présenter vos demandes de remboursement (article
@@ -151,12 +151,14 @@
         </div>
 
         <div class="row justify-content-center my-5">
-            <a class="btn mrs-bouton mrs-bleu-vide"
-               target="_blank"
-               href="https://www.ameli.fr/assure/remboursements/rembourse/frais-transport/frais-transport#text_73837"
-            >
-                Retrouvez plus d’informations sur ameli.fr
-            </a>
+            <div id="recherche" class="col-12 col-lg-10 col-xl-8">
+                <a class="btn mrs-bouton mrs-bleu-vide"
+                   target="_blank"
+                   href="https://www.ameli.fr/assure/remboursements/rembourse/frais-transport/frais-transport#text_73837"
+                >
+                    Retrouvez plus d’informations sur ameli.fr
+                </a>
+            </div>
         </div>
 
     </div>
