@@ -72,7 +72,7 @@
             <div class="col-12 col-lg-10 col-xl-8">
                 <div class="accordion" id="accordion-aide">
                     <div class="card">
-                        <div aria-controls="collapse1" aria-expanded="false" class="card-header" data-target="#collapse1" data-toggle="collapse" id="headingOne" role="button">
+                        <div aria-controls="collapse1" aria-expanded="false" class="card-header" data-target="#collapse1" data-toggle="collapse" id="heading1" role="button">
                             Quels sont les transports pris en charge sur le site ?
                         </div>
                         <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse1">
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div aria-controls="collapse2" aria-expanded="false" class="card-header" data-target="#collapse2" data-toggle="collapse" id="headingOne" role="button">
+                        <div aria-controls="collapse2" aria-expanded="false" class="card-header" data-target="#collapse2" data-toggle="collapse" id="heading2" role="button">
                             Quels sont les justificatifs à fournir pour être remboursé ?
                         </div>
                         <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse2">
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div aria-controls="collapse3" aria-expanded="false" class="card-header" data-target="#collapse3" data-toggle="collapse" id="headingOne" role="button">
+                        <div aria-controls="collapse3" aria-expanded="false" class="card-header" data-target="#collapse3" data-toggle="collapse" id="heading3" role="button">
                             Est-ce que je dois conserver mes pièces justificatives ?
                         </div>
                         <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse3">
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div aria-controls="collapse4" aria-expanded="false" class="card-header" data-target="#collapse4" data-toggle="collapse" id="headingOne" role="button">
+                        <div aria-controls="collapse4" aria-expanded="false" class="card-header" data-target="#collapse4" data-toggle="collapse" id="heading4" role="button">
                             Si ma demande est refusée, que dois-je faire ?
                         </div>
                         <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse4">
@@ -148,7 +148,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div aria-controls="collapse5" aria-expanded="false" class="card-header" data-target="#collapse5" data-toggle="collapse" id="headingOne" role="button">
+                        <div aria-controls="collapse5" aria-expanded="false" class="card-header" data-target="#collapse5" data-toggle="collapse" id="heading5" role="button">
                             Combien de temps après mon transport, puis je demander mon remboursement ?
                         </div>
                         <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse5">

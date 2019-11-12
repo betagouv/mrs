@@ -39,8 +39,8 @@ var cfg = {
     mrsbootstrap: [
       './src/mrs/static/scss/mrs.scss',
     ],
-    mrscountup: [
-      'countup.js', './src/mrs/static/js/mrscountup',
+    mrsindex: [
+      'countup.js', './src/mrs/static/js/mrsindex',
     ],
     mrsfaq: [
       './src/mrs/static/js/mrsfaq',

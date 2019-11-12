@@ -149,7 +149,7 @@
 </div>
 
         <br/>
-        <button class="btn" name="_submit" type="submit">Envoyer</button>
+        <button class="btn mrs-bouton mrs-bleu-plein mb-5" name="_submit" type="submit">Envoyer</button>
     
 </form>
 

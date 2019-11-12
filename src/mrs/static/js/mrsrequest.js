@@ -555,7 +555,7 @@ var formSubmit = function(form) {
   if ($.active) {
     if ($(form).find('.wait').length < 1) {
       $(`<div class="wait card-panel orange lighten-4">
-            Merci de laisser le site ouvert pendant téléchargement complêt de vos documents
+            Merci de laisser le site ouvert pendant le téléchargement complet de vos documents
         </div>`).appendTo($(form))
     }
     return setTimeout($.proxy(formSubmit, this, form), 1000)

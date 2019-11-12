@@ -67,4 +67,32 @@ $(document).ready(function () {
   })
 
   compute_shown()
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max))
+  }
+  const temoignages = [
+    'Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière, ' +
+    'paiement très rapide et simplifié grâce à l’envoi par internet ! Merci ! <br><b>Amelie F.</b>',
+    'Service très pratique et simple à utiliser. Le remboursement des frais est très rapide, que demander de plus ?' +
+    '<br><b>Aida. D</b>',
+    'Mes remboursements simplifiés est un service qui porte bien son nom.' +
+    '<br><b>Nicolas R.</b>',
+    'Pas de formulaire à envoyer, rapidité du traitement de la demande et rapidité du remboursement. Le top.' +
+    '<br><b>Alain A.</b>'
+  ]
+  let temoignages_index = getRandomInt(temoignages.length)
+  $('#temoignage-suivant').click(function() {
+    if (temoignages_index < temoignages.length - 1) {
+      temoignages_index += 1
+    } else {
+      temoignages_index = 0
+    }
+    $('#temoignage').html(
+      temoignages[temoignages_index]
+    )
+  })
+  $('#temoignage').html(
+    temoignages[temoignages_index]
+  )
 })

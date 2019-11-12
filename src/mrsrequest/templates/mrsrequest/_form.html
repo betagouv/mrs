@@ -44,20 +44,20 @@
                 {% form form=view.rating_form %}
                 {% endform %}
                 <div>
-                    <button type="submit" name="_submit" class="btn">Soumettre</button>
+                    <button type="submit" name="_submit" class="btn mrs-bouton mrs-bleu-plein mb-5">Soumettre</button>
                 </div>
             {% endif %}
         {% elif view.success %}
             <div class="d-flex justify-content-center">
                 <a
-                    class="btn"
+                    class="btn mrs-bouton mrs-bleu-plein mb-5"
                     data-load-in-form="{{ path_info }}?caisse={{ request.POST.caisse }}"
                 >Nouvelle demande</a>
             </div>
             {% if request.user.is_staff %}
                 <div class="d-flex justify-content-center mt-4">
                     <a
-                        class="btn"
+                        class="btn mrs-bouton mrs-bleu-plein mb-5"
                         data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
 
                     >Nouvelle demande: même assuré</a>
@@ -241,6 +241,10 @@
 
                         {% form form=view.forms.use_email %}
                         {% endform %}
+
+                        <a href="#" data-toggle="modal" data-target="#modal-conditions" class="text-center">
+                          Conditions d'utilisation
+                        </a>
                     </div>
                 {% endif %}
             </div>
@@ -263,31 +267,25 @@
             {% if view.confirm %}
                 <div>
                     <a
-                        class="left btn mb-4"
+                        class="left btn mrs-bouton mrs-bleu-plein mb-5"
                         data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
                     >Annuler</a>
                     </a>
                     <button
                         type="submit"
-                        class="btn right"
+                        class="btn right mrs-bouton mrs-bleu-plein mb-5"
                         value="Continuer"
                     >Continuer</button>
                 </div>
             {% else %}
-                <button type="submit" name="_submit" class="btn mrs-bouton mrs-rose-plein mb-5">Valider ma demande</button>
+                <button type="submit" name="_submit" class="btn mrs-bouton mrs-bleu-plein mb-5">Valider ma demande</button>
             {% endif %}
         {% endif %}
     </form>
 </div>
 
-<div class="text-center">
-    <a href="#" data-toggle="modal" data-target="#modal-conditions">
-      Conditions d'utilisation
-    </a>
-</div>
-
 <div class="modal2" tabindex="-1" role="dialog" id="modal-conditions">
-    <div class="modal2-dialog" role="document">
+    <div class="modal2-dialog modal2-dialog-scrollable" role="document">
         <div class="modal2-content">
             <div class="modal2-header">
                 <h5 class="modal2-title">Conditions d'utilisation</h5>
@@ -319,6 +317,28 @@
                     Les réclamations au titre de la protection des données personnelles peuvent être introduites auprès
                     de la CNIL (Commission Nationale Informatique et Libertés - TSA 80715 - 75334 PARIS CEDEX 07).
                 </p>
+            </div>
+            <div class="modal2-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal2" tabindex="-1" role="dialog" id="modal-pmet">
+    <div class="modal2-dialog modal2-dialog-scrollable" role="document">
+        <div class="modal2-content">
+            <div class="modal2-header">
+                <h5 class="modal2-title">Où trouver votre numéro de PMET ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal2-body">
+                <p>
+                    Votre numéro de PMET se trouve dans la partie supérieure du document.
+                </p>
+                <img class="img-fluid" src="{% static 'img/pmet.jpg' %}" />
             </div>
             <div class="modal2-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

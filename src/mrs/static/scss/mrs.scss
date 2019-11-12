@@ -95,6 +95,17 @@ h3 {
   }
 }
 
+.mrs-blanc-plein {
+  background-color: #ffffff;
+  border: 1px solid $mrs-bleu;
+  color: $mrs-bleu;
+  cursor: pointer;
+
+  &:hover {
+    color: $mrs-bleu;
+  }
+}
+
 #header-big {
   margin-bottom: 5rem;
 

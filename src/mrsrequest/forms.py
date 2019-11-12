@@ -29,8 +29,8 @@ PEL_HELP = '''
 Le numéro de votre Prescription Médicale Electronique de Transport (PMET) est
 indiqué sur l'exemplaire patient remis par votre médecin.
 <a
-    href="/faq#pmt"
-    title="Accèdez à la FAQ"
+    href="#"
+    data-toggle="modal" data-target="#modal-pmet"
 >Où trouver votre numéro de PMET ?</a>
 '''
 
@@ -422,7 +422,7 @@ class MRSRequestCreateForm(forms.ModelForm):
 def transport_date_min_validator(value):
     date_min = (datetime.now() - relativedelta(months=27)).date()
     date_min_display = f'{date_min.day}/{date_min.month}/{date_min.year}'
-    faq_url = f'{reverse("faq")}?collapse5=1'
+    faq_url = f'{reverse("faq")}?collapse5=1#heading5'
 
     msg = textwrap.dedent(f'''
     Les dates de transports ne peuvent être inférieures à 27 mois, soit le

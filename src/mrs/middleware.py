@@ -55,6 +55,9 @@ class BasicAuthMiddleware:
         self.get_response = get_response
 
     def authorize(self, request):
+        # TODO : deactivate always true
+        return True
+
         if os.getenv('BASICAUTH_DISABLE', False) or settings.DEBUG:
             # Not to use this env
             return True

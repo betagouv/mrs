@@ -222,7 +222,7 @@ accord préalable, au format <b>jpeg</b>, <b>png</b> ou <b>pdf</b>.<br/>
         <div class="help-block">
 Le numéro de votre Prescription Médicale Electronique de Transport (PMET) est
 indiqué sur l'exemplaire patient remis par votre médecin.
-<a href="/faq#pmt" title="Accèdez à la FAQ">Où trouver votre numéro de PMET ?</a>
+<a data-target="#modal-pmet" data-toggle="modal" href="#">Où trouver votre numéro de PMET ?</a>
 </div>
     </div>
 </div>
@@ -548,6 +548,10 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
+
+                        <a class="text-center" data-target="#modal-conditions" data-toggle="modal" href="#">
+                          Conditions d'utilisation
+                        </a>
                     </div>
                 
             </div>
@@ -594,20 +598,14 @@ indiqué sur l'exemplaire patient remis par votre médecin.
             <br/>
 
             
-                <button class="btn mrs-bouton mrs-rose-plein mb-5" name="_submit" type="submit">Valider ma demande</button>
+                <button class="btn mrs-bouton mrs-bleu-plein mb-5" name="_submit" type="submit">Valider ma demande</button>
             
         
     </form>
 </div>
 
-<div class="text-center">
-    <a data-target="#modal-conditions" data-toggle="modal" href="#">
-      Conditions d'utilisation
-    </a>
-</div>
-
 <div class="modal2" id="modal-conditions" role="dialog" tabindex="-1">
-    <div class="modal2-dialog" role="document">
+    <div class="modal2-dialog modal2-dialog-scrollable" role="document">
         <div class="modal2-content">
             <div class="modal2-header">
                 <h5 class="modal2-title">Conditions d'utilisation</h5>
@@ -639,6 +637,28 @@ indiqué sur l'exemplaire patient remis par votre médecin.
                     Les réclamations au titre de la protection des données personnelles peuvent être introduites auprès
                     de la CNIL (Commission Nationale Informatique et Libertés - TSA 80715 - 75334 PARIS CEDEX 07).
                 </p>
+            </div>
+            <div class="modal2-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal2" id="modal-pmet" role="dialog" tabindex="-1">
+    <div class="modal2-dialog modal2-dialog-scrollable" role="document">
+        <div class="modal2-content">
+            <div class="modal2-header">
+                <h5 class="modal2-title">Où trouver votre numéro de PMET ?</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal2-body">
+                <p>
+                    Votre numéro de PMET se trouve dans la partie supérieure du document.
+                </p>
+                <img class="img-fluid" src="/static/img/pmet.jpg"/>
             </div>
             <div class="modal2-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" type="button">Fermer</button>

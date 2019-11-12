@@ -3,14 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <meta name="robots" content="noindex">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Découvrez MRS | MRS </title>
     
-
-    
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/bootstrap/bootstrap.min.css">
         
         <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Faustina"
               rel="stylesheet"/>
@@ -39,6 +37,24 @@
             background: #0dc5b9;
         }
     </style>
+    
+
+<!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://mrs.matomo.cloud/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src='//cdn.matomo.cloud/mrs.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
 </head>
 <body class="index">
 
@@ -215,7 +231,7 @@
                     <div class="col-1">
                         <img src="/static/img/guillemetouvrant.svg">
                     </div>
-                    <div class="col-10">
+                    <div class="col-10" id="temoignage">
                         Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière,
                         paiement très rapide et simplifié grâce à l’envoi par internet ! Merci !
                         <br>
@@ -223,6 +239,13 @@
                     </div>
                     <div class="col-1">
                         <img src="/static/img/guillemetfermant.svg">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="btn mrs-bouton mrs-blanc-plein" id="temoignage-suivant">Suivant</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -266,12 +289,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+    <script src="/static/bootstrap/bootstrap.bundle.min.js"></script>
 
 
 
