@@ -16,9 +16,13 @@
                 _paq.push(['trackEvent', 'request_created']);
                 </script>
             {% endif %}
-            <h2 class="scroll-reveal" style="margin-bottom: 1em">Nous avons bien reçu votre demande de remboursement !</h2>
+            <h2 class="scroll-reveal" id="validation-detail-h">Nous avons bien reçu votre demande de remboursement !</h2>
 
             <div id="validation-detail">
+                <div class="text-center">
+                    <img id="validation-detail-check" class="img-fluid" src="{% static "img/icones/check-solid.svg" %}">
+                </div>
+
                 <p>
                     Vous allez recevoir un email confirmant la réception et le traitement de votre demande.
                 </p>
@@ -87,8 +91,8 @@
             </style>
 
             {% if view.confirm %}
-                <h2 class="has-error">Attention: motif de rejet potentiel</h2>
-                <div class="with-ul">
+                <h2 class="has-error" id="rejet-potentiel-h">Attention: motif de rejet potentiel</h2>
+                <div class="with-ul" id="rejet-potentiel">
                   <p>
                     Attention <b>certaines dates de trajet ont déjà été déclarées</b>.
                     <br/>
@@ -265,7 +269,7 @@
             <br />
 
             {% if view.confirm %}
-                <div>
+                <div id="rejet-potentiel-btns">
                     <a
                         class="left btn mrs-bouton mrs-bleu-plein mb-5"
                         data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
@@ -285,7 +289,7 @@
 </div>
 
 <div class="modal2" tabindex="-1" role="dialog" id="modal-conditions">
-    <div class="modal2-dialog modal2-dialog-scrollable" role="document">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
         <div class="modal2-content">
             <div class="modal2-header">
                 <h5 class="modal2-title">Conditions d'utilisation</h5>
@@ -326,7 +330,7 @@
 </div>
 
 <div class="modal2" tabindex="-1" role="dialog" id="modal-pmet">
-    <div class="modal2-dialog modal2-dialog-scrollable" role="document">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
         <div class="modal2-content">
             <div class="modal2-header">
                 <h5 class="modal2-title">Où trouver votre numéro de PMET ?</h5>

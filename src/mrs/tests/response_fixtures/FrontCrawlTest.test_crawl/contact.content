@@ -4,7 +4,9 @@
 <div class="d-none d-lg-block" id="header-big">
     <div class="header-bg"></div>
     <div class="cnam-wrapper">
-        <img alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo" src="/static/img/logos/cnam.png"/>
+        <a href="/">
+            <img alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo" src="/static/img/logos/cnam.png"/>
+        </a>
     </div>
 
     <nav class="navbar navbar-expand-lg py-0">
