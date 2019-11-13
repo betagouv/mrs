@@ -434,6 +434,7 @@ else:
             'propagate': True,
         }
 
+# TODO : réactiver
 if DEBUG:
     try:
         import dbdiff  # noqa
@@ -442,18 +443,18 @@ if DEBUG:
     else:
         INSTALLED_APPS += ('dbdiff',)
 
-    try:
-        import debug_toolbar  # noqa
-    except ImportError:
-        pass
-    else:
-        INSTALLED_APPS += ('debug_toolbar',)
-        MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-        INTERNAL_IPS = ['172.17.0.1', '127.0.0.1']
-
-    if not os.getenv('CI'):
-        INSTALLED_APPS += ('hattori',)
-    ANONYMIZE_ENABLED = True
+#     try:
+#         import debug_toolbar  # noqa
+#     except ImportError:
+#         pass
+#     else:
+#         INSTALLED_APPS += ('debug_toolbar',)
+#         MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+#         INTERNAL_IPS = ['172.17.0.1', '127.0.0.1']
+#
+#     if not os.getenv('CI'):
+#         INSTALLED_APPS += ('hattori',)
+#     ANONYMIZE_ENABLED = True
 
 
 DATE_FORMAT_FR = '%d/%m/%Y'

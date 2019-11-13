@@ -2,8 +2,8 @@
 <div id="header-big" class="d-none d-lg-block">
     <div class="header-bg"></div>
     <div class="cnam-wrapper">
-        <a href="/">
-            <img src="{% static "img/logos/cnam.png" %}" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo">
+        <a href="/" class="cnam-logo">
+            <img src="{% static "img/logos/cnam.png" %}" alt="Caisse Nationale d'Assurance Maladie">
         </a>
     </div>
 
@@ -29,7 +29,9 @@
     <nav class="navbar">
         <a href="/" alt="Accueil" class="navbar-nav" style="background-image: url('{% static 'img/icones/home.svg' %}')"></a>
         <div class="navbar-brand">
-            <img src="{% static "img/logos/cnam.png" %}" alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo">
+            <a href="/" class="cnam-logo">
+                <img src="{% static "img/logos/cnam.png" %}" alt="Caisse Nationale d'Assurance Maladie">
+            </a>
         </div>
         <a href="{{ header_links.1.url }}" alt="{{ header_links.1.alias|capfirst }}" class="navbar-nav" style="background-image: url('{% static 'img/icones/icon_question.svg' %}')"></a>
     </nav>

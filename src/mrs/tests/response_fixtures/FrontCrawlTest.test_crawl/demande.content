@@ -4,8 +4,8 @@
 <div class="d-none d-lg-block" id="header-big">
     <div class="header-bg"></div>
     <div class="cnam-wrapper">
-        <a href="/">
-            <img alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo" src="/static/img/logos/cnam.png"/>
+        <a class="cnam-logo" href="/">
+            <img alt="Caisse Nationale d'Assurance Maladie" src="/static/img/logos/cnam.png"/>
         </a>
     </div>
 
@@ -34,7 +34,9 @@
     <nav class="navbar">
         <a alt="Accueil" class="navbar-nav" href="/" style="background-image: url('/static/img/icones/home.svg')"></a>
         <div class="navbar-brand">
-            <img alt="Caisse Nationale d'Assurance Maladie" class="cnam-logo" src="/static/img/logos/cnam.png"/>
+            <a class="cnam-logo" href="/">
+                <img alt="Caisse Nationale d'Assurance Maladie" src="/static/img/logos/cnam.png"/>
+            </a>
         </div>
         <a alt="Aide" class="navbar-nav" href="/faq" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
     </nav>
