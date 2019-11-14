@@ -45,10 +45,13 @@ class PersonForm(forms.ModelForm):
         person = Person.objects.filter(
             birth_date=self.cleaned_data['birth_date'],
             nir=self.cleaned_data['nir'],
-            first_name=self.cleaned_data['first_name']
+            first_name__iexact=self.cleaned_data['first_name']
         ).first()
 
         if person:
+            if person.email != self.cleaned_data['email']:
+                person.email = self.cleaned_data['email']
+                person.save()
             return person
 
         # Otherwise create a new Person

@@ -66,6 +66,23 @@ def test_personform_get_or_create(d):
         models=[Person]
     ).assertNoDiff()
 
+    # different case should also match
+    d['first_name'] = d['first_name'].upper()
+    d['last_name'] = d['last_name'].upper()
+    form = PersonForm(d)
+    form.full_clean()
+    result2 = form.get_or_create()
+    assert result0 == result2
+
+    # email should update though
+    d['email'] = 'new@example.com'
+    form = PersonForm(d)
+    form.full_clean()
+    result3 = form.get_or_create()
+    assert result0 == result3
+    result0.refresh_from_db()
+    assert result0.email == 'new@example.com'
+
 
 def test_personform_clean_nir(d):
     form = PersonForm(d)
