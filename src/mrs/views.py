@@ -1,5 +1,4 @@
 import pytz
-import traceback
 
 from crudlfap import shortcuts as crudlfap
 
@@ -16,7 +15,6 @@ from django.views import generic
 from caisse.models import Caisse
 from mrsrequest.models import MRSRequest
 from person.models import Person
-from raven import Client
 
 
 class Dashboard(crudlfap.TemplateView):
@@ -159,20 +157,11 @@ class StaticView(generic.View):
 
 
 class ErrorView:
-
     def __init__(self, status, message):
         self.status = status
         self.message = message
 
     def __call__(self, request, *args, **kwargs):
-        client = Client(settings.RAVEN_CONFIG['dsn'])
-        traceback.print_exc()
-
-        if isinstance(kwargs.get('exception', None), Exception):
-            client.captureException(kwargs['exception'])
-        elif self.status in (500, 400):
-            client.captureMessage(self.message, level='error')
-
         return http.HttpResponse(
             status=self.status,
             content=render_to_string(
