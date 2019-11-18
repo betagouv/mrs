@@ -80,7 +80,7 @@
 
 <div class="row">
     <div class="input-field col s12 required" id="id_nom_container">
-        <input id="id_nom" name="nom" type="text"/>
+        <input id="id_nom" maxlength="70" name="nom" type="text"/>
         <label for="id_nom">Nom</label>
         
     </div>
@@ -98,7 +98,7 @@
 
 <div class="row">
     <div class="input-field col s12 required" id="id_message_container">
-        <textarea class="materialize-textarea" cols="40" id="id_message" name="message" rows="10"></textarea>
+        <textarea class="materialize-textarea" cols="40" id="id_message" maxlength="7000" name="message" rows="10"></textarea>
         <label for="id_message">Message</label>
         
     </div>

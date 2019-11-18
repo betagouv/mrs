@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 from caisse.forms import ActiveCaisseChoiceField
 from captcha.fields import CaptchaField
 from mrsrequest.models import MRSRequest
+from mrs.validators import name_validators
 
 from .models import Contact
 
@@ -32,7 +33,10 @@ class ContactForm(forms.Form):
         otherchoice=False,
         label='Votre caisse de rattachement',
     )
-    nom = forms.CharField()
+    nom = forms.CharField(  # noqa
+        max_length=70,
+        validators=name_validators,
+    )
     email = forms.EmailField()
     mrsrequest_display_id = forms.CharField(
         label='Numéro de demande (optionnel)',
@@ -45,7 +49,7 @@ class ContactForm(forms.Form):
             )
         ]
     )
-    message = forms.CharField(widget=forms.Textarea)
+    message = forms.CharField(widget=forms.Textarea, max_length=3000)
     captcha = CaptchaField(required=True)
 
     layout = material.Layout(

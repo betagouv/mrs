@@ -50,9 +50,40 @@ def test_contactform_email_kwargs_request(p, srf, caisse, data):
 
 @pytest.mark.django_db
 @pytest.mark.parametrize('motif', ['website_question', 'other'])
-def test_contactform_email_kwargs_suggestion(p, srf, caisse, data, motif):
+def test_contactform_email_kwargs_suggestion(caisse, data, motif):
     data['motif'] = motif
     form = ContactForm(data)
     assert form.is_valid()
     kwargs = form.get_email_kwargs()
     assert caisse.liquidation_email in kwargs['to']
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize('nom,valid', [
+    ('àôéû ôéÉûdhtnùèöâ', True),
+    ('àôéû-àôéû', True),
+    ('àôéû–àôéû', True),
+    ('aoeu<', False),
+    ('aoeu>', False),
+    ('aoeu"', False),
+    ('aoeu\'', False),
+    ('aoeu1', False),
+    ('aoeu_', False),
+    ('aoeu$', False),
+])
+def test_validation_nom(caisse, data, nom, valid):
+    data['nom'] = nom
+    form = ContactForm(data)
+    assert form.is_valid() == valid
+    if not valid:
+        assert [*form.errors.keys()] == ['nom']
+        assert form.errors['nom'] == [
+            'Merci de saisir uniquement lettres et tirets'
+        ]
+
+
+@pytest.mark.django_db
+def test_validation_message(caisse, data):
+    data['message'] = 'aoeu' * 10000
+    form = ContactForm(data)
+    assert not form.is_valid()
