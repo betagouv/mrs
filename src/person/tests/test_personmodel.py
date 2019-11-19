@@ -4,7 +4,7 @@ import pytest
 from django.core.exceptions import ValidationError
 
 from mrsrequest.models import MRSRequest
-from person.models import Person
+from person.models import Person, delete_orphan_persons
 
 
 def test_person_str():
@@ -128,3 +128,29 @@ def test_person_get_duplicate_dates():
             datetime.date(2018, 1, 1): [m1, m0],
         },
     }
+
+
+@pytest.mark.django_db
+def test_person_delete_orphans():
+    p0 = Person.objects.create(
+        first_name='a',
+        last_name='b',
+        birth_date='1969-01-01',
+        nir=1234567890123,
+        email="foo@foo.fr",
+    )
+
+    MRSRequest.objects.create(
+        insured=p0,
+        status=MRSRequest.STATUS_VALIDATED,
+    )
+
+    Person.objects.create(
+        first_name='b',
+        last_name='c',
+        birth_date='1969-01-01',
+        nir=1234567890124,
+        email="foo2@foo.fr",
+    )
+
+    assert delete_orphan_persons() == 1
