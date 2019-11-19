@@ -945,6 +945,72 @@ class MRSRequest(models.Model):
             tries -= 1
 
 
+def remove_attachments_without_mrsrequest():
+    print('--- Removing MRSAttachments without MRSRequest ---')
+    try:
+        pmts = PMT.objects.filter(
+            pk__in=PMT.objects
+            .filter(
+                mrsrequest__isnull=True,
+                creation_datetime__lt=(
+                    datetime.datetime.now() - datetime.timedelta(
+                        days=8
+                    )
+                )
+            )
+            .values_list('pk', flat=True)
+        )
+        pmts_count = pmts.count()
+        pmts.delete()
+        print('Deleted {} PMTs'.format(pmts_count))
+    except Exception as e:
+        print('Error : {}'.format(e))
+
+    try:
+        bills = Bill.objects.filter(
+            pk__in=Bill.objects
+            .filter(
+                mrsrequest__isnull=True,
+                creation_datetime__lt=(
+                    datetime.datetime.now() - datetime.timedelta(
+                        days=8
+                    )
+                )
+            )
+            .values_list('pk', flat=True)
+        )
+        bills_count = bills.count()
+        bills.delete()
+        print('Deleted {} Bills'.format(bills_count))
+    except Exception as e:
+        print('Error : {}'.format(e))
+
+    print('--- END ---')
+
+    return pmts_count, bills_count
+
+
+def delete_mrsrequests_older_than_33_months():
+    print('--- Deleting MRSRequest older than 33 months ---')
+    try:
+        old_requests = MRSRequest.objects.filter(
+            creation_datetime__lt=(
+                datetime.datetime.now() - datetime.timedelta(
+                    days=33 * 30
+                )
+            )
+        )
+        old_requests_count = old_requests.count()
+        old_requests.delete()
+        print('Deleted {} MRSRequests'.format(
+            old_requests_count)
+        )
+        print('--- END ---')
+        return old_requests_count
+    except Exception as e:
+        print('Error : {}'.format(e))
+
+
 class MRSRequestLogEntryQuerySet(models.QuerySet):
     def filter(self, **kwargs):
         """Patches any status that's been given as a string."""

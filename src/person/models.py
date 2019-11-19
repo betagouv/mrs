@@ -132,3 +132,20 @@ class Person(models.Model):
                 dupes[i][date] = mrsrequests
 
         return {k: v for k, v in dupes.items() if v}
+
+
+def delete_orphan_persons():
+    print('--- Deleting orphan Persons ---')
+    try:
+        orphan_persons = Person.objects.filter(mrsrequest__isnull=True)
+        orphan_persons_count = orphan_persons.count()
+        orphan_persons.delete()
+        print(
+            'Deleted {} orphan Persons'.format(
+                orphan_persons_count
+            )
+        )
+        print('--- END ---')
+        return orphan_persons_count
+    except Exception as e:
+        print('Error : {}'.format(e))
