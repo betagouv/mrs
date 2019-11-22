@@ -172,7 +172,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 
 <div class="row">
     <div class="input-field col s12 required" id="id_first_name_container">
-        <input id="id_first_name" maxlength="200" name="first_name" type="text"/>
+        <input id="id_first_name" maxlength="70" name="first_name" type="text"/>
         <label for="id_first_name">Prénom</label>
         
     </div>
@@ -181,7 +181,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 
 <div class="row">
     <div class="input-field col s12 required" id="id_last_name_container">
-        <input id="id_last_name" maxlength="200" name="last_name" type="text"/>
+        <input id="id_last_name" maxlength="70" name="last_name" type="text"/>
         <label for="id_last_name">Nom de famille</label>
         
     </div>

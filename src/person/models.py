@@ -6,6 +6,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
+from mrs.validators import name_validators
+
 
 def nir_validate_alphanumeric(value):
     """Validate NIR number with Corsican letters support."""
@@ -35,12 +37,14 @@ def nir_validate_alphanumeric(value):
 
 class Person(models.Model):
     first_name = models.CharField(
-        max_length=200,
+        max_length=70,
         verbose_name='Prénom',
+        validators=name_validators,
     )
     last_name = models.CharField(
-        max_length=200,
+        max_length=70,
         verbose_name='Nom de famille',
+        validators=name_validators,
     )
     birth_date = models.DateField(
         null=True,
