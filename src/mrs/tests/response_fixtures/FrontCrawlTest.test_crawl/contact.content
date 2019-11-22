@@ -98,7 +98,7 @@
 
 <div class="row">
     <div class="input-field col s12 required" id="id_message_container">
-        <textarea class="materialize-textarea" cols="40" id="id_message" maxlength="7000" name="message" rows="10"></textarea>
+        <textarea class="materialize-textarea" cols="40" id="id_message" maxlength="3000" name="message" rows="10"></textarea>
         <label for="id_message">Message</label>
         
     </div>
