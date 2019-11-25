@@ -6,24 +6,28 @@ import 'blueimp-file-upload'
 
 var formInit = function(form) {
   var $form = $(form)
+  var delete_link_clicked = false
 
   $(form).on('click', '[data-delete-url]', function() {
     var $a = $(this)
-    $.ajax({
-      method: 'DELETE',
-      url: $(this).attr('data-delete-url'),
-      error: function() {
-        // console.log('error')
-      },
-      success: function() {
-        $a.parents('li').slideUp()
-      },
-      beforeSend: function(xhr) {
-        if (!this.crossDomain) {
-          xhr.setRequestHeader('X-CSRFToken', Cookie.get('csrftoken'))
+    if (!delete_link_clicked){
+      $.ajax({
+        method: 'DELETE',
+        url: $(this).attr('data-delete-url'),
+        error: function() {
+          // console.log('error')
+        },
+        success: function() {
+          $a.parents('li').slideUp()
+        },
+        beforeSend: function(xhr) {
+          if (!this.crossDomain) {
+            xhr.setRequestHeader('X-CSRFToken', Cookie.get('csrftoken'))
+          }
         }
-      }
-    })
+      })
+      delete_link_clicked = true
+    }
   })
 
   var formData = $form.serializeArray()
@@ -153,6 +157,7 @@ var formInit = function(form) {
           $li.find('a.file-name').attr('target', '_blank')
           $li.find('a.file-name').attr('href', file.thumbnailUrl)
           $li.find('progress').fadeOut()
+          delete_link_clicked = false
         }
       },
       fail: function (e, data) {
