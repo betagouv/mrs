@@ -1,5 +1,4 @@
 import datetime
-import json
 import urllib.parse
 
 from crudlfap import shortcuts as crudlfap
@@ -10,7 +9,9 @@ from django.db import models
 import django_filters
 
 import material
+from django.db.models import Count
 
+from mrsrequest.models import MRSRequest
 from person.models import Person
 
 from .models import Stat
@@ -120,11 +121,6 @@ class StatListView(crudlfap.ListView):
     def get_mrsrequests_by_shifted_insured_count(self):
         return self.mrsrequests.filter(insured__shifted=True).count()
 
-    def get_savings(self):
-        return self.object_list.aggregate(
-            result=models.Sum('savings')
-        )['result']
-
     def get_insured_shifts(self):
         return self.object_list.aggregate(
             result=models.Sum('insured_shifts')
@@ -141,6 +137,92 @@ class StatListView(crudlfap.ListView):
             }
         )
         return Person.objects.filter(
+            mrsrequest__in=mrsrequests
+        ).distinct().count()
+
+    def get_insured_count(self):
+        mrsrequests = self.mrsrequests.created(
+            **{
+                k: v
+                for k, v in self.filterset.form.cleaned_data.items()
+                if k.startswith('date_')
+            },
+            caisse=self.filterset.form.cleaned_data.get('caisse')
+        )
+        return Person.objects.filter(
+            mrsrequest__in=mrsrequests
+        ).distinct().count()
+
+    def get_shifted_insured_count(self):
+        caisse_set = self.filterset.form.cleaned_data.get('caisse')
+        if caisse_set:
+            mrsrequests = self.mrsrequests.filter(
+                caisse=caisse_set
+            )
+        else:
+            mrsrequests = self.mrsrequests
+        return Person.objects.filter(
+            shifted=True,
+            mrsrequest__in=mrsrequests
+        ).distinct().count()
+
+    def get_mrsrequests_processed(self):
+        mrsrequests = self.mrsrequests.created(
+            **{
+                k: v
+                for k, v in self.filterset.form.cleaned_data.items()
+                if k.startswith('date_')
+            },
+            caisse=self.filterset.form.cleaned_data.get('caisse')
+        ).filter(
+            status__in=(
+                MRSRequest.STATUS_VALIDATED,
+                MRSRequest.STATUS_REJECTED,
+            ),
+        )
+        return mrsrequests.distinct().count()
+
+    def get_average_payment_delay(self):
+        mrsrequests = self.mrsrequests.created(
+            **{
+                k: v
+                for k, v in self.filterset.form.cleaned_data.items()
+                if k.startswith('date_')
+            },
+            caisse=self.filterset.form.cleaned_data.get('caisse')
+        )
+        return '{:0.2f}'.format(
+            mrsrequests.aggregate(
+                result=models.Avg('delay')
+            )['result'] or 0
+        ).replace('.', ',')
+
+    def get_savings(self):
+        mrsrequests = self.mrsrequests.created(
+            **{
+                k: v
+                for k, v in self.filterset.form.cleaned_data.items()
+                if k.startswith('date_')
+            },
+            caisse=self.filterset.form.cleaned_data.get('caisse')
+        )
+        return mrsrequests.aggregate(
+            result=models.Sum('saving')
+        )['result']
+
+    def get_primo_users(self):
+        mrsrequests = self.mrsrequests.created(
+            **{
+                k: v
+                for k, v in self.filterset.form.cleaned_data.items()
+                if k.startswith('date_')
+            },
+            caisse=self.filterset.form.cleaned_data.get('caisse')
+        )
+        return Person.objects.annotate(
+            requestscount=Count('mrsrequest')
+        ).filter(
+            requestscount=1,
             mrsrequest__in=mrsrequests
         ).distinct().count()
 
@@ -168,24 +250,6 @@ class StatListView(crudlfap.ListView):
         return qs
 
 
-# class StatListTotalsView(StatListView):
-#     urlname = 'total'
-#     urlpath = 'total'
-#     template_name = 'mrsstat/stat_list.html'
-#     material_icon = 'show_chart'
-#     title_menu = 'cumulatives2'
-#     title_link = 'Graphique de statistiques cumulatives'
-#
-#     keys = [
-#         'date',
-#         'mrsrequest_total_new',
-#         'mrsrequest_total_inprogress',
-#         'mrsrequest_total_validated',
-#         'mrsrequest_total_rejected',
-#         'insured_shifts_total',
-#     ]
-
-
 class StatImportExport(crudlfap.ModelView):
     material_icon = 'compare_arrows'
     title_link = 'Importer et exporter des fichiers CSV'
@@ -199,7 +263,6 @@ class StatRouter(crudlfap.Router):
     views = [
         StatImportExport,
         StatListView,
-        # StatListTotalsView,
     ]
 
     def get_queryset(self, view):

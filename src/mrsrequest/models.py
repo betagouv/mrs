@@ -244,7 +244,8 @@ class MRSRequestQuerySet(models.QuerySet):
                 date__gte=None,
                 date__lte=None,
                 datetime__gte=None,
-                datetime__lte=None):
+                datetime__lte=None,
+                caisse=None):
 
         if date:
             date__gte = date
@@ -256,6 +257,12 @@ class MRSRequestQuerySet(models.QuerySet):
             datetime__lte = datetime_max(date__lte)
 
         qs = self
+
+        if caisse:
+            qs = qs.filter(
+                caisse=caisse
+            )
+
         if datetime__gte:
             qs = qs.filter(creation_datetime__gte=datetime__gte)
         if datetime__lte:
