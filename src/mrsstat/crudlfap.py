@@ -17,21 +17,9 @@ from .models import Stat
 
 
 class StatListView(crudlfap.ListView):
-    material_icon = 'insert_chart'
-    title_menu = 'quotidiennes'
-    title_link = 'Graphique de statistiques quotidiennes'
-
-    keys = [
-        'date',
-        'mrsrequest_count_new',
-        'mrsrequest_count_inprogress',
-        'mrsrequest_count_validated',
-        'mrsrequest_count_rejected',
-        'mrsrequest_count_conflicted',
-        'mrsrequest_count_conflicting',
-        'mrsrequest_count_resolved',
-        'insured_shifts',
-    ]
+    material_icon = 'show_chart'
+    title_menu = 'suivi des indicateurs'
+    title_link = 'Suivi des indicateurs'
 
     date_args = [
         'date__gte',
@@ -40,12 +28,10 @@ class StatListView(crudlfap.ListView):
 
     filter_fields = [
         'caisse',
-        'institution',
     ]
 
     filterset_form_layout = material.Row(
         'caisse',
-        'institution',
         *date_args
     )
 
@@ -164,7 +150,7 @@ class StatListView(crudlfap.ListView):
         self.mrsrequests = controller['list'](
             request=self.request
         ).get_objects()
-        for i in ('caisse', 'institution'):
+        for i in ('caisse'):
             if self.filterset.form.cleaned_data.get(i, None):
                 self.mrsrequests = self.mrsrequests.filter(**{
                     i: self.filterset_form_cleaned_data[i]
@@ -173,74 +159,31 @@ class StatListView(crudlfap.ListView):
 
     def get_object_list(self):
         qs = super().get_object_list()
-        self.object_list = self.filter_caisse_institution(qs)
+        self.object_list = self.filter_caisse(qs)
         return self.object_list
 
-    def filter_caisse_institution(self, qs):
+    def filter_caisse(self, qs):
         if not self.request.GET.get('caisse'):
             qs = qs.filter(caisse=None)
-        if not self.request.GET.get('institution'):
-            qs = qs.filter(institution=None)
         return qs
 
-    def get_chart_json(self):
-        columns = [
-            [
-                'x'
-                if k == 'date'
-                else self.model._meta.get_field(k).verbose_name
-            ]
-            for k in self.keys
-        ]
 
-        rows = self.object_list.values_list(*self.keys)
-        for row in rows:
-            for i, value in enumerate(row):
-                if isinstance(value, datetime.date):
-                    columns[i].append(value.strftime('%Y-%m-%d'))
-                else:
-                    columns[i].append(value)
-
-        return json.dumps(dict(
-            bindto='#chart',
-            data=dict(
-                x='x',
-                columns=columns,
-            ),
-            axis=dict(
-                x=dict(
-                    type='timeseries',
-                    tick=dict(
-                        format='%d/%m/%Y',
-                    )
-                ),
-                y=dict(
-                    min=0,
-                    padding=dict(bottom=0),
-                ),
-            ),
-            point=dict(
-                show=len(rows) < 32,
-            )
-        ))
-
-
-class StatListTotalsView(StatListView):
-    urlname = 'total'
-    urlpath = 'total'
-    template_name = 'mrsstat/stat_list.html'
-    material_icon = 'show_chart'
-    title_menu = 'cumulatives'
-    title_link = 'Graphique de statistiques cumulatives'
-
-    keys = [
-        'date',
-        'mrsrequest_total_new',
-        'mrsrequest_total_inprogress',
-        'mrsrequest_total_validated',
-        'mrsrequest_total_rejected',
-        'insured_shifts_total',
-    ]
+# class StatListTotalsView(StatListView):
+#     urlname = 'total'
+#     urlpath = 'total'
+#     template_name = 'mrsstat/stat_list.html'
+#     material_icon = 'show_chart'
+#     title_menu = 'cumulatives2'
+#     title_link = 'Graphique de statistiques cumulatives'
+#
+#     keys = [
+#         'date',
+#         'mrsrequest_total_new',
+#         'mrsrequest_total_inprogress',
+#         'mrsrequest_total_validated',
+#         'mrsrequest_total_rejected',
+#         'insured_shifts_total',
+#     ]
 
 
 class StatImportExport(crudlfap.ModelView):
@@ -256,7 +199,7 @@ class StatRouter(crudlfap.Router):
     views = [
         StatImportExport,
         StatListView,
-        StatListTotalsView,
+        # StatListTotalsView,
     ]
 
     def get_queryset(self, view):

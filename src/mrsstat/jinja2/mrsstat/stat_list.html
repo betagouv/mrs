@@ -8,12 +8,6 @@
 {% endif %}
 
 <div id="render-chart">
-  <script
-    type="text/json"
-    data-stats="#chart"
-    data-controller="mrsstat"
-  >{{ view.get_chart_json()|safe }}</script>
-
   <div class="row">
     <div class="col s4">
       <p>
@@ -48,9 +42,6 @@
         Nombre de dossiers traités durant la période d'assurés ayant basculés même en dehors de la période: {{ view.mrsrequests_by_shifted_insured_count or 0 }}
       </p>
     </div>
-  </div>
-
-  <div id="chart">
   </div>
 </div>
 {% endblock %}
