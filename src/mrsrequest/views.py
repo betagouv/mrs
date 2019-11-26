@@ -391,11 +391,12 @@ class MRSRequestUpdateView(MRSRequestUpdateBaseView):
             ('transport_formset', TransportFormSet(
                 initial=[
                     dict(
-                        date_depart=t.date_depart,
-                        date_return=t.date_return,
+                        date_depart=t.date_depart.strftime('%Y-%m-%d'),
+                        date_return=t.date_return.strftime('%Y-%m-%d'),
                     ) for t in transports
                 ]
             )),
+            ('certify', CertifyForm()),
         ])
 
         return super().get(request, *args, **kwargs)
