@@ -50,6 +50,7 @@ RUN find $STATIC_ROOT -type f | xargs gzip -f -k -9
 COPY do /app/
 
 RUN mkdir -p ${UWSGI_SPOOLER_MOUNT}/mail ${UWSGI_SPOOLER_MOUNT}/stat $ATTACHMENT_ROOT
+RUN touch $ATTACHMENT_ROOT/1x1.png
 
 # Let user write to log
 RUN chown -R app. ${LOG} ${UWSGI_SPOOLER_MOUNT} $ATTACHMENT_ROOT

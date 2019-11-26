@@ -151,7 +151,7 @@ class AdminUserForm(forms.ModelForm):
         super().save(commit=commit)
 
         if reset_password:
-            self.instance.password_reset()
+            self.instance.password_reset(self.request.user.caisses.first())
 
         return self.instance
 
@@ -332,7 +332,7 @@ class ImportView(crudlfap.FormView):
         )
 
         if not user.password:
-            user.password_reset()
+            user.password_reset(self.request.user.caisses.first())
 
         groups = row['profil'].split(',')
         user.add_groups(groups)
@@ -361,7 +361,7 @@ class PasswordResetView(crudlfap.ObjectFormView):
 
     def form_valid(self):
         resp = super().form_valid()
-        self.object.password_reset()
+        self.object.password_reset(self.request.user.caisses.first())
         return resp
 
 

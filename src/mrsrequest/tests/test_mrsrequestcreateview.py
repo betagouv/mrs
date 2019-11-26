@@ -271,6 +271,8 @@ def test_mrsrequestcreateview_email(p, caisse, mailoutbox, mocker, upload):
         'e29db065-0566-48be-822d-66bd3277d823/',
     )
     assert url in mailoutbox[0].body
+    assert caisse.liquidation_email in mailoutbox[0].reply_to
+    assert len(mailoutbox[0].reply_to) == 1
 
     texte_km_declares = "L'Assurance Maladie va analyser votre demande de " \
                         "remboursement sur la base du nombre total de " \
