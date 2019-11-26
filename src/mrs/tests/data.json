@@ -1243,5 +1243,15 @@
         "saving": "8.83",
         "delay": "0.36"
     }
+},
+{
+    "model": "rating.rating",
+    "pk": 1,
+    "fields": {
+        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae",
+        "score": 4,
+        "comment": "Here is a nice comment to you.",
+        "creation_datetime": "2019-11-07T15:18:12Z"
+    }
 }
 ]

@@ -426,6 +426,8 @@ class MRSRequestCSVListView(MRSRequestListView):
         ).select_related(
             'insured',
         ).prefetch_related(
+            'rating_set',
+        ).prefetch_related(
             'logentries__emailtemplate',
         ).distinct()
 
@@ -454,6 +456,8 @@ class MRSRequestCSVListView(MRSRequestListView):
                 'cout théorique taxi',
                 'motif de rejet',
                 'motif de contact',
+                'note par l\'utilisateur',
+                'commentaire'
             ])
         ]
 
@@ -475,6 +479,8 @@ class MRSRequestCSVListView(MRSRequestListView):
                     contact_reason = entry.emailtemplate
                 if entry.action == obj.STATUS_REJECTED:
                     reject_reason = entry.emailtemplate
+
+            rating = obj.rating_set.first()
 
             content.append(';'.join(map(mystr, [
                 obj.display_id,
@@ -500,6 +506,8 @@ class MRSRequestCSVListView(MRSRequestListView):
                 excel_number(obj.taxi_cost),
                 reject_reason,
                 contact_reason,
+                mystr(rating.score) if rating else '',
+                mystr(rating.comment) if rating else ''
             ])))
 
         response = http.HttpResponse(

@@ -73,6 +73,36 @@
     <tbody>
     
         
+        <tr class="even">
+            
+                <td>1</td>
+            
+                <td>201805010000</td>
+            
+                <td>4</td>
+            
+                <td>Here is a nice comment to you.</td>
+            
+                <td>7 nov. 2019 16:18</td>
+            
+                <td>
+                
+                
+    
+      
+        <a class="btn-floating red blue" href="/admin/rating/1?_next=/admin/rating" title="Rating object (1)">
+    <i class="material-icons">search</i>
+    
+    Detail
+    
+  </a>
+      
+    
+  
+                </td>
+            
+        </tr>
+        
     
     </tbody>
     
@@ -81,6 +111,25 @@
     
 </table>
 
+
+
+
+<ul class="pagination">
+    
+
+    
+        
+            
+            <li class="active">
+                <a href="#!">
+                    1
+                </a>
+            
+            </li>
+        
+    
+    
+</ul>
 
 
 </div>
