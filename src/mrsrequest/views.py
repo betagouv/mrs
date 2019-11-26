@@ -29,6 +29,24 @@ from .models import today, Bill, MRSRequest, Transport
 
 
 class MRSRequestFormBaseView(generic.TemplateView):
+    extra_context = {
+        'title_suffix': TITLE_SUFFIX,
+    }
+
+    def caisses_json(self):
+        caisses = {
+            i.pk: dict(
+                parking_enable=i.parking_enable,
+            ) for i in Caisse.objects.all()
+        }
+        return json.dumps(caisses)
+
+    def regimes_speciaux_id(self):
+        id_region = Region.objects.filter(
+            name='Régimes Spéciaux').values('id')[0]
+
+        return json.dumps(id_region)
+
     def form_errors(self):
         return [
             (form.errors, getattr(form, 'non_field_errors', []))
@@ -48,9 +66,6 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
     template_name = 'mrsrequest/form.html'
     base = 'base.html'
     modes = [i[0] for i in Bill.MODE_CHOICES]
-    extra_context = {
-        'title_suffix': TITLE_SUFFIX,
-    }
 
     def get(self, request, *args, **kwargs):
         self.object = MRSRequest()
@@ -71,20 +86,6 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
         ])
 
         return super().get(request, *args, **kwargs)
-
-    def caisses_json(self):
-        caisses = {
-            i.pk: dict(
-                parking_enable=i.parking_enable,
-            ) for i in Caisse.objects.all()
-        }
-        return json.dumps(caisses)
-
-    def regimes_speciaux_id(self):
-        id_region = Region.objects.filter(
-            name='Régimes Spéciaux').values('id')[0]
-
-        return json.dumps(id_region)
 
     def has_perm(self, exists=False):
         if not self.mrsrequest_uuid:  # require mrsrequest_uuid on post
@@ -371,12 +372,30 @@ class MRSRequestUpdateView(MRSRequestUpdateBaseView):
     def get(self, request, *args, **kwargs):
         self.mrsrequest_uuid = str(self.object.id)
 
+        transports = self.object.transport_set.all()
+        simple = any([t.date_return for t in transports])
+        iterative_number = len(transports)
+
         self.forms = collections.OrderedDict([
             ('mrsrequest', MRSRequestCreateForm(
-                mrsrequest_uuid=self.mrsrequest_uuid
+                mrsrequest_uuid=self.mrsrequest_uuid,
+                instance=self.object,
             )),
-            ('transport', TransportIterativeForm()),
-            ('transport_formset', TransportFormSet()),
+            ('transport', TransportIterativeForm(
+                initial=dict(
+                    iterative_show=iterative_number > 1,
+                    iterative_number=iterative_number,
+                    trip_kind='simple' if simple else 'return'
+                )
+            )),
+            ('transport_formset', TransportFormSet(
+                initial=[
+                    dict(
+                        date_depart=t.date_depart,
+                        date_return=t.date_return,
+                    ) for t in transports
+                ]
+            )),
         ])
 
         return super().get(request, *args, **kwargs)

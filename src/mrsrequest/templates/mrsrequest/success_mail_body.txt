@@ -12,6 +12,10 @@ Vous avez la possibilité d'annuler votre demande tant qu'elle n'est pas traité
 
 Si l'ensemble de votre demande est complète et exploitable, votre remboursement sera effectif sous 7 jours.
 
+Vous avez la possibilité de modifier votre demande tant qu'elle n'est pas traitée par nos services en cliquant sur le lien ci-dessous:
+
+{{ base_url }}{{ view.object.get_update_url }}
+
 Cordialement,
 L'équipe MRS - Assurance Maladie
 
