@@ -373,13 +373,18 @@ class MRSRequestUpdateView(MRSRequestUpdateBaseView):
         self.mrsrequest_uuid = str(self.object.id)
 
         transports = self.object.transport_set.all()
-        simple = any([t.date_return for t in transports])
+        simple = not any([t.date_return for t in transports])
         iterative_number = len(transports)
 
         self.forms = collections.OrderedDict([
             ('mrsrequest', MRSRequestCreateForm(
                 mrsrequest_uuid=self.mrsrequest_uuid,
                 instance=self.object,
+                initial=dict(
+                    pmt=self.object.pmt_set.all(),
+                    billvps=self.object.billvps,
+                    billatps=self.object.billatps,
+                )
             )),
             ('transport', TransportIterativeForm(
                 initial=dict(
