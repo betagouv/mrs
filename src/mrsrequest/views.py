@@ -375,15 +375,41 @@ class MRSRequestUpdateView(MRSRequestUpdateBaseView):
         transports = self.object.transport_set.all()
         simple = not any([t.date_return for t in transports])
         iterative_number = len(transports)
+        without = self.request.GET.get('without', '')
 
         self.forms = collections.OrderedDict([
             ('mrsrequest', MRSRequestCreateForm(
                 mrsrequest_uuid=self.mrsrequest_uuid,
                 instance=self.object,
                 initial=dict(
-                    pmt=self.object.pmt_set.all(),
-                    billvps=self.object.billvps,
-                    billatps=self.object.billatps,
+                    pmt=(
+                        self.object.pmt_set.all()
+                        if 'pmt' not in without else None
+                    ),
+                    billvps=(
+                        self.object.billvps
+                        if 'bills' not in without else None
+                    ),
+                    billatps=(
+                        self.object.billatps
+                        if 'bills' not in without else None
+                    ),
+                    expensevp_toll=(
+                        self.object.expensevp_toll
+                        if 'expense' not in without else None
+                    ),
+                    expensevp_parking=(
+                        self.object.expensevp_parking
+                        if 'expense' not in without else None
+                    ),
+                    expenseatp=(
+                        self.object.expenseatp
+                        if 'expense' not in without else None
+                    ),
+                    distancevp=(
+                        self.object.distancevp
+                        if 'expense' not in without else None
+                    ),
                 )
             )),
             ('transport', TransportIterativeForm(
@@ -399,7 +425,7 @@ class MRSRequestUpdateView(MRSRequestUpdateBaseView):
                         date_depart=t.date_depart.strftime('%Y-%m-%d'),
                         date_return=t.date_return.strftime('%Y-%m-%d'),
                     ) for t in transports
-                ]
+                ] if 'dates' not in without
             )),
             ('certify', CertifyForm()),
         ])
