@@ -80,7 +80,10 @@ class User(AbstractUser):
         password_email_template = template.loader.get_template(
             'mrsuser/user_password_email.txt',
         )
-        email = caisse.habilitation_email
+        # In case of super admins not linked to any caisse, reply_to heads
+        # to settings.TEAM_EMAIL
+        email = caisse.habilitation_email if caisse else None
+
         if email:
             reply_to = email
         else:
