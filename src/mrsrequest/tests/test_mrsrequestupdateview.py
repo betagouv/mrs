@@ -11,4 +11,5 @@ class MRSRequestUpdateTestCase(test.TransactionTestCase):
         mrsrequest = MRSRequest.objects.filter(status=1).first()
         url = mrsrequest.get_update_url()
         cl = Client()
-        cl.get(url)
+        response = cl.get(url)
+        import ipdb;  ipdb.set_trace()
