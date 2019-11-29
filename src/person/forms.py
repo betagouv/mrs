@@ -49,7 +49,10 @@ class PersonForm(forms.ModelForm):
         ).first()
 
         if person:
-            if person.email != self.cleaned_data['email']:
+            if (
+                'email' in self.cleaned_data
+                and person.email != self.cleaned_data['email']
+            ):
                 person.email = self.cleaned_data['email']
                 person.save()
             return person
