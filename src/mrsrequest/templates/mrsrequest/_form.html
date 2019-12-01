@@ -182,6 +182,7 @@
                 {% endif %}
             </div>
 
+            {% if view.caisse_form %}
             <div id="caisse-form" style="display:none">
                 {% form form=view.caisse_form %}
 
@@ -194,8 +195,8 @@
 
                 {% endform %}
             </div>
-
             <br />
+            {% endif %}
 
             {% if view.confirm %}
             <div>

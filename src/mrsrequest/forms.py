@@ -242,8 +242,9 @@ class MRSRequestCreateForm(forms.ModelForm):
         kwargs.setdefault('initial', {})
         initial = kwargs['initial']
 
-        kwargs['initial'].setdefault('expensevp_parking', 0)
-        kwargs['initial'].setdefault('expensevp_toll', 0)
+        if 'instance' not in kwargs:
+            kwargs['initial'].setdefault('expensevp_parking', 0)
+            kwargs['initial'].setdefault('expensevp_toll', 0)
 
         if 'mrsrequest_uuid' in kwargs:
             mrsrequest_uuid = kwargs.pop('mrsrequest_uuid')
