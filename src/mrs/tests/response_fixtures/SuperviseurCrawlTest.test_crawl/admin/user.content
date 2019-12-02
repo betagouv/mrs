@@ -225,6 +225,42 @@
         </tr>
         
     
+        
+        <tr class="odd">
+            
+                <td>aaaaaaa</td>
+            
+                <td><span class="true">✔</span></td>
+            
+                <td><a href="/admin/user/8">superviseura@example.com</a></td>
+            
+                <td>Superviseur A Prenom</td>
+            
+                <td>Superviseur A Nom</td>
+            
+                <td>Superviseur</td>
+            
+                <td>0</td>
+            
+                <td>
+                
+                
+    
+      
+        <a class="btn-floating red blue" href="/admin/user/8?_next=/admin/user" title="superviseura">
+    <i class="material-icons">search</i>
+    
+    Detail
+    
+  </a>
+      
+    
+  
+                </td>
+            
+        </tr>
+        
+    
     </tbody>
     
     

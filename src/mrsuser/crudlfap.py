@@ -401,7 +401,7 @@ class UserRouter(crudlfap.Router):
             return self.model.objects.filter(
                 caisses__in=view.request.user.caisses.all()
             ).exclude(
-                groups__name__in=('Superviseur', 'Admin')
+                groups__name__in=('Admin')
             ).distinct()
         elif user.profile == 'admin local':
             return self.model.objects.exclude(
