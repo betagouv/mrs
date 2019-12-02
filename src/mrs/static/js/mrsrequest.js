@@ -110,6 +110,10 @@ var formInit = function (form) {
     hideRequestShowCaisseVoteForm(form, true)
     Cookie.set('caisse', '')
 
+  } else{
+
+    Cookie.set('caisse', '')
+
   }
 
   // Preselect caisse if found in cookie
@@ -118,7 +122,9 @@ var formInit = function (form) {
   if (parseInt(caisseSelected)) {
 
     $caisse.val(caisseSelected)
-    adjustSelectOptions('caisse', $region.val(),  false, true)
+    if($region.val()){
+      adjustSelectOptions('caisse', $region.val(),  false, true)
+    }
 
   } else if (caisseSelected=='other'){
 
