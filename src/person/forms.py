@@ -5,6 +5,7 @@ from django.utils.timezone import now
 import material
 
 from mrs.forms import DateField
+from mrs.validators import name_clean
 
 from .models import Person
 
@@ -38,6 +39,12 @@ class PersonForm(forms.ModelForm):
             raise forms.ValidationError(
                 'Doit être antèrieure à la date du jour')
         return data
+
+    def clean_first_name(self):
+        return name_clean(self.cleaned_data['first_name'])
+
+    def clean_last_name(self):
+        return name_clean(self.cleaned_data['last_name'])
 
     def get_or_create(self):
         # Return existing person untouched if possible
