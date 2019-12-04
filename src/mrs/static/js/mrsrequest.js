@@ -117,26 +117,26 @@ var formInit = function (form) {
   }
 
   // Preselect caisse if found in cookie
-  var caisseSelected = Cookie.get('caisse')
+  // var caisseSelected = Cookie.get('caisse')
 
-  if (parseInt(caisseSelected)) {
+  // if (parseInt(caisseSelected)) {
 
-    $caisse.val(caisseSelected)
-    if($region.val()){
-      adjustSelectOptions('caisse', $region.val(),  false, true)
-    }
+  //   $caisse.val(caisseSelected)
+  //   if($region.val()){
+  //     adjustSelectOptions('caisse', $region.val(),  false, true)
+  //   }
 
-  } else if (caisseSelected=='other'){
+  // } else if (caisseSelected=='other'){
 
-    $caisse.val(caisseSelected)
-    adjustSelectOptions('caisse', $region.val(),  false, true)
-    hideRequestShowCaisseVoteForm(form, false)
+  //   $caisse.val(caisseSelected)
+  //   adjustSelectOptions('caisse', $region.val(),  false, true)
+  //   hideRequestShowCaisseVoteForm(form, false)
 
-  } else {
+  // } else {
 
-    $caisseForm.hide()
+  //   $caisseForm.hide()
 
-  }
+  // }
 
   for (let element of form.querySelectorAll('textarea')) {
     M.textareaAutoResize(element)
@@ -211,6 +211,7 @@ var formInit = function (form) {
 
     $mrsrequestForm.hide('slide')
     $caisseForm.show('slide')
+
   }
 
   // Fonction permettant de masquer le formulaire "Me prévenir quand la caisse
@@ -306,10 +307,6 @@ var formInit = function (form) {
         $parkingEnable.hide('slide')
       }
       Cookie.set('caisse', $caisse.val())
-
-    } else {
-
-      hideRequestShowCaisseVoteForm(form, true)
 
     }
   }
