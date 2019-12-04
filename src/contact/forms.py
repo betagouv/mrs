@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 from caisse.forms import ActiveCaisseChoiceField
 from captcha.fields import CaptchaField
 from mrsrequest.models import MRSRequest
-from mrs.validators import name_validators
+from mrs.validators import name_clean, name_validators
 
 from .models import Contact
 
@@ -68,6 +68,9 @@ class ContactForm(forms.Form):
             'captcha',
         )
     )
+
+    def clean_nom(self):
+        return name_clean(self.cleaned_data['nom'])
 
     def clean_message(self):
         message = self.cleaned_data['message']

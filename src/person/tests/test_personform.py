@@ -122,6 +122,22 @@ def test_personform_clean_birth_date(d):
 
 
 @pytest.mark.django_db
+def test_personform_clean_last_name(d):
+    d['last_name'] = "fooʻʽˈ՚‘ʹ′–−-"
+    form = PersonForm(d)
+    assert form.is_valid()
+    assert form.get_or_create().last_name == "foo'''''''---"
+
+
+@pytest.mark.django_db
+def test_personform_clean_first_name(d):
+    d['first_name'] = "fooʻʽˈ՚‘ʹ′–−-"
+    form = PersonForm(d)
+    assert form.is_valid()
+    assert form.get_or_create().first_name == "foo'''''''---"
+
+
+@pytest.mark.django_db
 def test_personform_test_fix_last_name(d):
     p = Person.objects.create(
         first_name='first',

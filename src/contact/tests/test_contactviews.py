@@ -63,10 +63,12 @@ def test_contactform_email_kwargs_suggestion(caisse, data, motif):
     ('àôéû ôéÉûdhtnùèöâ', True),
     ('àôéû-àôéû', True),
     ('àôéû–àôéû', True),
+    ('àôéû−àôéû', True),
+    ("aʼʻʽˈ՚‘ʹ′‵Ꞌꞌ'", True),
     ('aoeu<', False),
     ('aoeu>', False),
     ('aoeu"', False),
-    ('aoeu\'', False),
+    ('aoeu\'', True),
     ('aoeu1', False),
     ('aoeu_', False),
     ('aoeu$', False),
@@ -80,6 +82,14 @@ def test_validation_nom(caisse, data, nom, valid):
         assert form.errors['nom'] == [
             'Merci de saisir uniquement lettres et tirets'
         ]
+
+
+@pytest.mark.django_db
+def test_sanitization_nom(caisse, data):
+    data['nom'] = "aʼʻʽˈ՚‘ʹ′‵Ꞌꞌ'-−–"
+    form = ContactForm(data)
+    assert form.is_valid()
+    assert form.cleaned_data['nom'] == "a''''''''''''---"
 
 
 @pytest.mark.django_db
