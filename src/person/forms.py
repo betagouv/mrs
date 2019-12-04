@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.timezone import now
 
 import material
@@ -49,12 +50,26 @@ class PersonForm(forms.ModelForm):
         ).first()
 
         if person:
+            save = False
+
+            # Ensure legacy data containing invalid last name are fixed
+            try:
+                person.full_clean()
+            except ValidationError as e:
+                if 'last_name' in e.error_dict:
+                    person.last_name = self.cleaned_data['last_name']
+                    save = True
+
             if (
                 'email' in self.cleaned_data
                 and person.email != self.cleaned_data['email']
             ):
+                save = True
                 person.email = self.cleaned_data['email']
+
+            if save:
                 person.save()
+
             return person
 
         # Otherwise create a new Person

@@ -119,3 +119,33 @@ def test_personform_clean_birth_date(d):
     d['birth_date'] = '2999-01-01'
     form.full_clean()
     assert 'birth_date' in form.errors
+
+
+@pytest.mark.django_db
+def test_personform_test_fix_last_name(d):
+    p = Person.objects.create(
+        first_name='first',
+        last_name='last',
+        nir=1111111111111,
+        birth_date='1990-01-01',
+        email='example@example.com',
+    )
+
+    # bypass validator to simulate legacy data
+    from django.db import connection
+    with connection.cursor() as cursor:
+        cursor.execute("update person_person set last_name='last!'")
+
+    data = dict(
+        nir='1111111111111',
+        birth_date='1990-01-01',
+        first_name='first',
+        last_name='last',
+        email='example@example.com',
+    )
+    form = PersonForm(data)
+    assert form.is_valid()
+    result = form.get_or_create()
+    assert result.pk == p.pk
+    assert result.first_name == 'first'
+    assert result.last_name == 'last'
