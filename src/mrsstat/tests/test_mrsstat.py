@@ -87,7 +87,7 @@ def test_stat_include_suspended():
     req = MRSRequest.objects.create(creation_datetime=datetime.datetime(2018,
                                     5, 3,
                                     tzinfo=timezone.get_current_timezone()),
-                                    mandate_datevp=datetime.datetime(
+                                    mandate_date=datetime.datetime(
                                     2018, 5, 5,
                                     tzinfo=timezone.get_current_timezone()))
 
