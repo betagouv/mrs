@@ -467,7 +467,8 @@ class MRSRequestCSVListView(MRSRequestListView):
             return (map(mystr, [
                 obj.display_id,
                 obj.caisse,
-                obj.insured.birth_date.strftime(DATE_FORMAT_FR),
+                obj.insured.birth_date.strftime(DATE_FORMAT_FR)
+                if obj.insured.birth_date else '',
                 obj.get_status_display(),
                 yn(obj.suspended),
                 obj.creation_day.strftime(DATE_FORMAT_FR),
