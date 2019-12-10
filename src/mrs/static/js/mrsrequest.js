@@ -222,7 +222,7 @@ var formInit = function (form) {
     caisse_selector_hidden ? $caisseSelector.hide('slide') : $caisseSelector.show('slide')
 
     request_form_hidden ? $mrsrequestForm.hide('slide') : $mrsrequestForm.show('slide')
-    
+
     $caisseForm.hide('slide')
 
   }
@@ -305,6 +305,19 @@ var formInit = function (form) {
         $parking.parents('.col').hide('slide')
         $parkingEnable.hide('slide')
       }
+
+      var $convocation = $('[name=pmt_pel][value=convocation]').parents('.radio')
+      if (document.caisses[$caisse.val()].nopmt_enable) {
+        $convocation.show()
+      } else {
+        $convocation.hide();
+        var $prescription = $('[name=pmt_pel]:checked')
+        if ($prescription.val() == 'convocation') {
+          $('[name=pmt_pel][value=pmt]').prop('checked', true)
+          $('[name=pmt_pel]:checked').trigger('change')
+        }
+      }
+
       Cookie.set('caisse', $caisse.val())
 
     } else {
@@ -438,17 +451,19 @@ var formInit = function (form) {
   confirming || $('[name=trip_kind]').trigger('change')
 
   $(form).on('change', '[name=pmt_pel]', function() {
-    if ($('[name=pmt_pel]:checked').val() == 'pel') {
-      $('#id_pmt_container').parents('.layout-row.row').fadeOut(() => {
-        $('#id_pel_container').parents('.layout-row.row').fadeIn()
-      })
+    if (!$(this).is(':checked')) return
+    var $selection = $('#id_' + $(this).val() + '_container').parents('.layout-row.row')
+    var $rows = $('#pmt-form .layout-row.row').not($selection)
+    var show = () => $selection.fadeIn()
+    var $visible = $rows.filter(':visible')
+    if ($visible.length) {
+      $visible.fadeOut(show)
     } else {
-      $('#id_pel_container').parents('.layout-row.row').fadeOut(() => {
-        $('#id_pmt_container').parents('.layout-row.row').fadeIn()
-      })
+      $rows.hide()
+      $selection.show()
     }
   })
-  confirming || $('[name=pmt_pel]:first').trigger('change')
+  confirming || $('[name=pmt_pel]:checked').trigger('change')
 
   var distancevp_help = function() {
     // use 2 by default for the sake of the example

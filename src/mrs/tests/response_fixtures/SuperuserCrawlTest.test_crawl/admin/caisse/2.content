@@ -91,6 +91,17 @@
       
       <tr>
         <th>
+          Active la convocation sans pmt
+        </th>
+        <td>
+          
+              False
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
           Active la saisie de frais de parking
         </th>
         <td>

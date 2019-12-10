@@ -177,6 +177,16 @@
                 <div class="card-title">
                     Personne transportée
                 </div>
+                {%- if object.convocation %}
+                <p>
+                    <span class="grey-text text-darken-2">
+                        Convocation contrôle médical ELSM
+                    </span>
+                    <span class="right">
+                        {{ object.convocation.strftime('%d/%m/%Y') }}
+                    </span>
+                </p>
+                {%- endif %}
                 {%- if object.pel %}
                 <p>
                     <span class="grey-text text-darken-2">

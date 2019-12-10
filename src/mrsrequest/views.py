@@ -76,6 +76,7 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
         caisses = {
             i.pk: dict(
                 parking_enable=i.parking_enable,
+                nopmt_enable=i.nopmt_enable,
             ) for i in Caisse.objects.all()
         }
         return json.dumps(caisses)

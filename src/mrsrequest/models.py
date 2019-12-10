@@ -75,6 +75,13 @@ def datetime_max(date):
     return to_date_datetime(date, 23, 59, 59, 999999)
 
 
+def transport_date_validate(value):
+    if value > timezone.now().date():
+        raise ValidationError(
+            'La date doit être égale ou anterieure à la date du jour',
+        )
+
+
 class BillManager(MRSAttachmentManager):
     def __init__(self, *args, **kwargs):
         self.mode = kwargs.pop('mode', None)
@@ -429,6 +436,17 @@ class MRSRequest(models.Model):
                 message='Le numéro de PMET doit comporter'
                 ' 14 caractères alpha numériques',
             )
+        ],
+    )
+    convocation = models.DateField(
+        verbose_name='Date de convocation au service médical',
+        null=True,
+        blank=True,
+        validators=[
+            validators.MinValueValidator(
+                datetime.date(year=2000, month=1, day=1)
+            ),
+            transport_date_validate,
         ],
     )
     status = models.IntegerField(
@@ -1101,13 +1119,6 @@ class TransportQuerySet(models.QuerySet):
 class TransportManager(models.Manager):
     def get_queryset(self):
         return TransportQuerySet(self.model, using=self._db)
-
-
-def transport_date_validate(value):
-    if value > timezone.now().date():
-        raise ValidationError(
-            'La date doit être égale ou anterieure à la date du jour',
-        )
 
 
 class Transport(models.Model):

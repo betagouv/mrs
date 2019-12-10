@@ -22,7 +22,7 @@
         <div class="mrs-std-page">
             
 <script id="caissesJson" type="text/json">
-{"1": {"parking_enable": true}, "2": {"parking_enable": true}, "3": {"parking_enable": true}, "4": {"parking_enable": true}}
+{"1": {"parking_enable": true, "nopmt_enable": false}, "2": {"parking_enable": true, "nopmt_enable": false}, "3": {"parking_enable": true, "nopmt_enable": false}, "4": {"parking_enable": true, "nopmt_enable": false}}
 </script>
 <script id="regimesspeciauxId" type="text/json">
 {"id": 19}
@@ -113,6 +113,10 @@
             <input class="with-gap" id="id_pmt_pel_1" name="pmt_pel" type="radio" value="pel"/>
             <span class="item-label" for="id_pmt_pel_1">PMET (Prescription Électronique)</span>
         </label></div>
+        <div class="radio" id="id_pmt_pel"><label>
+            <input class="with-gap" id="id_pmt_pel_2" name="pmt_pel" type="radio" value="convocation"/>
+            <span class="item-label" for="id_pmt_pel_2">Convocation Service Médical</span>
+        </label></div>
     </div>
 </div>
 
@@ -158,6 +162,20 @@ Le numéro de votre Prescription Médicale Electronique de Transport (PMET) est
 indiqué sur l'exemplaire patient remis par votre médecin.
 <a href="/faq#pmt" title="Accèdez à la FAQ">Où trouver votre numéro de PMET ?</a>
 </div>
+    </div>
+</div>
+</div></div>
+
+
+    
+<div class="layout-row row"><div class="col s12 m12">
+
+
+<div class="row">
+    <div class="input-field col s12" id="id_convocation_container">
+        <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_convocation" name="convocation" placeholder="jj/mm/aaaa" type="date"/>
+        <label for="id_convocation">Date du rendez-vous avec le médecin conseil de l'Assurance Maladie</label>
+        <div class="help-block">Au format jj/mm/aaaa, par exemple: 31/12/2000</div>
     </div>
 </div>
 </div></div>

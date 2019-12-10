@@ -146,7 +146,7 @@ def test_transport_formset_confirms_invalidates():
 
 
 @pytest.mark.django_db  # noqa
-def test_transport_formset_add_confirms():
+def test_transport_formset_add_confirms():  # noqa
     """Assert that it will generate proper confirms structure."""
     person, formset = person_transport_formset()
     formset.add_confirms(person.nir, person.birth_date)
