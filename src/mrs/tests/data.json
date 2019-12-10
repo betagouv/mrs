@@ -963,6 +963,7 @@
         "payment_base": null,
         "payment_amount": null,
         "adeli": 9000,
+        "convocation": "2018-04-01",
         "data": {
             "nir": "1111111111111",
             "email": "aoeu@example.com",

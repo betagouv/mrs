@@ -439,6 +439,7 @@ class MRSRequestCSVListView(MRSRequestListView):
                 'date de naissance bénéficiaire',
                 'statut de la demande',
                 'demande "en cours d\'étude"',
+                'date de convocation',
                 'date de demande',
                 'délai de traitement',
                 'n° finess',
@@ -489,6 +490,8 @@ class MRSRequestCSVListView(MRSRequestListView):
                 obj.insured.birth_date.strftime(DATE_FORMAT_FR),
                 obj.get_status_display(),
                 yn(obj.suspended),
+                obj.convocation.strftime(DATE_FORMAT_FR)
+                if obj.convocation else '',
                 obj.creation_day.strftime(DATE_FORMAT_FR),
                 excel_number(obj.delay),
                 obj.institution.finess if obj.institution else '',
