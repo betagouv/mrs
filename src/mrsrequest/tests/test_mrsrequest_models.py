@@ -14,7 +14,7 @@ from freezegun import freeze_time
 from mrsuser.models import User
 from person.models import Person
 from mrsrequest.models import MRSRequest, \
-    delete_mrsrequests_older_than_33_months, \
+    anonymize_mrsrequests_older_than_33_months, \
     remove_attachments_without_mrsrequest, Bill, PMT
 
 
@@ -395,10 +395,10 @@ def test_mrsrequest_remove_attachments_without_mrsrequest():
 @pytest.mark.django_db
 def test_mrsrequest_delete_mrsrequests_older_than_33_months():
     MRSRequest.objects.create(
-        creation_datetime=timezone.now() - datetime.timedelta(days=34 * 30),
+        creation_datetime=timezone.now() - datetime.timedelta(days=34 * 31),
     )
     MRSRequest.objects.create(
         creation_datetime=timezone.now() - datetime.timedelta(days=60),
     )
 
-    assert delete_mrsrequests_older_than_33_months() == 1
+    assert anonymize_mrsrequests_older_than_33_months() == 1

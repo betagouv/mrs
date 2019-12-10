@@ -18,6 +18,7 @@ from django.utils import timezone
 
 from mrs.settings import DATE_FORMAT_FR
 from mrsattachment.models import MRSAttachment, MRSAttachmentManager
+from person.models import Person
 
 TWOPLACES = Decimal(10) ** -2
 
@@ -965,6 +966,7 @@ def remove_attachments_without_mrsrequest():
         print('Deleted {} PMTs'.format(pmts_count))
     except Exception as e:
         print('Error : {}'.format(e))
+        raise
 
     try:
         bills = Bill.objects.filter(
@@ -984,31 +986,43 @@ def remove_attachments_without_mrsrequest():
         print('Deleted {} Bills'.format(bills_count))
     except Exception as e:
         print('Error : {}'.format(e))
-
+        raise
     print('--- END ---')
-
     return pmts_count, bills_count
 
 
-def delete_mrsrequests_older_than_33_months():
-    print('--- Deleting MRSRequest older than 33 months ---')
-    try:
-        old_requests = MRSRequest.objects.filter(
-            creation_datetime__lt=(
-                datetime.datetime.now() - datetime.timedelta(
-                    days=33 * 30
-                )
+def anonymize_mrsrequests_older_than_33_months():
+    print('--- Anonymizing MRSRequest older than 33 months ---')
+    old_requests = MRSRequest.objects.filter(
+        creation_datetime__lt=(
+            datetime.datetime.now() - datetime.timedelta(
+                days=33 * 31
             )
         )
-        old_requests_count = old_requests.count()
-        old_requests.delete()
-        print('Deleted {} MRSRequests'.format(
-            old_requests_count)
-        )
-        print('--- END ---')
-        return old_requests_count
-    except Exception as e:
-        print('Error : {}'.format(e))
+    )
+    old_requests_count = old_requests.count()
+    anon_person, created = Person.objects.get_or_create(
+        first_name="Nyme",
+        last_name="Ano",
+        birth_date=datetime.date(1980, 1, 20),
+        email="ano@nyme.com",
+        nir="1803333333333"
+    )
+    for mrsrequest in old_requests:
+        try:
+            mrsrequest.data = None
+            mrsrequest.adeli = None
+            mrsrequest.pel = None
+            mrsrequest.insured = anon_person
+            mrsrequest.save()
+        except Exception as e:
+            print('Error : {}'.format(e))
+            raise
+    print('Anonymized {} MRSRequests'.format(
+        old_requests_count)
+    )
+    print('--- END ---')
+    return old_requests_count
 
 
 class MRSRequestLogEntryQuerySet(models.QuerySet):

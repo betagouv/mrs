@@ -14,7 +14,7 @@ class MRSRequestAppConfig(apps.AppConfig):
         from djcall.models import Caller, Cron
         caller, created = Caller.objects.get_or_create(
             callback='mrsrequests.'
-                     'models.delete_mrsrequests_older_than_33_months'
+                     'models.anonymize_mrsrequests_older_than_33_months'
         )
 
         Cron.objects.update_or_create(

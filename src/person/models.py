@@ -136,9 +136,9 @@ class Person(models.Model):
 
 def delete_orphan_persons():
     print('--- Deleting orphan Persons ---')
+    orphan_persons = Person.objects.filter(mrsrequest__isnull=True)
+    orphan_persons_count = orphan_persons.count()
     try:
-        orphan_persons = Person.objects.filter(mrsrequest__isnull=True)
-        orphan_persons_count = orphan_persons.count()
         orphan_persons.delete()
         print(
             'Deleted {} orphan Persons'.format(
@@ -149,3 +149,4 @@ def delete_orphan_persons():
         return orphan_persons_count
     except Exception as e:
         print('Error : {}'.format(e))
+        raise
