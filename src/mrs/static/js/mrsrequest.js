@@ -111,8 +111,11 @@ var formInit = function (form) {
     Cookie.set('caisse', '')
 
   } else {
+
+    Cookie.set('caisse', '')
     $('#btnCommencer').hide()
     $('#collapseCommencer').show()
+
   }
 
   // Preselect caisse if found in cookie
@@ -121,7 +124,9 @@ var formInit = function (form) {
   if (parseInt(caisseSelected)) {
 
     $caisse.val(caisseSelected)
-    adjustSelectOptions('caisse', $region.val(),  false, true)
+    if($region.val()){
+      adjustSelectOptions('caisse', $region.val(), false, true)
+    }
 
   } else if (caisseSelected=='other'){
 
@@ -657,11 +662,6 @@ $('body').on('click', '[data-load-in-form]', function() {
 $('body').on('click', '#btnCommencer', function() {
   $('#collapseCommencer').show()
   $(this).hide()
-})
-
-$('body').on('click', '#fermerCommencer', function() {
-  $('#collapseCommencer').hide()
-  $('#btnCommencer').show()
 })
 
 export default formInit

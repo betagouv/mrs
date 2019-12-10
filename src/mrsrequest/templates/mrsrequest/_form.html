@@ -24,6 +24,27 @@
                 </div>
 
                 <p>
+                    Nous avons bien reçu votre demande de remboursement de vos frais de transport en véhicule personnel ou transport en commun concernant le(s) trajet(s) suivant(s) :
+                <p>
+                <ul>
+                    {% for transport in view.object.transport_set.all %}
+                        <li>- du {{ transport.date_depart }}{% if transport.date_return %} au {{ transport.date_return }}{% endif %}</li>
+                    {% endfor %}
+                </ul>
+
+                <p>
+                    Vous avez la possibilité d'annuler votre demande tant qu'elle n'est pas traitée par nos services en cliquant sur le bouton ci-dessous:
+                    <br>
+                    <a
+                        href="{{ base_url }}{{ view.object.get_cancel_url }}"
+                        class="btn mrs-bouton mrs-orange-plein mt-3 mb-5"
+                        data-btn-exclude="1"
+                    >
+                        Annuler cette demande
+                    </a>
+                </p>
+
+                <p>
                     Vous allez recevoir un email confirmant la réception et le traitement de votre demande.
                 </p>
                 <p>
@@ -52,9 +73,15 @@
                 </div>
             {% endif %}
         {% elif view.success %}
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mb-5">
                 <a
-                    class="btn mrs-bouton mrs-bleu-plein mb-5"
+                    href="{% url "index" %}"
+                    class="btn mrs-bouton mrs-bleu-vide mr-5"
+                    data-btn-exclude="1"
+                >Retour à l'accueil</a>
+
+                <a
+                    class="btn mrs-bouton mrs-bleu-plein"
                     data-load-in-form="{{ path_info }}?caisse={{ request.POST.caisse }}"
                 >Nouvelle demande</a>
             </div>
@@ -121,15 +148,38 @@
                     </div>
 
                     <div class="collapse" id="collapseCommencer">
-                        <div id="fermerCommencer">
-                            X
-                        </div>
                         <div id="txtCommencer" style="background-image:url('{% static "img/icones/clip.svg" %}')">
-                            Pour remplir la demande, vous aurez besoin de :
+                            <h4>Pour remplir la demande, vous aurez besoin de :</h4>
                             <ul>
+                                <li>- votre carte vitale</li>
                                 <li>- votre prescription médicale de transport papier ou électronique</li>
                                 <li>- vos justificatifs de frais de déplacement (ticket de parking, de péage, ...)</li>
                             </ul>
+                            <h4 class="mt-4">Les étapes de votre demande :</h4>
+                            <div class="container">
+                                <div class="row" id="etapesCommencer">
+                                    <div class="col-md-6 col-xl-2 offset-xl-1">
+                                        <div class="etapeNumero">1</div>
+                                        <div>Votre caisse d'assurance maladie</div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-2">
+                                        <div class="etapeNumero">2</div>
+                                        <div>Prescription médicale pour un transport</div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-2">
+                                        <div class="etapeNumero">3</div>
+                                        <div>Identité de la personne transportée</div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-2">
+                                        <div class="etapeNumero">4</div>
+                                        <div>Transport effectué</div>
+                                    </div>
+                                    <div class="col-12 col-xl-2">
+                                        <div class="etapeNumero">5</div>
+                                        <div>Validation et réception d'un email récapitulatif</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="d-flex justify-content-center">
@@ -237,7 +287,7 @@
                         </div>
                     </div>
 
-                    <h3 class="demande-section-header"><span class="numero">5</span> Validation</h3>
+                    <h3 class="demande-section-header"><span class="numero">5</span> Attestation sur l'honneur</h3>
 
                     <div class="demande-section">
                         {% form form=view.forms.certify %}
@@ -282,7 +332,7 @@
                     >Continuer</button>
                 </div>
             {% else %}
-                <button type="submit" name="_submit" class="btn mrs-bouton mrs-bleu-plein mb-5">Valider ma demande</button>
+                <button type="submit" name="_submit" class="btn mrs-bouton mrs-rose-plein mb-5" data-btn-exclude="1">Valider ma demande</button>
             {% endif %}
         {% endif %}
     </form>
@@ -329,6 +379,37 @@
     </div>
 </div>
 
+<div class="modal2" tabindex="-1" role="dialog" id="modal-pmt">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
+        <div class="modal2-content">
+            <div class="modal2-header">
+                <h5 class="modal2-title">Vous avez une prescription papier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal2-body">
+                <p>
+                    Scanner et joignez le volet 2 de la prescription médicale
+                </p>
+                <img class="img-fluid" src="{% static 'img/pmet.jpg' %}" />
+
+                <h2 class="mt-5 mb-5">
+                    OU
+                </h2>
+
+                <p>
+                    Scanner et joignez le volet 3 de la demande d'accord préalable
+                </p>
+                <img class="img-fluid" src="{% static 'img/pmet.jpg' %}" />
+            </div>
+            <div class="modal2-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal2" tabindex="-1" role="dialog" id="modal-pmet">
     <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
         <div class="modal2-content">
@@ -350,3 +431,6 @@
         </div>
     </div>
 </div>
+
+<a href="{% url "faq" %}" target="_blank" id="aide"
+   style="background-image: url('{% static 'img/icones/icon_question.svg' %}')"></a>

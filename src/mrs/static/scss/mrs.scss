@@ -5,6 +5,8 @@ $mrs-bleu-sombre: #003763;
 $mrs-rose: #E9386E;
 $mrs-rose-sombre: #B82E58;
 $mrs-noir: #454F5D;
+$mrs-orange: #ffc107;
+$mrs-orange-clair: #ffd967;
 
 body {
   font-family: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
@@ -71,8 +73,10 @@ h3 {
 .mrs-bleu-vide {
   border: 1px solid $mrs-bleu;
   color: $mrs-bleu;
+  background-color: inherit;
 
   &:hover {
+    background-color: inherit;
     color: $mrs-bleu-sombre;
   }
 }
@@ -82,7 +86,7 @@ h3 {
   color: #fff;
 
   &:hover {
-    background-color: $mrs-rose-sombre;
+    background-color: $mrs-rose-sombre !important;
     color: #fff;
   }
 }
@@ -103,7 +107,18 @@ h3 {
   cursor: pointer;
 
   &:hover {
-    color: $mrs-bleu;
+    background-color: #ffffff !important;
+    color: $mrs-bleu !important;
+  }
+}
+
+.mrs-orange-plein {
+  background-color: $mrs-orange;
+  color: #3f3f3f;
+
+  &:hover {
+    background-color: $mrs-orange-clair !important;
+    color: #3f3f3f;
   }
 }
 
@@ -664,19 +679,6 @@ h3 {
   padding: 2rem;
 }
 
-#fermerCommencer {
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 2rem;
-  line-height: 2rem;
-  text-align: center;
-  margin-top: -1.3rem;
-  margin-right: -1.5rem;
-  width: 2rem;
-  height: 2rem;
-  float: right;
-}
-
 #txtCommencer {
   background-size: 0%;
   display: flex;
@@ -697,6 +699,50 @@ h3 {
     padding-left: 6rem;
     min-height: 8rem;
   }
+}
+
+#etapesCommencer {
+  display: flex;
+  text-align: center;
+  margin-top: 5px;
+
+  > div {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .etapeNumero {
+      font-size: 35px;
+      border: 3px #fff solid;
+      border-radius: 28px;
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+#aide {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  border-radius: 80px 0 0;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 18px;
+  background-repeat: no-repeat;
+  background-position: 68% 68%;
+  background-color: #005DA8;
+  background-size: 1.5em;
 }
 
 

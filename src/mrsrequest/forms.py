@@ -20,8 +20,11 @@ from .models import today
 from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
 PMT_HELP = '''
-Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande
-accord préalable, au format <b>jpeg</b>, <b>png</b> ou <b>pdf</b>.<br>
+Merci de joindre le <a href="#" data-toggle="modal" data-target="#modal-pmt">
+<b>volet 2 de la prescription médicale</b>
+ou le <b>volet 3 de la demande d'accord préalable</b></a>
+<br>
+Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -
 <b>4Mo maximum</b> par fichier.
 '''
 
@@ -85,12 +88,12 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     pmt_pel = forms.ChoiceField(
         choices=(
-            ('pmt', 'PMT (Prescription papier)'),
-            ('pel', 'PMET (Prescription électronique)'),
+            ('pmt', 'Prescription papier (PMT)'),
+            ('pel', 'Prescription électronique (PMET)'),
             ('convocation', 'Convocation Service Médical'),
         ),
         initial='pmt',
-        label='Avez-vous une ...',
+        label='',
         widget=forms.RadioSelect,
     )
 
@@ -200,7 +203,8 @@ class MRSRequestCreateForm(forms.ModelForm):
         ),
         top=material.Layout(
             material.Fieldset(
-                'Votre prescription médicale',
+                'Quel type de prescription médicale avez-vous reçue '
+                'pour ce transport ?',
                 'pmt_pel',
             ),
             material.Row(

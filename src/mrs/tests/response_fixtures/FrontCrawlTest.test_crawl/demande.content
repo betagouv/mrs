@@ -80,15 +80,38 @@
                     </div>
 
                     <div class="collapse" id="collapseCommencer">
-                        <div id="fermerCommencer">
-                            X
-                        </div>
                         <div id="txtCommencer" style="background-image:url('/static/img/icones/clip.svg')">
-                            Pour remplir la demande, vous aurez besoin de :
+                            <h4>Pour remplir la demande, vous aurez besoin de :</h4>
                             <ul>
+                                <li>- votre carte vitale</li>
                                 <li>- votre prescription médicale de transport papier ou électronique</li>
                                 <li>- vos justificatifs de frais de déplacement (ticket de parking, de péage, ...)</li>
                             </ul>
+                            <h4 class="mt-4">Les étapes de votre demande :</h4>
+                            <div class="container">
+                                <div class="row" id="etapesCommencer">
+                                    <div class="col-md-6 col-xl-2 offset-xl-1">
+                                        <div class="etapeNumero">1</div>
+                                        <div>Votre caisse d'assurance maladie</div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-2">
+                                        <div class="etapeNumero">2</div>
+                                        <div>Prescription médicale pour un transport</div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-2">
+                                        <div class="etapeNumero">3</div>
+                                        <div>Identité de la personne transportée</div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-2">
+                                        <div class="etapeNumero">4</div>
+                                        <div>Transport effectué</div>
+                                    </div>
+                                    <div class="col-12 col-xl-2">
+                                        <div class="etapeNumero">5</div>
+                                        <div>Validation et réception d'un email récapitulatif</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="d-flex justify-content-center">
@@ -163,20 +186,20 @@
                         <div id="pmt-form">
                             <div class="section row">
     <div class="col s12">
-        <h5>Votre prescription médicale</h5>
+        <h5>Quel type de prescription médicale avez-vous reçue pour ce transport ?</h5>
         
 <div class="row radio-field">
     <div class="col s12">
-        <label class="" for="id_pmt_pel_0">Avez-vous une ...</label>
+        <label class="" for="id_pmt_pel_0"></label>
     </div>
     <div class="col s12 required" id="id_pmt_pel_container">
         <div class="radio" id="id_pmt_pel"><label>
             <input checked="" class="with-gap" id="id_pmt_pel_0" name="pmt_pel" type="radio" value="pmt"/>
-            <span class="item-label" for="id_pmt_pel_0">PMT (Prescription papier)</span>
+            <span class="item-label" for="id_pmt_pel_0">Prescription papier (PMT)</span>
         </label></div>
         <div class="radio" id="id_pmt_pel"><label>
             <input class="with-gap" id="id_pmt_pel_1" name="pmt_pel" type="radio" value="pel"/>
-            <span class="item-label" for="id_pmt_pel_1">PMET (Prescription électronique)</span>
+            <span class="item-label" for="id_pmt_pel_1">Prescription électronique (PMET)</span>
         </label></div>
         <div class="radio" id="id_pmt_pel"><label>
             <input class="with-gap" id="id_pmt_pel_2" name="pmt_pel" type="radio" value="convocation"/>
@@ -203,8 +226,11 @@
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Prescription Médicale de Transport obligatoire"/>
         </div>
         <div class="help-block">
-Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande
-accord préalable, au format <b>jpeg</b>, <b>png</b> ou <b>pdf</b>.<br/>
+Merci de joindre le <a data-target="#modal-pmt" data-toggle="modal" href="#">
+<b>volet 2 de la prescription médicale</b>
+ou le <b>volet 3 de la demande d'accord préalable</b></a>
+<br/>
+Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -
 <b>4Mo maximum</b> par fichier.
 </div>
 
@@ -526,7 +552,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
                         </div>
                     </div>
 
-                    <h3 class="demande-section-header"><span class="numero">5</span> Validation</h3>
+                    <h3 class="demande-section-header"><span class="numero">5</span> Attestation sur l'honneur</h3>
 
                     <div class="demande-section">
                         
@@ -544,13 +570,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 
 
                         
-<div class="row">
-    <div class="checkbox-field col s12" id="id_use_email_container">
-        <label>
-        <input class="filled-in" id="id_use_email" name="use_email" type="checkbox"/><span for="id_use_email">En cochant cette case, vous acceptez que Mes Remboursements Simplifiés utilise votre adresse email dans le but de vous envoyer occasionnellement des emails d'informations. Vous pouvez à tout moment vous désinscrire de ce service.</span></label>
-        
-    </div>
-</div>
+
 
 
                         <a class="text-center" data-target="#modal-conditions" data-toggle="modal" href="#">
@@ -602,7 +622,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
             <br/>
 
             
-                <button class="btn mrs-bouton mrs-bleu-plein mb-5" name="_submit" type="submit">Valider ma demande</button>
+                <button class="btn mrs-bouton mrs-rose-plein mb-5" data-btn-exclude="1" name="_submit" type="submit">Valider ma demande</button>
             
         
     </form>
@@ -649,6 +669,37 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
+<div class="modal2" id="modal-pmt" role="dialog" tabindex="-1">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
+        <div class="modal2-content">
+            <div class="modal2-header">
+                <h5 class="modal2-title">Vous avez une prescription papier</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal2-body">
+                <p>
+                    Scanner et joignez le volet 2 de la prescription médicale
+                </p>
+                <img class="img-fluid" src="/static/img/pmet.jpg"/>
+
+                <h2 class="mt-5 mb-5">
+                    OU
+                </h2>
+
+                <p>
+                    Scanner et joignez le volet 3 de la demande d'accord préalable
+                </p>
+                <img class="img-fluid" src="/static/img/pmet.jpg"/>
+            </div>
+            <div class="modal2-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal2" id="modal-pmet" role="dialog" tabindex="-1">
     <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
         <div class="modal2-content">
@@ -670,6 +721,8 @@ indiqué sur l'exemplaire patient remis par votre médecin.
         </div>
     </div>
 </div>
+
+<a href="/faq" id="aide" style="background-image: url('/static/img/icones/icon_question.svg')" target="_blank"></a>
 
             
         
