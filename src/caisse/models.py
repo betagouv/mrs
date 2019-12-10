@@ -68,6 +68,10 @@ class Caisse(models.Model):
         verbose_name='activé',
         default=False,
     )
+    nopmt_enable = models.BooleanField(
+        verbose_name='active la convocation sans PMT',
+        default=False,
+    )
     parking_enable = models.BooleanField(
         verbose_name='active la saisie de frais de parking',
         default=True,

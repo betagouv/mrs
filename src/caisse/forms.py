@@ -88,4 +88,5 @@ class CaisseForm(forms.ModelForm):
             'habilitation_email',
             'active',
             'parking_enable',
+            'nopmt_enable',
         )

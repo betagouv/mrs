@@ -25,6 +25,7 @@
         "caisse": 9,
         "conflicts_accepted": 0,
         "conflicts_resolved": 0,
+        "convocation": null,
         "creation_datetime": "2017-12-19T05:51:11Z",
         "data": {
             "birth_date": "07/02/2007",

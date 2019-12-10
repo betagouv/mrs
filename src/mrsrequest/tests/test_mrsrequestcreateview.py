@@ -1,3 +1,4 @@
+from datetime import date
 from dbdiff.fixture import Fixture
 from django.urls import reverse
 from freezegun import freeze_time
@@ -144,6 +145,23 @@ def test_mrsrequestcreateview_pel_integration(p, caisse, upload):
     )
     p.post(**data)
     assert MRSRequest.objects.get(pk=p.mrsrequest.id).pel == 'aoeuaoeuaoe123'
+
+
+@freeze_time('2017-12-19 05:51:11')
+@pytest.mark.django_db
+def test_mrsrequestcreateview_convocation_integration(p, caisse, upload):
+    data = form_data(
+        upload=upload,
+        mrsrequest_uuid=p.mrsrequest.id,
+        pmt_pel='convocation',
+        caisse=caisse.pk,
+        region=caisse.regions.first().pk,
+        convocation='12/12/2017',
+    )
+    p.post(**data)
+    assert MRSRequest.objects.get(
+        pk=p.mrsrequest.id
+    ).convocation == date(2017, 12, 12)
 
 
 @pytest.mark.django_db

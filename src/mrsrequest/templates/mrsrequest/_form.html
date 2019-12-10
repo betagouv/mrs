@@ -108,9 +108,9 @@
                     {% part form.caisse options %}
                     <option value>---------</option>
                     {% for caisse in form.caisse.field.queryset %}
-                    <option value='{{ caisse.pk }}' data-regions='{% for r in caisse.regions.all %}{{ r.pk }} {% endfor %}'>{{ caisse }}</option>
+                    <option value="{{ caisse.pk }}" data-regions="{% for r in caisse.regions.all %}{{ r.pk }} {% endfor %}">{{ caisse }}</option>
                     {% endfor %}
-                    <option value='other'>Autre</option>
+                    <option value="other">Autre</option>
                     {% endpart %}
                 {% endform %}
                 <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>

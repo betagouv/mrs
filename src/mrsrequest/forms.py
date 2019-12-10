@@ -85,6 +85,7 @@ class MRSRequestCreateForm(forms.ModelForm):
         choices=(
             ('pmt', 'PMT (Prescription Papier)'),
             ('pel', 'PMET (Prescription Électronique)'),
+            ('convocation', 'Convocation Service Médical'),
         ),
         initial='pmt',
         label='Avez-vous une ...',
@@ -94,6 +95,15 @@ class MRSRequestCreateForm(forms.ModelForm):
     pel = forms.CharField(
         label='Numéro de Prescription Électronique',
         help_text=PEL_HELP,
+        required=False,
+    )
+
+    convocation = DateFieldNative(
+        label=(
+            'Date du rendez-vous avec le médecin'
+            ' conseil de l\'Assurance Maladie'
+        ),
+        help_text='Au format jj/mm/aaaa, par exemple: 31/12/2000',
         required=False,
     )
 
@@ -197,6 +207,9 @@ class MRSRequestCreateForm(forms.ModelForm):
             material.Row(
                 'pel',
             ),
+            material.Row(
+                'convocation',
+            ),
         ),
         modevp=material.Layout(
             'modevp',
@@ -231,6 +244,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             'modevp',
             'modeatp',
             'pel',
+            'convocation',
         ]
         widgets = dict(
             distancevp=forms.TextInput,
@@ -278,6 +292,13 @@ class MRSRequestCreateForm(forms.ModelForm):
         elif pmt_pel == 'pel':
             if not cleaned_data.get('pel'):
                 self.add_error('pel', 'Merci de saisir votre numéro de PMET')
+
+        elif pmt_pel == 'convocation':
+            if not cleaned_data.get('convocation'):
+                self.add_error(
+                    'convocation',
+                    'Merci de saisir votre date de convocation'
+                )
 
     def cleaned_vp_atp(self, cleaned_data):
         vp = cleaned_data.get('modevp')

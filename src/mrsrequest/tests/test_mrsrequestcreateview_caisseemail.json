@@ -7,6 +7,7 @@
         "import_datetime": null,
         "liquidation_email": "taoeu@aoeu.com",
         "name": "test",
+        "nopmt_enable": false,
         "number": "311",
         "parking_enable": true,
         "regions": [
@@ -25,6 +26,7 @@
         "import_datetime": null,
         "liquidation_email": null,
         "name": "test inactive",
+        "nopmt_enable": false,
         "number": "333",
         "parking_enable": true,
         "regions": [],
