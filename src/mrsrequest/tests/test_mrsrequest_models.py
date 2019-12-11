@@ -401,7 +401,7 @@ def test_mrsrequest_anonymize_mrsrequests_older_than_33_months():
         email="ano@nyme.com",
         nir="1803333333333"
     )
-    # Should be anonymized, older than 33 months
+    # Should be anonymized, older than 33 months
     MRSRequest.objects.create(
         creation_datetime=timezone.now() - datetime.timedelta(days=34 * 31),
     )
