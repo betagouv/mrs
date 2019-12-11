@@ -20,7 +20,7 @@ def settings(request):
         INSTANCE=s.INSTANCE,
         PREFIX=s.PREFIX,
         RELEASE=s.RELEASE,
-        SENTRY_DSN=s.SENTRY_PUBLIC_DSN,
+        SENTRY_DSN=s.SENTRY_DSN,
     )
 
 

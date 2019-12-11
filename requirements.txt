@@ -10,7 +10,7 @@ django-jpic-jfu
 django-hattori>=0.2.1
 djcli
 gitpython
-sentry-sdk
+sentry-sdk==0.10.2
 requests
 django-humanize==0.1.2
 crudlfap==0.7.39

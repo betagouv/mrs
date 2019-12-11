@@ -23,8 +23,6 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.transport import HttpTransport
 
-from mrs.context_processors import strip_password
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.abspath(
     os.path.join(
@@ -281,12 +279,9 @@ SENTRY_PUBLIC_CONFIG = dict(
     release=RELEASE,
 )
 
-# Retrait du secret
-SENTRY_PUBLIC_DSN = strip_password(SENTRY_DSN)
-
 # Paramètres Sentry publics pour les erreurs côté Front / Crudlfap
 CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
-    SENTRY_DSN=SENTRY_PUBLIC_DSN,
+    SENTRY_DSN=SENTRY_DSN,
     SENTRY_CONFIG=SENTRY_PUBLIC_CONFIG,
 ))
 
