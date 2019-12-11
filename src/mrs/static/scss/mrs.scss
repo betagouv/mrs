@@ -64,7 +64,7 @@ h3 {
   background-color: $mrs-bleu;
   color: #fff;
 
-  &:hover {
+  &:hover, &:focus {
     background-color: $mrs-bleu-sombre;
     color: #fff;
   }
@@ -75,7 +75,7 @@ h3 {
   color: $mrs-bleu;
   background-color: inherit;
 
-  &:hover {
+  &:hover, &:focus {
     background-color: inherit;
     color: $mrs-bleu-sombre;
   }
@@ -85,7 +85,7 @@ h3 {
   background-color: $mrs-rose;
   color: #fff;
 
-  &:hover {
+  &:hover, &:focus {
     background-color: $mrs-rose-sombre !important;
     color: #fff;
   }
@@ -95,7 +95,7 @@ h3 {
   border: 1px solid $mrs-rose;
   color: $mrs-rose;
 
-  &:hover {
+  &:hover, &:focus {
     color: $mrs-rose-sombre;
   }
 }
@@ -106,7 +106,7 @@ h3 {
   color: $mrs-bleu;
   cursor: pointer;
 
-  &:hover {
+  &:hover, &:focus {
     background-color: #ffffff !important;
     color: $mrs-bleu !important;
   }
@@ -116,7 +116,7 @@ h3 {
   background-color: $mrs-orange;
   color: #3f3f3f;
 
-  &:hover {
+  &:hover, &:focus {
     background-color: $mrs-orange-clair !important;
     color: #3f3f3f;
   }
@@ -480,8 +480,13 @@ h3 {
   }
 }
 
+#temoignage {
+  height: 10em;
+}
+
 @media (min-width: 768px) {
   #temoignages {
+
     .temoignages-images {
       display: flex;
       align-items: center;
@@ -491,6 +496,10 @@ h3 {
     .temoignage {
       padding: 3rem 0;
     }
+  }
+
+  #temoignage {
+    height: 7em;
   }
 }
 

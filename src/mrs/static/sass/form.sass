@@ -19,6 +19,11 @@
 #id_pmt_pel_container .radio
   display: inline-block
 
+#id_pmt_pel
+  margin-right: 20px
+#id_pmt_pel > label > .item-label
+  padding-left: 30px
+
 .select-dropdown li
   list-style-type: none !important
 
@@ -109,6 +114,31 @@ form
       top: 1.5em
       right: 1em
       padding: .5em 1em
+
+#pmt-form
+  position: relative
+  .help-button
+    border-radius: 50%
+    position: absolute
+    top: 5em
+    right: 0
+    padding: .10em 0.6em
+
+    background-color: #005DA8
+    color: #fff
+    font-weight: bold
+
+    @media (min-width: 500px)
+      top: 4em
+
+    @media (min-width: 715px)
+      padding: .5em 1em
+
+    @media (min-width: 890px)
+      top: 0
+      right: 0
+      padding: .5em 1em
+
 select
   opacity: 1 !important
   display: block !important
@@ -197,6 +227,22 @@ label
   &:hover
     background-color: #003763
 
+.file-path-wrapper
+  display: none
+
+  @media (min-width: 576px)
+    display: block
+    visibility: hidden
+
+#id_pmt_container .btn,
+#id_billvps_container .btn,
+#id_billatps_container .btn
+  width: 100%
+  margin-bottom: 8px
+
+  @media (min-width: 576px)
+    width: 20em
+
 #mrsrequest-wizard
   margin-bottom: 3rem
 
@@ -212,7 +258,16 @@ label
   .help-block
     color: #6d6d6d !important
 
+#id_iterative_number_container,
+#id_distancevp_container,
+#id_expenseatp_container
+  margin-top: 2rem
+
 input[data-form-control="date"],
+#id_first_name_container input,
+#id_last_name_container input,
+#id_nir_container input,
+#id_email_container input,
 #id_iterative_number_container input,
 #id_distancevp_container input,
 #id_expensevp_toll_container input,

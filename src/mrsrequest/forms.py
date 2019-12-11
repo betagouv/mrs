@@ -13,17 +13,13 @@ import material
 from django.utils.safestring import mark_safe
 
 from caisse.forms import ActiveCaisseChoiceField, ActiveRegionChoiceField
-from mrs.forms import DateFieldNative
+from mrs.forms import DateFieldNative, CharFieldNative
 from mrsattachment.forms import MRSAttachmentField
 
 from .models import today
 from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
 PMT_HELP = '''
-Merci de joindre le <a href="#" data-toggle="modal" data-target="#modal-pmt">
-<b>volet 2 de la prescription médicale</b>
-ou le <b>volet 3 de la demande d'accord préalable</b></a>
-<br>
 Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -
 <b>4Mo maximum</b> par fichier.
 '''
@@ -34,7 +30,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 <a
     href="#"
     data-toggle="modal" data-target="#modal-pmet"
->Où trouver votre numéro de PMET ?</a>
+><b>Où trouver votre numéro de PMET ?</b></a>
 '''
 
 
@@ -152,6 +148,11 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='',
     )
 
+    distancevp = CharFieldNative(
+        label='Nombre total de kilomètres',
+        help_text='',
+    )
+
     expenseatp = AllowedCommaDecimalField(
         decimal_places=2,
         max_digits=6,
@@ -221,9 +222,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             'modevp',
         ),
         vp_form=material.Layout(
-            material.Row(
-                'distancevp',
-            ),
+            'distancevp',
             material.Row(
                 'expensevp_toll',
                 'expensevp_parking',

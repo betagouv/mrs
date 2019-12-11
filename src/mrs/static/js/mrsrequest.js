@@ -466,24 +466,23 @@ var formInit = function (form) {
 
   var distancevp_help = function() {
     // use 2 by default for the sake of the example
-    var count = parseInt($('#id_iterative_number').val()) || 2
+    var count = parseInt($('#id_iterative_number').val()) || 1
     var single = ! $('[name=trip_kind][value=return]').is(':checked')
 
     if (count == 1) {
-      $('#id_distancevp_container label').html(
-        'Nombre total de kilomètres'
-      )
       if (single) {
         $('#id_distancevp_container .help-block').slideUp()
       } else {
         $('#id_distancevp_container .help-block').slideDown()
+        $('#id_distancevp_container .help-block').html(
+          'Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets '
+          + 'de 40 kilomètres aller/retour : déclarez 80 kilomètres parcourus.'
+        )
+
       }
     } else {
       var exemple = count * 10
       if (single) {
-        $('#id_distancevp_container label').html(
-          'Nombre total de kilomètres'
-        )
         $('#id_distancevp_container .help-block').html(
           `Indiquez le nombre de km parcourus lors de vos ${count} allers simples.<br />`
           + `Par exemple pour 10 km par aller simple, déclarez ${exemple} km parcourus`
@@ -491,12 +490,9 @@ var formInit = function (form) {
         )
         $('#id_distancevp_container .help-block').slideDown()
       } else {
-        $('#id_distancevp_container label').html(
-          'Nombre total de kilomètres'
-        )
         $('#id_distancevp_container .help-block').html(
           `Indiquez le nombre de km parcourus lors de vos ${count} allers retours.<br />`
-          + `Par exemple pour 10 km par aller + retour, déclarez ${exemple} km parcourus`
+          + `Par exemple pour 10 km par trajet aller ou retour, déclarez ${exemple} km parcourus`
           + '<div id="distancevp_preview"></div>'
         )
         $('#id_distancevp_container .help-block').slideDown()
@@ -522,7 +518,7 @@ var formInit = function (form) {
     var single = ! $('[name=trip_kind][value=return]').is(':checked')
     $('#distancevp_preview').html(
       `Votre déclaration correspond à une moyenne de <b>${average}km</b>`
-      + ' par trajet ' + (single ? '(aller simple)' : '(aller retour)')
+      + ' par trajet ' + (single ? '(aller simple)' : '(aller ou retour)')
     )
 
     $('#distancevp_preview').fadeIn()
