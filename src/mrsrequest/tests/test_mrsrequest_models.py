@@ -393,12 +393,26 @@ def test_mrsrequest_remove_attachments_without_mrsrequest():
 
 
 @pytest.mark.django_db
-def test_mrsrequest_delete_mrsrequests_older_than_33_months():
+def test_mrsrequest_anonymize_mrsrequests_older_than_33_months():
+    anon_person, created = Person.objects.get_or_create(
+        first_name="Nyme",
+        last_name="Ano",
+        birth_date=datetime.date(1980, 1, 20),
+        email="ano@nyme.com",
+        nir="1803333333333"
+    )
+    # Should be anonymized, older than 33 months
     MRSRequest.objects.create(
         creation_datetime=timezone.now() - datetime.timedelta(days=34 * 31),
     )
+    # Should NOT be anonymized, older than 33 months
     MRSRequest.objects.create(
         creation_datetime=timezone.now() - datetime.timedelta(days=60),
+    )
+    # Should NOT be anonymized, older than 33 months but is already anonymized
+    MRSRequest.objects.create(
+        creation_datetime=timezone.now() - datetime.timedelta(days=34 * 31),
+        insured=anon_person
     )
 
     assert anonymize_mrsrequests_older_than_33_months() == 1

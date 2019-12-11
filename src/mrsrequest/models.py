@@ -993,14 +993,6 @@ def remove_attachments_without_mrsrequest():
 
 def anonymize_mrsrequests_older_than_33_months():
     print('--- Anonymizing MRSRequest older than 33 months ---')
-    old_requests = MRSRequest.objects.filter(
-        creation_datetime__lt=(
-            datetime.datetime.now() - datetime.timedelta(
-                days=33 * 31
-            )
-        )
-    )
-    old_requests_count = old_requests.count()
     anon_person, created = Person.objects.get_or_create(
         first_name="Nyme",
         last_name="Ano",
@@ -1008,6 +1000,16 @@ def anonymize_mrsrequests_older_than_33_months():
         email="ano@nyme.com",
         nir="1803333333333"
     )
+    old_requests = MRSRequest.objects.filter(
+        creation_datetime__lt=(
+            datetime.datetime.now() - datetime.timedelta(
+                days=33 * 31
+            )
+        )
+    ).exclude(
+        insured=anon_person
+    )
+    old_requests_count = old_requests.count()
     for mrsrequest in old_requests:
         try:
             mrsrequest.data = None
@@ -1015,6 +1017,15 @@ def anonymize_mrsrequests_older_than_33_months():
             mrsrequest.pel = None
             mrsrequest.insured = anon_person
             mrsrequest.save()
+            for pmt in mrsrequest.pmt_set.all():
+                pmt.filename = "1x1.png"
+                pmt.attachment_file = "1x1.png"
+                pmt.save()
+            for bill in mrsrequest.bill_set.all():
+                bill.filename = "1x1.png"
+                bill.attachment_file = "1x1.png"
+                bill.save()
+
         except Exception as e:
             print('Error : {}'.format(e))
             raise
