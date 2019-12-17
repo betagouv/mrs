@@ -178,27 +178,29 @@ var formInit = function (form) {
   // le select natif, selon la région sélectionnée
   function adjustSelectOptions(select_name, region_id, with_regimes_speciaux, with_others){
 
-    // On masque toutes les options qui n'ont pas la région sélectionnées au sein
-    // de l'attribut data-regions
-    hideOptions('[name=' + select_name +'] option:not([data-regions~=' + region_id + '])')
+    if(!isNaN(region_id)){
+      // On masque toutes les options qui n'ont pas la région sélectionnées au sein
+      // de l'attribut data-regions
+      hideOptions('[name=' + select_name +'] option:not([data-regions~=' + region_id + '])')
 
-    // On affiche toutes les options qui ont la région sélectionnée au sein
-    // de l'attribut data-regions
-    showOptions('[name=' + select_name +'] option[data-regions~=' + region_id + ']')
+      // On affiche toutes les options qui ont la région sélectionnée au sein
+      // de l'attribut data-regions
+      showOptions('[name=' + select_name +'] option[data-regions~=' + region_id + ']')
 
-    // Si les régimes spéciaux sont à rajouter, on affiche les options qui ont
-    // la région régimes spéciaux au sein de l'attribut data-regions
-    if(with_regimes_speciaux){
-      showOptions('[name=' + select_name +'] option[data-regions~=' + document.regimesspeciauxId + ']')
+      // Si les régimes spéciaux sont à rajouter, on affiche les options qui ont
+      // la région régimes spéciaux au sein de l'attribut data-regions
+      if(with_regimes_speciaux){
+        showOptions('[name=' + select_name +'] option[data-regions~=' + document.regimesspeciauxId + ']')
+      }
+
+      // Si l'option autres est à afficher, on l'affiche
+      if(with_others){
+        showOptions('[name=' + select_name +'] option[value=other]')
+      }
+
+      // On affiche un item vide par défaut
+      showOptions('[name=' + select_name +'] option[value=""]')
     }
-
-    // Si l'option autres est à afficher, on l'affiche
-    if(with_others){
-      showOptions('[name=' + select_name +'] option[value=other]')
-    }
-
-    // On affiche un item vide par défaut
-    showOptions('[name=' + select_name +'] option[value=""]')
 
   }
 
