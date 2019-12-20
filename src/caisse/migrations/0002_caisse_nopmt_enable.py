@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='caisse',
             name='nopmt_enable',
-            field=models.BooleanField(default=False, verbose_name='active la convocation sans PMT'),
+            field=models.BooleanField(default=True, verbose_name='active la convocation sans PMT'),
         ),
     ]
