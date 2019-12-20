@@ -22,7 +22,7 @@
         <div class="mrs-std-page">
             
 <script id="caissesJson" type="text/json">
-{"1": {"parking_enable": true, "nopmt_enable": false}, "2": {"parking_enable": true, "nopmt_enable": false}, "3": {"parking_enable": true, "nopmt_enable": false}, "4": {"parking_enable": true, "nopmt_enable": false}}
+{"1": {"parking_enable": true, "nopmt_enable": true}, "2": {"parking_enable": true, "nopmt_enable": true}, "3": {"parking_enable": true, "nopmt_enable": true}, "4": {"parking_enable": true, "nopmt_enable": true}}
 </script>
 <script id="regimesspeciauxId" type="text/json">
 {"id": 19}
