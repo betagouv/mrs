@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  django:
+    command: bash -euxc "mkdir -p log spooler; djcli dbcheck; mrs migrate; CI=1 mrs loaddata src/mrs/tests/data.json; mrs runserver --traceback 0:8000"
+    environment:
+    - DEBUG=1
+    volumes:
+    - ./:/app
+    ports:
+    - 8000:8000
+
+  webpack:
+    build: .
+    command: bash -euxc "yarn && yarn start"
+    volumes:
+    - ./:/app
