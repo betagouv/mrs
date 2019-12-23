@@ -14,7 +14,7 @@ ENV MEDIA_ROOT=/media
 ENV ATTACHMENT_ROOT=/mrsattachments
 EXPOSE 8000
 
-RUN apk update && apk --no-cache upgrade && apk --no-cache add ca-certificates gettext shadow python3 py3-pillow py3-psycopg2 dumb-init bash git curl uwsgi-python3 uwsgi-http uwsgi-spooler uwsgi-cache uwsgi-router_cache uwsgi-router_static && pip3 install --upgrade pip
+ UN apk update && apk --no-cache upgrade && apk --no-cache add ca-certificates gettext shadow python3 py3-pillow py3-psycopg2 dumb-init bash git curl uwsgi-python uwsgi-http uwsgi-spooler uwsgi-cache uwsgi-router_cache uwsgi-router_static && pip3 install --upgrade pip
 RUN mkdir -p /app && usermod -d /app -l app node && groupmod -n app node && chown -R app:app /app
 RUN curl -sL https://sentry.io/get-cli/ | bash
 WORKDIR /app
