@@ -45,6 +45,9 @@
         Les logs sont disponnibles sur {{ lookup("env", "DRONE_BUILD_LINK") }}
         {% endif %}
 
+  - name: Mise en échec de la commande de déploiement
+    fail: msg="Le déploiement n'est pas accessible en HTTP"
+
   always:
   - name: Logs du load balancer
     shell: docker logs --since=5m traefik 2>&1 | grep -C1 "{{ test_id }}"
