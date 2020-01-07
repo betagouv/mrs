@@ -43,11 +43,14 @@
                         VOS INFORMATIONS DÉCLARÉES
                     </b>
                 </p>
-                <ul class="mb-5">
+                <ul>
                     {% for transport in view.object.transport_set.all %}
                         <li>- du {{ transport.date_depart }}{% if transport.date_return %} au {{ transport.date_return }}{% endif %}</li>
                     {% endfor %}
                 </ul>
+                <p class="mb-5">
+                    Pour un total de <b>{{ view.object.distancevp }}</b> km parcourus.
+                </p>
 
                 <p class="mb-5">
                     Vous avez la possibilité d'annuler votre demande tant qu'elle n'est pas traitée par nos services.
@@ -67,7 +70,7 @@
                 </div>
             {% endif %}
         {% elif view.success %}
-            <div class="d-flex justify-content-around mb-5">
+            <div id="validation-actions">
                 <a
                     href="{{ base_url }}{{ view.object.get_cancel_url }}"
                     class="btn mrs-bouton mrs-orange-plein"
@@ -77,8 +80,9 @@
                 </a>
 
                 <a
-                    class="btn mrs-bouton mrs-bleu-plein"
+                    class="btn mrs-bouton mrs-rose-plein"
                     data-load-in-form="{{ path_info }}?caisse={{ request.POST.caisse }}"
+                    data-btn-exclude="1"
                 >Nouvelle demande</a>
             </div>
             {% if request.user.is_staff %}
@@ -144,10 +148,10 @@
                     </div>
 
                     <div class="collapse" id="collapseCommencer">
-                        <div id="txtCommencer" style="background-image:url('{% static "img/icones/clip.svg" %}')">
+                        <div id="txtCommencer">
                             <h4 class="mb-4">Pour remplir la demande, vous aurez besoin de :</h4>
                             <ul>
-                                <li>- votre numéro de Sécurité Sociale (sur votre carte Vitale)</li>
+                                <li>- votre numéro de Sécurité sociale (sur votre carte Vitale)</li>
                                 <li>- votre prescription médicale de transport (papier ou électronique)</li>
                                 <li>- vos justificatifs de transport (ticket de péage, de parking, etc...)</li>
                             </ul>
@@ -164,7 +168,7 @@
                                     </div>
                                     <div class="col-md-6 col-xl-2">
                                         <div class="etapeNumero">3</div>
-                                        <div>Information sur la personne transporté</div>
+                                        <div>Information sur la personne transportée</div>
                                     </div>
                                     <div class="col-md-6 col-xl-2">
                                         <div class="etapeNumero">4</div>
@@ -293,9 +297,11 @@
                         {% form form=view.forms.use_email %}
                         {% endform %}
 
-                        <a href="#" data-toggle="modal" data-target="#modal-conditions" class="text-center">
-                          Conditions d'utilisation
-                        </a>
+                        <div class="pb-4">
+                            <a href="#" data-toggle="modal" data-target="#modal-conditions" class="text-center">
+                              Conditions d'utilisation
+                            </a>
+                        </div>
                     </div>
                 {% endif %}
             </div>
@@ -379,35 +385,32 @@
 <div class="modal2" tabindex="-1" role="dialog" id="modal-pmt">
     <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
         <div class="modal2-content">
-            <div class="modal2-header justify-content-center">
-                <h5 class="modal2-title text-center">
+            <div class="modal2-body">
+                <h5 class="modal2-title text-center mrs-bleu mb-4">
                     <b>VOUS AVEZ DES DOCUMENTS PAPIER</b>
                 </h5>
-            </div>
-            <div class="modal2-body">
                 <p>
                     Scannez et joignez le volet 2 de la prescription médicale
                 </p>
-                <img class="img-fluid img-thumbnail" src="{% static 'img/pmet.jpg' %}" />
+                <img class="img-fluid img-thumbnail" src="{% static 'img/pmt_volet_2.png' %}" />
 
-                <div class="mt-4 mb-3">
-                    OU BIEN
+                <div class="mt-4 mb-3 mrs-bleu">
+                    <b>OU BIEN</b>
                 </div>
 
                 <p>
                     Scannez et joignez le volet 3 de la demande d'accord préalable
                 </p>
-                <img class="img-fluid img-thumbnail" src="{% static 'img/pmet.jpg' %}" />
-            </div>
+                <img class="img-fluid img-thumbnail" src="{% static 'img/demande_accord_prealable_volet_3.png' %}" />
 
-            <div class="modal2-footer mb-4"></div>
 
-            <div class="modal2-header justify-content-center">
-                <h5 class="modal2-title text-center">
+                <div class="modal2-separator"></div>
+
+
+                <h5 class="modal2-title text-center mrs-bleu mb-4">
                     <b>VOUS AVEZ UNE PRESCRIPTION ÉLECTRONIQUE</b>
                 </h5>
-            </div>
-            <div class="modal2-body">
+
                 <p>
                     Indiquez le numéro de prescription
                 </p>
@@ -421,7 +424,7 @@
 </div>
 
 <div class="modal2" tabindex="-1" role="dialog" id="modal-pmet">
-    <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-xl modal2-dialog-scrollable" role="document">
         <div class="modal2-content">
             <div class="modal2-header">
                 <h5 class="modal2-title">Où trouver votre numéro de PMET ?</h5>
@@ -442,5 +445,26 @@
     </div>
 </div>
 
-<a href="{% url "faq" %}" target="_blank" id="aide"
-   style="background-image: url('{% static 'img/icones/icon_question.svg' %}')"></a>
+<div class="modal2" tabindex="-1" role="dialog" id="modal-aide">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-xl" role="document">
+        <div class="modal2-content" style="height: 89vh; margin-top: 8vh;">
+            <div class="modal2-body" style="overflow-y: hidden">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <iframe src="/faq?embed=1" frameborder="0"
+                    style="
+                        width: 100%;
+                        height: 100%;
+                    "
+                ></iframe>
+            </div>
+            <div class="modal2-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-toggle="modal" data-target="#modal-aide" id="aide"
+   style="background-image: url('{% static 'img/icones/icon_question.svg' %}')"></div>

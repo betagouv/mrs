@@ -118,8 +118,10 @@ class MRSRequestCreateForm(forms.ModelForm):
         help_text=(
             'Joindre vos justificatifs de péage'
             ' <span data-parking-enable>'
-            ' / stationnement'
-            ' </span>'
+            ' / stationnement.'
+            ' </span><br>'
+            'Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -'
+            '<b>4Mo maximum</b> par fichier.'
         )
     )
 
@@ -131,7 +133,9 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Justificatifs',
         required=False,
         help_text=(
-            'Joindre vos justificatifs de transport en commun'
+            'Joindre vos justificatifs de transport en commun.<br>'
+            'Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -'
+            '<b>4Mo maximum</b> par fichier.'
         )
     )
 

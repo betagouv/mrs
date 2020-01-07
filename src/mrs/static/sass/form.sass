@@ -22,7 +22,7 @@
 #id_pmt_pel
   margin-right: 20px
 #id_pmt_pel > label > .item-label
-  padding-left: 30px
+  padding-left: 25px
 
 .select-dropdown li
   list-style-type: none !important
@@ -191,7 +191,7 @@ input::placeholder,
 
 .demande-section
   background-color: #e7f5f4
-  padding: 20px
+  padding: 20px 20px 0 20px
   margin-bottom: 4rem
 
 [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after
@@ -345,8 +345,26 @@ label[for="id_distancevp"]
   @media (min-width: 576px)
     width: 10rem
 
+#validation-actions
+  margin-bottom: 3rem
+  display: flex
+  flex-direction: column
+
+  @media (min-width: 576px)
+    flex-direction: row
+    justify-content: space-evenly
+
+  > a
+    margin: 0 auto 2rem
+
+    //@media (min-width: 576px)
+    //  width: 100%
+
 #rejet-potentiel
   padding: 7%
 
 #rejet-potentiel-btns
   padding: 7%
+
+#id_modeatp_container
+  margin-bottom: 20px

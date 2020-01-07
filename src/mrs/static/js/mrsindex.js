@@ -72,7 +72,7 @@ $(document).ready(function () {
     return Math.floor(Math.random() * Math.floor(max))
   }
   const temoignages = [
-    'Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière, ' +
+    'J’ai bien reçu le remboursement pour mes frais de transport en voiture particulière, ' +
     'paiement très rapide et simplifié grâce à l’envoi par internet ! Merci ! <br><b>Amelie F.</b>',
     'Service très pratique et simple à utiliser. Le remboursement des frais est très rapide, que demander de plus ?' +
     '<br><b>Aida. D</b>',

@@ -1,50 +1,6 @@
 <div id="app--wrapper">
 
     
-<div class="d-none d-lg-block" id="header-big">
-    <div class="header-bg"></div>
-    <div class="cnam-wrapper">
-        <a class="cnam-logo" href="/">
-            <img alt="Caisse Nationale d'Assurance Maladie" src="/static/img/logos/cnam.png"/>
-        </a>
-    </div>
-
-    <nav class="navbar navbar-expand-lg py-0">
-        <a class="navbar-brand" href="/">
-            <img alt="MRS" class="mrs-logo" src="/static/img/logos/mrs.png"/>
-        </a>
-
-        <div class="d-flex justify-content-end w-100" id="mrs-navbar">
-            <ul class="navbar-nav text-center">
-                
-                    <li class="nav-item">
-                        <a class="btn mrs-bouton mrs-rose-plein" href="/demande">Demander un remboursement</a>
-                    </li>
-                
-                    <li class="nav-item">
-                        <a class="btn mrs-bouton mrs-bleu-plein active" href="/faq">Aide</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </nav>
-</div>
-
-<div class="d-block d-lg-none" id="header-small">
-    <nav class="navbar">
-        <a alt="Accueil" class="navbar-nav" href="/" style="background-image: url('/static/img/icones/home.svg')"></a>
-        <div class="navbar-brand">
-            <a class="cnam-logo" href="/">
-                <img alt="Caisse Nationale d'Assurance Maladie" src="/static/img/logos/cnam.png"/>
-            </a>
-        </div>
-        <a alt="Aide" class="navbar-nav" href="/faq" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
-    </nav>
-    <a class="navbar-brand" href="/">
-            <img alt="MRS" class="mrs-logo" src="/static/img/logos/mrs.png"/>
-        </a>
-</div>
-
 
     
 
@@ -81,7 +37,7 @@
                         <div aria-controls="collapse1" aria-expanded="false" class="card-header" data-target="#collapse1" data-toggle="collapse" id="heading1" role="button">
                             Quels sont les transports pris en charge sur le site ?
                         </div>
-                        <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse1">
+                        <div aria-labelledby="heading1" class="collapse" data-parent="#accordion-aide" id="collapse1">
                             <div class="card-body">
                                 <p>
                                     Lorsque vous pouvez vous déplacer sans assistance particulière, seul ou accompagné
@@ -98,7 +54,7 @@
                         <div aria-controls="collapse2" aria-expanded="false" class="card-header" data-target="#collapse2" data-toggle="collapse" id="heading2" role="button">
                             Quels sont les justificatifs à fournir pour être remboursé ?
                         </div>
-                        <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse2">
+                        <div aria-labelledby="heading2" class="collapse" data-parent="#accordion-aide" id="collapse2">
                             <div class="card-body">
                                 <p>
                                     Pour que votre transport soit pris en charge par l’Assurance Maladie, vous devez
@@ -125,7 +81,7 @@
                         <div aria-controls="collapse3" aria-expanded="false" class="card-header" data-target="#collapse3" data-toggle="collapse" id="heading3" role="button">
                             Est-ce que je dois conserver mes pièces justificatives ?
                         </div>
-                        <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse3">
+                        <div aria-labelledby="heading3" class="collapse" data-parent="#accordion-aide" id="collapse3">
                             <div class="card-body">
                                 <p>
                                     Oui, vous devez conserver vos pièces justificatives (prescription médicale de
@@ -140,7 +96,7 @@
                         <div aria-controls="collapse4" aria-expanded="false" class="card-header" data-target="#collapse4" data-toggle="collapse" id="heading4" role="button">
                             Si ma demande est refusée, que dois-je faire ?
                         </div>
-                        <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse4">
+                        <div aria-labelledby="heading4" class="collapse" data-parent="#accordion-aide" id="collapse4">
                             <div class="card-body">
                                 <p>
                                     Si votre demande est refusée, vous recevrez un email vous informant des raisons du
@@ -157,12 +113,26 @@
                         <div aria-controls="collapse5" aria-expanded="false" class="card-header" data-target="#collapse5" data-toggle="collapse" id="heading5" role="button">
                             Combien de temps après mon transport, puis je demander mon remboursement ?
                         </div>
-                        <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion-aide" id="collapse5">
+                        <div aria-labelledby="heading5" class="collapse" data-parent="#accordion-aide" id="collapse5">
                             <div class="card-body">
                                 <p>
                                     Vous avez un délai de deux ans pour présenter vos demandes de remboursement (article
                                     L332-1 du code de la Sécurité sociale). Au-delà, votre organisme d'Assurance Maladie
                                     a obligation de rejeter votre demande.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div aria-controls="collapse6" aria-expanded="false" class="card-header" data-target="#collapse6" data-toggle="collapse" id="heading6" role="button">
+                            Je me suis trompé dans ma déclaration, comment la modifier ?
+                        </div>
+                        <div aria-labelledby="heading6" class="collapse" data-parent="#accordion-aide" id="collapse6">
+                            <div class="card-body">
+                                <p>
+                                    Vous avez la possibilité d'annuler votre demande si celle-ci n'est pas encore
+                                    traitée par nos services. Vous trouverez dans l'email d'accusé de réception, un
+                                    lien pour annuler votre demande.
                                 </p>
                             </div>
                         </div>
@@ -196,31 +166,5 @@
 
 
     
-<div class="container-fluid" id="footer">
-    <div class="row">
-        <div class="col-12 col-lg-5 footer-images">
-            <a href="https://www.ameli.fr" target="_blank">
-                <img alt="Logo ameli.fr" class="logo" src="/static/img/logos/ameli.png"/>
-            </a>
-            <a href="https://www.oups.gouv.fr/" target="_blank">
-                <img alt="Logo oups.gouv.fr" class="logo" src="/static/img/logos/logo_oups.svg"/>
-            </a>
-        </div>
-        <div class="col-12 col-lg-7 footer-links">
-            <ul class="nav">
-                <li class="nav-item">
-                    <span>© <script>document.write(new Date().getFullYear())</script> - CNAM</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/mentions-legales">Mentions légales</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-
 
 </div>

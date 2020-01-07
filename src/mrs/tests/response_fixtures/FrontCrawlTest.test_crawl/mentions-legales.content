@@ -1,6 +1,7 @@
 <div id="app--wrapper">
 
     
+        
 <div class="d-none d-lg-block" id="header-big">
     <div class="header-bg"></div>
     <div class="cnam-wrapper">
@@ -45,6 +46,7 @@
         </a>
 </div>
 
+    
 
     
     <div class="mrs-std-page--wrapper container-fluid" id="legals--wrapper">
@@ -194,6 +196,7 @@
 
 
     
+        
 <div class="container-fluid" id="footer">
     <div class="row">
         <div class="col-12 col-lg-5 footer-images">
@@ -220,5 +223,6 @@
     </div>
 </div>
 
+    
 
 </div>

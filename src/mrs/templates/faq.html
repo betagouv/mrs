@@ -6,6 +6,11 @@
 {% block description %}Découvrez les réponses à vos questions sur les modalités d’utilisation du service Mes
     Remboursements Simplifiés (MRS) ainsi que les différentes situations de prise en charge.{% endblock %}
 
+{% if request.GET.embed == "1" %}
+    {% block header %}{% endblock %}
+    {% block footer %}{% endblock %}
+{% endif %}
+
 {% block content %}
 
     {#<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/9xgIX-kCsCw" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>#}
@@ -43,7 +48,7 @@
                              aria-expanded="{% if request.GET.collapse1 %}true{% else %}false{% endif %}" aria-controls="collapse1" role="button">
                             Quels sont les transports pris en charge sur le site ?
                         </div>
-                        <div id="collapse1" class="collapse {% if request.GET.collapse1 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse1" class="collapse {% if request.GET.collapse1 %}show{% endif %}" aria-labelledby="heading1" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Lorsque vous pouvez vous déplacer sans assistance particulière, seul ou accompagné
@@ -61,7 +66,7 @@
                              aria-expanded="{% if request.GET.collapse2 %}true{% else %}false{% endif %}" aria-controls="collapse2" role="button">
                             Quels sont les justificatifs à fournir pour être remboursé ?
                         </div>
-                        <div id="collapse2" class="collapse {% if request.GET.collapse2 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse2" class="collapse {% if request.GET.collapse2 %}show{% endif %}" aria-labelledby="heading2" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Pour que votre transport soit pris en charge par l’Assurance Maladie, vous devez
@@ -89,7 +94,7 @@
                              aria-expanded="{% if request.GET.collapse3 %}true{% else %}false{% endif %}" aria-controls="collapse3" role="button">
                             Est-ce que je dois conserver mes pièces justificatives ?
                         </div>
-                        <div id="collapse3" class="collapse {% if request.GET.collapse3 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse3" class="collapse {% if request.GET.collapse3 %}show{% endif %}" aria-labelledby="heading3" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Oui, vous devez conserver vos pièces justificatives (prescription médicale de
@@ -105,7 +110,7 @@
                              aria-expanded="{% if request.GET.collapse4 %}true{% else %}false{% endif %}" aria-controls="collapse4" role="button">
                             Si ma demande est refusée, que dois-je faire ?
                         </div>
-                        <div id="collapse4" class="collapse {% if request.GET.collapse4 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse4" class="collapse {% if request.GET.collapse4 %}show{% endif %}" aria-labelledby="heading4" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Si votre demande est refusée, vous recevrez un email vous informant des raisons du
@@ -123,12 +128,27 @@
                              aria-expanded="{% if request.GET.collapse5 %}true{% else %}false{% endif %}" aria-controls="collapse5" role="button">
                             Combien de temps après mon transport, puis je demander mon remboursement ?
                         </div>
-                        <div id="collapse5" class="collapse {% if request.GET.collapse5 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-aide">
+                        <div id="collapse5" class="collapse {% if request.GET.collapse5 %}show{% endif %}" aria-labelledby="heading5" data-parent="#accordion-aide">
                             <div class="card-body">
                                 <p>
                                     Vous avez un délai de deux ans pour présenter vos demandes de remboursement (article
                                     L332-1 du code de la Sécurité sociale). Au-delà, votre organisme d'Assurance Maladie
                                     a obligation de rejeter votre demande.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="heading6" data-toggle="collapse" data-target="#collapse6"
+                             aria-expanded="{% if request.GET.collapse6 %}true{% else %}false{% endif %}" aria-controls="collapse6" role="button">
+                            Je me suis trompé dans ma déclaration, comment la modifier ?
+                        </div>
+                        <div id="collapse6" class="collapse {% if request.GET.collapse6 %}show{% endif %}" aria-labelledby="heading6" data-parent="#accordion-aide">
+                            <div class="card-body">
+                                <p>
+                                    Vous avez la possibilité d'annuler votre demande si celle-ci n'est pas encore
+                                    traitée par nos services. Vous trouverez dans l'email d'accusé de réception, un
+                                    lien pour annuler votre demande.
                                 </p>
                             </div>
                         </div>

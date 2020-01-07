@@ -61,6 +61,7 @@
 <div id="app--wrapper">
 
     
+        
 <div id="header-big" class="d-none d-lg-block">
     <div class="header-bg"></div>
     <div class="cnam-wrapper">
@@ -107,6 +108,7 @@
         </a>
 </div>
 
+    
 
     
     <div id="hero" style="background-image: url('/static/img/illu_accueil.svg')"></div>
@@ -236,7 +238,7 @@
                         <img src="/static/img/guillemetouvrant.svg">
                     </div>
                     <div class="col-10" id="temoignage">
-                        Bonjour, j’ai bien reçu le remboursement pour mes frais de transport en voiture particulière,
+                        J’ai bien reçu le remboursement pour mes frais de transport en voiture particulière,
                         paiement très rapide et simplifié grâce à l’envoi par internet ! Merci !
                         <br>
                         <b>Amelie F.</b>
@@ -261,6 +263,7 @@
 
 
     
+        
 <div id="footer" class="container-fluid">
     <div class="row">
         <div class="col-12 col-lg-5 footer-images">
@@ -287,6 +290,7 @@
     </div>
 </div>
 
+    
 
 </div>
 

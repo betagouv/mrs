@@ -19,7 +19,7 @@
                         
 
                         <p>
-                            Pour un total de 42 km parcourus.
+                            Pour un total de <b>42</b> km parcourus.
                         </p>
 
                         <p>
@@ -29,7 +29,7 @@
 
                         <form action="" method="POST">
                             {% csrf_token %}
-                            <input class="btn mrs-bouton mrs-bleu-plein" type="submit" value="Oui, annuler"/>
+                            <input class="btn mrs-bouton mrs-orange-plein" type="submit" value="Oui, annuler"/>
                         </form>
                     
                 </div>

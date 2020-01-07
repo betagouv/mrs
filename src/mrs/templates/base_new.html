@@ -41,12 +41,16 @@
 
 <div id="app--wrapper">
 
-    {% include 'header_new_include.html' %}
+    {% block header %}
+        {% include 'header_new_include.html' %}
+    {% endblock %}
 
     {% block content %}
     {% endblock %}
 
-    {% include 'footer_new_include.html' %}
+    {% block footer %}
+        {% include 'footer_new_include.html' %}
+    {% endblock %}
 
 </div>
 

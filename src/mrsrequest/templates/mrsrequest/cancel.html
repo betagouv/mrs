@@ -27,7 +27,7 @@
                         {% endfor %}
 
                         <p>
-                            Pour un total de {{ view.object.distancevp }} km parcourus.
+                            Pour un total de <b>{{ view.object.distancevp }}</b> km parcourus.
                         </p>
 
                         <p>
@@ -37,7 +37,7 @@
 
                         <form method="POST" action="">
                             {% csrf_token %}
-                            <input type="submit" class="btn mrs-bouton mrs-bleu-plein" value="Oui, annuler"/>
+                            <input type="submit" class="btn mrs-bouton mrs-orange-plein" value="Oui, annuler"/>
                         </form>
                     {% elif view.object.status == view.object.STATUS_INPROGRESS %}
                         <p>Nous ne pouvons pas annuler cette demande car elle est déjà en cours de traitement.</p>

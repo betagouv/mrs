@@ -83,11 +83,11 @@ h3 {
 
 .mrs-rose-plein {
   background-color: $mrs-rose;
-  color: #fff;
+  color: #fff !important;
 
   &:hover, &:focus {
     background-color: $mrs-rose-sombre !important;
-    color: #fff;
+    color: #fff !important;
   }
 }
 
@@ -481,7 +481,19 @@ h3 {
 }
 
 #temoignage {
-  height: 10em;
+  height: 14em;
+}
+
+@media (min-width: 320px) {
+  #temoignage {
+    height: 12em;
+  }
+}
+
+@media (min-width: 430px) {
+  #temoignage {
+    height: 10em;
+  }
 }
 
 @media (min-width: 768px) {
@@ -499,7 +511,7 @@ h3 {
   }
 
   #temoignage {
-    height: 7em;
+    height: 8em;
   }
 }
 
@@ -684,7 +696,6 @@ h3 {
   background-color: #1CB0BA;
   color: #ffffff;
   border-radius: 4px;
-  font-weight: bold;
   padding: 2rem;
 }
 
@@ -695,8 +706,13 @@ h3 {
   justify-content: center;
   margin-bottom: 2rem;
 
+  h4 {
+    font-weight: bold;
+  }
+
   ul {
     margin-bottom: 0 !important;
+    margin-left: 2rem;
   }
 }
 
@@ -705,8 +721,15 @@ h3 {
     background-repeat: no-repeat;
     background-position: 1rem center;
     background-size: 4rem;
-    padding-left: 6rem;
     min-height: 8rem;
+
+    h4 {
+      margin-left: 2rem;
+    }
+
+    ul {
+      margin-left: 4rem;
+    }
   }
 }
 
@@ -752,6 +775,7 @@ h3 {
   background-position: 68% 68%;
   background-color: #005DA8;
   background-size: 1.5em;
+  cursor: pointer;
 }
 
 
@@ -982,4 +1006,10 @@ h3 {
   .modal2-xl {
     max-width: 1140px;
   }
+}
+
+.modal2-separator {
+  width: 80%;
+  border: 2px solid $mrs-bleu;
+  margin: 3rem auto;
 }
