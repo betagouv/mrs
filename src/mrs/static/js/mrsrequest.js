@@ -309,7 +309,7 @@ var formInit = function (form) {
       if (document.caisses[$caisse.val()].nopmt_enable) {
         $convocation.show()
       } else {
-        $convocation.hide();
+        $convocation.hide()
         var $prescription = $('[name=pmt_pel]:checked')
         if ($prescription.val() == 'convocation') {
           $('[name=pmt_pel][value=pmt]').prop('checked', true)
