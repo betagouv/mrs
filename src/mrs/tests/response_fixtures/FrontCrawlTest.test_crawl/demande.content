@@ -80,31 +80,31 @@
                     </div>
 
                     <div class="collapse" id="collapseCommencer">
-                        <div id="txtCommencer" style="background-image:url('/static/img/icones/clip.svg')">
-                            <h4>Pour remplir la demande, vous aurez besoin de :</h4>
+                        <div id="txtCommencer">
+                            <h4 class="mb-4">Pour remplir la demande, vous aurez besoin de :</h4>
                             <ul>
-                                <li>- votre carte vitale</li>
-                                <li>- votre prescription médicale de transport papier ou électronique</li>
-                                <li>- vos justificatifs de frais de déplacement (ticket de parking, de péage, ...)</li>
+                                <li>- votre numéro de Sécurité sociale (sur votre carte Vitale)</li>
+                                <li>- votre prescription médicale de transport (papier ou électronique)</li>
+                                <li>- vos justificatifs de transport (ticket de péage, de parking, etc...)</li>
                             </ul>
                             <h4 class="mt-4">Les étapes de votre demande :</h4>
                             <div class="container">
                                 <div class="row" id="etapesCommencer">
                                     <div class="col-md-6 col-xl-2 offset-xl-1">
                                         <div class="etapeNumero">1</div>
-                                        <div>Votre caisse d'assurance maladie</div>
+                                        <div>Choix de la CPAM</div>
                                     </div>
                                     <div class="col-md-6 col-xl-2">
                                         <div class="etapeNumero">2</div>
-                                        <div>Prescription médicale pour un transport</div>
+                                        <div>Téléchargement de la prescription médicale de transport</div>
                                     </div>
                                     <div class="col-md-6 col-xl-2">
                                         <div class="etapeNumero">3</div>
-                                        <div>Identité de la personne transportée</div>
+                                        <div>Information sur la personne transportée</div>
                                     </div>
                                     <div class="col-md-6 col-xl-2">
                                         <div class="etapeNumero">4</div>
-                                        <div>Transport effectué</div>
+                                        <div>Information sur le transport effectué</div>
                                     </div>
                                     <div class="col-12 col-xl-2">
                                         <div class="etapeNumero">5</div>
@@ -123,7 +123,7 @@
                 </div>
 
                 <h3 class="demande-section-header" id="cam">
-                    <span class="numero">1</span> Caisse d'assurance maladie
+                    <span class="numero">1</span> Caisse primaire d'assurance maladie
                 </h3>
 
                 <div class="demande-section">
@@ -184,7 +184,7 @@
 
                     <div class="demande-section">
                         <div id="pmt-form">
-                            <div class="section row">
+                                <div class="section row">
     <div class="col s12">
         <h5>Quel type de prescription médicale avez-vous reçue pour ce transport ?</h5>
         
@@ -226,10 +226,6 @@
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Prescription Médicale de Transport obligatoire"/>
         </div>
         <div class="help-block">
-Merci de joindre le <a data-target="#modal-pmt" data-toggle="modal" href="#">
-<b>volet 2 de la prescription médicale</b>
-ou le <b>volet 3 de la demande d'accord préalable</b></a>
-<br/>
 Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -
 <b>4Mo maximum</b> par fichier.
 </div>
@@ -252,7 +248,7 @@ Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -
         <div class="help-block">
 Le numéro de votre Prescription Médicale Electronique de Transport (PMET) est
 indiqué sur l'exemplaire patient remis par votre médecin.
-<a data-target="#modal-pmet" data-toggle="modal" href="#">Où trouver votre numéro de PMET ?</a>
+<a data-target="#modal-pmet" data-toggle="modal" href="#"><b>Où trouver votre numéro de PMET ?</b></a>
 </div>
     </div>
 </div>
@@ -272,22 +268,23 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 </div></div>
 
+                            <div class="help-button btn" data-target="#modal-pmt" data-toggle="modal">?</div>
                         </div>
                     </div>
 
-                    <h3 class="demande-section-header"><span class="numero">3</span> Identité</h3>
+                    <h3 class="demande-section-header"><span class="numero">3</span> Identité de la personne transportée</h3>
 
                     <div class="demande-section">
                         
 <div class="section row">
     <div class="col s12">
-        <h5>Identité de la personne transportée</h5>
+        <h5></h5>
         
 <div class="layout-row row"><div class="col s12 m6">
 
 <div class="row">
     <div class="input-field col s12 required" id="id_first_name_container">
-        <input id="id_first_name" maxlength="70" name="first_name" type="text"/>
+        <input id="id_first_name" maxlength="70" name="first_name" placeholder="" type="text"/>
         <label for="id_first_name">Prénom</label>
         
     </div>
@@ -296,7 +293,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 
 <div class="row">
     <div class="input-field col s12 required" id="id_last_name_container">
-        <input id="id_last_name" maxlength="70" name="last_name" type="text"/>
+        <input id="id_last_name" maxlength="70" name="last_name" placeholder="" type="text"/>
         <label for="id_last_name">Nom de famille</label>
         
     </div>
@@ -304,39 +301,30 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div></div>
 
 
+<div class="row">
+    <div class="input-field col s12 required" id="id_nir_container">
+        <input id="id_nir" maxlength="13" name="nir" placeholder="" type="text"/>
+        <label for="id_nir">Numéro de Sécurité sociale</label>
+        <div class="help-block"><b>Si le patient transporté est mineur, indiquer le numéro de Sécurité sociale de son parent</b></div>
+    </div>
+</div>
+
+
 
 <div class="row">
     <div class="input-field col s12 required" id="id_birth_date_container">
-        <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" type="text"/>
+        <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" placeholder="jj/mm/aaaa" type="text"/>
         <label for="id_birth_date">Date de naissance</label>
-        <div class="help-block">Au format jj/mm/aaaa, exemple: 31/12/2000</div>
-    </div>
-</div>
-
-    </div>
-</div>
-
-
-    
-<div class="section row">
-    <div class="col s12">
-        <h5>Identité de l'assuré</h5>
-        
-<div class="layout-row row"><div class="col s12 m6">
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_nir_container">
-        <input id="id_nir" maxlength="13" name="nir" type="text"/>
-        <label for="id_nir">Numéro de sécurité sociale</label>
         
     </div>
 </div>
-</div><div class="col s12 m6">
+
+<div class="layout-row row"><div class="col s12 m12">
 
 <div class="row">
     <div class="input-field col s12 required" id="id_email_container">
-        <input id="id_email" maxlength="254" name="email" type="email"/>
-        <label for="id_email">Email</label>
+        <input id="id_email" maxlength="254" name="email" placeholder="" type="text"/>
+        <label for="id_email">Adresse email</label>
         
     </div>
 </div>
@@ -453,16 +441,13 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 
                         <div id="vp-form" style="display: none">
-                              <div class="layout-row row"><div class="col s12 m12">
-
-<div class="row">
-    <div class="input-field col s12" id="id_distancevp_container">
-        <input id="id_distancevp" name="distancevp" type="text"/>
-        <label for="id_distancevp">Distance (km)</label>
-        <div class="help-block">Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets de 40 kilomètres aller/retour, déclarez 80 kilomètres parcourus.</div>
+                              <div class="row">
+    <div class="input-field col s12 required" id="id_distancevp_container">
+        <input id="id_distancevp" name="distancevp" placeholder="" type="text"/>
+        <label for="id_distancevp">Nombre total de kilomètres</label>
+        <div class="help-block"> </div>
     </div>
 </div>
-</div></div>
 
 
     
@@ -499,7 +484,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
         <div class="file-path-wrapper">
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/billvp/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
         </div>
-        <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement </span></div>
+        <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement. </span><br/>Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -<b>4Mo maximum</b> par fichier.</div>
 
         <ul class="files">
             
@@ -541,7 +526,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
         <div class="file-path-wrapper">
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/billatp/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
         </div>
-        <div class="help-block">Joindre vos justificatifs de transport en commun</div>
+        <div class="help-block">Joindre vos justificatifs de transport en commun.<br/>Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -<b>4Mo maximum</b> par fichier.</div>
 
         <ul class="files">
             
@@ -573,9 +558,11 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 
 
 
-                        <a class="text-center" data-target="#modal-conditions" data-toggle="modal" href="#">
-                          Conditions d'utilisation
-                        </a>
+                        <div class="pb-4">
+                            <a class="text-center" data-target="#modal-conditions" data-toggle="modal" href="#">
+                              Conditions d'utilisation
+                            </a>
+                        </div>
                     </div>
                 
             </div>
@@ -672,24 +659,34 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 <div class="modal2" id="modal-pmt" role="dialog" tabindex="-1">
     <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
         <div class="modal2-content">
-            <div class="modal2-header">
-                <h5 class="modal2-title">Vous avez une prescription papier</h5>
-                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
             <div class="modal2-body">
+                <h5 class="modal2-title text-center mrs-bleu mb-4">
+                    <b>VOUS AVEZ DES DOCUMENTS PAPIER</b>
+                </h5>
                 <p>
-                    Scanner et joignez le volet 2 de la prescription médicale
+                    Scannez et joignez le volet 2 de la prescription médicale
                 </p>
-                <img class="img-fluid" src="/static/img/pmet.jpg"/>
+                <img class="img-fluid img-thumbnail" src="/static/img/pmt_volet_2.png"/>
 
-                <h2 class="mt-5 mb-5">
-                    OU
-                </h2>
+                <div class="mt-4 mb-3 mrs-bleu">
+                    <b>OU BIEN</b>
+                </div>
 
                 <p>
-                    Scanner et joignez le volet 3 de la demande d'accord préalable
+                    Scannez et joignez le volet 3 de la demande d'accord préalable
+                </p>
+                <img class="img-fluid img-thumbnail" src="/static/img/demande_accord_prealable_volet_3.png"/>
+
+
+                <div class="modal2-separator"></div>
+
+
+                <h5 class="modal2-title text-center mrs-bleu mb-4">
+                    <b>VOUS AVEZ UNE PRESCRIPTION ÉLECTRONIQUE</b>
+                </h5>
+
+                <p>
+                    Indiquez le numéro de prescription
                 </p>
                 <img class="img-fluid" src="/static/img/pmet.jpg"/>
             </div>
@@ -701,7 +698,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 
 <div class="modal2" id="modal-pmet" role="dialog" tabindex="-1">
-    <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-xl modal2-dialog-scrollable" role="document">
         <div class="modal2-content">
             <div class="modal2-header">
                 <h5 class="modal2-title">Où trouver votre numéro de PMET ?</h5>
@@ -713,7 +710,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
                 <p>
                     Votre numéro de PMET se trouve dans la partie supérieure du document.
                 </p>
-                <img class="img-fluid" src="/static/img/pmet.jpg"/>
+                <img class="img-fluid img-thumbnail" src="/static/img/pmet.jpg"/>
             </div>
             <div class="modal2-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" type="button">Fermer</button>
@@ -722,7 +719,26 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
-<a href="/faq" id="aide" style="background-image: url('/static/img/icones/icon_question.svg')" target="_blank"></a>
+<div class="modal2" id="modal-aide" role="dialog" tabindex="-1">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-xl" role="document">
+        <div class="modal2-content" style="height: 89vh; margin-top: 8vh;">
+            <div class="modal2-body" style="overflow-y: hidden">
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <iframe frameborder="0" src="/faq?embed=1" style="
+                        width: 100%;
+                        height: 100%;
+                    "></iframe>
+            </div>
+            <div class="modal2-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-target="#modal-aide" data-toggle="modal" id="aide" style="background-image: url('/static/img/icones/icon_question.svg')"></div>
 
             
         
