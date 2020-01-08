@@ -1,6 +1,7 @@
 <div id="app--wrapper">
-        
+
     
+        
 <div class="d-none d-lg-block" id="header-big">
     <div class="header-bg"></div>
     <div class="cnam-wrapper">
@@ -45,122 +46,39 @@
         </a>
 </div>
 
+    
 
-    <div class="mrs-std-page--wrapper">
+    
+    <div class="mrs-std-page--wrapper container-fluid" id="legals--wrapper">
+        <h1 class="text-center">Contact</h1>
 
-        <div class="mrs-std-page contact-wrapper">
-            <div> Nous ne pouvons traiter votre dossier de remboursement
-                sur cet espace contact.
+        <div class="row justify-content-center mt-4">
+            <div class="col-12 col-lg-8 mt-4">
+                <p>
+                    Pensez à consulter régulièrement votre messagerie email personnelle pour connaitre l’état de votre
+                    demande de remboursement ainsi que votre compte ameli (rubrique « Mes paiements ») pour vérifier
+                    vos remboursements.
+                </p>
+
+                <p class="mt-4">
+                    Si vous ne trouvez pas votre réponse dans notre rubrique « <a href="/faq">Aide</a> », vous pouvez
+                    contacter votre caisse :
+                </p>
+
+                <ul>
+                    <li>Par mail : connectez-vous sur <a href="https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?_somtc=true" target="_blank"> votre compte ameli</a>, rubrique « Ma messagerie ».
+                    </li>
+                    <li>Par téléphone : appelez un conseiller de l'Assurance Maladie au 36 46*, à votre écoute du lundi au
+                        vendredi.<br/>*service 0,06 €/min + prix appel
+                    </li>
+                </ul>
             </div>
-            <div>Pour toutes réclamations sur votre demande de remboursement, veuillez nous contacter</div>
-            <ul>
-                <li>par mail : connectez-vous sur <a href="https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?_somtc=true" target="_blank"> votre compte ameli</a>, rubrique « Ma messagerie ».
-                </li>
-                <li>par téléphone : appelez un conseiller de l'Assurance Maladie au 36 46*, à votre écoute du lundi au
-                    vendredi. (*service 0,06 €/min + prix appel)
-                </li>
-            </ul>
-
-            
-<form action="/contact" class="contact" id="contact" method="POST" style="display: none">
-    
-        <div>Pour toutes autres questions, utilisez le formulaire de contact ci-dessous.</div>
-
-        
-<div class="section row">
-    <div class="col s12">
-        <h5> </h5>
-        
-<div class="layout-row row"><div class="col s12 m6">
-<div class="row">
-    <div class="select-field col s12 required" id="id_motif_container">
-        <label for="id_motif">Motif</label>
-        <select id="id_motif" name="motif">
-            <option value="">---------</option>
-            <option value="request_error">J'ai fait une erreur de saisie dans mon dossier</option>
-            <option value="request_question">J'ai une question sur mon dossier</option>
-            <option value="website_question">J'ai une idée d'amélioration pour votre site</option>
-            <option value="other">Autre sujet</option>
-        </select>
-        
-    </div>
-</div>
-</div><div class="col s12 m6">
-<div class="row">
-    <div class="select-field col s12 required" id="id_caisse_container">
-        <label for="id_caisse">Votre caisse de rattachement</label>
-        <select id="id_caisse" name="caisse">
-            <option value="">---------</option>
-            <option value="1">aaaaaaa</option>
-            <option value="2">bbbb</option>
-        </select>
-        
-    </div>
-</div>
-</div></div>
-
-
-<div class="row">
-    <div class="input-field col s12" id="id_mrsrequest_display_id_container">
-        <input id="id_mrsrequest_display_id" maxlength="12" name="mrsrequest_display_id" type="text"/>
-        <label for="id_mrsrequest_display_id">Numéro de demande (optionnel)</label>
-        
-    </div>
-</div>
-
-<div class="layout-row row"><div class="col s12 m6">
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_nom_container">
-        <input id="id_nom" maxlength="70" name="nom" type="text"/>
-        <label for="id_nom">Nom</label>
-        
-    </div>
-</div>
-</div><div class="col s12 m6">
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_email_container">
-        <input id="id_email" name="email" type="email"/>
-        <label for="id_email">Email</label>
-        
-    </div>
-</div>
-</div></div>
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_message_container">
-        <textarea class="materialize-textarea" cols="40" id="id_message" maxlength="3000" name="message" rows="10"></textarea>
-        <label for="id_message">Message</label>
-        
-    </div>
-</div>
-
-<div class="row captcha">
-
-<div class="input-field id_captcha_container required has-error" style="margin-left: 1rem">
-
-
-  <label for="id_captcha_1">Recopier le texte l'image</label>
-      
-      <span class="helper-text">
-          Merci de recopier le texte de l'image pour prouver que vous n'êtes pas un robot à spam.
-      </span>
-    </div> 
-</div>
-
-    </div>
-</div>
-
-        <br/>
-        <button class="btn mrs-bouton mrs-bleu-plein mb-5" name="_submit" type="submit">Envoyer</button>
-    
-</form>
-
         </div>
     </div>
 
+
     
+        
 <div class="container-fluid" id="footer">
     <div class="row">
         <div class="col-12 col-lg-5 footer-images">
@@ -187,5 +105,6 @@
     </div>
 </div>
 
+    
 
-    </div>
+</div>

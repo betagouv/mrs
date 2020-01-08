@@ -1,11 +1,56 @@
 <div id="app--wrapper">
 
     
+    
+        
+<div class="d-none d-lg-block" id="header-big">
+    <div class="header-bg"></div>
+    <div class="cnam-wrapper">
+        <a class="cnam-logo" href="/">
+            <img alt="Caisse Nationale d'Assurance Maladie" src="/static/img/logos/cnam.png"/>
+        </a>
+    </div>
+
+    <nav class="navbar navbar-expand-lg py-0">
+        <a class="navbar-brand" href="/">
+            <img alt="MRS" class="mrs-logo" src="/static/img/logos/mrs.png"/>
+        </a>
+
+        <div class="d-flex justify-content-end w-100" id="mrs-navbar">
+            <ul class="navbar-nav text-center">
+                
+                    <li class="nav-item">
+                        <a class="btn mrs-bouton mrs-rose-plein" href="/demande">Demander un remboursement</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="btn mrs-bouton mrs-bleu-plein active" href="/faq">Aide</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="d-block d-lg-none" id="header-small">
+    <nav class="navbar">
+        <a alt="Accueil" class="navbar-nav" href="/" style="background-image: url('/static/img/icones/home.svg')"></a>
+        <div class="navbar-brand">
+            <a class="cnam-logo" href="/">
+                <img alt="Caisse Nationale d'Assurance Maladie" src="/static/img/logos/cnam.png"/>
+            </a>
+        </div>
+        <a alt="Aide" class="navbar-nav" href="/faq" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
+    </nav>
+    <a class="navbar-brand" href="/">
+            <img alt="MRS" class="mrs-logo" src="/static/img/logos/mrs.png"/>
+        </a>
+</div>
 
     
 
-    
 
+    
     <style>
         #accordion-aide .card-header {
             background-image: url("/static/img/icones/icon_add.svg");
@@ -166,5 +211,35 @@
 
 
     
+    
+        
+<div class="container-fluid" id="footer">
+    <div class="row">
+        <div class="col-12 col-lg-5 footer-images">
+            <a href="https://www.ameli.fr" target="_blank">
+                <img alt="Logo ameli.fr" class="logo" src="/static/img/logos/ameli.png"/>
+            </a>
+            <a href="https://www.oups.gouv.fr/" target="_blank">
+                <img alt="Logo oups.gouv.fr" class="logo" src="/static/img/logos/logo_oups.svg"/>
+            </a>
+        </div>
+        <div class="col-12 col-lg-7 footer-links">
+            <ul class="nav">
+                <li class="nav-item">
+                    <span>© <script>document.write(new Date().getFullYear())</script> - CNAM</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/mentions-legales">Mentions légales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+
 
 </div>

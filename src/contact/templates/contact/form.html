@@ -1,76 +1,35 @@
-{% extends 'base.html' %}
-{% load render_bundle from webpack_loader %}
+{% extends 'base_new.html' %}
 
-{% block title %}Contactez MRS{% endblock %}
-{% block description %}Vous souhaitez contacter Mes Remboursements Simplifiés (MRS) ? Vous pouvez poser une question sur le service MRS ou nous faire part de vos remarques à travers le formulaire de contact.{% endblock %}
-
-{% block extra_head %}
-    {{ block.super }}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
-    {% render_bundle 'mrsbootstrap' 'css' %}
-    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Faustina"
-          rel="stylesheet"/>
-
-    <style>
-        html {
-            font-size: inherit;
-        }
-
-        .row {
-            display: block;
-        }
-
-        nav {
-            background-color: inherit;
-            height: inherit;
-            width: inherit;
-            line-height: inherit;
-            box-shadow: inherit;
-        }
-
-        nav ul a.btn {
-            margin: 0;
-        }
-
-        .btn {
-            height: inherit;
-            letter-spacing: inherit;
-            outline: inherit;
-            margin: 0;
-        }
-
-        #footer .row {
-            display: flex;
-            margin-bottom: 0;
-        }
-    </style>
-{% endblock %}
+{% block title %}Contact{% endblock %}
+{% block description %}{% endblock %}
 
 {% block content %}
-    {% include 'header_new_include.html' %}
+    <div class="mrs-std-page--wrapper container-fluid" id="legals--wrapper">
+        <h1 class="text-center">Contact</h1>
 
-    <div class="mrs-std-page--wrapper">
+        <div class="row justify-content-center mt-4">
+            <div class="col-12 col-lg-8 mt-4">
+                <p>
+                    Pensez à consulter régulièrement votre messagerie email personnelle pour connaitre l’état de votre
+                    demande de remboursement ainsi que votre compte ameli (rubrique « Mes paiements ») pour vérifier
+                    vos remboursements.
+                </p>
 
-        <div class="mrs-std-page contact-wrapper">
-            <div> Nous ne pouvons traiter votre dossier de remboursement
-                sur cet espace contact.
+                <p class="mt-4">
+                    Si vous ne trouvez pas votre réponse dans notre rubrique « <a href="{% url "faq" %}">Aide</a> », vous pouvez
+                    contacter votre caisse :
+                </p>
+
+                <ul>
+                    <li>Par mail : connectez-vous sur <a
+                            href="https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?_somtc=true"
+                            target="_blank"> votre compte ameli</a>, rubrique « Ma messagerie ».
+                    </li>
+                    <li>Par téléphone : appelez un conseiller de l'Assurance Maladie au 36 46*, à votre écoute du lundi au
+                        vendredi.<br>*service 0,06 €/min + prix appel
+                    </li>
+                </ul>
             </div>
-            <div>Pour toutes réclamations sur votre demande de remboursement, veuillez nous contacter</div>
-            <ul>
-                <li>par mail : connectez-vous sur <a
-                        href="https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?_somtc=true"
-                        target="_blank"> votre compte ameli</a>, rubrique « Ma messagerie ».
-                </li>
-                <li>par téléphone : appelez un conseiller de l'Assurance Maladie au 36 46*, à votre écoute du lundi au
-                    vendredi. (*service 0,06 €/min + prix appel)
-                </li>
-            </ul>
-
-            {% include 'contact/_form.html' %}
         </div>
     </div>
-
-    {% include 'footer_new_include.html' %}
 {% endblock %}
