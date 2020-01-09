@@ -30,8 +30,7 @@ handler500 = 'mrs.views.internal_server_error_view'
 
 urlpatterns = [
     crudlfap.site.get_urlpattern(),
-    path('', MRSRequestCreateView.as_view(
-        template_name='index.html'), name='index'),
+    path('', views.IndexView.as_view(), name='index'),
     # TBD : move the following static files to nginx or traefik
     path('favicon.ico', views.StaticView.as_view(
         path='img/favicon.ico',
@@ -81,7 +80,6 @@ urlpatterns = [
     path('institution/', include('institution.urls', namespace='institution')),
     path('oldadmin/', admin.site.urls),
     path('doc/', include('django.contrib.admindocs.urls')),
-    path('pro/', include('pro.urls', namespace='pro')),
     path('maintenance/', MaintenanceView.as_view(), name='maintenance'),
 ]
 

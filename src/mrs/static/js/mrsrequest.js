@@ -110,9 +110,11 @@ var formInit = function (form) {
     hideRequestShowCaisseVoteForm(form, true)
     Cookie.set('caisse', '')
 
-  } else{
+  } else {
 
     Cookie.set('caisse', '')
+    $('#btnCommencer').hide()
+    $('#collapseCommencer').show()
 
   }
 
@@ -123,7 +125,7 @@ var formInit = function (form) {
 
     $caisse.val(caisseSelected)
     if($region.val()){
-      adjustSelectOptions('caisse', $region.val(),  false, true)
+      adjustSelectOptions('caisse', $region.val(), false, true)
     }
 
   } else if (caisseSelected=='other'){
@@ -180,21 +182,21 @@ var formInit = function (form) {
 
     // On masque toutes les options qui n'ont pas la région sélectionnées au sein
     // de l'attribut data-regions
-    hideOptions('[name=' + select_name +'] option:not([data-regions~=' + region_id + '])')
+    hideOptions('[name=' + select_name +'] option:not([data-regions~="' + region_id + '"])')
 
     // On affiche toutes les options qui ont la région sélectionnée au sein
     // de l'attribut data-regions
-    showOptions('[name=' + select_name +'] option[data-regions~=' + region_id + ']')
+    showOptions('[name=' + select_name +'] option[data-regions~="' + region_id + '"]')
 
     // Si les régimes spéciaux sont à rajouter, on affiche les options qui ont
     // la région régimes spéciaux au sein de l'attribut data-regions
     if(with_regimes_speciaux){
-      showOptions('[name=' + select_name +'] option[data-regions~=' + document.regimesspeciauxId + ']')
+      showOptions('[name=' + select_name +'] option[data-regions~="' + document.regimesspeciauxId + '"]')
     }
 
     // Si l'option autres est à afficher, on l'affiche
     if(with_others){
-      showOptions('[name=' + select_name +'] option[value=other]')
+      showOptions('[name=' + select_name +'] option[value="other"]')
     }
 
     // On affiche un item vide par défaut
@@ -292,11 +294,8 @@ var formInit = function (form) {
 
       showRequestHideCaisseVoteForm(form, false)
 
-      var $header = $('.Header--wrapper')
-      var headerHeight = $header.length ? $header.outerHeight() : 60
       $('html, body').animate({
-        // Compensate for heading to show
-        scrollTop: $('#pmt-form').offset().top - headerHeight + 'px'
+        scrollTop: $('#mrsrequest-form').offset().top - 5
       }, 'fast')
       if (document.caisses[$caisse.val()].parking_enable) {
         $parking.parents('.col').show('slide')
@@ -310,7 +309,7 @@ var formInit = function (form) {
       if (document.caisses[$caisse.val()].nopmt_enable) {
         $convocation.show()
       } else {
-        $convocation.hide();
+        $convocation.hide()
         var $prescription = $('[name=pmt_pel]:checked')
         if ($prescription.val() == 'convocation') {
           $('[name=pmt_pel][value=pmt]').prop('checked', true)
@@ -467,38 +466,33 @@ var formInit = function (form) {
 
   var distancevp_help = function() {
     // use 2 by default for the sake of the example
-    var count = parseInt($('#id_iterative_number').val()) || 2
+    var count = parseInt($('#id_iterative_number').val()) || 1
     var single = ! $('[name=trip_kind][value=return]').is(':checked')
 
     if (count == 1) {
       if (single) {
-        $('#id_distancevp_container label').html(
-          'Indiquez le nombre de km parcourus lors de votre aller simple'
-        )
         $('#id_distancevp_container .help-block').slideUp()
       } else {
-        $('#id_distancevp_container label').html(
-          'Indiquez le nombre de km parcourus lors de votre aller + retour'
-        )
         $('#id_distancevp_container .help-block').slideDown()
+        $('#id_distancevp_container .help-block').html(
+          'Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets '
+          + 'de 40 kilomètres aller/retour : déclarez 80 kilomètres parcourus.'
+        )
+
       }
     } else {
       var exemple = count * 10
       if (single) {
-        $('#id_distancevp_container label').html(
-          `Indiquez le nombre de km parcourus lors de vos ${count} allers simples.<br />`
-        )
         $('#id_distancevp_container .help-block').html(
-          `Par exemple pour 10 km par aller simple, déclarez ${exemple} km parcourus`
+          `Indiquez le nombre de km parcourus lors de vos ${count} allers simples.<br />`
+          + `Par exemple pour 10 km par aller simple, déclarez ${exemple} km parcourus`
           + '<div id="distancevp_preview"></div>'
         )
         $('#id_distancevp_container .help-block').slideDown()
       } else {
-        $('#id_distancevp_container label').html(
-          `Indiquez le nombre de km parcourus lors de vos ${count} allers retours.<br />`
-        )
         $('#id_distancevp_container .help-block').html(
-          `Par exemple pour 10 km par aller + retour, déclarez ${exemple} km parcourus`
+          `Indiquez le nombre de km parcourus lors de vos ${count} allers retours.<br />`
+          + `Par exemple pour 10 km par trajet aller ou retour, déclarez ${exemple} km parcourus`
           + '<div id="distancevp_preview"></div>'
         )
         $('#id_distancevp_container .help-block').slideDown()
@@ -524,7 +518,7 @@ var formInit = function (form) {
     var single = ! $('[name=trip_kind][value=return]').is(':checked')
     $('#distancevp_preview').html(
       `Votre déclaration correspond à une moyenne de <b>${average}km</b>`
-      + ' par trajet ' + (single ? '(aller simple)' : '(aller retour)')
+      + ' par trajet ' + (single ? '(aller simple)' : '(aller ou retour)')
     )
 
     $('#distancevp_preview').fadeIn()
@@ -562,7 +556,7 @@ var formSubmit = function(form) {
   if ($.active) {
     if ($(form).find('.wait').length < 1) {
       $(`<div class="wait card-panel orange lighten-4">
-            Merci de laisser le site ouvert pendant téléchargement complêt de vos documents
+            Merci de laisser le site ouvert pendant le téléchargement complet de vos documents
         </div>`).appendTo($(form))
     }
     return setTimeout($.proxy(formSubmit, this, form), 1000)
@@ -599,14 +593,11 @@ var formSubmit = function(form) {
         formInit(form)
         submitUi.hideOverlay() // hide overlay
 
-        var $header = $('.Header--wrapper')
-        var headerHeight = $header.length ? $header.outerHeight() : 60
-
         var $error = $('.has-error')
         if ($error.length) {
           $('html, body').animate({
             // Compensate for heading to show
-            scrollTop: $error.offset().top - headerHeight + 'px'
+            scrollTop: $error.offset().top
           }, 'fast')
 
           // Change error class to warning.
@@ -616,7 +607,7 @@ var formSubmit = function(form) {
         } else {
           $('html, body').animate({
             // Compensate for heading to show
-            scrollTop: $form.offset().top - headerHeight + 'px'
+            scrollTop: $form.offset().top
           }, 'fast')
 
           document.querySelector('html').dispatchEvent(
@@ -662,6 +653,11 @@ $('body').on('click', '[data-load-in-form]', function() {
       submitUi.hideOverlay() // hide overlay
     },
   })
+})
+
+$('body').on('click', '#btnCommencer', function() {
+  $('#collapseCommencer').show()
+  $(this).hide()
 })
 
 export default formInit

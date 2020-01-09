@@ -6,30 +6,31 @@ import textwrap
 from django import forms
 from django.core import validators
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 from django.utils.datastructures import MultiValueDict
 
 import material
+from django.utils.safestring import mark_safe
 
 from caisse.forms import ActiveCaisseChoiceField, ActiveRegionChoiceField
-from mrs.forms import DateFieldNative
+from mrs.forms import DateFieldNative, CharFieldNative
 from mrsattachment.forms import MRSAttachmentField
 
 from .models import today
 from .models import BillATP, BillVP, MRSRequest, PMT, Transport
 
-
 PMT_HELP = '''
-Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande
-accord préalable.
+Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -
+<b>4Mo maximum</b> par fichier.
 '''
 
 PEL_HELP = '''
 Le numéro de votre Prescription Médicale Electronique de Transport (PMET) est
 indiqué sur l'exemplaire patient remis par votre médecin.
 <a
-    href="/faq#pmt"
-    title="Accèdez à la FAQ"
->Où trouver votre numéro de PMET ?</a>
+    href="#"
+    data-toggle="modal" data-target="#modal-pmet"
+><b>Où trouver votre numéro de PMET ?</b></a>
 '''
 
 
@@ -83,12 +84,12 @@ class MRSRequestCreateForm(forms.ModelForm):
 
     pmt_pel = forms.ChoiceField(
         choices=(
-            ('pmt', 'PMT (Prescription Papier)'),
-            ('pel', 'PMET (Prescription Électronique)'),
+            ('pmt', 'Prescription papier (PMT)'),
+            ('pel', 'Prescription électronique (PMET)'),
             ('convocation', 'Convocation Service Médical'),
         ),
         initial='pmt',
-        label='Avez-vous une ...',
+        label='',
         widget=forms.RadioSelect,
     )
 
@@ -117,8 +118,10 @@ class MRSRequestCreateForm(forms.ModelForm):
         help_text=(
             'Joindre vos justificatifs de péage'
             ' <span data-parking-enable>'
-            ' / stationnement'
-            ' </span>'
+            ' / stationnement.'
+            ' </span><br>'
+            'Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -'
+            '<b>4Mo maximum</b> par fichier.'
         )
     )
 
@@ -130,13 +133,15 @@ class MRSRequestCreateForm(forms.ModelForm):
         label='Justificatifs',
         required=False,
         help_text=(
-            'Joindre vos justificatifs de transport en commun'
+            'Joindre vos justificatifs de transport en commun.<br>'
+            'Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -'
+            '<b>4Mo maximum</b> par fichier.'
         )
     )
 
     caisse = ActiveCaisseChoiceField(
         otherchoice=True,
-        label='Votre caisse de rattachement',
+        label='',
         help_text='Votre caisse n\'apparaît pas dans la liste ? Elle n\'a pas '
                   'encore rejoint le dispositif MRS. Cliquez sur "Autre" pour '
                   'la sélectionner et recevoir un e-mail dès que celle-ci '
@@ -144,7 +149,12 @@ class MRSRequestCreateForm(forms.ModelForm):
     )
 
     region = ActiveRegionChoiceField(
-        label='Votre région',
+        label='',
+    )
+
+    distancevp = CharFieldNative(
+        label='Nombre total de kilomètres',
+        help_text=' ',
     )
 
     expenseatp = AllowedCommaDecimalField(
@@ -198,7 +208,8 @@ class MRSRequestCreateForm(forms.ModelForm):
         ),
         top=material.Layout(
             material.Fieldset(
-                'Votre prescription médicale',
+                'Quel type de prescription médicale avez-vous reçue '
+                'pour ce transport ?',
                 'pmt_pel',
             ),
             material.Row(
@@ -215,9 +226,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             'modevp',
         ),
         vp_form=material.Layout(
-            material.Row(
-                'distancevp',
-            ),
+            'distancevp',
             material.Row(
                 'expensevp_toll',
                 'expensevp_parking',
@@ -410,6 +419,7 @@ class MRSRequestCreateForm(forms.ModelForm):
             def _save_m2m():
                 save_attachments(self, obj)
                 save_m2m()
+
             self.save_m2m = _save_m2m
         else:
             save_attachments(self, obj)
@@ -419,13 +429,16 @@ class MRSRequestCreateForm(forms.ModelForm):
 def transport_date_min_validator(value):
     date_min = (datetime.now() - relativedelta(months=27)).date()
     date_min_display = f'{date_min.day}/{date_min.month}/{date_min.year}'
+    faq_url = f'{reverse("faq")}?collapse5=1#heading5'
 
     msg = textwrap.dedent(f'''
     Les dates de transports ne peuvent être inférieures à 27 mois, soit le
     {date_min_display}, merci de corriger la date.
-    Pour plus d'information reportez vous à la rubrique "Combien de temps pour
-    demander un remboursement ?"
+    Pour plus d'information reportez vous à la rubrique <a href="{faq_url}"
+    target="_blank">"Combien de temps après mon transport, puis je demander
+    mon remboursement ?"</a>
     '''.strip())
+    msg = mark_safe(msg)  # nosec
     if value < date_min:
         raise ValidationError(msg)
 
@@ -705,7 +718,7 @@ class CertifyForm(forms.Form):
 
     certify = forms.ChoiceField(
         choices=[(True, CERTIFY_LABEL)],
-        label='Validation de la demande de remboursement',
+        label='',
         widget=forms.RadioSelect(),
         required=True,
     )

@@ -1,0 +1,26 @@
+{% load static %}
+<div id="footer" class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-lg-5 footer-images">
+            <a href="https://www.ameli.fr" target="_blank">
+                <img class="logo" src="{% static 'img/logos/ameli.png' %}" alt="Logo ameli.fr" />
+            </a>
+            <a href="https://www.oups.gouv.fr/" target="_blank">
+                <img class="logo" src="{% static 'img/logos/logo_oups.svg' %}" alt="Logo oups.gouv.fr" />
+            </a>
+        </div>
+        <div class="col-12 col-lg-7 footer-links">
+            <ul class="nav">
+                <li class="nav-item">
+                    <span>© <script>document.write(new Date().getFullYear())</script> - CNAM</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/mentions-legales">Mentions légales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

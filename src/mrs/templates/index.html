@@ -1,8 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 
 {% block title %}Découvrez MRS{% endblock %}
-{% block description %}Mes Remboursements Simplifiés (MRS) est un service innovant de l'Assurance Maladie pour accélérer et faciliter le remboursement des frais d’utilisation du véhicule particulier ou du transport en commun suite à une prescription médicale. MRS permet de déclarer directement en ligne et d’être remboursé en une semaine.{% endblock %}
+{% block description %}Mes Remboursements Simplifiés (MRS) est un service innovant de l'Assurance Maladie pour accélérer
+    et faciliter le remboursement des frais d’utilisation du véhicule particulier ou du transport en commun suite à une
+    prescription médicale. MRS permet de déclarer directement en ligne et d’être remboursé en une semaine.{% endblock %}
 
 {% block body_class %}index{% endblock %}
 
@@ -10,139 +13,158 @@
 {% endblock %}
 
 {% block content %}
-    <div id="index--wrapper">
+    <div id="hero" style="background-image: url('{% static "/img/illu_accueil.svg" %}')"></div>
 
-        <div class="mrs-logo--wrapper">
-            <img src={% static "img/logos/mrs.png" %} alt="MRS" class="mrs-logo" />
-            <div id="intro--wrapper">
-                <p class="scroll-reveal">
-                    En 3 clics, mon transport personnel remboursé en moins d'une semaine.
-                </p>
-                <a class="start-button scroll-reveal" href="/demande">
-                    COMMENCER
-                </a>
+    <h1 id="baseline">
+        En 3 clics, mon transport personnel remboursé en moins d’une semaine.
+    </h1>
+
+    <div id="cta">
+        <a class="btn mrs-bouton mrs-rose-plein" href="{% url "demande" %}">Demander un remboursement</a>
+    </div>
+
+    <div id="cmm" class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h2>
+                    Comment ça marche ?
+                </h2>
             </div>
         </div>
 
-
-        <div
-            style="background-image: url('{% static "img/landing-intro-bg.jpg" %}')"
-            id="intro-bg-img">
-        </div>
-
-        <div id="intro-descr--wrapper" class="thumb--wrapper">
-            <div class="thumb">
-                <h3>Une semaine pour être remboursé !</h3>
-                <p>
-                    Sur prescription de votre médecin, l'Assurance Maladie rembourse les frais d'utilisation de votre véhicule personnel ou des transports en commun.
-                </p>
-            </div>
-        </div>
-
-        <div id="hier-ajd--wrapper">
-            <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/TzrDppmF4vY?rel=0"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-            ></iframe>
-        </div>
-
-        <div id="etapes-descr--wrapper" class="thumb--wrapper">
-            <div class="thumb">
-                <p>
-                    <strong>3 étapes</strong> pour accélérer le remboursement du transport prescrit
-                </p>
-            </div>
-        </div>
-
-        <div id="processes--wrapper">
-            <div class="process--wrapper">
-                <img class="picto-bus" alt="picto" src="{% static '/img/3-etapes/bus.png' %}" />
-                <div class="title--wrapper">
-                    <img
-                        src="{% static 'img/3-etapes/1.png' %}"
-                        class="mobile"
-                        alt="1" />
-                    <img
-                        src="{% static 'img/3-etapes/1-desktop.png' %}"
-                        class="desktop num-1"
-                        alt="1" />
-                    <h4 class="translate">Je déclare mon trajet</h4>
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe
+                            width="100%"
+                            height="100%"
+                            src="https://www.youtube.com/embed/TzrDppmF4vY?rel=0"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                    ></iframe>
                 </div>
-                <p>
-                    Je saisis les informations nécessaires : nombre de kilomètres, frais de péage ...
-                </p>
-                <img
-                    src="{% static 'img/3-etapes/deco-1.png' %}"
-                    class="deco"
-                    alt="deco" />
             </div>
-            <div class="process--wrapper">
-                <div class="title--wrapper">
-                    <img
-                        src="{% static 'img/3-etapes/2.png' %}"
-                        class="mobile"
-                        alt="2" />
-                    <img
-                        src="{% static 'img/3-etapes/2-desktop.png' %}"
-                        class="desktop num-2"
-                        alt="2" />
-                    <h4 class="">Je transmets mes justificatifs</h4>
+
+            <div class="col-lg-5">
+                <div class="row">
+                    <div class="col-3" style="background-image:url('{% static "img/icones/line.svg" %}')">
+                        <div style="background-image:url('{% static "img/icones/icon_prescr.svg" %}')"></div>
+                    </div>
+                    <div class="col-9">
+                        <h3>Recevez votre prescription médicale</h3>
+                        <p>
+                            Votre médecin vous prescrit un transport médical en fonction de votre situation.
+                        </p>
+                    </div>
                 </div>
-                <p>
-                    Je photographie ou scanne ma prescription médicale de transport et mes justificatifs et les joins à ma demande (tickets de bus, de péage...).
-                </p>
-                <img
-                    src="{% static 'img/3-etapes/deco-2.png' %}"
-                    class="deco"
-                    alt="deco" />
-            </div>
-            <div class="process--wrapper">
-                <img class="picto-auto" alt="picto" src="{% static '/img/3-etapes/auto.png' %}" />
-                <div class="title--wrapper">
-                    <img
-                        src="{% static 'img/3-etapes/3.png' %}"
-                        class="mobile"
-                        alt="3" />
-                    <img
-                        src="{% static 'img/3-etapes/3-desktop.png' %}"
-                        class="desktop num-3"
-                        alt="3" />
-                    <h4 class="translate">Je valide ma demande</h4>
+                <div class="row">
+                    <div class="col-3" style="background-image:url('{% static "img/icones/line.svg" %}')">
+                        <div style="background-image:url('{% static "img/icones/icon_transport.svg" %}')"></div>
+                    </div>
+                    <div class="col-9">
+                        <h3>Réalisez le transport</h3>
+                        <p>
+                            Vous vous rendez à vos soins en voiture ou en transport en commun, seul(e) ou accompagné(e)
+                        </p>
+                    </div>
                 </div>
-                <p>
-                    Je vérifie les informations et j'envoie ma demande de remboursement directement en ligne. Je reçois une confirmation de traitement.
-                </p>
-                <img
-                    src="{% static 'img/3-etapes/deco-3.png' %}"
-                    class="deco"
-                    alt="deco" />
+                <div class="row">
+                    <div class="col-3" style="background-image:url('{% static "img/icones/line.svg" %}')">
+                        <div style="background-image:url('{% static "img/icones/icon_demande.svg" %}')"></div>
+                    </div>
+                    <div class="col-9">
+                        <h3>Demandez le remboursement</h3>
+                        <p>
+                            Remplissez votre demande en joignant vos documents (prescription médicale de transport et
+                            justificatifs de déplacement).
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div style="background-image:url('{% static "img/icones/icon_euro.svg" %}')"></div>
+                    </div>
+                    <div class="col-9">
+                        <h3>Obtenez le remboursement</h3>
+                        <p>
+                            Sous réserve de validité, vous êtes remboursé en moins d’une semaine !
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div id="control--wrapper" class="thumb--wrapper">
-            <div id="control" class="thumb">
-                <p>
-                    * Les originaux des pièces justificatives (prescription médicale de transport, justificatif de paiement de transports en commun et ou péage) doivent être conservés 33 mois. Ces documents pourraient vous être demandés dans le cadre d'un contrôle de l'Assurance Maladie.
-                </p>
-            </div>
-        </div>
-
-        <div id="caroussel">
-            <h2>Ils ont déjà utilisé notre service</h2>
-            <img src="{% static '/img/icones/open-quotes.png' %}" alt="icone" />
-        </div>
-
-
-        <div id="index-footer--wrapper">
-            <a href="https://beta.gouv.fr/" target="_blank">
-                <img class="logo" src="{% static 'img/logos/beta-gouv-marianne.png' %}" alt="Logo beta.gouv.fr" />
-            </a>
-            <a href="https://www.ameli.fr" target="_blank">
-                <img class="logo" src="{% static 'img/logos/ameli.png' %}" alt="Logo ameli.fr" />
-            </a>
         </div>
     </div>
+
+    <div id="service" class="container-fluid">
+        <div id="service-header" class="row">
+            <div class="col-12 col-xl-4">
+                <h2>
+                    Le service en 3 chiffres
+                </h2>
+            </div>
+        </div>
+
+        <div id="service-chiffres" class="row">
+            <div class="col-12 col-md-4">
+                <div id="countup-users" class="countup">{{ view.users_count }}</div>
+                <h3>Nombre d'utilisateurs</h3>
+            </div>
+            <div class="col-12 col-md-4">
+                <div id="countup-requests" class="countup">{{ view.mrsrequests_count }}</div>
+                <h3>Nombre de demandes</h3>
+            </div>
+            <div class="col-12 col-md-4">
+                <div id="countup-delay" class="countup">{{ view.average_payment_delay }}</div>
+                <h3>Délai de remboursement</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="temoignages" class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h2>
+                    Ils ont utilisé notre service
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2 temoignages-images">
+                <img src="{% static "img/bus2.svg" %}">
+            </div>
+            <div class="col-12 col-md-8 temoignage">
+                <div class="row">
+                    <div class="col-1">
+                        <img src="{% static "img/guillemetouvrant.svg" %}">
+                    </div>
+                    <div class="col-10" id="temoignage">
+                        J’ai bien reçu le remboursement pour mes frais de transport en voiture particulière,
+                        paiement très rapide et simplifié grâce à l’envoi par internet ! Merci !
+                        <br>
+                        <b>Amelie F.</b>
+                    </div>
+                    <div class="col-1">
+                        <img src="{% static "img/guillemetfermant.svg" %}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="btn mrs-bouton mrs-blanc-plein" id="temoignage-suivant">Autre témoignage</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 temoignages-images">
+                <img src="{% static "img/voiture2.svg" %}">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% render_bundle 'mrsindex' 'js' %}
 {% endblock %}

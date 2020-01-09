@@ -64,6 +64,26 @@ class Dashboard(crudlfap.TemplateView):
         return super().get(*args, **kwargs)
 
 
+class IndexView(generic.TemplateView):
+    template_name = 'index.html'
+
+    @property
+    def users_count(self):
+        return Person.objects.count()
+
+    @property
+    def mrsrequests_count(self):
+        return MRSRequest.objects.count()
+
+    @property
+    def average_payment_delay(self):
+        return '{:0.2f}'.format(
+            MRSRequest.objects.aggregate(
+                result=models.Avg('delay')
+            )['result'] or 0
+        )
+
+
 class LegalView(generic.TemplateView):
     template_name = 'legal.html'
 

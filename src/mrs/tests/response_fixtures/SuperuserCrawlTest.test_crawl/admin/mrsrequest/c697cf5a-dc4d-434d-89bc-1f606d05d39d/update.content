@@ -19,7 +19,7 @@
     <div class="input-field col s12" id="id_distancevp_container">
         <input id="id_distancevp" min="0" name="distancevp" type="number" value="5"/>
         <label class="active" for="id_distancevp">Distance (km)</label>
-        <div class="help-block">Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets de 40 kilomètres aller/retour : déclarez 80 kilomètres parcourus.</div>
+        <div class="help-block">Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets de 40 kilomètres aller/retour, déclarez 80 kilomètres parcourus.</div>
     </div>
 </div>
 
@@ -29,9 +29,9 @@
         
 <div class="row">
     <div class="input-field col s12 required" id="id_nir_container">
-        <input id="id_nir" maxlength="13" name="nir" type="text" value="3212312312312"/>
-        <label class="active" for="id_nir">Numéro de sécurité sociale</label>
-        
+        <input id="id_nir" maxlength="13" name="nir" placeholder="" type="text" value="3212312312312"/>
+        <label class="active" for="id_nir">Numéro de Sécurité sociale</label>
+        <div class="help-block"><b>Si le patient transporté est mineur, indiquer le numéro de Sécurité sociale de son parent</b></div>
     </div>
 </div>
  
@@ -39,17 +39,35 @@
 
 <div class="row">
     <div class="input-field col s12 required" id="id_birth_date_container">
-        <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" type="text" value="06/05/2000"/>
+        <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" placeholder="jj/mm/aaaa" type="text" value="06/05/2000"/>
         <label class="active" for="id_birth_date">Date de naissance</label>
-        <div class="help-block">Au format jj/mm/aaaa, exemple: 31/12/2000</div>
+        
     </div>
 </div>
  
 
 <div class="row">
     <div class="input-field col s12 required" id="id_first_name_container">
-        <input id="id_first_name" maxlength="70" name="first_name" type="text" value="àôéû"/>
+        <input id="id_first_name" maxlength="70" name="first_name" placeholder="" type="text" value="àôéû"/>
         <label class="active" for="id_first_name">Prénom</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_last_name_container">
+        <input id="id_last_name" maxlength="70" name="last_name" placeholder="" type="text"/>
+        <label for="id_last_name">Nom de famille</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
+    <div class="input-field col s12 required" id="id_email_container">
+        <input id="id_email" maxlength="254" name="email" placeholder="" type="text"/>
+        <label for="id_email">Adresse email</label>
         
     </div>
 </div>

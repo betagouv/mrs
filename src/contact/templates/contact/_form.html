@@ -3,15 +3,15 @@
     {% csrf_token %}
 
     {% if view.success %}
-    <div class="card-panel teal lighten-4">
-        Merci pour votre message ! Nous reviendrons vers vous dès que possible.
-        <br />
-    </div>
+        <div id="submitui-message">
+            Merci pour votre message ! Nous reviendrons vers vous dès que possible.
+            <br/>
+        </div>
     {% elif form %}
-      <div>Pour toutes autres questions, utilisez le formulaire de contact ci-dessous.</div>
+        <div>Pour toutes autres questions, utilisez le formulaire de contact ci-dessous.</div>
 
-      {% form form=form %}{% endform %}
-      <br />
-      <button type="submit" name="_submit" class="btn">Envoyer</button>
+        {% form form=form %}{% endform %}
+        <br/>
+        <button type="submit" name="_submit" class="btn mrs-bouton mrs-bleu-plein mb-5">Envoyer</button>
     {% endif %}
 </form>

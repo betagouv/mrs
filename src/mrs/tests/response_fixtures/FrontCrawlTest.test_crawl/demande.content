@@ -1,26 +1,55 @@
 <div id="app--wrapper">
-
-        <div id="header">
-            <noscript>
-                
-                <a href="/" title="fonctionnement">fonctionnement</a>
-                
-                <a href="/demande" title="formulaire">formulaire</a>
-                
-                <a href="/faq" title="faq">faq</a>
-                
-                <a href="/contact" title="contact">contact</a>
-                
-            </noscript>
-            <script id="header-links" type="text/json">
-                [{"url": "/", "alias": "fonctionnement"}, {"url": "/demande", "alias": "formulaire"}, {"url": "/faq", "alias": "faq"}, {"url": "/contact", "alias": "contact"}]
-            </script>
-        </div>
-
         
+    
+<div class="d-none d-lg-block" id="header-big">
+    <div class="header-bg"></div>
+    <div class="cnam-wrapper">
+        <a class="cnam-logo" href="/">
+            <img alt="Caisse Nationale d'Assurance Maladie" src="/static/img/logos/cnam.png"/>
+        </a>
+    </div>
+
+    <nav class="navbar navbar-expand-lg py-0">
+        <a class="navbar-brand" href="/">
+            <img alt="MRS" class="mrs-logo" src="/static/img/logos/mrs.png"/>
+        </a>
+
+        <div class="d-flex justify-content-end w-100" id="mrs-navbar">
+            <ul class="navbar-nav text-center">
+                
+                    <li class="nav-item">
+                        <a class="btn mrs-bouton mrs-rose-plein active" href="/demande">Demander un remboursement</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="btn mrs-bouton mrs-bleu-plein" href="/faq">Aide</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="d-block d-lg-none" id="header-small">
+    <nav class="navbar">
+        <a alt="Accueil" class="navbar-nav" href="/" style="background-image: url('/static/img/icones/home.svg')"></a>
+        <div class="navbar-brand">
+            <a class="cnam-logo" href="/">
+                <img alt="Caisse Nationale d'Assurance Maladie" src="/static/img/logos/cnam.png"/>
+            </a>
+        </div>
+        <a alt="Aide" class="navbar-nav" href="/faq" style="background-image: url('/static/img/icones/icon_question.svg')"></a>
+    </nav>
+    <a class="navbar-brand" href="/">
+            <img alt="MRS" class="mrs-logo" src="/static/img/logos/mrs.png"/>
+        </a>
+</div>
+
+
     <div class="mrs-std-page--wrapper">
         <div class="mrs-std-page">
             
+
 <script id="caissesJson" type="text/json">
 {"1": {"parking_enable": true, "nopmt_enable": true}, "2": {"parking_enable": true, "nopmt_enable": true}, "3": {"parking_enable": true, "nopmt_enable": true}, "4": {"parking_enable": true, "nopmt_enable": true}}
 </script>
@@ -41,17 +70,70 @@
             </style>
 
             
-                <h2>Formulaire de remboursement de transports</h2>
-                <p class="scroll-reveal" id="subtitle">
-                  Réalisez votre demande de remboursement en ligne dès maintenant.
-                </p>
-                    <div class="section row">
+                <h2 class="mb-5">Demander un remboursement</h2>
+
+                <div id="commencer">
+                    <div>
+                        <button class="btn mrs-bouton mrs-bleu-plein" id="btnCommencer" style="background-image:url('/static/img/icones/clip.svg')" type="button">
+                            Avant de commencer
+                        </button>
+                    </div>
+
+                    <div class="collapse" id="collapseCommencer">
+                        <div id="txtCommencer">
+                            <h4 class="mb-4">Pour remplir la demande, vous aurez besoin de :</h4>
+                            <ul>
+                                <li>- votre numéro de Sécurité sociale (sur votre carte Vitale)</li>
+                                <li>- votre prescription médicale de transport (papier ou électronique)</li>
+                                <li>- vos justificatifs de transport (ticket de péage, de parking, etc...)</li>
+                            </ul>
+                            <h4 class="mt-4">Les étapes de votre demande :</h4>
+                            <div class="container">
+                                <div class="row" id="etapesCommencer">
+                                    <div class="col-md-6 col-xl-2 offset-xl-1">
+                                        <div class="etapeNumero">1</div>
+                                        <div>Choix de la CPAM</div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-2">
+                                        <div class="etapeNumero">2</div>
+                                        <div>Téléchargement de la prescription médicale de transport</div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-2">
+                                        <div class="etapeNumero">3</div>
+                                        <div>Information sur la personne transportée</div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-2">
+                                        <div class="etapeNumero">4</div>
+                                        <div>Information sur le transport effectué</div>
+                                    </div>
+                                    <div class="col-12 col-xl-2">
+                                        <div class="etapeNumero">5</div>
+                                        <div>Validation et réception d'un email récapitulatif</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <a class="btn mrs-bouton mrs-rose-plein" data-btn-exclude="1" href="#cam">
+                                Commencer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="demande-section-header" id="cam">
+                    <span class="numero">1</span> Caisse primaire d'assurance maladie
+                </h3>
+
+                <div class="demande-section">
+                        <div class="section row">
     <div class="col s12">
         <h5>Votre région</h5>
         
 <div class="row">
     <div class="select-field col s12 required" id="id_region_container">
-        <label for="id_region">Votre région</label>
+        <label for="id_region"></label>
         <select id="id_region" name="region">
             <option value="">---------</option>
             <option value="16">Occitanie</option>
@@ -64,22 +146,22 @@
     </div>
 </div>
 
-                <div id="caisse-selector" style="display:none;">
-                    <div class="section row">
+                    <div id="caisse-selector" style="display:none;">
+                        <div class="section row">
     <div class="col s12">
         <h5>Votre caisse d'assurance maladie</h5>
         
 <div class="row">
     <div class="select-field col s12 required" id="id_caisse_container">
-        <label for="id_caisse">Votre caisse de rattachement</label>
+        <label for="id_caisse"></label>
         <select id="id_caisse" name="caisse">
             <option value="">---------</option>
-                    
-                    <option data-regions="16 " value="1">aaaaaaa</option>
-                    
-                    <option data-regions="16 " value="2">bbbb</option>
-                    
-                    <option value="other">Autre</option>
+                        
+                        <option data-regions="16 " value="1">aaaaaaa</option>
+                        
+                        <option data-regions="16 " value="2">bbbb</option>
+                        
+                        <option value="other">Autre</option>
         </select>
         <div class="help-block">Votre caisse n'apparaît pas dans la liste ? Elle n'a pas encore rejoint le dispositif MRS. Cliquez sur "Autre" pour la sélectionner et recevoir un e-mail dès que celle-ci sera disponible !</div>
     </div>
@@ -88,30 +170,36 @@
     </div>
 </div>
 
-                <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
+                    <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
 
+                    </div>
                 </div>
             
 
+
+
             <div id="mrsrequest-form" style="display: none">
                 
-                    <div id="pmt-form">
-                        <div class="section row">
+                    <h3 class="demande-section-header"><span class="numero">2</span> Prescription médicale pour un transport</h3>
+
+                    <div class="demande-section">
+                        <div id="pmt-form">
+                                <div class="section row">
     <div class="col s12">
-        <h5>Votre prescription médicale</h5>
+        <h5>Quel type de prescription médicale avez-vous reçue pour ce transport ?</h5>
         
 <div class="row radio-field">
     <div class="col s12">
-        <label class="" for="id_pmt_pel_0">Avez-vous une ...</label>
+        <label class="" for="id_pmt_pel_0"></label>
     </div>
     <div class="col s12 required" id="id_pmt_pel_container">
         <div class="radio" id="id_pmt_pel"><label>
             <input checked="" class="with-gap" id="id_pmt_pel_0" name="pmt_pel" type="radio" value="pmt"/>
-            <span class="item-label" for="id_pmt_pel_0">PMT (Prescription Papier)</span>
+            <span class="item-label" for="id_pmt_pel_0">Prescription papier (PMT)</span>
         </label></div>
         <div class="radio" id="id_pmt_pel"><label>
             <input class="with-gap" id="id_pmt_pel_1" name="pmt_pel" type="radio" value="pel"/>
-            <span class="item-label" for="id_pmt_pel_1">PMET (Prescription Électronique)</span>
+            <span class="item-label" for="id_pmt_pel_1">Prescription électronique (PMET)</span>
         </label></div>
         <div class="radio" id="id_pmt_pel"><label>
             <input class="with-gap" id="id_pmt_pel_2" name="pmt_pel" type="radio" value="convocation"/>
@@ -138,8 +226,8 @@
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/pmt/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Prescription Médicale de Transport obligatoire"/>
         </div>
         <div class="help-block">
-Joindre le volet 2 de la prescription médicale ou le volet 3 de la demande
-accord préalable.
+Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -
+<b>4Mo maximum</b> par fichier.
 </div>
 
         <ul class="files">
@@ -160,7 +248,7 @@ accord préalable.
         <div class="help-block">
 Le numéro de votre Prescription Médicale Electronique de Transport (PMET) est
 indiqué sur l'exemplaire patient remis par votre médecin.
-<a href="/faq#pmt" title="Accèdez à la FAQ">Où trouver votre numéro de PMET ?</a>
+<a data-target="#modal-pmet" data-toggle="modal" href="#"><b>Où trouver votre numéro de PMET ?</b></a>
 </div>
     </div>
 </div>
@@ -180,17 +268,23 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 </div></div>
 
+                            <div class="help-button btn" data-target="#modal-pmt" data-toggle="modal">?</div>
+                        </div>
                     </div>
-                    
+
+                    <h3 class="demande-section-header"><span class="numero">3</span> Identité de la personne transportée</h3>
+
+                    <div class="demande-section">
+                        
 <div class="section row">
     <div class="col s12">
-        <h5>Identité de la personne transportée</h5>
+        <h5></h5>
         
 <div class="layout-row row"><div class="col s12 m6">
 
 <div class="row">
     <div class="input-field col s12 required" id="id_first_name_container">
-        <input id="id_first_name" maxlength="70" name="first_name" type="text"/>
+        <input id="id_first_name" maxlength="70" name="first_name" placeholder="" type="text"/>
         <label for="id_first_name">Prénom</label>
         
     </div>
@@ -199,7 +293,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 
 <div class="row">
     <div class="input-field col s12 required" id="id_last_name_container">
-        <input id="id_last_name" maxlength="70" name="last_name" type="text"/>
+        <input id="id_last_name" maxlength="70" name="last_name" placeholder="" type="text"/>
         <label for="id_last_name">Nom de famille</label>
         
     </div>
@@ -207,39 +301,30 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div></div>
 
 
+<div class="row">
+    <div class="input-field col s12 required" id="id_nir_container">
+        <input id="id_nir" maxlength="13" name="nir" placeholder="" type="text"/>
+        <label for="id_nir">Numéro de Sécurité sociale</label>
+        <div class="help-block"><b>Si le patient transporté est mineur, indiquer le numéro de Sécurité sociale de son parent</b></div>
+    </div>
+</div>
+
+
 
 <div class="row">
     <div class="input-field col s12 required" id="id_birth_date_container">
-        <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" type="text"/>
+        <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" placeholder="jj/mm/aaaa" type="text"/>
         <label for="id_birth_date">Date de naissance</label>
-        <div class="help-block">Au format jj/mm/aaaa, exemple: 31/12/2000</div>
-    </div>
-</div>
-
-    </div>
-</div>
-
-
-    
-<div class="section row">
-    <div class="col s12">
-        <h5>Identité de l'assuré</h5>
-        
-<div class="layout-row row"><div class="col s12 m6">
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_nir_container">
-        <input id="id_nir" maxlength="13" name="nir" type="text"/>
-        <label for="id_nir">Numéro de sécurité sociale</label>
         
     </div>
 </div>
-</div><div class="col s12 m6">
+
+<div class="layout-row row"><div class="col s12 m12">
 
 <div class="row">
     <div class="input-field col s12 required" id="id_email_container">
-        <input id="id_email" maxlength="254" name="email" type="email"/>
-        <label for="id_email">Email</label>
+        <input id="id_email" maxlength="254" name="email" placeholder="" type="text"/>
+        <label for="id_email">Adresse email</label>
         
     </div>
 </div>
@@ -248,7 +333,12 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
-                    
+                    </div>
+
+                    <h3 class="demande-section-header"><span class="numero">4</span> Transport effectué</h3>
+
+                    <div class="demande-section">
+                        
 <div class="section row">
     <div class="col s12">
         <h5>Informations sur le transport</h5>
@@ -290,9 +380,10 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 
 
-                    <input id="id_transport-TOTAL_FORMS" name="transport-TOTAL_FORMS" type="hidden" value="2"/><input id="id_transport-INITIAL_FORMS" name="transport-INITIAL_FORMS" type="hidden" value="0"/><input id="id_transport-MIN_NUM_FORMS" name="transport-MIN_NUM_FORMS" type="hidden" value="1"/><input id="id_transport-MAX_NUM_FORMS" name="transport-MAX_NUM_FORMS" type="hidden" value="1000"/>
-                    
+
+                        <input id="id_transport-TOTAL_FORMS" name="transport-TOTAL_FORMS" type="hidden" value="2"/><input id="id_transport-INITIAL_FORMS" name="transport-INITIAL_FORMS" type="hidden" value="0"/><input id="id_transport-MIN_NUM_FORMS" name="transport-MIN_NUM_FORMS" type="hidden" value="1"/><input id="id_transport-MAX_NUM_FORMS" name="transport-MAX_NUM_FORMS" type="hidden" value="1000"/>
                         
+                            
 <div class="layout-row row"><div class="col s12 m6">
 
 
@@ -315,8 +406,8 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 </div></div>
 
-                    
                         
+                            
 <div class="layout-row row"><div class="col s12 m6">
 
 
@@ -339,9 +430,9 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 </div></div>
 
-                    
+                        
 
-                        <div class="row">
+                            <div class="row">
     <div class="checkbox-field col s12" id="id_modevp_container">
         <label>
         <input class="filled-in" id="id_modevp" name="modevp" type="checkbox"/><span for="id_modevp">Avez vous voyagé en véhicule personnel ?</span></label>
@@ -349,17 +440,14 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
-                    <div id="vp-form" style="display: none">
-                          <div class="layout-row row"><div class="col s12 m12">
-
-<div class="row">
-    <div class="input-field col s12" id="id_distancevp_container">
-        <input id="id_distancevp" name="distancevp" type="text"/>
-        <label for="id_distancevp">Distance (km)</label>
-        <div class="help-block">Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets de 40 kilomètres aller/retour : déclarez 80 kilomètres parcourus.</div>
+                        <div id="vp-form" style="display: none">
+                              <div class="row">
+    <div class="input-field col s12 required" id="id_distancevp_container">
+        <input id="id_distancevp" name="distancevp" placeholder="" type="text"/>
+        <label for="id_distancevp">Nombre total de kilomètres</label>
+        <div class="help-block"> </div>
     </div>
 </div>
-</div></div>
 
 
     
@@ -396,7 +484,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
         <div class="file-path-wrapper">
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/billvp/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
         </div>
-        <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement </span></div>
+        <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement. </span><br/>Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -<b>4Mo maximum</b> par fichier.</div>
 
         <ul class="files">
             
@@ -404,11 +492,11 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
-                    </div>
+                        </div>
 
-                    
+                        
 
-                        <div class="row">
+                            <div class="row">
     <div class="checkbox-field col s12" id="id_modeatp_container">
         <label>
         <input class="filled-in" id="id_modeatp" name="modeatp" type="checkbox"/><span for="id_modeatp">Avez vous voyagé en transports en commun ?</span></label>
@@ -416,8 +504,8 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
-                    <div id="atp-form" style="display: none">
-                          <div class="row">
+                        <div id="atp-form" style="display: none">
+                              <div class="row">
     <div class="input-field col s12" id="id_expenseatp_container">
         <input id="id_expenseatp" name="expenseatp" type="text" value="0"/>
         <label class="active" for="id_expenseatp">Frais de transports</label>
@@ -438,7 +526,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
         <div class="file-path-wrapper">
             <input class="file-path" data-max-files="20" data-mime-types="image/jpeg,image/jpg,image/png,application/pdf" data-upload-url="/mrsrequest/billatp/MRSREQUEST_UUID/upload/" multiple="multiple" name="file" placeholder="Justificatifs"/>
         </div>
-        <div class="help-block">Joindre vos justificatifs de transport en commun</div>
+        <div class="help-block">Joindre vos justificatifs de transport en commun.<br/>Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -<b>4Mo maximum</b> par fichier.</div>
 
         <ul class="files">
             
@@ -446,12 +534,16 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     </div>
 </div>
 
+                        </div>
                     </div>
 
-                    
+                    <h3 class="demande-section-header"><span class="numero">5</span> Attestation sur l'honneur</h3>
+
+                    <div class="demande-section">
+                        
 <div class="row radio-field">
     <div class="col s12">
-        <label class="" for="id_certify_0">Validation de la demande de remboursement</label>
+        <label class="" for="id_certify_0"></label>
     </div>
     <div class="col s12 required" id="id_certify_container">
         <div class="radio" id="id_certify"><label>
@@ -462,19 +554,20 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 
 
-                    
-<div class="row">
-    <div class="checkbox-field col s12" id="id_use_email_container">
-        <label>
-        <input class="filled-in" id="id_use_email" name="use_email" type="checkbox"/><span for="id_use_email">En cochant cette case, vous acceptez que Mes Remboursements Simplifiés utilise votre adresse email dans le but de vous envoyer occasionnellement des emails d'informations. Vous pouvez à tout moment vous désinscrire de ce service.</span></label>
-        
-    </div>
-</div>
+                        
 
+
+
+                        <div class="pb-4">
+                            <a class="text-center" data-target="#modal-conditions" data-toggle="modal" href="#">
+                              Conditions d'utilisation
+                            </a>
+                        </div>
+                    </div>
                 
             </div>
 
-            <div id="caisse-form" style="display:none">
+            <div class="demande-section" id="caisse-form" style="display:none">
                 
 <div class="row">
     <div class="select-field col s12" id="id_other-region_container">
@@ -516,40 +609,169 @@ indiqué sur l'exemplaire patient remis par votre médecin.
             <br/>
 
             
-            <button class="btn" name="_submit" type="submit">Soumettre</button>
+                <button class="btn mrs-bouton mrs-rose-plein mb-5" data-btn-exclude="1" name="_submit" type="submit">Valider ma demande</button>
             
         
     </form>
 </div>
 
-<div class="disclaimer--wrapper scroll-reveal">
-    <p>
-        La loi rend passible d'amende et/ ou d'emprisonnement quiconque sera rend coupable de fraude ou de fausse déclaration en vue d'obtenir ou de tenter d'obtenir des avantages indus (articles 313-1 à 313-3, 433-19, 441-1 et suivants du Code pénal).
-    </p>
-    <p>
-        En outre, l'inexactitude, le caractère incomplet des déclarations ou l'absence de déclaration d'un changement de situation dans le but d'obtenir le versement de prestations indues, peuvent faire l'objet d'une pénalité financière en application de l'article L.162-1-14 du Code de la sécurité sociale.
-    </p>
-    <p>
-      Les informations recueillies sont traitées pour gérer votre demande de remboursement de transport sous la responsabilité du Directeur de votre CPAM de rattachement. Elles sont conservées pendant 33 mois et sont adressées à votre CPAM de rattachement.
-      Votre email sera utilisé dans le but de vous envoyer occasionnellement des emails de confirmation.
-      Conformément aux dispositions relatives à la protection des données personnelles, vous pouvez exercer les droit d'accès, de rectification et de limitation des données vous concernant en adressant une demande écrite au directeur de votre caisse d’assurance maladie de rattachement en contactant le ou la délégué(e) à la protection des données.
-      Les réclamations au titre de la protection des données personnelles peuvent être introduites auprès de la CNIL (Commission Nationale Informatique et Libertés - TSA 80715 - 75334 PARIS CEDEX 07).
-    </p>
+<div class="modal2" id="modal-conditions" role="dialog" tabindex="-1">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
+        <div class="modal2-content">
+            <div class="modal2-header">
+                <h5 class="modal2-title">Conditions d'utilisation</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal2-body">
+                <p>
+                    La loi rend passible d'amende et/ ou d'emprisonnement quiconque sera rend coupable de fraude ou de
+                    fausse déclaration en vue d'obtenir ou de tenter d'obtenir des avantages indus (articles 313-1 à
+                    313-3, 433-19, 441-1 et suivants du Code pénal).
+                </p>
+                <p>
+                    En outre, l'inexactitude, le caractère incomplet des déclarations ou l'absence de déclaration d'un
+                    changement de situation dans le but d'obtenir le versement de prestations indues, peuvent faire
+                    l'objet d'une pénalité financière en application de l'article L.162-1-14 du Code de la sécurité
+                    sociale.
+                </p>
+                <p>
+                    Les informations recueillies sont traitées pour gérer votre demande de remboursement de transport
+                    sous la responsabilité du Directeur de votre CPAM de rattachement. Elles sont conservées pendant 33
+                    mois et sont adressées à votre CPAM de rattachement.
+                    Votre email sera utilisé dans le but de vous envoyer occasionnellement des emails de confirmation.
+                    Conformément aux dispositions relatives à la protection des données personnelles, vous pouvez
+                    exercer les droit d'accès, de rectification et de limitation des données vous concernant en
+                    adressant une demande écrite au directeur de votre caisse d’assurance maladie de rattachement en
+                    contactant le ou la délégué(e) à la protection des données.
+                    Les réclamations au titre de la protection des données personnelles peuvent être introduites auprès
+                    de la CNIL (Commission Nationale Informatique et Libertés - TSA 80715 - 75334 PARIS CEDEX 07).
+                </p>
+            </div>
+            <div class="modal2-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Fermer</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="modal2" id="modal-pmt" role="dialog" tabindex="-1">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-lg" role="document">
+        <div class="modal2-content">
+            <div class="modal2-body">
+                <h5 class="modal2-title text-center mrs-bleu mb-4">
+                    <b>VOUS AVEZ DES DOCUMENTS PAPIER</b>
+                </h5>
+                <p>
+                    Scannez et joignez le volet 2 de la prescription médicale
+                </p>
+                <img class="img-fluid img-thumbnail" src="/static/img/pmt_volet_2.png"/>
+
+                <div class="mt-4 mb-3 mrs-bleu">
+                    <b>OU BIEN</b>
+                </div>
+
+                <p>
+                    Scannez et joignez le volet 3 de la demande d'accord préalable
+                </p>
+                <img class="img-fluid img-thumbnail" src="/static/img/demande_accord_prealable_volet_3.png"/>
+
+
+                <div class="modal2-separator"></div>
+
+
+                <h5 class="modal2-title text-center mrs-bleu mb-4">
+                    <b>VOUS AVEZ UNE PRESCRIPTION ÉLECTRONIQUE</b>
+                </h5>
+
+                <p>
+                    Indiquez le numéro de prescription
+                </p>
+                <img class="img-fluid" src="/static/img/pmet.jpg"/>
+            </div>
+            <div class="modal2-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal2" id="modal-pmet" role="dialog" tabindex="-1">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-xl modal2-dialog-scrollable" role="document">
+        <div class="modal2-content">
+            <div class="modal2-header">
+                <h5 class="modal2-title">Où trouver votre numéro de PMET ?</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal2-body">
+                <p>
+                    Votre numéro de PMET se trouve dans la partie supérieure du document.
+                </p>
+                <img class="img-fluid img-thumbnail" src="/static/img/pmet.jpg"/>
+            </div>
+            <div class="modal2-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal2" id="modal-aide" role="dialog" tabindex="-1">
+    <div class="modal2-dialog modal2-dialog-scrollable modal2-xl" role="document">
+        <div class="modal2-content" style="height: 80vh; margin-top: 8vh;">
+            <div class="modal2-body" style="overflow-y: hidden">
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+
+                <iframe frameborder="0" src="/faq?embed=1" style="
+                        width: 100%;
+                        height: 70vh;
+                    "></iframe>
+            </div>
+            <div class="modal2-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-target="#modal-aide" data-toggle="modal" id="aide" style="background-image: url('/static/img/icones/icon_question.svg')"></div>
 
             
         
         </div>
     </div>
 
-
-        <div id="footer">
-            <div class="links">
-                <a href="/mentions-legales">mentions legales</a>
-                <a href="/stats">statistiques</a>
-            </div>
-            <p>
-                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE
-            </p>
+    
+<div class="container-fluid" id="footer">
+    <div class="row">
+        <div class="col-12 col-lg-5 footer-images">
+            <a href="https://www.ameli.fr" target="_blank">
+                <img alt="Logo ameli.fr" class="logo" src="/static/img/logos/ameli.png"/>
+            </a>
+            <a href="https://www.oups.gouv.fr/" target="_blank">
+                <img alt="Logo oups.gouv.fr" class="logo" src="/static/img/logos/logo_oups.svg"/>
+            </a>
         </div>
+        <div class="col-12 col-lg-7 footer-links">
+            <ul class="nav">
+                <li class="nav-item">
+                    <span>© <script>document.write(new Date().getFullYear())</script> - CNAM</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/mentions-legales">Mentions légales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
     </div>

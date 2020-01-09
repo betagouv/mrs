@@ -23,7 +23,8 @@ from .forms import (
     MRSRequestCreateForm,
     TransportFormSet,
     TransportIterativeForm,
-    UseEmailForm,
+    # Deactivate email consent for now, not used anymore by staff
+    # UseEmailForm,
 )
 from .models import today, Bill, MRSRequest, Transport
 
@@ -67,7 +68,8 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
             ('transport', TransportIterativeForm()),
             ('transport_formset', TransportFormSet()),
             ('certify', CertifyForm()),
-            ('use_email', UseEmailForm()),
+            # Deactivate email consent for now, not used anymore by staff
+            # ('use_email', UseEmailForm()),
         ])
 
         return super().get(request, *args, **kwargs)
@@ -288,7 +290,8 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
             )),
             ('person', PersonForm(request.POST)),
             ('certify', CertifyForm(request.POST)),
-            ('use_email', UseEmailForm(request.POST)),
+            # Deactivate email consent for now, not used anymore by staff
+            # ('use_email', UseEmailForm(request.POST)),
         ])
         forms['transport'] = TransportIterativeForm(request.POST)
         forms['transport_formset'] = TransportFormSet(request.POST)
@@ -316,8 +319,9 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
                 mrsrequest=self.object,
             )
 
-        if self.forms['use_email'].cleaned_data['use_email']:
-            person.use_email = True
+        # Deactivate email consent for now, not used anymore by staff
+        # if self.forms['use_email'].cleaned_data['use_email']:
+        #     person.use_email = True
 
         person.save()
 

@@ -5,7 +5,6 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{% block title %}Mes Remboursements Simplifiés{% endblock %} | MRS {{ title_suffix }}</title>
-    {% include '_piwik.html' %}
     {% block extra_head %}
     {% render_bundle 'base' 'css' %}
     <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Faustina" rel="stylesheet" />
@@ -35,36 +34,15 @@
         background: #0dc5b9;
     }
     </style>
+    {% include '_piwik_new.html' %}
   </head>
   <body class="{% block body_class %} {% endblock %}">
     {% block before_content %}
     {% endblock %}
 
     <div id="app--wrapper">
-
-        <div id="header">
-            <noscript>
-                {% for link in header_links %}
-                <a href="{{ link.url }}" title="{{ link.alias }}">{{ link.alias }}</a>
-                {% endfor %}
-            </noscript>
-            <script type="text/json" id="header-links">
-                {{ header_links_json|safe }}
-            </script>
-        </div>
-
         {% block content %}
         {% endblock %}
-
-        <div id="footer">
-            <div class="links">
-                <a href="/mentions-legales">mentions legales</a>
-                <a href="/stats">statistiques</a>
-            </div>
-            <p>
-                © 2018 - CNAM - CPAM DE LA HAUTE-GARONNE
-            </p>
-        </div>
     </div>
 
     {% if SENTRY_DSN %}

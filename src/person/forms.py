@@ -4,33 +4,49 @@ from django.utils.timezone import now
 
 import material
 
-from mrs.forms import DateField
+from mrs.forms import CharFieldNative, \
+    DateFieldNativeWithoutDatepicker
 from mrs.validators import name_clean
 
 from .models import Person
 
 
 class PersonForm(forms.ModelForm):
-    birth_date = DateField(
+    birth_date = DateFieldNativeWithoutDatepicker(
         label='Date de naissance',
+    )
+    nir = CharFieldNative(
+        label='Numéro de Sécurité sociale',
+        help_text='<b>Si le patient transporté est mineur, indiquer '
+                  'le numéro de Sécurité sociale de son parent</b>',
+        max_length=13,
+    )
+    first_name = CharFieldNative(
+        label='Prénom',
+        max_length=70,
+    )
+    last_name = CharFieldNative(
+        label='Nom de famille',
+        max_length=70,
+    )
+    email = CharFieldNative(
+        label='Adresse email',
+        max_length=254,
     )
 
     layout = material.Layout(
         material.Fieldset(
-            'Identité de la personne transportée',
+            '',
             material.Row(
                 'first_name',
                 'last_name',
             ),
+            'nir',
             'birth_date',
-        ),
-        material.Fieldset(
-            'Identité de l\'assuré',
             material.Row(
-                'nir',
                 'email',
-            )
-        ),
+            ),
+        )
     )
 
     def clean_birth_date(self):
