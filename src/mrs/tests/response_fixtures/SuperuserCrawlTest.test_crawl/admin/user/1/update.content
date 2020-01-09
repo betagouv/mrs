@@ -15,6 +15,15 @@
 
   
 <div class="row">
+    <div class="input-field col s12 required" id="id_number_container">
+        <input id="id_number" maxlength="30" name="number" type="text"/>
+        <label for="id_number">Numéro d'agent</label>
+        
+    </div>
+</div>
+ 
+
+<div class="row">
     <div class="input-field col s12" id="id_first_name_container">
         <input id="id_first_name" maxlength="30" name="first_name" type="text" value=""/>
         <label for="id_first_name">Prénom</label>
@@ -96,15 +105,6 @@
         <label>
         <input checked="" class="filled-in" id="id_is_active" name="is_active" type="checkbox"/><span for="id_is_active">Actif</span></label>
         <div class="help-block">Précise si l'utilisateur doit être considéré comme actif. Décochez ceci plutôt que de supprimer le compte.</div>
-    </div>
-</div>
- 
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_number_container">
-        <input id="id_number" maxlength="30" name="number" type="text"/>
-        <label for="id_number">Numéro d'agent</label>
-        
     </div>
 </div>
  
