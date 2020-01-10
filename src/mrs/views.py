@@ -1,12 +1,14 @@
 from crudlfap import shortcuts as crudlfap
 
 from django import http
+from django.db import models
 from django.contrib.staticfiles import finders
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views import generic
 
 from mrsrequest.models import MRSRequest
+from person.models import Person
 
 
 class Dashboard(crudlfap.TemplateView):
