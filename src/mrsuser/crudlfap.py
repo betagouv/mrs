@@ -399,6 +399,8 @@ class ImportView(crudlfap.FormView):
         groups = row['profil'].split(',')
         user.add_groups(groups)
 
+        user.number = agent_nb
+
         caisses_ids = row['numero organisme'].split(',')
         caisses = []
         for id in caisses_ids:
