@@ -2,7 +2,6 @@ from crudlfap import shortcuts as crudlfap
 
 from django.conf import settings
 from django.contrib import admin
-from django.views.decorators.cache import cache_page
 from django.urls import include, path
 
 from contact.views import ContactView
@@ -69,13 +68,6 @@ urlpatterns = [
     )),
     path('explorer/', include('explorer.urls')),
     path('captcha/', include('captcha.urls')),
-    path('stats/', views.generic.RedirectView.as_view(
-        url='/stats', permanent=True)),
-    path(
-        'stats',
-        cache_page(60 * 24)(views.StatisticsView.as_view()),
-        name='statistics'
-    ),
     path('mrsrequest/', include('mrsrequest.urls', namespace='mrsrequest')),
     path('institution/', include('institution.urls', namespace='institution')),
     path('oldadmin/', admin.site.urls),
