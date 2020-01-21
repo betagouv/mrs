@@ -25,7 +25,7 @@ from institution.models import Institution
 
 from mrs.settings import DATE_FORMAT_FR
 from mrsemail.crudlfap import EmailViewMixin
-from person.forms import PersonForm
+from person.forms import PersonForm, PersonFormUpdate
 from person.models import Person
 
 from .forms import (
@@ -765,7 +765,7 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
     extra_form_classes = dict(
         person=forms.modelform_factory(
             Person,
-            form=PersonForm,
+            form=PersonFormUpdate,
             fields=['nir', 'birth_date', 'first_name']
         )
     )

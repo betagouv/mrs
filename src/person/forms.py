@@ -4,7 +4,7 @@ from django.utils.timezone import now
 
 import material
 
-from mrs.forms import CharFieldNative, \
+from mrs.forms import DateField, CharFieldNative, \
     DateFieldNativeWithoutDatepicker
 from mrs.validators import name_clean
 
@@ -47,6 +47,89 @@ class PersonForm(forms.ModelForm):
                 'email',
             ),
         )
+    )
+
+    def clean_birth_date(self):
+        data = self.cleaned_data['birth_date']
+        if data and (now().date() - data).days < 0:
+            raise forms.ValidationError(
+                'Doit être antèrieure à la date du jour')
+        return data
+
+    def clean_first_name(self):
+        return name_clean(self.cleaned_data['first_name'])
+
+    def clean_last_name(self):
+        return name_clean(self.cleaned_data['last_name'])
+
+    def get_or_create(self):
+        # Return existing person untouched if possible
+        # Case of twins : we added a unicity check
+        # with the person's first name
+        person = Person.objects.filter(
+            birth_date=self.cleaned_data['birth_date'],
+            nir=self.cleaned_data['nir'],
+            first_name__iexact=self.cleaned_data['first_name']
+        ).first()
+
+        if person:
+            save = False
+
+            # Ensure legacy data containing invalid last name are fixed
+            try:
+                person.full_clean()
+            except ValidationError as e:
+                if 'last_name' in e.error_dict:
+                    person.last_name = self.cleaned_data['last_name']
+                    save = True
+
+            if (
+                'email' in self.cleaned_data
+                and person.email != self.cleaned_data['email']
+            ):
+                save = True
+                person.email = self.cleaned_data['email']
+
+            if save:
+                person.save()
+
+            return person
+
+        # Otherwise create a new Person
+        return super().save()
+
+    class Meta:
+        model = Person
+        fields = [
+            'nir',
+            'email',
+            'first_name',
+            'last_name',
+            'birth_date',
+        ]
+
+
+class PersonFormUpdate(forms.ModelForm):
+    birth_date = DateField(
+        label='Date de naissance',
+    )
+
+    layout = material.Layout(
+        material.Fieldset(
+            'Identité de la personne transportée',
+            material.Row(
+                'first_name',
+                'last_name',
+            ),
+            'birth_date',
+        ),
+        material.Fieldset(
+            'Identité de l\'assuré',
+            material.Row(
+                'nir',
+                'email',
+            )
+        ),
     )
 
     def clean_birth_date(self):
