@@ -762,14 +762,16 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
 
 class MRSRequestUpdateView(crudlfap.UpdateView):
     allowed_groups = ['Admin', 'UPN']
-    extra_form_classes = dict(
-        person=forms.modelform_factory(
-            Person,
-            form=PersonForm,
-            fields=['nir', 'birth_date', 'first_name']
-        )
-    )
-    extra_form_classes['person'].layout = None  # cancel out material layout
+
+    class PersonUpdateForm(PersonForm):
+        layout = None
+        last_name = None
+        email = None
+
+        class Meta:
+            fields = ['nir', 'birth_date', 'first_name']
+            model = Person
+    extra_form_classes = dict(person=PersonUpdateForm)
 
     def get_extra_forms(self):
         self.extra_forms = {
@@ -859,12 +861,8 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
     def form_valid(self):
         def d():
             data = {
-                'insured' if i == 'pk' else i: getattr(self.object.insured, i)
-                for i in (
-                    'nir',
-                    # 'birth_date',
-                    'pk'
-                )
+                'insured': self.object.pk,
+                'nir': self.object.nir,
             }
             date = getattr(self.object.insured, 'birth_date')
             if date:
