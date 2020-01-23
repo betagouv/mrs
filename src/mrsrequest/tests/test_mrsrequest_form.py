@@ -7,6 +7,7 @@ import pytest
 from mrsattachment.models import MRSAttachment
 from mrsrequest.forms import (
     MRSRequestCreateForm,
+    MRSRequestForm,
     TransportFormSet,
 )
 from mrsrequest.models import Bill, MRSRequest, PMT, Transport
@@ -239,3 +240,30 @@ def test_transport_formset_confirm_messages():
             ])
         ],
     )
+
+
+@pytest.mark.parametrize('initial,value,valid', [
+    (1, 0, False),
+    (1, None, False),
+    (1, '', False),
+    (0, 0, True),
+    (0, None, True),
+    (0, '', True),
+    (None, 0, True),
+    (None, None, True),
+    (None, '', True),
+])
+def test_mrsrequestform_distancevp_validation(initial, value, valid):
+    instance = MRSRequest(distancevp=initial, modevp=bool(initial))
+    form = MRSRequestForm(
+        {'distancevp': value},
+        instance=instance,
+    )
+    assert form.is_valid()
+    form.save(commit=False)
+    if valid and instance.modevp:
+        assert form.cleaned_data['distancevp'] == value
+        assert instance.distancevp == value
+    else:
+        assert form.cleaned_data['distancevp'] == initial
+        assert instance.distancevp == initial
