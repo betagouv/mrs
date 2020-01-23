@@ -64,7 +64,7 @@ steps:
       path: /cache
 
 - name: build
-  image: drone/drone
+  image: drone/agent
   privileged: true
   settings:
     username:
