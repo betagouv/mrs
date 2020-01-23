@@ -53,24 +53,6 @@
         
     </div>
 </div>
- 
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_last_name_container">
-        <input id="id_last_name" maxlength="70" name="last_name" placeholder="" type="text"/>
-        <label for="id_last_name">Nom de famille</label>
-        
-    </div>
-</div>
- 
-
-<div class="row">
-    <div class="input-field col s12 required" id="id_email_container">
-        <input id="id_email" maxlength="254" name="email" placeholder="" type="text"/>
-        <label for="id_email">Adresse email</label>
-        
-    </div>
-</div>
 
     
 
