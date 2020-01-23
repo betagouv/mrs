@@ -319,7 +319,12 @@
                             Montant total de la dépense VP
                         </td>
                         <td>
-                            {{ '%.2f'|format(object.distancevp * 0.3 + float(object.expensevp)) }} €TTC
+                            {% if object.distancevp %}
+                                {{ '%.2f'|format(object.distancevp * 0.3 + float(object.expensevp)) }} €TTC
+                            {% else %}
+                                <b>VIDE</b>
+                                Une modification a vidée le champs distance, voir l'historique des actions de la demande en haut à droite du corps de la page.
+                            {% endif %}
                         </td>
                     </tr>
                     <tr
