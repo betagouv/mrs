@@ -54,34 +54,38 @@ trigger:
     exclude:
     - promote
 
-steps:
-- name: prepare
-  image: busybox
-  commands:
-    - mkdir -p /cache/${DRONE_REPO}/docker
-  volumes:
-    - name: cache
-      path: /cache
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
 
+steps:
 - name: build
-  image: yourlabsopensource/drone-docker
+  image: yourlabs/docker
   privileged: true
-  settings:
-    username:
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  commands:
+  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+  - docker build
+        --shm-size 512M
+        -t $REPO:$DRONE_COMMIT
+        --build-arg GIT_COMMIT=$DRONE_COMMIT
+        .
+  - docker push
+        $REPO:$DRONE_COMMIT
+  - docker tag
+        $REPO:$DRONE_COMMIT
+        $REPO:$DRONE_BRANCH
+  - docker push
+        $REPO:$DRONE_BRANCH
+  environment:
+    DOCKER_USER:
       from_secret: DOCKER_USER
-    password:
+    DOCKER_PASS:
       from_secret: DOCKER_PASS
-    repo: betagouv/mrs
-    shm_size: 512M
-    use_cache: true
-    build_args:
-    - "GIT_COMMIT=${DRONE_COMMIT}"
-    tags:
-    - "${DRONE_BRANCH}"
-    - "${DRONE_COMMIT}"
-    cache_from:
-    - "betagouv/mrs:master"
-    - "betagouv/mrs:${DRONE_BRANCH}"
+    REPO: betagouv/mrs
 
 ---
 kind: pipeline
