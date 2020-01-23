@@ -743,3 +743,9 @@ class MRSRequestForm(forms.ModelForm):
     class Meta:
         model = MRSRequest
         fields = ['distancevp']
+
+    def clean_distancevp(self):
+        value = self.cleaned_data.get('distancevp', None)
+        if self.instance.modevp and value:
+            return value
+        return self.instance.distancevp
