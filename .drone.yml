@@ -169,6 +169,7 @@ steps:
   - bigsudo
     ./ansible/deploy.yml
     project=test-$DRONE_BRANCH
+    lifetime=604800
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
     compose_django_build=
     compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml
