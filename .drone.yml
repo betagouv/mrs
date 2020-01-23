@@ -64,7 +64,7 @@ steps:
       path: /cache
 
 - name: build
-  image: yourlabsopensource/drone-docker
+  image: drone/drone
   privileged: true
   settings:
     username:
