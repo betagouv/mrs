@@ -861,8 +861,8 @@ class MRSRequestUpdateView(crudlfap.UpdateView):
     def form_valid(self):
         def d():
             data = {
-                'insured': self.object.pk,
-                'nir': self.object.nir,
+                'insured': self.object.insured.pk,
+                'nir': self.object.insured.nir,
             }
             date = getattr(self.object.insured, 'birth_date')
             if date:
