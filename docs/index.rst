@@ -7,6 +7,7 @@
    tutorial
    iframe
    glossary
+   ops
 
 Index
 =====

@@ -173,7 +173,6 @@ steps:
     project=test-$DRONE_BRANCH
     lifetime=604800
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
-    compose_django_build=
     compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml
     deploy@staging.mrs.beta.gouv.fr
     -v | tee out
@@ -210,7 +209,6 @@ steps:
     ./ansible/deploy.yml
     home=/home/mrs-staging
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
-    compose_django_build=
     compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml,docker-compose.persist.yml
     deploy@staging.mrs.beta.gouv.fr
     -v | tee out
@@ -245,7 +243,6 @@ steps:
     ./ansible/deploy.yml
     home=/home/mrs-ecole
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
-    compose_django_build=
     compose=docker-compose.yml,docker-compose.maildev.yml,docker-compose.traefik.yml,docker-compose.persist.yml
     deploy@staging.mrs.beta.gouv.fr
     -v | tee out
@@ -286,7 +283,6 @@ steps:
     ./ansible/deploy.yml
     home=/home/mrs-production
     compose_django_image=betagouv/mrs:$DRONE_COMMIT
-    compose_django_build=
     compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
     deploy@mrs.beta.gouv.fr
     -v | tee out
