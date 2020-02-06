@@ -83,7 +83,7 @@ def test_payment_delay():
         creation_datetime=datetime.datetime(
             2000, 12, 20, 12, tzinfo=pytz.timezone(settings.TIME_ZONE)
         ),
-        mandate_datevp=datetime.date(2000, 12, 30),
+        mandate_date=datetime.date(2000, 12, 30),
     )
     assert obj.delay == 9.5
 
@@ -302,20 +302,6 @@ def test_mrsrequest_order_number_sticks_at_99():
             assert obj.order_number == '{:02d}'.format(i), 'object #' + i
 
     assert obj.order_number == '99'
-
-
-def test_mrsrequest_mandate_date():
-    m = MRSRequest()
-    assert m.mandate_date is None
-
-    m.mandate_datevp = '2018-05-01'
-    assert m.mandate_date == m.mandate_datevp
-
-    m.mandate_dateatp = '2018-04-01'
-    assert m.mandate_date == m.mandate_datevp
-
-    m.mandate_dateatp = '2018-06-01'
-    assert m.mandate_date == m.mandate_dateatp
 
 
 @pytest.mark.django_db

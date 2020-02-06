@@ -487,20 +487,10 @@ class MRSRequest(models.Model):
         on_delete=models.SET_NULL,
         verbose_name='Établissement',
     )
-    mandate_datevp = models.DateField(
+    mandate_date = models.DateField(
         null=True,
         blank=True,
-        verbose_name='Date de mandatement VP',
-        validators=[
-            validators.MinValueValidator(
-                datetime.date(year=2000, month=1, day=1)
-            )
-        ],
-    )
-    mandate_dateatp = models.DateField(
-        null=True,
-        blank=True,
-        verbose_name='Date de mandatement ATP',
+        verbose_name='Date de mandatement',
         validators=[
             validators.MinValueValidator(
                 datetime.date(year=2000, month=1, day=1)
@@ -881,16 +871,6 @@ class MRSRequest(models.Model):
             return '99'
 
         return '{:02d}'.format(number)
-
-    @property
-    def mandate_date(self):
-        dates = (self.mandate_datevp, self.mandate_dateatp)
-        if dates[0] and dates[1]:
-            return dates[0] if dates[0] > dates[1] else dates[1]
-
-        for date in dates:
-            if date:
-                return date
 
     def make_display_id(self):
         normalized = pytz.timezone(settings.TIME_ZONE).normalize(

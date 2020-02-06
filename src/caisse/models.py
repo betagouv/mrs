@@ -157,8 +157,7 @@ def monthly_mail(force=False):
 
     for caisse in Caisse.objects.filter(active=True).order_by('pk'):
         objects = caisse.mrsrequest_set.filter(
-            mandate_datevp=None,
-            mandate_dateatp=None,
+            mandate_date=None
         ).status(
             'validated'
         ).created(

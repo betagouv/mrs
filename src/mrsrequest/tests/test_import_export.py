@@ -89,7 +89,7 @@ aaaaaaa;201805010000;1111111111111;30/04/2000;29/04/2018;11/06/2018;2;3; ;310123
         assert success.insured.shifted is True
         assert success.institution.finess == '310123123'
         assert success.adeli == 12
-        assert str(success.mandate_datevp) == '2018-06-10'
+        assert str(success.mandate_date) == '2018-06-10'
 
         request, view = self.upload(self.upload1)
         assert list(view.success.keys()) == [1, 2, 3, 4]

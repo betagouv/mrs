@@ -187,7 +187,7 @@ def provision_emailtemplate(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    replaces = [('mrsrequest', '0011_insured_shift_move_to_person'), ('mrsrequest', '0012_mrsrequest_insured_shift'), ('mrsrequest', '0013_fix_y2k'), ('mrsrequest', '0014_mrsrequestlogentry'), ('mrsrequest', '0015_migrate_logentries'), ('mrsrequest', '0016_instance_data'), ('mrsrequest', '0017_expense_rename_expensevp'), ('mrsrequest', '0018_distance_rename_distancevp'), ('mrsrequest', '0019_add_bill_mode'), ('mrsrequest', '0020_add_billatp'), ('mrsrequest', '0021_save_modes'), ('mrsrequest', '0022_drop_mrsrequest_reject_template_relation'), ('mrsrequest', '0023_mrsrequest_modevp_default_false'), ('mrsrequest', '0024_nonschematic_options'), ('mrsrequest', '0025_initial_data_distancevp'), ('mrsrequest', '0026_rename_mandate_date_mandate_datevp'), ('mrsrequest', '0027_add_mrsrequest_mandate_dateatp'), ('mrsrequest', '0028_initial_data_distancevp'), ('mrsrequest', '0029_convert_birth_dates_to_fr_format'), ('mrsrequest', '0030_add_mrsrequest_confirms'), ('mrsrequest', '0031_null_expense_fields'), ('mrsrequest', '0032_remove_mrsrequest_creation_ip'), ('mrsrequest', '0033_conflicts_counter_rewrite'), ('mrsrequest', '0034_mrsrequest_token'), ('mrsrequest', '0035_cancel_mrsrequest'), ('mrsrequest', '0036_multiple_pmts'), ('mrsrequest', '0037_add_mrsrequest_suspended'), ('mrsrequest', '0038_add_mrsrequest_pel'), ('mrsrequest', '0039_mrsrequestlogentry_email_template'), ('mrsrequest', '0040_expensevp_toll_parking')]
+    replaces = [('mrsrequest', '0011_insured_shift_move_to_person'), ('mrsrequest', '0012_mrsrequest_insured_shift'), ('mrsrequest', '0013_fix_y2k'), ('mrsrequest', '0014_mrsrequestlogentry'), ('mrsrequest', '0015_migrate_logentries'), ('mrsrequest', '0016_instance_data'), ('mrsrequest', '0017_expense_rename_expensevp'), ('mrsrequest', '0018_distance_rename_distancevp'), ('mrsrequest', '0019_add_bill_mode'), ('mrsrequest', '0020_add_billatp'), ('mrsrequest', '0021_save_modes'), ('mrsrequest', '0022_drop_mrsrequest_reject_template_relation'), ('mrsrequest', '0023_mrsrequest_modevp_default_false'), ('mrsrequest', '0024_nonschematic_options'), ('mrsrequest', '0025_initial_data_distancevp'), ('mrsrequest', '0026_rename_mandate_date_mandate_datevp'), ('mrsrequest', '0027_add_mrsrequest_mandate_dateatp'), ('mrsrequest', '0028_initial_data_distancevp'), ('mrsrequest', '0029_convert_birth_dates_to_fr_format'), ('mrsrequest', '0030_add_mrsrequest_confirms'), ('mrsrequest', '0031_null_expense_fields'), ('mrsrequest', '0032_remove_mrsrequest_creation_ip'), ('mrsrequest', '0033_conflicts_counter_rewrite'), ('mrsrequest', '0034_mrsrequest_token'), ('mrsrequest', '0035_cancel_mrsrequest'), ('mrsrequest', '0036_multiple_pmts'), ('mrsrequest', '0037_add_mrsrequest_suspended'), ('mrsrequest', '0038_add_mrsrequest_pel'), ('mrsrequest', '0039_mrsrequestlogentry_email_template'), ('mrsrequest', '0040_expensevp_toll_parking'), ('mrsrequest', '0041_remove_mandate_dateatp_rename_mandate_datevp')]
 
     dependencies = [
         ('mrsrequest', '0010_decimal_digits'),
@@ -307,11 +307,6 @@ class Migration(migrations.Migration):
             name='modeatp',
             field=models.BooleanField(blank=True, default=False, help_text='(Avion, bus, métro, train, bateau…)', verbose_name='Avez vous voyagé en transports en commun ?'),
         ),
-        migrations.AddField(
-            model_name='mrsrequest',
-            name='mandate_dateatp',
-            field=models.DateField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(datetime.date(2000, 1, 1))], verbose_name='Date de mandatement ATP'),
-        ),
         migrations.AlterField(
             model_name='mrsrequest',
             name='mandate_datevp',
@@ -421,4 +416,14 @@ class Migration(migrations.Migration):
             lambda apps, schema_editor: True  # allow migration reveres
         ),
         migrations.RunPython(provision_emailtemplate),
+        migrations.AlterField(
+            model_name='mrsrequest',
+            name='distancevp',
+            field=models.PositiveIntegerField(blank=True, help_text='Indiquez le nombre total de kilomètres parcourus : Par exemple, vous réalisez 2 trajets de 40 kilomètres aller/retour : déclarez 80 kilomètres parcourus.', null=True, verbose_name='Distance (km)'),
+        ),
+        migrations.RenameField(
+            model_name='mrsrequest',
+            old_name='mandate_datevp',
+            new_name='mandate_date',
+        ),
     ]
