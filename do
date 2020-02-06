@@ -2,44 +2,6 @@
 export DJANGO_SETTINGS_MODULE=mrs.settings
 export DB_ENGINE=django.db.backends.postgresql
 
-# env.setup         Global environment variables and fs perms setup
-env.setup() {
-    export DJANGO_SETTINGS_MODULE=mrs.settings
-    export DB_ENGINE=django.db.backends.postgresql
-    test -n "${CI_COMMIT_SHA-}" || export CI_COMMIT_SHA=$(git rev-parse --short HEAD)
-    export image=${image-betagouv/mrs:master}
-    export instance=${instance-test}
-
-    if ! test -f .env; then
-        if ! env | grep ^DEBUG= ; then
-            read -p    'Production config ? Leave empty, or type 1 for DEBUG config' DEBUG
-        fi
-    cat <<EOF > .env
-ALLOWED_HOSTS=${ALLOWED_HOSTS-*}
-DB_ENGINE=django.db.backends.postgresql
-DB_NAME=${DB_NAME-mrs}
-DB_PASSWORD=${DB_PASSWORD-}
-DB_USER=${DB_USER-django}
-DEBUG=${DEBUG-}
-DEFAULT_FROM_EMAIL=
-EMAIL_HOST=
-EMAIL_PORT=
-LIQUIDATION_EMAIL=
-RESTIC_PASSWORD=notsecret
-SECRET_KEY=notsecret
-SENTRY_AUTH_TOKEN=
-SENTRY_DSN=
-SENTRY_ORG=sentry
-SENTRY_PROJECT=
-SENTRY_URL=
-TEAM_EMAIL=
-VIRTUAL_HOST=
-VIRTUAL_PROTO=
-EOF
-    fi
-    set -a && source .env
-}
-
 # db.reset          Drop and re-create the database
 db.reset() {
     sudo systemctl start postgresql
@@ -224,6 +186,30 @@ docker.load() {
 
 # docker.backup     Backup a dump remotely
 docker.backup() {
+    if [ -z "$BACKUP_FORCE" ]; then
+        cat <<EOF
+This script is not safe to run multiple instances at the same time.
+You need to set the BACKUP_FORCE env var for the script to continue.
+
+Or even better, use the systemd unit, that will garantee that the
+script is not executed multiple times at the same time:
+
+    systemctl start --wait backup-mrs-production
+    systemctl status backup-mrs-production
+    journalctl -fu backup-mrs-production
+
+Please upgrade to the above. Meanwhile, the script will deal with systemd for
+you.
+EOF
+        set -eux
+        journalctl -fu backup-mrs-production &
+        journalpid="$!"
+        systemctl start --wait backup-mrs-production
+        retcode="$?"
+        kill $journalpid
+        exit $retcode
+    fi
+
     export RESTIC_REPOSITORY=./restic
     if [ -f ./.backup_password ]; then
         export RESTIC_PASSWORD_FILE=.backup_password
@@ -364,6 +350,48 @@ docker.logs() {
 # docker.shell      Shell on docker process
 docker.shell() {
     docker exec -it mrs-$instance bash
+}
+
+# compose               Wrapper for docker-compose
+#                       Adds an extra command: ./do compose apply
+compose() {
+    if [ "$1" = "apply" ]; then
+        compose build
+        compose down
+        compose up -d
+        compose logs
+        compose ps
+        return
+    fi
+
+    docker-compose $@
+}
+
+# vagrant               Vagrant wrapper providing ssh-config into .vagrant
+#                       Adds apply sub command to chain destroy and up
+vagrant() {
+    export VAGRANT_IP=192.168.168.168
+
+    if [ "$1" = "apply" ]; then
+        vagrant destroy -f
+        vagrant up
+        return
+    fi
+
+    if [ "$1" = "bigsudo" ]; then
+        shift
+        if [ ! -f .vagrant-ssh ]; then
+            vagrant up
+        fi
+        bigsudo $@ --ssh-common-args="-F .vagrant-ssh" --inventory="default,"
+        return
+    fi
+
+    $(which vagrant) $@
+
+    if [ "$1" = "up" ]; then
+        $(which vagrant) ssh-config > .vagrant-ssh
+    fi
 }
 
 # waituntil             Wait for a statement until 150 tries elapsed

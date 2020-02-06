@@ -2,13 +2,11 @@ version: '3.7'
 
 services:
   django:
-    build:
-      dockerfile: Dockerfile
-      context: ./
-      shm_size: 512mb
+    image: betagouv/mrs:master
     logging:
       driver: journald
     environment:
+    - ALLOWED_HOSTS
     - DB_ENGINE=django.db.backends.postgresql
     - DB_HOST=postgres
     - DB_USER=django
@@ -24,6 +22,8 @@ services:
     - EMAIL_USE_SSL
     - EMAIL_USE_TLS
     - DEFAULT_FROM_EMAIL
+    - HOST
+    - PROTO
     - TEAM_EMAIL
     - SENTRY_AUTH_TOKEN
     - SENTRY_DSN
