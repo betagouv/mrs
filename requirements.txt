@@ -2,6 +2,8 @@ clilabs
 docutils
 django<3.0
 dj-static
+django-referrer-policy
+django-security-headers
 django-simple-captcha
 django-webpack-loader
 django-threadlocals

@@ -53,6 +53,56 @@ if 'HOST' in os.environ and os.getenv('HOST') not in ALLOWED_HOSTS:
 if not DEBUG and 'ALLOWED_HOSTS' not in os.environ:
     raise Exception('$ALLOWED_HOSTS is required if DEBUG is False')
 
+SSL_CONTEXT = os.getenv('PROTO') == 'https'
+if SSL_CONTEXT:
+    SSL_CONTEXT = True
+    SECURE_HSTS_SECONDS = 15768000  # 6 months
+    CSP_DEFAULT_SRC = [
+        "'self'",
+        "'unsafe-inline'",
+        'https://fonts.gstatic.com',
+    ]
+    CSP_SCRIPT_SRC = [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+        'https://code.jquery.com',
+        'https://cdnjs.cloudflare.com',
+        'https://stackpath.bootstrapcdn.com',
+        'https://fonts.googleapis.com',
+        'https://fonts.gstatic.com',
+    ]
+    CSP_FRAME_SRC = [
+        "'self'",
+        'https://www.youtube.com',
+    ]
+    CSP_STYLE_SRC = [
+        "'self'",
+        "'unsafe-inline'",
+        'https://fonts.googleapis.com',
+        'https://stackpath.bootstrapcdn.com',
+    ]
+    CSP_IMG_SRC = ["'self'"]
+    CSP_FRAME_ANCESTORS = ["'self'"]
+    CSP_BASE_URI = ["'self'"]
+    CSP_FORM_ACTION = [
+        "'self'",
+    ]
+else:
+    SECURE_HSTS_SECONDS = 0
+    CSRF_COOKIE_NAME = 'csrftoken'
+
+SECURE_BROWSER_XSS_FILTER = 1
+CSRF_COOKIE_SECURE = SSL_CONTEXT
+SECURE_HSTS_INCLUDE_SUBDOMAINS = SSL_CONTEXT
+SECURE_HSTS_PRELOAD = SSL_CONTEXT
+SECURE_SSL_REDIRECT = SSL_CONTEXT
+SESSION_COOKIE_SECURE = SSL_CONTEXT
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSP_UPGRADE_INSECURE_REQUESTS = SSL_CONTEXT
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+
 MAINTENANCE_ENABLE = os.getenv('MAINTENANCE_ENABLE', False)
 
 LOGIN_REDIRECT_URL = '/admin/'
@@ -72,6 +122,7 @@ INSTALLED_APPS = [
     'denorm',
     'explorer',
     'captcha',
+    'security_headers',
 
     os.getenv('WEBPACK_LOADER', 'webpack_loader'),
     'django_humanize',
@@ -88,6 +139,15 @@ if not os.getenv('CI'):
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+]
+
+if not DEBUG:
+    MIDDLEWARE += [
+        'csp.middleware.CSPMiddleware',
+        'security_headers.middleware.extra_security_headers_middleware',
+    ]
+
+MIDDLEWARE += [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
