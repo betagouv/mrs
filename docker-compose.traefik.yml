@@ -8,9 +8,6 @@ services:
     - "traefik.enable=true"
     - "traefik.port=8000"
     - "traefik.frontend.rule=Host: ${HOST},www.${HOST}"
-    - "traefik.frontend.redirect.regex=^https?://${HOST}/(.*)"
-    - "traefik.frontend.redirect.replacement=https://www.${HOST}/$${1}"
-    - "traefik.frontend.redirect.permanent=true"
     networks:
     - default
     - web
