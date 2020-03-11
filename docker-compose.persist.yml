@@ -9,6 +9,9 @@ services:
     - ./log:/app/log
     labels:
     - "io.yourlabs.compose.mkdir=log,spooler,spooler/mail,spooler/stat,mrsattachments:1000:1000:0750"
+    - "traefik.frontend.redirect.regex=^https?://${HOST}/(.*)"
+    - "traefik.frontend.redirect.replacement=https://www.${HOST}/$${1}"
+    - "traefik.frontend.redirect.permanent=true"
 
   postgres:
     restart: always
