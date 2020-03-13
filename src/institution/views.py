@@ -29,11 +29,13 @@ class InstitutionMixin(object):
                 request.GET['origin']
             )
             response['Access-Control-Allow-Origin'] = '*'
+            response._csp_replace = dict(FRAME_ANCESTORS='*')
             self.ALLOW_INSECURE = True
         else:
+            response['Access-Control-Allow-Origin'] = self.allow_origin()
             response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
                 self.institution.origin)
-            response['Access-Control-Allow-Origin'] = self.allow_origin()
+            response._csp_replace = dict(FRAME_ANCESTORS=self.allow_origin())
 
         return response
 
