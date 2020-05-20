@@ -443,20 +443,15 @@ class PasswordView(CrudlfapPasswordView):
         return type(cls.__name__, (cls,), dict(instance=self.object))
 
     def get_form_kwargs(self):
-
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.object
-
-        kwargs['disabled'] = False
-
-        # Case when the admin manages no caisses of the edited user
-        if(len(list(set(self.request.user.caisses.all())
-           & set(self.object.caisses.all()))) == 0):
-
-            # We disable every field of the SetPasswordForm
-            kwargs['disabled'] = True
-
         return kwargs
+
+    def has_perm(self):
+        return (
+            list(set(self.request.user.caisses.all())
+            & set(self.object.caisses.all()))
+        )
 
 
 class UserRouter(crudlfap.Router):
@@ -496,11 +491,11 @@ class UserRouter(crudlfap.Router):
                 caisses__in=view.request.user.caisses.all()
             ).exclude(
                 groups__name__in=('Superviseur', 'Admin')
-            ).distinct()
+            ).prefetch_related('caisses').distinct()
         elif user.profile == 'admin local':
             return self.model.objects.exclude(
                 groups__name='Admin'
-            ).distinct()
+            ).prefetch_related('caisses').distinct()
 
         return self.model.objects.none()
 
