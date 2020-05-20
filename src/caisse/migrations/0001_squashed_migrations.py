@@ -1,3 +1,4 @@
+import os
 import caisse.models
 from django.db import migrations, models
 import django.db.models.deletion
@@ -178,6 +179,8 @@ regions_list = [
 
 
 def insert_regions(apps, schema_editor):
+    if 'CI' in os.environ:
+        return
 
     Region = apps.get_model("caisse", "Region")
     db_alias = schema_editor.connection.alias
