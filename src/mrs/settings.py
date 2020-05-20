@@ -57,40 +57,39 @@ SSL_CONTEXT = os.getenv('PROTO') == 'https'
 if SSL_CONTEXT:
     SSL_CONTEXT = True
     SECURE_HSTS_SECONDS = 15768000  # 6 months
-    CSP_DEFAULT_SRC = [
-        "'self'",
-        "'unsafe-inline'",
-        'https://fonts.gstatic.com',
-    ]
-    CSP_SCRIPT_SRC = [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-        'https://code.jquery.com',
-        'https://cdnjs.cloudflare.com',
-        'https://stackpath.bootstrapcdn.com',
-        'https://fonts.googleapis.com',
-        'https://fonts.gstatic.com',
-    ]
-    CSP_FRAME_SRC = [
-        "'self'",
-        'https://www.youtube.com',
-    ]
-    CSP_STYLE_SRC = [
-        "'self'",
-        "'unsafe-inline'",
-        'https://fonts.googleapis.com',
-        'https://stackpath.bootstrapcdn.com',
-    ]
-    CSP_IMG_SRC = ["'self'"]
-    CSP_FRAME_ANCESTORS = ["'self'"]
-    CSP_BASE_URI = ["'self'"]
-    CSP_FORM_ACTION = [
-        "'self'",
-    ]
 else:
     SECURE_HSTS_SECONDS = 0
     CSRF_COOKIE_NAME = 'csrftoken'
+
+CSP_DEFAULT_SRC = [
+    "'self'",
+    "'unsafe-inline'",
+    'https://fonts.gstatic.com',
+]
+CSP_SCRIPT_SRC = [
+    "'self'",
+    "'unsafe-inline'",
+    "'unsafe-eval'",
+    'https://code.jquery.com',
+    'https://cdnjs.cloudflare.com',
+    'https://stackpath.bootstrapcdn.com',
+    'https://fonts.googleapis.com',
+    'https://fonts.gstatic.com',
+]
+CSP_FRAME_SRC = [
+    "'self'",
+    'https://www.youtube.com',
+]
+CSP_STYLE_SRC = [
+    "'self'",
+    "'unsafe-inline'",
+    'https://fonts.googleapis.com',
+    'https://stackpath.bootstrapcdn.com',
+]
+CSP_IMG_SRC = ["'self'"]
+CSP_FRAME_ANCESTORS = ["'self'"]
+CSP_BASE_URI = ["'self'"]
+CSP_FORM_ACTION = ["'self'"]
 
 SECURE_BROWSER_XSS_FILTER = 1
 CSRF_COOKIE_SECURE = SSL_CONTEXT
@@ -101,7 +100,7 @@ SESSION_COOKIE_SECURE = SSL_CONTEXT
 CSRF_COOKIE_SAMESITE = 'Lax'
 CSP_UPGRADE_INSECURE_REQUESTS = SSL_CONTEXT
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 MAINTENANCE_ENABLE = os.getenv('MAINTENANCE_ENABLE', False)
 
