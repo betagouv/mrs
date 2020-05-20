@@ -196,17 +196,24 @@ var formInit = function (form) {
 
   var caisseChange = function() {
     if ($caisse.val()) {
-      $mrsrequestForm.slideDown()
-      $('html, body').animate({
-        scrollTop: $('#mrsrequest-form').offset().top - 5
-      }, 'fast')
       if (document.caisses[$caisse.val()].parking_enable) {
-        $parking.parents('.col').show('slide')
-        $parkingEnable.show('slide')
+        $parking.parents('.col').show()
+        $parkingEnable.show()
       } else {
-        $parking.parents('.col').hide('slide')
-        $parkingEnable.hide('slide')
+        $parking.parents('.col').hide()
+        $parkingEnable.hide()
       }
+
+      $mrsrequestForm.slideDown(function() {
+        var $error = $('.has-error:visible')
+        if ($error.length) {
+          $error[0].scrollIntoView()
+        } else {
+          $('html, body').animate({
+            scrollTop: $('#mrsrequest-form').offset().top - 5
+          }, 'fast')
+        }
+      })
 
       var $convocation = $('[name=pmt_pel][value=convocation]').parents('.radio')
       if (document.caisses[$caisse.val()].nopmt_enable) {
@@ -491,11 +498,6 @@ var formSubmit = function(form) {
 
         var $error = $('.has-error')
         if ($error.length) {
-          $('html, body').animate({
-            // Compensate for heading to show
-            scrollTop: $error.offset().top
-          }, 'fast')
-
           // Change error class to warning.
           if (newform.find('[name=confirm]').length) {
             $('.error').attr('class', 'warning')
