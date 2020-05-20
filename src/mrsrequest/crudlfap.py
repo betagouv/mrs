@@ -516,7 +516,7 @@ class MRSRequestCSVListView(MRSRequestListView):
             content_type='text/csv; charset=utf-8-sig'
         )
         response['Content-Disposition'] = (
-            f'attachment; filename="MRS.csv"'
+            'attachment; filename="MRS.csv"'
         )
         return response
 
@@ -627,8 +627,8 @@ class MRSRequestImport(crudlfap.FormMixin, crudlfap.ModelView):
             return self.render_to_response()
 
         def decode_utf8(input_iterator):
-            for l in input_iterator:
-                yield l.decode(self.encoding).strip()
+            for inp in input_iterator:
+                yield inp.decode(self.encoding).strip()
 
         f = csv.DictReader(
             decode_utf8(self.request.FILES['csv']),
