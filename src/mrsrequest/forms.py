@@ -142,7 +142,7 @@ class MRSRequestCreateForm(forms.ModelForm):
     caisse = forms.ModelChoiceField(
         queryset=Caisse.objects.filter(
             active=True
-        ).prefetch_related('regions'),
+        ),
         label='',
         help_text='Votre caisse n\'apparaît pas dans la liste ? Elle n\'a pas '
                   'encore rejoint le dispositif MRS.'

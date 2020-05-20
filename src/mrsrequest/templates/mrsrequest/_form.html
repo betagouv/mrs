@@ -45,9 +45,18 @@
                         <li>- du {{ transport.date_depart }}{% if transport.date_return %} au {{ transport.date_return }}{% endif %}</li>
                     {% endfor %}
                 </ul>
+
+                {% if view.object.distancevp %}
                 <p class="mb-5">
                     Pour un total de <b>{{ view.object.distancevp }}</b> km parcourus.
                 </p>
+                {% endif %}
+
+                {% if view.object.expenseatp %}
+                <p class="mb-5">
+                    Pour un total de <b>{{ view.object.expenseatp }}</b>&euro; frais de transports en commun.
+                </p>
+                {% endif %}
 
                 <p class="mb-5">
                     Vous avez la possibilité d'annuler votre demande tant qu'elle n'est pas traitée par nos services.
