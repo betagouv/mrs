@@ -26,9 +26,17 @@
                             <p> {{ transport.date_depart }} - {{ transport.date_return }} </p>
                         {% endfor %}
 
+                        {% if view.object.distancevp %}
                         <p>
                             Pour un total de <b>{{ view.object.distancevp }}</b> km parcourus.
                         </p>
+                        {% endif %}
+
+                        {% if view.object.expenseatp %}
+                        <p>
+                            Pour un total de <b>{{ view.object.expenseatp }}</b>&euro; frais de transports en commun.
+                        </p>
+                        {% endif %}
 
                         <p>
                             Cliquez sur le bouton suivant si vous êtes sûr(e) de vouloir annuler
