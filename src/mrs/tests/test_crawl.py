@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 from crudlfap import shortcuts as crudlfap
 
@@ -43,7 +44,9 @@ class LiquidateurCrawlTest(ResponseDiffTestMixin, test.TestCase):
     strip_parameters = ['_next']
 
     def setUp(self):
-        with open(Path(settings.ATTACHMENT_ROOT) / "1x1.png", "wb") as f:
+        if not os.path.exists(settings.ATTACHMENT_ROOT):
+            os.makedirs(settings.ATTACHMENT_ROOT)
+        with open(Path(settings.ATTACHMENT_ROOT) / "1x1.png", "wb+") as f:
             f.write(b'aoeu')
 
     @freeze_time('2018-05-05 13:37:42')
