@@ -140,12 +140,10 @@ class MRSRequestCreateForm(forms.ModelForm):
     )
 
     caisse = ActiveCaisseChoiceField(
-        otherchoice=True,
+        otherchoice=False,
         label='',
         help_text='Votre caisse n\'apparaît pas dans la liste ? Elle n\'a pas '
-                  'encore rejoint le dispositif MRS. Cliquez sur "Autre" pour '
-                  'la sélectionner et recevoir un e-mail dès que celle-ci '
-                  'sera disponible !'
+                  'encore rejoint le dispositif MRS.'
     )
 
     region = ActiveRegionChoiceField(
