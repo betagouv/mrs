@@ -65,10 +65,6 @@ var formInit = function (form) {
   document.caisses = JSON.parse(
     document.getElementById('caissesJson').innerHTML)
 
-  // On récupère l'id de la région des régimes spéciaux
-  document.regimesspeciauxId = JSON.parse(
-    document.getElementById('regimesspeciauxId').innerHTML).id
-
   // Bloc contenant la liste déroulante de sélection de caisse
   var $caisseSelector = $(form).find('#caisse-selector')
   // Liste déroulante de sélection de caisse
@@ -80,65 +76,11 @@ var formInit = function (form) {
   // Liste déroulante de sélection de région
   var $region = $(form).find('#id_region')
 
-  // Bloc contenant la liste déroulante de sélection d'une région inactive
-  var $otherregionContainer = $(form).find('#id_other-region_container')
-  // Liste déroulante de sélection d'une région inactive
-  var $otherregion = $(form).find('#id_other-region')
-
   // Formulaire de saisie de la demande MRS
   var $mrsrequestForm = $(form).find('#mrsrequest-form')
 
-  // Formulaire "Me prévenir quand la caisse sera activée"
-  var $caisseForm = $(form).find('#caisse-form')
-
   var $parking = $(form).find('#id_expensevp_parking')
   var $parkingEnable = $(form).find('[data-parking-enable]')
-
-  // Preselect region if found in cookie
-  var regionSelected = Cookie.get('region')
-
-  if (parseInt(regionSelected)) {
-
-    $region.val(regionSelected)
-    $caisse.val('')
-    adjustSelectOptions('caisse', $region.val(),  false, true)
-    $caisseSelector.show('slide')
-
-  } else if (regionSelected=='other'){
-
-    $region.val('other')
-    hideRequestShowCaisseVoteForm(form, true)
-    Cookie.set('caisse', '')
-
-  } else {
-
-    Cookie.set('caisse', '')
-    $('#btnCommencer').hide()
-    $('#collapseCommencer').show()
-
-  }
-
-  // Preselect caisse if found in cookie
-  var caisseSelected = Cookie.get('caisse')
-
-  if (parseInt(caisseSelected)) {
-
-    $caisse.val(caisseSelected)
-    if($region.val()){
-      adjustSelectOptions('caisse', $region.val(), false, true)
-    }
-
-  } else if (caisseSelected=='other'){
-
-    $caisse.val(caisseSelected)
-    adjustSelectOptions('caisse', $region.val(),  false, true)
-    hideRequestShowCaisseVoteForm(form, false)
-
-  } else {
-
-    $caisseForm.hide()
-
-  }
 
   for (let element of form.querySelectorAll('textarea')) {
     M.textareaAutoResize(element)
@@ -164,13 +106,13 @@ var formInit = function (form) {
   // NB : Masquer directement les options du select ne fonctionne pas sous IE11 et Safari,
   // une solution de contournement consiste à wrapper l'option dans un span afin
   // qu'elle n'apparaisse plus. Pas très élégant, mais fonctionnel.
-  function hideOptions(selector){
+  function hideOptions(selector) {
     $(form).find(selector).each(function() {
       if( !($(this).parent().is('span')) ) $(this).wrap('<span>')
     })
   }
 
-  function showOptions(selector){
+  function showOptions(selector) {
     $(form).find(selector).each(function() {
       if( ($(this).parent().is('span')) ) $(this).unwrap()
     })
@@ -178,8 +120,7 @@ var formInit = function (form) {
 
   // Fonction permettant d'ajuster (afficher et/ou masquer) les options dans
   // le select natif, selon la région sélectionnée
-  function adjustSelectOptions(select_name, region_id, with_regimes_speciaux, with_others){
-
+  function adjustSelectOptions(select_name, region_id, with_regimes_speciaux, with_others) {
     // On masque toutes les options qui n'ont pas la région sélectionnées au sein
     // de l'attribut data-regions
     hideOptions('[name=' + select_name +'] option:not([data-regions~="' + region_id + '"])')
@@ -190,110 +131,72 @@ var formInit = function (form) {
 
     // Si les régimes spéciaux sont à rajouter, on affiche les options qui ont
     // la région régimes spéciaux au sein de l'attribut data-regions
-    if(with_regimes_speciaux){
+    if(with_regimes_speciaux) {
       showOptions('[name=' + select_name +'] option[data-regions~="' + document.regimesspeciauxId + '"]')
     }
 
     // Si l'option autres est à afficher, on l'affiche
-    if(with_others){
+    if(with_others) {
       showOptions('[name=' + select_name +'] option[value="other"]')
     }
 
     // On affiche un item vide par défaut
     showOptions('[name=' + select_name +'] option[value=""]')
-
   }
 
-  // Fonction permettant d'afficher le formulaire "Me prévenir quand la caisse
-  // sera disponible" et de masquer le formulaire classique de demande, avec la
-  // possibilité ou non d'afficher le sélecteur de caisse
-  function hideRequestShowCaisseVoteForm(form, caisse_selector_hidden){
-
-    caisse_selector_hidden ? $caisseSelector.hide('slide') : $caisseSelector.show('slide')
-
-    $mrsrequestForm.hide('slide')
-    $caisseForm.show('slide')
+  // Load from cookie if possible
+  if (!$region.val()) {
+    $region.val(Cookie.get('region'))
   }
-
-  // Fonction permettant de masquer le formulaire "Me prévenir quand la caisse
-  // sera disponible" et d'afficher ou masquer le formulaire classique de demande,
-  // avec la possibilité ou non d'afficher le sélecteur de caisse
-  function showRequestHideCaisseVoteForm(
-    form, caisse_selector_hidden, request_form_hidden){
-
-    caisse_selector_hidden ? $caisseSelector.hide('slide') : $caisseSelector.show('slide')
-
-    request_form_hidden ? $mrsrequestForm.hide('slide') : $mrsrequestForm.show('slide')
-
-    $caisseForm.hide('slide')
-
+  if (!$caisse.val()) {
+    $caisse.val(Cookie.get('caisse'))
   }
 
   // Fonction appelée lorsqu'un changement est détecté sur le select des régions
   var regionChange = function() {
+    var region = $region.val()
+    if (region) {
+      var caisseOptions = [
+        '<option value>---------</option>',
+      ]
+      for (var pk in document.caisses) {
+        if (document.caisses[pk].regions.indexOf(parseInt($region.val())) < 0) {
+          continue
+        }
+        caisseOptions.push(
+          `<option
+            value="${pk}"
+            ${$caisse.val() && parseInt($caisse.val()) == pk ? 'selected="selected"' : ''}
+           >${document.caisses[pk].name}</option>`
+        )
+      }
+      $caisse.html(caisseOptions.join('\n'))
+      $caisseSelector.is(':visible') || $caisseSelector.slideDown()
 
-    // Si l'utilisateur sélectionne "Autres" dans la liste des régions
-    if ($region.val() == 'other') {
-
-      // On masque le formulaire demande et le sélecteur classique de caisse
-      // pour afficher le formulaire "Me prévenir quand ma caisse sera
-      // disponible"
-      $otherregionContainer.show()
-      hideRequestShowCaisseVoteForm(form, true)
-      $caisse.val('')
-      Cookie.set('region', 'other')
-      Cookie.set('caisse', '')
-
-    // Si l'utilisateur sélectionne une région dans la liste des régions (c'est
-    // à dire une région avec au moins une caisse active)
-    } else if ($region.val()) {
-
-      $caisse.val('')
-      adjustSelectOptions('caisse', $region.val(),  false, true)
-
-      showRequestHideCaisseVoteForm(form, false, true)
-
+      if ($caisse.val()) {
+        var caisseRegions = document.caisses[parseInt($caisse.val())].regions
+        if (caisseRegions.indexOf($region.val()) > -1) {
+          // Selected caisse not in region, clear it out
+          $caisse.val('')
+          Cookie.set('caisse', '')
+          caisseChange()
+        }
+      }
       Cookie.set('region', $region.val())
+    } else {
+      $caisse.val('')
+      $caisse.trigger('change')
+      $caisseSelector.slideUp()
+      Cookie.set('region', '')
       Cookie.set('caisse', '')
-
-    // Si aucune région n'est sélectionnée, on masque tout sauf le select
-    } else {
-
-      showRequestHideCaisseVoteForm(form, true, true)
-
     }
   }
-
-  var otherregionChange = function() {
-
-    if($otherregion.val()!=document.regimesspeciauxId){
-
-      $othercaisse.val('')
-      adjustSelectOptions('other-caisse', $otherregion.val(),  true, false)
-
-    } else {
-
-      $othercaisse.val('')
-      adjustSelectOptions('other-caisse', $otherregion.val(),  false, false)
-
-    }
-
-  }
+  $region.on('change', regionChange)
+  confirming || regionChange()
 
   var caisseChange = function() {
-
-    if ($caisse.val() == 'other') {
-
-      hideRequestShowCaisseVoteForm(form, false)
-      $otherregionContainer.hide()
-      $othercaisse.val('')
-      adjustSelectOptions('other-caisse', $region.val(), true, false)
-      Cookie.set('caisse', 'other')
-
-    } else if ($caisse.val()) {
-
-      showRequestHideCaisseVoteForm(form, false)
-
+    if ($caisse.val()) {
+      $mrsrequestForm.slideDown()
       $('html, body').animate({
         scrollTop: $('#mrsrequest-form').offset().top - 5
       }, 'fast')
@@ -316,19 +219,12 @@ var formInit = function (form) {
           $('[name=pmt_pel]:checked').trigger('change')
         }
       }
-
       Cookie.set('caisse', $caisse.val())
-
     } else {
-
-      hideRequestShowCaisseVoteForm(form, true)
-
+      $mrsrequestForm.slideUp()
     }
   }
-
-  $caisse.change(caisseChange)
-  $region.change(regionChange)
-  $otherregion.change(otherregionChange)
+  $caisse.on('change', caisseChange)
   confirming || caisseChange()
 
   // Show/hide iterative

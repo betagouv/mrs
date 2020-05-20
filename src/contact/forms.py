@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core import validators
 from django.utils.translation import gettext as _
 
-from caisse.forms import ActiveCaisseChoiceField
+from caisse.models import Caisse
 from captcha.fields import CaptchaField
 from mrsrequest.models import MRSRequest
 from mrs.validators import name_clean, name_validators
@@ -29,8 +29,8 @@ class ContactForm(forms.Form):
         label='Motif',
         choices=MOTIF_CHOICES,
     )
-    caisse = ActiveCaisseChoiceField(
-        otherchoice=False,
+    caisse = forms.ModelChoiceField(
+        queryset=Caisse.objects.filter(active=True),
         label='Votre caisse de rattachement',
     )
     nom = forms.CharField(  # noqa
