@@ -101,14 +101,14 @@ class Caisse(models.Model):
         return '&'.join([
             crudlfap.site['mrsrequest.mrsrequest']['list'].url + '?',
             f'caisse={self.pk}',
-            f'has_conflicts_accepted=2',
+            'has_conflicts_accepted=2',
         ])
 
     def get_conflicted_url(self):
         return '&'.join([
             crudlfap.site['mrsrequest.mrsrequest']['list'].url + '?',
             f'caisse={self.pk}',
-            f'has_conflicts_resolved=2',
+            'has_conflicts_resolved=2',
         ])
 
 

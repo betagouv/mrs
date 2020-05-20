@@ -126,7 +126,7 @@ class ErrorView:
                     status=self.status,
                     message=self.message,
                 ),
-                template_name=f'error.html'
+                template_name='error.html'
             )
         )
 

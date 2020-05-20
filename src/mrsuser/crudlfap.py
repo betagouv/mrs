@@ -351,8 +351,8 @@ class ImportView(crudlfap.FormView):
             return self.render_to_response()
 
         def decode_utf8(input_iterator):
-            for l in input_iterator:
-                yield l.decode(self.encoding).strip()
+            for inp in input_iterator:
+                yield inp.decode(self.encoding).strip()
 
         reader = csv.DictReader(
             decode_utf8(self.request.FILES['csv']),
