@@ -5,7 +5,6 @@ from freezegun import freeze_time
 import os
 import pytest
 
-from caisse.models import Caisse, Email
 from mrsattachment.models import MRSAttachment
 from mrsrequest.models import (
     Bill, BillATP, BillVP, MRSRequest, PMT, Transport)
@@ -461,28 +460,3 @@ def test_mrsrequestcreateview_post_save_integration_confirms_count(p, caisse,
         assert stat.mrsrequest_count_conflicting == 2
         # request was posted with a conflict which decreases that number
         assert stat.mrsrequest_count_resolved == 1
-
-
-@pytest.mark.dbdiff(models=[Caisse, Email])
-def test_mrsrequestcreateview_vote(p, caisse, other_caisse):
-    data = dict(mrsrequest_uuid=p.mrsrequest.id)
-    data['caisse'] = 'other'
-    data['other-caisse'] = other_caisse.pk
-    p.post(**data)
-    Fixture(
-        './src/mrsrequest/tests/test_mrsrequestcreateview_caisse.json',  # noqa
-        models=[Caisse, MRSRequest, Email]
-    ).assertNoDiff()
-
-
-@pytest.mark.dbdiff(models=[Caisse, Email])
-def test_mrsrequestcreateview_vote_with_mail(p, caisse, other_caisse):
-    data = dict(mrsrequest_uuid=p.mrsrequest.id)
-    data['caisse'] = 'other'
-    data['other-caisse'] = other_caisse.pk
-    data['other-email'] = 'foo@example.com'
-    p.post(**data)
-    Fixture(
-        './src/mrsrequest/tests/test_mrsrequestcreateview_caisseemail.json',  # noqa
-        models=[Caisse, MRSRequest, Email]
-    ).assertNoDiff()

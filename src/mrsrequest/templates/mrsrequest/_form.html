@@ -3,9 +3,6 @@
 <script type="text/json" id="caissesJson">
 {{ view.caisses_json|safe }}
 </script>
-<script type="text/json" id="regimesspeciauxId">
-{{ view.regimes_speciaux_id|safe }}
-</script>
 
 <div class="form--wrapper scroll-reveal">
     <form method="POST" id="mrsrequest-wizard" class="mrsrequest-wizard" style="display: none">
@@ -199,13 +196,6 @@
                     {% endform %}
                     <div id="caisse-selector" style="display:none;">
                     {% form form=view.forms.mrsrequest layout=view.forms.mrsrequest.layouts.above %}
-                        {% part form.caisse options %}
-                        <option value>---------</option>
-                        {% for caisse in form.caisse.field.queryset %}
-                        <option value='{{ caisse.pk }}' data-regions='{% for r in caisse.regions.all %}{{ r.pk }} {% endfor %}'>{{ caisse }}</option>
-                        {% endfor %}
-                        <option value='other'>Autre</option>
-                        {% endpart %}
                     {% endform %}
                     <div class="help-button btn" onclick="$('#caisse-selector .help-block').toggle('slide');">?</div>
 
@@ -304,39 +294,24 @@
                         </div>
                     </div>
                 {% endif %}
+                <br />
+                {% if view.confirm %}
+                    <div id="rejet-potentiel-btns">
+                        <a
+                            class="left btn mrs-bouton mrs-bleu-plein mb-5"
+                            data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
+                        >Annuler</a>
+                        </a>
+                        <button
+                            type="submit"
+                            class="btn right mrs-bouton mrs-bleu-plein mb-5"
+                            value="Continuer"
+                        >Continuer</button>
+                    </div>
+                {% else %}
+                    <button type="submit" name="_submit" class="btn mrs-bouton mrs-rose-plein mb-5" data-btn-exclude="1">Valider ma demande</button>
+                {% endif %}
             </div>
-
-            <div id="caisse-form" class="demande-section" style="display:none">
-                {% form form=view.caisse_form %}
-
-                    {% part form.caisse options %}
-                    <option value>---------</option>
-                    {% for caisse in form.caisse.field.queryset %}
-                    <option value='{{ caisse.pk }}' data-regions='{% for r in caisse.regions.all %}{{ r.pk }} {% endfor %}'>{{ caisse }}</option>
-                    {% endfor %}
-                    {% endpart %}
-
-                {% endform %}
-            </div>
-
-            <br />
-
-            {% if view.confirm %}
-                <div id="rejet-potentiel-btns">
-                    <a
-                        class="left btn mrs-bouton mrs-bleu-plein mb-5"
-                        data-load-in-form="{{ path_info }}?first_name={{ request.POST.first_name }}&last_name={{ request.POST.last_name }}&nir={{ request.POST.nir }}&email={{ request.POST.email }}&birth_date={{ request.POST.birth_date }}&caisse={{ request.POST.caisse }}"
-                    >Annuler</a>
-                    </a>
-                    <button
-                        type="submit"
-                        class="btn right mrs-bouton mrs-bleu-plein mb-5"
-                        value="Continuer"
-                    >Continuer</button>
-                </div>
-            {% else %}
-                <button type="submit" name="_submit" class="btn mrs-bouton mrs-rose-plein mb-5" data-btn-exclude="1">Valider ma demande</button>
-            {% endif %}
         {% endif %}
     </form>
 </div>
