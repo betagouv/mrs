@@ -155,6 +155,8 @@ class MRSRequestCreateForm(forms.ModelForm):
     distancevp = CharFieldNative(
         label='Nombre total de kilomètres',
         help_text=' ',
+        required=False,
+        empty_value=None,
     )
 
     expenseatp = AllowedCommaDecimalField(
