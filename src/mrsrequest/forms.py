@@ -12,7 +12,7 @@ from django.utils.datastructures import MultiValueDict
 import material
 from django.utils.safestring import mark_safe
 
-from caisse.forms import ActiveCaisseChoiceField, ActiveRegionChoiceField
+from caisse.models import Caisse, Region
 from mrs.forms import DateFieldNative, CharFieldNative
 from mrsattachment.forms import MRSAttachmentField
 
@@ -139,17 +139,20 @@ class MRSRequestCreateForm(forms.ModelForm):
         )
     )
 
-    caisse = ActiveCaisseChoiceField(
-        otherchoice=True,
+    caisse = forms.ModelChoiceField(
+        queryset=Caisse.objects.filter(
+            active=True
+        ).prefetch_related('regions'),
         label='',
         help_text='Votre caisse n\'apparaît pas dans la liste ? Elle n\'a pas '
-                  'encore rejoint le dispositif MRS. Cliquez sur "Autre" pour '
-                  'la sélectionner et recevoir un e-mail dès que celle-ci '
-                  'sera disponible !'
+                  'encore rejoint le dispositif MRS.'
     )
 
-    region = ActiveRegionChoiceField(
+    region = forms.ModelChoiceField(
         label='',
+        queryset=Region.objects.filter(
+            caisse__active=True
+        ).distinct(),
     )
 
     distancevp = CharFieldNative(
