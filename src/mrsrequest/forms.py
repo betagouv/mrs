@@ -368,6 +368,16 @@ class MRSRequestCreateForm(forms.ModelForm):
         self.cleaned_pmt_pel(cleaned_data)
         self.cleaned_vp_atp(cleaned_data)
 
+        if not self.cleaned_data.get('modevp'):
+            self.cleaned_data['distancevp'] = None
+            self.cleaned_data['expensevp_toll'] = None
+            self.cleaned_data['expensevp_parking'] = None
+            self.cleaned_data['billvps'] = None
+
+        if not self.cleaned_data.get('modeatp'):
+            self.cleaned_data['expenseatp'] = None
+            self.cleaned_data['billatps'] = None
+
         return cleaned_data
 
     def data_attachments(self, data, files, mrsrequest_uuid):

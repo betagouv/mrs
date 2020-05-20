@@ -39,7 +39,7 @@
         "creation_datetime": "2017-12-19T05:51:11Z",
         "data": {
             "birth_date": "07/02/2007",
-            "distancevp": 100,
+            "distancevp": null,
             "email": "jpic@yourlabs.org",
             "first_name": "jamesy",
             "last_name": "wuzere",
@@ -47,7 +47,7 @@
         },
         "delay": null,
         "display_id": 201712190000,
-        "distancevp": 100,
+        "distancevp": null,
         "expenseatp": 10,
         "expensevp": 0,
         "expensevp_parking": null,
@@ -67,7 +67,7 @@
         "status_datetime": null,
         "status_user": null,
         "suspended": false,
-        "taxi_cost": "147.42",
+        "taxi_cost": 0,
         "token": "tkNJfsM5yyaj8yvGE1MDBFTrsEVNtqkyhsqKsk9dn2M"
     },
     "model": "mrsrequest.mrsrequest",
