@@ -1,6 +1,6 @@
 <div id="app--wrapper">
-        
-    
+
+
 <div class="d-none d-lg-block" id="header-big">
     <div class="header-bg"></div>
     <div class="cnam-wrapper">
@@ -16,15 +16,15 @@
 
         <div class="d-flex justify-content-end w-100" id="mrs-navbar">
             <ul class="navbar-nav text-center">
-                
+
                     <li class="nav-item">
                         <a class="btn mrs-bouton mrs-rose-plein active" href="/demande">Demander un remboursement</a>
                     </li>
-                
+
                     <li class="nav-item">
                         <a class="btn mrs-bouton mrs-bleu-plein" href="/faq">Aide</a>
                     </li>
-                
+
             </ul>
         </div>
     </nav>
@@ -48,25 +48,25 @@
 
     <div class="mrs-std-page--wrapper">
         <div class="mrs-std-page">
-            
+
 
 <script id="caissesJson" type="text/json">
 {"1": {"active": true, "name": "aaaaaaa", "nopmt_enable": true, "parking_enable": true, "regions": [16]}, "2": {"active": true, "name": "bbbb", "nopmt_enable": true, "parking_enable": true, "regions": [16]}, "3": {"active": false, "name": "inactive", "nopmt_enable": true, "parking_enable": true, "regions": [17]}, "4": {"active": false, "name": "regimespecial", "nopmt_enable": true, "parking_enable": true, "regions": [19]}}
 </script>
 
 <div class="form--wrapper scroll-reveal">
-    <form class="mrsrequest-wizard" id="mrsrequest-wizard" method="POST" style="display: none">        
+    <form class="mrsrequest-wizard" id="mrsrequest-wizard" method="POST" style="display: none">
 
-        
-            
+
+
             <style type="text/css">
             #id_iterative_number_container {
                 display: none;
             }
-            
+
             </style>
 
-            
+
                 <h2 class="mb-5">Demander un remboursement</h2>
 
                 <div id="commencer">
@@ -127,7 +127,7 @@
                         <div class="section row">
     <div class="col s12">
         <h5>Votre région</h5>
-        
+
 <div class="row">
     <div class="select-field col s12 required" id="id_region_container">
         <label for="id_region"></label>
@@ -135,7 +135,7 @@
             <option value="">---------</option>
             <option value="16">Occitanie</option>
         </select>
-        
+
     </div>
 </div>
 
@@ -146,7 +146,7 @@
                         <div class="section row">
     <div class="col s12">
         <h5>Votre caisse d'assurance maladie</h5>
-        
+
 <div class="row">
     <div class="select-field col s12 required" id="id_caisse_container">
         <label for="id_caisse"></label>
@@ -166,12 +166,12 @@
 
                     </div>
                 </div>
-            
+
 
 
 
             <div id="mrsrequest-form" style="display: none">
-                
+
                     <h3 class="demande-section-header"><span class="numero">2</span> Prescription médicale pour un transport</h3>
 
                     <div class="demande-section">
@@ -179,7 +179,7 @@
                                 <div class="section row">
     <div class="col s12">
         <h5>Quel type de prescription médicale avez-vous reçue pour ce transport ?</h5>
-        
+
 <div class="row radio-field">
     <div class="col s12">
         <label class="" for="id_pmt_pel_0"></label>
@@ -204,7 +204,7 @@
 </div>
 
 
-    
+
 <div class="layout-row row"><div class="col s12 m12">
 
 
@@ -223,14 +223,14 @@ Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -
 </div>
 
         <ul class="files">
-            
+
         </ul>
     </div>
 </div>
 </div></div>
 
 
-    
+
 <div class="layout-row row"><div class="col s12 m12">
 
 <div class="row">
@@ -247,7 +247,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div></div>
 
 
-    
+
 <div class="layout-row row"><div class="col s12 m12">
 
 
@@ -267,18 +267,18 @@ indiqué sur l'exemplaire patient remis par votre médecin.
                     <h3 class="demande-section-header"><span class="numero">3</span> Identité de la personne transportée</h3>
 
                     <div class="demande-section">
-                        
+
 <div class="section row">
     <div class="col s12">
         <h5></h5>
-        
+
 <div class="layout-row row"><div class="col s12 m6">
 
 <div class="row">
     <div class="input-field col s12 required" id="id_first_name_container">
         <input id="id_first_name" maxlength="70" name="first_name" placeholder="" type="text"/>
         <label for="id_first_name">Prénom</label>
-        
+
     </div>
 </div>
 </div><div class="col s12 m6">
@@ -287,7 +287,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     <div class="input-field col s12 required" id="id_last_name_container">
         <input id="id_last_name" maxlength="70" name="last_name" placeholder="" type="text"/>
         <label for="id_last_name">Nom de famille</label>
-        
+
     </div>
 </div>
 </div></div>
@@ -307,7 +307,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     <div class="input-field col s12 required" id="id_birth_date_container">
         <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_birth_date" name="birth_date" placeholder="jj/mm/aaaa" type="text"/>
         <label for="id_birth_date">Date de naissance</label>
-        
+
     </div>
 </div>
 
@@ -317,7 +317,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     <div class="input-field col s12 required" id="id_email_container">
         <input id="id_email" maxlength="254" name="email" placeholder="" type="text"/>
         <label for="id_email">Adresse email</label>
-        
+
     </div>
 </div>
 </div></div>
@@ -330,11 +330,11 @@ indiqué sur l'exemplaire patient remis par votre médecin.
                     <h3 class="demande-section-header"><span class="numero">4</span> Transport effectué</h3>
 
                     <div class="demande-section">
-                        
+
 <div class="section row">
     <div class="col s12">
         <h5>Informations sur le transport</h5>
-        
+
 <div class="row radio-field">
     <div class="col s12">
         <label class="" for="id_trip_kind_0"></label>
@@ -364,7 +364,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     <div class="input-field col s12" id="id_iterative_number_container">
         <input id="id_iterative_number" name="iterative_number" type="text" value="1"/>
         <label class="active" for="id_iterative_number">Combien de trajets itératifs ?</label>
-        
+
     </div>
 </div>
 
@@ -374,8 +374,8 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 
 
                         <input id="id_transport-TOTAL_FORMS" name="transport-TOTAL_FORMS" type="hidden" value="2"/><input id="id_transport-INITIAL_FORMS" name="transport-INITIAL_FORMS" type="hidden" value="0"/><input id="id_transport-MIN_NUM_FORMS" name="transport-MIN_NUM_FORMS" type="hidden" value="1"/><input id="id_transport-MAX_NUM_FORMS" name="transport-MAX_NUM_FORMS" type="hidden" value="1000"/>
-                        
-                            
+
+
 <div class="layout-row row"><div class="col s12 m6">
 
 
@@ -383,7 +383,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     <div class="input-field col s12 required" id="id_transport-0-date_depart_container">
         <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_transport-0-date_depart" name="transport-0-date_depart" placeholder="jj/mm/aaaa" type="date"/>
         <label for="id_transport-0-date_depart">Date de l'aller</label>
-        
+
     </div>
 </div>
 </div><div class="col s12 m6">
@@ -393,13 +393,13 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     <div class="input-field col s12" id="id_transport-0-date_return_container">
         <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_transport-0-date_return" name="transport-0-date_return" placeholder="jj/mm/aaaa" type="date"/>
         <label for="id_transport-0-date_return">Date de retour</label>
-        
+
     </div>
 </div>
 </div></div>
 
-                        
-                            
+
+
 <div class="layout-row row"><div class="col s12 m6">
 
 
@@ -407,7 +407,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     <div class="input-field col s12 required" id="id_transport-1-date_depart_container">
         <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_transport-1-date_depart" name="transport-1-date_depart" placeholder="jj/mm/aaaa" type="date"/>
         <label for="id_transport-1-date_depart">Date de l'aller</label>
-        
+
     </div>
 </div>
 </div><div class="col s12 m6">
@@ -417,12 +417,12 @@ indiqué sur l'exemplaire patient remis par votre médecin.
     <div class="input-field col s12" id="id_transport-1-date_return_container">
         <input data-date-format="d/m/Y" data-form-control="date" data-lang="fr" id="id_transport-1-date_return" name="transport-1-date_return" placeholder="jj/mm/aaaa" type="date"/>
         <label for="id_transport-1-date_return">Date de retour</label>
-        
+
     </div>
 </div>
 </div></div>
 
-                        
+
 
                             <div class="row">
     <div class="checkbox-field col s12" id="id_modevp_container">
@@ -442,7 +442,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 
 
-    
+
 <div class="layout-row row"><div class="col s12 m6">
 
 <div class="row">
@@ -464,7 +464,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div></div>
 
 
-    
+
 
 
 <div class="row">
@@ -479,14 +479,14 @@ indiqué sur l'exemplaire patient remis par votre médecin.
         <div class="help-block">Joindre vos justificatifs de péage <span data-parking-enable=""> / stationnement. </span><br/>Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -<b>4Mo maximum</b> par fichier.</div>
 
         <ul class="files">
-            
+
         </ul>
     </div>
 </div>
 
                         </div>
 
-                        
+
 
                             <div class="row">
     <div class="checkbox-field col s12" id="id_modeatp_container">
@@ -506,7 +506,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 
 
-    
+
 
 
 <div class="row">
@@ -521,7 +521,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
         <div class="help-block">Joindre vos justificatifs de transport en commun.<br/>Format <b>jpeg</b>, <b>png</b> ou <b>pdf</b> -<b>4Mo maximum</b> par fichier.</div>
 
         <ul class="files">
-            
+
         </ul>
     </div>
 </div>
@@ -532,7 +532,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
                     <h3 class="demande-section-header"><span class="numero">5</span> Attestation sur l'honneur</h3>
 
                     <div class="demande-section">
-                        
+
 <div class="row radio-field">
     <div class="col s12">
         <label class="" for="id_certify_0"></label>
@@ -546,7 +546,7 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 </div>
 
 
-                        
+
 
 
 
@@ -556,13 +556,13 @@ indiqué sur l'exemplaire patient remis par votre médecin.
                             </a>
                         </div>
                     </div>
-                
+
                 <br/>
-                
+
                     <button class="btn mrs-bouton mrs-rose-plein mb-5" data-btn-exclude="1" name="_submit" type="submit">Valider ma demande</button>
-                
+
             </div>
-        
+
     </form>
 </div>
 
@@ -692,12 +692,12 @@ indiqué sur l'exemplaire patient remis par votre médecin.
 
 <div data-target="#modal-aide" data-toggle="modal" id="aide" style="background-image: url('/static/img/icones/icon_question.svg')"></div>
 
-            
-        
+
+
         </div>
     </div>
 
-    
+
 <div class="container-fluid" id="footer">
     <div class="row">
         <div class="col-12 col-lg-5 footer-images">

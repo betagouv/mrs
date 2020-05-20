@@ -80,7 +80,7 @@ class MRSRequestCreateView(MRSRequestFormBaseView):
                 nopmt_enable=caisse.nopmt_enable,
                 parking_enable=caisse.parking_enable,
                 regions=[r.pk for r in caisse.regions.all()],
-            ) for caisse in Caisse.objects.all()
+            ) for caisse in Caisse.objects.prefetch_related('regions')
         }
         return json.dumps(caisses)
 
