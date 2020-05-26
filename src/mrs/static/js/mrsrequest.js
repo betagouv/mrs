@@ -100,14 +100,6 @@ var formInit = function (form) {
     mrsattachment(form)
   }
 
-  // Load from cookie if possible
-  if (!$region.val()) {
-    $region.val(Cookie.get('region'))
-  }
-  if (!$caisse.val()) {
-    $caisse.val(Cookie.get('caisse'))
-  }
-
   // Fonction appelée lorsqu'un changement est détecté sur le select des régions
   var regionChange = function() {
     var region = $region.val()
@@ -134,17 +126,13 @@ var formInit = function (form) {
         if (caisseRegions.indexOf($region.val()) > -1) {
           // Selected caisse not in region, clear it out
           $caisse.val('')
-          Cookie.set('caisse', '')
           caisseChange()
         }
       }
-      Cookie.set('region', $region.val())
     } else {
       $caisse.val('')
       $caisse.trigger('change')
       $caisseSelector.slideUp()
-      Cookie.set('region', '')
-      Cookie.set('caisse', '')
     }
   }
   $region.on('change', regionChange)
@@ -182,7 +170,6 @@ var formInit = function (form) {
           $('[name=pmt_pel]:checked').trigger('change')
         }
       }
-      Cookie.set('caisse', $caisse.val())
     } else {
       $mrsrequestForm.slideUp()
     }
