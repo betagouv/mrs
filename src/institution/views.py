@@ -19,11 +19,17 @@ class InstitutionMixin(object):
         if not self.institution:
             return http.HttpResponseNotFound()
 
+        # this is for security implemented in javascript (PMT upload)
         if self.institution.dynamic_allow:
-            self.ALLOW_INSECURE = True
+            if 'origin' not in request.GET:
+                return http.HttpResponseBadRequest('"origin" required in GET')
+            origin = request.GET['origin']
+        else:
+            origin = self.institution.origin
 
+        self.allow_origin = '/'.join(origin.split('/')[:3])
         response = super().dispatch(request, *args, **kwargs)
-        response.institution = self.institution
+        response.allow_origin = self.allow_origin
         return response
 
 

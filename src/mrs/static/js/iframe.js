@@ -7,10 +7,8 @@ import M from 'mrsmaterialize'
 
 window.addEventListener('message', receiveMessage, false)
 
-var allowOriginRoot = window.allowOrigin.split('/').slice(0, 3).join('/')
-
 function receiveMessage(event) {
-  if (window.allowInsecure === false && event.origin !== allowOriginRoot) {
+  if (event.origin !== window.allowOrigin) {
     alert('Dropping insecure message from origin: ' + event.origin)
     return
   }
@@ -51,7 +49,7 @@ function receiveMessage(event) {
 document.querySelector('html').addEventListener('mrsrequest-save', function(e) {
   window.parent.postMessage(
     e.detail,
-    window.allowInsecure ? '*' : allowOriginRoot
+    window.allowOrigin
   )
 })
 
