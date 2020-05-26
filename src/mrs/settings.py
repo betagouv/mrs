@@ -75,6 +75,8 @@ CSP_SCRIPT_SRC = [
     'https://stackpath.bootstrapcdn.com',
     'https://fonts.googleapis.com',
     'https://fonts.gstatic.com',
+    'https://stats.data.gouv.fr',
+    'https://cdn.ravenjs.com',
 ]
 CSP_FRAME_SRC = [
     "'self'",
