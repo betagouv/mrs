@@ -137,6 +137,7 @@ if not os.getenv('CI'):
     SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 MIDDLEWARE = [
+    'institution.middleware.NoSameSiteMiddleware',
     'django.middleware.security.SecurityMiddleware',
 ]
 

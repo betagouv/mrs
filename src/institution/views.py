@@ -19,28 +19,12 @@ class InstitutionMixin(object):
         if not self.institution:
             return http.HttpResponseNotFound()
 
-        response = super().dispatch(request, *args, **kwargs)
-
         if self.institution.dynamic_allow:
-            if 'origin' not in request.GET:
-                return http.HttpResponseBadRequest('"origin" required in GET')
-
-            response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
-                request.GET['origin']
-            )
-            response['Access-Control-Allow-Origin'] = '*'
-            response._csp_replace = dict(FRAME_ANCESTORS=request.GET['origin'])
             self.ALLOW_INSECURE = True
-        else:
-            response['Access-Control-Allow-Origin'] = self.allow_origin()
-            response['X-Frame-Options'] = 'ALLOW-FROM {}'.format(
-                self.institution.origin)
-            response._csp_replace = dict(FRAME_ANCESTORS=self.allow_origin())
 
+        response = super().dispatch(request, *args, **kwargs)
+        response.institution = self.institution
         return response
-
-    def allow_origin(self):
-        return '/'.join(self.institution.origin.split('/')[:3])
 
 
 class InstitutionMRSRequestCreateView(InstitutionMixin, MRSRequestCreateView):
