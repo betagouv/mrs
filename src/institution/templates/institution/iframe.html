@@ -48,6 +48,18 @@
     </style>
   </head>
   <body>
+
+    {% if SENTRY_DSN %}
+        <script src="https://cdn.ravenjs.com/3.26.4/raven.min.js" crossorigin="anonymous"></script>
+        {{ SENTRY_CONFIG|json_script:'sentry-config' }}
+        <script type="text/javascript">
+            Raven.config(
+                '{{ SENTRY_DSN }}',
+                JSON.parse(document.getElementById('sentry-config').textContent)
+            ).install()
+        </script>
+    {% endif %}
+
     <div id="app--wrapper">
         <div class="mrs-std-page--wrapper">
             <div class="mrs-std-page">
