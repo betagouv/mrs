@@ -155,7 +155,7 @@ var formInit = function (form) {
         } else {
           $('html, body').animate({
             scrollTop: $('#mrsrequest-form').offset().top - 5
-          }, 'fast')
+          }, 'slow')
         }
       })
 
