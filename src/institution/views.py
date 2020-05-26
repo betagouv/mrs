@@ -29,7 +29,7 @@ class InstitutionMixin(object):
                 request.GET['origin']
             )
             response['Access-Control-Allow-Origin'] = '*'
-            response._csp_replace = dict(FRAME_ANCESTORS='*')
+            response._csp_replace = dict(FRAME_ANCESTORS=request.GET['origin'])
             self.ALLOW_INSECURE = True
         else:
             response['Access-Control-Allow-Origin'] = self.allow_origin()
