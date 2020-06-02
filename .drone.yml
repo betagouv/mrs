@@ -205,6 +205,7 @@ steps:
   commands:
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $STAGING_ENV | xargs)
+  - env
   - bigsudo
     ./ansible/deploy.yml
     home=/home/mrs-staging
