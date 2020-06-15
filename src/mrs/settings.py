@@ -65,6 +65,7 @@ CSP_DEFAULT_SRC = [
     "'self'",
     "'unsafe-inline'",
     'https://fonts.gstatic.com',
+    'https://stats.data.gouv.fr',
 ]
 CSP_SCRIPT_SRC = [
     "'self'",
@@ -88,7 +89,10 @@ CSP_STYLE_SRC = [
     'https://fonts.googleapis.com',
     'https://stackpath.bootstrapcdn.com',
 ]
-CSP_IMG_SRC = ["'self'"]
+CSP_IMG_SRC = [
+    "'self'",
+    'https://stats.data.gouv.fr',
+]
 CSP_FRAME_ANCESTORS = ["'self'"]
 CSP_BASE_URI = ["'self'"]
 CSP_FORM_ACTION = ["'self'"]
