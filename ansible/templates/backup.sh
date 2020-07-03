@@ -38,7 +38,7 @@ docker-compose logs &> log/docker.log || echo "Couldn't get logs from instance"
 restic backup $backup docker-compose.yml log mrsattachments postgres/dump/data.dump
 
 {% if lookup('env', 'LFTP_DSN') %}
-lftp -c 'set ssl:check-hostname false;connect {{ lookup("env", "LFTP_DSN") }}; mkdir -p {{ home.split("/")[-1] }}; mirror -Rv {{ home }}/restic {{ home.split("/")[-1] }}/restic'
+lftp -c 'set ssl:check-hostname false;connect {{ lookup("env", "LFTP_DSN") }}; mkdir -p {{ home.split("/")[-1] }}; mirror -Rve {{ home }}/restic {{ home.split("/")[-1] }}/restic'
 {% endif %}
 
 docker-compose exec -T postgres rm -rf /dump/data.dump
