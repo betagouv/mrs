@@ -9,9 +9,18 @@ services:
     - ./log:/app/log
     labels:
     - "io.yourlabs.compose.mkdir=log,spooler,spooler/mail,spooler/stat,mrsattachments:1000:1000:0750"
-    - "traefik.frontend.redirect.regex=^https?://${HOST}/(.*)"
-    - "traefik.frontend.redirect.replacement=https://www.${HOST}/$${1}"
-    - "traefik.frontend.redirect.permanent=true"
+
+    - "traefik.http.middlewares.${HOST_SLUG}-redirect.redirectregex.regex=^https?://${HOST}/(.*)"
+    - "traefik.http.middlewares.${HOST_SLUG}-redirect.redirectregex.replacement=https://www.${HOST}/$${1}"
+
+    - "traefik.http.routers.${HOST_SLUG}-http.middlewares=${HOST_SLUG}-redirect"
+
+    - "traefik.http.routers.${HOST_SLUG}-https.entryPoints=websecure"
+    - "traefik.http.routers.${HOST_SLUG}-https.rule=Host(`${HOST}`, `www.${HOST}`)"
+    - "traefik.http.routers.${HOST_SLUG}-https.service=${HOST_SLUG}"
+    - "traefik.http.routers.${HOST_SLUG}-https.tls=true"
+    - "traefik.http.routers.${HOST_SLUG}-https.tls.certResolver=leresolver"
+    - "traefik.http.routers.${HOST_SLUG}-https.middlewares=${HOST_SLUG}-redirect"
 
   postgres:
     restart: always

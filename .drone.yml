@@ -165,6 +165,7 @@ steps:
     SSH_FINGERPRINTS:
       from_secret: SSH_FINGERPRINTS
   commands:
+  - export HOST_SLUG="mrs-test-$(echo $DRONE_BRANCH | sed 's/[_/]/-/g')"
   - export HOST="$(echo $DRONE_BRANCH | sed 's/[_/]/-/g').test.staging.mrs.beta.gouv.fr"
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - bigsudo roleup yourlabs.compose
@@ -192,6 +193,7 @@ steps:
   image: yourlabs/ansible
   environment:
     HOST: staging.mrs.beta.gouv.fr
+    HOST_SLUG: mrs-staging
     PROTO: https
     ANSIBLE_FORCE_COLOR: "1"
     SLACK_TOKEN:
@@ -205,7 +207,6 @@ steps:
   commands:
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $STAGING_ENV | xargs)
-  - env
   - bigsudo
     ./ansible/deploy.yml
     home=/home/mrs-staging
@@ -227,6 +228,7 @@ steps:
   image: yourlabs/ansible
   environment:
     HOST: ecole.mrs.beta.gouv.fr
+    HOST_SLUG: mrs-ecole
     PROTO: https
     ANSIBLE_FORCE_COLOR: "1"
     SLACK_TOKEN:
@@ -266,6 +268,7 @@ steps:
     - production
   environment:
     HOST: mrs.beta.gouv.fr
+    HOST_SLUG: mrs-production
     ANSIBLE_FORCE_COLOR: "1"
     BASICAUTH_DISABLE: "1"
     PROTO: https
