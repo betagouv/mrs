@@ -130,12 +130,14 @@ def person_transport_formset():
 
 
 @pytest.mark.django_db
+@freeze_time('2018-12-19 13:33:37')
 def test_transport_formset_is_valid():
     person, formset = person_transport_formset()
-    assert formset.is_valid()
+    assert formset.is_valid(), formset.errors
 
 
 @pytest.mark.django_db
+@freeze_time('2018-12-19 13:33:37')
 def test_transport_formset_confirms_invalidates():
     person, formset = person_transport_formset()
     formset.add_confirms(person.nir, person.birth_date)
@@ -147,6 +149,7 @@ def test_transport_formset_confirms_invalidates():
 
 
 @pytest.mark.django_db  # noqa
+@freeze_time('2018-12-19 13:33:37')
 def test_transport_formset_add_confirms():  # noqa
     """Assert that it will generate proper confirms structure."""
     person, formset = person_transport_formset()
@@ -187,6 +190,7 @@ def test_transport_formset_add_confirms():  # noqa
 
 
 @pytest.mark.django_db
+@freeze_time('2018-12-19 13:33:37')
 def test_transport_formset_confirm_messages():
     person, formset = person_transport_formset()
     formset.add_confirms(person.nir, person.birth_date)

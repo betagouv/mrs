@@ -5,9 +5,12 @@ services:
     - HOST
     - ALLOWED_HOSTS=www.${HOST}
     labels:
+    - "traefik.docker.network=web"
     - "traefik.enable=true"
-    - "traefik.port=8000"
-    - "traefik.frontend.rule=Host: ${HOST},www.${HOST}"
+    - "traefik.http.services.${HOST_SLUG}.loadBalancer.server.port=8000"
+    - "traefik.http.routers.${HOST_SLUG}-http.rule=Host(`${HOST}`, `www.${HOST}`)"
+    - "traefik.http.routers.${HOST_SLUG}-http.service=${HOST_SLUG}"
+    - "traefik.http.routers.${HOST_SLUG}-http.entryPoints=web"
     networks:
     - default
     - web

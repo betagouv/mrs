@@ -9,9 +9,17 @@ services:
     image: djfarrelly/maildev
     labels:
     - "traefik.enable=true"
-    - "traefik.frontend.rule=Host: mail.${HOST}"
-    - "traefik.port=80"
-    - "traefik.frontend.auth.basic.usersFile=/htpasswd/root"
+    - "traefik.docker.network=web"
+
+    # dev/dev
+    - "traefik.http.middlewares.mail-auth.basicauth.users=dev:$$apr1$$XGyhUBDz$$F6tOIgDiiHVfpDoYcaSDq."
+
+    - "traefik.http.services.${HOST_SLUG}-mail.loadBalancer.server.port=80"
+
+    - "traefik.http.routers.${HOST_SLUG}-mail.rule=Host(`mail.${HOST}`)"
+    - "traefik.http.routers.${HOST_SLUG}-mail.service=${HOST_SLUG}-mail"
+    - "traefik.http.routers.${HOST_SLUG}-mail.entryPoints=web"
+    - "traefik.http.routers.${HOST_SLUG}-mail.middlewares=mail-auth"
     networks:
     - default
     - web
