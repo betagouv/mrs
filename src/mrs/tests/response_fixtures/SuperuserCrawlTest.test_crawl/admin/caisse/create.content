@@ -47,8 +47,24 @@
         <label for="id_regions">Regions</label>
         <select id="id_regions" multiple="multiple" name="regions">
             <option disabled="" value="">Choisissez votre option</option>
+            <option value="1">Auvergne-Rhône-Alpes</option>
+            <option value="2">Bourgogne-Franche-Comté</option>
+            <option value="3">Bretagne</option>
+            <option value="4">Centre-Val de Loire</option>
+            <option value="5">Corse</option>
+            <option value="6">Grand Est</option>
+            <option value="7">Guadeloupe</option>
+            <option value="8">Guyane</option>
+            <option value="9">Hauts-de-France</option>
+            <option value="10">Ile-de-France</option>
+            <option value="11">La Réunion</option>
+            <option value="12">Martinique</option>
+            <option value="13">Mayotte</option>
+            <option value="14">Normandie</option>
+            <option value="15">Nouvelle-Aquitaine</option>
             <option value="16">Occitanie</option>
             <option value="17">Pays de la Loire</option>
+            <option value="18">Provence-Alpes-Côte d'Azur</option>
             <option value="19">Régimes Spéciaux</option>
         </select>
         
