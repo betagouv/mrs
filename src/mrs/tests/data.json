@@ -48,33 +48,6 @@
     }
 },
 {
-    "fields": {
-        "cheflieu_code": "31555",
-        "insee_id": "76",
-        "name": "Occitanie"
-    },
-    "model": "caisse.region",
-    "pk": 16
-},
-{
-    "model": "caisse.region",
-    "pk": 17,
-    "fields": {
-        "name": "Pays de la Loire",
-        "insee_id": "52",
-        "cheflieu_code": "44109"
-    }
-},
-{
-    "fields": {
-        "cheflieu_code": "XXXXX",
-        "insee_id": "XX",
-        "name": "Régimes Spéciaux"
-    },
-    "model": "caisse.region",
-    "pk": 19
-},
-{
     "model": "caisse.caisse",
     "pk": 1,
     "fields": {
@@ -84,10 +57,13 @@
         "liquidation_email": "aaa@example.com",
         "habilitation_email": "aaa2@example.com",
         "active": true,
+        "nopmt_enable": true,
         "parking_enable": true,
         "score": 0,
         "import_datetime": null,
-        "regions": [16]
+        "regions": [
+            16
+        ]
     }
 },
 {
@@ -100,10 +76,13 @@
         "liquidation_email": "bbb@example.com",
         "habilitation_email": "bbb2@example.com",
         "active": true,
+        "nopmt_enable": true,
         "parking_enable": true,
         "score": 0,
         "import_datetime": null,
-        "regions": [16]
+        "regions": [
+            16
+        ]
     }
 },
 {
@@ -116,10 +95,13 @@
         "liquidation_email": null,
         "habilitation_email": null,
         "active": false,
+        "nopmt_enable": true,
         "parking_enable": true,
         "score": 2,
         "import_datetime": null,
-        "regions": [17]
+        "regions": [
+            17
+        ]
     }
 },
 {
@@ -130,11 +112,15 @@
         "name": "regimespecial",
         "number": "444",
         "liquidation_email": null,
+        "habilitation_email": null,
         "active": false,
+        "nopmt_enable": true,
         "parking_enable": true,
         "score": 2,
         "import_datetime": null,
-        "regions": [19]
+        "regions": [
+            19
+        ]
     }
 },
 {
@@ -143,6 +129,186 @@
     "fields": {
         "email": "xxx@example.com",
         "caisse": 3
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 1,
+    "fields": {
+        "name": "Auvergne-Rh\u00f4ne-Alpes",
+        "insee_id": "84",
+        "cheflieu_code": "69123"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 2,
+    "fields": {
+        "name": "Bourgogne-Franche-Comt\u00e9",
+        "insee_id": "27",
+        "cheflieu_code": "21231"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 3,
+    "fields": {
+        "name": "Bretagne",
+        "insee_id": "53",
+        "cheflieu_code": "35238"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 4,
+    "fields": {
+        "name": "Centre-Val de Loire",
+        "insee_id": "24",
+        "cheflieu_code": "45234"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 5,
+    "fields": {
+        "name": "Corse",
+        "insee_id": "94",
+        "cheflieu_code": "2A004"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 6,
+    "fields": {
+        "name": "Grand Est",
+        "insee_id": "44",
+        "cheflieu_code": "67482"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 7,
+    "fields": {
+        "name": "Guadeloupe",
+        "insee_id": "01",
+        "cheflieu_code": "97105"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 8,
+    "fields": {
+        "name": "Guyane",
+        "insee_id": "03",
+        "cheflieu_code": "97302"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 9,
+    "fields": {
+        "name": "Hauts-de-France",
+        "insee_id": "32",
+        "cheflieu_code": "59350"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 10,
+    "fields": {
+        "name": "Ile-de-France",
+        "insee_id": "11",
+        "cheflieu_code": "75056"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 11,
+    "fields": {
+        "name": "La R\u00e9union",
+        "insee_id": "04",
+        "cheflieu_code": "97411"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 12,
+    "fields": {
+        "name": "Martinique",
+        "insee_id": "02",
+        "cheflieu_code": "97209"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 13,
+    "fields": {
+        "name": "Mayotte",
+        "insee_id": "06",
+        "cheflieu_code": "97608"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 14,
+    "fields": {
+        "name": "Normandie",
+        "insee_id": "28",
+        "cheflieu_code": "76540"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 15,
+    "fields": {
+        "name": "Nouvelle-Aquitaine",
+        "insee_id": "75",
+        "cheflieu_code": "33063"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 16,
+    "fields": {
+        "name": "Occitanie",
+        "insee_id": "76",
+        "cheflieu_code": "31555"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 17,
+    "fields": {
+        "name": "Pays de la Loire",
+        "insee_id": "52",
+        "cheflieu_code": "44109"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 18,
+    "fields": {
+        "name": "Provence-Alpes-C\u00f4te d'Azur",
+        "insee_id": "93",
+        "cheflieu_code": "13055"
+    }
+},
+{
+    "model": "caisse.region",
+    "pk": 19,
+    "fields": {
+        "name": "R\u00e9gimes Sp\u00e9ciaux",
+        "insee_id": "XX",
+        "cheflieu_code": "XXXXX"
+    }
+},
+{
+    "model": "institution.institution",
+    "pk": "00000000-0000-0000-0000-000000000457",
+    "fields": {
+        "finess": 1111,
+        "origin": "urisitepatient.org",
+        "dynamic_allow": true
     }
 },
 {
@@ -491,7 +657,7 @@
     "model": "mrsuser.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$120000$1owAfHJwieuy$Lmit2vEdnEpLnnPtEoMP8bYgG/Lll91ACLPAcpHisCQ=",
+        "password": "pbkdf2_sha256$150000$DPTke9dulzTk$12znun3RkxFjGMe8PcUlckhDV+eRAis/W9uKY3KiFII=",
         "last_login": "2018-05-31T15:26:33.308Z",
         "is_superuser": false,
         "username": "test",
@@ -500,6 +666,7 @@
         "email": "t@tt.tt",
         "is_active": true,
         "date_joined": "2018-05-01T17:05:57Z",
+        "number": null,
         "groups": [
             1
         ],
@@ -520,6 +687,7 @@
         "email": "a@aa.aa",
         "is_active": true,
         "date_joined": "2018-05-01T17:11:24Z",
+        "number": null,
         "groups": [
             2
         ],
@@ -542,6 +710,7 @@
         "email": "b@example.com",
         "is_active": true,
         "date_joined": "2018-05-01T17:11:40Z",
+        "number": null,
         "groups": [
             2
         ],
@@ -564,6 +733,7 @@
         "email": "supporta@example.com",
         "is_active": true,
         "date_joined": "2018-07-29T19:50:05Z",
+        "number": null,
         "groups": [
             4
         ],
@@ -586,6 +756,7 @@
         "email": "stata@example.com",
         "is_active": true,
         "date_joined": "2018-07-29T19:50:42Z",
+        "number": null,
         "groups": [
             3
         ],
@@ -608,6 +779,7 @@
         "email": "statb@examplec.mo",
         "is_active": true,
         "date_joined": "2018-07-29T19:52:24Z",
+        "number": null,
         "groups": [
             3
         ],
@@ -630,6 +802,7 @@
         "email": "supportb@example.com",
         "is_active": true,
         "date_joined": "2018-07-29T19:52:58Z",
+        "number": null,
         "groups": [
             4
         ],
@@ -652,6 +825,7 @@
         "email": "superviseura@example.com",
         "is_active": true,
         "date_joined": "2018-07-29T19:52:58Z",
+        "number": null,
         "groups": [
             5
         ],
@@ -671,7 +845,8 @@
         "email": "aoeu@example.com",
         "use_email": false,
         "nir": "1111111111111",
-        "shifted": null
+        "shifted": null,
+        "creation_datetime": "2020-09-08T13:21:17.829Z"
     }
 },
 {
@@ -684,7 +859,8 @@
         "email": "aoeaoeuu@example.com",
         "use_email": false,
         "nir": "2333333333333",
-        "shifted": null
+        "shifted": null,
+        "creation_datetime": "2020-09-08T13:21:17.830Z"
     }
 },
 {
@@ -697,7 +873,8 @@
         "email": "jpic@example.com",
         "use_email": false,
         "nir": "3212312312312",
-        "shifted": null
+        "shifted": null,
+        "creation_datetime": "2020-09-08T13:21:17.831Z"
     }
 },
 {
@@ -710,7 +887,8 @@
         "email": "test@test.com",
         "use_email": false,
         "nir": "1223123123123",
-        "shifted": true
+        "shifted": true,
+        "creation_datetime": "2020-09-08T13:21:17.832Z"
     }
 },
 {
@@ -723,7 +901,8 @@
         "email": "jim@example.com",
         "use_email": true,
         "nir": "1223123123122",
-        "shifted": null
+        "shifted": null,
+        "creation_datetime": "2020-09-08T13:21:17.832Z"
     }
 },
 {
@@ -736,7 +915,18 @@
         "email": "jim@example.com",
         "use_email": true,
         "nir": "1223123123129",
-        "shifted": null
+        "shifted": null,
+        "creation_datetime": "2020-09-08T13:21:17.833Z"
+    }
+},
+{
+    "model": "rating.rating",
+    "pk": 1,
+    "fields": {
+        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae",
+        "score": 4,
+        "comment": "Here is a nice comment to you.",
+        "creation_datetime": "2019-11-07T15:18:12Z"
     }
 },
 {
@@ -748,7 +938,8 @@
         "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae",
         "comment": "En cours de liquidation",
         "data": null,
-        "action": 1000
+        "action": 1000,
+        "emailtemplate": null
     }
 },
 {
@@ -763,7 +954,8 @@
             "body": "corps\nblabla",
             "subject": "Rejet pour autre motif"
         },
-        "action": 999
+        "action": 999,
+        "emailtemplate": null
     }
 },
 {
@@ -775,7 +967,8 @@
         "mrsrequest": "c697cf5a-dc4d-434d-89bc-1f606d05d39d",
         "comment": "En cours de liquidation",
         "data": null,
-        "action": 1000
+        "action": 1000,
+        "emailtemplate": null
     }
 },
 {
@@ -787,7 +980,8 @@
         "mrsrequest": "c697cf5a-dc4d-434d-89bc-1f606d05d39d",
         "comment": "Valid\u00e9e",
         "data": null,
-        "action": 2000
+        "action": 2000,
+        "emailtemplate": null
     }
 },
 {
@@ -799,7 +993,8 @@
         "mrsrequest": "ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2",
         "comment": "En cours de liquidation",
         "data": null,
-        "action": 1000
+        "action": 1000,
+        "emailtemplate": null
     }
 },
 {
@@ -811,7 +1006,8 @@
         "mrsrequest": "f5ac697c-d4cd-34d4-89bc-39d1f606dd05",
         "comment": "En cours de liquidation",
         "data": null,
-        "action": 1000
+        "action": 1000,
+        "emailtemplate": null
     }
 },
 {
@@ -823,7 +1019,8 @@
         "mrsrequest": "f5ac697c-d4cd-34d4-89bc-39d1f606dd05",
         "comment": "Valid\u00e9e",
         "data": null,
-        "action": 2000
+        "action": 2000,
+        "emailtemplate": null
     }
 },
 {
@@ -835,7 +1032,8 @@
         "mrsrequest": "b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb",
         "comment": "En cours de liquidation",
         "data": {},
-        "action": 1000
+        "action": 1000,
+        "emailtemplate": null
     }
 },
 {
@@ -847,7 +1045,8 @@
         "mrsrequest": "b83cd5c8-ae0a-4efd-b1ba-6e35775f10bb",
         "comment": "Valid\u00e9e",
         "data": {},
-        "action": 2000
+        "action": 2000,
+        "emailtemplate": null
     }
 },
 {
@@ -859,7 +1058,8 @@
         "mrsrequest": "35fe2514-b1e7-4f97-955a-f163788afdf3",
         "comment": "En cours de liquidation",
         "data": {},
-        "action": 1000
+        "action": 1000,
+        "emailtemplate": null
     }
 },
 {
@@ -871,7 +1071,8 @@
         "mrsrequest": "35fe2514-b1e7-4f97-955a-f163788afdf3",
         "comment": "Valid\u00e9e",
         "data": {},
-        "action": 2000
+        "action": 2000,
+        "emailtemplate": null
     }
 },
 {
@@ -886,7 +1087,8 @@
             "body": "les trajets iteratifs c'est super chouetos !",
             "subject": "Nous avons un super conseil pour vous !"
         },
-        "action": 800
+        "action": 800,
+        "emailtemplate": null
     }
 },
 {
@@ -913,7 +1115,8 @@
                 ]
             }
         },
-        "action": 2
+        "action": 2,
+        "emailtemplate": null
     }
 },
 {
@@ -925,16 +1128,8 @@
         "mrsrequest": "ad2ac0fd-95e6-4b3f-9a4b-ef581e9e07c2",
         "comment": "fraude potentielle",
         "data": null,
-        "action": 900
-    }
-},
-{
-    "model": "institution.institution",
-    "pk": 1111,
-    "fields": {
-        "finess":1111,
-        "origin": "urisitepatient.org",
-        "dynamic_allow": true
+        "action": 900,
+        "emailtemplate": null
     }
 },
 {
@@ -948,16 +1143,18 @@
         "insured_shift": null,
         "modevp": true,
         "distancevp": 123,
-        "expensevp": "3.00",
-        "expensevp_parking": "1.00",
         "expensevp_toll": "2.00",
+        "expensevp_parking": "1.00",
+        "expensevp": "3.00",
         "modeatp": false,
         "expenseatp": "0.00",
+        "pel": null,
+        "convocation": null,
         "status": 999,
         "status_datetime": "2018-05-01T17:13:27Z",
         "status_user": 2,
         "suspended": false,
-        "institution": 1111,
+        "institution": "00000000-0000-0000-0000-000000000457",
         "mandate_datevp": null,
         "mandate_dateatp": null,
         "payment_base": null,
@@ -988,9 +1185,13 @@
         "insured_shift": null,
         "modevp": true,
         "distancevp": 1,
+        "expensevp_toll": null,
+        "expensevp_parking": null,
         "expensevp": "1.00",
         "modeatp": true,
         "expenseatp": "3.00",
+        "pel": null,
+        "convocation": null,
         "status": 2000,
         "status_datetime": "2018-05-03T14:21:01.400Z",
         "status_user": 1,
@@ -1026,9 +1227,13 @@
         "insured_shift": null,
         "modevp": true,
         "distancevp": 10,
+        "expensevp_toll": null,
+        "expensevp_parking": null,
         "expensevp": "0.00",
         "modeatp": false,
         "expenseatp": "0.00",
+        "pel": null,
+        "convocation": null,
         "status": 1,
         "status_datetime": null,
         "status_user": null,
@@ -1064,10 +1269,13 @@
         "insured_shift": null,
         "modevp": true,
         "distancevp": 12,
+        "expensevp_toll": null,
+        "expensevp_parking": null,
         "expensevp": "0.00",
-        "pel": "d34db33f1337af",
         "modeatp": false,
         "expenseatp": "0.00",
+        "pel": "d34db33f1337af",
+        "convocation": null,
         "status": 2000,
         "status_datetime": "2018-07-30T18:06:03Z",
         "status_user": 3,
@@ -1103,9 +1311,13 @@
         "insured_shift": null,
         "modevp": true,
         "distancevp": 3,
+        "expensevp_toll": null,
+        "expensevp_parking": null,
         "expensevp": "0.00",
         "modeatp": false,
         "expenseatp": "0.00",
+        "pel": null,
+        "convocation": null,
         "status": 1000,
         "status_datetime": "2018-05-05T15:17:19Z",
         "status_user": 1,
@@ -1141,9 +1353,13 @@
         "insured_shift": null,
         "modevp": false,
         "distancevp": null,
+        "expensevp_toll": null,
+        "expensevp_parking": null,
         "expensevp": "0.00",
         "modeatp": true,
         "expenseatp": "4.00",
+        "pel": null,
+        "convocation": null,
         "status": 2000,
         "status_datetime": "2018-05-03T14:20:46.198Z",
         "status_user": 1,
@@ -1179,9 +1395,13 @@
         "insured_shift": null,
         "modevp": true,
         "distancevp": 5,
+        "expensevp_toll": null,
+        "expensevp_parking": null,
         "expensevp": "0.00",
         "modeatp": false,
         "expenseatp": "0.00",
+        "pel": null,
+        "convocation": null,
         "status": 2000,
         "status_datetime": "2018-05-04T15:16:35Z",
         "status_user": 1,
@@ -1217,9 +1437,13 @@
         "insured_shift": true,
         "modevp": true,
         "distancevp": 5,
+        "expensevp_toll": null,
+        "expensevp_parking": null,
         "expensevp": "0.00",
         "modeatp": false,
         "expenseatp": "0.00",
+        "pel": null,
+        "convocation": null,
         "status": 2000,
         "status_datetime": "2018-05-04T15:16:35Z",
         "status_user": 1,
@@ -1242,16 +1466,6 @@
         "taxi_cost": "10.83",
         "saving": "8.83",
         "delay": "0.36"
-    }
-},
-{
-    "model": "rating.rating",
-    "pk": 1,
-    "fields": {
-        "mrsrequest": "13751dc2-18bb-4925-a8b4-84383a042bae",
-        "score": 4,
-        "comment": "Here is a nice comment to you.",
-        "creation_datetime": "2019-11-07T15:18:12Z"
     }
 }
 ]
