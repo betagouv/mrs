@@ -66,6 +66,7 @@ CSP_DEFAULT_SRC = [
     "'unsafe-inline'",
     'https://fonts.gstatic.com',
     'https://stats.data.gouv.fr',
+    'https://cdnjs.cloudflare.com',
 ]
 CSP_SCRIPT_SRC = [
     "'self'",
@@ -88,6 +89,7 @@ CSP_STYLE_SRC = [
     "'unsafe-inline'",
     'https://fonts.googleapis.com',
     'https://stackpath.bootstrapcdn.com',
+    'https://cdnjs.cloudflare.com',
 ]
 CSP_IMG_SRC = [
     "'self'",
