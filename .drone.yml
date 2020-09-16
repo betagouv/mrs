@@ -281,6 +281,8 @@ steps:
     PRODUCTION_ENV:
       from_secret: PRODUCTION_ENV
   commands:
+  - echo $PRODUCTION_ENV
+  - crashhere
   - mkdir -p ~/.ssh; echo "$SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   - export $(echo $PRODUCTION_ENV | xargs)
   - bigsudo
