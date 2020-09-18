@@ -62,6 +62,7 @@ CMD /usr/bin/dumb-init bash -euxc "djcli dbcheck && mrs migrate --noinput \
   && uwsgi \
   --spooler=${UWSGI_SPOOLER_MOUNT}/mail \
   --spooler=${UWSGI_SPOOLER_MOUNT}/stat \
+  --spooler-max-tasks=100 \
   --http-socket=0.0.0.0:8000 \
   --chdir=/app \
   --plugin=python,http,router_static,router_cache \
