@@ -76,6 +76,7 @@ CMD /usr/bin/dumb-init bash -euxc "djcli dbcheck && mrs migrate --noinput \
   --chmod=666 \
   --log-5xx \
   --vacuum \
+  --listen=${LISTEN-100} \
   --enable-threads \
   --post-buffering=8192 \
   --ignore-sigpipe \

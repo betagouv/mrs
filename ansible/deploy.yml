@@ -19,6 +19,13 @@
   - include: backup.yml
     when: home is defined and lookup('env', 'RESTIC_PASSWORD')
 
+  - name: Augmentation du nombre de connections simultannées à 256
+    when: lookup('env', 'MAXCONN')
+    sysctl:
+      name: net.core.somaxconn
+      value: '{{ lookup("env", "MAXCONN") }}'
+      state: present
+
   - name: Déploiement du pod docker-compose
     include_role: name=yourlabs.compose
     vars:
