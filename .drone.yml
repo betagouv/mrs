@@ -41,7 +41,7 @@ steps:
 - name: safety
   image: yourlabs/python
   commands:
-  - safety check
+  - safety check -r requirements.txt
 
 - name: bandit
   image: yourlabs/python
