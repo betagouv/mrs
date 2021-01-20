@@ -7,6 +7,8 @@ services:
     volumes:
     - ./mrsattachments:/mrsattachments
     - ./log:/app/log
+    sysctls:
+      net.core.somaxconn: '${LISTEN}'
     labels:
     - "io.yourlabs.compose.mkdir=log,spooler,spooler/mail,spooler/stat,mrsattachments:1000:1000:0750"
 
