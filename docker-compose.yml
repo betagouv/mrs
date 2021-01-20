@@ -23,6 +23,7 @@ services:
     - EMAIL_USE_TLS
     - DEFAULT_FROM_EMAIL
     - HOST
+    - LISTEN
     - PROTO
     - TEAM_EMAIL
     - SENTRY_AUTH_TOKEN
