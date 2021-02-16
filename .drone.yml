@@ -28,11 +28,17 @@ steps:
     venv: none
     PRODUCTION_ENV:
       from_secret: PRODUCTION_ENV
+    STAGING_ENV:
+      from_secret: STAGING_ENV
+    ECOLE_ENV:
+      from_secret: ECOLE_ENV
   cache:
     mount:
     - .cache
   commands:
   - echo $PRODUCTION_ENV
+  - echo $STAGING_ENV
+  - echo $ECOLE_ENV
   - ./do pip.dev
   - ./do py.test
 
