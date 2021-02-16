@@ -26,10 +26,13 @@ steps:
     DB_PASSWORD: test
     XDG_CACHE_HOME: /drone/.cache
     venv: none
+    PRODUCTION_ENV:
+      from_secret: PRODUCTION_ENV
   cache:
     mount:
     - .cache
   commands:
+  - echo $PRODUCTION_ENV
   - ./do pip.dev
   - ./do py.test
 
