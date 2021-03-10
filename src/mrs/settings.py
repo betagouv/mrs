@@ -354,8 +354,8 @@ if 'HOST' in os.environ:
     BASE_URL = 'https://{}'.format(SITE_DOMAIN)
 
 
-def is_admin(user):
-    return user.is_authenticated and user.profile == 'admin'
+def is_admin(request):
+    return request.user.is_authenticated and request.user.profile == 'admin'
 
 
 EXPLORER_CONNECTIONS = {
