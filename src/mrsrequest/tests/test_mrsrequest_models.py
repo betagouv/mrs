@@ -13,7 +13,9 @@ from freezegun import freeze_time
 
 from mrsuser.models import User
 from person.models import Person
-from mrsrequest.models import MRSRequest
+from mrsrequest.models import MRSRequest, \
+    anonymize_mrsrequests_older_than_33_months, \
+    remove_attachments_without_mrsrequest, Bill, PMT
 
 
 def paris_time():
@@ -337,3 +339,80 @@ def test_mrsrequest_duplicates_transport():
             datetime.date(2018, 5, 1)
         ]
     }
+
+
+@pytest.mark.django_db
+def test_mrsrequest_remove_attachments_without_mrsrequest():
+    m0 = MRSRequest.objects.create()
+
+    # Should NOT be deleted - is only 2 days old
+    b1 = Bill.objects.create(
+        mrsrequest_uuid=uuid.uuid4(),
+        mrsrequest=None
+    )
+    b1.creation_datetime = timezone.now() - datetime.timedelta(days=2)
+    b1.save()
+    # Should be deleted - no MRSRequest and > 8 days old
+    b2 = Bill.objects.create(
+        mrsrequest_uuid=uuid.uuid4(),
+        mrsrequest=None
+    )
+    b2.creation_datetime = timezone.now() - datetime.timedelta(days=10)
+    b2.save()
+    # Should NOT be deleted - has an MRSRequest
+    b3 = Bill.objects.create(
+        mrsrequest_uuid=m0.id,
+        mrsrequest=m0
+    )
+    b3.creation_datetime = timezone.now() - datetime.timedelta(days=2)
+    b3.save()
+
+    # Should NOT be deleted - is only 2 days old
+    p1 = PMT.objects.create(
+        mrsrequest_uuid=uuid.uuid4(),
+        mrsrequest=None
+    )
+    p1.creation_datetime = timezone.now() - datetime.timedelta(days=2)
+    p1.save()
+    # Should be deleted - no MRSRequest and > 8 days old
+    p2 = PMT.objects.create(
+        mrsrequest_uuid=uuid.uuid4(),
+        mrsrequest=None
+    )
+    p2.creation_datetime = timezone.now() - datetime.timedelta(days=10)
+    p2.save()
+    # Should NOT be deleted - has an MRSRequest
+    p3 = PMT.objects.create(
+        mrsrequest_uuid=m0.id,
+        mrsrequest=m0
+    )
+    p3.creation_datetime = timezone.now() - datetime.timedelta(days=2)
+    p3.save()
+
+    assert remove_attachments_without_mrsrequest() == (1, 1)
+
+
+@pytest.mark.django_db
+def test_mrsrequest_anonymize_mrsrequests_older_than_33_months():
+    anon_person, created = Person.objects.get_or_create(
+        first_name="Nyme",
+        last_name="Ano",
+        birth_date=datetime.date(1980, 1, 20),
+        email="ano@nyme.com",
+        nir="1803333333333"
+    )
+    # Should be anonymized, older than 33 months
+    MRSRequest.objects.create(
+        creation_datetime=timezone.now() - datetime.timedelta(days=34 * 31),
+    )
+    # Should NOT be anonymized, older than 33 months
+    MRSRequest.objects.create(
+        creation_datetime=timezone.now() - datetime.timedelta(days=60),
+    )
+    # Should NOT be anonymized, older than 33 months but is already anonymized
+    MRSRequest.objects.create(
+        creation_datetime=timezone.now() - datetime.timedelta(days=34 * 31),
+        insured=anon_person
+    )
+
+    assert anonymize_mrsrequests_older_than_33_months() == 1
