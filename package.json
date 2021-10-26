@@ -55,7 +55,7 @@
     "fstream": "^1.0.12",
     "jest": "^23.0.1",
     "jquery": "^3.4.1",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.0",
     "js-cookie": "^2.2.0",
     "jsdom": "^12",
     "mrsmaterialize": "^1.0.5",
