@@ -70,7 +70,7 @@ class User(AbstractUser):
 
     def add_groups(self, groupnames):
         for name in groupnames:
-            self.add_group(name)
+            self.add_group(name.strip())
 
     def password_reset(self, caisse):
         created = not self.password

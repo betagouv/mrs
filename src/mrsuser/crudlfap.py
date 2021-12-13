@@ -404,7 +404,7 @@ class ImportView(crudlfap.FormView):
         caisses_ids = row['numero organisme'].split(',')
         caisses = []
         for id in caisses_ids:
-            caisses.append(Caisse.objects.get(number=id))
+            caisses.append(Caisse.objects.get(number=id.strip()))
 
         if caisses:
             user.caisses.add(*caisses)

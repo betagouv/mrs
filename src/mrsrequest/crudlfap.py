@@ -15,6 +15,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Count
 from django.utils import timezone
+from django.http import StreamingHttpResponse
 
 import django_filters
 import django_tables2 as tables
@@ -42,6 +43,15 @@ BOTTOM_MODAL = {
     'data-controller': 'modal',
     'data-action': 'click->modal#open',
 }
+
+
+class Echo:
+    """An object that implements just the write method of the file-like
+    interface.
+    """
+    def write(self, value):
+        """Write the value by returning it, instead of storing in a buffer."""
+        return value
 
 
 class MRSRequestContactView(EmailViewMixin,
@@ -432,36 +442,6 @@ class MRSRequestCSVListView(MRSRequestListView):
             'logentries__emailtemplate',
         ).distinct()
 
-        content = [
-            ';'.join([
-                'N°demande',
-                'libellé de la CPAM',
-                'date de naissance bénéficiaire',
-                'statut de la demande',
-                'demande "en cours d\'étude"',
-                'date de demande',
-                'délai de traitement',
-                'n° finess',
-                'n° adeli',
-                'signalement assuré',
-                'signalement technicien',
-                'Nombre de trajet',
-                'VP',
-                'ATP',
-                'Assurée a basculé',
-                'nombre Km',
-                'montant frais de parking',
-                'montant total des frais de VP',
-                'montant total remboursement VP',
-                'montant total ATP',
-                'cout théorique taxi',
-                'motif de rejet',
-                'motif de contact',
-                'note par l\'utilisateur',
-                'commentaire'
-            ])
-        ]
-
         def yn(val):
             return 'Y' if val else 'N'
 
@@ -471,7 +451,8 @@ class MRSRequestCSVListView(MRSRequestListView):
         def excel_number(val):
             return mystr(val).replace('.', ',')
 
-        for obj in qs:
+        def csv_row(obj):
+
             contact_reason = ''
             reject_reason = ''
 
@@ -483,10 +464,11 @@ class MRSRequestCSVListView(MRSRequestListView):
 
             rating = obj.rating_set.first()
 
-            content.append(';'.join(map(mystr, [
+            return (map(mystr, [
                 obj.display_id,
                 obj.caisse,
-                obj.insured.birth_date.strftime(DATE_FORMAT_FR),
+                obj.insured.birth_date.strftime(DATE_FORMAT_FR)
+                if obj.insured.birth_date else '',
                 obj.get_status_display(),
                 yn(obj.suspended),
                 obj.creation_day.strftime(DATE_FORMAT_FR),
@@ -507,14 +489,45 @@ class MRSRequestCSVListView(MRSRequestListView):
                 excel_number(obj.taxi_cost),
                 reject_reason,
                 contact_reason,
-                mystr(rating.score) if rating else '',
-                mystr(rating.comment) if rating else ''
-            ])))
+                rating.score if rating else '',
+                rating.comment if rating else ''
+            ]))
 
-        response = http.HttpResponse(
-            '\n'.join(content),
-            content_type='text/csv; charset=utf-8-sig'
-        )
+        csv_headers = [
+            'N°demande',
+            'libellé de la CPAM',
+            'date de naissance bénéficiaire',
+            'statut de la demande',
+            'demande "en cours d\'étude"',
+            'date de demande',
+            'délai de traitement',
+            'n° finess',
+            'n° adeli',
+            'signalement assuré',
+            'signalement technicien',
+            'Nombre de trajet',
+            'VP',
+            'ATP',
+            'Assurée a basculé',
+            'nombre Km',
+            'montant frais de parking',
+            'montant total des frais de VP',
+            'montant total remboursement VP',
+            'montant total ATP',
+            'cout théorique taxi',
+            'motif de rejet',
+            'motif de contact',
+            'note par l\'utilisateur',
+            'commentaire'
+        ]
+
+        pseudo_buffer = Echo()
+        writer = csv.writer(pseudo_buffer, delimiter=";", lineterminator='\n')
+
+        response = StreamingHttpResponse(
+            [writer.writerow(csv_headers)] + [writer.writerow(csv_row(row))
+                                              for row in qs],
+            content_type='text/csv; charset=utf-8-sig')
         response['Content-Disposition'] = (
             'attachment; filename="MRS.csv"'
         )

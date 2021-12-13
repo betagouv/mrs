@@ -1,9 +1,17 @@
-﻿N°demande;libellé de la CPAM;date de naissance bénéficiaire;statut de la demande;demande "en cours d'étude";date de demande;délai de traitement;n° finess;n° adeli;signalement assuré;signalement technicien;Nombre de trajet;VP;ATP;Assurée a basculé;nombre Km;montant frais de parking;montant total des frais de VP;montant total remboursement VP;montant total ATP;cout théorique taxi;motif de rejet;motif de contact;note par l'utilisateur;commentaire
-201810310000;aaaaaaa;31/12/2000;Soumise;N;03/05/2018;;;9002;N;N;1;Y;N;N;10;;0,00;;0,00;16,47;;;;
-201805030001;bbbb;29/05/2000;Validée;N;03/05/2018;;;9001;Y;Y;2;Y;Y;Y;1;;1,00;;3,00;4,93;;;;
-201805030000;bbbb;29/05/2000;Validée;N;03/05/2018;;;9005;Y;Y;2;N;Y;Y;;;0,00;;4,00;3,46;;;;
-201805020002;aaaaaaa;29/05/2000;Validée;N;02/05/2018;0,36;;9007;N;N;1;Y;N;Y;5;;0,00;2,00;0,00;10,83;;;;
-201805020001;aaaaaaa;29/05/2000;En cours de liquidation;Y;02/05/2018;;;9004;N;N;1;Y;N;Y;3;;0,00;;0,00;7,88;;;;
-201805020000;aaaaaaa;06/05/2000;Validée;N;02/05/2018;;;9006;N;N;1;Y;N;N;5;;0,00;;0,00;10,83;;;;
-201805010001;bbbb;30/04/2000;Validée;N;01/05/2018;;;9003;N;N;1;Y;N;N;12;;0,00;;0,00;21,15;;;;
-201805010000;aaaaaaa;30/04/2000;Rejetée;N;01/05/2018;;1111;9000;N;N;2;Y;N;N;123;1,00;3,00;;0,00;188,24;;;4;Here is a nice comment to you.
+﻿N°demande;libellé de la CPAM;date de naissance bénéficiaire;statut de la demande;"demande ""en cours d'étude""";date de demande;délai de traitement;n° finess;n° adeli;signalement assuré;signalement technicien;Nombre de trajet;VP;ATP;Assurée a basculé;nombre Km;montant frais de parking;montant total des frais de VP;montant total remboursement VP;montant total ATP;cout théorique taxi;motif de rejet;motif de contact;note par l'utilisateur;commentaire
+
+﻿201810310000;aaaaaaa;31/12/2000;Soumise;N;03/05/2018;;;9002;N;N;1;Y;N;N;10;;0,00;;0,00;16,47;;;;
+
+﻿201805030001;bbbb;29/05/2000;Validée;N;03/05/2018;;;9001;Y;Y;2;Y;Y;Y;1;;1,00;;3,00;4,93;;;;
+
+﻿201805030000;bbbb;29/05/2000;Validée;N;03/05/2018;;;9005;Y;Y;2;N;Y;Y;;;0,00;;4,00;3,46;;;;
+
+﻿201805020002;aaaaaaa;29/05/2000;Validée;N;02/05/2018;0,36;;9007;N;N;1;Y;N;Y;5;;0,00;2,00;0,00;10,83;;;;
+
+﻿201805020001;aaaaaaa;29/05/2000;En cours de liquidation;Y;02/05/2018;;;9004;N;N;1;Y;N;Y;3;;0,00;;0,00;7,88;;;;
+
+﻿201805020000;aaaaaaa;06/05/2000;Validée;N;02/05/2018;;;9006;N;N;1;Y;N;N;5;;0,00;;0,00;10,83;;;;
+
+﻿201805010001;bbbb;30/04/2000;Validée;N;01/05/2018;;;9003;N;N;1;Y;N;N;12;;0,00;;0,00;21,15;;;;
+
+﻿201805010000;aaaaaaa;30/04/2000;Rejetée;N;01/05/2018;;1111;9000;N;N;2;Y;N;N;123;1,00;3,00;;0,00;188,24;;;4;Here is a nice comment to you.

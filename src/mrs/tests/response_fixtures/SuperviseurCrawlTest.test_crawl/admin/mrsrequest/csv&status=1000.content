@@ -1,2 +1,3 @@
-﻿N°demande;libellé de la CPAM;date de naissance bénéficiaire;statut de la demande;demande "en cours d'étude";date de demande;délai de traitement;n° finess;n° adeli;signalement assuré;signalement technicien;Nombre de trajet;VP;ATP;Assurée a basculé;nombre Km;montant frais de parking;montant total des frais de VP;montant total remboursement VP;montant total ATP;cout théorique taxi;motif de rejet;motif de contact;note par l'utilisateur;commentaire
-201805020001;aaaaaaa;29/05/2000;En cours de liquidation;Y;02/05/2018;;;9004;N;N;1;Y;N;Y;3;;0,00;;0,00;7,88;;;;
+﻿N°demande;libellé de la CPAM;date de naissance bénéficiaire;statut de la demande;"demande ""en cours d'étude""";date de demande;délai de traitement;n° finess;n° adeli;signalement assuré;signalement technicien;Nombre de trajet;VP;ATP;Assurée a basculé;nombre Km;montant frais de parking;montant total des frais de VP;montant total remboursement VP;montant total ATP;cout théorique taxi;motif de rejet;motif de contact;note par l'utilisateur;commentaire
+
+﻿201805020001;aaaaaaa;29/05/2000;En cours de liquidation;Y;02/05/2018;;;9004;N;N;1;Y;N;Y;3;;0,00;;0,00;7,88;;;;
