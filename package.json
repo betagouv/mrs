@@ -57,7 +57,7 @@
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
     "js-cookie": "^2.2.0",
-    "jsdom": "^12",
+    "jsdom": "^16",
     "mrsmaterialize": "^1.0.5",
     "node-sass": "^4.7.2",
     "preact": "^8.2.7",
