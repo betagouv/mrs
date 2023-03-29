@@ -18,9 +18,10 @@ from crudlfap.settings import (
     DJANGO_APPS,
 )
 
-from raven.transport.requests import RequestsHTTPTransport
-
-from mrs.context_processors import strip_password
+import git
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.transport import HttpTransport
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.abspath(
@@ -291,13 +292,6 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', EMAIL_BACKEND)
 
-try:
-    import raven  # noqa
-except ImportError:
-    raven = None
-else:
-    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
-
 PREFIX = os.getenv('PLAYLABS_PREFIX', 'mrs')
 if 'staging' in os.getenv('HOST', ''):
     INSTANCE = 'staging'
@@ -326,26 +320,40 @@ TITLE_SUFFIX = ""
 if INSTANCE.upper() != 'PRODUCTION':
     TITLE_SUFFIX = " ({})".format(INSTANCE.upper())
 
+# Intégration de Sentry-sdk
+# https://docs.sentry.io/platforms/python/django/
+
+# Paramètres
+SENTRY_DSN = os.getenv('SENTRY_DSN', '')
+
+# Récupération du hash de la release courante
 RELEASE = os.getenv('GIT_COMMIT', '')
 if not RELEASE:
     repo = os.path.join(os.path.dirname(__file__), '..', '..')
     if os.path.exists(os.path.join(repo, '.git')):
-        RELEASE = raven.fetch_git_sha(repo)
+        repo = git.Repo(search_parent_directories=False)
+        RELEASE = repo.head.object.hexsha
 
-RAVEN_CONFIG = dict(
-    dsn=os.getenv('SENTRY_DSN', ''),
-    transport=RequestsHTTPTransport,
+# Initialisation de Sentry côté Django
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    integrations=[DjangoIntegration()],
+    release=RELEASE,
+    environment=INSTANCE,
+    transport=HttpTransport
 )
-RAVEN_PUBLIC_CONFIG = dict(
+
+# Paramètres Sentry publics pour les erreurs côté Front,
+# intégrés dans le context_processor
+SENTRY_PUBLIC_CONFIG = dict(
     environment=INSTANCE,
     release=RELEASE,
 )
-RAVEN_CONFIG.update(RAVEN_PUBLIC_CONFIG)
-SENTRY_PUBLIC_DSN = strip_password(RAVEN_CONFIG['dsn'])
 
+# Paramètres Sentry publics pour les erreurs côté Front / Crudlfap
 CRUDLFAP_TEMPLATE_BACKEND['OPTIONS']['constants'].update(dict(
-    SENTRY_DSN=SENTRY_PUBLIC_DSN,
-    SENTRY_CONFIG=RAVEN_PUBLIC_CONFIG,
+    SENTRY_DSN=SENTRY_DSN,
+    SENTRY_CONFIG=SENTRY_PUBLIC_CONFIG,
 ))
 
 BASE_URL = 'http://localhost:8000'

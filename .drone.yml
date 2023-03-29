@@ -164,6 +164,9 @@ steps:
       from_secret: SSH_KEY
     SSH_FINGERPRINTS:
       from_secret: SSH_FINGERPRINTS
+    SENTRY_DSN:
+      from_secret: SENTRY_STAGING_DSN
+
   commands:
   - export HOST_SLUG="mrs-test-$(echo $DRONE_BRANCH | sed 's/[_/]/-/g')"
   - export HOST="$(echo $DRONE_BRANCH | sed 's/[_/]/-/g').test.staging.mrs.beta.gouv.fr"
